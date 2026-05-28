@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "question": "How to learn programming for beginners?",
+    "answer": "Start with a single language like Python or JavaScript, practice small projects, follow tutorials, and focus on fundamentals like variables, control flow, functions, and data structures.",
+    "tags": ["programming", "learning", "beginners", "education"]
+  },
+  {
+    "id": 2,
+    "question": "What is AI and how does it work?",
+    "answer": "Artificial Intelligence (AI) is the simulation of human intelligence processes by machines. It works using algorithms and models that learn patterns from data to make predictions or decisions.",
+    "tags": ["ai", "technology", "basics"]
+  },
+  {
+    "id": 3,
+    "question": "How can I improve my concentration?",
+    "answer": "Use techniques like time-blocking (Pomodoro), remove distractions, set clear goals, take regular breaks, and practice mindfulness or meditation to strengthen focus.",
+    "tags": ["productivity", "daily-life", "habits"]
+  },
+  {
+    "id": 4,
+    "question": "What is SEO and why is it important?",
+    "answer": "Search Engine Optimization (SEO) is the practice of improving a website's visibility on search engines. It's important to attract organic traffic and improve discoverability.",
+    "tags": ["seo", "web", "marketing"]
+  },
+  {
+    "id": 5,
+    "question": "How to create a responsive website?",
+    "answer": "Use fluid layouts, CSS media queries, flexible images, and mobile-first design. Test across viewport sizes and use relative units like %, rem, and em.",
+    "tags": ["web", "css", "responsive"]
+  },
+  {
+    "id": 6,
+    "question": "What is a healthy daily routine?",
+    "answer": "A healthy routine includes regular sleep, balanced meals, exercise, hydration, focused work time, short breaks, and some time for relaxation and social connection.",
+    "tags": ["health", "daily-life", "wellbeing"]
+  },
+  {
+    "id": 7,
+    "question": "How to prepare for competitive exams?",
+    "answer": "Make a study plan, practice past papers, focus on weak areas, take timed mock tests, and maintain good health and rest during preparation.",
+    "tags": ["education", "exams", "study-tips"]
+  },
+  {
+    "id": 8,
+    "question": "What is version control and why use Git?",
+    "answer": "Version control tracks changes to code/files over time. Git is a distributed VCS used to collaborate, manage history, and safely experiment with branches.",
+    "tags": ["git", "tools", "development"]
+  },
+  {
+    "id": 9,
+    "question": "How to secure my online accounts?",
+    "answer": "Use strong unique passwords, enable two-factor authentication, keep software updated, and avoid phishing links. Use a password manager for convenience.",
+    "tags": ["security", "privacy", "daily-life"]
+  },
+  {
+    "id": 10,
+    "question": "How does machine learning differ from traditional programming?",
+    "answer": "Traditional programming uses rules written by humans. Machine learning trains a model on data to automatically discover patterns and make predictions.",
+    "tags": ["machine-learning", "ai", "basics"]
+  },
+  {
+    "id": 11,
+    "question": "How to start a blog and monetize it?",
+    "answer": "Choose a niche, create quality content, optimize for SEO, build an audience, and monetize with ads, affiliate marketing, sponsored posts, or selling products.",
+    "tags": ["blogging", "marketing", "web"]
+  },
+  {
+    "id": 12,
+    "question": "What is time management?",
+    "answer": "Time management is prioritizing tasks, scheduling focused work, avoiding multitasking, and using techniques like lists and time-blocking to improve productivity.",
+    "tags": ["productivity", "time-management", "daily-life"]
+  },
+  {
+    "id": 13,
+    "question": "How to learn mathematics effectively?",
+    "answer": "Understand concepts, practice problems regularly, review mistakes, use visualizations, and build from fundamentals before advancing to complex topics.",
+    "tags": ["education", "math", "learning"]
+  },
+  {
+    "id": 14,
+    "question": "What are the basics of HTML and CSS?",
+    "answer": "HTML structures web content with elements and tags; CSS styles that content with selectors, properties, and values. Together they form the foundation of web pages.",
+    "tags": ["html", "css", "web"]
+  },
+  {
+    "id": 15,
+    "question": "How to prepare for interviews?",
+    "answer": "Research the company, practice common questions, prepare a few stories using the STAR method, review fundamentals, and ask thoughtful questions to the interviewer.",
+    "tags": ["career", "interviews", "education"]
+  }
+]
