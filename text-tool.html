@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Text Tools — WebGuruJi</title>
+  <meta name="description" content="Fast, privacy-first Text Tools: case convert, trim, normalize spaces, counts, copy & download. No server required." />
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="text-tool.css">
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Text Tools — WebGuruJi",
+    "description": "Privacy-first browser-based text utilities: copy, download, convert case, trim, normalize spaces, and more.",
+    "url": "https://webguruji.online/text-tool.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Is my text uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All processing is done in your browser; nothing is sent to our servers."}},
+      {"@type":"Question","name":"How can I download the processed text?","acceptedAnswer":{"@type":"Answer","text":"Use the Download button to save a .txt file of your text locally."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><img src="logo.png" alt="logo" style="height:36px;margin-right:8px">HarshGuruJi</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="text-tool.html" class="nav-link active">Text Tools</a></li>
+        <li><a href="tools-hub.html" class="nav-link">Tools</a></li>
+        <li><a href="gaming-hub.html" class="nav-link">Games</a></li>
+        <li><a href="join-us.html" class="nav-link">Join</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container" role="main">
+    <header class="header">
+      <div>
+        <div class="h-title">Text Tools</div>
+        <div class="h-desc">Fast, privacy-friendly text utilities — run entirely in your browser. Copy, download, convert case, trim, and more.</div>
+      </div>
+      <div class="small-muted">No signup · Browser-only · Works offline</div>
+    </header>
+
+    <section class="tool-card" aria-labelledby="tool-heading">
+      <div>
+        <div class="notice info">All processing happens locally in your browser for privacy and speed.</div>
+        <label for="text-input" class="sr-only">Enter text</label>
+        <textarea id="text-input" class="textarea" placeholder="Paste or type your text here..." aria-label="Text input"></textarea>
+
+        <div class="controls" role="toolbar" aria-label="Text actions">
+          <button id="btn-upper" class="small-btn" title="Uppercase">UPPER</button>
+          <button id="btn-lower" class="small-btn" title="Lowercase">lower</button>
+          <button id="btn-title" class="small-btn" title="Title Case">Title Case</button>
+          <button id="btn-trim" class="small-btn" title="Trim whitespace">Trim</button>
+          <button id="btn-remove-spaces" class="small-btn" title="Normalize spaces">Normalize Spaces</button>
+        </div>
+
+        <div class="actions">
+          <button id="btn-copy" class="action-btn">Copy</button>
+          <button id="btn-download" class="action-btn">Download</button>
+          <button id="btn-share" class="action-btn secondary">Share</button>
+          <button id="btn-reset" class="action-btn secondary">Reset</button>
+        </div>
+
+      </div>
+
+      <aside class="side-panel" aria-labelledby="metrics-heading">
+        <div id="notif" class="notice info" aria-live="polite"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+          <div><strong>Metrics</strong></div>
+          <div class="small-muted">Updated live</div>
+        </div>
+        <div class="metrics" role="list">
+          <div class="metric" role="listitem">Words: <span id="words">0</span></div>
+          <div class="metric" role="listitem">Characters: <span id="chars">0</span></div>
+        </div>
+
+        <div><strong>Preview</strong></div>
+        <div id="preview" class="preview" aria-live="polite"></div>
+
+        <div class="footer-tools">
+          <div class="small-muted">Related Tools</div>
+          <ul>
+            <li><a href="tools-hub.html">All Tools Hub</a></li>
+            <li><a href="free-tools.html">Free Tools</a></li>
+            <li><a href="text-tool.html">Text Toolbox</a></li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:1.5rem">
+      <h2>How to use</h2>
+      <p class="small-muted">Paste your text, use action buttons to transform, then copy or download. Use Normalize Spaces to replace multiple spaces and newlines with single spaces.</p>
+
+      <h3>FAQ</h3>
+      <div itemscope itemtype="https://schema.org/FAQPage">
+        <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h4 itemprop="name">Is my text sent to any server?</h4>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer"><p itemprop="text">No. All processing runs in your browser only.</p></div>
+        </div>
+        <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h4 itemprop="name">Can I use this on mobile?</h4>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer"><p itemprop="text">Yes — the UI is responsive and works on phones and tablets.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-bottom">© 2026 HarshGuruJi — Text Tools. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="text-tool.js"></script>
+</body>
+</html>
