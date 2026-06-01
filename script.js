@@ -5,6 +5,17 @@ if (!document.querySelector('script[src*="auth.js"]')) {
   document.head.appendChild(authScript);
 }
 
+// Set page identifier on <body> for per-page theming
+(function setPageDataset(){
+  try{
+    const p = location.pathname.split('/').pop() || 'index.html';
+    const name = p.replace('.html','') || 'index';
+    // set early if body exists, otherwise on DOMContentLoaded
+    if(document.body) document.body.dataset.page = name === 'index' ? 'index' : name;
+    else document.addEventListener('DOMContentLoaded', () => { document.body.dataset.page = name === 'index' ? 'index' : name; });
+  }catch(e){ console.warn('setPageDataset failed', e); }
+})();
+
 // ── Shared daily thoughts pool ──
 const DAILY_THOUGHTS = [
   { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss" },

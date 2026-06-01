@@ -594,6 +594,56 @@ body::before {
 /* ── Scroll Progress Bar ── */
 #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); z-index: 9999; transition: width 0.1s linear; }
 
+/* Per-page background themes (exclude home/index which uses animated canvas) */
+body:not([data-page="index"]) #particleCanvas { display: none; }
+
+body[data-page="ai-hub"] {
+  background: linear-gradient(135deg,#0f172a 0%, #071130 60%), radial-gradient(circle at 20% 10%, rgba(124,58,237,0.06), transparent 25%);
+  background-attachment: fixed; background-size: cover;
+}
+body[data-page="gaming-hub"], body[data-page="games-and-apps"] {
+  background: linear-gradient(135deg,#0b1220 0%, #08121a 60%), radial-gradient(circle at 80% 20%, rgba(255,99,71,0.06), transparent 20%);
+}
+body[data-page="learning-hub"] {
+  background: linear-gradient(135deg,#07203b 0%, #041423 60%), radial-gradient(circle at 10% 80%, rgba(6,182,212,0.06), transparent 20%);
+}
+body[data-page="tools-hub"], body[data-page="free-tools"] {
+  background: linear-gradient(135deg,#06202a 0%, #041219 60%), radial-gradient(circle at 50% 20%, rgba(124,58,237,0.05), transparent 25%);
+}
+body[data-page="about"], body[data-page="about-owner"] {
+  background: linear-gradient(135deg,#061220 0%, #081826 70%), radial-gradient(circle at 15% 15%, rgba(255,51,102,0.05), transparent 25%);
+}
+body[data-page="contact"] {
+  background: linear-gradient(135deg,#08121a 0%, #051019 60%), radial-gradient(circle at 85% 80%, rgba(16,185,129,0.05), transparent 25%);
+}
+body[data-page="daily-life"], body[data-page="daily-special"] {
+  background: linear-gradient(135deg,#07202a 0%, #072b1f 60%), radial-gradient(circle at 10% 20%, rgba(251,191,36,0.06), transparent 25%);
+}
+body[data-page="explore"], body[data-page="search"] {
+  background: linear-gradient(135deg,#06131f 0%, #081824 60%), radial-gradient(circle at 60% 10%, rgba(99,102,241,0.05), transparent 25%);
+}
+body[data-page="education"], body[data-page="technology"] {
+  background: linear-gradient(135deg,#071a2b 0%, #071226 60%), radial-gradient(circle at 25% 75%, rgba(6,182,212,0.05), transparent 25%);
+}
+body[data-page="insights"], body[data-page="ask-anything"], body[data-page="ask-questions"] {
+  background: linear-gradient(135deg,#071025 0%, #051122 60%), radial-gradient(circle at 80% 20%, rgba(124,58,237,0.06), transparent 25%);
+}
+body[data-page="join-us"], body[data-page="login"], body[data-page="signup"], body[data-page="user-dashboard"] {
+  background: linear-gradient(135deg,#071026 0%, #041219 60%), radial-gradient(circle at 50% 80%, rgba(255,51,102,0.04), transparent 25%);
+}
+body[data-page="article-viewer"], body[data-page="qa"] {
+  background: linear-gradient(135deg,#061222 0%, #071825 60%), radial-gradient(circle at 15% 85%, rgba(124,58,237,0.04), transparent 25%);
+}
+body[data-page="privacy-policy"], body[data-page="terms-and-conditions"], body[data-page="sitemap"] {
+  background: linear-gradient(135deg,#04121a 0%, #031219 60%), radial-gradient(circle at 85% 10%, rgba(6,182,212,0.04), transparent 25%);
+}
+body[data-page="404"] {
+  background: linear-gradient(135deg,#2b0b0b 0%, #0b0b16 60%), radial-gradient(circle at 50% 10%, rgba(239,68,68,0.06), transparent 25%);
+}
+
+/* subtle overlay to keep text readable */
+body[data-page]:not([data-page="index"])::before { content: ''; position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45)); pointer-events: none; }
+
 /* ── Back to Top Button ── */
 #back-to-top { position: fixed; bottom: 100px; right: 30px; width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary)); color: white; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 998; box-shadow: 0 4px 15px var(--glow-primary); display: flex; align-items: center; justify-content: center; }
 #back-to-top.visible { opacity: 1; visibility: visible; }
