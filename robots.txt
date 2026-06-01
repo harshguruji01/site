@@ -41,7 +41,7 @@ Disallow: /*?*filter=
 Disallow: /*?*page=*&
 Disallow: /*?utm_
 
-# Allow important files
+# Allow important assets files
 Allow: /sitemap.xml
 Allow: /robots.txt
 Allow: /favicon.ico
@@ -51,7 +51,7 @@ Allow: /logo.png
 Allow: /harshlogo.png
 
 # Sitemap location
-Sitemap: https://harshguruji.com/sitemap.xml
+Sitemap: https://harshguruji.online/sitemap.xml
 
 # Crawl delay to prevent server overload
 Crawl-delay: 1
