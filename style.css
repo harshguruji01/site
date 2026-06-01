@@ -716,6 +716,12 @@ body[data-page]:not([data-page="index"])::before { content: ''; position: fixed;
   cursor: pointer;
 }
 
+/* Center calendar widget inside its grid cell and center its content */
+.animated-calendar-widget { margin: 0 auto; place-self: center; text-align: center; display: grid; grid-template-rows: auto 1fr auto auto; justify-items: center; align-items: center; }
+.animated-calendar-widget .acw-top { display:flex; gap:0.6rem; align-items:center; justify-content:center; }
+.animated-calendar-widget .acw-date-display { display:flex; align-items:center; justify-content:center; }
+.animated-calendar-widget .acw-day, .animated-calendar-widget .acw-time { text-align:center; }
+
 .animated-calendar-widget:hover {
   transform: translateY(-8px) scale(1.02);
   border-color: rgba(108, 59, 255, 0.5);
