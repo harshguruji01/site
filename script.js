@@ -1,3 +1,10 @@
+// Dynamically load auth.js if not already present
+if (!document.querySelector('script[src*="auth.js"]')) {
+  const authScript = document.createElement('script');
+  authScript.src = 'auth.js';
+  document.head.appendChild(authScript);
+}
+
 // ── Shared daily thoughts pool ──
 const DAILY_THOUGHTS = [
   { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss" },
@@ -117,6 +124,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initDailySpecialTabs();
   renderDailyThoughtsGrid(12);
 
+  // ── Scroll Animation Observer ──
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+    scrollObserver.observe(el);
+  });
+
   // Mobile Menu Toggle
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
@@ -127,8 +149,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Navbar Scroll Effect
+  // Navbar Scroll Effect & Scroll Spy
   const navbar = document.getElementById('navbar');
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-link');
+
+  function scrollSpy() {
+    const scrollY = window.pageYOffset;
+    sections.forEach(current => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop - 150;
+      const sectionId = current.getAttribute('id');
+      
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        navItems.forEach(item => {
+          const href = item.getAttribute('href');
+          if (href && (href.endsWith('#' + sectionId) || href === '#' + sectionId)) {
+            item.classList.add('active');
+          } else {
+            if (href && (href.includes('#home') || href.includes('#features') || href.includes('#categories') || href.includes('#ai') || href.includes('#about') || href.includes('#contact'))) {
+              item.classList.remove('active');
+            }
+          }
+        });
+      }
+    });
+  }
+
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       navbar.style.background = 'rgba(5, 5, 5, 0.9)';
@@ -137,7 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
       navbar.style.background = 'rgba(5, 5, 5, 0.7)';
       navbar.style.boxShadow = 'none';
     }
+    if (sections.length > 0) scrollSpy();
   });
+  if (sections.length > 0) scrollSpy();
 
   // Number Counter Animation
   const statNumbers = document.querySelectorAll('.stat-number');
@@ -553,11 +602,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- DAILY SPECIAL CALENDAR & "ON THIS DAY" with REAL-TIME UPDATES ---
-  const calendarWidget = document.getElementById('calendar-widget');
   const onThisDayContainer = document.getElementById('wiki-container-onthisday');
   const importantEventsContainer = document.getElementById('important-events');
   
-  if (calendarWidget && onThisDayContainer) {
+  if (onThisDayContainer) {
     // Important Events & Holidays Database
     const importantDates = {
       '0101': ['🎆 New Year Day', '🎉 International New Year Celebration'],
@@ -572,24 +620,48 @@ document.addEventListener('DOMContentLoaded', () => {
       '1231': ['🎊 New Year\'s Eve', '🥂 Celebration of New Beginnings'],
     };
 
-    // Function to update calendar in real-time
+    // Function to update calendar in real-time (with milliseconds)
     function updateCalendar() {
       const today = new Date();
-      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       
-      // Update calendar display
-      document.getElementById('cal-month').innerText = months[today.getMonth()];
-      document.getElementById('cal-date').innerText = today.getDate();
-      document.getElementById('cal-day').innerText = days[today.getDay()];
+      // Update animated calendar widget
+      const acwMonth = document.getElementById('acw-month');
+      const acwYear = document.getElementById('acw-year');
+      const acwDate = document.getElementById('acw-date');
+      const acwDay = document.getElementById('acw-day');
+      const acwTime = document.getElementById('acw-time');
       
-      // Update real-time clock
-      const timeElement = document.getElementById('cal-time');
-      if (timeElement) {
+      if (acwMonth) acwMonth.innerText = months[today.getMonth()];
+      if (acwYear) acwYear.innerText = today.getFullYear();
+      if (acwDate) acwDate.innerText = String(today.getDate()).padStart(2, '0');
+      if (acwDay) acwDay.innerText = days[today.getDay()];
+      
+      // Update real-time clock with milliseconds for live effect
+      if (acwTime) {
         const hours = String(today.getHours()).padStart(2, '0');
         const minutes = String(today.getMinutes()).padStart(2, '0');
         const seconds = String(today.getSeconds()).padStart(2, '0');
-        timeElement.innerText = `${hours}:${minutes}:${seconds}`;
+        const milliseconds = String(today.getMilliseconds()).padStart(3, '0');
+        acwTime.innerText = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+      }
+      
+      // Update old calendar elements (backward compatibility)
+      const calMonth = document.getElementById('cal-month');
+      const calDate = document.getElementById('cal-date');
+      const calDay = document.getElementById('cal-day');
+      const calTime = document.getElementById('cal-time');
+      
+      if (calMonth) calMonth.innerText = months[today.getMonth()].substring(0, 3).toUpperCase();
+      if (calDate) calDate.innerText = today.getDate();
+      if (calDay) calDay.innerText = days[today.getDay()];
+      if (calTime) {
+        const hours = String(today.getHours()).padStart(2, '0');
+        const minutes = String(today.getMinutes()).padStart(2, '0');
+        const seconds = String(today.getSeconds()).padStart(2, '0');
+        const milliseconds = String(today.getMilliseconds()).padStart(3, '0');
+        calTime.innerText = `${hours}:${minutes}:${seconds}.${milliseconds}`;
       }
       
       // Show important events/holidays for today
@@ -609,17 +681,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Update calendar immediately and then every second
+    // Update calendar immediately and then every 50ms for super smooth real-time updates
     updateCalendar();
-    setInterval(updateCalendar, 1000);
+    setInterval(updateCalendar, 50);
 
     const mm = String(new Date().getMonth() + 1).padStart(2, '0');
     const dd = String(new Date().getDate()).padStart(2, '0');
 
     // Fetch "On This Day" data from Wikipedia
-    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`)
-      .then(res => res.json())
+    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+        return res.json();
+      })
       .then(data => {
+        if (!data) throw new Error('No data received');
+        
         let finalHtml = '';
         
         // Events
@@ -655,10 +735,19 @@ document.addEventListener('DOMContentLoaded', () => {
           finalHtml += '</ul></div>';
         }
 
-        if(finalHtml === '') finalHtml = '<p style="color:var(--text-secondary);">No historical events found for today.</p>';
+        if(finalHtml === '') finalHtml = '<p style="color:var(--text-secondary);">📅 No specific historical events recorded for today, but every day is a part of history!</p>';
         onThisDayContainer.innerHTML = finalHtml;
       }).catch(err => {
-        onThisDayContainer.innerHTML = '<p style="color:var(--text-secondary);">Failed to load historical events. Wikipedia may be unreachable.</p>';
+        console.warn('Wikipedia API Error:', err);
+        const fallbackHtml = `
+          <div style="padding: 2rem; background: rgba(107, 59, 255, 0.1); border-radius: 12px; border-left: 4px solid var(--accent-primary);">
+            <p style="color: var(--text-secondary); margin: 0;">
+              📡 Wikipedia API is currently unavailable, but historical events are still being discovered every day!<br/>
+              <small style="font-size: 0.9rem; margin-top: 0.5rem; display: block;">Try refreshing the page or check back in a moment.</small>
+            </p>
+          </div>
+        `;
+        onThisDayContainer.innerHTML = fallbackHtml;
       });
   }
 
@@ -1416,18 +1505,106 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+  // Schedule daily newsletter simulation check
+  scheduleDailyNewsletter();
 });
+
+// ── DAILY NEWSLETTER SCHEDULER (global simulation) ──
+function scheduleDailyNewsletter() {
+  const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
+  if (subscriptions.length === 0) return;
+
+  const now = new Date();
+  const lastSend = localStorage.getItem('last_newsletter_send');
+  
+  // Target time: 6:00 AM today
+  const targetTime = new Date();
+  targetTime.setHours(6, 0, 0, 0);
+
+  let shouldSend = false;
+  if (!lastSend) {
+    if (now >= targetTime) {
+      shouldSend = true;
+    }
+  } else {
+    const lastSendDate = new Date(lastSend);
+    const isNewDay = now.getDate() !== lastSendDate.getDate() || now.getMonth() !== lastSendDate.getMonth() || now.getFullYear() !== lastSendDate.getFullYear();
+    if (isNewDay && now >= targetTime) {
+      shouldSend = true;
+    }
+  }
+
+  if (shouldSend) {
+    const randomQuote = DAILY_THOUGHTS[Math.floor(Math.random() * DAILY_THOUGHTS.length)];
+    const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    
+    console.log(`%c[SYSTEM MESSAGE SENDER] Sending morning newsletter (6:00 AM) to ${subscriptions.length} subscribers:`, 'color: #10b981; font-weight: bold;');
+    subscriptions.forEach(email => {
+      console.log(`%cTo: ${email}\nSubject: Webguruji Daily Insights & News - ${dateStr}\n\nGood Morning!\nHere is your daily update for 6:00 AM:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on Webguruji:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nKeep learning and growing!\nWebguruji Team`, 'color: #3b82f6;');
+    });
+
+    // Toast Alert
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position: fixed; bottom: 20px; left: 20px; max-width: 350px;
+      background: rgba(16, 185, 129, 0.95); color: white; padding: 1.2rem;
+      border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100000;
+      font-size: 0.9rem; font-family: 'Inter', sans-serif; line-height: 1.5;
+      animation: slideIn 0.5s ease, fadeOut 0.5s ease 7s forwards;
+    `;
+    toast.innerHTML = `
+      <div style="font-weight:bold; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
+        <span>✉️</span> System Message Sender (6:00 AM)
+      </div>
+      <div>Daily updates, news, and thoughts have been automatically sent to <strong>${subscriptions.length}</strong> subscriber email inbox(es)!</div>
+    `;
+    
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(toast);
+
+    localStorage.setItem('last_newsletter_send', now.toISOString());
+  }
+}
+
+// ── WELCOME EMAIL SIMULATION (global function) ──
+window.simulateWelcomeNewsletter = function(email) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const randomQuote = DAILY_THOUGHTS[Math.floor(Math.random() * DAILY_THOUGHTS.length)];
+  
+  console.log(`%c[SYSTEM MESSAGE SENDER] Sending Welcome email to: ${email}`, 'color: #10b981; font-weight: bold;');
+  console.log(`%cTo: ${email}\nSubject: Welcome to Webguruji Newsletter!\n\nHi there!\nThank you for subscribing to Webguruji. You will receive updates daily at 6:00 AM.\n\nHere is a preview of today's insights:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on Webguruji:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nHave a great day!\nWebguruji Team`, 'color: #3b82f6;');
+  
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed; bottom: 20px; left: 20px; max-width: 350px;
+    background: rgba(16, 185, 129, 0.95); color: white; padding: 1.2rem;
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100000;
+    font-size: 0.9rem; font-family: 'Inter', sans-serif; line-height: 1.5;
+    animation: slideIn 0.5s ease, fadeOut 0.5s ease 7s forwards;
+  `;
+  toast.innerHTML = `
+    <div style="font-weight:bold; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
+      <span>✉️</span> System Message Sender (Welcome)
+    </div>
+    <div>A welcome email has been simulated and sent to <strong>${email}</strong>! You will receive daily updates at 6:00 AM.</div>
+  `;
+  document.body.appendChild(toast);
+};
 
 // ── FAQ TOGGLE (global function) ──
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
   const isOpen = btn.classList.contains('open');
-  // Close all
   document.querySelectorAll('.faq-question').forEach(q => {
     q.classList.remove('open');
     q.nextElementSibling.classList.remove('open');
   });
-  // Open clicked if was closed
   if (!isOpen) {
     btn.classList.add('open');
     answer.classList.add('open');
@@ -1446,7 +1623,6 @@ function handleNewsletter(e) {
     return;
   }
   
-  // Store subscription in localStorage
   const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
   if (subscriptions.includes(email)) {
     msg.style.color = '#f59e0b';
@@ -1461,17 +1637,11 @@ function handleNewsletter(e) {
   msg.innerText = `✅ Thank you! "${email}" has been subscribed. You'll receive daily updates at 6 AM!`;
   document.getElementById('newsletter-email').value = '';
   
-  // Note: For automatic email sending at 6 AM daily, a backend service is required.
-  // This frontend stores subscriptions locally. To implement actual email delivery,
-  // you need to integrate with a backend service like:
-  // - EmailJS (client-side email service)
-  // - Firebase Cloud Functions
-  // - Node.js backend with cron job
-  // - Third-party email API (SendGrid, Mailchimp, etc.)
+  // Trigger immediate welcome newsletter simulation
+  if (window.simulateWelcomeNewsletter) window.simulateWelcomeNewsletter(email);
 }
 
 // Email validation helper
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-

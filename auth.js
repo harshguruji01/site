@@ -476,9 +476,17 @@ function openProfileModal() {
     display: flex; align-items: center; justify-content: center;
   `;
 
-  const lastPasswordChange = user.lastPasswordChange ? new Date(user.lastPasswordChange) : new Date();
-  const daysSincePasswordChange = Math.floor((new Date() - lastPasswordChange) / (1000 * 60 * 60 * 24));
-  const canChangePassword = daysSincePasswordChange >= 7;
+  const lastProfileUpdate = user.lastProfileUpdate ? new Date(user.lastProfileUpdate) : null;
+  let remainingDays = 0;
+  let canUpdate = true;
+  if (lastProfileUpdate) {
+    const diffTime = new Date() - lastProfileUpdate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays < 7) {
+      canUpdate = false;
+      remainingDays = 7 - diffDays;
+    }
+  }
 
   modal.innerHTML = `
     <div style="background: rgba(25,25,25,0.95); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 90%; position: relative;">
@@ -488,12 +496,12 @@ function openProfileModal() {
       <div style="text-align: center; margin-bottom: 2rem;">
         ${user.profilePicture ? `<img src="${user.profilePicture}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem;">` : `<div style="width:80px;height:80px;background:linear-gradient(135deg,#ff3366,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:2rem;margin:0 auto 1rem;">${user.name.charAt(0).toUpperCase()}</div>`}
         <input type="file" id="profile-pic-input" accept="image/*" style="display: none;" onchange="handleProfilePictureChange(this)">
-        <button onclick="document.getElementById('profile-pic-input').click()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; font-size: 0.9rem;">Change Picture</button>
+        ${canUpdate ? `<button onclick="document.getElementById('profile-pic-input').click()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; font-size: 0.9rem;">Change Picture</button>` : `<button disabled style="background: rgba(128,128,128,0.1); border: 1px solid rgba(255,255,255,0.05); color: #888; padding: 0.5rem 1rem; border-radius: 50px; cursor: not-allowed; font-size: 0.9rem;">Change Picture (Locked)</button>`}
       </div>
 
       <div style="margin-bottom: 1.5rem;">
         <label style="display: block; color: #a1a1aa; margin-bottom: 0.5rem; font-size: 0.9rem;">Name</label>
-        <input type="text" id="profile-name" value="${user.name}" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem 1rem; color: white; outline: none;">
+        <input type="text" id="profile-name" value="${user.name}" ${canUpdate ? '' : 'disabled'} style="width: 100%; background: ${canUpdate ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)'}; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem 1rem; color: ${canUpdate ? 'white' : '#888'}; outline: none;">
       </div>
 
       <div style="margin-bottom: 1.5rem;">
@@ -508,15 +516,19 @@ function openProfileModal() {
 
       <div style="margin-bottom: 1.5rem;">
         <label style="display: block; color: #a1a1aa; margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
-        ${canChangePassword ? `
+        ${canUpdate ? `
           <input type="password" id="profile-new-password" placeholder="New password (min 6 characters)" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem 1rem; color: white; outline: none; margin-bottom: 0.5rem;">
           <input type="password" id="profile-confirm-password" placeholder="Confirm new password" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem 1rem; color: white; outline: none;">
         ` : `
-          <p style="color: #a1a1aa; font-size: 0.85rem;">You can change your password in ${7 - daysSincePasswordChange} days.</p>
+          <p style="color: #ff3366; font-size: 0.85rem; font-weight: 500;">🔒 Profile updates locked. Try again in ${remainingDays} days.</p>
         `}
       </div>
 
-      <button onclick="saveProfileChanges()" style="width: 100%; background: linear-gradient(45deg, #ff3366, #7c3aed); border: none; color: white; padding: 1rem; border-radius: 50px; font-weight: 600; cursor: pointer; margin-bottom: 1rem;">Save Changes</button>
+      ${canUpdate ? `
+        <button onclick="saveProfileChanges()" style="width: 100%; background: linear-gradient(45deg, #ff3366, #7c3aed); border: none; color: white; padding: 1rem; border-radius: 50px; font-weight: 600; cursor: pointer; margin-bottom: 1rem;">Save Changes</button>
+      ` : `
+        <button disabled style="width: 100%; background: #222; border: 1px solid #333; color: #555; padding: 1rem; border-radius: 50px; font-weight: 600; cursor: not-allowed; margin-bottom: 1rem;">Locked for ${remainingDays} days</button>
+      `}
       <button onclick="logoutUser()" style="width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 1rem; border-radius: 50px; font-weight: 600; cursor: pointer;">Logout</button>
     </div>
   `;
@@ -531,7 +543,19 @@ function handleProfilePictureChange(input) {
     const reader = new FileReader();
     reader.onload = function(e) {
       const user = JSON.parse(localStorage.getItem('loggedIn'));
+      
+      // double check cooldown
+      const lastProfileUpdate = user.lastProfileUpdate ? new Date(user.lastProfileUpdate) : null;
+      if (lastProfileUpdate) {
+        const diffDays = Math.floor((new Date() - lastProfileUpdate) / (1000 * 60 * 60 * 24));
+        if (diffDays < 7) {
+          alert(`You can only update your profile details once every 7 days.`);
+          return;
+        }
+      }
+
       user.profilePicture = e.target.result;
+      user.lastProfileUpdate = new Date().toISOString();
       localStorage.setItem('loggedIn', JSON.stringify(user));
       updateNavbarForLoggedInUser(user);
       
@@ -565,17 +589,28 @@ async function saveProfileChanges() {
   const newPassword = document.getElementById('profile-new-password')?.value;
   const confirmPassword = document.getElementById('profile-confirm-password')?.value;
 
+  // double check cooldown
+  const lastProfileUpdate = user.lastProfileUpdate ? new Date(user.lastProfileUpdate) : null;
+  if (lastProfileUpdate) {
+    const diffDays = Math.floor((new Date() - lastProfileUpdate) / (1000 * 60 * 60 * 24));
+    if (diffDays < 7) {
+      alert(`You can only update your profile details once every 7 days.`);
+      return;
+    }
+  }
+
   if (!newName) {
     alert('Name cannot be empty');
     return;
   }
 
-  user.name = newName;
+  let updated = false;
+  if (newName !== user.name) {
+    user.name = newName;
+    updated = true;
+  }
 
-  const lastPasswordChange = user.lastPasswordChange ? new Date(user.lastPasswordChange) : new Date();
-  const daysSincePasswordChange = Math.floor((new Date() - lastPasswordChange) / (1000 * 60 * 60 * 24));
-
-  if (daysSincePasswordChange >= 7 && newPassword) {
+  if (newPassword) {
     if (newPassword.length < 6) {
       alert('Password must be at least 6 characters');
       return;
@@ -585,14 +620,18 @@ async function saveProfileChanges() {
       return;
     }
     user.passwordHash = await hashPassword(newPassword);
-    user.lastPasswordChange = new Date().toISOString();
+    updated = true;
   }
 
-  localStorage.setItem('loggedIn', JSON.stringify(user));
-  await updateUserData(user);
-  updateNavbarForLoggedInUser(user);
+  if (updated) {
+    user.lastProfileUpdate = new Date().toISOString();
+    localStorage.setItem('loggedIn', JSON.stringify(user));
+    await updateUserData(user);
+    updateNavbarForLoggedInUser(user);
+    alert('Profile updated successfully!');
+  }
+  
   document.getElementById('profile-modal').remove();
-  alert('Profile updated successfully!');
 }
 
 // Show login/signup modal on page load
@@ -672,7 +711,7 @@ function continueWithoutLogin() {
   closeAuthModal();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function runAuthInit() {
   initJoinUsPage();
   checkAutoLogin();
   
@@ -682,4 +721,11 @@ document.addEventListener('DOMContentLoaded', () => {
       showAuthModal();
     }, 1500);
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runAuthInit);
+} else {
+  runAuthInit();
+}
+

@@ -58,21 +58,28 @@
 
       <!-- Tab: Calendar & History -->
       <div class="ds-tab-panel active" id="ds-panel-calendar" data-ds-panel="calendar">
-        <div class="calendar-widget" id="calendar-widget">
-          <div class="cal-left-panel">
-            <div class="cal-month" id="cal-month">MAY</div>
-            <div class="cal-date" id="cal-date">19</div>
-            <div class="cal-day" id="cal-day">Monday</div>
-            <div class="cal-time-wrap">
-              <span id="cal-time">00:00:00</span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-bottom: 3rem;">
+          <!-- Compact Animated Calendar Widget -->
+          <div class="animated-calendar-widget">
+            <div class="acw-top">
+              <span class="acw-month" id="acw-month">January</span>
+              <span class="acw-year" id="acw-year">2026</span>
             </div>
+            <div class="acw-date-display">
+              <span class="acw-date" id="acw-date">01</span>
+            </div>
+            <div class="acw-day" id="acw-day">Monday</div>
+            <div class="acw-time" id="acw-time">00:00:00</div>
+            <div class="acw-glow"></div>
           </div>
-          <div class="cal-right-panel">
-            <div class="cal-section">
-              <h3 class="cal-events-title">📅 Important Days &amp; Events</h3>
-              <div id="important-events">
-                <p>Loading important events for today...</p>
-              </div>
+
+          <!-- Important Events Section -->
+          <div class="calendar-events-card">
+            <h3 style="color: var(--accent-secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem;">
+              📅 Important Days & Events
+            </h3>
+            <div id="important-events" class="events-list">
+              <p>Loading important events for today...</p>
             </div>
           </div>
         </div>
