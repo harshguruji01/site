@@ -115,6 +115,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label class="checkbox"><input type="checkbox" id="signup-terms" required /> I agree to the <a href="terms-and-conditions.html">Terms & Conditions</a></label>
             <div class="form-msg" id="signup-msg" role="alert" aria-live="polite"></div>
             <button type="submit" class="btn btn-primary submit">Create Account</button>
+
+            <div style="margin-top:1rem;">
+              <label for="import-account" style="font-size:0.9rem; color:var(--text-secondary); display:block; margin-bottom:0.4rem;">Import an existing account (JSON export)</label>
+              <input type="file" id="import-account" accept="application/json" style="display:block;" />
+              <button id="import-account-btn" class="btn btn-secondary" style="margin-top:0.6rem;">Import Account</button>
+              <p id="import-account-msg" style="margin-top:0.6rem; font-size:0.85rem; color:var(--text-secondary);"></p>
+            </div>
           </form>
         </div>
 

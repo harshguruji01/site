@@ -71,6 +71,34 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.social.google').forEach(b => b.addEventListener('click', () => alert('Demo: Google sign-in is not configured.')));
   document.querySelectorAll('.social.fb').forEach(b => b.addEventListener('click', () => alert('Demo: Facebook sign-in is not configured.')));
 
+  // Import account handler (reads JSON exported from another browser)
+  const importInput = document.getElementById('import-account');
+  const importBtn = document.getElementById('import-account-btn');
+  const importMsg = document.getElementById('import-account-msg');
+  if (importBtn && importInput) {
+    importBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      importMsg.textContent = '';
+      const file = importInput.files[0];
+      if (!file) { importMsg.style.color = '#ff3366'; importMsg.textContent = 'Please choose a .json file exported from your account.'; return; }
+      try {
+        const text = await file.text();
+        const obj = JSON.parse(text);
+        if (window.importAccountObject) {
+          const res = await importAccountObject(obj);
+          if (res.success) {
+            importMsg.style.color = '#10b981'; importMsg.textContent = 'Account imported and logged in successfully.';
+            setTimeout(()=> window.location.href = 'index.html', 900);
+          } else {
+            importMsg.style.color = '#ff3366'; importMsg.textContent = res.message || 'Import failed.';
+          }
+        } else {
+          importMsg.style.color = '#ff3366'; importMsg.textContent = 'Import API is not available.';
+        }
+      } catch (err) { importMsg.style.color = '#ff3366'; importMsg.textContent = 'Invalid file or JSON parsing failed.'; }
+    });
+  }
+
   // Keyboard accessibility: Enter submits
   document.querySelectorAll('.form input').forEach(inp => inp.addEventListener('keypress', (e) => { if(e.key === 'Enter'){ e.preventDefault(); inp.form && inp.form.requestSubmit && inp.form.requestSubmit(); } }));
 

@@ -1633,6 +1633,44 @@ function handleNewsletter(e) {
     msg.innerText = '❌ Please enter a valid email address.';
     return;
   }
+
+  // Update newsletter stats display (subscribers and notifications)
+  function updateNewsletterStats() {
+    const subs = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
+    const subCount = subs.length;
+    const subEl = document.getElementById('subscriber-count');
+    if (subEl) subEl.textContent = subCount;
+
+    // Global notifications (simple count), and per-user badge
+    const globalNotif = parseInt(localStorage.getItem('global_notifications') || '0', 10);
+    const notifEl = document.getElementById('notification-count');
+    if (notifEl) notifEl.textContent = globalNotif;
+
+    // If logged in, sync navbar badge
+    if (window.showUserNotificationBadge) window.showUserNotificationBadge();
+  }
+
+  // Ensure stats update on page load
+  updateNewsletterStats();
+
+  // When someone subscribes, increment global notifications and user notification
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (ev) => {
+      setTimeout(() => {
+        // increment global notifications
+        const g = parseInt(localStorage.getItem('global_notifications') || '0', 10) + 1;
+        localStorage.setItem('global_notifications', String(g));
+        // if user logged in, increment their own notifications
+        const logged = localStorage.getItem('loggedIn');
+        if (logged) {
+          const u = JSON.parse(logged);
+          if (window.incrementUserNotification) window.incrementUserNotification(u.email, 1);
+        }
+        updateNewsletterStats();
+      }, 300);
+    });
+  }
   
   const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
   if (subscriptions.includes(email)) {
