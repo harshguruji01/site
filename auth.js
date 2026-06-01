@@ -149,6 +149,17 @@ async function registerUser({ name, email, mobile, password }) {
 
   users.push(user);
   await saveUsers(users);
+
+  // If GS_ENDPOINT is configured, attempt to sync user to remote server (best-effort)
+  try {
+    if (window.GS_ENDPOINT) {
+      fetch(window.GS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'saveUser', user })
+      }).catch(() => {});
+    }
+  } catch (e) { /* ignore */ }
   return { success: true, user: { id: user.id, name: user.name, email: user.email, mobile: user.mobile, profilePicture: user.profilePicture } };
 }
 
@@ -158,6 +169,28 @@ async function loginUser({ email, password }) {
   const user = users.find(u => u.email.toLowerCase() === emailKey);
 
   if (!user) {
+    // Try fetching from remote GS endpoint if configured
+    if (window.GS_ENDPOINT) {
+      try {
+        const resp = await fetch(`${window.GS_ENDPOINT}?action=getUser&email=${encodeURIComponent(email)}`);
+        const data = await resp.json();
+        if (data && data.success && data.user) {
+          // Persist remote user locally and proceed
+          const usersRemote = await getUsers();
+          usersRemote.push(data.user);
+          await saveUsers(usersRemote);
+          const hashRemote = data.user.passwordHash || null;
+          const hash = await hashPassword(password);
+          if (hashRemote && hashRemote === hash) {
+            return { success: true, user: { id: data.user.id, name: data.user.name, email: data.user.email, mobile: data.user.mobile, profilePicture: data.user.profilePicture, lastPasswordChange: data.user.lastPasswordChange } };
+          } else {
+            return { success: false, message: 'No account found with this email. Please sign up first.' };
+          }
+        }
+      } catch (e) {
+        // fallback to local error
+      }
+    }
     return { success: false, message: 'No account found with this email. Please sign up first.' };
   }
 
