@@ -20,15 +20,11 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-main);
-  background-image:
-    url('https://cdn.vectorstock.com/i/500p/24/36/blue-aurora-wave-background-vector-64252436.jpg'),
-    radial-gradient(ellipse 90% 55% at 15% -5%, rgba(255, 51, 102, 0.14), transparent 55%),
-    radial-gradient(ellipse 70% 45% at 85% 5%, rgba(124, 58, 237, 0.12), transparent 50%),
-    radial-gradient(ellipse 60% 50% at 50% 105%, rgba(6, 182, 212, 0.07), transparent 55%),
-    radial-gradient(ellipse 40% 30% at 70% 60%, rgba(245, 158, 11, 0.05), transparent 45%);
+  /* simplified, clean background to match Inter/Space Grotesk fonts */
+  background-image: linear-gradient(180deg, rgba(8,17,32,1) 0%, rgba(12,22,38,1) 50%, rgba(16,24,44,1) 100%);
   background-attachment: fixed;
-  background-size: cover, auto, auto, auto, auto;
-  background-position: center, 0 0, 0 0, 0 0, 0 0;
+  background-size: cover;
+  background-position: center;
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
@@ -44,8 +40,36 @@ ul { list-style: none; }
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   z-index: -1; pointer-events: none;
-  opacity: 1;
+  opacity: 0.28; /* reduce visual clutter */
 }
+
+/* Navbar subtle animated underline and entrance */
+#navbar .nav-link {
+  position: relative; display: inline-block; transition: transform 0.18s ease;
+}
+#navbar .nav-link::after {
+  content: '';
+  position: absolute; left: 0; bottom: -6px; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width 220ms ease;
+  border-radius: 4px;
+}
+#navbar .nav-link:hover::after, #navbar .nav-link.active::after { width: 60%; }
+#navbar { transform: translateY(-6px); opacity: 0; transition: transform 420ms ease, opacity 420ms ease; }
+body.loaded #navbar { transform: translateY(0); opacity: 1; }
+
+/* Important items: gentle float & pulse to draw user attention */
+.important { animation: gentleFloat 6s ease-in-out infinite, attentionPulse 3.8s ease-in-out 1s infinite; }
+@keyframes gentleFloat { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
+@keyframes attentionPulse { 0% { box-shadow: 0 0 0 0 rgba(108,59,255,0.08); } 70% { box-shadow: 0 8px 30px 6px rgba(108,59,255,0.02); } 100% { box-shadow: 0 0 0 0 rgba(108,59,255,0); } }
+
+/* Preview modal for backend proxy results */
+.gh-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 100000; background: rgba(0,0,0,0.6); }
+.gh-modal-body { width: min(900px, 96%); max-height: 84%; overflow: auto; background: var(--bg-secondary); border-radius: 12px; padding: 1rem; border: 1px solid var(--glass-border); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+.gh-modal .gh-close { position: absolute; right: 1rem; top: 1rem; background: none; border: none; color: var(--text-secondary); font-size: 1.6rem; cursor: pointer; }
+.gh-modal .gh-title { margin: 0 0 0.6rem 0; color: var(--accent-primary); }
+.gh-modal .gh-pre { white-space: pre-wrap; color: var(--text-secondary); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace; font-size: 0.85rem; }
+
 
 /* Site-wide ambient glow (matches live site depth) */
 body::before {

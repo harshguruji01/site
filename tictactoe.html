@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://pl29598345.effectivecpmnetwork.com/3a/f9/d5/3af9d54dfbf265c3c2a18b7570c8ddea.js"></script>
+
+
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <title>Tic Tac Toe — HarshGuruJi</title>
+ <meta name="description" content="Tic Tac Toe — Play PvP or vs AI. Saved scores and responsive UI." />
+ <link rel="stylesheet" href="style.css" />
+ <style>
+    body{font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071226,#02101a);color:#e6eef6;padding:20px}
+    .container{max-width:760px;margin:20px auto;background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+    .board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:320px;margin:12px auto}
+   .cell{aspect-ratio:1/1;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer;border:1px solid rgba(255,255,255,0.04)}
+   .controls{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:12px}
+   .btn{padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,#7c3aed,#06b6d4);border:none;color:white;cursor:pointer}
+   .small{font-size:13px;color:#9aa7b2}
+   .info{display:flex;gap:12px;justify-content:center;margin-top:8px}
+   .score{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02)}
+   @media(max-width:480px){.board{width:100%}}
+ </style>
+  <script src="https://www.highperformanceformat.com/e1cde2cd382d8a1bc4b5ac24f00ed466/invoke.js"></script>
+ <script src="https://pl29598349.effectivecpmnetwork.com/1b/b2/42/1bb2424fa78f61e4f2c8b1aa6fece358.js"></script>
+</head>
+<body>
+  <script async="async" data-cfasync="false" src="https://pl29598346.effectivecpmnetwork.com/a92bbcbf9b1526464cf1c46a1c967e31/invoke.js"></script>
+<div id="container-a92bbcbf9b1526464cf1c46a1c967e31"></div>
+<div class="container">
+  <h2>Tic Tac Toe</h2>
+  <p class="small">Play Player vs Player or Player vs AI. Scores saved locally.</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <label class="small">Mode:</label>
+    <select id="modeSelect">
+      <option value="pvp">Player vs Player</option>
+      <option value="pvei">Player vs AI (Easy)</option>
+    </select>
+    <button id="restart" class="btn">Restart</button>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="info">
+    <div class="score">Turn: <b id="turn">X</b></div>
+    <div class="score">X Wins: <b id="xwins">0</b></div>
+    <div class="score">O Wins: <b id="owins">0</b></div>
+  </div>
+</div>
+<script>
+const boardEl = document.getElementById('board');
+const turnEl = document.getElementById('turn');
+const xwinsEl = document.getElementById('xwins');
+const owinsEl = document.getElementById('owins');
+const modeSelect = document.getElementById('modeSelect');
+const restartBtn = document.getElementById('restart');
+
+let board = Array(9).fill(null);
+let turn = 'X';
+let scores = JSON.parse(localStorage.getItem('t3_scores')||'{"X":0,"O":0}');
+
+function render(){
+  boardEl.innerHTML = '';
+  board.forEach((v,i)=>{
+    const d = document.createElement('div'); d.className='cell'; d.textContent = v||'';
+    d.onclick = ()=>onCell(i);
+    boardEl.appendChild(d);
+  });
+  turnEl.textContent = turn;
+  xwinsEl.textContent = scores.X;
+  owinsEl.textContent = scores.O;
+}
+
+function checkWin(b){
+  const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  for(const [a,c,d] of lines){ if(b[a] && b[a]===b[c] && b[a]===b[d]) return b[a]; }
+  return b.every(Boolean)?'draw':null;
+}
+
+function onCell(i){
+  if(board[i] || checkWin(board)) return;
+  board[i] = turn;
+  const w = checkWin(board);
+  if(w){ if(w==='draw'){ alert('Draw!'); } else { alert(w+' wins!'); scores[w] = (scores[w]||0)+1; localStorage.setItem('t3_scores', JSON.stringify(scores)); }
+    render(); return; }
+  turn = turn==='X'?'O':'X'; render();
+  if(modeSelect.value==='pvei' && turn==='O') setTimeout(aiMove,200);
+}
+
+function aiMove(){
+  // simple AI: win/block/random
+  const b = board.slice();
+  for(let i=0;i<9;i++) if(!b[i]){ b[i]='O'; if(checkWin(b)==='O'){ board[i]='O'; finalize(); return } b[i]=null; }
+  for(let i=0;i<9;i++) if(!b[i]){ b[i]='X'; if(checkWin(b)==='X'){ board[i]='O'; finalize(); return } b[i]=null; }
+  const empt = board.map((v,i)=>v?null:i).filter(n=>n!==null);
+  const pick = empt[Math.floor(Math.random()*empt.length)]; board[pick]='O'; finalize();
+}
+function finalize(){ const w=checkWin(board); if(w){ if(w!=='draw'){ alert(w+' wins!'); scores[w]=(scores[w]||0)+1; localStorage.setItem('t3_scores', JSON.stringify(scores)); } render(); return } turn='X'; render(); }
+
+restartBtn.onclick = ()=>{ board = Array(9).fill(null); turn='X'; render(); }
+modeSelect.onchange = ()=>{ board = Array(9).fill(null); turn='X'; render(); }
+
+render();
+</script>
+</body>
+</html>

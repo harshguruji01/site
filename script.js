@@ -131,9 +131,14 @@ function renderDailyThoughtsGrid(count) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  try { document.body.classList.add('loaded'); } catch (e) {}
   injectDailySpecialNav();
   initDailySpecialTabs();
   renderDailyThoughtsGrid(12);
+
+  // Define configuration constants early to avoid ReferenceErrors
+  const GS_ENDPOINT = window.GS_ENDPOINT || 'https://YOUR_GAS_WEBAPP_URL';
+  const BACKEND_BASE = window.BACKEND_BASE || 'http://localhost:4000';
 
   // ── Scroll Animation Observer ──
   const scrollObserver = new IntersectionObserver((entries) => {
@@ -1694,3 +1699,112 @@ function handleNewsletter(e) {
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+// ====== Tools Hub Integration (backend tools + proxy preview) ======
+(function () {
+  const BACKEND_BASE = window.BACKEND_BASE || 'http://localhost:4000';
+
+  async function getTools() {
+    try {
+      const r = await fetch(BACKEND_BASE + '/api/tools');
+      const j = await r.json();
+      return (j && j.tools) || [];
+    } catch (e) { console.warn('getTools failed', e); return []; }
+  }
+
+  function slugify(text) {
+    return text.toLowerCase().replace(/[^
+\w\s-]/g, '').trim().replace(/\s+/g, '_');
+  }
+
+  async function assignToolIds() {
+    document.querySelectorAll('.tool-card').forEach(card => {
+      try {
+        const header = card.querySelector('h4, h3, h2');
+        const btn = card.querySelector('button');
+        if (!btn) return;
+        if (btn.dataset.toolId) return;
+        const id = header ? slugify(header.innerText) : null;
+        if (id) btn.dataset.toolId = id;
+      } catch (e) { /* ignore */ }
+    });
+  }
+
+  async function handleToolClick(cardOrId) {
+    let id = null;
+    let title = null;
+    if (typeof cardOrId === 'string') {
+      id = cardOrId;
+    } else if (cardOrId && cardOrId.nodeType) {
+      const card = cardOrId;
+      const header = card.querySelector('h4, h3, h2');
+      title = header ? header.innerText.trim() : null;
+      const btn = card.querySelector('button');
+      id = btn && btn.dataset ? btn.dataset.toolId : null;
+    }
+    if (!id && !title) return;
+    const tools = await getTools();
+    const found = tools.find(t => (id && t.id === id) || (title && t.name.toLowerCase().includes(title.toLowerCase())) || (id && t.name.toLowerCase().includes(id.replace(/_/g,' '))));
+    if (!found) {
+      const q = encodeURIComponent(title + ' site:harshguruji.com');
+      window.open('https://duckduckgo.com/?q=' + q, '_blank');
+      return;
+    }
+
+    if (found && found.requiresProxy) {
+      const api = found.api;
+      if (!api) return window.open(found.url || '#', '_blank');
+      const q = prompt('Enter search term for: ' + found.name, 'india');
+      if (q === null) return;
+      const target = api.endsWith('=') || api.endsWith('/') ? api + encodeURIComponent(q) : api + encodeURIComponent(q);
+      try {
+        const r = await fetch(BACKEND_BASE + '/api/proxy', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: target })
+        });
+        const j = await r.json();
+        if (j && j.ok) {
+          const preview = j.json ? JSON.stringify(j.json, null, 2) : (j.text || 'No preview available');
+          showPreviewModal(found.name + ' — Preview', preview);
+        } else {
+          alert('Preview failed');
+        }
+      } catch (err) {
+        console.error(err); alert('Proxy request failed');
+      }
+    } else if (found) {
+      const dest = found.url || found.api || '#';
+      const openUrl = dest.includes('http') ? dest : ('https://' + dest);
+      window.open(openUrl, '_blank');
+    } else {
+      // fallback search
+      const q = encodeURIComponent(title || id);
+      window.open('https://duckduckgo.com/?q=' + q, '_blank');
+    }
+  }
+
+  function showPreviewModal(title, content) {
+    let modal = document.getElementById('gh-preview-modal');
+    if (!modal) {
+      modal = document.createElement('div'); modal.id = 'gh-preview-modal'; modal.className = 'gh-modal';
+      modal.innerHTML = `<div class="gh-modal-body"><button class="gh-close">×</button><h3 class="gh-title"></h3><pre class="gh-pre"></pre></div>`;
+      document.body.appendChild(modal);
+      modal.querySelector('.gh-close').addEventListener('click', () => modal.style.display = 'none');
+    }
+    modal.querySelector('.gh-title').innerText = title;
+    modal.querySelector('.gh-pre').innerText = content;
+    modal.style.display = 'block';
+  }
+
+  // assign IDs now (in case HTML doesn't include them)
+  try { assignToolIds(); } catch (e) { console.warn('assignToolIds failed', e); }
+
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest && e.target.closest('.tools-grid .btn');
+    if (!btn) return;
+    const card = btn.closest('.tool-card');
+    if (!card) return;
+    e.preventDefault();
+    const toolId = btn.dataset && btn.dataset.toolId ? btn.dataset.toolId : null;
+    handleToolClick(toolId || card);
+  });
+})();

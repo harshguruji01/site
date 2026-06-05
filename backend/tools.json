@@ -1,0 +1,22 @@
+{
+  "tools": [
+    { "id": "wikipedia", "name": "Wikipedia Summary", "type": "info", "api": "https://en.wikipedia.org/api/rest_v1/page/summary/", "requiresProxy": false },
+    { "id": "nominatim", "name": "Find Location", "type": "location", "api": "https://nominatim.openstreetmap.org/search?q=", "requiresProxy": true },
+    { "id": "news_rss", "name": "Top News (RSS)", "type": "news", "api": "https://api.rss2json.com/v1/api.json?rss_url=", "requiresProxy": true },
+    { "id": "duckduckgo", "name": "DuckDuckGo Search", "type": "search", "url": "https://duckduckgo.com/?q=", "requiresProxy": false },
+    { "id": "unsplash_search", "name": "Image Search (Unsplash)", "type": "images", "api": "https://api.unsplash.com/search/photos?query=", "requiresProxy": true },
+
+    { "id": "word_counter", "name": "Word Counter", "type": "text", "url": "text-tool.html#word-counter", "requiresProxy": false },
+    { "id": "case_converter", "name": "Case Converter", "type": "text", "url": "text-tool.html#case-converter", "requiresProxy": false },
+    { "id": "text_minifier", "name": "Text Minifier", "type": "text", "url": "text-tool.html#minifier", "requiresProxy": false },
+    { "id": "remove_duplicates", "name": "Remove Duplicates", "type": "text", "url": "text-tool.html#remove-duplicates", "requiresProxy": false },
+    { "id": "reverse_text", "name": "Reverse Text", "type": "text", "url": "text-tool.html#reverse", "requiresProxy": false },
+
+    { "id": "bmi_calculator", "name": "BMI Calculator", "type": "utility", "url": "free-tools.html#bmi", "requiresProxy": false },
+    { "id": "password_generator", "name": "Password Generator", "type": "utility", "url": "free-tools.html#password-generator", "requiresProxy": false },
+
+    { "id": "ideas_prompts", "name": "Ideas & Prompts", "type": "creative", "url": "ai-hub.html#ideas", "requiresProxy": false },
+    { "id": "openweathermap", "name": "Weather (OpenWeatherMap)", "type": "weather", "api": "https://api.openweathermap.org/data/2.5/weather?q=", "requiresProxy": true },
+    { "id": "weatherapi", "name": "Weather (WeatherAPI)", "type": "weather", "api": "https://api.weatherapi.com/v1/current.json?q=", "requiresProxy": true }
+  ]
+}
