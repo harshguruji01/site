@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Special – HarshGuruJi</title>
   <meta name="description" content="Discover what happened on this day in history. Daily updated historical events, births and more." />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNDH2LZS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
   <div id="scroll-progress"></div>
   <canvas id="particleCanvas"></canvas>
   <nav id="navbar">
@@ -65,28 +58,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- Tab: Calendar & History -->
       <div class="ds-tab-panel active" id="ds-panel-calendar" data-ds-panel="calendar">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-bottom: 3rem;">
-          <!-- Compact Animated Calendar Widget -->
-          <div class="animated-calendar-widget">
-            <div class="acw-top">
-              <span class="acw-month" id="acw-month">January</span>
-              <span class="acw-year" id="acw-year">2026</span>
+        <div class="calendar-widget" id="calendar-widget">
+          <div class="cal-left-panel">
+            <div class="cal-month" id="cal-month">MAY</div>
+            <div class="cal-date" id="cal-date">19</div>
+            <div class="cal-day" id="cal-day">Monday</div>
+            <div class="cal-time-wrap">
+              <span id="cal-time">00:00:00</span>
             </div>
-            <div class="acw-date-display">
-              <span class="acw-date" id="acw-date">01</span>
-            </div>
-            <div class="acw-day" id="acw-day">Monday</div>
-            <div class="acw-time" id="acw-time">00:00:00</div>
-            <div class="acw-glow"></div>
           </div>
-
-          <!-- Important Events Section -->
-          <div class="calendar-events-card">
-            <h3 style="color: var(--accent-secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem;">
-              📅 Important Days & Events
-            </h3>
-            <div id="important-events" class="events-list">
-              <p>Loading important events for today...</p>
+          <div class="cal-right-panel">
+            <div class="cal-section">
+              <h3 class="cal-events-title">📅 Important Days &amp; Events</h3>
+              <div id="important-events">
+                <p>Loading important events for today...</p>
+              </div>
             </div>
           </div>
         </div>
@@ -144,7 +130,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <img src="harshlogo.png" alt="Owner" style="height: 50px; width: auto; border-radius: 5px;" />
           <div style="font-size: 0.95rem; color: var(--text-secondary);">
             <strong style="color: var(--text-primary); font-size: 1.05rem;">Harsh Patel</strong><br />
-            <span style="font-size: 0.9rem;">+91 7525912141 | Akbarpur, Ambedkarnagar, UP, India 224122</span>
+            <span style="font-size: 0.9rem;">+91  | Akbarpur, Ambedkarnagar, UP, India 224122</span>
           </div>
         </div>
       </div>

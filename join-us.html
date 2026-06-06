@@ -1,30 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WNDH2LZS');</script>
-<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join Us – HarshGuruJi</title>
   <meta name="description" content="Sign up or log in to HarshGuruJi — free tools, AI and daily learning." />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="join-us.css" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
 </head>
 <body class="auth-page" id="join-us-page">
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNDH2LZS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
   <div id="scroll-progress"></div>
   <canvas id="particleCanvas"></canvas>
@@ -39,119 +27,154 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </nav>
 
-  <main class="auth-main">
-    <section class="auth-hero">
-      <div class="auth-hero-inner">
-        <div class="hero-content">
-          <img src="logo.png" alt="WebGuruji.online" class="brand-logo" />
-          <h1 class="hero-title">Learn, Grow, and Succeed with <span class="brand-name">WebGuruji.online</span></h1>
-          <p class="hero-sub">Join thousands of learners. Interactive courses, tools, and daily insights to accelerate your learning.</p>
-          <a href="#auth-card" class="btn btn-primary hero-cta">Start Your Learning Journey Today →</a>
-        </div>
-        <div class="hero-illustration" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1f3b2b6f1c6f3c0b" alt="Students learning online illustration" />
-        </div>
+  <div class="auth-container">
+    <div class="auth-card auth-card-wide">
+      <div class="auth-glow"></div>
+      <div class="auth-header">
+        <img src="logo.png" alt="HarshGuruJi" style="height:60px;border-radius:10px;margin-bottom:1rem;" />
+        <h2 class="section-title" style="font-size:2rem;margin-bottom:0.5rem;">Join <span class="gradient-text">HarshGuruJi</span></h2>
+        <p class="section-desc" style="font-size:0.95rem;">New user? Sign up. Already registered? Log in.</p>
       </div>
-    </section>
 
-    <section class="auth-card" id="auth-card" aria-labelledby="auth-heading">
-      <div class="auth-card-grid">
-        <div class="card-left">
-          <h2 id="auth-heading">Welcome back</h2>
-          <p class="card-sub">Sign in to access your courses, progress, and tools.</p>
-
-          <div class="tabs" role="tablist" aria-label="Authentication Tabs">
-            <button class="tab-btn active" data-target="login" role="tab" aria-selected="true">Login</button>
-            <button class="tab-btn" data-target="signup" role="tab" aria-selected="false">Sign Up</button>
-          </div>
-
-          <div class="social-row">
-            <button class="btn social google">Continue with Google</button>
-            <button class="btn social fb">Continue with Facebook</button>
-          </div>
-
-          <div class="or">OR</div>
-
-          <form id="login-form" class="form" novalidate>
-            <label for="login-email">Email Address</label>
-            <div class="field">
-              <input type="email" id="login-email" required autocomplete="email" />
-            </div>
-
-            <label for="login-password">Password</label>
-            <div class="field field-password">
-              <input type="password" id="login-password" required autocomplete="current-password" />
-              <button type="button" class="show-pass" aria-label="Show password">Show</button>
-            </div>
-
-            <div class="row-between">
-              <label class="checkbox"><input type="checkbox" id="login-remember" /> Remember me</label>
-              <a href="#" id="forgot-link" class="link">Forgot?</a>
-            </div>
-
-            <div class="form-msg" id="login-msg" role="alert" aria-live="polite"></div>
-            <button type="submit" class="btn btn-primary submit">Log In</button>
-          </form>
-
-          <form id="signup-form" class="form hidden" novalidate>
-            <label for="signup-name">Full Name</label>
-            <div class="field"><input type="text" id="signup-name" required autocomplete="name" /></div>
-
-            <label for="signup-email">Email Address</label>
-            <div class="field"><input type="email" id="signup-email" required autocomplete="email" /></div>
-
-            <label for="signup-mobile">Mobile Number</label>
-            <div class="field"><input type="tel" id="signup-mobile" required autocomplete="tel" /></div>
-
-            <label for="signup-password">Password</label>
-            <div class="field field-password">
-              <input type="password" id="signup-password" required autocomplete="new-password" />
-              <button type="button" class="show-pass" aria-label="Show password">Show</button>
-            </div>
-
-            <label for="signup-confirm">Confirm Password</label>
-            <div class="field"><input type="password" id="signup-confirm" required autocomplete="new-password" /></div>
-
-            <label class="checkbox"><input type="checkbox" id="signup-terms" required /> I agree to the <a href="terms-and-conditions.html">Terms & Conditions</a></label>
-            <div class="form-msg" id="signup-msg" role="alert" aria-live="polite"></div>
-            <button type="submit" class="btn btn-primary submit">Create Account</button>
-
-            <div style="margin-top:1rem;">
-              <label for="import-account" style="font-size:0.9rem; color:var(--text-secondary); display:block; margin-bottom:0.4rem;">Import an existing account (JSON export)</label>
-              <input type="file" id="import-account" accept="application/json" style="display:block;" />
-              <button id="import-account-btn" class="btn btn-secondary" style="margin-top:0.6rem;">Import Account</button>
-              <p id="import-account-msg" style="margin-top:0.6rem; font-size:0.85rem; color:var(--text-secondary);"></p>
-            </div>
-          </form>
-        </div>
-
-        <aside class="card-right" aria-hidden="false">
-          <div class="right-inner">
-            <h3 class="tag">Learn on your schedule</h3>
-            <p>Interactive lessons, expert instructors and real-world projects to build your skills.</p>
-            <ul class="features">
-              <li>Curated courses</li>
-              <li>Practical projects</li>
-              <li>Personalized dashboard</li>
-            </ul>
-            <div class="cta-small">
-              <a href="courses.html" class="btn btn-secondary">Explore Courses</a>
-            </div>
-            <div class="footer-links">
-              <a href="about.html">About Us</a>
-              <a href="technology.html">Courses</a>
-              <a href="contact.html">Contact</a>
-              <a href="privacy-policy.html">Privacy</a>
-              <a href="terms-and-conditions.html">Terms</a>
-            </div>
-          </div>
-        </aside>
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab active" id="auth-tab-signup" role="tab">Sign Up</button>
+        <button type="button" class="auth-tab" id="auth-tab-login" role="tab">Log In</button>
       </div>
-    </section>
-  </main>
+
+      <p id="auth-msg" class="auth-msg" aria-live="polite"></p>
+
+      <div class="auth-panel active" id="auth-panel-signup" role="tabpanel">
+        <form id="signup-form" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="signup-name">Full Name <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input type="text" id="signup-name" placeholder="Your full name" required autocomplete="name" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-email">Email Address <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-mobile">Mobile Number <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">📱</span>
+              <input type="tel" id="signup-mobile" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="signup-password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-confirm">Confirm Password <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="signup-confirm" placeholder="Re-enter password" required minlength="6" autocomplete="new-password" />
+            </div>
+          </div>
+          <p id="signup-msg" class="auth-msg" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Create Account</button>
+        </form>
+      </div>
+
+      <div class="auth-panel" id="auth-panel-login" role="tabpanel" hidden>
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="login-email">Email Address <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="login-email" placeholder="you@example.com" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="login-password">Password <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="login-password" placeholder="Your password" required autocomplete="current-password" />
+            </div>
+          </div>
+          <div class="input-group auth-remember">
+            <input type="checkbox" id="login-remember" />
+            <label for="login-remember">Remember me</label>
+          </div>
+          <p id="login-msg" class="auth-msg" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Log In</button>
+          <p style="text-align: center; margin-top: 1rem;">
+            <a href="#" id="forgot-password-link" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">Forgot Password?</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Forgot Password Panel -->
+      <div class="auth-panel" id="auth-panel-forgot" role="tabpanel" hidden>
+        <form id="forgot-form" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="forgot-email">Email Address <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="forgot-email" placeholder="Enter your registered email" required autocomplete="email" />
+            </div>
+          </div>
+          <p id="forgot-msg" class="auth-msg" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Send OTP</button>
+          <p style="text-align: center; margin-top: 1rem;">
+            <a href="#" id="back-to-login" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to Login</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- OTP Verification Panel -->
+      <div class="auth-panel" id="auth-panel-otp" role="tabpanel" hidden>
+        <form id="otp-form" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="otp-input">Enter OTP <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔢</span>
+              <input type="text" id="otp-input" placeholder="Enter 6-digit OTP" required maxlength="6" pattern="[0-9]{6}" />
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">OTP has been sent to your email. Check your inbox.</p>
+          </div>
+          <p id="otp-msg" class="auth-msg" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Verify OTP</button>
+          <p style="text-align: center; margin-top: 1rem;">
+            <a href="#" id="resend-otp" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">Resend OTP</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Reset Password Panel -->
+      <div class="auth-panel" id="auth-panel-reset" role="tabpanel" hidden>
+        <form id="reset-form" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="reset-password">New Password <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="reset-password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="reset-confirm">Confirm New Password <span class="req">*</span></label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="reset-confirm" placeholder="Re-enter new password" required minlength="6" autocomplete="new-password" />
+            </div>
+          </div>
+          <p id="reset-msg" class="auth-msg" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Reset Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
   <script src="auth.js"></script>
-  <script src="join-us.js"></script>
 </body>
 </html>

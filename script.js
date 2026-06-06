@@ -5,17 +5,6 @@ if (!document.querySelector('script[src*="auth.js"]')) {
   document.head.appendChild(authScript);
 }
 
-// Set page identifier on <body> for per-page theming
-(function setPageDataset(){
-  try{
-    const p = location.pathname.split('/').pop() || 'index.html';
-    const name = p.replace('.html','') || 'index';
-    // set early if body exists, otherwise on DOMContentLoaded
-    if(document.body) document.body.dataset.page = name === 'index' ? 'index' : name;
-    else document.addEventListener('DOMContentLoaded', () => { document.body.dataset.page = name === 'index' ? 'index' : name; });
-  }catch(e){ console.warn('setPageDataset failed', e); }
-})();
-
 // ── Shared daily thoughts pool ──
 const DAILY_THOUGHTS = [
   { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss" },
@@ -131,29 +120,9 @@ function renderDailyThoughtsGrid(count) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  try { document.body.classList.add('loaded'); } catch (e) {}
   injectDailySpecialNav();
   initDailySpecialTabs();
   renderDailyThoughtsGrid(12);
-
-  // Define configuration constants early to avoid ReferenceErrors
-  const GS_ENDPOINT = window.GS_ENDPOINT || 'https://YOUR_GAS_WEBAPP_URL';
-  const BACKEND_BASE = window.BACKEND_BASE || 'http://localhost:4000';
-
-  // ── Scroll Animation Observer ──
-  const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        scrollObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
-    scrollObserver.observe(el);
-  });
 
   // Mobile Menu Toggle
   const hamburger = document.getElementById('hamburger');
@@ -618,10 +587,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- DAILY SPECIAL CALENDAR & "ON THIS DAY" with REAL-TIME UPDATES ---
+  const calendarWidget = document.getElementById('calendar-widget');
   const onThisDayContainer = document.getElementById('wiki-container-onthisday');
   const importantEventsContainer = document.getElementById('important-events');
   
-  if (onThisDayContainer) {
+  if (calendarWidget && onThisDayContainer) {
     // Important Events & Holidays Database
     const importantDates = {
       '0101': ['🎆 New Year Day', '🎉 International New Year Celebration'],
@@ -636,48 +606,24 @@ document.addEventListener('DOMContentLoaded', () => {
       '1231': ['🎊 New Year\'s Eve', '🥂 Celebration of New Beginnings'],
     };
 
-    // Function to update calendar in real-time (with milliseconds)
+    // Function to update calendar in real-time
     function updateCalendar() {
       const today = new Date();
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       
-      // Update animated calendar widget
-      const acwMonth = document.getElementById('acw-month');
-      const acwYear = document.getElementById('acw-year');
-      const acwDate = document.getElementById('acw-date');
-      const acwDay = document.getElementById('acw-day');
-      const acwTime = document.getElementById('acw-time');
+      // Update calendar display
+      document.getElementById('cal-month').innerText = months[today.getMonth()];
+      document.getElementById('cal-date').innerText = today.getDate();
+      document.getElementById('cal-day').innerText = days[today.getDay()];
       
-      if (acwMonth) acwMonth.innerText = months[today.getMonth()];
-      if (acwYear) acwYear.innerText = today.getFullYear();
-      if (acwDate) acwDate.innerText = String(today.getDate()).padStart(2, '0');
-      if (acwDay) acwDay.innerText = days[today.getDay()];
-      
-      // Update real-time clock with milliseconds for live effect
-      if (acwTime) {
+      // Update real-time clock
+      const timeElement = document.getElementById('cal-time');
+      if (timeElement) {
         const hours = String(today.getHours()).padStart(2, '0');
         const minutes = String(today.getMinutes()).padStart(2, '0');
         const seconds = String(today.getSeconds()).padStart(2, '0');
-        const milliseconds = String(today.getMilliseconds()).padStart(3, '0');
-        acwTime.innerText = `${hours}:${minutes}:${seconds}.${milliseconds}`;
-      }
-      
-      // Update old calendar elements (backward compatibility)
-      const calMonth = document.getElementById('cal-month');
-      const calDate = document.getElementById('cal-date');
-      const calDay = document.getElementById('cal-day');
-      const calTime = document.getElementById('cal-time');
-      
-      if (calMonth) calMonth.innerText = months[today.getMonth()].substring(0, 3).toUpperCase();
-      if (calDate) calDate.innerText = today.getDate();
-      if (calDay) calDay.innerText = days[today.getDay()];
-      if (calTime) {
-        const hours = String(today.getHours()).padStart(2, '0');
-        const minutes = String(today.getMinutes()).padStart(2, '0');
-        const seconds = String(today.getSeconds()).padStart(2, '0');
-        const milliseconds = String(today.getMilliseconds()).padStart(3, '0');
-        calTime.innerText = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+        timeElement.innerText = `${hours}:${minutes}:${seconds}`;
       }
       
       // Show important events/holidays for today
@@ -697,25 +643,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Update calendar immediately and then every 50ms for super smooth real-time updates
+    // Update calendar immediately and then every second
     updateCalendar();
-    setInterval(updateCalendar, 50);
+    setInterval(updateCalendar, 1000);
 
     const mm = String(new Date().getMonth() + 1).padStart(2, '0');
     const dd = String(new Date().getDate()).padStart(2, '0');
 
     // Fetch "On This Day" data from Wikipedia
-    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' }
-    })
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-        return res.json();
-      })
+    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`)
+      .then(res => res.json())
       .then(data => {
-        if (!data) throw new Error('No data received');
-        
         let finalHtml = '';
         
         // Events
@@ -751,19 +689,10 @@ document.addEventListener('DOMContentLoaded', () => {
           finalHtml += '</ul></div>';
         }
 
-        if(finalHtml === '') finalHtml = '<p style="color:var(--text-secondary);">📅 No specific historical events recorded for today, but every day is a part of history!</p>';
+        if(finalHtml === '') finalHtml = '<p style="color:var(--text-secondary);">No historical events found for today.</p>';
         onThisDayContainer.innerHTML = finalHtml;
       }).catch(err => {
-        console.warn('Wikipedia API Error:', err);
-        const fallbackHtml = `
-          <div style="padding: 2rem; background: rgba(107, 59, 255, 0.1); border-radius: 12px; border-left: 4px solid var(--accent-primary);">
-            <p style="color: var(--text-secondary); margin: 0;">
-              📡 Wikipedia API is currently unavailable, but historical events are still being discovered every day!<br/>
-              <small style="font-size: 0.9rem; margin-top: 0.5rem; display: block;">Try refreshing the page or check back in a moment.</small>
-            </p>
-          </div>
-        `;
-        onThisDayContainer.innerHTML = fallbackHtml;
+        onThisDayContainer.innerHTML = '<p style="color:var(--text-secondary);">Failed to load historical events. Wikipedia may be unreachable.</p>';
       });
   }
 
@@ -1638,44 +1567,6 @@ function handleNewsletter(e) {
     msg.innerText = '❌ Please enter a valid email address.';
     return;
   }
-
-  // Update newsletter stats display (subscribers and notifications)
-  function updateNewsletterStats() {
-    const subs = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
-    const subCount = subs.length;
-    const subEl = document.getElementById('subscriber-count');
-    if (subEl) subEl.textContent = subCount;
-
-    // Global notifications (simple count), and per-user badge
-    const globalNotif = parseInt(localStorage.getItem('global_notifications') || '0', 10);
-    const notifEl = document.getElementById('notification-count');
-    if (notifEl) notifEl.textContent = globalNotif;
-
-    // If logged in, sync navbar badge
-    if (window.showUserNotificationBadge) window.showUserNotificationBadge();
-  }
-
-  // Ensure stats update on page load
-  updateNewsletterStats();
-
-  // When someone subscribes, increment global notifications and user notification
-  const newsletterForm = document.getElementById('newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (ev) => {
-      setTimeout(() => {
-        // increment global notifications
-        const g = parseInt(localStorage.getItem('global_notifications') || '0', 10) + 1;
-        localStorage.setItem('global_notifications', String(g));
-        // if user logged in, increment their own notifications
-        const logged = localStorage.getItem('loggedIn');
-        if (logged) {
-          const u = JSON.parse(logged);
-          if (window.incrementUserNotification) window.incrementUserNotification(u.email, 1);
-        }
-        updateNewsletterStats();
-      }, 300);
-    });
-  }
   
   const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
   if (subscriptions.includes(email)) {
@@ -1699,112 +1590,3 @@ function handleNewsletter(e) {
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
-// ====== Tools Hub Integration (backend tools + proxy preview) ======
-(function () {
-  const BACKEND_BASE = window.BACKEND_BASE || 'http://localhost:4000';
-
-  async function getTools() {
-    try {
-      const r = await fetch(BACKEND_BASE + '/api/tools');
-      const j = await r.json();
-      return (j && j.tools) || [];
-    } catch (e) { console.warn('getTools failed', e); return []; }
-  }
-
-  function slugify(text) {
-    return text.toLowerCase().replace(/[^
-\w\s-]/g, '').trim().replace(/\s+/g, '_');
-  }
-
-  async function assignToolIds() {
-    document.querySelectorAll('.tool-card').forEach(card => {
-      try {
-        const header = card.querySelector('h4, h3, h2');
-        const btn = card.querySelector('button');
-        if (!btn) return;
-        if (btn.dataset.toolId) return;
-        const id = header ? slugify(header.innerText) : null;
-        if (id) btn.dataset.toolId = id;
-      } catch (e) { /* ignore */ }
-    });
-  }
-
-  async function handleToolClick(cardOrId) {
-    let id = null;
-    let title = null;
-    if (typeof cardOrId === 'string') {
-      id = cardOrId;
-    } else if (cardOrId && cardOrId.nodeType) {
-      const card = cardOrId;
-      const header = card.querySelector('h4, h3, h2');
-      title = header ? header.innerText.trim() : null;
-      const btn = card.querySelector('button');
-      id = btn && btn.dataset ? btn.dataset.toolId : null;
-    }
-    if (!id && !title) return;
-    const tools = await getTools();
-    const found = tools.find(t => (id && t.id === id) || (title && t.name.toLowerCase().includes(title.toLowerCase())) || (id && t.name.toLowerCase().includes(id.replace(/_/g,' '))));
-    if (!found) {
-      const q = encodeURIComponent(title + ' site:harshguruji.com');
-      window.open('https://duckduckgo.com/?q=' + q, '_blank');
-      return;
-    }
-
-    if (found && found.requiresProxy) {
-      const api = found.api;
-      if (!api) return window.open(found.url || '#', '_blank');
-      const q = prompt('Enter search term for: ' + found.name, 'india');
-      if (q === null) return;
-      const target = api.endsWith('=') || api.endsWith('/') ? api + encodeURIComponent(q) : api + encodeURIComponent(q);
-      try {
-        const r = await fetch(BACKEND_BASE + '/api/proxy', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: target })
-        });
-        const j = await r.json();
-        if (j && j.ok) {
-          const preview = j.json ? JSON.stringify(j.json, null, 2) : (j.text || 'No preview available');
-          showPreviewModal(found.name + ' — Preview', preview);
-        } else {
-          alert('Preview failed');
-        }
-      } catch (err) {
-        console.error(err); alert('Proxy request failed');
-      }
-    } else if (found) {
-      const dest = found.url || found.api || '#';
-      const openUrl = dest.includes('http') ? dest : ('https://' + dest);
-      window.open(openUrl, '_blank');
-    } else {
-      // fallback search
-      const q = encodeURIComponent(title || id);
-      window.open('https://duckduckgo.com/?q=' + q, '_blank');
-    }
-  }
-
-  function showPreviewModal(title, content) {
-    let modal = document.getElementById('gh-preview-modal');
-    if (!modal) {
-      modal = document.createElement('div'); modal.id = 'gh-preview-modal'; modal.className = 'gh-modal';
-      modal.innerHTML = `<div class="gh-modal-body"><button class="gh-close">×</button><h3 class="gh-title"></h3><pre class="gh-pre"></pre></div>`;
-      document.body.appendChild(modal);
-      modal.querySelector('.gh-close').addEventListener('click', () => modal.style.display = 'none');
-    }
-    modal.querySelector('.gh-title').innerText = title;
-    modal.querySelector('.gh-pre').innerText = content;
-    modal.style.display = 'block';
-  }
-
-  // assign IDs now (in case HTML doesn't include them)
-  try { assignToolIds(); } catch (e) { console.warn('assignToolIds failed', e); }
-
-  document.addEventListener('click', function (e) {
-    const btn = e.target.closest && e.target.closest('.tools-grid .btn');
-    if (!btn) return;
-    const card = btn.closest('.tool-card');
-    if (!card) return;
-    e.preventDefault();
-    const toolId = btn.dataset && btn.dataset.toolId ? btn.dataset.toolId : null;
-    handleToolClick(toolId || card);
-  });
-})();

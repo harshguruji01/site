@@ -46,67 +46,6 @@ async function getUsers() {
   return mergeUsers(fileUsers, storedUsers);
 }
 
-// Export currently logged-in user data as JSON for portability between browsers
-function exportAccount() {
-  const logged = localStorage.getItem('loggedIn');
-  if (!logged) return { success: false, message: 'No user logged in' };
-  const user = JSON.parse(logged);
-  const payload = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    mobile: user.mobile,
-    passwordHash: user.passwordHash || null,
-    profilePicture: user.profilePicture || null,
-    lastProfileUpdate: user.lastProfileUpdate || null,
-    exportedAt: new Date().toISOString()
-  };
-  try {
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `harshguruji-account-${user.email.replace(/[@.]/g,'_')}.json`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-    return { success: true };
-  } catch (e) {
-    return { success: false, message: 'Export failed' };
-  }
-}
-
-// Import account object (parsed JSON). Returns promise.
-async function importAccountObject(obj) {
-  if (!obj || !obj.email) return { success: false, message: 'Invalid account file.' };
-  const emailKey = obj.email.toLowerCase().trim();
-  const users = await getUsers();
-  if (users.some(u => u.email.toLowerCase() === emailKey)) {
-    return { success: false, message: 'An account with this email already exists.' };
-  }
-
-  // Ensure required fields
-  const user = {
-    id: obj.id || Date.now(),
-    name: obj.name || 'User',
-    email: emailKey,
-    mobile: obj.mobile || '',
-    passwordHash: obj.passwordHash || null,
-    profilePicture: obj.profilePicture || null,
-    createdAt: obj.createdAt || new Date().toISOString(),
-    lastProfileUpdate: obj.lastProfileUpdate || null
-  };
-
-  users.push(user);
-  await saveUsers(users);
-
-  // Auto-login the imported user (if passwordHash present, it's their account)
-  setSession({ id: user.id, name: user.name, email: user.email, mobile: user.mobile, profilePicture: user.profilePicture, lastPasswordChange: user.lastPasswordChange || null }, true);
-
-  return { success: true, user };
-}
-
 async function saveUsers(users) {
   localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 }
@@ -149,17 +88,6 @@ async function registerUser({ name, email, mobile, password }) {
 
   users.push(user);
   await saveUsers(users);
-
-  // If GS_ENDPOINT is configured, attempt to sync user to remote server (best-effort)
-  try {
-    if (window.GS_ENDPOINT) {
-      fetch(window.GS_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'saveUser', user })
-      }).catch(() => {});
-    }
-  } catch (e) { /* ignore */ }
   return { success: true, user: { id: user.id, name: user.name, email: user.email, mobile: user.mobile, profilePicture: user.profilePicture } };
 }
 
@@ -169,28 +97,6 @@ async function loginUser({ email, password }) {
   const user = users.find(u => u.email.toLowerCase() === emailKey);
 
   if (!user) {
-    // Try fetching from remote GS endpoint if configured
-    if (window.GS_ENDPOINT) {
-      try {
-        const resp = await fetch(`${window.GS_ENDPOINT}?action=getUser&email=${encodeURIComponent(email)}`);
-        const data = await resp.json();
-        if (data && data.success && data.user) {
-          // Persist remote user locally and proceed
-          const usersRemote = await getUsers();
-          usersRemote.push(data.user);
-          await saveUsers(usersRemote);
-          const hashRemote = data.user.passwordHash || null;
-          const hash = await hashPassword(password);
-          if (hashRemote && hashRemote === hash) {
-            return { success: true, user: { id: data.user.id, name: data.user.name, email: data.user.email, mobile: data.user.mobile, profilePicture: data.user.profilePicture, lastPasswordChange: data.user.lastPasswordChange } };
-          } else {
-            return { success: false, message: 'No account found with this email. Please sign up first.' };
-          }
-        }
-      } catch (e) {
-        // fallback to local error
-      }
-    }
     return { success: false, message: 'No account found with this email. Please sign up first.' };
   }
 
@@ -537,10 +443,9 @@ function checkAutoLogin() {
 function updateNavbarForLoggedInUser(user) {
   const navCta = document.getElementById('nav-cta');
   if (navCta) {
-    navCta.innerHTML = `<span style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;position:relative;" onclick="openProfileModal()">
+    navCta.innerHTML = `<span style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;" onclick="openProfileModal()">
       ${user.profilePicture ? `<img src="${user.profilePicture}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">` : `<span style="width:32px;height:32px;background:linear-gradient(135deg,#ff3366,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.9rem;">${user.name.charAt(0).toUpperCase()}</span>`}
       <span>${user.name.split(' ')[0]}</span>
-      <span id="nav-notif-badge" style="position:absolute;top:-6px;right:-6px;background:#ff3366;color:white;border-radius:12px;padding:2px 6px;font-size:0.75rem;display:none;">0</span>
     </span>`;
     navCta.classList.remove('btn-nav');
     navCta.style.padding = '0.5rem 1rem';
@@ -548,30 +453,6 @@ function updateNavbarForLoggedInUser(user) {
     navCta.style.border = '1px solid rgba(255,255,255,0.1)';
     navCta.style.borderRadius = '50px';
   }
-}
-
-// Helper: increment notification count for a user (stored per-email)
-function incrementUserNotification(email, delta=1) {
-  if (!email) return 0;
-  const key = `notifications_${email}`;
-  const current = parseInt(localStorage.getItem(key) || '0', 10);
-  const next = current + delta;
-  localStorage.setItem(key, String(next));
-  // update badge if visible
-  const badge = document.getElementById('nav-notif-badge');
-  if (badge) { badge.style.display = next>0? 'inline-block':'none'; badge.textContent = String(next); }
-  return next;
-}
-
-// Helper: show notification badge for logged in user on load
-function showUserNotificationBadge() {
-  const logged = localStorage.getItem('loggedIn');
-  if (!logged) return;
-  const user = JSON.parse(logged);
-  const key = `notifications_${user.email}`;
-  const count = parseInt(localStorage.getItem(key) || '0', 10);
-  const badge = document.getElementById('nav-notif-badge');
-  if (badge) { badge.style.display = count>0? 'inline-block':'none'; badge.textContent = String(count); }
 }
 
 // Logout function
