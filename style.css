@@ -55,9 +55,19 @@ ul { list-style: none; }
   border-radius: 4px;
 }
 #navbar .nav-link:hover::after, #navbar .nav-link.active::after { width: 60%; }
-#navbar { transform: translateY(-6px); opacity: 0; transition: transform 420ms ease, opacity 420ms ease; }
-body.loaded #navbar { transform: translateY(0); opacity: 1; }
-
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  background: rgba(8,17,32,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
 /* Important items: gentle float & pulse to draw user attention */
 .important { animation: gentleFloat 6s ease-in-out infinite, attentionPulse 3.8s ease-in-out 1s infinite; }
 @keyframes gentleFloat { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
@@ -250,10 +260,19 @@ body::before {
 
 /* Navbar */
 #navbar {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-  background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  background: rgba(8,17,32,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  transform: translateY(0);
+  opacity: 1;
   transition: all 0.3s ease;
 }
+
 
 .nav-container {
   display: flex; justify-content: space-between; align-items: center;
@@ -908,8 +927,8 @@ body[data-page]:not([data-page="index"])::before { content: ''; position: fixed;
 .cal-month { display: none; }
 .cal-date { display: none; }
 .cal-day { display: none; }
-.cal-time-wrap { display: none; }
-}
+.cal-time-wrap { display: none;}
+
 
 /* ── Calendar Right Panel: Section Dividers ── */
 .cal-section {
