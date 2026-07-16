@@ -22,7 +22,7 @@
 
     <!-- Logo -->
     <a href="index.html" class="nav-logo" aria-label="HarshGuruJi Home">
-      HarshGuruJi
+      <img src="logo.png" alt="HarshGuruJi Logo" style="height: 35px; width: auto; margin-right: 8px;" /> <span class="nav-brand-text">HarshGuruJi</span>
     </a>
 
     <!-- Center Menu -->
@@ -147,7 +147,8 @@
   <div class="store-container">
     
     <!-- SIDEBAR -->
-    <aside class="store-sidebar">
+    <aside class="store-sidebar" id="store-sidebar">
+      <button class="mobile-filter-close" onclick="toggleMobileFilters()">✕</button>
       <h3 class="sidebar-title">Categories</h3>
       <div class="filter-group">
         <label><input type="checkbox" class="filter-checkbox" value="coding"> Coding Resources</label>
@@ -209,7 +210,20 @@
   <!-- TOAST -->
   <div class="store-toast" id="store-toast">Notification Message</div>
 
+  <!-- MOBILE FLOATING BUTTONS -->
+  <button class="fab-filters" onclick="toggleMobileFilters()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+    Filters
+  </button>
+  
+  <button class="fab-totop" id="fab-totop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
   <script src="navbar.js"></script>
   <script src="js/store.js"></script>
 </body>
 </html>
+
+
+

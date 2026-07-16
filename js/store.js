@@ -178,8 +178,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  // Scroll listener for back-to-top button
+  const fabToTop = document.getElementById('fab-totop');
+  if (fabToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        fabToTop.classList.add('visible');
+      } else {
+        fabToTop.classList.remove('visible');
+      }
+    });
+  }
 });
+
+function toggleMobileFilters() {
+  const sidebar = document.getElementById('store-sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('open');
+  }
+}
 
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.showToast = showToast;
+window.toggleMobileFilters = toggleMobileFilters;

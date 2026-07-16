@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'chat-msg ai';
-        aiMsg.innerHTML = '<img src="guruai.png" class="msg-avatar" style="width:30px;height:30px;border-radius:50%;padding:0;background:transparent;flex-shrink:0;"/><div class="msg-bubble">I am GuruJi AI! Try the real version on our website to ask anything you want! 🚀</div>';
+        aiMsg.innerHTML = '<img src="ailogo.png" class="msg-avatar" style="width:30px;height:30px;border-radius:50%;padding:0;background:transparent;flex-shrink:0;"/><div class="msg-bubble">I am GuruJi AI! Try the real version on our website to ask anything you want! 🚀</div>';
         aiChatBody.appendChild(aiMsg);
         aiChatBody.scrollTop = aiChatBody.scrollHeight;
       }, 1000);
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- FLOATING AI WIDGET FOR WHOLE SITE ---
   function createFloatingWidget() {
     const widgetBtn = document.createElement('div');
-    widgetBtn.innerHTML = '<img src="guruai.png" style="width: 35px; height: 35px; border-radius: 50%;" />';
+    widgetBtn.innerHTML = '<img src="ailogo.png" style="width: 35px; height: 35px; border-radius: 50%;" />';
     widgetBtn.id = 'global-ai-btn';
     widgetBtn.style.cssText = `
       position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -924,7 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
     widgetBox.innerHTML = `
       <div style="background: rgba(25,25,25,0.9); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between;">
         <div style="display:flex; align-items:center; gap:0.5rem;">
-          <img src="guruai.png" style="height: 25px; border-radius: 5px;" />
+          <img src="ailogo.png" style="height: 25px; border-radius: 5px;" />
           <span style="font-weight:600;">GuruJi AI</span>
         </div>
         <button id="close-widget" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer; line-height:1;">×</button>
@@ -1524,3 +1524,4 @@ function handleNewsletter(e) {
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
