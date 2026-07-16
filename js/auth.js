@@ -1,18 +1,112 @@
-// js/auth.js
 import { auth, googleProvider } from './firebase.js';
-import { ensureUserDocument } from './database.js';
+import { ensureUserDocument } from './database.js'; // Ensure this file exists and exports ensureUserDocument
 import { 
   signInWithPopup, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged,
-  sendPasswordResetEmail,
-  sendEmailVerification,
   setPersistence,
-  browserLocalPersistence,
-  browserSessionPersistence
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// List of pages that require authentication
+const PROTECTED_PAGES = ['dashboard.html', 'profile.html', 'settings.html', 'bookmarks.html', 'downloads.html'];
+
+// List of pages users shouldn't access if ALREADY logged in
+const AUTH_PAGES = ['login.html', 'signup.html'];
+
+/**
+ * Initialize Auth State Listener & Session Persistence
+ */
+export function initializeAuth() {
+  // Set persistence to Local (survives browser restart)
+  setPersistence(auth, browserLocalPersistence)
+    .catch((error) => console.error("Auth Persistence Error:", error));
+
+  onAuthStateChanged(auth, (user) => {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    if (user) {
+      // User is signed in
+      updateNavbarUI(user);
+      
+      // If user is on login/signup, redirect to dashboard
+      if (AUTH_PAGES.includes(currentPage)) {
+        window.location.href = 'dashboard.html';
+      }
+    } else {
+      // User is signed out
+      updateNavbarUI(null);
+      
+      // If user is on a protected page, redirect to login
+      if (PROTECTED_PAGES.includes(currentPage)) {
+        window.location.href = 'login.html';
+      }
+    }
+  });
+
+  // Setup dropdown toggle logic
+  setupDropdownListener();
+}
+
+/**
+ * Update the Navbar UI based on Auth State
+ */
+function updateNavbarUI(user) {
+  const btnLogin = document.getElementById('btn-login');
+  const profileDropdown = document.getElementById('user-profile-dropdown');
+  
+  if (!btnLogin || !profileDropdown) return; // Navbar might not be loaded yet
+
+  if (user) {
+    // Hide Login Button, Show Profile
+    btnLogin.style.display = 'none';
+    profileDropdown.style.display = 'block';
+
+    // Populate user info
+    const userNameDisplay = user.displayName || 'User';
+    const userPhoto = user.photoURL || https://ui-avatars.com/api/?name=\&background=random;
+
+    const navUserName = document.getElementById('nav-user-name');
+    const navUserAvatar = document.getElementById('nav-user-avatar');
+    const dropUserName = document.getElementById('dropdown-user-name');
+    const dropUserEmail = document.getElementById('dropdown-user-email');
+
+    if(navUserName) navUserName.textContent = userNameDisplay;
+    if(navUserAvatar) navUserAvatar.src = userPhoto;
+    if(dropUserName) dropUserName.textContent = userNameDisplay;
+    if(dropUserEmail) dropUserEmail.textContent = user.email;
+
+  } else {
+    // Show Login Button, Hide Profile
+    btnLogin.style.display = 'inline-flex';
+    profileDropdown.style.display = 'none';
+    
+    // Close dropdown if open
+    profileDropdown.classList.remove('active');
+  }
+}
+
+/**
+ * Setup Dropdown Click Listener
+ */
+function setupDropdownListener() {
+  const profileBtn = document.getElementById('profile-btn');
+  const profileDropdown = document.getElementById('user-profile-dropdown');
+
+  if (profileBtn && profileDropdown) {
+    profileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profileDropdown.classList.toggle('active');
+    });
+
+    // Close when clicking outside
+    window.addEventListener('click', (e) => {
+      if (!profileDropdown.contains(e.target)) {
+        profileDropdown.classList.remove('active');
+      }
+    });
+  }
+}
 
 /**
  * Handle Google Sign-In
@@ -20,53 +114,12 @@ import {
 export async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    // Ensure document exists in Firestore
-    await ensureUserDocument(result.user);
-    window.location.href = 'dashboard.html';
+    if(typeof ensureUserDocument === 'function') {
+        await ensureUserDocument(result.user);
+    }
+    // Redirection is handled by onAuthStateChanged
   } catch (error) {
     console.error("Google Sign-In Error:", error);
-    throw error;
-  }
-}
-
-/**
- * Handle Email/Password Registration
- */
-export async function registerWithEmail(email, password, name) {
-  try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-    // Add temporary display name to user object before creating doc
-    result.user.displayName = name;
-    
-    // Create Firestore document
-    await ensureUserDocument(result.user);
-    
-    // Send verification email
-    await sendEmailVerification(result.user);
-    
-    // Log them out temporarily so they must verify (optional based on UX)
-    // or keep them logged in but show banner. We will keep them logged in.
-    window.location.href = 'dashboard.html';
-  } catch (error) {
-    console.error("Registration Error:", error);
-    throw error;
-  }
-}
-
-/**
- * Handle Email/Password Login
- */
-export async function loginWithEmail(email, password, rememberMe = true) {
-  try {
-    const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
-    await setPersistence(auth, persistence);
-    
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    // Update last login
-    await ensureUserDocument(result.user);
-    window.location.href = 'dashboard.html';
-  } catch (error) {
-    console.error("Login Error:", error);
     throw error;
   }
 }
@@ -77,42 +130,23 @@ export async function loginWithEmail(email, password, rememberMe = true) {
 export async function logoutUser() {
   try {
     await signOut(auth);
-    window.location.href = 'login.html';
+    // Redirection is handled by onAuthStateChanged if they are on a protected page, 
+    // otherwise they just see the UI update instantly.
+    
+    // Force redirect if not protected but want to go home
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (!PROTECTED_PAGES.includes(currentPage) && !AUTH_PAGES.includes(currentPage)) {
+       // if they were on index, stay there, UI just updates.
+    } else {
+       window.location.href = 'index.html';
+    }
   } catch (error) {
     console.error("Logout Error:", error);
-    throw error;
   }
 }
 
-/**
- * Handle Password Reset
- */
-export async function resetPassword(email) {
-  try {
-    await sendPasswordResetEmail(auth, email);
-  } catch (error) {
-    console.error("Reset Password Error:", error);
-    throw error;
-  }
-}
+// Make logoutUser globally available for inline onclick handlers in HTML
+window.logoutUser = logoutUser;
 
-/**
- * Auth State Observer for Protected Routes
- * @param {function} callback - Function to run when user is authenticated
- * @param {boolean} requiresAuth - If true, redirects to login when not authenticated
- */
-export function initAuthObserver(callback, requiresAuth = true) {
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      // User is signed in.
-      if (callback) await callback(user);
-    } else {
-      // No user is signed in.
-      if (requiresAuth) {
-        window.location.href = 'login.html';
-      } else {
-        if (callback) callback(null);
-      }
-    }
-  });
-}
+// Initialize on load
+document.addEventListener('DOMContentLoaded', initializeAuth);
