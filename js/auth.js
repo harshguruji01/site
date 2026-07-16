@@ -1,4 +1,4 @@
-import { auth, googleProvider } from './firebase.js';
+import { auth, googleProvider, githubProvider } from './firebase.js';
 import { ensureUserDocument } from './database.js'; // Ensure this file exists and exports ensureUserDocument
 import { 
   signInWithPopup, 
@@ -142,3 +142,22 @@ export async function logoutUser() {
 window.logoutUser = logoutUser;
 
 document.addEventListener('DOMContentLoaded', initializeAuth);
+
+/**
+ * Handle GitHub Sign-In
+ */
+export async function signInWithGitHub() {
+  try {
+    const result = await signInWithPopup(auth, githubProvider);
+    if(typeof ensureUserDocument === 'function') {
+        await ensureUserDocument(result.user);
+    }
+  } catch (error) {
+    console.error("GitHub Sign-In Error:", error);
+    if (error.code === 'auth/account-exists-with-different-credential') {
+      alert('You have already signed up with a different provider for that email.');
+    }
+    throw error;
+  }
+}
+window.signInWithGitHub = signInWithGitHub;
