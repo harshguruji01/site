@@ -12,8 +12,27 @@
   <link rel="stylesheet" href="login.css">
   <style>
     .verify-icon {
-      font-size: 3rem;
+      font-size: 4rem;
       margin-bottom: 20px;
+      display: inline-block;
+      animation: floatEmail 3s ease-in-out infinite;
+      filter: drop-shadow(0 10px 15px rgba(255, 51, 102, 0.4));
+    }
+    @keyframes floatEmail {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    .resend-link {
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .resend-link:hover {
+      color: white;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -32,17 +51,24 @@
       </div>
 
       <div class="verify-icon">✉️</div>
-      <h1 class="auth-title">Verify your email</h1>
-      <p class="auth-subtitle" style="margin-bottom: 30px;">
-        We have sent a verification link to your email address. Please check your inbox and click the link to verify your account or reset your password.
+      <h1 class="auth-title">Check your inbox</h1>
+      <p class="auth-subtitle" style="margin-bottom: 30px; font-size: 1rem; line-height: 1.6;">
+        We've sent a verification link to your email address.<br>Please check your inbox and click the link to verify your account or reset your password.
       </p>
 
-      <a href="login.html" class="btn-submit" style="text-decoration: none; display: inline-block;">
+      <a href="login.html" class="btn-submit" style="text-decoration: none; display: inline-flex;">
         <span class="btn-text">Back to Login</span>
       </a>
 
       <div class="auth-footer" style="margin-top: 30px;">
-        <p>Didn't receive the email? <a href="#" onclick="alert('Verification email resent!'); return false;">Resend Link</a></p>
+        <p>Didn't receive the email? <span class="resend-link" onclick="
+          this.style.pointerEvents = 'none';
+          this.textContent = 'Sending...';
+          setTimeout(() => {
+            this.textContent = 'Verification email resent!';
+            this.style.color = 'var(--success-color)';
+          }, 1500);
+        ">Resend Link</span></p>
       </div>
     </main>
   </div>
