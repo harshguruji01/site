@@ -1,62 +1,13 @@
-# HarshGuruJi Robots Configuration
-# Last Updated: June 1, 2026
+﻿User-agent: *
+Disallow: /admin/
+Disallow: /user/
+Disallow: /account/
+Disallow: /dashboard.html
+Disallow: /profile.html
+Disallow: /settings.html
+Disallow: /notifications.html
+Disallow: /messages.html
+Disallow: /bookmarks.html
+Disallow: /billing.html
 
-# Allow all search engines to crawl the site
-User-agent: *
-Allow: /
-
-# Specific rules for Google
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-# Specific rules for Bing
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Block bad bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-# Disallow admin and private areas
-Disallow: /admin-panel.html
-Disallow: /api/
-Disallow: /private/
-Disallow: /temp/
-Disallow: /cache/
-
-# Disallow duplicate or auto-generated pages
-Disallow: /*?*sort=
-Disallow: /*?*filter=
-Disallow: /*?*page=*&
-Disallow: /*?utm_
-
-# Allow important assets files
-Allow: /sitemap.xml
-Allow: /robots.txt
-Allow: /favicon.ico
-Allow: /*.css
-Allow: /*.js
-Allow: /logo.png
-Allow: /harshlogo.png
-
-# Sitemap location
-Sitemap: https://webguruji.online/sitemap.xml
-
-# Crawl delay to prevent server overload
-Crawl-delay: 1
-Request-rate: 30/60
-
-# Comment: Please respect robots.txt and crawl responsibly
-# Contact: support@webguruji.com for any crawling issues
-
+Sitemap: https://www.webguruji.online/sitemap.xml

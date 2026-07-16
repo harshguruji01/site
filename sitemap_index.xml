@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 
+    Instructions for Scalability:
+    If your website exceeds 50,000 URLs or the sitemap XML exceeds 50MB,
+    you must split the sitemap into smaller files and list them here.
+    Submit THIS sitemap_index.xml file to Google Search Console.
+  -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap-pages.xml</loc>
+    <lastmod>2026-07-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap-store.xml</loc>
+    <lastmod>2026-07-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap-news.xml</loc>
+    <lastmod>2026-07-16</lastmod>
+  </sitemap>
+</sitemapindex>

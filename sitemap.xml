@@ -1,167 +1,164 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Pages -->
+  <!-- HOMEPAGE -->
   <url>
-    <loc>https://webguruji.com/index.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/index.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Feature Hubs -->
+  <!-- HIGH PRIORITY CONTENT -->
   <url>
-    <loc>https://webguruji.com/ai-hub.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/daily-special.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/store.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/gaming-hub.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/free-tools.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/learning-hub.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/education.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/tools-hub.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/learning-hub.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/technology.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/ai-hub.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- User Pages -->
+  <!-- MEDIUM PRIORITY CONTENT -->
   <url>
-    <loc>https://webguruji.com/daily-special.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/insights.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/user-dashboard.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.com/about-owner.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Category Pages -->
-  <url>
-    <loc>https://webguruji.com/education.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/daily-life.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/technology.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/gaming-hub.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/free-tools.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/games-and-apps.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/daily-life.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/explore.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Support Pages -->
   <url>
-    <loc>https://webguruji.com/contact.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.com/about.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.com/join-us.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/contributor.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Legal Pages -->
+  <!-- INFORMATIONAL & SUPPORT -->
   <url>
-    <loc>https://webguruji.com/privacy-policy.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/about.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/about-owner.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/contact.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/support.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/ask-questions.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- AUTHENTICATION PAGES -->
+  <url>
+    <loc>https://www.webguruji.online/login.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/signup.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.webguruji.online/forgot-password.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- LEGAL PAGES -->
   <url>
-    <loc>https://webguruji.com/terms-and-conditions.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/privacy-policy.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Search & Content Pages -->
-  <url>
-    <loc>https://webguruji.com/search.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://webguruji.com/ask-anything.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.com/explore.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.com/insights.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Article Viewer -->
-  <url>
-    <loc>https://webguruji.com/article-viewer.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Error Pages -->
-  <url>
-    <loc>https://webguruji.com/404.html</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://www.webguruji.online/terms-and-conditions.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.4</priority>
   </url>
-
-  <!-- Ask Questions Page -->
-  <url>
-    <loc>https://webguruji.com/ask-questions.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
 </urlset>
