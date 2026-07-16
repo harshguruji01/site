@@ -146,22 +146,36 @@
   <!-- MAIN STORE LAYOUT -->
   <div class="store-container">
     
-    <!-- SIDEBAR -->
+        <!-- SIDEBAR -->
     <aside class="store-sidebar" id="store-sidebar">
-      <button class="mobile-filter-close" onclick="toggleMobileFilters()">✕</button>
+      <button class="mobile-filter-close" onclick="toggleMobileFilters()">?</button>
+      
+      <h3 class="sidebar-title">Platform</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox platform" value="windows"> Windows</label>
+        <label><input type="checkbox" class="filter-checkbox platform" value="macos"> macOS</label>
+        <label><input type="checkbox" class="filter-checkbox platform" value="linux"> Linux</label>
+        <label><input type="checkbox" class="filter-checkbox platform" value="android"> Android</label>
+        <label><input type="checkbox" class="filter-checkbox platform" value="ios"> iOS</label>
+        <label><input type="checkbox" class="filter-checkbox platform" value="web"> Web Apps</label>
+      </div>
+
+      <h3 class="sidebar-title">License</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox license" value="Free"> Free</label>
+        <label><input type="checkbox" class="filter-checkbox license" value="Open Source"> Open Source</label>
+        <label><input type="checkbox" class="filter-checkbox license" value="Freemium"> Freemium</label>
+        <label><input type="checkbox" class="filter-checkbox license" value="Paid"> Paid</label>
+      </div>
+
       <h3 class="sidebar-title">Categories</h3>
       <div class="filter-group">
-        <label><input type="checkbox" class="filter-checkbox" value="coding"> Coding Resources</label>
-        <label><input type="checkbox" class="filter-checkbox" value="pdf"> PDF Collections</label>
-        <label><input type="checkbox" class="filter-checkbox" value="ai"> AI Tools</label>
-        <label><input type="checkbox" class="filter-checkbox" value="ui"> UI Kits</label>
-        <label><input type="checkbox" class="filter-checkbox" value="notes"> Study Notes</label>
-      </div>
-      
-      <h3 class="sidebar-title" style="margin-top:2rem;">Pricing</h3>
-      <div class="filter-group">
-        <label><input type="checkbox" class="filter-checkbox" value="free"> Free Downloads</label>
-        <label><input type="checkbox" class="filter-checkbox" value="premium"> Premium Resources</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="Developer Tools"> Developer Tools</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="Productivity"> Productivity</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="Multimedia"> Multimedia</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="Security"> Security</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="AI Tools"> AI Tools</label>
+        <label><input type="checkbox" class="filter-checkbox category" value="Utilities"> Utilities</label>
       </div>
     </aside>
 
@@ -224,6 +238,7 @@
   <script src="js/store.js"></script>
 </body>
 </html>
+
 
 
 

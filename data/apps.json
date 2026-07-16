@@ -1,0 +1,232 @@
+[
+  {
+    "id": "app-001",
+    "name": "Visual Studio Code",
+    "developer": "Microsoft",
+    "category": "Developer Tools",
+    "version": "1.90.0",
+    "updatedDate": "2024-06-15",
+    "size": "95 MB",
+    "license": "Open Source",
+    "rating": 4.9,
+    "downloads": "100M+",
+    "verified": true,
+    "icon": "https://code.visualstudio.com/assets/images/code-stable.png",
+    "description": "Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop and is available for Windows, macOS and Linux. It comes with built-in support for JavaScript, TypeScript and Node.js and has a rich ecosystem of extensions.",
+    "features": [
+      "IntelliSense smart completions",
+      "Built-in Git commands",
+      "Extensible and customizable",
+      "Debugging directly from the editor"
+    ],
+    "pros": ["Fast and lightweight", "Massive extension ecosystem", "Free and open source"],
+    "cons": ["Electron-based (memory heavy at times)", "Can be overwhelming for absolute beginners"],
+    "requirements": {
+      "OS": "Windows 10+, macOS 11+, Linux",
+      "RAM": "1 GB (2 GB recommended)",
+      "Storage": "300 MB"
+    },
+    "website": "https://code.visualstudio.com/",
+    "platforms": {
+      "windows": "https://code.visualstudio.com/docs/?dv=win64user",
+      "macos": "https://code.visualstudio.com/docs/?dv=osx",
+      "linux": "https://code.visualstudio.com/docs/?dv=linux64_deb"
+    },
+    "screenshots": [
+      "https://code.visualstudio.com/assets/home/home-screenshot-mac-2x-v2.png"
+    ]
+  },
+  {
+    "id": "app-002",
+    "name": "VLC Media Player",
+    "developer": "VideoLAN",
+    "category": "Multimedia",
+    "version": "3.0.21",
+    "updatedDate": "2024-05-10",
+    "size": "42 MB",
+    "license": "Open Source",
+    "rating": 4.8,
+    "downloads": "1B+",
+    "verified": true,
+    "icon": "https://images.videolan.org/images/vlc-100.png",
+    "description": "VLC is a free and open source cross-platform multimedia player and framework that plays most multimedia files as well as DVDs, Audio CDs, VCDs, and various streaming protocols.",
+    "features": [
+      "Plays everything: Files, Discs, Webcams, Devices",
+      "Plays most codecs with no codec packs needed",
+      "Runs on all platforms",
+      "Completely Free - no spyware, no ads"
+    ],
+    "pros": ["Plays virtually any format", "Extremely low resource usage", "Free of spyware and ads"],
+    "cons": ["Outdated UI", "Advanced features can be hard to find"],
+    "requirements": {
+      "OS": "Windows 7+, macOS 10.7+, Linux, Android, iOS",
+      "RAM": "512 MB",
+      "Storage": "200 MB"
+    },
+    "website": "https://www.videolan.org/vlc/",
+    "platforms": {
+      "windows": "https://get.videolan.org/vlc/last/win64/",
+      "macos": "https://get.videolan.org/vlc/last/macosx/",
+      "linux": "https://www.videolan.org/vlc/#download",
+      "android": "https://play.google.com/store/apps/details?id=org.videolan.vlc",
+      "ios": "https://apps.apple.com/us/app/vlc-media-player/id650377962"
+    },
+    "screenshots": [
+      "https://images.videolan.org/images/screenshots/vlc3-windows.jpg"
+    ]
+  },
+  {
+    "id": "app-003",
+    "name": "Figma",
+    "developer": "Figma",
+    "category": "Productivity",
+    "version": "Web-Based",
+    "updatedDate": "2024-07-01",
+    "size": "N/A",
+    "license": "Freemium",
+    "rating": 4.7,
+    "downloads": "50M+",
+    "verified": true,
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
+    "description": "Figma is the leading collaborative interface design tool. It connects everyone in the design process so teams can deliver better products, faster.",
+    "features": [
+      "Real-time collaboration",
+      "Vector networks",
+      "Auto Layout",
+      "Interactive Prototyping"
+    ],
+    "pros": ["Runs directly in browser", "Excellent collaboration tools", "Great free tier"],
+    "cons": ["Requires internet connection", "Can get expensive for large teams"],
+    "requirements": {
+      "OS": "Web Browser (Chrome, Firefox, Safari, Edge), Windows, macOS",
+      "RAM": "4 GB (8 GB recommended)",
+      "Storage": "N/A"
+    },
+    "website": "https://www.figma.com/",
+    "platforms": {
+      "web": "https://www.figma.com/",
+      "windows": "https://www.figma.com/downloads/",
+      "macos": "https://www.figma.com/downloads/",
+      "android": "https://play.google.com/store/apps/details?id=com.figma.mirror"
+    },
+    "screenshots": [
+      "https://cdn.sanity.io/images/599r6htc/localized/455cb3439486c4e0b5103c2807f7f0e5728a463d-2880x1800.png"
+    ]
+  },
+  {
+    "id": "app-004",
+    "name": "ChatGPT",
+    "developer": "OpenAI",
+    "category": "AI Tools",
+    "version": "1.2024.180",
+    "updatedDate": "2024-07-10",
+    "size": "50 MB",
+    "license": "Freemium",
+    "rating": 4.9,
+    "downloads": "500M+",
+    "verified": true,
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+    "description": "Get instant answers, find creative inspiration, and learn something new with ChatGPT.",
+    "features": [
+      "Advanced natural language processing",
+      "Voice mode on mobile apps",
+      "GPT-4o capabilities",
+      "Data analysis and vision"
+    ],
+    "pros": ["Incredibly versatile", "Best-in-class AI model", "Excellent mobile apps"],
+    "cons": ["Can sometimes hallucinate facts", "Premium tier is $20/mo"],
+    "requirements": {
+      "OS": "Web Browser, iOS 16.1+, Android 6.0+",
+      "RAM": "1 GB",
+      "Storage": "100 MB"
+    },
+    "website": "https://chatgpt.com/",
+    "platforms": {
+      "web": "https://chatgpt.com/",
+      "android": "https://play.google.com/store/apps/details?id=com.openai.chatgpt",
+      "ios": "https://apps.apple.com/us/app/chatgpt/id6448311069"
+    },
+    "screenshots": [
+      "https://openai.com/chatgpt-screenshot-placeholder.png"
+    ]
+  },
+  {
+    "id": "app-005",
+    "name": "Brave Browser",
+    "developer": "Brave Software",
+    "category": "Utilities",
+    "version": "1.67.123",
+    "updatedDate": "2024-06-25",
+    "size": "120 MB",
+    "license": "Open Source",
+    "rating": 4.7,
+    "downloads": "100M+",
+    "verified": true,
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/5/51/Brave_icon_lion_face.png",
+    "description": "Brave is a free and open-source web browser developed by Brave Software, Inc. based on the Chromium web browser. It blocks ads and website trackers, and provides a way for users to send cryptocurrency contributions to websites and content creators.",
+    "features": [
+      "Built-in Ad Blocker (Brave Shields)",
+      "Chromium-based (supports Chrome extensions)",
+      "Brave Rewards",
+      "Built-in Tor integration"
+    ],
+    "pros": ["Extremely fast", "Excellent privacy out-of-the-box", "Familiar Chrome-like UI"],
+    "cons": ["Some sites break due to strict blocking", "Crypto features can feel bloated"],
+    "requirements": {
+      "OS": "Windows 10+, macOS 10.15+, Linux, Android, iOS",
+      "RAM": "2 GB",
+      "Storage": "500 MB"
+    },
+    "website": "https://brave.com/",
+    "platforms": {
+      "windows": "https://brave.com/download/",
+      "macos": "https://brave.com/download/",
+      "linux": "https://brave.com/linux/",
+      "android": "https://play.google.com/store/apps/details?id=com.brave.browser",
+      "ios": "https://apps.apple.com/us/app/brave-private-web-browser/id1052879175"
+    },
+    "screenshots": [
+      "https://brave.com/static-assets/images/optimized/home/browser-mockup.webp"
+    ]
+  },
+  {
+    "id": "app-006",
+    "name": "Bitwarden",
+    "developer": "8bit Solutions",
+    "category": "Security",
+    "version": "2024.6.1",
+    "updatedDate": "2024-06-20",
+    "size": "60 MB",
+    "license": "Open Source",
+    "rating": 4.8,
+    "downloads": "10M+",
+    "verified": true,
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Bitwarden_logo.svg/1200px-Bitwarden_logo.svg.png",
+    "description": "Bitwarden is an open source password management solution for individuals, teams, and business organizations.",
+    "features": [
+      "Zero-knowledge encryption",
+      "Cross-platform syncing",
+      "Secure password generator",
+      "Self-hosting option available"
+    ],
+    "pros": ["Fully free for basic personal use", "Open-source and audited", "Supports all platforms"],
+    "cons": ["UI is a bit utilitarian", "Requires premium for YubiKey support"],
+    "requirements": {
+      "OS": "Windows, macOS, Linux, Android, iOS, Browsers",
+      "RAM": "1 GB",
+      "Storage": "150 MB"
+    },
+    "website": "https://bitwarden.com/",
+    "platforms": {
+      "windows": "https://bitwarden.com/download/",
+      "macos": "https://bitwarden.com/download/",
+      "linux": "https://bitwarden.com/download/",
+      "android": "https://play.google.com/store/apps/details?id=com.x8bit.bitwarden",
+      "ios": "https://apps.apple.com/us/app/bitwarden-password-manager/id1137397744",
+      "web": "https://bitwarden.com/download/"
+    },
+    "screenshots": [
+      "https://bitwarden.com/images/home/personal-laptop.webp"
+    ]
+  }
+]
