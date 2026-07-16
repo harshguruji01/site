@@ -85,9 +85,6 @@
   transform: scale(1.02);
 }
 
-
-}
-
 /* Center Menu */
 .nav-menu {
   display: flex;
@@ -399,3 +396,4 @@
     height: 28px !important;
   }
 }
+
