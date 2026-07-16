@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | HarshGuruJi</title>
+  <meta name="description" content="User Dashboard for HarshGuruJi.">
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-container {
+      padding: 100px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .dashboard-header p {
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+    .dashboard-content {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .btn-logout {
+      margin-top: 20px;
+      background: #ea4335;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-logout:hover {
+      background: #c5221f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>Welcome to your <span class="gradient-text">Dashboard</span></h1>
+      <p>Here you can manage your learning progress, tools, and account settings.</p>
+    </div>
+
+    <div class="dashboard-content">
+      <h2>Hello, Learner! 👋</h2>
+      <p style="margin-top: 20px; color: var(--text-secondary);">Your personalized learning journey starts here. Explore our daily insights, use the free tools, and interact with GuruJi AI.</p>
+      
+      <button class="btn-logout" id="btn-logout">Log Out</button>
+    </div>
+  </div>
+
+  <script src="logout.js"></script>
+</body>
+</html>

@@ -48,24 +48,7 @@ function getDayOfYear() {
   return Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
 }
 
-function injectDailySpecialNav() {
-  const navLinks = document.getElementById('nav-links');
-  if (!navLinks || navLinks.querySelector('[data-nav-daily-special]')) return;
-
-  const li = document.createElement('li');
-  li.innerHTML = '<a href="daily-special.html" class="nav-link nav-daily-special" data-nav-daily-special>Daily Special</a>';
-  const firstItem = navLinks.querySelector('li');
-  if (firstItem) {
-    navLinks.insertBefore(li, firstItem.nextSibling);
-  } else {
-    navLinks.appendChild(li);
-  }
-
-  if (window.location.pathname.endsWith('daily-special.html')) {
-    navLinks.querySelectorAll('.nav-link.active').forEach(link => link.classList.remove('active'));
-    li.querySelector('.nav-link').classList.add('active');
-  }
-}
+// Removed injectDailySpecialNav as it is now hardcoded in the new premium header
 
 function initDailySpecialTabs() {
   const subNav = document.getElementById('ds-sub-nav');
@@ -120,58 +103,9 @@ function renderDailyThoughtsGrid(count) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  injectDailySpecialNav();
+  // Removed injectDailySpecialNav() call
   initDailySpecialTabs();
   renderDailyThoughtsGrid(12);
-
-  // Mobile Menu Toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-  }
-
-  // Navbar Scroll Effect & Scroll Spy
-  const navbar = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section[id]');
-  const navItems = document.querySelectorAll('.nav-link');
-
-  function scrollSpy() {
-    const scrollY = window.pageYOffset;
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 150;
-      const sectionId = current.getAttribute('id');
-      
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navItems.forEach(item => {
-          const href = item.getAttribute('href');
-          if (href && (href.endsWith('#' + sectionId) || href === '#' + sectionId)) {
-            item.classList.add('active');
-          } else {
-            if (href && (href.includes('#home') || href.includes('#features') || href.includes('#categories') || href.includes('#ai') || href.includes('#about') || href.includes('#contact'))) {
-              item.classList.remove('active');
-            }
-          }
-        });
-      }
-    });
-  }
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.style.background = 'rgba(5, 5, 5, 0.9)';
-      navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
-    } else {
-      navbar.style.background = 'rgba(5, 5, 5, 0.7)';
-      navbar.style.boxShadow = 'none';
-    }
-    if (sections.length > 0) scrollSpy();
-  });
-  if (sections.length > 0) scrollSpy();
 
   // Number Counter Animation
   const statNumbers = document.querySelectorAll('.stat-number');
@@ -375,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'chat-msg ai';
-        aiMsg.innerHTML = '<img src="logo.png" class="msg-avatar" style="width:30px;height:30px;border-radius:50%;padding:0;background:transparent;flex-shrink:0;"/><div class="msg-bubble">I am GuruJi AI! Try the real version on our website to ask anything you want! 🚀</div>';
+        aiMsg.innerHTML = '<img src="guruai.png" class="msg-avatar" style="width:30px;height:30px;border-radius:50%;padding:0;background:transparent;flex-shrink:0;"/><div class="msg-bubble">I am GuruJi AI! Try the real version on our website to ask anything you want! 🚀</div>';
         aiChatBody.appendChild(aiMsg);
         aiChatBody.scrollTop = aiChatBody.scrollHeight;
       }, 1000);
@@ -965,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- FLOATING AI WIDGET FOR WHOLE SITE ---
   function createFloatingWidget() {
     const widgetBtn = document.createElement('div');
-    widgetBtn.innerHTML = '<img src="logo.png" style="width: 35px; height: 35px; border-radius: 50%;" />';
+    widgetBtn.innerHTML = '<img src="guruai.png" style="width: 35px; height: 35px; border-radius: 50%;" />';
     widgetBtn.id = 'global-ai-btn';
     widgetBtn.style.cssText = `
       position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -990,7 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
     widgetBox.innerHTML = `
       <div style="background: rgba(25,25,25,0.9); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between;">
         <div style="display:flex; align-items:center; gap:0.5rem;">
-          <img src="logo.png" style="height: 25px; border-radius: 5px;" />
+          <img src="guruai.png" style="height: 25px; border-radius: 5px;" />
           <span style="font-weight:600;">GuruJi AI</span>
         </div>
         <button id="close-widget" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer; line-height:1;">×</button>

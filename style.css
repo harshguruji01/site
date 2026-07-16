@@ -221,40 +221,9 @@ body::before {
   .dsb-text strong { font-size: 0.85rem; }
 }
 
-/* Navbar */
-#navbar {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-  background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
-
-.nav-container {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1rem 5%; max-width: 1400px; margin: 0 auto;
-}
-
-.nav-logo {
-  display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.nav-links { display: flex; gap: 2rem; margin-left: 3rem; }
-.nav-link { font-size: 0.95rem; font-weight: 500; color: #ffffff; opacity: 0.85; transition: all 0.3s ease; }
-.nav-link:hover { color: #ffffff; opacity: 1; }
-.nav-link.active { color: var(--accent-primary) !important; opacity: 1; font-weight: 700; }
-
-.btn-nav {
-  padding: 0.55rem 1.2rem;
-  flex-shrink: 0;
-}
-
-.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
-.hamburger span { width: 25px; height: 3px; background: white; transition: 0.3s; }
-
-/* Search Bar */
-.nav-search { display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 50px; padding: 0.2rem 0.5rem; margin-left: auto; margin-right: 1rem; }
-.nav-search input { background: transparent; border: none; color: white; padding: 0.5rem 1rem; outline: none; width: 180px; font-family: 'Inter', sans-serif; }
-.nav-search button { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; transition: 0.3s; }
-.nav-search button:hover { color: var(--accent-primary); }
 
 /* Wiki Content & Calendar */
 .wiki-content { background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid var(--card-border); margin-top: 2rem; backdrop-filter: blur(10px); }

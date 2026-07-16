@@ -51,12 +51,12 @@ Allow: /logo.png
 Allow: /harshlogo.png
 
 # Sitemap location
-Sitemap: https://harshguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap.xml
 
 # Crawl delay to prevent server overload
 Crawl-delay: 1
 Request-rate: 30/60
 
 # Comment: Please respect robots.txt and crawl responsibly
-# Contact: support@harshguruji.com for any crawling issues
+# Contact: support@webguruji.com for any crawling issues
 

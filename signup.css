@@ -1,0 +1,60 @@
+@import url('login.css');
+
+.signup-container {
+  max-width: 500px;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.icon-only {
+  padding: 0.75rem;
+}
+
+.inline-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.inline-link:hover {
+  text-decoration: underline;
+}
+
+/* Password Strength Meter */
+.password-strength-container {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--input-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.strength-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--error-color);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.strength-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  width: 60px;
+  text-align: right;
+}
+
+/* Strength Levels */
+.strength-weak { background: var(--error-color); }
+.strength-fair { background: #fbbf24; }
+.strength-good { background: #60a5fa; }
+.strength-strong { background: var(--success-color); }
