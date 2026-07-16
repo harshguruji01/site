@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Store | HarshGuruJi</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="navbar.css" />
-  <link rel="stylesheet" href="css/store.css" />
-</head>
-<body data-theme="dark" class="store-body">
+const fs = require('fs');
+const path = require('path');
+
+// The ultimate responsive navbar with Loading state, Mobile Profile in menu, and Desktop Profile
+const navbarHTML = `
 <nav class="premium-navbar" aria-label="Main Navigation">
   <div class="nav-container">
     <!-- Mobile Hamburger -->
@@ -154,116 +144,25 @@
     </div>
   </div>
 </nav>
+`;
 
-  
-  <!-- HERO SECTION -->
-  <section class="store-hero">
-    <h1>Discover Premium Learning Resources</h1>
-    <p>Find educational tools, digital downloads, coding resources, AI tools, books, templates, and exclusive content carefully selected for students, developers, and lifelong learners.</p>
+const files = fs.readdirSync(__dirname);
+
+files.forEach(file => {
+  if (file.endsWith('.html')) {
+    let content = fs.readFileSync(file, 'utf8');
     
-    <div class="store-search-wrapper">
-      <svg class="store-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="store-search" class="store-search-bar" placeholder="Search e-books, coding courses, UI templates...">
-    </div>
-  </section>
-
-  <!-- MAIN STORE LAYOUT -->
-  <div class="store-container">
-    
-        <!-- SIDEBAR -->
-    <aside class="store-sidebar" id="store-sidebar">
-      <button class="mobile-filter-close" onclick="toggleMobileFilters()">?</button>
+    // Replace existing <nav class="premium-navbar">...</nav> with the new master navbarHTML
+    if (content.includes('<nav class="premium-navbar"')) {
+      content = content.replace(/<nav class="premium-navbar"[\s\S]*?<\/nav>/, navbarHTML.trim());
       
-      <h3 class="sidebar-title">Platform</h3>
-      <div class="filter-group">
-        <label><input type="checkbox" class="filter-checkbox platform" value="windows"> Windows</label>
-        <label><input type="checkbox" class="filter-checkbox platform" value="macos"> macOS</label>
-        <label><input type="checkbox" class="filter-checkbox platform" value="linux"> Linux</label>
-        <label><input type="checkbox" class="filter-checkbox platform" value="android"> Android</label>
-        <label><input type="checkbox" class="filter-checkbox platform" value="ios"> iOS</label>
-        <label><input type="checkbox" class="filter-checkbox platform" value="web"> Web Apps</label>
-      </div>
+      // Ensure <script type="module" src="js/auth.js"></script> is injected before </body> if not present
+      if (!content.includes('src="js/auth.js"')) {
+        content = content.replace('</body>', '  <script type="module" src="js/auth.js"></script>\n</body>');
+      }
 
-      <h3 class="sidebar-title">License</h3>
-      <div class="filter-group">
-        <label><input type="checkbox" class="filter-checkbox license" value="Free"> Free</label>
-        <label><input type="checkbox" class="filter-checkbox license" value="Open Source"> Open Source</label>
-        <label><input type="checkbox" class="filter-checkbox license" value="Freemium"> Freemium</label>
-        <label><input type="checkbox" class="filter-checkbox license" value="Paid"> Paid</label>
-      </div>
-
-      <h3 class="sidebar-title">Categories</h3>
-      <div class="filter-group">
-        <label><input type="checkbox" class="filter-checkbox category" value="Developer Tools"> Developer Tools</label>
-        <label><input type="checkbox" class="filter-checkbox category" value="Productivity"> Productivity</label>
-        <label><input type="checkbox" class="filter-checkbox category" value="Multimedia"> Multimedia</label>
-        <label><input type="checkbox" class="filter-checkbox category" value="Security"> Security</label>
-        <label><input type="checkbox" class="filter-checkbox category" value="AI Tools"> AI Tools</label>
-        <label><input type="checkbox" class="filter-checkbox category" value="Utilities"> Utilities</label>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main>
-      
-      <!-- FEATURED CATEGORIES -->
-      <div class="featured-categories">
-        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">E-books</div></div>
-        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">Coding</div></div>
-        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">AI Tools</div></div>
-        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">Study Notes</div></div>
-        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">UI Kits</div></div>
-      </div>
-
-      <!-- PRODUCT GRID -->
-      <h2 class="section-heading">All Resources</h2>
-      <div class="product-grid" id="product-grid">
-        <!-- Injected via store.js -->
-      </div>
-      
-    </main>
-  </div>
-
-  <!-- PRODUCT MODAL -->
-  <div class="store-modal-overlay" id="product-modal">
-    <div class="store-modal-content">
-      <button class="modal-close" onclick="closeModal()">?</button>
-      <div>
-        <img id="modal-img" src="" alt="Product" class="modal-image">
-      </div>
-      <div class="modal-details">
-        <h2 class="modal-title" id="modal-title">Product Title</h2>
-        <div class="modal-meta">
-          <span id="modal-author">By Author</span>
-          <span id="modal-rating">? 5.0 (0 reviews)</span>
-        </div>
-        <p class="modal-desc" id="modal-desc">Description goes here.</p>
-        <div style="margin-top:2rem;">
-          <button class="btn-buy" style="width:100%; padding:1rem; font-size:1.1rem;" onclick="showToast('Item Added to Library!')">Download Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div class="store-toast" id="store-toast">Notification Message</div>
-
-  <!-- MOBILE FLOATING BUTTONS -->
-  <button class="fab-filters" onclick="toggleMobileFilters()">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-    Filters
-  </button>
-  
-  <button class="fab-totop" id="fab-totop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
-  </button>
-
-  <script src="navbar.js"></script>
-  <script src="js/store.js"></script>
-  <script type="module" src="js/auth.js"></script>
-</body>
-</html>
-
-
-
-
+      fs.writeFileSync(file, content);
+      console.log(`Updated ${file}`);
+    }
+  }
+});

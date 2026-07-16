@@ -538,3 +538,31 @@
   .profile-btn { padding: 0.3rem; border-radius: 50%; }
   .dropdown-chevron { display: none; }
 }
+
+/* Auth Loading Skeleton */
+.auth-loading-skeleton {
+  width: 100px;
+  height: 35px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+[data-theme="light"] .auth-loading-skeleton {
+  background: linear-gradient(90deg, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.05) 75%);
+  background-size: 200% 100%;
+}
+
+@media (max-width: 992px) {
+  .auth-loading-skeleton {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}
