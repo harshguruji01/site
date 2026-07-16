@@ -114,6 +114,92 @@
     </a>
   </div>
 
-  <script src="signup.js"></script>
+  <script type="module">
+    import { registerWithEmail, signInWithGoogle, initAuthObserver } from './js/auth.js';
+
+    // If already logged in, redirect
+    initAuthObserver(null, false);
+
+    const { auth } = await import('./js/firebase.js');
+    const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
+    onAuthStateChanged(auth, (user) => {
+      if(user) window.location.href = 'dashboard.html';
+    });
+
+    // Toggle Password Visibility
+    const togglePwd = document.getElementById('toggle-pwd');
+    const pwdInput = document.getElementById('password');
+    if (togglePwd && pwdInput) {
+      togglePwd.addEventListener('click', () => {
+        const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        pwdInput.setAttribute('type', type);
+        togglePwd.textContent = type === 'password' ? '👁‍🗨' : '👁';
+      });
+    }
+
+    // Signup Form Submission
+    const signupForm = document.getElementById('signup-form');
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fullname = document.getElementById('fullname').value;
+      const email = document.getElementById('email').value;
+      const pwd = pwdInput.value;
+      const confirmPwd = document.getElementById('confirm-password').value;
+      const terms = document.getElementById('terms').checked;
+      
+      const globalError = document.getElementById('global-error');
+      const btnText = document.querySelector('.btn-text');
+      const btnLoader = document.querySelector('.btn-loader');
+      const submitBtn = document.getElementById('btn-signup');
+
+      globalError.style.display = 'none';
+
+      if (!fullname || !email || !pwd || !confirmPwd) {
+        globalError.textContent = 'Please fill in all fields.';
+        globalError.style.display = 'block';
+        return;
+      }
+      if (pwd !== confirmPwd) {
+        globalError.textContent = 'Passwords do not match.';
+        globalError.style.display = 'block';
+        return;
+      }
+      if (!terms) {
+        document.getElementById('terms-error').style.display = 'block';
+        return;
+      }
+      document.getElementById('terms-error').style.display = 'none';
+
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'block';
+      submitBtn.disabled = true;
+
+      try {
+        await registerWithEmail(email, pwd, fullname);
+        // Will auto-redirect
+      } catch (error) {
+        btnText.style.display = 'block';
+        btnLoader.style.display = 'none';
+        submitBtn.disabled = false;
+        globalError.textContent = error.message;
+        globalError.style.display = 'block';
+      }
+    });
+
+    // Google Login
+    const googleBtn = document.querySelector('.btn-social.google');
+    if (googleBtn) {
+      googleBtn.addEventListener('click', async () => {
+        try {
+          await signInWithGoogle();
+        } catch (error) {
+          const globalError = document.getElementById('global-error');
+          globalError.textContent = 'Google Sign-In failed: ' + error.message;
+          globalError.style.display = 'block';
+        }
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security | HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard-theme.css">
+</head>
+<body data-page-id="security">
+  
+  <div id="app">
+    <main id="main-content" class="main-content">
+      <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+        <h1 style="font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem;">Security Settings</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Manage your password, 2FA, and active sessions.</p>
+        
+        <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-color);">
+          <h3>Change Password</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.5rem 0 1rem;">Update your password regularly to keep your account secure.</p>
+          <button class="btn btn-primary" onclick="alert('Password reset email sent (Firebase integration pending)')">Send Password Reset Link</button>
+        </div>
+
+        <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-color);">
+          <h3>Two-Factor Authentication (2FA)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.5rem 0 1rem;">Add an extra layer of security to your account.</p>
+          <button class="btn btn-secondary">Enable 2FA</button>
+        </div>
+
+        <div>
+          <h3>Active Sessions</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.5rem 0 1rem;">Log out of other devices if you suspect unauthorized access.</p>
+          <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--border-radius-md); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>Windows - Chrome</strong><br>
+              <span style="font-size: 0.8rem; color: var(--success-color);">Current Session</span>
+            </div>
+            <button class="btn btn-secondary" disabled>Active</button>
+          </div>
+          <button class="btn btn-danger" style="margin-top: 1rem;" onclick="alert('Logging out other devices...')">Log Out All Other Devices</button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
