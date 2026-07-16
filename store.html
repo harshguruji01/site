@@ -7,17 +7,12 @@
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="navbar.css" />
-  <style>
-    body { padding-top: 100px; } /* Offset for sticky navbar */
-    .page-container { max-width: 1200px; margin: 0 auto; padding: 2rem; color: #f3f4f6; }
-    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; margin-bottom: 1rem; }
-    p { color: #9aa7b2; font-size: 1.1rem; }
-  </style>
+  <link rel="stylesheet" href="css/store.css" />
 </head>
-<body data-theme="dark">
+<body data-theme="dark" class="store-body">
 <nav class="premium-navbar" aria-label="Main Navigation">
   <div class="nav-container">
     <!-- Mobile Hamburger -->
@@ -136,10 +131,85 @@
   </div>
 </nav>
 
-  <div class="page-container">
-    <h1>Store</h1>
-    <p>This page is currently under construction. Stay tuned for updates!</p>
+  
+  <!-- HERO SECTION -->
+  <section class="store-hero">
+    <h1>Discover Premium Learning Resources</h1>
+    <p>Find educational tools, digital downloads, coding resources, AI tools, books, templates, and exclusive content carefully selected for students, developers, and lifelong learners.</p>
+    
+    <div class="store-search-wrapper">
+      <svg class="store-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="store-search" class="store-search-bar" placeholder="Search e-books, coding courses, UI templates...">
+    </div>
+  </section>
+
+  <!-- MAIN STORE LAYOUT -->
+  <div class="store-container">
+    
+    <!-- SIDEBAR -->
+    <aside class="store-sidebar">
+      <h3 class="sidebar-title">Categories</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox" value="coding"> Coding Resources</label>
+        <label><input type="checkbox" class="filter-checkbox" value="pdf"> PDF Collections</label>
+        <label><input type="checkbox" class="filter-checkbox" value="ai"> AI Tools</label>
+        <label><input type="checkbox" class="filter-checkbox" value="ui"> UI Kits</label>
+        <label><input type="checkbox" class="filter-checkbox" value="notes"> Study Notes</label>
+      </div>
+      
+      <h3 class="sidebar-title" style="margin-top:2rem;">Pricing</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox" value="free"> Free Downloads</label>
+        <label><input type="checkbox" class="filter-checkbox" value="premium"> Premium Resources</label>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      
+      <!-- FEATURED CATEGORIES -->
+      <div class="featured-categories">
+        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">E-books</div></div>
+        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">Coding</div></div>
+        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">AI Tools</div></div>
+        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">Study Notes</div></div>
+        <div class="cat-card"><div class="cat-card-icon">??</div><div class="cat-card-title">UI Kits</div></div>
+      </div>
+
+      <!-- PRODUCT GRID -->
+      <h2 class="section-heading">All Resources</h2>
+      <div class="product-grid" id="product-grid">
+        <!-- Injected via store.js -->
+      </div>
+      
+    </main>
   </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="store-modal-overlay" id="product-modal">
+    <div class="store-modal-content">
+      <button class="modal-close" onclick="closeModal()">?</button>
+      <div>
+        <img id="modal-img" src="" alt="Product" class="modal-image">
+      </div>
+      <div class="modal-details">
+        <h2 class="modal-title" id="modal-title">Product Title</h2>
+        <div class="modal-meta">
+          <span id="modal-author">By Author</span>
+          <span id="modal-rating">? 5.0 (0 reviews)</span>
+        </div>
+        <p class="modal-desc" id="modal-desc">Description goes here.</p>
+        <div style="margin-top:2rem;">
+          <button class="btn-buy" style="width:100%; padding:1rem; font-size:1.1rem;" onclick="showToast('Item Added to Library!')">Download Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="store-toast" id="store-toast">Notification Message</div>
+
   <script src="navbar.js"></script>
+  <script src="js/store.js"></script>
 </body>
 </html>
