@@ -3,20 +3,22 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, GoogleAuthProvider, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
-// TODO: Replace with your actual Firebase project configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyYourApiKeyPlaceholderHere...",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456",
-  measurementId: "G-ABCDEFGH"
+  apiKey: "AIzaSyAqlPNMNAGwU7-Ip8rr-W8SJqRiqiCoMoc",
+  authDomain: "hgjsite-dea61.firebaseapp.com",
+  projectId: "hgjsite-dea61",
+  storageBucket: "hgjsite-dea61.firebasestorage.app",
+  messagingSenderId: "474003019776",
+  appId: "1:474003019776:web:a88684049d17b273e5e0e5",
+  measurementId: "G-DHW0NSWF76"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // Initialize Firebase services
 export const auth = getAuth(app);

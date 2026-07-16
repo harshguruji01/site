@@ -11,8 +11,127 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="navbar.css" />
 </head>
 <body>
+<nav class="premium-navbar" aria-label="Main Navigation">
+  <div class="nav-container">
+    <!-- Mobile Hamburger -->
+    <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo" aria-label="HarshGuruJi Home">
+      HarshGuruJi
+    </a>
+
+    <!-- Center Menu -->
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="daily-special.html" class="nav-link">Daily Special</a>
+      </li>
+      <li class="nav-item">
+        <a href="store.html" class="nav-link">Store</a>
+      </li>
+      <li class="nav-item">
+        <a href="contributor.html" class="nav-link">Contributors</a>
+      </li>
+      <li class="nav-item has-mega-menu">
+        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">
+          Categories <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px;"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="mega-menu" aria-label="Categories Dropdown">
+          <div class="mega-menu-container">
+            <!-- Column 1: Education & Learning -->
+            <div class="mega-column">
+              <div class="mega-column-title">🎓 Education</div>
+              <ul>
+                <li><a href="#" class="mega-link">HTML & CSS</a></li>
+                <li><a href="#" class="mega-link">JavaScript</a></li>
+                <li><a href="#" class="mega-link">Python & Java</a></li>
+                <li><a href="#" class="mega-link">C / C++</a></li>
+                <li><a href="#" class="mega-link">AI & Machine Learning</a></li>
+                <li><a href="#" class="mega-link">Cyber Security</a></li>
+              </ul>
+              <div class="mega-column-title" style="margin-top: 1.5rem;">📚 Learning</div>
+              <ul>
+                <li><a href="#" class="mega-link">Courses & Tutorials</a></li>
+                <li><a href="#" class="mega-link">Notes & Cheat Sheets</a></li>
+                <li><a href="#" class="mega-link">Interview Questions</a></li>
+                <li><a href="#" class="mega-link">Roadmaps</a></li>
+              </ul>
+            </div>
+            
+            <!-- Column 2: Technology & News -->
+            <div class="mega-column">
+              <div class="mega-column-title">💻 Technology</div>
+              <ul>
+                <li><a href="#" class="mega-link">Programming & Coding</a></li>
+                <li><a href="#" class="mega-link">Software & OS</a></li>
+                <li><a href="#" class="mega-link">Windows & Linux</a></li>
+                <li><a href="#" class="mega-link">Android</a></li>
+                <li><a href="#" class="mega-link">Cloud Computing</a></li>
+                <li><a href="#" class="mega-link">GitHub</a></li>
+              </ul>
+              <div class="mega-column-title" style="margin-top: 1.5rem;">📰 News</div>
+              <ul>
+                <li><a href="#" class="mega-link">Technology News</a></li>
+                <li><a href="#" class="mega-link">AI News</a></li>
+                <li><a href="#" class="mega-link">Science & Education</a></li>
+              </ul>
+            </div>
+
+            <!-- Column 3: Free Tools -->
+            <div class="mega-column">
+              <div class="mega-column-title">🔧 Free Tools</div>
+              <ul>
+                <li><a href="#" class="mega-link">Image Compressor</a></li>
+                <li><a href="#" class="mega-link">PDF Tools</a></li>
+                <li><a href="#" class="mega-link">QR & Password Generator</a></li>
+                <li><a href="#" class="mega-link">Color Picker</a></li>
+                <li><a href="#" class="mega-link">JSON Formatter</a></li>
+                <li><a href="#" class="mega-link">Base64 Tool</a></li>
+                <li><a href="#" class="mega-link">Text Compare</a></li>
+                <li><a href="#" class="mega-link">Unit Converter & Calculator</a></li>
+              </ul>
+            </div>
+
+            <!-- Column 4: Useful Websites -->
+            <div class="mega-column">
+              <div class="mega-column-title">🌐 Useful Websites</div>
+              <ul>
+                <li><a href="https://aistudio.google.com" target="_blank" class="mega-link">Google AI Studio</a></li>
+                <li><a href="https://github.com" target="_blank" class="mega-link">GitHub</a></li>
+                <li><a href="https://developer.mozilla.org" target="_blank" class="mega-link">MDN Docs</a></li>
+                <li><a href="https://w3schools.com" target="_blank" class="mega-link">W3Schools</a></li>
+                <li><a href="https://stackoverflow.com" target="_blank" class="mega-link">Stack Overflow</a></li>
+                <li><a href="https://caniuse.com" target="_blank" class="mega-link">Can I Use</a></li>
+                <li><a href="https://codepen.io" target="_blank" class="mega-link">CodePen / JSFiddle</a></li>
+                <li><a href="https://photopea.com" target="_blank" class="mega-link">Photopea / Figma</a></li>
+                <li><a href="https://remove.bg" target="_blank" class="mega-link">Remove.bg / TinyPNG</a></li>
+                <li><a href="https://unsplash.com" target="_blank" class="mega-link">Unsplash / Pexels</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Right Side -->
+    <div class="nav-right">
+      <div class="nav-search">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search articles, tools, news..." aria-label="Search">
+      </div>
+      <a href="login.html" class="nav-login-btn">Login</a>
+    </div>
+  </div>
+</nav>
+
   <div id="scroll-progress"></div>
   <canvas id="particleCanvas"></canvas>
   
@@ -119,5 +238,7 @@
     </div>
   </footer>
   <script src="script.js"></script>
+<script src="navbar.js"></script>
 </body>
 </html>
+
