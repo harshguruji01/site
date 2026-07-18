@@ -19,6 +19,11 @@
   },
   "homepage": "https://github.com/web-guru-ji/site#readme",
   "dependencies": {
-    "firebase": "^12.16.0"
+    "cheerio": "^1.2.0",
+    "clean-css": "^5.3.3",
+    "firebase": "^12.16.0",
+    "html-minifier": "^4.0.0",
+    "sharp": "^0.35.3",
+    "terser": "^5.49.0"
   }
 }

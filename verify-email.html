@@ -1,80 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Email | HarshGuruJi</title>
-  <meta name="description" content="Verify your email address for HarshGuruJi.">
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="login.css">
-  <style>
-    .verify-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      display: inline-block;
-      animation: floatEmail 3s ease-in-out infinite;
-      filter: drop-shadow(0 10px 15px rgba(255, 51, 102, 0.4));
-    }
-    @keyframes floatEmail {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.05); }
-      100% { transform: translateY(0) scale(1); }
-    }
-    .resend-link {
-      color: var(--accent-primary);
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .resend-link:hover {
-      color: white;
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  
-  <div class="auth-wrapper">
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
-    
-    <main class="auth-container" style="text-align: center;">
-      <div class="auth-header">
-        <a href="index.html" class="auth-logo" style="justify-content: center;">
-          <img src="logo.png" alt="HarshGuruJi Logo">
-          <span>HarshGuruJi</span>
-        </a>
-      </div>
-
-      <div class="verify-icon">✉️</div>
-      <h1 class="auth-title">Check your inbox</h1>
-      <p class="auth-subtitle" style="margin-bottom: 30px; font-size: 1rem; line-height: 1.6;">
-        We've sent a verification link to your email address.<br>Please check your inbox and click the link to verify your account or reset your password.
-      </p>
-
-      <a href="login.html" class="btn-submit" style="text-decoration: none; display: inline-flex;">
-        <span class="btn-text">Back to Login</span>
-      </a>
-
-      <div class="auth-footer" style="margin-top: 30px;">
-        <p>Didn't receive the email? <span class="resend-link" onclick="
-          this.style.pointerEvents = 'none';
-          this.textContent = 'Sending...';
-          setTimeout(() => {
-            this.textContent = 'Verification email resent!';
-            this.style.color = 'var(--success-color)';
-          }, 1500);
-        ">Resend Link</span></p>
-      </div>
-    </main>
-  </div>
-
-</body>
-</html>
-
-
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Verify Email | HarshGuruJi</title><meta name="description" content="Verify your email address for HarshGuruJi."><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="login.css"><style>.verify-icon{font-size:4rem;margin-bottom:20px;display:inline-block;animation:floatEmail 3s ease-in-out infinite;filter:drop-shadow(0 10px 15px rgba(255, 51, 102, .4))}@keyframes floatEmail{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}100%{transform:translateY(0) scale(1)}}.resend-link{color:var(--accent-primary);font-weight:600;text-decoration:none;transition:all .3s ease;cursor:pointer}.resend-link:hover{color:#fff;text-decoration:underline}</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3366"><link rel="apple-touch-icon" href="logo.png"><script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "HarshGuruJi",
+    "url": "https://www.webguruji.online",
+    "logo": "https://www.webguruji.online/logo.png",
+    "description": "India's most premium educational platform with AI.",
+    "sameAs": [
+      "https://github.com",
+      "https://guruai.zapier.app"
+    ]
+  }</script><meta http-equiv="X-XSS-Protection" content="1; mode=block"></head><body><div class="auth-wrapper"><div class="ambient-orb orb-1"></div><div class="ambient-orb orb-2"></div><main class="auth-container" style="text-align:center"><div class="auth-header"><a href="index.html" class="auth-logo" style="justify-content:center"><picture><source srcset="logo.webp" type="image/webp"><img src="logo.png" alt="HarshGuruJi Logo" width="800" height="600" fetchpriority="high"></picture><span>HarshGuruJi</span></a></div><div class="verify-icon">✉️</div><h1 class="auth-title">Check your inbox</h1><p class="auth-subtitle" style="margin-bottom:30px;font-size:1rem;line-height:1.6">We've sent a verification link to your email address.<br>Please check your inbox and click the link to verify your account or reset your password.</p><a href="login.html" class="btn-submit" style="text-decoration:none;display:inline-flex"><span class="btn-text">Back to Login</span></a><div class="auth-footer" style="margin-top:30px"><p>Didn't receive the email? <span class="resend-link" onclick='this.style.pointerEvents="none",this.textContent="Sending...",setTimeout(()=>{this.textContent="Verification email resent!",this.style.color="var(--success-color)"},1500)'>Resend Link</span></p></div></main></div></body></html>
