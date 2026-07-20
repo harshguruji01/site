@@ -1,40 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
 
-:root {
-  /* Color System */
-  --bg-base: #000000;
-  --bg-surface: #0a0a0c;
-  --bg-surface-elevated: #141416;
-  
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #6b7079;
-  
-  --accent-cyan: #00f0ff;
-  --accent-indigo: #5c00ff;
-  --accent-purple: #b000ff;
-  --accent-pink: #ff0055;
-  
-  --border-glass: rgba(255, 255, 255, 0.08);
-  --bg-glass: rgba(255, 255, 255, 0.02);
-  --bg-glass-hover: rgba(255, 255, 255, 0.05);
-  
-  /* Typography */
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
-  
-  /* Spacing & Sizes */
-  --nav-height: 80px;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-full: 9999px;
-  
-  /* Animations */
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
+
 
 
 

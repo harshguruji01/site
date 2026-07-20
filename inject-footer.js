@@ -1,15 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Technology - HarshGuruJi</title><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3366"><link rel="apple-touch-icon" href="logo.png"><script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "HarshGuruJi",
-    "url": "https://www.webguruji.online",
-    "logo": "https://www.webguruji.online/logo.png",
-    "description": "India's most premium educational platform with AI.",
-    "sameAs": [
-      "https://github.com",
-      "https://guruai.zapier.app"
-    ]
-  }</script><meta http-equiv="X-XSS-Protection" content="1; mode=block"></head><body><div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header"><div class="badge">Topic</div><h1 class="page-title"><span class="gradient-text">Technology</span></h1><p class="page-desc">Technology powers the future. Discover facts, history, and the latest innovations curated from Wikipedia.</p></section><section class="section section-dark"><div class="section-container"><div id="wiki-container-technology" class="wiki-content"><div class="wiki-loading">Loading content from Wikipedia...</div></div></div></section><script src="script.js" defer="true"></script>
+const fs = require('fs');
+const path = require('path');
+const cheerio = require('cheerio');
+
+const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html'));
+
+const premiumFooterHTML = `
 <!-- Premium Dark Theme Footer -->
 <footer style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4rem 2rem 2rem; margin-top: 4rem;">
   <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
@@ -35,14 +30,14 @@
       <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Legal</h4>
       <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
         <li><a href="privacy-policy.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a></li>
-        <li><a href="terms-and-conditions.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Terms &amp; Conditions</a></li>
+        <li><a href="terms-and-conditions.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Terms & Conditions</a></li>
         <li><a href="contact.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Contact Us</a></li>
       </ul>
     </div>
   </div>
   
   <div style="max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-    <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 HarshGuruJi. All rights reserved.</p>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; ${new Date().getFullYear()} HarshGuruJi. All rights reserved.</p>
     <div style="display: flex; gap: 1rem;">
       <a href="https://github.com/harshguruji01" target="_blank" aria-label="GitHub" style="color: var(--text-muted); transition: 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
@@ -50,4 +45,28 @@
     </div>
   </div>
 </footer>
-</body></html>
+`;
+
+htmlFiles.forEach(file => {
+  const filePath = path.join(__dirname, file);
+  let html = fs.readFileSync(filePath, 'utf8');
+
+  // Strip empty divs / `<br>`s that cause gaps
+  html = html.replace(/<br\s*\/?>\s*<br\s*\/?>/gi, '');
+  html = html.replace(/<div\s+class="gap[^>]*>.*?<\/div>/gi, '');
+  
+  const $ = cheerio.load(html, { recognizeSelfClosing: true });
+
+  // Remove existing footers or `.auth-footer` if it's the main page footer
+  $('footer').remove();
+  
+  // Also remove custom footers that might not use the footer tag
+  $('.footer').remove();
+  $('.site-footer').remove();
+
+  // Append premium footer
+  $('body').append(premiumFooterHTML);
+
+  fs.writeFileSync(filePath, $.html(), 'utf8');
+  console.log(`Injected premium footer and fixed layout gaps in ${file}`);
+});
