@@ -363,14 +363,14 @@ button {
    SECTIONS & GRIDS
 ========================================= */
 .section {
-  padding: 120px 0;
+  padding: 60px 0;
   position: relative;
 }
 
 .section-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .grid-3 {
