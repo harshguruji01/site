@@ -482,7 +482,7 @@ body::before {
 }
 .page-header {
   text-align: center;
-  padding: clamp(6rem, 15vh, 10rem) 5% clamp(2rem, 5vh, 4rem);
+  padding: clamp(4rem, 10vh, 7rem) 5% clamp(1.5rem, 3vh, 2.5rem);
   position: relative;
 }
 .page-title {
@@ -496,7 +496,7 @@ body::before {
   margin: 0 auto;
 }
 .section {
-  padding: clamp(3rem, 6vh, 6rem) 5%;
+  padding: clamp(2rem, 4vh, 4rem) 5%;
   position: relative;
 }
 .section-dark {
@@ -509,7 +509,7 @@ body::before {
 }
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 .badge {
   display: inline-flex;
@@ -1987,21 +1987,19 @@ body::before {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--glass-border);
   border-radius: 50px;
-  max-width: 720px;
+  max-width: fit-content;
   margin-left: auto;
   margin-right: auto;
 }
 .ds-sub-btn {
-  flex: 1;
-  min-width: 100px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 50px;
   background: 0 0;
   color: var(--text-secondary);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: 0.3s;
 }
