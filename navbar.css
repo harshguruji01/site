@@ -1,6 +1,6 @@
 /* ==========================================================================
-   HarshGuruJi - Compact Ultra-Sleek Single-Row Horizontal Navbar
-   Height: 50px Desktop (h3 proportional), 44px Mobile (h6 mini proportional)
+   HarshGuruJi - Ultra-Compact Mini Single-Row Horizontal Navbar
+   Height: 40px Desktop (H3 max scale), 36px Mobile (H6 mini scale)
    ========================================================================== */
 
 /* ── 1. MAIN NAVBAR CONTAINER & STICKY GLASS BAR ── */
@@ -9,52 +9,52 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px; /* Compact Desktop Height */
+  height: 40px !important; /* Ultra-Compact Desktop Height */
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(10, 10, 15, 0.88);
+  background: rgba(10, 10, 15, 0.90);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .premium-navbar.scrolled {
-  background: rgba(10, 10, 15, 0.97);
+  background: rgba(10, 10, 15, 0.98);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
   width: 100%;
   max-width: 1400px;
-  padding: 0 1.2rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
-/* ── 2. LOGO & BRAND TEXT (COMPACT & PROPORTIONAL) ── */
+/* ── 2. LOGO & BRAND TEXT (MINI & PROPORTIONAL: MAX H3 / MINI H6) ── */
 .nav-logo {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-  gap: 0.45rem;
+  gap: 0.35rem;
   flex-shrink: 0;
   height: 100%;
 }
 
 .nav-logo-img {
-  height: 26px;
-  width: 26px;
+  height: 20px !important;
+  width: 20px !important;
   object-fit: contain;
   border-radius: 50%;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .nav-logo:hover .nav-logo-img {
@@ -63,9 +63,9 @@
 
 .nav-brand-text {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.05rem; /* Proportional compact size (Max H3 to Mini H6) */
+  font-size: 0.9rem !important; /* Mini H6 Proportional Brand Scale */
   font-weight: 700;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
   background: linear-gradient(90deg, #ff3366 0%, #7c3aed 50%, #06b6d4 100%);
   color: transparent;
   -webkit-background-clip: text;
@@ -73,13 +73,13 @@
   white-space: nowrap;
 }
 
-/* ── 3. NAVIGATION MENU (COMPACT DESKTOP HORIZONTAL ROW) ── */
+/* ── 3. NAVIGATION MENU (MINI DESKTOP HORIZONTAL ROW) ── */
 .nav-menu {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.15rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -96,14 +96,14 @@
   color: #e2e8f0;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.82rem; /* Compact Menu Font */
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
+  font-size: 0.76rem !important; /* Compact Mini Font */
+  padding: 0.2rem 0.5rem !important;
+  border-radius: 4px;
   transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.2rem;
   outline: none;
 }
 
@@ -123,7 +123,7 @@
   background: rgba(255, 51, 102, 0.12);
 }
 
-/* ── 4. CATEGORIES DROPDOWN (ANCHORED BELOW COMPACT NAVBAR) ── */
+/* ── 4. CATEGORIES DROPDOWN (ANCHORED BELOW MINI NAVBAR) ── */
 .has-mega-menu {
   position: relative;
 }
@@ -132,18 +132,18 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  width: 600px;
-  border-radius: 14px;
+  transform: translateX(-50%) translateY(6px);
+  width: 580px;
+  border-radius: 12px;
   background: rgba(14, 14, 20, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  padding: 1.1rem;
+  padding: 0.9rem;
   z-index: 1002;
   pointer-events: none;
 }
@@ -159,15 +159,15 @@
 .mega-menu-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .mega-column-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .mega-column ul {
@@ -176,16 +176,16 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .mega-link {
   text-decoration: none;
   color: #94a3b8;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 500;
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
   transition: background 0.2s ease, color 0.2s ease;
   display: block;
 }
@@ -196,17 +196,17 @@
   color: #ffffff;
 }
 
-/* ── 5. RIGHT ACTION SECTION (SEARCH, GURUAI, LOGIN / PROFILE) ── */
+/* ── 5. RIGHT ACTION SECTION (MINI SEARCH, GURUAI, LOGIN / PROFILE) ── */
 .nav-right {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: 0.45rem;
   flex-shrink: 0;
 }
 
-/* Compact Search Bar (28px Height) */
+/* Mini Search Bar (24px Height) */
 .nav-search {
   position: relative;
   display: flex;
@@ -215,21 +215,21 @@
 }
 
 .nav-search input {
-  height: 28px;
+  height: 24px !important;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
-  padding: 0 0.6rem 0 1.8rem;
+  padding: 0 0.5rem 0 1.6rem;
   color: #ffffff;
   font-family: Inter, sans-serif;
-  font-size: 0.78rem;
-  width: 140px;
+  font-size: 0.72rem !important;
+  width: 120px;
   transition: width 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
 .nav-search input:focus {
   outline: 0;
-  width: 180px;
+  width: 150px;
   border-color: #ff3366;
   box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.2);
   background: rgba(255, 255, 255, 0.12);
@@ -237,59 +237,59 @@
 
 .search-icon {
   position: absolute;
-  left: 8px;
+  left: 6px;
   color: #94a3b8;
   pointer-events: none;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
-/* Compact GuruAI Button (28px Height) */
+/* Mini GuruAI Button (24px Height) */
 .btn-ai-nav {
-  height: 28px;
-  padding: 0 0.75rem;
+  height: 24px !important;
+  padding: 0 0.6rem !important;
   background: linear-gradient(45deg, #ff3366, #7c3aed);
   border-radius: 50px;
   color: #ffffff !important;
   font-weight: 600;
-  font-size: 0.78rem;
+  font-size: 0.72rem !important;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.2rem;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 3px 10px rgba(255, 51, 102, 0.25);
+  box-shadow: 0 2px 8px rgba(255, 51, 102, 0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-right: 0 !important;
 }
 
 .btn-ai-nav:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255, 51, 102, 0.35);
+  box-shadow: 0 3px 10px rgba(255, 51, 102, 0.35);
 }
 
-/* Compact Login Button (28px Height) */
+/* Mini Login Button (24px Height) */
 .nav-login-btn {
-  height: 28px;
+  height: 24px !important;
   text-decoration: none;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: #ffffff;
-  padding: 0 0.85rem;
+  padding: 0 0.7rem !important;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 0.78rem;
+  font-size: 0.72rem !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
 }
 
 .nav-login-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.35);
 }
 
 /* User Profile Container */
