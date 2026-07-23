@@ -412,14 +412,49 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* ── 1. MAIN NAVBAR CONTAINER & STICKY GLASS BAR ── */
+.premium-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 72px !important; /* Standard Desktop Target Height */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 10, 15, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.premium-navbar.scrolled {
+  background: rgba(10, 10, 15, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 1.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 0.8rem;
+}
+
 /* ==================================================== */
 /* 7. FULL RESPONSIVE BREAKPOINTS (ALL DEVICE TARGETS)  */
 /* ==================================================== */
 
-/* Tablet Height Adjustments (60px - 70px) */
+/* Tablet Height Adjustments (64px) */
 @media (max-width: 1100px) {
   .premium-navbar {
-    height: 64px;
+    height: 64px !important;
   }
   .nav-search input {
     width: 130px;
@@ -439,7 +474,7 @@
 /* Mobile & Tablet Drawer Breakpoint (Under 992px) */
 @media (max-width: 992px) {
   .premium-navbar {
-    height: 60px; /* Mobile Target Height */
+    height: 64px !important;
   }
 
   .hamburger {
@@ -529,7 +564,7 @@
 /* Small Smartphone Display (Under 640px) */
 @media (max-width: 640px) {
   .premium-navbar {
-    height: 56px; /* Smartphone Compact Target Height */
+    height: 58px !important; /* Smartphone Compact Target Height: 58px */
   }
 
   .nav-container {
@@ -561,5 +596,3 @@
     width: 28px !important;
   }
 }
-
-
