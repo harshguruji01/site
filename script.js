@@ -965,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- FLOATING AI WIDGET FOR WHOLE SITE ---
   function createFloatingWidget() {
     const widgetBtn = document.createElement('div');
-    widgetBtn.innerHTML = '<img src="logo.png" style="width: 35px; height: 35px; border-radius: 50%;" />';
+    widgetBtn.innerHTML = '<img src="ai.png" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;" />';
     widgetBtn.id = 'global-ai-btn';
     widgetBtn.style.cssText = `
       position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -990,7 +990,7 @@ document.addEventListener('DOMContentLoaded', () => {
     widgetBox.innerHTML = `
       <div style="background: rgba(25,25,25,0.9); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between;">
         <div style="display:flex; align-items:center; gap:0.5rem;">
-          <img src="logo.png" style="height: 25px; border-radius: 5px;" />
+          <img src="ai.png" style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" />
           <span style="font-weight:600;">GuruJi AI</span>
         </div>
         <button id="close-widget" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer; line-height:1;">×</button>
