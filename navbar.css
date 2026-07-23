@@ -38,39 +38,37 @@
   gap: 0.6rem;
 }
 
-/* ── 2. LOGO & BRAND TEXT (MINI & PROPORTIONAL: MAX H3 / MINI H6) ── */
+/* ── 2. BRAND TEXT ONLY (5-COLOR GRADIENT: RED, PURPLE, BLUE, TEAL, PINK) ── */
 .nav-logo {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-  gap: 0.35rem;
   flex-shrink: 0;
   height: 100%;
 }
 
 .nav-logo-img {
-  height: 22px !important;
-  width: 22px !important;
-  object-fit: contain;
-  border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-.nav-logo:hover .nav-logo-img {
-  transform: scale(1.08);
+  display: none !important; /* Logo image removed from navbar per request */
 }
 
 .nav-brand-text {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem !important; /* Mini H6 Proportional Brand Scale */
-  font-weight: 700;
-  letter-spacing: -0.2px;
-  background: linear-gradient(90deg, #ff3366 0%, #7c3aed 50%, #06b6d4 100%);
+  font-size: 1.15rem !important;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  background: linear-gradient(90deg, #ff3366 0%, #7c3aed 25%, #3b82f6 50%, #06b6d4 75%, #ec4899 100%);
+  background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
   white-space: nowrap;
+  transition: transform 0.25s ease, background-position 0.4s ease;
+}
+
+.nav-logo:hover .nav-brand-text {
+  transform: scale(1.05);
+  background-position: right center;
 }
 
 /* ── 3. NAVIGATION MENU (MINI DESKTOP HORIZONTAL ROW) ── */
