@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Policy – HarshGuruJi</title>
+  <meta name="description" content="Read the official Cookie Policy for HarshGuruJi (webguruji.online). Learn about essential cookies, analytics, functional preferences, third-party services, and how to manage your privacy settings." />
+  <meta name="keywords" content="HarshGuruJi Cookie Policy, Cookies, Privacy, Web Privacy, Analytics Cookies, User Consent" />
+  <meta name="author" content="HarshGuruJi" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://webguruji.online/cookie.html" />
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Cookie Policy – HarshGuruJi" />
+  <meta property="og:description" content="Detailed guide on how HarshGuruJi uses cookies and local storage to enhance learning, maintain security, and optimize performance." />
+  <meta property="og:image" content="logo.png" />
+  <meta property="og:url" content="https://webguruji.online/cookie.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cookie Policy – HarshGuruJi" />
+  <meta name="twitter:description" content="Learn how we protect your privacy and manage cookie preferences on HarshGuruJi." />
+  <meta name="twitter:image" content="logo.png" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Cookie Policy - HarshGuruJi",
+    "url": "https://webguruji.online/cookie.html",
+    "description": "Official cookie transparency policy for HarshGuruJi.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "HarshGuruJi",
+      "logo": "https://webguruji.online/logo.png"
+    }
+  }
+  </script>
+
+  <!-- Typography & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cookie.css" />
+</head>
+
+<body>
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Particle Background Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Sticky Navbar -->
+  <nav class="premium-navbar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <button id="btn-cookie-nav-toggle" class="hamburger" aria-label="Toggle Navigation Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-logo" aria-label="HarshGuruJi Home">
+        <picture>
+          <source srcset="logo.webp" type="image/webp">
+          <img src="logo.png" alt="HarshGuruJi Logo" style="height:35px;width:auto;margin-right:8px" fetchpriority="high">
+        </picture>
+        <span class="nav-brand-text">HarshGuruJi</span>
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="daily-special.html" class="nav-link">Daily Special</a></li>
+        <li class="nav-item"><a href="store.html" class="nav-link">Store</a></li>
+        <li class="nav-item"><a href="privacy-policy.html" class="nav-link">Privacy Policy</a></li>
+        <li class="nav-item"><a href="cookie.html" class="nav-link active">Cookie Policy</a></li>
+      </ul>
+      <div class="nav-right">
+        <button id="btn-open-cookie-preferences-nav" class="btn btn-secondary" style="font-size:0.85rem; padding:0.4rem 1rem;">⚙️ Manage Consent</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="section page-header cookie-header-hero">
+    <div class="badge">Legal Transparency</div>
+    <h1 class="page-title">Cookie <span class="gradient-text">Policy</span></h1>
+    <p class="page-desc">Comprehensive transparency on how HarshGuruJi uses cookies, local storage, and tracking technologies to ensure security, performance, and user privacy.</p>
+    <div class="header-meta-info">
+      <span>Effective Date: January 1, 2026</span> • <span>Last Updated: July 23, 2026</span>
+    </div>
+  </header>
+
+  <!-- Main Policy Layout -->
+  <main class="cookie-policy-container">
+    <!-- Sidebar / Table of Contents -->
+    <aside class="cookie-toc-sidebar" aria-label="Table of Contents">
+      <div class="toc-sticky-box">
+        <h3 class="toc-title">📌 Table of Contents</h3>
+        <div class="toc-search-wrap">
+          <input type="text" id="cookie-toc-search" placeholder="Filter sections..." aria-label="Filter cookie policy topics">
+        </div>
+        <nav>
+          <ul class="toc-list" id="toc-list">
+            <li><a href="#section-1" class="toc-link">1. Introduction</a></li>
+            <li><a href="#section-2" class="toc-link">2. What Are Cookies?</a></li>
+            <li><a href="#section-3" class="toc-link">3. Types of Cookies Used</a></li>
+            <li><a href="#section-4" class="toc-link">4. Essential Cookies</a></li>
+            <li><a href="#section-5" class="toc-link">5. Performance Cookies</a></li>
+            <li><a href="#section-6" class="toc-link">6. Analytics Cookies</a></li>
+            <li><a href="#section-7" class="toc-link">7. Functional Cookies</a></li>
+            <li><a href="#section-8" class="toc-link">8. Third-Party Cookies</a></li>
+            <li><a href="#section-9" class="toc-link">9. Google Services Cookies</a></li>
+            <li><a href="#section-10" class="toc-link">10. Firebase Cookies</a></li>
+            <li><a href="#section-11" class="toc-link">11. Authentication Cookies</a></li>
+            <li><a href="#section-12" class="toc-link">12. Advertising Cookies</a></li>
+            <li><a href="#section-13" class="toc-link">13. Embedded Content</a></li>
+            <li><a href="#section-14" class="toc-link">14. Cookie Duration</a></li>
+            <li><a href="#section-15" class="toc-link">15. Managing Cookies</a></li>
+            <li><a href="#section-16" class="toc-link">16. Browser Settings</a></li>
+            <li><a href="#section-17" class="toc-link">17. Consent Withdrawal</a></li>
+            <li><a href="#section-18" class="toc-link">18. Children's Privacy</a></li>
+            <li><a href="#section-19" class="toc-link">19. Changes to Policy</a></li>
+            <li><a href="#section-20" class="toc-link">20. Contact Information</a></li>
+          </ul>
+        </nav>
+        <button id="btn-reopen-cookie-modal-sidebar" class="btn btn-primary btn-block" style="margin-top:1.5rem;">Customize Preferences</button>
+      </div>
+    </aside>
+
+    <!-- Policy Detailed Content -->
+    <article class="cookie-policy-content">
+
+      <!-- Section 1 -->
+      <section id="section-1" class="cookie-card">
+        <h2>1. Introduction</h2>
+        <p>Welcome to <strong>HarshGuruJi</strong> (accessible via <a href="https://webguruji.online">https://webguruji.online</a>). We are an educational and free tool platform dedicated to providing accessible learning resources, interactive Web API utilities, and AI assistance through <strong>GuruAI</strong>.</p>
+        <p>This Cookie Policy explains how and why cookies, web beacons, local storage (`localStorage`, `sessionStorage`), and similar technologies are used when you visit or interact with our platform.</p>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="section-2" class="cookie-card">
+        <h2>2. What Are Cookies?</h2>
+        <p>Cookies are small data text files that websites store on your computer, smartphone, or browser when you visit a webpage. They help websites remember your device, preferences, login state, and active settings over time.</p>
+        <p>In addition to traditional HTTP cookies, modern web platforms utilize <strong>HTML5 LocalStorage</strong> and <strong>SessionStorage</strong> to store client-side state data locally in your browser without transmitting sensitive headers on every HTTP call.</p>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="section-3" class="cookie-card">
+        <h2>3. Types of Cookies Used</h2>
+        <p>We classify the storage mechanisms used across HarshGuruJi into the following categories:</p>
+        <div class="cookie-grid">
+          <div class="grid-card">
+            <h4>🔒 Session Cookies</h4>
+            <p>Temporary storage cleared automatically as soon as you close your browser session.</p>
+          </div>
+          <div class="grid-card">
+            <h4>💾 Persistent Cookies</h4>
+            <p>Stored locally on your device for a designated expiration duration to remember preferences.</p>
+          </div>
+          <div class="grid-card">
+            <h4>⚡ First-Party Cookies</h4>
+            <p>Set directly by HarshGuruJi domain (webguruji.online) to handle core site features.</p>
+          </div>
+          <div class="grid-card">
+            <h4>🌐 Third-Party Cookies</h4>
+            <p>Set by external partners such as Google, YouTube, and Zapier for embedded media or analytics.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="section-4" class="cookie-card">
+        <h2>4. Essential Cookies</h2>
+        <p>Essential cookies are strictly necessary for the website to function properly. Without these cookies, basic site capabilities such as security verification, navigation, and preference persistence cannot operate.</p>
+        <ul>
+          <li><strong>Purpose:</strong> CSRF security protection, user consent state storage, theme persistence.</li>
+          <li><strong>Duration:</strong> Up to 1 year or persistent until cleared manually.</li>
+          <li><strong>Opt-Out:</strong> Mandatory for platform functionality (cannot be toggled off).</li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section id="section-5" class="cookie-card">
+        <h2>5. Performance Cookies</h2>
+        <p>Performance storage monitors resource loading speeds, script initialization, and user experience metrics across mobile and desktop devices. This helps us optimize asset delivery and reduce latency.</p>
+      </section>
+
+      <!-- Section 6 -->
+      <section id="section-6" class="cookie-card">
+        <h2>6. Analytics Cookies</h2>
+        <p>Analytics cookies gather aggregated, non-identifying statistical information regarding how visitors interact with our pages, which learning topics are visited most, and navigation drop-offs.</p>
+      </section>
+
+      <!-- Section 7 -->
+      <section id="section-7" class="cookie-card">
+        <h2>7. Functional Cookies</h2>
+        <p>Functional cookies allow HarshGuruJi to provide enhanced features and personalized options, such as saving calculation outputs, bookmarking articles, and retaining active search history filters.</p>
+      </section>
+
+      <!-- Section 8 -->
+      <section id="section-8" class="cookie-card">
+        <h2>8. Third-Party Cookies</h2>
+        <p>Certain third-party integrations embedded on our platform (e.g., YouTube video players, Google Fonts, Zapier GuruAI integration) may set independent cookies when rendered.</p>
+      </section>
+
+      <!-- Section 9 -->
+      <section id="section-9" class="cookie-card">
+        <h2>9. Google Services Cookies</h2>
+        <p>We utilize Google Fonts and Google Ads infrastructure (`adsbygoogle.js`). Google services may place cookies to serve non-personalized or personalized ads depending on your consent selection and jurisdiction.</p>
+      </section>
+
+      <!-- Section 10 -->
+      <section id="section-10" class="cookie-card">
+        <h2>10. Firebase Cookies (Future-Ready)</h2>
+        <p>Our platform architecture is built ready for Firebase Authentication and Firestore Database integration. Firebase utilizes persistent authentication state tokens (`indexedDB` and session storage) to maintain secure user login across visits.</p>
+      </section>
+
+      <!-- Section 11 -->
+      <section id="section-11" class="cookie-card">
+        <h2>11. Authentication Cookies</h2>
+        <p>When you log into your HarshGuruJi account or utilize SSO, secure tokens (`autologinToken`) are stored in client storage to recognize your authenticated session safely.</p>
+      </section>
+
+      <!-- Section 12 -->
+      <section id="section-12" class="cookie-card">
+        <h2>12. Advertising Cookies</h2>
+        <p>Where advertising is enabled, cookies help measure campaign effectiveness and prevent the same advertisement from showing repeatedly.</p>
+      </section>
+
+      <!-- Section 13 -->
+      <section id="section-13" class="cookie-card">
+        <h2>13. Embedded Content Cookies</h2>
+        <p>Articles or tools on this website may include embedded content (such as videos, maps, or interactive widgets). Embedded content from third-party websites behaves identically to visiting the external site directly.</p>
+      </section>
+
+      <!-- Section 14 -->
+      <section id="section-14" class="cookie-card">
+        <h2>14. Cookie Duration & Expiration</h2>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Storage Name</th>
+              <th>Category</th>
+              <th>Duration</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>harshguruji_cookie_consent</code></td>
+              <td>Essential</td>
+              <td>1 Year</td>
+              <td>Stores your cookie consent preferences.</td>
+            </tr>
+            <tr>
+              <td><code>loggedIn</code></td>
+              <td>Essential</td>
+              <td>Session / Persistent</td>
+              <td>Remembers active login status locally.</td>
+            </tr>
+            <tr>
+              <td><code>cookieAccepted</code></td>
+              <td>Essential</td>
+              <td>1 Year</td>
+              <td>Legacy preference tracker.</td>
+            </tr>
+            <tr>
+              <td><code>newsletter_subscriptions</code></td>
+              <td>Functional</td>
+              <td>Persistent</td>
+              <td>Stores local subscription records.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section 15 -->
+      <section id="section-15" class="cookie-card">
+        <h2>15. Managing Your Cookie Preferences</h2>
+        <p>You have total control over non-essential cookies on HarshGuruJi. You can modify your preferences at any time using our interactive Cookie Preferences Modal.</p>
+        <button id="btn-reopen-cookie-modal-content" class="btn btn-primary">⚡ Open Cookie Preferences</button>
+      </section>
+
+      <!-- Section 16 -->
+      <section id="section-16" class="cookie-card">
+        <h2>16. Browser Settings & Controls</h2>
+        <p>You can also adjust your web browser settings to block or delete cookies entirely. Please note that disabling essential cookies may impact platform functionality.</p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome Instructions</a></li>
+          <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener">Mozilla Firefox Instructions</a></li>
+          <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener">Apple Safari Instructions</a></li>
+          <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-6344733f-781c-4a18-8886-a94958c04161" target="_blank" rel="noopener">Microsoft Edge Instructions</a></li>
+        </ul>
+      </section>
+
+      <!-- Section 17 -->
+      <section id="section-17" class="cookie-card">
+        <h2>17. Consent Withdrawal</h2>
+        <p>You have the right to withdraw your consent for analytics, marketing, and performance tracking at any moment by clicking the "Reset Preferences" button in our settings overlay.</p>
+      </section>
+
+      <!-- Section 18 -->
+      <section id="section-18" class="cookie-card">
+        <h2>18. Children's Privacy</h2>
+        <p>HarshGuruJi is an educational learning portal designed for students and learners of all ages. We do not knowingly gather targeted profiling cookies or personal tracking data from children under the age of 13.</p>
+      </section>
+
+      <!-- Section 19 -->
+      <section id="section-19" class="cookie-card">
+        <h2>19. Changes to This Policy</h2>
+        <p>We may update our Cookie Policy periodically to reflect technological changes, regulatory requirements, or platform updates. Any updates will be posted on this page with a revised "Last Updated" timestamp.</p>
+      </section>
+
+      <!-- Section 20 -->
+      <section id="section-20" class="cookie-card">
+        <h2>20. Contact Information</h2>
+        <p>If you have any questions, feedback, or data privacy requests regarding this Cookie Policy, please get in touch with us:</p>
+        <div class="contact-info-box">
+          <p><strong>Owner & Founder:</strong> Harsh Patel</p>
+          <p><strong>Platform:</strong> HarshGuruJi (webguruji.online)</p>
+          <p><strong>Address:</strong> Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</p>
+          <p><strong>Contact Page:</strong> <a href="contact.html">Visit Contact Support Form</a></p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="display:flex; align-items:center; gap:0.6rem; text-decoration:none;">
+            <img src="logo.png" alt="HarshGuruJi Logo" style="height: 40px; width: auto; border-radius: 5px;" />
+            <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.2rem; background:linear-gradient(135deg,#ff3366,#7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
+          </a>
+          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education & Technology.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <a href="index.html">Home</a>
+            <a href="daily-special.html">Daily Special</a>
+            <a href="free-tools.html">Free Tools</a>
+            <a href="store.html">Store</a>
+          </div>
+          <div class="footer-col">
+            <h5>Legal & Privacy</h5>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="cookie.html">Cookie Policy</a>
+            <a href="terms-and-conditions.html">Terms & Conditions</a>
+            <a href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="cookie.js" defer></script>
+  <script src="js/button_handlers.js" defer></script>
+</body>
+
+</html>
