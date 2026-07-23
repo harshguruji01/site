@@ -50,8 +50,8 @@
 }
 
 .nav-logo-img {
-  height: 20px !important;
-  width: 20px !important;
+  height: 22px !important;
+  width: 22px !important;
   object-fit: contain;
   border-radius: 50%;
   transition: transform 0.2s ease;
