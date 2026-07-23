@@ -285,7 +285,7 @@ body::before {
 /* Hero */
 .hero {
   min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
-  padding: 8rem 5% 4rem; position: relative; overflow: hidden;
+  padding: 4rem 5% 4rem; position: relative; overflow: hidden;
 }
 .hero-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.5; z-index: -1; }
 .glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--glow-primary); }
