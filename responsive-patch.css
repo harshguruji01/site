@@ -8,6 +8,8 @@ html, body {
   width: 100% !important;
   max-width: 100vw !important;
   box-sizing: border-box;
+  background-color: #000000 !important;
+  background-image: none !important;
 }
 
 *, *::before, *::after {
@@ -48,23 +50,30 @@ h1, h2, h3, h4, h5, h6, .page-title, .hero-title, .section-title {
 /* ========================================================================= */
 
 @media (max-width: 1440px) {
-  .hero { padding-top: 6rem; padding-bottom: 3rem; }
+  .hero { padding-top: 3.5rem; padding-bottom: 2rem; }
 }
 
 @media (max-width: 1024px) {
-  .hero-stats { gap: 1.5rem; }
-  .dsb-inner { padding: 0.5rem 2%; }
+  .hero-stats { gap: 1.25rem; }
+  .dsb-inner { padding: 0.4rem 2%; }
+  .section { padding-top: 2rem !important; padding-bottom: 2rem !important; }
 }
 
 @media (max-width: 768px) {
   .hero {
     flex-direction: column !important;
     text-align: center;
-    padding-top: 5rem;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .page-header {
+    padding-top: 2rem !important;
+    padding-bottom: 1rem !important;
   }
   .hero-buttons {
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 1.25rem !important;
   }
   .btn { width: auto; }
   .stat-divider { display: none !important; }
@@ -77,15 +86,15 @@ h1, h2, h3, h4, h5, h6, .page-title, .hero-title, .section-title {
     max-width: 100%;
     margin-bottom: 0.5rem;
   }
-  .section, .hero, .auth-wrapper { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .section, .hero, .auth-wrapper { padding-left: 0.85rem !important; padding-right: 0.85rem !important; padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
   
   /* Badges and tags */
   .badge { white-space: normal; height: auto; text-align: center; }
 }
 
 @media (max-width: 412px) {
-  .hero-title, .page-title { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
-  .section-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+  .hero-title, .page-title { font-size: clamp(1.8rem, 7.5vw, 2.25rem) !important; }
+  .section-title { font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important; }
 }
 
 @media (max-width: 390px) {
@@ -94,15 +103,16 @@ h1, h2, h3, h4, h5, h6, .page-title, .hero-title, .section-title {
 }
 
 @media (max-width: 375px) {
-  .auth-container { padding: 1.5rem !important; }
-  .input-wrapper input { padding: 0.6rem 1rem 0.6rem 2.5rem !important; }
+  .auth-container { padding: 1.25rem !important; }
+  .input-wrapper input { padding: 0.5rem 0.85rem 0.5rem 2.25rem !important; }
 }
 
 @media (max-width: 360px) {
-  .feature-card { padding: 1.5rem !important; }
+  .feature-card { padding: 1.25rem !important; }
 }
 
 @media (max-width: 320px) {
   body { font-size: 14px !important; }
-  .nav-logo span { font-size: 1.2rem !important; }
+  .nav-logo span { font-size: 1.15rem !important; }
+  .section { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
 }

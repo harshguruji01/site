@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
 
-
-
-
-
 * {
   margin: 0;
   padding: 0;
@@ -49,46 +45,11 @@ button {
    BACKGROUNDS & AURORA
 ========================================= */
 .aurora-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  min-height: max(100vh, 100%); height: auto;
-  z-index: -2;
-  overflow: hidden;
-  background: var(--bg-base);
+  display: none !important;
 }
 
 .aurora-blob {
-  position: absolute;
-  filter: blur(120px);
-  opacity: 0.4;
-  border-radius: 50%;
-  animation: aurora-move 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-.aurora-blob.cyan {
-  top: -10%; left: -10%;
-  width: 50vw; height: 50vw;
-  background: var(--accent-cyan);
-  animation-duration: 25s;
-}
-
-.aurora-blob.purple {
-  bottom: -20%; right: -10%;
-  width: 60vw; height: 60vw;
-  background: var(--accent-purple);
-  animation-duration: 30s;
-  animation-delay: -5s;
-}
-
-.aurora-blob.indigo {
-  top: 30%; left: 40%;
-  width: 40vw; height: 40vw;
-  background: var(--accent-indigo);
-  animation-duration: 20s;
-  animation-delay: -10s;
+  display: none !important;
 }
 
 @keyframes aurora-move {
@@ -257,12 +218,12 @@ button {
    HERO SECTION
 ========================================= */
 .hero {
-  min-height: max(100vh, 100%);
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: var(--nav-height);
+  padding: calc(var(--nav-height) + 2rem) 0 2.5rem;
   position: relative;
 }
 
@@ -282,23 +243,23 @@ button {
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   color: var(--accent-cyan);
   animation: fade-in-up 1s ease forwards;
   opacity: 0;
 }
 
 .hero-title {
-  font-size: clamp(3rem, 7vw, 6rem);
-  margin-bottom: 24px;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 16px;
   animation: fade-in-up 1s 0.2s ease forwards;
   opacity: 0;
 }
 
 .hero-subtitle {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
   color: var(--text-secondary);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   max-width: 700px;
   margin-inline: auto;
   animation: fade-in-up 1s 0.4s ease forwards;
@@ -308,7 +269,7 @@ button {
 .hero-cta {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   animation: fade-in-up 1s 0.6s ease forwards;
   opacity: 0;
 }
@@ -317,20 +278,20 @@ button {
    SECTIONS & GRIDS
 ========================================= */
 .section {
-  padding: 60px 0;
+  padding: 40px 0;
   position: relative;
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 /* =========================================
@@ -340,7 +301,7 @@ button {
   background: var(--bg-glass);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
-  padding: 40px;
+  padding: 24px;
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
@@ -350,7 +311,7 @@ button {
   content: '';
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: transparent 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
   opacity: 0;
   transition: opacity var(--transition-normal);
 }
@@ -412,7 +373,7 @@ button {
   position: fixed;
   width: 400px;
   height: 400px;
-  background: transparent 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
