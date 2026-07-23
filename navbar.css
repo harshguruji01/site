@@ -1,29 +1,29 @@
 /* ==========================================================================
-   HarshGuruJi - Modern Ultra-Responsive Horizontal Navbar Stylesheet
-   Desktop: Clean 1-line horizontal alignment (Logo, Links, Search, AI, Auth)
-   Mobile: Touch-friendly hamburger drawer with horizontal top bar
+   HarshGuruJi - Modern Production-Grade Single-Row Horizontal Navbar
+   Inspired by Google Developers, Microsoft Learn & GitHub Navigation
    ========================================================================== */
 
+/* ── 1. MAIN NAVBAR CONTAINER & STICKY GLASS BAR ── */
 .premium-navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 70px; /* Desktop Target Height */
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   background: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .premium-navbar.scrolled {
   background: rgba(10, 10, 15, 0.96);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
 }
 
 .nav-container {
@@ -35,17 +35,30 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  gap: 1.2rem;
+  gap: 1.25rem;
 }
 
-/* Brand Logo (Left) */
+/* ── 2. LOGO & BRAND TEXT (PROPORTIONAL & VERTICALLY CENTERED) ── */
 .nav-logo {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   text-decoration: none;
   gap: 0.6rem;
   flex-shrink: 0;
+  height: 100%;
+}
+
+.nav-logo-img {
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.08) rotate(3deg);
 }
 
 .nav-brand-text {
@@ -60,7 +73,7 @@
   white-space: nowrap;
 }
 
-/* Center Horizontal Nav Links (Desktop) */
+/* ── 3. NAVIGATION MENU (DESKTOP HORIZONTAL ROW) ── */
 .nav-menu {
   display: flex;
   flex-direction: row;
@@ -86,16 +99,22 @@
   font-size: 0.9rem;
   padding: 0.5rem 0.85rem;
   border-radius: 8px;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  outline: none;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus-visible {
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
+}
+
+.nav-link:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-primary);
 }
 
 .nav-link.active {
@@ -104,7 +123,81 @@
   background: rgba(255, 51, 102, 0.12);
 }
 
-/* Right Horizontal Action Group (Search, AI, Profile/Login) */
+/* ── 4. CATEGORIES DROPDOWN (POSITIONS BELOW NAVBAR WITHOUT PUSHING LAYOUT) ── */
+.has-mega-menu {
+  position: relative;
+}
+
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  width: 650px;
+  border-radius: 16px;
+  background: rgba(14, 14, 20, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  padding: 1.35rem;
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.has-mega-menu:hover .mega-menu,
+.has-mega-menu.active .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.mega-menu-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.mega-column-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.mega-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mega-link {
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  display: block;
+}
+
+.mega-link:hover,
+.mega-link:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+/* ── 5. RIGHT SECTION (SEARCH, GURUAI, LOGIN / PROFILE) ── */
 .nav-right {
   display: flex;
   flex-direction: row;
@@ -114,7 +207,7 @@
   flex-shrink: 0;
 }
 
-/* Search Input */
+/* Search Bar (Same Height as Action Buttons: 36px) */
 .nav-search {
   position: relative;
   display: flex;
@@ -123,15 +216,16 @@
 }
 
 .nav-search input {
+  height: 36px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
-  padding: 0.45rem 0.8rem 0.45rem 2.2rem;
+  padding: 0 0.8rem 0 2.2rem;
   color: #ffffff;
   font-family: Inter, sans-serif;
   font-size: 0.85rem;
   width: 170px;
-  transition: all 0.3s ease;
+  transition: width 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .nav-search input:focus {
@@ -149,9 +243,10 @@
   pointer-events: none;
 }
 
-/* Buttons in Header */
+/* GuruAI Button (Aligned 36px Height) */
 .btn-ai-nav {
-  padding: 0.45rem 0.95rem;
+  height: 36px;
+  padding: 0 1rem;
   background: linear-gradient(45deg, #ff3366, #7c3aed);
   border-radius: 50px;
   color: #ffffff !important;
@@ -164,7 +259,8 @@
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(255, 51, 102, 0.3);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-right: 0 !important;
 }
 
 .btn-ai-nav:hover {
@@ -172,15 +268,17 @@
   box-shadow: 0 6px 18px rgba(255, 51, 102, 0.4);
 }
 
+/* Login Button */
 .nav-login-btn {
+  height: 36px;
   text-decoration: none;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: #ffffff;
-  padding: 0.45rem 1.1rem;
+  padding: 0 1.1rem;
   border-radius: 50px;
   font-weight: 600;
   font-size: 0.85rem;
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   white-space: nowrap;
   display: inline-flex;
   flex-direction: row;
@@ -191,97 +289,6 @@
 .nav-login-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
-}
-
-/* Categories Dropdown Mega Menu */
-.has-mega-menu {
-  position: relative;
-}
-
-.mega-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  width: 650px;
-  border-radius: 16px;
-  background: rgba(15, 15, 22, 0.97);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  padding: 1.35rem;
-  z-index: 999;
-}
-
-.has-mega-menu:hover .mega-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.mega-menu-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-
-.mega-column-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.8rem;
-}
-
-.mega-column ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.mega-link {
-  text-decoration: none;
-  color: #94a3b8;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.35rem 0.5rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  display: block;
-}
-
-.mega-link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-}
-
-/* Hamburger Icon for Mobile */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  z-index: 1001;
-  border-radius: 8px;
-}
-
-.hamburger span {
-  width: 22px;
-  height: 2px;
-  background: #ffffff;
-  border-radius: 2px;
-  transition: all 0.3s ease;
 }
 
 /* User Profile Container */
@@ -296,9 +303,10 @@
 }
 
 .profile-btn {
+  height: 36px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.7rem 0.25rem 0.25rem;
+  padding: 0 0.7rem 0 0.25rem;
   border-radius: 50px;
   display: flex;
   flex-direction: row;
@@ -309,8 +317,8 @@
 }
 
 .nav-user-avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -339,7 +347,7 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
   z-index: 1001;
 }
 
@@ -382,12 +390,38 @@
   color: #ffffff;
 }
 
+/* ── 6. HAMBURGER ICON FOR MOBILE ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1001;
+  border-radius: 8px;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 /* ==================================================== */
-/* RESPONSIVE BREAKPOINTS (TABLETS & MOBILE SMARTPHONES) */
+/* 7. FULL RESPONSIVE BREAKPOINTS (ALL DEVICE TARGETS)  */
 /* ==================================================== */
 
-/* Laptop / Medium Display Adjustments */
+/* Tablet Height Adjustments (60px - 70px) */
 @media (max-width: 1100px) {
+  .premium-navbar {
+    height: 64px;
+  }
   .nav-search input {
     width: 130px;
   }
@@ -403,11 +437,15 @@
   }
 }
 
-/* Tablet & Mobile Slide-Out Drawer Breakpoint */
+/* Mobile & Tablet Drawer Breakpoint (Under 992px) */
 @media (max-width: 992px) {
+  .premium-navbar {
+    height: 60px; /* Mobile Target Height */
+  }
+
   .hamburger {
     display: flex;
-    order: 1; /* Leftmost on mobile for easy thumb reach */
+    order: 1;
   }
 
   .nav-logo {
@@ -477,7 +515,7 @@
     gap: 1rem;
   }
 
-  /* Hamburger Animation */
+  /* Hamburger Active Animation */
   .hamburger.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
@@ -489,32 +527,40 @@
   }
 }
 
-/* Mobile Devices (Under 640px) */
+/* Small Smartphone Display (Under 640px) */
 @media (max-width: 640px) {
+  .premium-navbar {
+    height: 56px; /* Smartphone Compact Target Height */
+  }
+
   .nav-container {
     padding: 0 0.8rem;
   }
 
   .nav-search {
-    display: none; /* Auto-collapses input to preserve horizontal space */
+    display: none; /* Collapse search input on smartphone to preserve 1-row layout */
   }
 
   .btn-ai-nav {
-    padding: 0.38rem 0.7rem;
-    font-size: 0.8rem;
+    height: 32px;
+    padding: 0 0.7rem;
+    font-size: 0.78rem;
   }
 
   .nav-login-btn {
-    padding: 0.38rem 0.85rem;
-    font-size: 0.8rem;
+    height: 32px;
+    padding: 0 0.85rem;
+    font-size: 0.78rem;
   }
 
   .nav-brand-text {
     font-size: 1.15rem;
   }
 
-  .nav-logo img {
+  .nav-logo-img {
     height: 28px !important;
+    width: 28px !important;
   }
 }
+
 
