@@ -1,1 +1,170 @@
-document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".premium-navbar"),t=document.querySelector(".hamburger"),n=document.querySelector(".nav-menu"),l=document.querySelector(".has-mega-menu"),s=()=>{window.scrollY>20?e.classList.add("scrolled"):e.classList.remove("scrolled")};if(window.addEventListener("scroll",s,{passive:!0}),s(),t&&t.addEventListener("click",()=>{t.classList.toggle("active"),n.classList.toggle("active"),t.setAttribute("aria-expanded",n.classList.contains("active"))}),l){l.querySelector(".nav-link").addEventListener("click",e=>{window.innerWidth<=992&&(e.preventDefault(),l.classList.toggle("active"))})}document.addEventListener("click",e=>{n&&n.classList.contains("active")&&!n.contains(e.target)&&!t.contains(e.target)&&(n.classList.remove("active"),t.classList.remove("active"),t.setAttribute("aria-expanded","false")),l&&l.classList.contains("active")&&!l.contains(e.target)&&l.classList.remove("active")}),document.addEventListener("keydown",e=>{"Escape"===e.key&&(n&&n.classList.contains("active")&&(n.classList.remove("active"),t.classList.remove("active"),t.setAttribute("aria-expanded","false")),l&&l.classList.contains("active")&&l.classList.remove("active"))});const o=window.location.pathname.split("/").pop()||"index.html";document.querySelectorAll(".nav-link").forEach(e=>{e.getAttribute("href")===o&&e.classList.add("active")});const i=document.querySelector(".nav-login-btn");i&&i.addEventListener("mousedown",function(e){const t=e.clientX-e.target.getBoundingClientRect().left,n=e.clientY-e.target.getBoundingClientRect().top,l=document.createElement("span");l.style.position="absolute",l.style.background="rgba(255, 255, 255, 0.4)",l.style.width="100px",l.style.height="100px",l.style.borderRadius="50%",l.style.transform="translate(-50%, -50%) scale(0)",l.style.left=`${t}px`,l.style.top=`${n}px`,l.style.animation="ripple 0.6s linear",this.appendChild(l),setTimeout(()=>{l.remove()},600)})});
+/**
+ * HarshGuruJi Premium Navbar JavaScript
+ * Handles Scroll behavior, Mobile Drawer, Search interactivity, and Dropdowns.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  /* --- 1. SCROLL BEHAVIOR --- */
+  const navbar = document.getElementById('main-navbar');
+  let lastScrollY = window.scrollY;
+  const SCROLL_THRESHOLD = 50;
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    // Add shadow and reduce height when scrolled
+    if (currentScrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    // Hide navbar on scroll down, show on scroll up
+    if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
+      // Scrolling down
+      navbar.classList.add('hidden');
+    } else {
+      // Scrolling up
+      navbar.classList.remove('hidden');
+    }
+    
+    lastScrollY = currentScrollY;
+  }, { passive: true });
+
+  /* --- 2. MOBILE DRAWER --- */
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const closeDrawerBtn = document.getElementById('close-drawer');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const drawerOverlay = document.getElementById('drawer-overlay');
+
+  const openDrawer = () => {
+    mobileDrawer.classList.add('active');
+    drawerOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeDrawer = () => {
+    mobileDrawer.classList.remove('active');
+    drawerOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  };
+
+  if (hamburgerMenu) hamburgerMenu.addEventListener('click', openDrawer);
+  if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+  if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+  // Close on ESC key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+      closeDrawer();
+    }
+  });
+
+  // Swipe to close functionality
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  if (mobileDrawer) {
+    mobileDrawer.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    mobileDrawer.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+  }
+
+  function handleSwipe() {
+    // If swiped right to left (more than 50px)
+    if (touchEndX - touchStartX > 50) {
+      closeDrawer();
+    }
+  }
+
+  /* --- 3. SEARCH INTERACTIVITY --- */
+  const searchInput = document.getElementById('global-search');
+  const clearSearchBtn = document.getElementById('clear-search');
+  const searchContainer = document.querySelector('.nav-search-container');
+  const searchShortcut = document.querySelector('.search-shortcut');
+
+  if (searchInput) {
+    // Show/hide clear button and dropdown
+    searchInput.addEventListener('input', (e) => {
+      if (e.target.value.length > 0) {
+        if(clearSearchBtn) clearSearchBtn.style.display = 'flex';
+        if(searchShortcut) searchShortcut.style.display = 'none';
+      } else {
+        if(clearSearchBtn) clearSearchBtn.style.display = 'none';
+        if(searchShortcut) searchShortcut.style.display = 'inline-block';
+      }
+    });
+
+    searchInput.addEventListener('focus', () => {
+      if (searchContainer) searchContainer.classList.add('active');
+    });
+
+    // Handle Keyboard Shortcut (Cmd+K or Ctrl+K)
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      if(searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+        clearSearchBtn.style.display = 'none';
+        if(searchShortcut) searchShortcut.style.display = 'inline-block';
+      }
+    });
+  }
+
+  // Click outside to close search dropdown
+  document.addEventListener('click', (e) => {
+    if (searchContainer && !searchContainer.contains(e.target)) {
+      searchContainer.classList.remove('active');
+    }
+  });
+
+  /* --- 4. AUTH MOCK TOGGLING (For demonstration) --- */
+  // In a real scenario, this would be handled by your auth state
+  const btnLogin = document.getElementById('btn-login');
+  const userProfile = document.getElementById('user-profile');
+  const btnLogout = document.getElementById('btn-logout');
+  const mobileAuthItem = document.getElementById('mobile-auth-item');
+
+  let isLoggedIn = true; // Set to true to show avatar, false to show Login button
+
+  const updateAuthState = () => {
+    if (isLoggedIn) {
+      if (btnLogin) btnLogin.style.display = 'none';
+      if (userProfile) userProfile.style.display = 'block';
+    } else {
+      if (btnLogin) btnLogin.style.display = 'block';
+      if (userProfile) userProfile.style.display = 'none';
+    }
+  };
+
+  updateAuthState();
+
+  if (btnLogout) {
+    btnLogout.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLoggedIn = false;
+      updateAuthState();
+    });
+  }
+
+  if (btnLogin) {
+    btnLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLoggedIn = true;
+      updateAuthState();
+    });
+  }
+});
