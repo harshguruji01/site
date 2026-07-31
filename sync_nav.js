@@ -11,10 +11,7 @@ const navbarHTML = `
 
     <!-- Brand / Logo -->
     <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
-      <picture>
-        <source srcset="logo.webp" type="image/webp">
-        <img src="logo.png" alt="HarshGuruJi Logo" fetchpriority="high">
-      </picture>
+      <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
       <span class="premium-brand-text">HarshGuruJi</span>
     </a>
 

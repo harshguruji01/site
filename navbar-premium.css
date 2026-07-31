@@ -74,14 +74,17 @@
   transform: scale(1.03);
 }
 
-.premium-nav-logo img {
-  height: 36px;
-  width: auto;
-  transition: height var(--nav-trans);
+.premium-nav-logo img.navbar-favicon {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  transition: all var(--nav-trans);
 }
 
-.premium-navbar.scrolled .premium-nav-logo img {
-  height: 30px;
+.premium-navbar.scrolled .premium-nav-logo img.navbar-favicon {
+  height: 28px;
+  width: 28px;
 }
 
 .premium-brand-text {

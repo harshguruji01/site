@@ -1,1 +1,110 @@
-import{auth,googleProvider,githubProvider}from"./firebase.js";import{ensureUserDocument}from"./database.js";import{signInWithPopup,signOut,onAuthStateChanged,setPersistence,browserLocalPersistence}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";const PROTECTED_PAGES=["dashboard.html","profile.html","settings.html","bookmarks.html","downloads.html"],AUTH_PAGES=["login.html","signup.html"];export function initializeAuth(){setPersistence(auth,browserLocalPersistence).catch(e=>{}),onAuthStateChanged(auth,e=>{const t=window.location.pathname.split("/").pop()||"index.html";e?(updateNavbarUI(e),AUTH_PAGES.includes(t)&&(window.location.href="dashboard.html")):(updateNavbarUI(null),PROTECTED_PAGES.includes(t)&&(window.location.href="login.html"))}),setupDropdownListener()}function updateNavbarUI(e){const t=document.getElementById("btn-login"),n=document.getElementById("user-profile-dropdown"),o=document.getElementById("auth-loading"),i=document.getElementById("mobile-auth-item");if(t||o)if(o&&(o.style.display="none"),e){t&&(t.style.display="none"),n&&(n.style.display="block"),i&&(i.style.display="block");const o=e.displayName||"User",s=e.photoURL||"https://ui-avatars.com/api/?name=${encodeURIComponent(userNameDisplay)}&background=random",a=document.getElementById("nav-user-name"),r=document.getElementById("nav-user-avatar"),d=document.getElementById("dropdown-user-name"),l=document.getElementById("dropdown-user-email"),u=document.getElementById("mobile-user-avatar"),c=document.getElementById("mobile-user-name");a&&(a.textContent=o),r&&(r.src=s),d&&(d.textContent=o),l&&(l.textContent=e.email),c&&(c.textContent=o),u&&(u.src=s)}else t&&(t.style.display="inline-flex"),n&&(n.style.display="none",n.classList.remove("active")),i&&(i.style.display="none")}function setupDropdownListener(){const e=document.getElementById("profile-btn"),t=document.getElementById("user-profile-dropdown");e&&t&&(e.addEventListener("click",e=>{e.stopPropagation(),t.classList.toggle("active")}),window.addEventListener("click",e=>{t.contains(e.target)||t.classList.remove("active")}))}export async function signInWithGoogle(){try{const e=await signInWithPopup(auth,googleProvider);"function"==typeof ensureUserDocument&&await ensureUserDocument(e.user)}catch(e){throw e}}export async function logoutUser(){try{await signOut(auth);const e=window.location.pathname.split("/").pop()||"index.html";(PROTECTED_PAGES.includes(e)||AUTH_PAGES.includes(e))&&(window.location.href="index.html")}catch(e){}}window.logoutUser=logoutUser,document.addEventListener("DOMContentLoaded",initializeAuth);export async function signInWithGitHub(){try{const e=await signInWithPopup(auth,githubProvider);"function"==typeof ensureUserDocument&&await ensureUserDocument(e.user)}catch(e){throw"auth/account-exists-with-different-credential"===e.code&&alert("You have already signed up with a different provider for that email."),e}}window.signInWithGitHub=signInWithGitHub;
+import { auth, googleProvider } from './firebase.js';
+import { 
+  signInWithPopup, 
+  signOut, 
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { ensureUserDocument } from "./database.js";
+
+const PROTECTED_PAGES = ["dashboard.html", "profile.html", "settings.html", "bookmarks.html", "downloads.html"];
+const AUTH_PAGES = ["login.html", "signup.html"];
+
+export function initAuthObserver(redirectOnAuth = true, redirectOnUnauth = true) {
+  onAuthStateChanged(auth, async (user) => {
+    const page = window.location.pathname.split("/").pop() || "index.html";
+    
+    if (user) {
+      // User is logged in
+      updateNavbarUI(user);
+      if (redirectOnAuth && AUTH_PAGES.includes(page)) {
+        window.location.href = "dashboard.html";
+      }
+    } else {
+      // User is logged out
+      updateNavbarUI(null);
+      if (redirectOnUnauth && PROTECTED_PAGES.includes(page)) {
+        window.location.href = "login.html";
+      }
+    }
+  });
+}
+
+function updateNavbarUI(user) {
+  // Update Premium Navbar UI
+  const loginBtn = document.getElementById("premium-login-btn");
+  const userProfile = document.getElementById("premium-user-profile");
+  const userName = document.getElementById("premium-user-name");
+  const userAvatar = document.getElementById("premium-user-avatar");
+
+  if (user) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (userProfile) userProfile.style.display = "flex";
+    if (userName) userName.textContent = user.displayName || "User";
+    if (userAvatar) userAvatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}&background=random`;
+  } else {
+    if (loginBtn) loginBtn.style.display = "inline-flex";
+    if (userProfile) userProfile.style.display = "none";
+  }
+}
+
+export async function registerWithEmail(email, password, fullname) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // Attach the fullname to the user object before creating the doc
+    userCredential.user.displayName = fullname;
+    await ensureUserDocument(userCredential.user);
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function loginWithEmail(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    await ensureUserDocument(userCredential.user);
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function signInWithGoogle() {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    await ensureUserDocument(result.user);
+    return result.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function logoutUser() {
+  try {
+    await signOut(auth);
+    window.location.href = "index.html";
+  } catch (error) {
+    console.error("Logout failed", error);
+  }
+}
+
+window.logoutUser = logoutUser;
+
+// Initialize observer on DOM load for all pages
+document.addEventListener("DOMContentLoaded", () => {
+  // Avoid duplicate observer initializations if page calls it
+  if (!window.authObserverInitialized) {
+    initAuthObserver(true, true);
+    window.authObserverInitialized = true;
+  }
+  
+  // Profile Dropdown logic (premium navbar)
+  const profileToggle = document.getElementById("premium-user-profile");
+  if(profileToggle) {
+      profileToggle.addEventListener('click', () => {
+         window.location.href = "dashboard.html"; // Simple redirect for now instead of dropdown
+      });
+  }
+});
