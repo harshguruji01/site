@@ -15,176 +15,95 @@
   <!-- ==========================================
        PREMIUM NAVBAR COMPONENT
        ========================================== -->
-  <nav class="premium-navbar" id="main-navbar" aria-label="Main Navigation">
-    <div class="nav-container">
-      
-      <!-- LEFT SIDE: Branding -->
-      <a href="/" class="nav-brand" aria-label="HarshGuruJi Home">
-        <span class="brand-text">HarshGuruJi</span>
-      </a>
-
-      <!-- CENTER: Large Search Bar -->
-      <div class="nav-search-container">
-        <div class="search-wrapper">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
-          </svg>
-          <input type="text" id="global-search" class="search-input" placeholder="Search anything on HarshGuruJi..." aria-label="Search">
-          <span class="search-shortcut">⌘K</span>
-          <button id="clear-search" class="clear-btn" aria-label="Clear search" style="display: none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-        
-        <!-- Search Dropdown (Suggestions & History) -->
-        <div class="search-dropdown" id="search-dropdown">
-          <div class="search-section">
-            <div class="section-title">Recent Searches</div>
-            <ul class="search-list">
-              <li><a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> React Roadmap 2026</a></li>
-              <li><a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Best AI Tools</a></li>
-            </ul>
+  <nav class="premium-navbar" aria-label="Main Navigation">
+  <div class="nav-container">
+    <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" aria-label="HarshGuruJi Home">
+      <picture>
+        <source srcset="logo.webp" type="image/webp">
+        <img src="logo.png" alt="HarshGuruJi Logo" style="height:35px;width:auto;margin-right:8px" fetchpriority="high">
+      </picture>
+      <span class="nav-brand-text">HarshGuruJi</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-item mobile-auth-item" id="mobile-auth-item" style="display:none;padding:1rem;border-bottom:1px solid var(--nav-border-dark)">
+        <div style="display:flex;align-items:center;gap:1rem">
+          <img src="" alt="Profile" id="mobile-user-avatar" style="width:40px;height:40px;border-radius:50%" loading="lazy">
+          <div>
+            <div id="mobile-user-name" style="font-weight:700;color:#fff">User</div>
+            <a href="dashboard.html" style="font-size:.8rem;color:var(--store-primary);text-decoration:none">View Dashboard</a>
           </div>
-          <div class="search-section">
-            <div class="section-title">Popular Searches</div>
-            <ul class="search-list">
-              <li><a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg> Complete HTML Guide</a></li>
-              <li><a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg> JavaScript Interview Questions</a></li>
-            </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="daily-special.html" class="nav-link">Daily Special</a></li>
+      <li class="nav-item"><a href="contributor.html" class="nav-link">Contributors</a></li>
+      <li class="nav-item"><a href="store.html" class="nav-link">Store</a></li>
+      <li class="nav-item has-mega-menu">
+        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Categories <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <div class="mega-menu" aria-label="Categories Dropdown">
+          <div class="mega-menu-container">
+            <div class="mega-column">
+              <div class="mega-column-title">🎓 Education</div>
+              <ul>
+                <li><a href="education.html" class="mega-link">Education Hub</a></li>
+                <li><a href="learning-hub.html" class="mega-link">Learning Resources</a></li>
+                <li><a href="ask-questions.html" class="mega-link">Q&A Corner</a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">🛠️ Free Tools</div>
+              <ul>
+                <li><a href="free-tools.html" class="mega-link">All Free Tools</a></li>
+                <li><a href="ai-hub.html" class="mega-link">AI Hub</a></li>
+                <li><a href="gaming-hub.html" class="mega-link">Games & Apps</a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">🌐 Life & Tech</div>
+              <ul>
+                <li><a href="technology.html" class="mega-link">Technology</a></li>
+                <li><a href="daily-life.html" class="mega-link">Daily Life</a></li>
+                <li><a href="insights.html" class="mega-link">Daily Insights</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-search">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <input type="text" id="site-search" placeholder="Search site..." aria-label="Search">
+      </div>
+      <a href="https://guruai.zapier.app" target="_blank" class="btn btn-ai-nav" style="padding:.4rem .8rem;background:linear-gradient(45deg,var(--accent-primary),var(--accent-secondary));border-radius:50px;color:#fff;font-weight:600;font-size:.85rem;margin-right:1rem;display:flex;align-items:center;gap:.3rem" rel="noopener noreferrer">✦ GuruAI</a>
+      <div id="auth-container">
+        <div id="auth-loading" class="auth-loading-skeleton"></div>
+        <a href="login.html" id="btn-login" class="nav-login-btn" style="display:none">Login</a>
+        <div id="user-profile-dropdown" class="profile-dropdown-container" style="display:none">
+          <button class="profile-btn" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+            <img src="" alt="Profile" id="nav-user-avatar" class="nav-user-avatar" loading="lazy">
+            <span id="nav-user-name" class="nav-user-name">User</span>
+            <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div class="profile-dropdown-menu">
+            <div class="profile-dropdown-header"><strong id="dropdown-user-name">User</strong> <span id="dropdown-user-email">user@example.com</span></div>
+            <a href="dashboard.html" class="profile-dropdown-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Dashboard</a>
+            <a href="profile.html" class="profile-dropdown-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
+            <a href="settings.html" class="profile-dropdown-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Settings</a>
+            <a href="bookmarks.html" class="profile-dropdown-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Bookmarks</a>
+            <button onclick="logoutUser()" class="profile-dropdown-item text-danger" style="width:100%;text-align:left;background:0 0;border:none;cursor:pointer;font-family:Inter,sans-serif"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Logout</button>
           </div>
         </div>
       </div>
-
-      <!-- RIGHT SIDE: Navigation Links -->
-      <ul class="nav-links">
-        <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-        
-        <!-- Daily Special Dropdown -->
-        <li class="nav-item dropdown-wrapper">
-          <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-            Daily Special <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
-          </button>
-          <div class="dropdown-menu shadow-card">
-            <a href="#" class="dropdown-item">Today's Special</a>
-            <a href="#" class="dropdown-item">Thought of the Day</a>
-            <a href="#" class="dropdown-item">National News</a>
-            <a href="#" class="dropdown-item">International News</a>
-            <a href="#" class="dropdown-item">Calendar</a>
-            <a href="#" class="dropdown-item">Daily Quiz</a>
-          </div>
-        </li>
-
-        <!-- Categories Mega Menu -->
-        <li class="nav-item has-mega-menu">
-          <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-            Categories <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
-          </button>
-          <div class="mega-menu shadow-card">
-            <div class="mega-grid">
-              <div class="mega-col">
-                <a href="#" class="mega-item"><div class="mega-icon">🎓</div><span>Education</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">💻</div><span>Technology</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">👨‍💻</div><span>Programming</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">🤖</div><span>AI</span></a>
-              </div>
-              <div class="mega-col">
-                <a href="#" class="mega-item"><div class="mega-icon">🔬</div><span>Science</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">🧮</div><span>Mathematics</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">🌍</div><span>GK</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">📰</div><span>Current Affairs</span></a>
-              </div>
-              <div class="mega-col">
-                <a href="#" class="mega-item"><div class="mega-icon">🛠️</div><span>Free Tools</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">⬇️</div><span>Downloads</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">🎮</div><span>Games</span></a>
-                <a href="#" class="mega-item"><div class="mega-icon">🚀</div><span>Career</span></a>
-              </div>
-            </div>
-            <div class="mega-footer">
-              <a href="#" class="mega-footer-link">Explore More Categories &rarr;</a>
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item"><a href="#" class="nav-link">Contributors</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Store</a></li>
-      </ul>
-
-      <!-- RIGHT SIDE: Actions (GuruAI, Auth, Menu) -->
-      <div class="nav-actions">
-        <!-- GuruAI Premium Button -->
-        <a href="https://guruai.zapier.app" target="_blank" rel="noopener noreferrer" class="btn-premium">
-          <span class="btn-glow"></span>
-          <span class="btn-content">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
-            GuruAI
-          </span>
-        </a>
-
-        <!-- Auth State Container -->
-        <div class="auth-wrapper" id="auth-wrapper">
-          <!-- Logged Out State -->
-          <a href="#" class="btn-login" id="btn-login" style="display: none;">Login</a>
-          
-          <!-- Logged In State (Avatar) -->
-          <div class="user-dropdown-wrapper dropdown-wrapper" id="user-profile">
-            <button class="user-avatar-btn" aria-expanded="false" aria-haspopup="true">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Harsh" alt="User Avatar" class="avatar-img">
-            </button>
-            <div class="dropdown-menu user-menu shadow-card dropdown-right">
-              <div class="user-info">
-                <span class="user-name">Harsh</span>
-                <span class="user-email">user@webguruji.online</span>
-              </div>
-              <div class="divider"></div>
-              <a href="#" class="dropdown-item">Profile</a>
-              <a href="#" class="dropdown-item">Dashboard</a>
-              <a href="#" class="dropdown-item">Bookmarks</a>
-              <a href="#" class="dropdown-item">Saved Items</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <div class="divider"></div>
-              <a href="#" class="dropdown-item text-danger" id="btn-logout">Logout</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Three Dot Menu -->
-        <div class="three-dot-wrapper dropdown-wrapper">
-          <button class="btn-icon" aria-label="More options" aria-expanded="false" aria-haspopup="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-          </button>
-          <div class="dropdown-menu three-dot-menu shadow-card dropdown-right">
-            <a href="#" class="dropdown-item">About</a>
-            <a href="#" class="dropdown-item">Contact</a>
-            <a href="#" class="dropdown-item">Privacy Policy</a>
-            <a href="#" class="dropdown-item">Terms</a>
-            <a href="#" class="dropdown-item">Disclaimer</a>
-            <a href="#" class="dropdown-item">FAQ</a>
-            <a href="#" class="dropdown-item">Support</a>
-            <a href="#" class="dropdown-item">Feedback</a>
-            <a href="#" class="dropdown-item">Report Bug</a>
-            <a href="#" class="dropdown-item">GitHub</a>
-            <div class="divider"></div>
-            <a href="#" class="dropdown-item">Settings</a>
-            <a href="#" class="dropdown-item">Theme</a>
-            <a href="#" class="dropdown-item">Language</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- MOBILE HAMBURGER -->
-      <button class="hamburger-menu" id="hamburger-menu" aria-label="Open mobile menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- ==========================================
        MOBILE DRAWER OVERLAY & MENU

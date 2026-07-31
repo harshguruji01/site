@@ -14,7 +14,7 @@ const navbarHTML = `
       </picture>
       <span class="nav-brand-text">HarshGuruJi</span>
     </a>
-    <ul class="nav-menu" id="nav-menu">
+    <ul class="nav-links" id="nav-links">
       <li class="nav-item mobile-auth-item" id="mobile-auth-item" style="display:none;padding:1rem;border-bottom:1px solid var(--nav-border-dark)">
         <div style="display:flex;align-items:center;gap:1rem">
           <img src="" alt="Profile" id="mobile-user-avatar" style="width:40px;height:40px;border-radius:50%" loading="lazy">
