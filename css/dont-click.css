@@ -1,0 +1,372 @@
+/* ==========================================================================
+   DON'T CLICK - ADVERTISEMENT PAGE CSS
+   ========================================================================== */
+
+/* --- 1. CSS VARIABLES (Theme Support) --- */
+:root {
+  /* Default Dark Mode */
+  --bg-color: #080b12;
+  --bg-secondary: #121826;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --accent-primary: #3b82f6;
+  --accent-danger: #ef4444;
+  --accent-success: #10b981;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(18, 24, 38, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.5);
+  --ad-bg: rgba(255, 255, 255, 0.03);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #f8fafc;
+    --bg-secondary: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.1);
+    --ad-bg: rgba(0, 0, 0, 0.03);
+  }
+}
+
+/* --- 2. BASE & RESET --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Background Particles (Pure CSS) */
+.bg-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(239, 68, 68, 0.05) 0%, transparent 50%);
+  filter: blur(60px);
+  animation: bgFloat 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgFloat {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(20px, 20px); }
+}
+
+/* --- 3. UTILITIES & ANIMATIONS --- */
+.hidden { display: none !important; }
+
+.fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.fade-out { animation: fadeOut 0.4s ease forwards; }
+.slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Ripple Effect */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+@media (prefers-color-scheme: light) {
+  .ripple { background-color: rgba(0, 0, 0, 0.1); }
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Shimmer Loading for Ads */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  animation: shimmer 2s infinite;
+}
+@media (prefers-color-scheme: light) {
+  .shimmer::after { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent); }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* --- 4. FLOW SCREENS (Entry & Confirmation) --- */
+.flow-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background: var(--bg-color);
+  padding: 2rem;
+  text-align: center;
+}
+
+.warning-title {
+  font-size: 4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--accent-danger), #ff8a65);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.warning-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-large {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-deny {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-deny:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-allow {
+  background: var(--accent-danger);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+}
+.btn-allow:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.6);
+}
+
+/* Modal Dialog */
+.modal-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  padding: 3rem;
+  border-radius: 24px;
+  max-width: 500px;
+  box-shadow: var(--shadow-premium);
+}
+.modal-title { font-size: 1.8rem; margin-bottom: 1rem; }
+.modal-text { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+
+/* --- 5. ADVERTISEMENT PAGE LAYOUT --- */
+.ad-page {
+  display: none; /* Shown via JS */
+  padding-bottom: 100px; /* Space for sticky ad */
+}
+
+/* Controls Header */
+.ad-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls-left, .controls-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(128, 128, 128, 0.1);
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.icon-btn:hover { background: rgba(128, 128, 128, 0.2); }
+
+/* Main Layout Grid */
+.ad-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 300px; /* Main content + Sidebar */
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .ad-container { grid-template-columns: 1fr; }
+  .ad-sidebar { display: none; }
+}
+
+.ad-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Ad Blocks */
+.ad-block {
+  background: var(--ad-bg);
+  border: 1px dashed var(--border-color);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+.ad-block::before {
+  content: 'Advertisement';
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 0.65rem;
+  opacity: 0.5;
+}
+
+.ad-banner { height: 150px; width: 100%; }
+.ad-rect-large { height: 250px; width: 100%; }
+.ad-video { aspect-ratio: 16/9; width: 100%; }
+
+/* Grid Ads */
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.ad-card { height: 250px; }
+
+/* Native Ads */
+.native-ad-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.native-ad {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  height: auto;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+.native-img {
+  width: 120px;
+  height: 100px;
+  background: rgba(128,128,128,0.1);
+  border-radius: 8px;
+}
+.native-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.native-line {
+  height: 12px;
+  background: rgba(128,128,128,0.1);
+  border-radius: 4px;
+}
+.native-line.short { width: 60%; }
+
+/* Sidebar Ads */
+.ad-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.ad-sidebar-rect { height: 600px; width: 100%; position: sticky; top: 100px; }
+
+/* Sticky Bottom Ad */
+.ad-sticky-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+}
+.ad-sticky-content { width: 728px; height: 90px; max-width: 100%; }
+
+/* --- 6. COMPLIANCE SECTIONS --- */
+.compliance-section {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+.compliance-section h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary); }
+.compliance-section p, .compliance-section ul { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; }
+.compliance-section ul { padding-left: 1.5rem; }
+.compliance-section li { margin-bottom: 0.5rem; }
