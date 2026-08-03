@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Dashboard | HarshGuruJi</title><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>body{display:flex;height:100vh;overflow:hidden;margin:0;background-color:var(--bg-main)}.admin-sidebar{width:280px;background:var(--nav-bg);border-right:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);display:flex;flex-direction:column;padding:1.5rem}.admin-logo{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700}.admin-nav{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}.admin-nav li a{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:var(--radius-md);color:var(--text-secondary);text-decoration:none;transition:all var(--transition-fast);font-weight:500}.admin-nav li a.active,.admin-nav li a:hover{background:rgba(255,51,102,.1);color:var(--accent-primary)}.admin-content{flex:1;overflow-y:auto;padding:2rem}.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:2rem}.stat-card{background:var(--card-bg);border:1px solid var(--card-border);padding:1.5rem;border-radius:var(--radius-lg);display:flex;flex-direction:column;gap:.5rem}.stat-card h4{color:var(--text-secondary);font-size:.9rem;margin:0}.stat-card h2{font-size:2rem;margin:0;color:var(--text-primary)}.admin-table-container{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);padding:1.5rem}.admin-table{width:100%;border-collapse:collapse;margin-top:1rem}.admin-table td,.admin-table th{padding:1rem;text-align:left;border-bottom:1px solid var(--glass-border)}.admin-table th{color:var(--text-muted);font-weight:500;text-transform:uppercase;font-size:.8rem;letter-spacing:1px}.admin-table td{color:var(--text-primary)}</style><meta http-equiv="X-XSS-Protection" content="1; mode=block">  <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
 </head><body>
+
 <nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
   <div class="premium-nav-container">
     <!-- Mobile Hamburger -->
@@ -23,6 +24,212 @@
       <li class="premium-nav-item has-mega-menu">
         <a href="ai-hub.html" class="premium-nav-link">AI Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="premium-mega-menu">
+          <div class="mega-grid">
+            <div class="mega-column">
+              <div class="mega-column-title">🤖 Conversational AI</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">🎨 Generative AI</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Tools Hub Mega Menu -->
+      <li class="premium-nav-item has-mega-menu">
+        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <div class="premium-mega-menu">
+          <div class="mega-grid">
+            <div class="mega-column">
+              <div class="mega-column-title">🛠️ Utilities</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">⚙️ Processors</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Learning Mega Menu -->
+      <li class="premium-nav-item has-mega-menu">
+        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <div class="premium-mega-menu">
+          <div class="mega-grid">
+            <div class="mega-column">
+              <div class="mega-column-title">📚 Subjects</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">🚀 Advanced</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Gaming Mega Menu -->
+      <li class="premium-nav-item has-mega-menu">
+        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <div class="premium-mega-menu">
+          <div class="mega-grid">
+            <div class="mega-column">
+              <div class="mega-column-title">🎮 Platforms</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">🏆 Competitive</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Store Mega Menu -->
+      <li class="premium-nav-item has-mega-menu">
+        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <div class="premium-mega-menu">
+          <div class="mega-grid">
+            <div class="mega-column">
+              <div class="mega-column-title">🛒 Platforms</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <div class="mega-column-title">📦 Digital</div>
+              <ul>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
+                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Search & Actions -->
+    <div class="premium-nav-actions">
+      <!-- Search Bar -->
+      <div class="premium-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
+        <div class="search-shortcut">CTRL K</div>
+      </div>
+      
+      <!-- Theme Toggle -->
+      <button class="action-btn" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <!-- Notification -->
+      <button class="action-btn" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      </button>
+
+      <!-- Auth (Dynamic via JS) -->
+      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
+      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
+        <img src="logo.png" alt="User" id="premium-user-avatar">
+        <span class="premium-user-name" id="premium-user-name">User</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Full Screen Menu -->
+<div class="premium-mobile-nav" id="premium-mobile-nav">
+  <div class="mobile-menu-container">
+    <div class="mobile-nav-item">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+    </div>
+    <div class="mobile-nav-item">
+      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+      <div class="mobile-submenu">
+        <div class="mobile-submenu-inner">
+          <a href="#" class="mobile-sub-link">ChatGPT</a>
+          <a href="#" class="mobile-sub-link">Gemini</a>
+          <a href="#" class="mobile-sub-link">Claude</a>
+          <a href="#" class="mobile-sub-link">Image AI</a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav-item">
+      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+      <div class="mobile-submenu">
+        <div class="mobile-submenu-inner">
+          <a href="#" class="mobile-sub-link">Developer</a>
+          <a href="#" class="mobile-sub-link">SEO</a>
+          <a href="#" class="mobile-sub-link">Design</a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav-item">
+      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+      <div class="mobile-submenu">
+        <div class="mobile-submenu-inner">
+          <a href="#" class="mobile-sub-link">Programming</a>
+          <a href="#" class="mobile-sub-link">Science</a>
+          <a href="#" class="mobile-sub-link">Cybersecurity</a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav-item">
+      <a href="store.html" class="mobile-nav-link">Store</a>
+    </div>
+    <div class="mobile-nav-item">
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="premium-mega-menu">
           <div class="mega-grid">
             <div class="mega-column">
               <div class="mega-column-title">🤖 Conversational AI</div>

@@ -43,6 +43,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="preload" href="logo.png" as="image" type="image/png">
 </head>
 
 <body>
@@ -491,14 +492,14 @@
             </div>
             <div class="chat-body">
               <div class="chat-msg ai">
-                <img src="ai.png" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
+                <img src="ai.png" loading="lazy" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
                 <div class="msg-bubble">Hello! I'm GuruJi AI. Ask me anything — I'm here to help you learn! 😊</div>
               </div>
               <div class="chat-msg user">
                 <div class="msg-bubble">What is photosynthesis?</div>
               </div>
               <div class="chat-msg ai">
-                <img src="ai.png" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
+                <img src="ai.png" loading="lazy" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
                 <div class="msg-bubble">Photosynthesis is how plants make their own food using sunlight, water, and CO₂.
                   Simple formula: <strong>Sun + Water + CO₂ → Food + O₂</strong> 🌱</div>
               </div>
@@ -745,7 +746,7 @@
       <!-- Owner Details -->
       <div class="footer-bottom" style="flex-direction: column; gap: 1.5rem; padding-top: 2.5rem;">
         <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-          <img src="harshlogo.png" alt="Harsh Patel – Owner" style="height: 80px; width: auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.4);" />
+          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" style="height: 80px; width: auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.4);" />
           <div>
             <strong style="color: var(--text-primary); font-size: 1.25rem; display: block; margin-bottom: 0.3rem;">Harsh Patel</strong>
             <span style="color: var(--accent-primary); font-size: 0.95rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Founder & Owner – HarshGuruJi</span>
@@ -758,10 +759,11 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
   <script src="js/button_handlers.js" defer></script>
   <script src="cookie.js" defer></script>
-  <script src="navbar-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src='https://www.noupe.com/embed/019c19608d807e7ab6223e443542a5eee13a.js'></script>
 </body>
 
 </html>
