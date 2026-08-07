@@ -1,667 +1,691 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login | HarshGuruJi</title><meta name="description" content="Login to HarshGuruJi to access premium educational resources and GuruAI."><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="login.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3366"><link rel="apple-touch-icon" href="logo.png"><script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "HarshGuruJi",
-    "url": "https://www.webguruji.online",
-    "logo": "https://www.webguruji.online/logo.png",
-    "description": "India's most premium educational platform with AI.",
-    "sameAs": [
-      "https://github.com",
-      "https://guruai.zapier.app"
-    ]
-  }</script><meta http-equiv="X-XSS-Protection" content="1; mode=block">  <link rel="stylesheet" href="cookie.css">
-  <link rel="stylesheet" href="navbar-premium.css">
-</head><body>
-<nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
-  <div class="premium-nav-container">
-    <!-- Mobile Hamburger -->
-    <button class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Brand / Logo -->
-    <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
-      <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
-      <span class="premium-brand-text">HarshGuruJi</span>
-    </a>
-
-    <!-- Desktop Nav Links -->
-    <ul class="premium-nav-links">
-      <li class="premium-nav-item"><a href="index.html" class="premium-nav-link">Home</a></li>
-      <li class="premium-nav-item"><a href="daily-special.html" class="premium-nav-link">Daily Special</a></li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sign In | HarshGuruJi Premium</title>
+  <meta name="description" content="Secure login to HarshGuruJi premium learning platform.">
+  <link rel="icon" type="image/png" href="logo.png">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================
+       DESIGN TOKENS & RESET
+       ========================================== */
+    :root {
+      /* Colors */
+      --color-bg-light: #f8fafc;
+      --color-bg-dark: #0f172a;
       
-      <!-- AI Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="ai-hub.html" class="premium-nav-link">AI Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🤖 Conversational AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🎨 Generative AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Tools Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛠️ Utilities</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">⚙️ Processors</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Learning Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">📚 Subjects</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🚀 Advanced</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Gaming Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🎮 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🏆 Competitive</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Store Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛒 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">📦 Digital</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <!-- Search & Actions -->
-    <div class="premium-nav-actions">
-      <!-- Search Bar -->
-      <div class="premium-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
-        <div class="search-shortcut">CTRL K</div>
-      </div>
+      --color-surface-light: rgba(255, 255, 255, 0.7);
+      --color-surface-dark: rgba(30, 41, 59, 0.7);
       
-      <!-- Theme Toggle -->
-      <button class="action-btn" aria-label="Toggle Theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      </button>
-
-      <!-- Notification -->
-      <button class="action-btn" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-      </button>
-
-      <!-- Auth (Dynamic via JS) -->
-      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
-      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
-        <img src="logo.png" alt="User" id="premium-user-avatar">
-        <span class="premium-user-name" id="premium-user-name">User</span>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Full Screen Menu -->
-<div class="premium-mobile-nav" id="premium-mobile-nav">
-  <div class="mobile-menu-container">
-    <div class="mobile-nav-item">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">ChatGPT</a>
-          <a href="#" class="mobile-sub-link">Gemini</a>
-          <a href="#" class="mobile-sub-link">Claude</a>
-          <a href="#" class="mobile-sub-link">Image AI</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🤖 Conversational AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🎨 Generative AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Tools Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛠️ Utilities</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">⚙️ Processors</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Learning Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">📚 Subjects</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🚀 Advanced</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Gaming Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🎮 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🏆 Competitive</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Store Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛒 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">📦 Digital</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <!-- Search & Actions -->
-    <div class="premium-nav-actions">
-      <!-- Search Bar -->
-      <div class="premium-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
-        <div class="search-shortcut">CTRL K</div>
-      </div>
+      --color-border-light: rgba(255, 255, 255, 0.5);
+      --color-border-dark: rgba(255, 255, 255, 0.1);
       
-      <!-- Theme Toggle -->
-      <button class="action-btn" aria-label="Toggle Theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      </button>
-
-      <!-- Notification -->
-      <button class="action-btn" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-      </button>
-
-      <!-- Auth (Dynamic via JS) -->
-      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
-      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
-        <img src="logo.png" alt="User" id="premium-user-avatar">
-        <span class="premium-user-name" id="premium-user-name">User</span>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Full Screen Menu -->
-<div class="premium-mobile-nav" id="premium-mobile-nav">
-  <div class="mobile-menu-container">
-    <div class="mobile-nav-item">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">ChatGPT</a>
-          <a href="#" class="mobile-sub-link">Gemini</a>
-          <a href="#" class="mobile-sub-link">Claude</a>
-          <a href="#" class="mobile-sub-link">Image AI</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<!-- Mobile Full Screen Menu -->
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<!-- Mobile Full Screen Menu -->
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div><div class="auth-wrapper"><main class="auth-container"><div class="auth-header"><a href="index.html" class="auth-logo"><img src="logo.png" alt="HarshGuruJi Logo" class="nav-logo-img" fetchpriority="high" onerror="this.src='logo.png'"><span>HarshGuruJi</span></a><h1 class="auth-title">Welcome Back</h1><p class="auth-subtitle">Log in to continue learning with GuruAI.</p></div><div class="social-login-grid"><button id="btn-login-6sq6e" class="btn-social google" type="button" aria-label="Continue with Google"><svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg> Google</button> <button id="btn-login-y8z74" class="btn-social microsoft" type="button" aria-label="Continue with Microsoft"><svg viewBox="0 0 21 21" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M10 0H0v10h10V0z" fill="#f25022"></path><path d="M21 0H11v10h10V0z" fill="#7fba00"></path><path d="M10 11H0v10h10V11z" fill="#00a4ef"></path><path d="M21 11H11v10h10V11z" fill="#ffb900"></path></svg> Microsoft</button> <button id="btn-login-vitw8" class="btn-social github" type="button" aria-label="Continue with GitHub" onclick="signInWithGitHub()"><svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#ffffff"></path></svg> GitHub</button></div><div class="auth-divider"><span>OR</span></div><form id="login-form" class="auth-form" novalidate=""><div class="auth-alert error" id="global-error" style="display:none" aria-live="assertive"></div><div class="input-group"><label for="email">Email address</label><div class="input-wrapper"><input type="email" id="email" name="email" placeholder="student@example.com" required="" autocomplete="email"><div class="input-icon">✉</div></div><span class="error-text" id="email-error">Please enter a valid email address.</span></div><div class="input-group"><label for="password">Password</label><div class="input-wrapper"><input type="password" id="password" name="password" placeholder="Enter your password" required="" autocomplete="current-password"><div class="input-icon lock">🔒</div><button type="button" class="btn-toggle-password" id="toggle-pwd" aria-label="Show password">👁</button></div><div class="caps-warning" id="caps-warning" style="display:none">Caps Lock is ON</div><div class="password-strength-container" id="pwd-strength-wrap" style="display:none;margin-top:.4rem;display:flex;align-items:center;gap:.6rem"><div class="strength-bar" style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden"><div class="strength-fill" id="pwd-strength-fill" style="height:100%;width:0%;transition:width .3s,background .3s"></div></div><span class="strength-text" id="pwd-strength-text" style="font-size:.75rem;color:var(--text-secondary)"></span></div><span class="error-text" id="pwd-error">Password is required.</span></div><div class="auth-options"><label class="remember-me"><input type="checkbox" id="remember" name="remember"> <span class="checkbox-custom"></span> Remember me</label> <a href="forgot-password.html" class="forgot-link">Forgot password?</a></div><button type="submit" class="btn-submit" id="btn-login"><span class="btn-text">Log In</span></button></form><div class="auth-footer"><p>New to HarshGuruJi? <a href="signup.html">Create an account</a></p><p class="guest-link"><a href="index.html">Continue as Guest</a></p></div><div class="terms-links"><a href="terms-and-conditions.html">Terms</a> · <a href="privacy-policy.html"
-            <a href="cookie.html">Cookie Policy</a>>Privacy</a></div></main><a href="https://guruai.zapier.app" target="_blank" class="guruai-floating-badge" aria-label="Ask GuruAI" rel="noopener noreferrer"><picture><source srcset="ai.png" type="image/webp"><img src="ai.png" alt="GuruAI" width="800" height="600" loading="lazy" decoding="async"></picture><div class="guruai-tooltip">Need help logging in?</div></a></div><script type="module">import { loginWithEmail, signInWithGoogle, initAuthObserver } from './js/auth.js';
-
-    // If already logged in, redirect to dashboard
-    initAuthObserver(null, false);
-    onAuthStateChangedCheck();
-
-    async function onAuthStateChangedCheck() {
-      const { auth } = await import('./js/firebase.js');
-      const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
-      onAuthStateChanged(auth, (user) => {
-        if(user) window.location.href = 'dashboard.html';
-      });
+      --color-text-primary-light: #0f172a;
+      --color-text-primary-dark: #f8fafc;
+      
+      --color-text-secondary-light: #64748b;
+      --color-text-secondary-dark: #94a3b8;
+      
+      --color-primary: #ff3366;
+      --color-primary-hover: #e02958;
+      --color-secondary: #7c3aed;
+      
+      --color-error: #ef4444;
+      --color-success: #10b981;
+      
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-sans);
+      
+      /* Effects */
+      --shadow-glass: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      --shadow-input: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --blur-glass: blur(20px);
+      
+      /* Transitions */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    // Toggle Password Visibility
-    const togglePwd = document.getElementById('toggle-pwd');
-    const pwdInput = document.getElementById('password');
-    if (togglePwd && pwdInput) {
-      togglePwd.addEventListener('click', () => {
-        const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        pwdInput.setAttribute('type', type);
-        togglePwd.textContent = type === 'password' ? '👁‍🗨' : '👁';
-      });
-    }
-
-    // Caps Lock Warning
-    if (pwdInput) {
-      pwdInput.addEventListener('keyup', (e) => {
-        if (e.getModifierState('CapsLock')) {
-          document.getElementById('caps-warning').style.display = 'block';
-        } else {
-          document.getElementById('caps-warning').style.display = 'none';
-        }
-      });
-    }
-
-    // Email/Password Login
-    const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const pwd = pwdInput.value;
-      const remember = document.getElementById('remember').checked;
-      
-      const globalError = document.getElementById('global-error');
-      const btnText = document.querySelector('.btn-text');
-      const btnLoader = document.querySelector('.btn-loader');
-      const submitBtn = document.getElementById('btn-login');
-
-      if (!email || !pwd) {
-        globalError.textContent = 'Please fill in all fields.';
-        globalError.style.display = 'block';
-        return;
+    /* Auto Dark Mode Detection */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --theme-bg: var(--color-bg-dark);
+        --theme-surface: var(--color-surface-dark);
+        --theme-border: var(--color-border-dark);
+        --theme-text-primary: var(--color-text-primary-dark);
+        --theme-text-secondary: var(--color-text-secondary-dark);
+        --shadow-glass: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        --bg-gradient-1: rgba(124, 58, 237, 0.15);
+        --bg-gradient-2: rgba(255, 51, 102, 0.15);
       }
-      globalError.style.display = 'none';
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --theme-bg: var(--color-bg-light);
+        --theme-surface: var(--color-surface-light);
+        --theme-border: var(--color-border-light);
+        --theme-text-primary: var(--color-text-primary-light);
+        --theme-text-secondary: var(--color-text-secondary-light);
+        --bg-gradient-1: rgba(124, 58, 237, 0.08);
+        --bg-gradient-2: rgba(255, 51, 102, 0.08);
+      }
+    }
 
-      btnText.style.display = 'none';
-      btnLoader.style.display = 'block';
-      submitBtn.disabled = true;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--theme-bg);
+      color: var(--theme-text-primary);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-      try {
-        await loginWithEmail(email, pwd, remember);
-        // Will auto-redirect via auth.js on success
-      } catch (error) {
-        btnText.style.display = 'block';
-        btnLoader.style.display = 'none';
-        submitBtn.disabled = false;
-        globalError.textContent = error.message;
-        globalError.style.display = 'block';
+    /* ==========================================
+       ANIMATED BACKGROUND (GPU Accelerated)
+       ========================================== */
+    .bg-orbs {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 20s infinite ease-in-out alternate;
+      will-change: transform;
+    }
+    .orb-1 {
+      top: -10%; left: -10%;
+      width: 50vw; height: 50vw;
+      background: var(--bg-gradient-1);
+    }
+    .orb-2 {
+      bottom: -10%; right: -10%;
+      width: 60vw; height: 60vw;
+      background: var(--bg-gradient-2);
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 10%) scale(1.1); }
+    }
+
+    /* ==========================================
+       GLASSMORPHISM LOGIN CARD
+       ========================================== */
+    .auth-wrapper {
+      width: 100%;
+      max-width: 440px;
+      padding: 2rem;
+      z-index: 10;
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card {
+      background: var(--theme-surface);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--theme-border);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      box-shadow: var(--shadow-glass);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .auth-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 30px 60px -12px rgba(0,0,0,0.2);
+    }
+
+    /* Header */
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .brand-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      margin-bottom: 1.25rem;
+      border-radius: 12px;
+      animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
+    }
+    .auth-subtitle {
+      color: var(--theme-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* ==========================================
+       FORM & FLOATING LABELS
+       ========================================== */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--theme-border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem 0.5rem;
+      font-size: 1rem;
+      color: var(--theme-text-primary);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+      outline: none;
+      box-shadow: var(--shadow-input);
+      font-family: inherit;
+    }
+    
+    .input-field:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .input-field:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(255, 51, 102, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .input-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--theme-text-secondary);
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all var(--transition-fast);
+    }
+
+    /* Floating active state */
+    .input-field:focus ~ .input-label,
+    .input-field:not(:placeholder-shown) ~ .input-label {
+      top: 0.4rem;
+      transform: translateY(0);
+      font-size: 0.75rem;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    .input-field:not(:placeholder-shown):not(:focus) ~ .input-label {
+      color: var(--theme-text-secondary);
+    }
+
+    /* Input Extras */
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--theme-text-secondary);
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: color var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .password-toggle:hover { color: var(--theme-text-primary); }
+    .password-toggle:focus-visible { outline: 2px solid var(--color-primary); }
+
+    /* Validation UI */
+    .error-msg {
+      font-size: 0.8rem;
+      color: var(--color-error);
+      margin-top: 0.4rem;
+      display: none;
+      animation: slideDown 0.2s ease-out forwards;
+    }
+    .input-group.invalid .input-field {
+      border-color: var(--color-error);
+      animation: shake 0.4s ease-in-out;
+    }
+    .input-group.invalid .error-msg { display: block; }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    /* Top Global Error */
+    .global-error-card {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--color-error);
+      color: var(--color-error);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================
+       OPTIONS & BUTTON
+       ========================================== */
+    .auth-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--theme-text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+    .checkbox-label input {
+      accent-color: var(--color-primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    
+    .forgot-link {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+    .forgot-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(255, 51, 102, 0.4);
+    }
+    .btn-submit:active { transform: translateY(1px); }
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loader */
+    .loader {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ==========================================
+       SOCIAL LOGIN
+       ========================================== */
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--theme-text-secondary);
+      font-size: 0.85rem;
+      margin: 1.75rem 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--theme-border);
+    }
+    .divider:not(:empty)::before { margin-right: 1rem; }
+    .divider:not(:empty)::after { margin-left: 1rem; }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+    .btn-social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem;
+      background: var(--theme-surface);
+      border: 1px solid var(--theme-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .btn-social:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--color-primary);
+      transform: translateY(-1px);
+    }
+    .btn-social svg { width: 22px; height: 22px; }
+
+    /* ==========================================
+       FOOTER (Login Specific)
+       ========================================== */
+    .auth-footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--theme-text-secondary);
+      font-size: 0.95rem;
+    }
+    .auth-footer a {
+      color: var(--theme-text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--transition-fast);
+    }
+    .auth-footer a:hover { color: var(--color-primary); }
+
+    .legal-footer {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .legal-footer a {
+      color: var(--theme-text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .legal-footer a:hover { color: var(--theme-text-primary); }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+    @media (max-width: 480px) {
+      .auth-wrapper { padding: 1.5rem 1rem; }
+      .auth-card { padding: 2rem 1.5rem; border-radius: 20px; border-width: 0px; box-shadow: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;}
+      /* On mobile, remove the heavy glass card effect for a cleaner full screen feel */
+      .legal-footer { position: relative; margin-top: 3rem; bottom: auto; }
+      .bg-orbs { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" aria-label="Go to Homepage">
+          <img src="logo.png" alt="HarshGuruJi" class="brand-logo" fetchpriority="high">
+        </a>
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to continue to your dashboard</p>
+      </div>
+
+      <div class="global-error-card" id="global-error" role="alert">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span id="global-error-text">An error occurred.</span>
+      </div>
+
+      <form class="auth-form" id="login-form" novalidate>
+        <!-- Email -->
+        <div class="input-group" id="email-group">
+          <input type="email" id="email" class="input-field" placeholder=" " required autocomplete="email">
+          <label for="email" class="input-label">Email address</label>
+          <div class="error-msg" id="email-error">Please enter a valid email.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="input-group" id="password-group">
+          <input type="password" id="password" class="input-field" placeholder=" " required autocomplete="current-password" style="padding-right: 2.5rem;">
+          <label for="password" class="input-label">Password</label>
+          <button type="button" class="password-toggle" id="toggle-pwd" aria-label="Toggle password visibility">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="eye-icon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+          <div class="error-msg" id="pwd-error">Password is required.</div>
+        </div>
+
+        <div class="auth-options">
+          <label class="checkbox-label" for="remember">
+            <input type="checkbox" id="remember" name="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+          <span class="btn-text" id="btn-text">Sign In</span>
+          <div class="loader" id="btn-loader"></div>
+        </button>
+      </form>
+
+      <div class="divider">Or continue with</div>
+
+      <div class="social-grid">
+        <!-- Google -->
+        <button class="btn-social google" id="btn-google" aria-label="Sign in with Google" type="button">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg>
+        </button>
+        <!-- Microsoft -->
+        <button class="btn-social microsoft" id="btn-microsoft" aria-label="Sign in with Microsoft" type="button">
+          <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="M10 0H0v10h10V0z" fill="#f25022"></path><path d="M21 0H11v10h10V0z" fill="#7fba00"></path><path d="M10 11H0v10h10V11z" fill="#00a4ef"></path><path d="M21 11H11v10h10V11z" fill="#ffb900"></path></svg>
+        </button>
+        <!-- GitHub -->
+        <button class="btn-social github" id="btn-github" aria-label="Sign in with GitHub" type="button">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--theme-text-primary)"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+        </button>
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="signup.html">Create account</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="legal-footer">
+    <a href="privacy-policy.html">Privacy</a>
+    <a href="terms-and-conditions.html">Terms</a>
+    <a href="contact.html">Help</a>
+  </footer>
+
+  <!-- Embedded JavaScript for Logic -->
+  <script>
+    // 1. DOM Elements
+    const form = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const pwdInput = document.getElementById('password');
+    const togglePwdBtn = document.getElementById('toggle-pwd');
+    const eyeIcon = document.getElementById('eye-icon');
+    
+    const emailGroup = document.getElementById('email-group');
+    const pwdGroup = document.getElementById('password-group');
+    const globalError = document.getElementById('global-error');
+    const globalErrorText = document.getElementById('global-error-text');
+    
+    const submitBtn = document.getElementById('btn-submit');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+    
+    // 2. Password Toggle
+    togglePwdBtn.addEventListener('click', () => {
+      const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      pwdInput.setAttribute('type', type);
+      
+      if (type === 'text') {
+        eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+      } else {
+        eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
       }
     });
 
-    // Google Login
-    const googleBtn = document.querySelector('.btn-social.google');
-    if (googleBtn) {
-      googleBtn.addEventListener('click', async () => {
-        try {
-          await signInWithGoogle();
-        } catch (error) {
-          const globalError = document.getElementById('global-error');
-          globalError.textContent = 'Google Sign-In failed: ' + error.message;
-          globalError.style.display = 'block';
-        }
-      });
-    }</script><script src="navbar.js" defer="true"></script><script type="module" src="js/auth.js" defer="true"></script>
-<!-- Premium Dark Theme Footer -->
-<footer style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 2.5rem 2rem 1.5rem; margin-top: 2rem;">
-  <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
-    <div>
-      <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; margin-bottom: 1.5rem;">
-        <img src="logo.png" alt="HarshGuruJi Logo" style="height: 40px; width: auto;" loading="lazy">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">HarshGuruJi</span>
-      </a>
-      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Empowering developers with premium tools, courses, and resources. Master modern web development and software engineering.</p>
-    </div>
-    
-    <div>
-      <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Platform</h4>
-      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-        <li><a href="store.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Premium Store</a></li>
-        <li><a href="daily-special.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Daily Specials</a></li>
-        <li><a href="contributor.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Contributors</a></li>
-        <li><a href="https://guruai.zapier.app" target="_blank" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'" rel="noopener noreferrer">GuruAI Assistant</a></li>
-      </ul>
-    </div>
+    // Clear validation on input
+    const clearError = (groupEl) => {
+      groupEl.classList.remove('invalid');
+      globalError.style.display = 'none';
+    };
+    emailInput.addEventListener('input', () => clearError(emailGroup));
+    pwdInput.addEventListener('input', () => clearError(pwdGroup));
 
-    <div>
-      <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Legal</h4>
-      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-        <li><a href="privacy-policy.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a></li>
-        <li><a href="terms-and-conditions.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Terms &amp; Conditions</a></li>
-        <li><a href="contact.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Contact Us</a></li>
-      </ul>
-    </div>
-  </div>
-  
-  <div style="max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-    <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 HarshGuruJi. All rights reserved.</p>
-    <div style="display: flex; gap: 1rem;">
-      <a href="https://github.com/harshguruji01" target="_blank" aria-label="GitHub" style="color: var(--text-muted); transition: 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-      </a>
-    </div>
-  </div>
-</footer>
-  <script src="js/button_handlers.js" defer></script>
-  <script src="cookie.js" defer></script>
-  <script src="navbar-premium.js"></script>
-</body></html>
+    // 3. Form Submission to PHP Backend
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const identifier = emailInput.value.trim();
+      const pwd = pwdInput.value;
+      const remember = document.getElementById('remember').checked;
+      
+      let isValid = true;
+
+      if (!identifier) {
+        emailGroup.classList.add('invalid');
+        isValid = false;
+      }
+      
+      if (!pwd) {
+        pwdGroup.classList.add('invalid');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'block';
+      globalError.style.display = 'none';
+
+      const formData = new FormData();
+      formData.append('identifier', identifier);
+      formData.append('password', pwd);
+      if (remember) formData.append('remember', '1');
+
+      try {
+        const response = await fetch('backend/auth/login.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          btnLoader.style.display = 'none';
+          btnText.style.display = 'block';
+          btnText.innerHTML = '&#10003;'; // Checkmark
+          submitBtn.style.background = 'var(--color-success)';
+          submitBtn.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
+          
+          setTimeout(() => {
+            window.location.href = result.data.redirect || 'profile.html';
+          }, 800);
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (error) {
+        submitBtn.disabled = false;
+        btnText.style.display = 'block';
+        btnLoader.style.display = 'none';
+        
+        globalErrorText.textContent = error.message || 'Invalid credentials. Please try again.';
+        globalError.style.display = 'flex';
+        
+        const card = document.querySelector('.auth-card');
+        card.style.animation = 'none';
+        void card.offsetWidth; 
+        card.style.animation = 'shake 0.4s ease-in-out';
+      }
+    });
+
+    // Social Logins (Dummy implementation since we moved off Firebase)
+    document.getElementById('btn-google').addEventListener('click', () => {
+      globalErrorText.textContent = 'Google login requires OAuth setup.';
+      globalError.style.display = 'flex';
+    });
+    document.getElementById('btn-microsoft').addEventListener('click', () => {
+      globalErrorText.textContent = 'Microsoft login coming soon.';
+      globalError.style.display = 'flex';
+    });
+    document.getElementById('btn-github').addEventListener('click', () => {
+       globalErrorText.textContent = 'GitHub login coming soon.';
+       globalError.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>

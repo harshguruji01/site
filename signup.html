@@ -1,668 +1,557 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Create Account | HarshGuruJi</title><meta name="description" content="Sign up for HarshGuruJi to unlock premium educational resources."><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="signup.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3366"><link rel="apple-touch-icon" href="logo.png"><script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "HarshGuruJi",
-    "url": "https://www.webguruji.online",
-    "logo": "https://www.webguruji.online/logo.png",
-    "description": "India's most premium educational platform with AI.",
-    "sameAs": [
-      "https://github.com",
-      "https://guruai.zapier.app"
-    ]
-  }</script><meta http-equiv="X-XSS-Protection" content="1; mode=block">  <link rel="stylesheet" href="cookie.css">
-  <link rel="stylesheet" href="navbar-premium.css">
-</head><body>
-
-<nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
-  <div class="premium-nav-container">
-    <!-- Mobile Hamburger -->
-    <button class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Brand / Logo -->
-    <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
-      <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
-      <span class="premium-brand-text">HarshGuruJi</span>
-    </a>
-
-    <!-- Desktop Nav Links -->
-    <ul class="premium-nav-links">
-      <li class="premium-nav-item"><a href="index.html" class="premium-nav-link">Home</a></li>
-      <li class="premium-nav-item"><a href="daily-special.html" class="premium-nav-link">Daily Special</a></li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Create Account | HarshGuruJi Premium</title>
+  <meta name="description" content="Sign up for HarshGuruJi premium learning platform.">
+  <link rel="icon" type="image/png" href="logo.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg-light: #f8fafc;
+      --color-bg-dark: #0f172a;
+      --color-surface-light: rgba(255, 255, 255, 0.7);
+      --color-surface-dark: rgba(30, 41, 59, 0.7);
+      --color-border-light: rgba(255, 255, 255, 0.5);
+      --color-border-dark: rgba(255, 255, 255, 0.1);
+      --color-text-primary-light: #0f172a;
+      --color-text-primary-dark: #f8fafc;
+      --color-text-secondary-light: #64748b;
+      --color-text-secondary-dark: #94a3b8;
+      --color-primary: #ff3366;
+      --color-primary-hover: #e02958;
+      --color-secondary: #7c3aed;
+      --color-error: #ef4444;
+      --color-success: #10b981;
       
-      <!-- AI Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="ai-hub.html" class="premium-nav-link">AI Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🤖 Conversational AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🎨 Generative AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Tools Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛠️ Utilities</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">⚙️ Processors</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Learning Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">📚 Subjects</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🚀 Advanced</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Gaming Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🎮 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🏆 Competitive</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Store Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛒 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">📦 Digital</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <!-- Search & Actions -->
-    <div class="premium-nav-actions">
-      <!-- Search Bar -->
-      <div class="premium-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
-        <div class="search-shortcut">CTRL K</div>
-      </div>
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-sans);
       
-      <!-- Theme Toggle -->
-      <button class="action-btn" aria-label="Toggle Theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      </button>
-
-      <!-- Notification -->
-      <button class="action-btn" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-      </button>
-
-      <!-- Auth (Dynamic via JS) -->
-      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
-      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
-        <img src="logo.png" alt="User" id="premium-user-avatar">
-        <span class="premium-user-name" id="premium-user-name">User</span>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Full Screen Menu -->
-<div class="premium-mobile-nav" id="premium-mobile-nav">
-  <div class="mobile-menu-container">
-    <div class="mobile-nav-item">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">ChatGPT</a>
-          <a href="#" class="mobile-sub-link">Gemini</a>
-          <a href="#" class="mobile-sub-link">Claude</a>
-          <a href="#" class="mobile-sub-link">Image AI</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🤖 Conversational AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🎨 Generative AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Tools Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛠️ Utilities</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">⚙️ Processors</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Learning Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">📚 Subjects</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🚀 Advanced</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Gaming Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🎮 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🏆 Competitive</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- Store Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛒 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">📦 Digital</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <!-- Search & Actions -->
-    <div class="premium-nav-actions">
-      <!-- Search Bar -->
-      <div class="premium-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
-        <div class="search-shortcut">CTRL K</div>
-      </div>
-      
-      <!-- Theme Toggle -->
-      <button class="action-btn" aria-label="Toggle Theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      </button>
-
-      <!-- Notification -->
-      <button class="action-btn" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-      </button>
-
-      <!-- Auth (Dynamic via JS) -->
-      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
-      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
-        <img src="logo.png" alt="User" id="premium-user-avatar">
-        <span class="premium-user-name" id="premium-user-name">User</span>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Full Screen Menu -->
-<div class="premium-mobile-nav" id="premium-mobile-nav">
-  <div class="mobile-menu-container">
-    <div class="mobile-nav-item">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">ChatGPT</a>
-          <a href="#" class="mobile-sub-link">Gemini</a>
-          <a href="#" class="mobile-sub-link">Claude</a>
-          <a href="#" class="mobile-sub-link">Image AI</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<!-- Mobile Full Screen Menu -->
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
-
-<!-- Mobile Full Screen Menu -->
-
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div><div class="auth-wrapper"><main class="auth-container signup-container"><div class="auth-header"><a href="index.html" class="auth-logo"><picture><source srcset="logo.webp" type="image/webp"><img src="logo.png" alt="HarshGuruJi Logo" width="800" height="600" fetchpriority="high"></picture><span>HarshGuruJi</span></a><h1 class="auth-title">Create an Account</h1><p class="auth-subtitle">Join us and start learning for free.</p></div><form id="signup-form" class="auth-form" novalidate=""><div class="auth-alert error" id="global-error" style="display:none" aria-live="assertive"></div><div class="input-group"><label for="fullname">Full Name</label><div class="input-wrapper"><input type="text" id="fullname" name="fullname" placeholder="John Doe" required="" autocomplete="name"><div class="input-icon">👤</div></div><span class="error-text" id="name-error">Please enter your full name.</span></div><div class="input-group"><label for="email">Email address</label><div class="input-wrapper"><input type="email" id="email" name="email" placeholder="student@example.com" required="" autocomplete="email"><div class="input-icon">✉</div></div><span class="error-text" id="email-error">Please enter a valid email address.</span></div><div class="input-group"><label for="password">Password</label><div class="input-wrapper"><input type="password" id="password" name="password" placeholder="Create a strong password" required="" autocomplete="new-password"><div class="input-icon lock">🔒</div><button type="button" class="btn-toggle-password" id="toggle-pwd" aria-label="Show password">👁</button></div><div class="password-strength-container"><div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div><span class="strength-text" id="strength-text">Too short</span></div><div class="caps-warning" id="caps-warning" style="display:none">Caps Lock is ON</div><span class="error-text" id="pwd-error">Password must be at least 8 characters.</span></div><div class="input-group"><label for="confirm-password">Confirm Password</label><div class="input-wrapper"><input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required="" autocomplete="new-password"><div class="input-icon lock">🔒</div></div><span class="error-text" id="confirm-pwd-error">Passwords do not match.</span></div><div class="auth-options"><label class="remember-me"><input type="checkbox" id="terms" name="terms" required=""> <span class="checkbox-custom"></span> I agree to the <a href="terms-and-conditions.html" class="inline-link">Terms</a> &amp; <a href="privacy-policy.html"
-            <a href="cookie.html">Cookie Policy</a> class="inline-link">Privacy Policy</a></label></div><span class="error-text" id="terms-error" style="margin-top:-10px">You must agree to the terms.</span> <button type="submit" class="btn-submit" id="btn-signup"><span class="btn-text">Create Account</span></button></form><div class="auth-divider"><span>OR SIGN UP WITH</span></div><div class="social-login-grid grid-cols-2"><button id="btn-signup-c7ygi" class="btn-social google icon-only" type="button" aria-label="Continue with Google" title="Google"><svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg></button> <button id="btn-signup-ox006" class="btn-social microsoft icon-only" type="button" aria-label="Continue with Microsoft" title="Microsoft"><svg viewBox="0 0 21 21" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M10 0H0v10h10V0z" fill="#f25022"></path><path d="M21 0H11v10h10V0z" fill="#7fba00"></path><path d="M10 11H0v10h10V11z" fill="#00a4ef"></path><path d="M21 11H11v10h10V11z" fill="#ffb900"></path></svg></button></div><div class="auth-footer"><p>Already have an account? <a href="login.html">Log In</a></p></div></main><a href="https://guruai.zapier.app" target="_blank" class="guruai-floating-badge" aria-label="Ask GuruAI" rel="noopener noreferrer"><picture><source srcset="ai.png" type="image/webp"><img src="ai.png" alt="GuruAI" width="800" height="600" loading="lazy" decoding="async"></picture><div class="guruai-tooltip">Ask GuruAI</div></a></div><script type="module">import { registerWithEmail, signInWithGoogle, initAuthObserver } from './js/auth.js';
-
-    // If already logged in, redirect
-    initAuthObserver(null, false);
-
-    const { auth } = await import('./js/firebase.js');
-    const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
-    onAuthStateChanged(auth, (user) => {
-      if(user) window.location.href = 'dashboard.html';
-    });
-
-    // Toggle Password Visibility
-    const togglePwd = document.getElementById('toggle-pwd');
-    const pwdInput = document.getElementById('password');
-    if (togglePwd && pwdInput) {
-      togglePwd.addEventListener('click', () => {
-        const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        pwdInput.setAttribute('type', type);
-        togglePwd.textContent = type === 'password' ? '👁‍🗨' : '👁';
-      });
+      --shadow-glass: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      --shadow-input: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --blur-glass: blur(20px);
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    // Signup Form Submission
-    const signupForm = document.getElementById('signup-form');
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const fullname = document.getElementById('fullname').value;
-      const email = document.getElementById('email').value;
-      const pwd = pwdInput.value;
-      const confirmPwd = document.getElementById('confirm-password').value;
-      const terms = document.getElementById('terms').checked;
-      
-      const globalError = document.getElementById('global-error');
-      const btnText = document.querySelector('.btn-text');
-      const btnLoader = document.querySelector('.btn-loader');
-      const submitBtn = document.getElementById('btn-signup');
-
-      globalError.style.display = 'none';
-
-      if (!fullname || !email || !pwd || !confirmPwd) {
-        globalError.textContent = 'Please fill in all fields.';
-        globalError.style.display = 'block';
-        return;
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --theme-bg: var(--color-bg-dark);
+        --theme-surface: var(--color-surface-dark);
+        --theme-border: var(--color-border-dark);
+        --theme-text-primary: var(--color-text-primary-dark);
+        --theme-text-secondary: var(--color-text-secondary-dark);
+        --shadow-glass: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        --bg-gradient-1: rgba(124, 58, 237, 0.15);
+        --bg-gradient-2: rgba(255, 51, 102, 0.15);
       }
-      if (pwd !== confirmPwd) {
-        globalError.textContent = 'Passwords do not match.';
-        globalError.style.display = 'block';
-        return;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --theme-bg: var(--color-bg-light);
+        --theme-surface: var(--color-surface-light);
+        --theme-border: var(--color-border-light);
+        --theme-text-primary: var(--color-text-primary-light);
+        --theme-text-secondary: var(--color-text-secondary-light);
+        --bg-gradient-1: rgba(124, 58, 237, 0.08);
+        --bg-gradient-2: rgba(255, 51, 102, 0.08);
       }
-      if (!terms) {
-        document.getElementById('terms-error').style.display = 'block';
-        return;
-      }
-      document.getElementById('terms-error').style.display = 'none';
+    }
 
-      btnText.style.display = 'none';
-      btnLoader.style.display = 'block';
-      submitBtn.disabled = true;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--theme-bg);
+      color: var(--theme-text-primary);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 2rem 0;
+      -webkit-font-smoothing: antialiased;
+    }
 
-      try {
-        await registerWithEmail(email, pwd, fullname);
-        // Will auto-redirect
-      } catch (error) {
-        btnText.style.display = 'block';
-        btnLoader.style.display = 'none';
-        submitBtn.disabled = false;
-        globalError.textContent = error.message;
-        globalError.style.display = 'block';
-      }
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 20s infinite ease-in-out alternate;
+      will-change: transform;
+    }
+    .orb-1 {
+      top: -10%; left: -10%;
+      width: 50vw; height: 50vw;
+      background: var(--bg-gradient-1);
+    }
+    .orb-2 {
+      bottom: -10%; right: -10%;
+      width: 60vw; height: 60vw;
+      background: var(--bg-gradient-2);
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 10%) scale(1.1); }
+    }
+
+    .auth-wrapper {
+      width: 100%;
+      max-width: 700px;
+      padding: 1rem;
+      z-index: 10;
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card {
+      background: var(--theme-surface);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--theme-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-glass);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .auth-subtitle {
+      color: var(--theme-text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+    
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--theme-border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem 0.5rem;
+      font-size: 0.95rem;
+      color: var(--theme-text-primary);
+      transition: all var(--transition-fast);
+      outline: none;
+      font-family: inherit;
+    }
+    
+    .input-field:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(255, 51, 102, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    select.input-field {
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+      appearance: none;
+    }
+
+    .input-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--theme-text-secondary);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: all var(--transition-fast);
+    }
+
+    .input-field:focus ~ .input-label,
+    .input-field:not(:placeholder-shown) ~ .input-label {
+      top: 0.4rem;
+      transform: translateY(0);
+      font-size: 0.7rem;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .error-msg {
+      font-size: 0.75rem;
+      color: var(--color-error);
+      margin-top: 0.3rem;
+      display: none;
+    }
+    
+    .input-group.invalid .input-field {
+      border-color: var(--color-error);
+    }
+    .input-group.invalid .error-msg {
+      display: block;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--theme-text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .checkbox-label input {
+      margin-top: 0.15rem;
+      accent-color: var(--color-primary);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: transform var(--transition-fast);
+      box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255, 51, 102, 0.4); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .loader {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .global-message {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      display: none;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 500;
+    }
+    .global-message.error {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--color-error);
+      color: var(--color-error);
+    }
+    .global-message.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--color-success);
+      color: var(--color-success);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--theme-text-secondary);
+      font-size: 0.95rem;
+    }
+    .auth-footer a {
+      color: var(--theme-text-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .section-title {
+      grid-column: 1 / -1;
+      font-size: 0.9rem;
+      color: var(--theme-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+      border-bottom: 1px solid var(--theme-border);
+      padding-bottom: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .auth-card { padding: 1.5rem; border-width: 0; box-shadow: none; background: transparent; backdrop-filter: none; }
+      body { padding: 0; justify-content: flex-start; }
+      .auth-wrapper { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html">
+          <img src="logo.png" alt="HarshGuruJi" class="brand-logo">
+        </a>
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Join the premium learning platform.</p>
+      </div>
+
+      <div id="global-msg" class="global-message"></div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-grid">
+          
+          <div class="section-title">Personal Info</div>
+          
+          <!-- Full Name -->
+          <div class="input-group">
+            <input type="text" id="full_name" name="full_name" class="input-field" placeholder=" " required>
+            <label for="full_name" class="input-label">Full Name *</label>
+            <div class="error-msg">Required.</div>
+          </div>
+
+          <!-- Username -->
+          <div class="input-group">
+            <input type="text" id="username" name="username" class="input-field" placeholder=" " required pattern="^[a-zA-Z0-9_]{3,20}$">
+            <label for="username" class="input-label">Username *</label>
+            <div class="error-msg">3-20 chars, letters/numbers/_ only.</div>
+          </div>
+
+          <!-- Email -->
+          <div class="input-group full-width">
+            <input type="email" id="email" name="email" class="input-field" placeholder=" " required>
+            <label for="email" class="input-label">Email Address *</label>
+            <div class="error-msg">Valid email required.</div>
+          </div>
+
+          <!-- Mobile (Optional) -->
+          <div class="input-group">
+            <input type="tel" id="mobile" name="mobile" class="input-field" placeholder=" ">
+            <label for="mobile" class="input-label">Mobile Number (Optional)</label>
+          </div>
+          
+          <!-- DOB (Optional) -->
+          <div class="input-group">
+            <input type="date" id="dob" name="dob" class="input-field" placeholder=" ">
+            <label for="dob" class="input-label" style="top: 0.4rem; transform: translateY(0); font-size: 0.7rem; font-weight: 500;">Date of Birth (Optional)</label>
+          </div>
+
+          <!-- Gender -->
+          <div class="input-group">
+            <select id="gender" name="gender" class="input-field">
+              <option value="Prefer not to say">Prefer not to say</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <label for="gender" class="input-label" style="top: 0.4rem; transform: translateY(0); font-size: 0.7rem; font-weight: 500;">Gender</label>
+          </div>
+          
+          <!-- Country -->
+          <div class="input-group">
+            <input type="text" id="country" name="country" class="input-field" placeholder=" ">
+            <label for="country" class="input-label">Country</label>
+          </div>
+
+          <div class="section-title">Security Settings</div>
+
+          <!-- Password -->
+          <div class="input-group">
+            <input type="password" id="password" name="password" class="input-field" placeholder=" " required minlength="8">
+            <label for="password" class="input-label">Password *</label>
+            <div class="error-msg">Min 8 characters required.</div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="input-group">
+            <input type="password" id="confirm_password" name="confirm_password" class="input-field" placeholder=" " required>
+            <label for="confirm_password" class="input-label">Confirm Password *</label>
+            <div class="error-msg">Passwords must match.</div>
+          </div>
+
+          <!-- Secret PIN -->
+          <div class="input-group">
+            <input type="password" id="secret_pin" name="secret_pin" class="input-field" placeholder=" " required pattern="^[0-9]{4,8}$" inputmode="numeric">
+            <label for="secret_pin" class="input-label">Secret PIN (4-8 digits) *</label>
+            <div class="error-msg">Must be 4-8 digits. Private recovery key.</div>
+          </div>
+
+          <!-- Confirm Secret PIN -->
+          <div class="input-group">
+            <input type="password" id="confirm_pin" name="confirm_pin" class="input-field" placeholder=" " required inputmode="numeric">
+            <label for="confirm_pin" class="input-label">Confirm Secret PIN *</label>
+            <div class="error-msg">PINs must match.</div>
+          </div>
+
+          <!-- Terms -->
+          <div class="input-group full-width" style="margin-top: 0.5rem;">
+            <label class="checkbox-label" for="terms">
+              <input type="checkbox" id="terms" name="terms" required>
+              <span>I accept the <a href="terms-and-conditions.html" style="color:var(--color-primary);">Terms of Service</a> and <a href="privacy-policy.html" style="color:var(--color-primary);">Privacy Policy</a>.</span>
+            </label>
+            <div class="error-msg" id="terms-error">You must accept the terms.</div>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+          <span class="btn-text" id="btn-text">Create Account</span>
+          <div class="loader" id="btn-loader"></div>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('signup-form');
+    const msgBox = document.getElementById('global-msg');
+    const submitBtn = document.getElementById('btn-submit');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+
+    // Remove invalid class on input
+    document.querySelectorAll('.input-field').forEach(input => {
+      input.addEventListener('input', () => {
+        input.parentElement.classList.remove('invalid');
+      });
     });
 
-    // Google Login
-    const googleBtn = document.querySelector('.btn-social.google');
-    if (googleBtn) {
-      googleBtn.addEventListener('click', async () => {
-        try {
-          await signInWithGoogle();
-        } catch (error) {
-          const globalError = document.getElementById('global-error');
-          globalError.textContent = 'Google Sign-In failed: ' + error.message;
-          globalError.style.display = 'block';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msgBox.style.display = 'none';
+      
+      let isValid = true;
+      const pwd = document.getElementById('password').value;
+      const pwdConfirm = document.getElementById('confirm_password').value;
+      const pin = document.getElementById('secret_pin').value;
+      const pinConfirm = document.getElementById('confirm_pin').value;
+      const terms = document.getElementById('terms').checked;
+
+      // Basic custom validation (built-in HTML5 validation handles most via :invalid pseudoclass, but we enforce JS logic)
+      if (pwd !== pwdConfirm) {
+        document.getElementById('confirm_password').parentElement.classList.add('invalid');
+        isValid = false;
+      }
+      
+      if (pin !== pinConfirm) {
+        document.getElementById('confirm_pin').parentElement.classList.add('invalid');
+        isValid = false;
+      }
+
+      if (!terms) {
+        document.getElementById('terms').parentElement.classList.add('invalid');
+        isValid = false;
+      }
+
+      // Check all required fields are filled and match patterns
+      document.querySelectorAll('.input-field[required]').forEach(input => {
+        if (!input.checkValidity()) {
+          input.parentElement.classList.add('invalid');
+          isValid = false;
         }
       });
-    }</script>
-<!-- Premium Dark Theme Footer -->
-<footer style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4rem 2rem 2rem; margin-top: 4rem;">
-  <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
-    <div>
-      <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; margin-bottom: 1.5rem;">
-        <img src="logo.png" alt="HarshGuruJi Logo" style="height: 40px; width: auto;" loading="lazy">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">HarshGuruJi</span>
-      </a>
-      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Empowering developers with premium tools, courses, and resources. Master modern web development and software engineering.</p>
-    </div>
-    
-    <div>
-      <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Platform</h4>
-      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-        <li><a href="store.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Premium Store</a></li>
-        <li><a href="daily-special.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Daily Specials</a></li>
-        <li><a href="contributor.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Contributors</a></li>
-        <li><a href="https://guruai.zapier.app" target="_blank" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'" rel="noopener noreferrer">GuruAI Assistant</a></li>
-      </ul>
-    </div>
 
-    <div>
-      <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Legal</h4>
-      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-        <li><a href="privacy-policy.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a></li>
-        <li><a href="terms-and-conditions.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Terms &amp; Conditions</a></li>
-        <li><a href="contact.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--link-color)'" onmouseout="this.style.color='var(--text-secondary)'">Contact Us</a></li>
-      </ul>
-    </div>
-  </div>
-  
-  <div style="max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-    <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 HarshGuruJi. All rights reserved.</p>
-    <div style="display: flex; gap: 1rem;">
-      <a href="https://github.com/harshguruji01" target="_blank" aria-label="GitHub" style="color: var(--text-muted); transition: 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-      </a>
-    </div>
-  </div>
-</footer>
-  <script src="js/button_handlers.js" defer></script>
-  <script src="cookie.js" defer></script>
-  <script src="navbar-premium.js"></script>
-</body></html>
+      if (!isValid) return;
+
+      // Prepare data
+      const formData = new FormData(form);
+      
+      // Loading State
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'block';
+
+      try {
+        const response = await fetch('backend/auth/signup.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          msgBox.className = 'global-message success';
+          msgBox.innerHTML = result.message + '<br>Redirecting to login...';
+          msgBox.style.display = 'block';
+          
+          btnLoader.style.display = 'none';
+          btnText.style.display = 'block';
+          btnText.innerHTML = '&#10003;'; // Checkmark
+          
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 2500);
+          
+        } else {
+          msgBox.className = 'global-message error';
+          msgBox.textContent = result.message;
+          msgBox.style.display = 'block';
+          
+          submitBtn.disabled = false;
+          btnLoader.style.display = 'none';
+          btnText.style.display = 'block';
+        }
+      } catch (err) {
+        msgBox.className = 'global-message error';
+        msgBox.textContent = 'A network error occurred. Please try again.';
+        msgBox.style.display = 'block';
+        
+        submitBtn.disabled = false;
+        btnLoader.style.display = 'none';
+        btnText.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

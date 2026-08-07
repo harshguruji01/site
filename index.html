@@ -5,14 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HarshGuruJi – Tools &amp; Learning Platform</title>
-  <meta name="description" content="HarshGuruJi – Your go-to place for simple, clear, and reliable learning. Free Tools, AI, Daily Insights, Education &amp; Technology." />
-  <meta name="keywords" content="HarshGuruJi, learning platform, free tools, education, AI, technology, daily facts, BMI calculator, password generator" />
+  <meta name="description"
+    content="HarshGuruJi – Your go-to place for simple, clear, and reliable learning. Free Tools, AI, Daily Insights, Education &amp; Technology." />
+  <meta name="keywords"
+    content="HarshGuruJi, learning platform, free tools, education, AI, technology, daily facts, BMI calculator, password generator" />
   <meta name="author" content="HarshGuruJi" />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="logo.png" />
   <!-- Open Graph for social sharing -->
   <meta property="og:title" content="HarshGuruJi – Tools &amp; Learning Platform" />
-  <meta property="og:description" content="Your go-to place for simple, clear, and reliable learning. Free Tools, AI, Education &amp; Technology." />
+  <meta property="og:description"
+    content="Your go-to place for simple, clear, and reliable learning. Free Tools, AI, Education &amp; Technology." />
   <meta property="og:image" content="logo.png" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card -->
@@ -38,9 +41,12 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="preload" href="logo.png" as="image" type="image/png">
@@ -56,240 +62,360 @@
 
   <!-- COOKIE CONSENT BANNER -->
   <div id="cookie-banner">
-    <span>We use cookies to improve your experience. <a href="https://sites.google.com/view/harshguruji/privacy-policy" target="_blank" style="color:var(--accent-primary);">Learn more</a></span>
+    <span>We use cookies to improve your experience. <a href="https://sites.google.com/view/harshguruji/privacy-policy"
+        target="_blank" style="color:var(--accent-primary);">Learn more</a></span>
     <button id="cookie-accept" class="btn btn-primary" style="padding:0.4rem 1.2rem; font-size:0.8rem;">Accept</button>
   </div>
 
-  <!-- PARTICLE CANVAS -->
-  <canvas id="particleCanvas"></canvas>
 
   <!-- ═══════════════════ NAVBAR ═══════════════════ -->
   <nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
-  <div class="premium-nav-container">
-    <!-- Mobile Hamburger -->
-    <button class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="premium-nav-container">
+      <!-- Mobile Hamburger -->
+      <button class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
 
-    <!-- Brand / Logo -->
-    <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
-      <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
-      <span class="premium-brand-text">HarshGuruJi</span>
-    </a>
+      <!-- Brand / Logo -->
+      <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
+        <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
+        <span class="premium-brand-text">HarshGuruJi</span>
+      </a>
 
-    <!-- Desktop Nav Links -->
-    <ul class="premium-nav-links">
-      <li class="premium-nav-item"><a href="index.html" class="premium-nav-link">Home</a></li>
-      <li class="premium-nav-item"><a href="daily-special.html" class="premium-nav-link">Daily Special</a></li>
-      
-      <!-- AI Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="ai-hub.html" class="premium-nav-link">AI Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🤖 Conversational AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💬</div><span>ChatGPT</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">✨</div><span>Gemini</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧠</div><span>Claude</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>DeepSeek</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🎨 Generative AI</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🖼️</div><span>Image AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎥</div><span>Video AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Coding AI</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🚀</div><span>Productivity AI</span></a></li>
-              </ul>
+      <!-- Desktop Nav Links -->
+      <ul class="premium-nav-links">
+        <li class="premium-nav-item"><a href="index.html" class="premium-nav-link">Home</a></li>
+        <li class="premium-nav-item"><a href="daily-special.html" class="premium-nav-link">Daily Special</a></li>
+
+        <!-- AI Hub Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="ai-hub.html" class="premium-nav-link">AI Hub <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">🤖 Conversational AI</div>
+                <ul>
+                  <li><a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">💬</div><span>ChatGPT</span>
+                    </a></li>
+                  <li><a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">✨</div><span>Gemini</span>
+                    </a></li>
+                  <li><a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🧠</div><span>Claude</span>
+                    </a></li>
+                  <li><a href="https://chat.deepseek.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">⚡</div><span>DeepSeek</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">🎨 Generative AI</div>
+                <ul>
+                  <li><a href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🖼️</div><span>Image AI</span>
+                    </a></li>
+                  <li><a href="https://runwayml.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🎥</div><span>Video AI</span>
+                    </a></li>
+                  <li><a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">💻</div><span>Coding AI</span>
+                    </a></li>
+                  <li><a href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">🚀</div><span>Productivity AI</span>
+                    </a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-      <!-- Tools Hub Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛠️ Utilities</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">👨‍💻</div><span>Developer</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🌐</div><span>Network</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📈</div><span>SEO</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎨</div><span>Design</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">⚙️ Processors</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔄</div><span>Converters</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚡</div><span>Generators</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧰</div><span>Utilities</span></a></li>
-              </ul>
+        <!-- Tools Hub Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="free-tools.html" class="premium-nav-link">Tools Hub <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">🛠️ Utilities</div>
+                <ul>
+                  <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">👨‍💻</div><span>Developer</span>
+                    </a></li>
+                  <li><a href="https://www.speedtest.net" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🌐</div><span>Network</span>
+                    </a></li>
+                  <li><a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">📈</div><span>SEO</span>
+                    </a></li>
+                  <li><a href="https://www.figma.com" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🎨</div><span>Design</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">⚙️ Processors</div>
+                <ul>
+                  <li><a href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🔄</div><span>Converters</span>
+                    </a></li>
+                  <li><a href="https://coolors.co/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">⚡</div><span>Generators</span>
+                    </a></li>
+                  <li><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">🧰</div><span>Utilities</span>
+                    </a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-      <!-- Learning Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">📚 Subjects</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🚀 Advanced</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Technology</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🛡️</div><span>Cybersecurity</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📖</div><span>Tutorials</span></a></li>
-              </ul>
+        <!-- Learning Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="learning-hub.html" class="premium-nav-link">Learning <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">📚 Subjects</div>
+                <ul>
+                  <li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">💻</div><span>Programming</span>
+                    </a></li>
+                  <li><a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">🔬</div><span>Science</span>
+                    </a></li>
+                  <li><a href="https://www.desmos.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">📐</div><span>Math</span>
+                    </a></li>
+                  <li><a href="https://www.history.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🏺</div><span>History</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">🚀 Advanced</div>
+                <ul>
+                  <li><a href="https://techcrunch.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">📱</div><span>Technology</span>
+                    </a></li>
+                  <li><a href="https://tryhackme.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🛡️</div><span>Cybersecurity</span>
+                    </a></li>
+                  <li><a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">📖</div><span>Tutorials</span>
+                    </a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-      <!-- Gaming Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🎮 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💻</div><span>PC Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Android Games</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🔥</div><span>Free Fire</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧱</div><span>Minecraft</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">🏆 Competitive</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🎯</div><span>Esports</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">⚙️</div><span>Game Tools</span></a></li>
-              </ul>
+        <!-- Gaming Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="gaming-hub.html" class="premium-nav-link">Gaming <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">🎮 Platforms</div>
+                <ul>
+                  <li><a href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">💻</div><span>PC Games</span>
+                    </a></li>
+                  <li><a href="https://play.google.com/store/games" target="_blank" rel="noopener noreferrer"
+                      class="mega-link">
+                      <div class="mega-link-icon">📱</div><span>Android Games</span>
+                    </a></li>
+                  <li><a href="https://ff.garena.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🔥</div><span>Free Fire</span>
+                    </a></li>
+                  <li><a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🧱</div><span>Minecraft</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">🏆 Competitive</div>
+                <ul>
+                  <li><a href="https://esports.com/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">🎯</div><span>Esports</span>
+                    </a></li>
+                  <li><a href="https://blitz.gg/" target="_blank" rel="noopener noreferrer" class="mega-link">
+                      <div class="mega-link-icon">⚙️</div><span>Game Tools</span>
+                    </a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-      <!-- Store Mega Menu -->
-      <li class="premium-nav-item has-mega-menu">
-        <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="premium-mega-menu">
-          <div class="mega-grid">
-            <div class="mega-column">
-              <div class="mega-column-title">🛒 Platforms</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🪟</div><span>Windows</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🤖</div><span>Android</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🐧</div><span>Linux</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🍎</div><span>Mac</span></a></li>
-              </ul>
-            </div>
-            <div class="mega-column">
-              <div class="mega-column-title">📦 Digital</div>
-              <ul>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">📱</div><span>Apps</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">🧩</div><span>Extensions</span></a></li>
-                <li><a href="#" class="mega-link"><div class="mega-link-icon">💾</div><span>Software</span></a></li>
-              </ul>
+        <!-- Store Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">🛒 Platforms</div>
+                <ul>
+                  <li><a href="store-windows.html" class="mega-link">
+                      <div class="mega-link-icon">🪟</div><span>Windows</span>
+                    </a></li>
+                  <li><a href="store-android.html" class="mega-link">
+                      <div class="mega-link-icon">🤖</div><span>Android</span>
+                    </a></li>
+                  <li><a href="store-linux.html" class="mega-link">
+                      <div class="mega-link-icon">🐧</div><span>Linux</span>
+                    </a></li>
+                  <li><a href="store-mac.html" class="mega-link">
+                      <div class="mega-link-icon">🍎</div><span>Mac</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">📦 Digital</div>
+                <ul>
+                  <li><a href="store-apps.html" class="mega-link">
+                      <div class="mega-link-icon">📱</div><span>Apps</span>
+                    </a></li>
+                  <li><a href="store-extensions.html" class="mega-link">
+                      <div class="mega-link-icon">🧩</div><span>Extensions</span>
+                    </a></li>
+                  <li><a href="store-software.html" class="mega-link">
+                      <div class="mega-link-icon">💾</div><span>Software</span>
+                    </a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
 
-    <!-- Search & Actions -->
-    <div class="premium-nav-actions">
-      <!-- Search Bar -->
-      <div class="premium-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
-        <div class="search-shortcut">CTRL K</div>
+      <!-- Search & Actions -->
+      <div class="premium-nav-actions">
+        <!-- Search Bar -->
+        <div class="premium-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input type="text" id="premium-search-input" placeholder="Search..." aria-label="Search">
+          <div class="search-shortcut">CTRL K</div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="action-btn" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- Notification -->
+        <button class="action-btn" aria-label="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </button>
+
+        <!-- Auth (Dynamic via JS) -->
+        <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
+        <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
+          <img src="logo.png" alt="User" id="premium-user-avatar">
+          <span class="premium-user-name" id="premium-user-name">User</span>
+        </div>
       </div>
-      
-      <!-- Theme Toggle -->
-      <button class="action-btn" aria-label="Toggle Theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      </button>
+    </div>
+  </nav>
 
-      <!-- Notification -->
-      <button class="action-btn" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-      </button>
-
-      <!-- Auth (Dynamic via JS) -->
-      <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
-      <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
-        <img src="logo.png" alt="User" id="premium-user-avatar">
-        <span class="premium-user-name" id="premium-user-name">User</span>
+  <!-- Mobile Full Screen Menu -->
+  <div class="premium-mobile-nav" id="premium-mobile-nav">
+    <div class="mobile-menu-container">
+      <div class="mobile-nav-item">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">ChatGPT</a>
+            <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Gemini</a>
+            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Claude</a>
+            <a href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Image
+              AI</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Developer</a>
+            <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">SEO</a>
+            <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Design</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Programming</a>
+            <a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Science</a>
+            <a href="https://tryhackme.com/" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Cybersecurity</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="store.html" class="mobile-nav-link">Store</a>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="about.html" class="mobile-nav-link">About Us</a>
       </div>
     </div>
   </div>
-</nav>
-
-<!-- Mobile Full Screen Menu -->
-<div class="premium-mobile-nav" id="premium-mobile-nav">
-  <div class="mobile-menu-container">
-    <div class="mobile-nav-item">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">ChatGPT</a>
-          <a href="#" class="mobile-sub-link">Gemini</a>
-          <a href="#" class="mobile-sub-link">Claude</a>
-          <a href="#" class="mobile-sub-link">Image AI</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Developer</a>
-          <a href="#" class="mobile-sub-link">SEO</a>
-          <a href="#" class="mobile-sub-link">Design</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-      <div class="mobile-submenu">
-        <div class="mobile-submenu-inner">
-          <a href="#" class="mobile-sub-link">Programming</a>
-          <a href="#" class="mobile-sub-link">Science</a>
-          <a href="#" class="mobile-sub-link">Cybersecurity</a>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="store.html" class="mobile-nav-link">Store</a>
-    </div>
-    <div class="mobile-nav-item">
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-    </div>
-  </div>
-</div>
   <!-- ═══════════════════ HERO ═══════════════════ -->
   <section class="hero" id="home">
     <div class="hero-glow glow-1"></div>
@@ -301,11 +427,12 @@
       </div>
       <h1 class="hero-title">
         Your Gateway to<br />
-        <span class="gradient-text">Knowledge </span>   <span class="gradient-text"> & </span>
+        <span class="gradient-text">Knowledge </span> <span class="gradient-text"> & </span>
         <span class="gradient-text">Growth</span>
       </h1>
       <p class="hero-subtitle">
-        Your go-to place for <span class="gradient-text">simple, clear, and reliable learning </span>. Whether you're a student, a curious learner, or
+        Your go-to place for <span class="gradient-text">simple, clear, and reliable learning </span>. Whether you're a
+        student, a curious learner, or
         someone who loves expanding knowledge — <span class="gradient-text">you're in the right place.</span>
       </p>
       <p class="hero-subtitle-hi">
@@ -346,7 +473,8 @@
       <div class="orb-container">
         <div class="orb orb-main">
           <div class="orb-inner" style="background: transparent; box-shadow: none;">
-            <img src="logo.png" alt="HarshGuruJi" style="width: 90px; height: 90px; object-fit: contain; border-radius: 50%;" />
+            <img src="logo.png" alt="HarshGuruJi"
+              style="width: 90px; height: 90px; object-fit: contain; border-radius: 50%;" />
           </div>
         </div>
         <div class="orbit orbit-1">
@@ -375,7 +503,8 @@
         <span>Fresh facts, quotes &amp; tips — updated every day just for you</span>
       </div>
       <a href="daily-special.html" class="dsb-btn" id="dsb-cta-btn">View Daily Special →</a>
-      <button class="dsb-close" id="dsb-close-btn" onclick="this.closest('.daily-special-banner').style.display='none'" aria-label="Close">✕</button>
+      <button class="dsb-close" id="dsb-close-btn" onclick="this.closest('.daily-special-banner').style.display='none'"
+        aria-label="Close">✕</button>
     </div>
   </div>
 
@@ -394,7 +523,8 @@
           </div>
           <h3>Gain Daily Insights & Wisdom</h3>
           <p>At HarshGuruJi you can gain daily insights and wisdom that help you grow smarter every day.</p>
-          <a id="btn-link-index-53u5j" href="insights.html" class="btn btn-secondary" style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
+          <a id="btn-link-index-53u5j" href="insights.html" class="btn btn-secondary"
+            style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
           <div class="card-glow"></div>
         </div>
         <div class="feature-card featured" id="feat-2">
@@ -404,7 +534,8 @@
           </div>
           <h3>Ask Anything & Get Answers</h3>
           <p>Explore and learn easily with clear, simple, and well-explained information on every topic instantly.</p>
-          <a id="btn-link-index-d1odi" href="ask-anything.html" class="btn btn-primary" style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
+          <a id="btn-link-index-d1odi" href="ask-anything.html" class="btn btn-primary"
+            style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
           <div class="card-glow"></div>
         </div>
         <div class="feature-card" id="feat-3">
@@ -413,7 +544,8 @@
           </div>
           <h3>Explore & Learn Easily</h3>
           <p>Ask anything and get answers instantly in simple, easy-to-understand language. No complexity.</p>
-          <a id="btn-link-index-t585f" href="explore.html" class="btn btn-secondary" style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
+          <a id="btn-link-index-t585f" href="explore.html" class="btn btn-secondary"
+            style="margin-top:1rem; font-size:0.8rem;">Explore More</a>
           <div class="card-glow"></div>
         </div>
       </div>
@@ -479,8 +611,9 @@
             <li><span class="check">✓</span> Simple, easy-to-understand explanations</li>
             <li><span class="check">✓</span> Available 24/7 — always learning with you</li>
           </ul>
-          <a href="www.harshguruji.zapier.app" onclick="event.preventDefault(); if(window.toggleGuruJiWidget) window.toggleGuruJiWidget();" class="btn btn-primary"
-            id="ai-try-btn">Try GuruJi AI →</a>
+          <a href="www.harshguruji.zapier.app"
+            onclick="event.preventDefault(); if(window.toggleGuruJiWidget) window.toggleGuruJiWidget();"
+            class="btn btn-primary" id="ai-try-btn">Try GuruJi AI →</a>
         </div>
         <div class="ai-visual">
           <div class="ai-chat-demo">
@@ -492,14 +625,16 @@
             </div>
             <div class="chat-body">
               <div class="chat-msg ai">
-                <img src="ai.png" loading="lazy" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
+                <img src="ai.png" loading="lazy" class="msg-avatar"
+                  style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
                 <div class="msg-bubble">Hello! I'm GuruJi AI. Ask me anything — I'm here to help you learn! 😊</div>
               </div>
               <div class="chat-msg user">
                 <div class="msg-bubble">What is photosynthesis?</div>
               </div>
               <div class="chat-msg ai">
-                <img src="ai.png" loading="lazy" class="msg-avatar" style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
+                <img src="ai.png" loading="lazy" class="msg-avatar"
+                  style="width: 30px; height: 30px; border-radius: 50%; padding: 0; background: transparent; object-fit: cover;" />
                 <div class="msg-bubble">Photosynthesis is how plants make their own food using sunlight, water, and CO₂.
                   Simple formula: <strong>Sun + Water + CO₂ → Food + O₂</strong> 🌱</div>
               </div>
@@ -588,19 +723,20 @@
         <div class="daily-card featured-daily" id="daily-2">
           <div class="daily-tag">Quote of the Day</div>
           <h4>Wisdom for Today</h4>
-          <p id="daily-quote-text">"The more that you read, the more things you will know. The more that you learn, the more places you'll go." — Dr. Seuss</p>
+          <p id="daily-quote-text">"The more that you read, the more things you will know. The more that you learn, the
+            more places you'll go." — Dr. Seuss</p>
           <div class="daily-footer">📚 Inspiration</div>
         </div>
         <div class="daily-card" id="daily-3">
           <div class="daily-tag">Tip of the Day</div>
           <h4 id="daily-tip-title">Study Smart</h4>
-          <p id="daily-tip-text">Use the Pomodoro technique: study for 25 minutes, take a 5-minute break. This boosts focus and retention significantly!</p>
+          <p id="daily-tip-text">Use the Pomodoro technique: study for 25 minutes, take a 5-minute break. This boosts
+            focus and retention significantly!</p>
           <div class="daily-footer">✏️ Study Tips</div>
         </div>
       </div>
       <div class="tools-cta">
-        <a href="daily-special.html" class="btn btn-secondary"
-          id="daily-more-btn">View Daily Special →</a>
+        <a href="daily-special.html" class="btn btn-secondary" id="daily-more-btn">View Daily Special →</a>
       </div>
     </div>
   </section>
@@ -647,7 +783,8 @@
         <div class="newsletter-content">
           <div class="badge">Stay Updated</div>
           <h2 class="section-title">Never Miss a <span class="gradient-text">Daily Insight</span></h2>
-          <p style="color:var(--text-secondary); margin-bottom:2rem;">Subscribe to get daily facts, new tools, and learning resources delivered straight to your inbox.</p>
+          <p style="color:var(--text-secondary); margin-bottom:2rem;">Subscribe to get daily facts, new tools, and
+            learning resources delivered straight to your inbox.</p>
         </div>
         <form id="newsletter-form" class="newsletter-form" onsubmit="handleNewsletter(event)">
           <div class="newsletter-input-wrap">
@@ -655,7 +792,9 @@
             <button id="btn-index-pvopr" type="submit" class="btn btn-primary">Subscribe →</button>
           </div>
           <p id="newsletter-msg" style="margin-top:1rem; font-size:0.9rem; min-height:20px;"></p>
-          <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.5rem;">No spam, unsubscribe anytime. By subscribing you agree to our <a href="https://sites.google.com/view/harshguruji/privacy-policy" target="_blank" style="color:var(--accent-primary);">Privacy Policy</a>.</p>
+          <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.5rem;">No spam, unsubscribe anytime. By
+            subscribing you agree to our <a href="https://sites.google.com/view/harshguruji/privacy-policy"
+              target="_blank" style="color:var(--accent-primary);">Privacy Policy</a>.</p>
         </form>
       </div>
     </div>
@@ -670,24 +809,45 @@
       </div>
       <div class="faq-list" id="faq-list">
         <div class="faq-item">
-          <button id="btn-index-89p94" class="faq-question" onclick="toggleFaq(this)">What is HarshGuruJi? <span class="faq-icon">+</span></button>
-          <div class="faq-answer"><p>HarshGuruJi is a free, AI-powered educational platform offering tools, daily facts, learning resources, and technology insights for students and curious minds of all ages.</p></div>
+          <button id="btn-index-89p94" class="faq-question" onclick="toggleFaq(this)">What is HarshGuruJi? <span
+              class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>HarshGuruJi is a free, AI-powered educational platform offering tools, daily facts, learning resources,
+              and technology insights for students and curious minds of all ages.</p>
+          </div>
         </div>
         <div class="faq-item">
-          <button id="btn-index-rrgfe" class="faq-question" onclick="toggleFaq(this)">Is everything on this site free? <span class="faq-icon">+</span></button>
-          <div class="faq-answer"><p>Yes! All tools, content, and features on HarshGuruJi are completely free to use. We believe quality education should be accessible to everyone.</p></div>
+          <button id="btn-index-rrgfe" class="faq-question" onclick="toggleFaq(this)">Is everything on this site free?
+            <span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Yes! All tools, content, and features on HarshGuruJi are completely free to use. We believe quality
+              education should be accessible to everyone.</p>
+          </div>
         </div>
         <div class="faq-item">
-          <button id="btn-index-rroba" class="faq-question" onclick="toggleFaq(this)">How does the GuruJi AI work? <span class="faq-icon">+</span></button>
-          <div class="faq-answer"><p>GuruJi AI uses the Wikipedia knowledge base to answer your questions in simple, clear language. It fetches real data in real-time so answers are always fresh and accurate.</p></div>
+          <button id="btn-index-rroba" class="faq-question" onclick="toggleFaq(this)">How does the GuruJi AI work? <span
+              class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>GuruJi AI uses the Wikipedia knowledge base to answer your questions in simple, clear language. It
+              fetches real data in real-time so answers are always fresh and accurate.</p>
+          </div>
         </div>
         <div class="faq-item">
-          <button id="btn-index-g9ia5" class="faq-question" onclick="toggleFaq(this)">Can I suggest new tools or topics? <span class="faq-icon">+</span></button>
-          <div class="faq-answer"><p>Absolutely! Reach out to us via the <a href="contact.html" style="color:var(--accent-primary);">Contact page</a>. We love hearing from our community and regularly add new tools based on user requests.</p></div>
+          <button id="btn-index-g9ia5" class="faq-question" onclick="toggleFaq(this)">Can I suggest new tools or topics?
+            <span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Absolutely! Reach out to us via the <a href="contact.html" style="color:var(--accent-primary);">Contact
+                page</a>. We love hearing from our community and regularly add new tools based on user requests.</p>
+          </div>
         </div>
         <div class="faq-item">
-          <button id="btn-index-kr4wz" class="faq-question" onclick="toggleFaq(this)">Is my data safe on HarshGuruJi? <span class="faq-icon">+</span></button>
-          <div class="faq-answer"><p>Yes. We do not sell your data. The site runs mostly in your browser and any user data is handled as per our <a href="https://sites.google.com/view/harshguruji/privacy-policy" target="_blank" style="color:var(--accent-primary);">Privacy Policy</a>.</p></div>
+          <button id="btn-index-kr4wz" class="faq-question" onclick="toggleFaq(this)">Is my data safe on HarshGuruJi?
+            <span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Yes. We do not sell your data. The site runs mostly in your browser and any user data is handled as per
+              our <a href="https://sites.google.com/view/harshguruji/privacy-policy" target="_blank"
+                style="color:var(--accent-primary);">Privacy Policy</a>.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -697,9 +857,11 @@
     <div class="footer-container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="#" class="nav-logo" id="footer-logo" style="display:flex; align-items:center; gap:0.6rem; text-decoration:none;">
+          <a href="#" class="nav-logo" id="footer-logo"
+            style="display:flex; align-items:center; gap:0.6rem; text-decoration:none;">
             <img src="logo.png" alt="HarshGuruJi Logo" style="height: 40px; width: auto; border-radius: 5px;" />
-            <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.2rem; background:linear-gradient(135deg,#ff3366,#7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
+            <span
+              style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.2rem; background:linear-gradient(135deg,#ff3366,#7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
           </a>
           <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education & Technology.</p>
           <div class="social-links">
@@ -716,16 +878,22 @@
                 <path
                   d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z" />
               </svg>
-            </a>
+              <a href="https://www.telegram.com/" target="_blank" class="social-btn" id="footer-ig"
+                aria-label="Telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path
+                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.565 8.16-1.97 9.29c-.149.658-.537.82-1.088.51l-3.01-2.22-1.452 1.397c-.16.16-.295.295-.604.295l.216-3.067 5.582-5.043c.243-.216-.054-.337-.378-.121l-6.897 4.344-2.97-.927c-.646-.202-.658-.646.135-.956l11.61-4.477c.538-.196 1.007.121.826.975z" />
+                </svg>
+              </a>
           </div>
         </div>
         <div class="footer-links">
           <div class="footer-col">
             <h5>Navigation</h5>
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#categories">Topics</a>
-            <a href="#ai">GuruJi AI</a>
+            <a href="index.html#home">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#categories">Topics</a>
+            <a href="index.html#ai">GuruJi AI</a>
           </div>
           <div class="footer-col">
             <h5>Pages</h5>
@@ -736,8 +904,8 @@
           </div>
           <div class="footer-col">
             <h5>Legal</h5>
-            <a href="privacy-policy.html"
-            <a href="cookie.html">Cookie Policy</a>>Privacy Policy</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="cookie.html">Cookie Policy</a>
             <a href="terms-and-conditions.html">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
           </div>
@@ -746,15 +914,21 @@
       <!-- Owner Details -->
       <div class="footer-bottom" style="flex-direction: column; gap: 1.5rem; padding-top: 2.5rem;">
         <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" style="height: 80px; width: auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.4);" />
+          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner"
+            style="height: 80px; width: auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.4);" />
           <div>
-            <strong style="color: var(--text-primary); font-size: 1.25rem; display: block; margin-bottom: 0.3rem;">Harsh Patel</strong>
-            <span style="color: var(--accent-primary); font-size: 0.95rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Founder & Owner – HarshGuruJi</span>
+            <strong style="color: var(--text-primary); font-size: 1.25rem; display: block; margin-bottom: 0.3rem;">Harsh
+              Patel</strong>
+            <span
+              style="color: var(--accent-primary); font-size: 0.95rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Founder
+              & Owner – HarshGuruJi</span>
             <span style="color: var(--text-secondary); font-size: 1rem; display: block;">📞 +91 </span>
-            <span style="color: var(--text-secondary); font-size: 1rem; display: block;">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
+            <span style="color: var(--text-secondary); font-size: 1rem; display: block;">📍 Akbarpur, Ambedkarnagar,
+              Uttar Pradesh, India – 224122</span>
           </div>
         </div>
-        <p style="color: var(--text-secondary); font-size: 0.85rem;">© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
+        <p style="color: var(--text-secondary); font-size: 0.85rem;">© 2026 HarshGuruJi – Tools & Learning Platform. All
+          rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -763,7 +937,6 @@
   <script src="js/button_handlers.js" defer></script>
   <script src="cookie.js" defer></script>
   <script src="navbar-premium.js" defer></script>
-  <script src='https://www.noupe.com/embed/019c19608d807e7ab6223e443542a5eee13a.js'></script>
 </body>
 
 </html>
