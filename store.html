@@ -36,7 +36,7 @@
   <!-- ═══════════════════ NAVBAR ═══════════════════ -->
   <nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
     <div class="premium-nav-container">
-      <button class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
+      <button type="button" class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
 
@@ -54,7 +54,7 @@
       </ul>
 
       <div class="premium-nav-actions">
-        <button class="action-btn" aria-label="Toggle Theme">
+        <button type="button" class="action-btn" aria-label="Toggle Theme">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -87,7 +87,6 @@
   <section class="store-hero">
     <h1>Discover Apps, Games &amp;<br>Digital Tools</h1>
     <p>Your one-stop destination for discovering the best applications, games, AI tools, educational resources, and useful software for all platforms.</p>
-    
     <div class="store-search-container">
       <svg class="store-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
@@ -97,26 +96,26 @@
     </div>
 
     <div class="store-quick-cats">
-      <button class="quick-cat-btn" data-cat="Apps">📱 Apps</button>
-      <button class="quick-cat-btn" data-cat="Game">🎮 Games</button>
-      <button class="quick-cat-btn" data-cat="AI">🤖 AI</button>
-      <button class="quick-cat-btn" data-cat="Education">📚 Education</button>
-      <button class="quick-cat-btn" data-cat="Software">💻 Windows</button>
-      <button class="quick-cat-btn" data-cat="Development">🛠️ Tools</button>
+      <button type="button" class="quick-cat-btn" data-cat="Apps">📱 Apps</button>
+      <button type="button" class="quick-cat-btn" data-cat="Game">🎮 Games</button>
+      <button type="button" class="quick-cat-btn" data-cat="AI">🤖 AI</button>
+      <button type="button" class="quick-cat-btn" data-cat="Education">📚 Education</button>
+      <button type="button" class="quick-cat-btn" data-cat="Software">💻 Windows</button>
+      <button type="button" class="quick-cat-btn" data-cat="Development">🛠️ Tools</button>
     </div>
   </section>
 
   <!-- ═══════════════════ STORE LAYOUT ═══════════════════ -->
   <main class="store-layout">
     
-    <button class="mobile-filter-btn" id="mobile-filter-btn">
+    <button type="button" class="mobile-filter-btn" id="mobile-filter-btn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
       Filters
     </button>
 
     <!-- Sidebar Filters -->
     <aside class="store-sidebar" id="store-sidebar">
-      <button class="sidebar-close" id="sidebar-close">✕</button>
+      <button type="button" class="sidebar-close" id="sidebar-close">✕</button>
       
       <div class="filter-section">
         <h3>Category</h3>
@@ -172,7 +171,7 @@
       </div>
       
       <div class="load-more-container">
-        <button class="btn-load-more" id="load-more-btn" style="display: none;">Load More</button>
+        <button type="button" class="btn-load-more" id="load-more-btn" style="display: none;">Load More</button>
       </div>
     </div>
   </main>
@@ -180,7 +179,7 @@
   <!-- ═══════════════════ APP DETAILS MODAL ═══════════════════ -->
   <div class="app-modal-overlay" id="app-modal-overlay">
     <div class="app-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button class="modal-close" id="modal-close-btn" aria-label="Close Details">✕</button>
+      <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close Details">✕</button>
       
       <div class="modal-header">
         <img src="" alt="" class="modal-icon" id="modal-icon">
@@ -198,7 +197,7 @@
             <a href="#" class="btn-action" id="modal-official-btn" title="Official Website" target="_blank" rel="noopener">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             </a>
-            <button class="btn-action" id="modal-share-btn" title="Share">
+            <button type="button" class="btn-action" id="modal-share-btn" title="Share">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
             </button>
           </div>
