@@ -7,67 +7,73 @@ document.addEventListener("DOMContentLoaded", () => {
     // Advertisement Configuration
     const AD_CONFIG = {
         enabled: true,
-        provider: "ADSTERRA", // e.g. "ADSTERRA", "ADSENSE"
-        unitId: "YOUR_AD_UNIT_ID",
+        provider: "PLACEHOLDER", // e.g. "ADSTERRA", "ADSENSE"
+        primaryUnitId: "PRIMARY_AD_UNIT_ID",
+        secondaryUnitId: "SECONDARY_AD_UNIT_ID",
         timeoutMs: 5000 // How long to wait before showing error state
     };
 
-    const container = document.getElementById("ad-container");
-    const loadingState = document.getElementById("ad-loading-state");
-    const errorState = document.getElementById("ad-error-state");
-    const adContent = document.getElementById("ad-content");
-
-    if (!container || !AD_CONFIG.enabled) {
-        if (loadingState) loadingState.classList.add("hidden");
+    if (!AD_CONFIG.enabled) {
+        document.querySelectorAll(".ad-container").forEach(container => {
+            const loadingState = container.querySelector(".ad-state-box.loading");
+            if (loadingState) loadingState.classList.add("hidden");
+        });
         return;
     }
 
-    // Function to handle successful ad load
-    function onAdLoaded() {
-        loadingState.classList.add("hidden");
-        errorState.classList.add("hidden");
-        adContent.classList.remove("hidden");
-    }
+    // Initialize an individual ad slot
+    function initializeAdSlot(containerId, unitId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
 
-    // Function to handle ad load failure
-    function onAdError() {
-        loadingState.classList.add("hidden");
-        adContent.classList.add("hidden");
-        errorState.classList.remove("hidden");
-    }
+        const loadingState = container.querySelector(".ad-state-box.loading");
+        const errorState = container.querySelector(".ad-state-box.error");
+        const adContent = container.querySelector(".ad-content");
 
-    // Simulated Ad Loading Process (Replace with actual provider logic)
-    function initializeAd() {
-        // Here you would dynamically inject the ad provider's script
+        // Function to handle successful ad load
+        function onAdLoaded() {
+            if (loadingState) loadingState.classList.add("hidden");
+            if (errorState) errorState.classList.add("hidden");
+            if (adContent) adContent.classList.remove("hidden");
+        }
+
+        // Function to handle ad load failure
+        function onAdError() {
+            if (loadingState) loadingState.classList.add("hidden");
+            if (adContent) adContent.classList.add("hidden");
+            if (errorState) errorState.classList.remove("hidden");
+        }
+
+        // Simulated Ad Loading Process (Replace with actual provider logic)
         // Example:
         // const script = document.createElement("script");
-        // script.src = "https://ad-provider.com/serve?id=" + AD_CONFIG.unitId;
+        // script.src = "https://ad-provider.com/serve?id=" + unitId;
         // script.onload = onAdLoaded;
         // script.onerror = onAdError;
         // adContent.appendChild(script);
 
-        // For now, we simulate a loading delay then show the placeholder content or error
+        // For now, simulate network delay
         setTimeout(() => {
             // Simulated Success
-            adContent.innerHTML = `
-                <div style="width: 100%; height: 250px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); border-radius: 8px;">
-                    [Ad Provider Unit Rendered Here]
-                </div>
-            `;
+            if (adContent) {
+                adContent.innerHTML = `
+                    <div style="width: 100%; height: 250px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); border-radius: 8px;">
+                        [${AD_CONFIG.provider} Unit: ${unitId}]
+                    </div>
+                `;
+            }
             onAdLoaded();
-            
-            // To test error state, uncomment below instead:
-            // onAdError();
-        }, 1500);
+        }, Math.random() * 1000 + 1000); // Random load time between 1-2s
+
+        // Set fallback timeout
+        setTimeout(() => {
+            if (adContent && !adContent.innerHTML.trim() && !adContent.hasChildNodes()) {
+                onAdError();
+            }
+        }, AD_CONFIG.timeoutMs);
     }
 
-    // Set a fallback timeout in case the ad provider's script hangs
-    const fallbackTimer = setTimeout(() => {
-        if (!adContent.innerHTML.trim() && !adContent.hasChildNodes()) {
-            onAdError();
-        }
-    }, AD_CONFIG.timeoutMs);
-
-    // Start initialization
-    initializeAd();
+    // Initialize both slots
+    initializeAdSlot("primary-ad", AD_CONFIG.primaryUnitId);
+    initializeAdSlot("secondary-ad", AD_CONFIG.secondaryUnitId);
 });

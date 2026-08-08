@@ -210,7 +210,7 @@ body.ads-page {
   gap: 12px;
 }
 
-.ad-state-box.hidden, #ad-content.hidden {
+.ad-state-box.hidden, .ad-content.hidden {
   display: none !important;
 }
 
@@ -231,7 +231,7 @@ body.ads-page {
   .ad-spinner { animation: none; border-color: var(--text-secondary); }
 }
 
-#ad-content {
+.ad-content {
   width: 100%;
   height: 100%;
   display: flex;

@@ -268,35 +268,60 @@
     </div>
   </section>
 
-  <!-- Main Ad Container -->
-  <section class="ads-display-section">
+  <!-- Primary Ad Container -->
+  <section class="ads-display-section ad-primary">
     <div class="ad-container-wrapper">
-      <div class="ad-slot-label">SPONSORED</div>
-      <div id="ad-container" class="ad-container">
+      <div class="ad-slot-label">ADVERTISEMENT</div>
+      <div id="primary-ad" class="ad-container">
         <!-- Loading State (Default) -->
-        <div id="ad-loading-state" class="ad-state-box">
+        <div class="ad-state-box loading">
           <div class="ad-spinner"></div>
           <p>Loading advertisement...</p>
         </div>
         
         <!-- Error State (Hidden by default) -->
-        <div id="ad-error-state" class="ad-state-box hidden">
-          <p>Advertisement temporarily unavailable.</p>
+        <div class="ad-state-box error hidden">
+          <p>Advertisement currently unavailable.</p>
         </div>
         
         <!-- Ad Provider Script Injection Point -->
-        <div id="ad-content"></div>
+        <div class="ad-content"></div>
       </div>
     </div>
   </section>
 
-  <!-- Information Sections -->
+  <!-- Information Section 1 -->
   <section class="ads-info-section">
     <div class="ads-info-card">
       <h2>Why advertisements?</h2>
       <p>Advertisements help support HarshGuruJi's hosting, infrastructure, development and continued improvement.</p>
     </div>
+  </section>
 
+  <!-- Secondary Ad Container -->
+  <section class="ads-display-section ad-secondary">
+    <div class="ad-container-wrapper">
+      <div class="ad-slot-label">ADVERTISEMENT</div>
+      <div id="secondary-ad" class="ad-container">
+        <!-- Loading State (Default) -->
+        <div class="ad-state-box loading">
+          <div class="ad-spinner"></div>
+          <p>Loading advertisement...</p>
+        </div>
+        
+        <!-- Error State (Hidden by default) -->
+        <div class="ad-state-box error hidden">
+          <p>Advertisement currently unavailable.</p>
+        </div>
+        
+        <!-- Ad Provider Script Injection Point -->
+        <div class="ad-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Information Section 2 -->
+  <section class="ads-info-section">
     <div class="ads-info-card">
       <h2>Advertising &amp; Privacy</h2>
       <p>Third-party advertising providers may process information according to their own privacy policies. For more details on how we handle your data, please review our <a href="privacy-policy.html" class="ads-text-link">Privacy Policy</a>.</p>
