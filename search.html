@@ -4,10 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wikipedia Search | HarshGuruJi</title>
-  <meta name="description" content="Search Wikipedia and discover articles, topics and knowledge from around the world.">
-  <link rel="canonical" href="https://www.webguruji.online/search.html">
-  <link rel="icon" type="image/png" href="logo.png">
+  <title>Search | HarshGuruJi</title>
+  <meta name="description" content="Search HarshGuruJi resources and explore knowledge from Wikipedia.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,12 +17,11 @@
   <link rel="stylesheet" href="responsive-patch.css">
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  
   <style>
-    /* Wikipedia Search Specific Styles */
+    /* Global Search Specific Styles */
     .wiki-main-content {
       padding: 60px 20px;
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 0 auto;
       min-height: 80vh;
     }
@@ -32,6 +29,22 @@
     .wiki-hero {
       text-align: center;
       margin-bottom: 40px;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ad-badge {
+      display: inline-block;
+      background: var(--accent-primary);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
     }
     .wiki-hero-title {
       font-family: 'Space Grotesk', sans-serif;
@@ -47,8 +60,8 @@
     }
 
     .wiki-search-container {
-      max-width: 700px;
-      margin: 0 auto 30px auto;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -60,7 +73,7 @@
       background: var(--surface);
       border: 2px solid var(--border);
       border-radius: 50px;
-      padding: 5px 15px;
+      padding: 8px 15px;
       transition: all 0.3s ease;
       position: relative;
     }
@@ -79,7 +92,7 @@
       background: transparent;
       border: none;
       color: var(--text-primary);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       padding: 12px 0;
       outline: none;
     }
@@ -101,19 +114,51 @@
     }
     .wiki-search-btn {
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 8px 16px;
+      border-radius: 25px;
+      padding: 10px 20px;
       color: var(--text-primary);
       font-weight: 600;
       margin-left: 10px;
     }
-    .wiki-search-btn:hover {
+    .wiki-search-btn:hover:not(:disabled) {
       background: var(--accent-primary);
       color: #000;
       border-color: var(--accent-primary);
     }
-    .wiki-search-btn:active {
+    .wiki-search-btn:active:not(:disabled) {
       transform: scale(0.95);
+    }
+    .wiki-search-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Tabs */
+    .search-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .search-tab {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .search-tab:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+    .search-tab.active {
+      background: var(--surface);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
     }
 
     .wiki-controls {
@@ -121,6 +166,7 @@
       justify-content: center;
       gap: 15px;
       align-items: center;
+      margin-bottom: 20px;
     }
 
     .wiki-lang-select {
@@ -133,6 +179,7 @@
       font-family: inherit;
     }
 
+    /* History */
     .wiki-history {
       margin-bottom: 40px;
       text-align: center;
@@ -173,6 +220,13 @@
       text-decoration: underline;
     }
 
+    .results-count {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-weight: 500;
+      text-align: left;
+    }
+
     .wiki-loading, .wiki-error, .wiki-empty {
       text-align: center;
       color: var(--text-secondary);
@@ -193,6 +247,22 @@
       to { transform: rotate(360deg); }
     }
 
+    .results-group {
+      margin-bottom: 40px;
+      display: none;
+    }
+    .results-group.active {
+      display: block;
+    }
+    .results-group-title {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
     .wiki-results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -208,17 +278,34 @@
       cursor: pointer;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .wiki-card:hover {
       transform: translateY(-5px);
       border-color: var(--accent-primary);
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
+    .card-badge {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      background: var(--border);
+      color: var(--text-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+    .card-badge.hg { background: var(--accent-primary); color: #000; }
+    .card-badge.wiki { background: #fff; color: #000; }
+    
     .wiki-card-title {
       color: var(--text-primary);
       font-size: 1.25rem;
       margin-bottom: 10px;
       font-family: 'Space Grotesk', sans-serif;
+      margin-top: 5px;
     }
     .wiki-card-desc {
       color: var(--text-secondary);
@@ -236,7 +323,7 @@
       color: var(--text-secondary);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
     }
     .wiki-read-btn {
       color: var(--accent-primary);
@@ -334,6 +421,18 @@
     .wiki-article-link:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+    }
+    
+    /* Skeletons */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: skeletonLoading 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes skeletonLoading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
     @media (max-width: 768px) {
@@ -705,21 +804,36 @@
   <main class="wiki-main-content">
     <!-- Hero Section -->
     <section class="wiki-hero">
-      <h1 class="wiki-hero-title">Explore Knowledge</h1>
-      <p class="wiki-hero-subtitle">Search Wikipedia and discover articles, topics and knowledge from around the world.</p>
+      <div class="ad-badge">HARSHGURUJI SEARCH</div>
+      <h1 class="wiki-hero-title">Search Everything</h1>
+      <p class="wiki-hero-subtitle">Find tools, learning resources, AI services, games and knowledge from Wikipedia.</p>
     </section>
 
     <!-- Search Controls -->
     <section class="wiki-search-container">
+      <label for="wiki-search-input" style="display:none;">Search Query</label>
       <div class="wiki-search-bar">
-        <svg class="wiki-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="wiki-search-input" class="wiki-search-input" placeholder="Search Wikipedia..." aria-label="Search Wikipedia">
+        <svg class="wiki-search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="search" id="wiki-search-input" class="wiki-search-input" placeholder="Search HarshGuruJi or Wikipedia... (Ctrl+K)" autocomplete="off">
         <button type="button" id="wiki-clear-btn" class="wiki-clear-btn" aria-label="Clear Search">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
-        <button type="button" id="wiki-search-btn" class="wiki-search-btn">Search</button>
+        <button type="button" id="wiki-search-btn" class="wiki-search-btn">Search &rarr;</button>
       </div>
-      <div class="wiki-controls">
+      
+      <!-- Tabs -->
+      <div class="search-tabs" id="search-tabs">
+        <button type="button" class="search-tab active" data-mode="all">All</button>
+        <button type="button" class="search-tab" data-mode="harshguruji">HarshGuruJi</button>
+        <button type="button" class="search-tab" data-mode="wikipedia">Wikipedia</button>
+        <button type="button" class="search-tab" data-mode="ai">AI</button>
+        <button type="button" class="search-tab" data-mode="tools">Tools</button>
+        <button type="button" class="search-tab" data-mode="learning">Learning</button>
+        <button type="button" class="search-tab" data-mode="gaming">Gaming</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="wiki-controls" id="wiki-filters">
         <label for="wiki-lang" style="color:var(--text-secondary); font-size:0.9rem;">Wikipedia Language:</label>
         <select id="wiki-lang" class="wiki-lang-select">
           <option value="en">English (en)</option>
@@ -742,23 +856,42 @@
     <!-- Status States -->
     <div class="wiki-loading" id="wiki-loading">
       <div class="wiki-spinner"></div>
-      <div>Searching Wikipedia...</div>
+      <div>Searching...</div>
+      <!-- Skeletons -->
+      <div class="wiki-results-grid" style="margin-top: 30px; text-align:left;">
+        <div class="wiki-card skeleton" style="height: 180px;"></div>
+        <div class="wiki-card skeleton" style="height: 180px;"></div>
+        <div class="wiki-card skeleton" style="height: 180px;"></div>
+      </div>
     </div>
     
     <div class="wiki-error" id="wiki-error">
       <div style="font-size:3rem; margin-bottom:10px;">⚠️</div>
-      <div id="wiki-error-msg">Unable to fetch Wikipedia data.</div>
+      <div id="wiki-error-msg">Unable to load search results.</div>
       <button type="button" class="wiki-search-btn" style="margin:20px auto 0;" onclick="performSearch()">Try Again</button>
     </div>
 
     <div class="wiki-empty" id="wiki-empty">
       <div style="font-size:3rem; margin-bottom:10px;">🔎</div>
-      <div>No Wikipedia results found.</div>
-      <div style="font-size:0.9rem; margin-top:5px;">Try a different search term.</div>
+      <div>No results found.</div>
+      <div style="font-size:0.9rem; margin-top:5px;">Try a different keyword or search another category.</div>
+      <button type="button" class="wiki-search-btn" style="margin:20px auto 0;" id="clear-empty-btn">Clear Search</button>
     </div>
 
-    <!-- Results Grid -->
-    <div class="wiki-results-grid" id="wiki-results-grid"></div>
+    <!-- Results Area -->
+    <div id="results-area" style="display: none;">
+      <div class="results-count" id="results-count"></div>
+      
+      <div class="results-group" id="hg-group">
+        <h2 class="results-group-title">HarshGuruJi Results</h2>
+        <div class="wiki-results-grid" id="hg-results-grid"></div>
+      </div>
+
+      <div class="results-group" id="wiki-group">
+        <h2 class="results-group-title">Wikipedia Results</h2>
+        <div class="wiki-results-grid" id="wiki-results-grid"></div>
+      </div>
+    </div>
 
   </main>
 
@@ -862,12 +995,22 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // --- Elements ---
       const searchInput = document.getElementById("wiki-search-input");
       const searchBtn = document.getElementById("wiki-search-btn");
       const clearBtn = document.getElementById("wiki-clear-btn");
       const langSelect = document.getElementById("wiki-lang");
+      const filtersDiv = document.getElementById("wiki-filters");
+      const tabs = document.querySelectorAll(".search-tab");
+      const clearEmptyBtn = document.getElementById("clear-empty-btn");
       
-      const grid = document.getElementById("wiki-results-grid");
+      const resultsArea = document.getElementById("results-area");
+      const resultsCountEl = document.getElementById("results-count");
+      const hgGroup = document.getElementById("hg-group");
+      const wikiGroup = document.getElementById("wiki-group");
+      const hgGrid = document.getElementById("hg-results-grid");
+      const wikiGrid = document.getElementById("wiki-results-grid");
+      
       const loadingState = document.getElementById("wiki-loading");
       const errorState = document.getElementById("wiki-error");
       const emptyState = document.getElementById("wiki-empty");
@@ -886,20 +1029,36 @@
       const mExtract = document.getElementById("wiki-article-extract");
       const mLink = document.getElementById("wiki-article-link");
 
+      // --- State ---
+      let currentMode = 'all'; // all, harshguruji, wikipedia, ai, tools, learning, gaming
+      let abortController = null;
+      let debounceTimer = null;
+      const searchCache = new Map();
+
+      // --- Algolia Client ---
+      let searchClient = null;
+      let index = null;
+      if (window.algoliasearch) {
+        searchClient = algoliasearch('ASFAW7UC37', '50641a7e884d63f6d27f546d9885d4ea');
+        index = searchClient.initIndex('webguruji_online_asfaw7uc37_pages');
+      }
+
+      // --- History Management ---
       const getHistory = () => {
         try {
-          return JSON.parse(localStorage.getItem('wikiSearchHistory')) || [];
+          return JSON.parse(localStorage.getItem('ultraSearchHistory')) || [];
         } catch {
           return [];
         }
       };
       
       const saveHistory = (term) => {
+        if (!term) return;
         let history = getHistory();
         history = history.filter(t => t.toLowerCase() !== term.toLowerCase());
         history.unshift(term);
         if (history.length > 8) history.pop();
-        localStorage.setItem('wikiSearchHistory', JSON.stringify(history));
+        localStorage.setItem('ultraSearchHistory', JSON.stringify(history));
         renderHistory();
       };
 
@@ -917,6 +1076,7 @@
           tag.textContent = term;
           tag.onclick = () => {
             searchInput.value = term;
+            clearBtn.style.display = 'flex';
             performSearch();
           };
           historyTags.appendChild(tag);
@@ -924,93 +1084,228 @@
       };
 
       clearHistoryBtn.onclick = () => {
-        localStorage.removeItem('wikiSearchHistory');
+        localStorage.removeItem('ultraSearchHistory');
         renderHistory();
       };
 
       renderHistory();
 
+      // --- UI Handlers ---
       searchInput.addEventListener('input', () => {
         clearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+        
+        // Optional Debounce for remote suggestions/search
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          if(searchInput.value.trim().length > 2) {
+             // performSearch(); // Uncomment for live search, but explicit click is safer
+          }
+        }, 400);
       });
 
-      clearBtn.onclick = () => {
+      const handleClear = () => {
         searchInput.value = '';
         clearBtn.style.display = 'none';
         searchInput.focus();
+        resetUI();
       };
+      
+      clearBtn.onclick = handleClear;
+      clearEmptyBtn.onclick = handleClear;
 
-      searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') performSearch();
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        } else if (e.key === 'Escape') {
+          handleClear();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+        }
       });
 
       searchBtn.onclick = performSearch;
 
+      // --- Tabs Logic ---
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentMode = tab.dataset.mode;
+          
+          if (currentMode === 'wikipedia' || currentMode === 'all') {
+            filtersDiv.style.display = 'flex';
+          } else {
+            filtersDiv.style.display = 'none';
+          }
+
+          if (searchInput.value.trim().length > 0) {
+            performSearch();
+          }
+        });
+      });
+
+      // --- Helpers ---
       function escapeHTML(str) {
         const p = document.createElement("p");
         p.appendChild(document.createTextNode(str));
         return p.innerHTML;
       }
 
-      async function performSearch() {
-        const query = searchInput.value.trim();
-        if (!query) return;
-
-        saveHistory(query);
-        const lang = langSelect.value;
-        
-        grid.innerHTML = '';
-        loadingState.style.display = 'block';
+      function resetUI() {
+        resultsArea.style.display = 'none';
+        loadingState.style.display = 'none';
         errorState.style.display = 'none';
         emptyState.style.display = 'none';
+        hgGroup.classList.remove('active');
+        wikiGroup.classList.remove('active');
+        hgGrid.innerHTML = '';
+        wikiGrid.innerHTML = '';
+        resultsCountEl.textContent = '';
+      }
 
-        const url = `https://${lang}.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=10&namespace=0&format=json&origin=*`;
+      // --- Main Search Action ---
+      async function performSearch() {
+        const rawQuery = searchInput.value.trim();
+        if (!rawQuery) return;
+
+        saveHistory(rawQuery);
+        
+        if (abortController) {
+          abortController.abort();
+        }
+        abortController = new AbortController();
+        const signal = abortController.signal;
+
+        resetUI();
+        loadingState.style.display = 'block';
+        searchBtn.disabled = true;
+
+        let totalResults = 0;
+        let hasError = false;
 
         try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error("Network response was not ok");
-          const data = await res.json();
-          
-          loadingState.style.display = 'none';
+          // Determine what to search based on mode
+          let pAlgolia = Promise.resolve(null);
+          let pWiki = Promise.resolve(null);
 
-          const titles = data[1];
-          const descriptions = data[2];
-          const links = data[3];
-
-          if (titles.length === 0) {
-            emptyState.style.display = 'block';
-            return;
+          if (currentMode !== 'wikipedia') {
+            // Algolia Search (All, HarshGuruJi, AI, Tools, Learning, Gaming)
+            let algoliaQuery = rawQuery;
+            // Append category to query if it's a specific mode to emulate filtering
+            if (['ai', 'tools', 'learning', 'gaming'].includes(currentMode)) {
+              algoliaQuery += ' ' + currentMode;
+            }
+            if (index) {
+              pAlgolia = index.search(algoliaQuery, { hitsPerPage: 10 });
+            }
           }
 
-          titles.forEach((title, i) => {
-            const card = document.createElement('div');
-            card.className = 'wiki-card';
-            card.innerHTML = `
-              <div class="wiki-card-title">${escapeHTML(title)}</div>
-              <div class="wiki-card-desc">${escapeHTML(descriptions[i] || 'No short description available.')}</div>
-              <div class="wiki-card-source">
-                <span>Wikipedia</span>
-                <span class="wiki-read-btn">Read Article →</span>
-              </div>
-            `;
+          if (currentMode === 'all' || currentMode === 'wikipedia') {
+            // Wikipedia Search
+            const lang = langSelect.value;
+            const cacheKey = \`\${lang}_\${rawQuery}\`;
             
-            card.onclick = () => openArticle(title, links[i], lang);
-            grid.appendChild(card);
-          });
-          
-        } catch (error) {
-          console.error("Wikipedia Search Error:", error);
+            if (searchCache.has(cacheKey)) {
+              pWiki = Promise.resolve(searchCache.get(cacheKey));
+            } else {
+              const url = \`https://\${lang}.wikipedia.org/w/api.php?action=opensearch&search=\${encodeURIComponent(rawQuery)}&limit=10&namespace=0&format=json&origin=*\`;
+              pWiki = fetch(url, { signal }).then(res => {
+                if(!res.ok) throw new Error("Wiki network error");
+                return res.json();
+              }).then(data => {
+                searchCache.set(cacheKey, data);
+                return data;
+              });
+            }
+          }
+
+          // Await both
+          const [algoliaRes, wikiRes] = await Promise.all([pAlgolia, pWiki]);
+
           loadingState.style.display = 'none';
-          errorState.style.display = 'block';
+          resultsArea.style.display = 'block';
+
+          // Process Algolia
+          if (algoliaRes && algoliaRes.hits && algoliaRes.hits.length > 0) {
+            hgGroup.classList.add('active');
+            totalResults += algoliaRes.hits.length;
+            
+            algoliaRes.hits.forEach(hit => {
+              const card = document.createElement('div');
+              card.className = 'wiki-card';
+              
+              const title = hit.name || hit.title || 'HarshGuruJi Page';
+              const desc = hit.description || 'View this page on HarshGuruJi.';
+              
+              card.innerHTML = \`
+                <div class="card-badge hg">HARSHGURUJI</div>
+                <div class="wiki-card-title">\${escapeHTML(title)}</div>
+                <div class="wiki-card-desc">\${escapeHTML(desc)}</div>
+                <div class="wiki-card-source">
+                  <span class="wiki-read-btn">Visit Page &rarr;</span>
+                </div>
+              \`;
+              card.onclick = () => { window.location.href = hit.url || '#'; };
+              hgGrid.appendChild(card);
+            });
+          }
+
+          // Process Wikipedia
+          if (wikiRes && wikiRes[1] && wikiRes[1].length > 0) {
+            wikiGroup.classList.add('active');
+            totalResults += wikiRes[1].length;
+            
+            const titles = wikiRes[1];
+            const descriptions = wikiRes[2];
+            const links = wikiRes[3];
+
+            titles.forEach((title, i) => {
+              const card = document.createElement('div');
+              card.className = 'wiki-card';
+              card.innerHTML = \`
+                <div class="card-badge wiki">WIKIPEDIA</div>
+                <div class="wiki-card-title">\${escapeHTML(title)}</div>
+                <div class="wiki-card-desc">\${escapeHTML(descriptions[i] || 'No short description available.')}</div>
+                <div class="wiki-card-source">
+                  <span class="wiki-read-btn">Read Article &rarr;</span>
+                </div>
+              \`;
+              card.onclick = () => openArticle(title, links[i], langSelect.value);
+              wikiGrid.appendChild(card);
+            });
+          }
+
+          if (totalResults === 0) {
+            resetUI();
+            emptyState.style.display = 'block';
+          } else {
+            resultsCountEl.textContent = \`Found \${totalResults} result\${totalResults !== 1 ? 's' : ''} for "\${rawQuery}"\`;
+          }
+
+        } catch (error) {
+          if (error.name !== 'AbortError') {
+            console.error("Search Error:", error);
+            resetUI();
+            errorState.style.display = 'block';
+          }
+        } finally {
+          searchBtn.disabled = false;
         }
       }
 
+      // --- Article Modal Action ---
       async function openArticle(title, url, lang) {
         modal.classList.add('active');
         modalLoading.style.display = 'block';
         modalContent.style.display = 'none';
 
-        const apiUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(title)}&exintro=1&explaintext=1&pithumbsize=300&format=json&origin=*`;
+        const apiUrl = \`https://\${lang}.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=\${encodeURIComponent(title)}&exintro=1&explaintext=1&pithumbsize=300&format=json&origin=*\`;
 
         try {
           const res = await fetch(apiUrl);
