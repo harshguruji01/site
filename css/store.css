@@ -650,3 +650,10 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.4s ease forwards;
 }
+/* Footer Overrides (migrated from inline styles) */
+.footer { margin-top: 4rem; }
+.footer .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+.footer .nav-logo img { height: 40px; width: auto; border-radius: 5px; }
+.footer .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #ff3366, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.footer-bottom { flex-direction: column; gap: 1.5rem; padding-top: 2.5rem; text-align: center; }
+.footer-bottom p { color: var(--text-secondary); font-size: 0.85rem; }
