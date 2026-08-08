@@ -4,7 +4,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    const AD_COUNT = 120; // 120 / 8 distinct types = exactly 15 of each type!
+    const AD_COUNT = 180; // 180 / 9 distinct types = exactly 20 of each type!
     const gridContainer = document.getElementById("ad-grid");
     
     if (!gridContainer) return;
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <script src="https://www.highperformanceformat.com/9c7b57148a88f2509a01c88da332d3cd/invoke.js"></script>
             `
         },
-        // 7: Smart Link (Custom HTML)
+        // 7: Smart Link 1 (Original)
         {
             isSmartLink: true,
             content: `
@@ -153,6 +153,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     <h3 style="color:var(--text-primary); font-family:'Space Grotesk', sans-serif; margin-bottom:10px;">Exclusive Offer</h3>
                     <p style="color:var(--text-secondary); margin-bottom:20px;">Discover the best deals and premium content selected just for you.</p>
                     <a href="https://www.effectivecpmnetwork.com/nczuze2v0z?key=c1ab3bf3f868481bfcdc8a2035d2f662" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:10px 20px; background:var(--accent-blue); color:#fff; text-decoration:none; border-radius:8px; font-weight:600;">Claim Offer ↗</a>
+                </div>
+            `
+        },
+        // 8: Smart Link 2 (New)
+        {
+            isSmartLink: true,
+            content: `
+                <div style="text-align:center; padding: 20px; display:flex; flex-direction:column; justify-content:center; height:100%;">
+                    <h3 style="color:var(--text-primary); font-family:'Space Grotesk', sans-serif; margin-bottom:10px;">Special Rewards</h3>
+                    <p style="color:var(--text-secondary); margin-bottom:20px;">Unlock special rewards and access premium content instantly.</p>
+                    <a href="https://www.effectivecpmnetwork.com/p5beq3sts?key=f0ebce1e6689deecd8a3dc50235a7d92" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:10px 20px; background:var(--accent-primary); color:#000; text-decoration:none; border-radius:8px; font-weight:600;">Unlock Now ↗</a>
                 </div>
             `
         }
