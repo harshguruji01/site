@@ -314,3 +314,55 @@ body.ads-page {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* --- Aggressive Ad Placements --- */
+
+.ad-sticky-sidebar {
+  position: fixed;
+  top: 100px; /* Below navbar */
+  width: 300px;
+  height: 250px;
+  z-index: 900;
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 1300px) {
+  .ad-sticky-sidebar {
+    display: block;
+  }
+}
+
+.ad-sticky-left {
+  left: 10px;
+}
+
+.ad-sticky-right {
+  right: 10px;
+}
+
+.ad-sticky-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  background: rgba(0,0,0,0.8);
+  padding: 10px 0;
+  backdrop-filter: blur(10px);
+}
+
+.ad-hero-banner, .ad-footer-banner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  padding: 10px;
+  border-radius: 8px;
+}
