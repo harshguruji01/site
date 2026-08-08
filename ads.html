@@ -259,62 +259,50 @@
 </div>
 
 <main class="ads-main-content">
-  <section class="ads-section" aria-labelledby="ads-heading">
-            <div class="ads-section-header">
-                <h1 id="ads-heading" class="ads-section-title">Advertisements</h1>
-                <p class="ads-section-subtitle">Sponsored content from our trusted advertising partners.</p>
-            </div>
+  <!-- Hero Section -->
+  <section class="ads-hero-section">
+    <div class="ads-hero-content">
+      <div class="ad-badge">ADVERTISEMENT</div>
+      <h1 class="ads-hero-title">Advertisement Center</h1>
+      <p class="ads-hero-subtitle">Advertisements help support HarshGuruJi and its continued development.</p>
+    </div>
+  </section>
 
-            <div class="ad-card-wrapper">
-                <div class="ad-card">
-                    <div class="ad-badge">✦ Sponsored</div>
-                    <div class="ad-slot-container">
+  <!-- Main Ad Container -->
+  <section class="ads-display-section">
+    <div class="ad-container-wrapper">
+      <div class="ad-slot-label">SPONSORED</div>
+      <div id="ad-container" class="ad-container">
+        <!-- Loading State (Default) -->
+        <div id="ad-loading-state" class="ad-state-box">
+          <div class="ad-spinner"></div>
+          <p>Loading advertisement...</p>
+        </div>
+        
+        <!-- Error State (Hidden by default) -->
+        <div id="ad-error-state" class="ad-state-box hidden">
+          <p>Advertisement temporarily unavailable.</p>
+        </div>
+        
+        <!-- Ad Provider Script Injection Point -->
+        <div id="ad-content"></div>
+      </div>
+    </div>
+  </section>
 
-                        <!-- ========================================================= -->
-                        <!-- ADSTERRA SCRIPT LOCATION: PASTE YOUR ADSTERRA SCRIPT BELOW -->
-                        <!-- ========================================================= -->
-                        <div class="ad-placeholder-text">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-                            <span>Advertisement Loading...</span>
-                        </div>
-                        <!-- ========================================================= -->
+  <!-- Information Sections -->
+  <section class="ads-info-section">
+    <div class="ads-info-card">
+      <h2>Why advertisements?</h2>
+      <p>Advertisements help support HarshGuruJi's hosting, infrastructure, development and continued improvement.</p>
+    </div>
 
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =================================================================== -->
-        <!-- SECTION 2: LATEST NEWS                                             -->
-        <!-- =================================================================== -->
-        <section class="ads-section" aria-labelledby="news-heading">
-            <div class="ads-section-header">
-                <h2 id="news-heading" class="ads-section-title">Latest News</h2>
-                <p class="ads-section-subtitle">Stay updated with top developer and tech highlights.</p>
-            </div>
-
-            <div class="news-card-featured">
-                <div class="news-image-container">
-                    <img src="ai.png" alt="Featured News Image - Next Generation AI Models" loading="lazy" width="900" height="500">
-                    <span class="news-category-badge">Artificial Intelligence</span>
-                </div>
-                <div class="news-card-content">
-                    <div class="news-meta-info">
-                        <span>📅 July 23, 2026</span>
-                        <span>•</span>
-                        <span>📰 HarshGuruJi Tech Portal</span>
-                    </div>
-                    <a href="#" class="news-title-link">
-                        <h3 class="news-title">The Evolution of AI Coding Assistants: Building the Next Generation of Developer Tools</h3>
-                    </a>
-                    <p class="news-description">
-                        Explore how autonomous AI agents, real-time code optimization systems, and modern Web APIs are redefining front-end development workflows in 2026.
-                    </p>
-                    <a id="btn-link-ads-byxao" href="ai-hub.html" class="news-btn-read">Read Full Story →</a>
-                </div>
-            </div>
-        </section>
-    </main>
+    <div class="ads-info-card">
+      <h2>Advertising &amp; Privacy</h2>
+      <p>Third-party advertising providers may process information according to their own privacy policies. For more details on how we handle your data, please review our <a href="privacy-policy.html" class="ads-text-link">Privacy Policy</a>.</p>
+    </div>
+  </section>
+</main>
 
     <!-- Premium Dark Theme Footer -->
       <footer class="footer">
@@ -384,6 +372,7 @@
     </div>
   </footer>
 
+    <script src="js/ads-manager.js" defer></script>
     <script src="navbar.js" defer></script>
   <script src="js/button_handlers.js" defer></script>
   <script src="cookie.js" defer></script>
