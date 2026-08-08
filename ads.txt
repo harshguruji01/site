@@ -1,0 +1,37 @@
+--------------Banner 300x250--------------------
+
+<script>
+  atOptions = {
+    'key' : 'e1cde2cd382d8a1bc4b5ac24f00ed466',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/e1cde2cd382d8a1bc4b5ac24f00ed466/invoke.js"></script>
+
+
+--------------------native banner 2:1--------------------
+
+
+<script async="async" data-cfasync="false" src="https://pl29598346.effectivecpmnetwork.com/a92bbcbf9b1526464cf1c46a1c967e31/invoke.js"></script>
+<div id="container-a92bbcbf9b1526464cf1c46a1c967e31"></div>
+
+
+
+--------------------smart link--------------------
+
+https://www.effectivecpmnetwork.com/nczuze2v0z?key=c1ab3bf3f868481bfcdc8a2035d2f662
+
+
+--------------------social bar--------------------
+
+
+<script src="https://pl29598349.effectivecpmnetwork.com/1b/b2/42/1bb2424fa78f61e4f2c8b1aa6fece358.js"></script>
+
+
+--------------------popunder--------------------
+
+
+<script src="https://pl29598345.effectivecpmnetwork.com/3a/f9/d5/3af9d54dfbf265c3c2a18b7570c8ddea.js"></script>
