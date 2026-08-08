@@ -1,79 +1,61 @@
 /**
  * ads-manager.js
- * Handles the secure loading, configuration, and state management of the Advertisement Center.
+ * Generates a high-volume ad grid based on user request.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Advertisement Configuration
-    const AD_CONFIG = {
-        enabled: true,
-        provider: "PLACEHOLDER", // e.g. "ADSTERRA", "ADSENSE"
-        primaryUnitId: "PRIMARY_AD_UNIT_ID",
-        secondaryUnitId: "SECONDARY_AD_UNIT_ID",
-        timeoutMs: 5000 // How long to wait before showing error state
-    };
+    const AD_COUNT = 50;
+    const gridContainer = document.getElementById("ad-grid");
+    
+    if (!gridContainer) return;
 
-    if (!AD_CONFIG.enabled) {
-        document.querySelectorAll(".ad-container").forEach(container => {
-            const loadingState = container.querySelector(".ad-state-box.loading");
-            if (loadingState) loadingState.classList.add("hidden");
-        });
-        return;
-    }
+    // Adsterra 300x250 Banner configuration from ads.txt
+    const adScriptContent = `
+        <style>body { margin: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
+        <script>
+          atOptions = {
+            'key' : 'e1cde2cd382d8a1bc4b5ac24f00ed466',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/e1cde2cd382d8a1bc4b5ac24f00ed466/invoke.js"></script>
+    `;
 
-    // Initialize an individual ad slot
-    function initializeAdSlot(containerId, unitId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
+    // Generate 50 ad containers
+    for (let i = 0; i < AD_COUNT; i++) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "ad-container-wrapper";
+        
+        const label = document.createElement("div");
+        label.className = "ad-slot-label";
+        label.textContent = `ADVERTISEMENT ${i + 1}`;
+        wrapper.appendChild(label);
 
-        const loadingState = container.querySelector(".ad-state-box.loading");
-        const errorState = container.querySelector(".ad-state-box.error");
-        const adContent = container.querySelector(".ad-content");
+        const container = document.createElement("div");
+        container.className = "ad-container";
+        
+        // We use an iframe with srcdoc to isolate the adsterra script.
+        // This is crucial because adsterra scripts often use document.write()
+        // which would break the page if injected dynamically into the main DOM.
+        const iframe = document.createElement("iframe");
+        iframe.setAttribute("srcdoc", adScriptContent);
+        iframe.setAttribute("width", "300");
+        iframe.setAttribute("height", "250");
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("scrolling", "no");
+        iframe.style.border = "none";
+        iframe.style.overflow = "hidden";
+        iframe.style.backgroundColor = "transparent";
 
-        // Function to handle successful ad load
-        function onAdLoaded() {
-            if (loadingState) loadingState.classList.add("hidden");
-            if (errorState) errorState.classList.add("hidden");
-            if (adContent) adContent.classList.remove("hidden");
-        }
-
-        // Function to handle ad load failure
-        function onAdError() {
-            if (loadingState) loadingState.classList.add("hidden");
-            if (adContent) adContent.classList.add("hidden");
-            if (errorState) errorState.classList.remove("hidden");
-        }
-
-        // Simulated Ad Loading Process (Replace with actual provider logic)
-        // Example:
-        // const script = document.createElement("script");
-        // script.src = "https://ad-provider.com/serve?id=" + unitId;
-        // script.onload = onAdLoaded;
-        // script.onerror = onAdError;
-        // adContent.appendChild(script);
-
-        // For now, simulate network delay
+        // Optional: add a tiny delay between loads to avoid browser freezing
         setTimeout(() => {
-            // Simulated Success
-            if (adContent) {
-                adContent.innerHTML = `
-                    <div style="width: 100%; height: 250px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); border-radius: 8px;">
-                        [${AD_CONFIG.provider} Unit: ${unitId}]
-                    </div>
-                `;
-            }
-            onAdLoaded();
-        }, Math.random() * 1000 + 1000); // Random load time between 1-2s
+            container.appendChild(iframe);
+        }, i * 50); // Stagger by 50ms
 
-        // Set fallback timeout
-        setTimeout(() => {
-            if (adContent && !adContent.innerHTML.trim() && !adContent.hasChildNodes()) {
-                onAdError();
-            }
-        }, AD_CONFIG.timeoutMs);
+        wrapper.appendChild(container);
+        gridContainer.appendChild(wrapper);
     }
-
-    // Initialize both slots
-    initializeAdSlot("primary-ad", AD_CONFIG.primaryUnitId);
-    initializeAdSlot("secondary-ad", AD_CONFIG.secondaryUnitId);
 });

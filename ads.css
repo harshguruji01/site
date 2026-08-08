@@ -305,3 +305,12 @@ body.ads-page {
 .owner-title { color: var(--accent-primary); font-size: 0.95rem; font-weight: 600; display: block; margin-bottom: 0.3rem; }
 .owner-info { color: var(--text-secondary); font-size: 1rem; display: block; }
 .footer-copyright { color: var(--text-secondary); font-size: 0.85rem; }
+
+.ad-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
