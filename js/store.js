@@ -1,5 +1,5 @@
 /**
- * store.js - WebGuruJi Store Logic
+ * store.js - HarshGuruJi Store Logic
  * Handles data fetching, searching, filtering, and UI rendering.
  */
 
@@ -317,7 +317,7 @@ function setupEventListeners() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: 'WebGuruJi Store',
+            title: 'HarshGuruJi Store',
             text: 'Check out this app!',
             url: url
           });
