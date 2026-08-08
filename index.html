@@ -423,7 +423,7 @@
     <div class="hero-content">
       <div class="badge" id="hero-badge">
         <span class="badge-dot"></span>
-        AI-Powered Learning Platform
+        Learning Platform
       </div>
       <h1 class="hero-title">
         Your Gateway to<br />
@@ -445,12 +445,15 @@
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#ai" class="btn btn-secondary" id="hero-ai-btn">
+        <a href="https://gurujiai.zapier.app" class="btn btn-secondary" id="hero-ai-btn">
           <span>✦ Try GuruAI</span>
         </a>
         <a href="daily-special.html" class="btn btn-daily-special" id="hero-daily-btn">
           <span>🌅 Daily Special</span>
         </a>
+        <button type="button" class="btn btn-ads-premium" id="hero-ads-btn">
+          <span>🔞 Partner Ads</span>
+        </button>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -933,8 +936,31 @@
     </div>
   </footer>
 
+  <!-- Age Verification Modal for Ads -->
+  <div class="age-modal-overlay" id="age-modal-overlay">
+    <div class="age-modal" role="dialog" aria-modal="true" aria-labelledby="age-modal-title">
+      <h2 id="age-modal-title">Age Verification Required</h2>
+      <p>The advertisements section may contain content that is restricted to users 18 years of age or older. Please confirm your age to continue.</p>
+      
+      <div class="age-options">
+        <label class="age-option" id="age-under-18">
+          <input type="radio" name="age_verify" value="under_18">
+          <span class="age-custom-radio"></span>
+          <span class="age-label-text">I am Under 18</span>
+        </label>
+        
+        <label class="age-option" id="age-over-18">
+          <input type="radio" name="age_verify" value="over_18">
+          <span class="age-custom-radio"></span>
+          <span class="age-label-text">I am 18 or Older</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js" defer></script>
   <script src="js/button_handlers.js" defer></script>
+  <script src="js/age_verification.js" defer></script>
   <script src="cookie.js" defer></script>
   <script src="navbar-premium.js" defer></script>
 </body>
