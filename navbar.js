@@ -86,14 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchContainer = document.querySelector('.premium-search');
   
   if (searchContainer && window.instantsearch) {
-    // Clear out the static search HTML to make room for Algolia widgets
-    searchContainer.innerHTML = `
-      <div id="algolia-searchbox"></div>
-      <div id="algolia-hits-container">
-        <div id="algolia-hits"></div>
-      </div>
-    `;
-
     const searchClient = algoliasearch('ASFAW7UC37', '50641a7e884d63f6d27f546d9885d4ea');
 
     const search = instantsearch({
