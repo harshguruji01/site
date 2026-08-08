@@ -1177,3 +1177,8 @@ body::before {
 .newsletter-desc { color: var(--text-secondary); margin-bottom: 2rem; }
 .newsletter-msg { margin-top: 1rem; font-size: 0.9rem; min-height: 20px; }
 .newsletter-disclaimer { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.5rem; }
+
+/* Extracted extra inline styles */
+.orb-inner-clear { background: transparent; box-shadow: none; }
+.hero-logo-img { width: 90px; height: 90px; object-fit: contain; border-radius: 50%; }
+.hidden { display: none !important; }
