@@ -72,30 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     rightSidebar.appendChild(createAdIframe(typeA_Banner300x250, "300", "250"));
     document.body.appendChild(rightSidebar);
 
-    // Sticky Bottom Bar (Native Banner)
-    const bottomBar = document.createElement("div");
-    bottomBar.className = "ad-sticky-bottom";
-    bottomBar.appendChild(createAdIframe(typeB_NativeBanner, "100%", "90"));
-    document.body.appendChild(bottomBar);
-
-    // Hero Banner (Native Banner)
-    const heroSection = document.querySelector('.ads-hero-section');
-    if (heroSection) {
-        const heroBanner = document.createElement("div");
-        heroBanner.className = "ad-hero-banner";
-        heroBanner.appendChild(createAdIframe(typeB_NativeBanner, "100%", "250"));
-        heroSection.appendChild(heroBanner);
-    }
-
-    // Footer Banner (Native Banner)
-    const infoSection = document.querySelector('.ads-info-section');
-    if (infoSection) {
-        const footerBanner = document.createElement("div");
-        footerBanner.className = "ad-footer-banner";
-        footerBanner.appendChild(createAdIframe(typeB_NativeBanner, "100%", "250"));
-        infoSection.parentNode.insertBefore(footerBanner, infoSection.nextSibling);
-    }
-
     // 4. Generate 50 ad containers in the grid
     for (let i = 0; i < AD_COUNT; i++) {
         const wrapper = document.createElement("div");
