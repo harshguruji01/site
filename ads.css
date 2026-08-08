@@ -261,3 +261,16 @@ body.ads-page {
   .news-btn-read { width: 100%; text-align: center; }
   .ad-slot-container { min-height: 200px; }
 }
+
+/* Extracted Inline Styles from Footer */
+.footer .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+.footer .nav-logo img { height: 40px; width: auto; border-radius: 5px; }
+.footer .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #ff3366, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.footer-bottom { flex-direction: column; gap: 1.5rem; padding-top: 2.5rem; }
+.owner-card { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.owner-avatar { height: 80px; width: auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+.owner-name { color: var(--text-primary); font-size: 1.25rem; display: block; margin-bottom: 0.3rem; }
+.owner-title { color: var(--accent-primary); font-size: 0.95rem; font-weight: 600; display: block; margin-bottom: 0.3rem; }
+.owner-info { color: var(--text-secondary); font-size: 1rem; display: block; }
+.footer-copyright { color: var(--text-secondary); font-size: 0.85rem; }
