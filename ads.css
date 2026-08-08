@@ -339,3 +339,25 @@ body.ads-page {
 .ad-sticky-right {
   right: 10px;
 }
+
+/* --- Ad Info Section Styles --- */
+.ad-info-container {
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.ad-info-heading {
+  color: var(--text-primary);
+  margin-bottom: 15px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.ad-info-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+.ad-info-text-mb {
+  margin-bottom: 30px;
+}
