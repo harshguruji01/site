@@ -82,54 +82,88 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* --- 3. SEARCH INTERACTIVITY --- */
-  const searchInput = document.getElementById('global-search');
-  const clearSearchBtn = document.getElementById('clear-search');
-  const searchContainer = document.querySelector('.nav-search-container');
-  const searchShortcut = document.querySelector('.search-shortcut');
+  /* --- 3. ALGOLIA SEARCH INTERACTIVITY --- */
+  const searchContainer = document.querySelector('.premium-search');
+  
+  if (searchContainer && window.instantsearch) {
+    // Clear out the static search HTML to make room for Algolia widgets
+    searchContainer.innerHTML = `
+      <div id="algolia-searchbox"></div>
+      <div id="algolia-hits-container">
+        <div id="algolia-hits"></div>
+      </div>
+    `;
 
-  if (searchInput) {
-    // Show/hide clear button and dropdown
-    searchInput.addEventListener('input', (e) => {
-      if (e.target.value.length > 0) {
-        if(clearSearchBtn) clearSearchBtn.style.display = 'flex';
-        if(searchShortcut) searchShortcut.style.display = 'none';
-      } else {
-        if(clearSearchBtn) clearSearchBtn.style.display = 'none';
-        if(searchShortcut) searchShortcut.style.display = 'inline-block';
-      }
+    const searchClient = algoliasearch('ASFAW7UC37', '50641a7e884d63f6d27f546d9885d4ea');
+
+    const search = instantsearch({
+      indexName: 'webguruji_online_asfaw7uc37_pages',
+      searchClient,
     });
 
-    searchInput.addEventListener('focus', () => {
-      if (searchContainer) searchContainer.classList.add('active');
-    });
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#algolia-searchbox',
+        placeholder: 'Search HarshGuruJi...',
+        showSubmit: false,
+        showReset: true,
+      }),
+      instantsearch.widgets.hits({
+        container: '#algolia-hits',
+        templates: {
+          empty: '<div style="padding:1rem; color:var(--text-secondary)">No results found for "{{query}}"</div>',
+          item(hit) {
+            const img = hit.image ? `<img src="${hit.image}" class="algolia-hit-img" alt="Thumbnail">` : `<div class="algolia-hit-img" style="display:flex;align-items:center;justify-content:center;font-size:20px">📄</div>`;
+            return `
+              <div class="algolia-hit" onclick="window.location.href='${hit.url || '#'}'">
+                ${img}
+                <div class="algolia-hit-content">
+                  <h4>${instantsearch.highlight({ attribute: 'title', hit }) || hit.title || 'Untitled'}</h4>
+                  <p>${instantsearch.highlight({ attribute: 'description', hit }) || hit.description || ''}</p>
+                </div>
+              </div>
+            `;
+          },
+        },
+      })
+    ]);
 
-    // Handle Keyboard Shortcut (Cmd+K or Ctrl+K)
-    window.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInput.focus();
-      }
-    });
-  }
+    search.start();
 
-  if (clearSearchBtn) {
-    clearSearchBtn.addEventListener('click', () => {
-      if(searchInput) {
-        searchInput.value = '';
-        searchInput.focus();
-        clearSearchBtn.style.display = 'none';
-        if(searchShortcut) searchShortcut.style.display = 'inline-block';
-      }
-    });
-  }
+    const hitsContainer = document.getElementById('algolia-hits-container');
+    const searchBoxInput = document.querySelector('.ais-SearchBox-input');
 
-  // Click outside to close search dropdown
-  document.addEventListener('click', (e) => {
-    if (searchContainer && !searchContainer.contains(e.target)) {
-      searchContainer.classList.remove('active');
+    if (searchBoxInput) {
+      searchBoxInput.addEventListener('input', (e) => {
+        if (e.target.value.trim().length > 0) {
+          hitsContainer.classList.add('active');
+        } else {
+          hitsContainer.classList.remove('active');
+        }
+      });
+      
+      searchBoxInput.addEventListener('focus', (e) => {
+        if (e.target.value.trim().length > 0) {
+          hitsContainer.classList.add('active');
+        }
+      });
+
+      // Handle Keyboard Shortcut (Cmd+K or Ctrl+K)
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          searchBoxInput.focus();
+        }
+      });
     }
-  });
+
+    // Click outside to close search dropdown
+    document.addEventListener('click', (e) => {
+      if (!searchContainer.contains(e.target)) {
+        hitsContainer.classList.remove('active');
+      }
+    });
+  }
 
   /* --- 4. AUTH MOCK TOGGLING (For demonstration) --- */
   // In a real scenario, this would be handled by your auth state
