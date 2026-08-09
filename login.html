@@ -943,7 +943,7 @@
 
   <!-- Embedded JavaScript for Logic -->
   <script type="module">
-    import { loginWithEmail, signInWithGoogle } from './js/auth.js';
+    import { loginWithEmail, logoutUser } from './js/auth-backend.js';
     // 1. DOM Elements
     const form = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
@@ -980,7 +980,7 @@
     emailInput.addEventListener('input', () => clearError(emailGroup));
     pwdInput.addEventListener('input', () => clearError(pwdGroup));
 
-    // 3. Form Submission to PHP Backend
+    // 3. Form Submission to Backend API
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -1016,8 +1016,6 @@
         submitBtn.style.background = 'var(--color-success)';
         submitBtn.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
         
-        // The auth observer in auth.js will handle the redirect,
-        // but we can also manually redirect here if we want immediate feedback
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 800);
@@ -1036,14 +1034,10 @@
       }
     });
 
-    // Social Logins
+    // Social Logins - not implemented in backend yet
     document.getElementById('btn-google').addEventListener('click', async () => {
-      try {
-          await signInWithGoogle();
-      } catch(err) {
-          globalErrorText.textContent = err.message || 'Google login failed.';
-          globalError.style.display = 'flex';
-      }
+      globalErrorText.textContent = 'Google login coming soon.';
+      globalError.style.display = 'flex';
     });
     document.getElementById('btn-microsoft').addEventListener('click', () => {
       globalErrorText.textContent = 'Microsoft login coming soon.';

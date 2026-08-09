@@ -15,6 +15,11 @@ export const userController = {
           avatarUrl: true,
           role: true,
           createdAt: true,
+          fullName: true,
+          mobile: true,
+          dob: true,
+          gender: true,
+          country: true,
         },
       });
 
@@ -30,10 +35,10 @@ export const userController = {
 
   async updateProfile(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const { name, avatarUrl } = req.body;
+      const { name, avatarUrl, fullName, mobile, dob, gender, country } = req.body;
       const user = await prisma.user.update({
         where: { id: req.user?.id },
-        data: { name, avatarUrl },
+        data: { name, avatarUrl, fullName, mobile, dob: dob ? new Date(dob) : null, gender, country },
         select: {
           id: true,
           name: true,
@@ -41,6 +46,11 @@ export const userController = {
           email: true,
           avatarUrl: true,
           role: true,
+          fullName: true,
+          mobile: true,
+          dob: true,
+          gender: true,
+          country: true,
         },
       });
 

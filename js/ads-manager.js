@@ -4,10 +4,11 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    const AD_COUNT = 180; // 180 / 9 distinct types = exactly 20 of each type!
-    const gridContainer = document.getElementById("ad-grid");
-    
-    if (!gridContainer) return;
+    const initializeAds = () => {
+        const AD_COUNT = 180; // 180 / 9 distinct types = exactly 20 of each type!
+        const gridContainer = document.getElementById("ad-grid");
+        
+        if (!gridContainer) return;
 
     // 1. Inject Global Page Scripts (Social Bar & Popunder)
     const injectGlobalScripts = () => {
@@ -235,5 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         wrapper.appendChild(container);
         gridContainer.appendChild(wrapper);
+    }
+    }; // end initializeAds
+
+    if (sessionStorage.getItem('partner_ads_verified') === 'true') {
+        initializeAds();
+    } else {
+        window.addEventListener('PartnerAdsVerified', initializeAds);
     }
 });

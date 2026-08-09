@@ -766,7 +766,7 @@
   </div>
 
   <script type="module">
-    import { registerWithEmail } from './js/auth.js';
+    import { registerWithEmail } from './js/auth-backend.js';
     const form = document.getElementById('signup-form');
     const msgBox = document.getElementById('global-msg');
     const submitBtn = document.getElementById('btn-submit');
@@ -791,7 +791,7 @@
       const pinConfirm = document.getElementById('confirm_pin').value;
       const terms = document.getElementById('terms').checked;
 
-      // Basic custom validation (built-in HTML5 validation handles most via :invalid pseudoclass, but we enforce JS logic)
+      // Basic custom validation
       if (pwd !== pwdConfirm) {
         document.getElementById('confirm_password').parentElement.classList.add('invalid');
         isValid = false;
@@ -833,11 +833,12 @@
             dob: document.getElementById('dob').value,
             gender: document.getElementById('gender').value,
             country: document.getElementById('country').value,
+            secret_pin: document.getElementById('secret_pin').value,
           }
         );
         
         msgBox.className = 'global-message success';
-        msgBox.innerHTML = 'Account created successfully!<br>Please check your email to verify your account.<br>Redirecting to login...';
+        msgBox.innerHTML = 'Account created successfully!<br>Redirecting to login...';
         msgBox.style.display = 'block';
         
         btnLoader.style.display = 'none';

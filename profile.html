@@ -402,8 +402,8 @@
       
       <input type="file" id="image-upload" accept="image/png, image/jpeg, image/webp" style="display:none">
       <button class="btn btn-primary" id="btn-upload">Upload Picture</button>
-      <button class="btn btn-outline" id="btn-edit" onclick="alert('Profile Edit API ready in backend/user/profile.php via POST')">Edit Profile</button>
-      <button class="btn btn-outline" id="btn-security" onclick="alert('Change Password API ready in backend/auth/security.php')">Security Settings</button>
+      <button class="btn btn-outline" id="btn-edit">Edit Profile</button>
+      <button class="btn btn-outline" id="btn-security">Security Settings</button>
       <a href="admin.html" id="admin-link" style="display:none"><button class="btn btn-warning" style="background:rgba(245, 158, 11, 0.1); color:#f59e0b; border:1px solid #f59e0b;">Admin Dashboard</button></a>
       <button class="btn btn-danger" id="btn-logout" style="margin-top: 1rem;">Log Out</button>
     </div>
@@ -441,55 +441,84 @@
     </div>
   </div>
 
-  <script>
-    // Fetch Profile
-    async function loadProfile() {
-      try {
-        const res = await fetch('backend/user/profile.php');
-        if (res.status === 401) {
-          window.location.href = 'login.html';
-          return;
-        }
-        
-        const result = await res.json();
-        if (result.status === 'success') {
-          const user = result.data;
-          document.getElementById('display-name').textContent = user.full_name;
-          document.getElementById('username').textContent = '@' + user.username;
-          document.getElementById('val-email').textContent = user.email;
-          document.getElementById('val-mobile').textContent = user.mobile || 'Not set';
-          document.getElementById('val-gender').textContent = user.gender;
-          document.getElementById('val-location').textContent = (user.state || '') + (user.state && user.country ? ', ' : '') + (user.country || 'Not set');
-          document.getElementById('val-role').textContent = user.role;
-          
-          if (user.role === 'Admin') {
-            document.getElementById('admin-link').style.display = 'inline-block';
-          }
-          if (user.profile_picture) {
-             document.getElementById('profile-img').src = user.profile_picture;
-          }
-
-          if (user.registration_date) {
-            const date = new Date(user.registration_date.replace(' ', 'T'));
-            document.getElementById('val-join').textContent = date.toLocaleDateString();
-          }
-        } else {
-          alert('Failed to load profile');
-        }
-      } catch (e) {
-        console.error("Error:", e);
-      }
-    }
-
-    loadProfile();
-
-    // Image Upload
+  <script type="module">
+    import { initAuthObserver, logoutUser, getUserProfile, updateUserProfile } from './js/auth-backend.js';
+    
+// DOM Elements
+    const displayName = document.getElementById('display-name');
+    const username = document.getElementById('username');
+    const valEmail = document.getElementById('val-email');
+    const valMobile = document.getElementById('val-mobile');
+    const valGender = document.getElementById('val-gender');
+    const valLocation = document.getElementById('val-location');
+    const valRole = document.getElementById('val-role');
+    const valJoin = document.getElementById('val-join');
+    const profileImg = document.getElementById('profile-img');
+    const adminLink = document.getElementById('admin-link');
     const uploadBtn = document.getElementById('btn-upload');
     const fileInput = document.getElementById('image-upload');
-    const profileImg = document.getElementById('profile-img');
-
+    const logoutBtn = document.getElementById('btn-logout');
+    const editBtn = document.getElementById('btn-edit');
+    const securityBtn = document.getElementById('btn-security');
+    
+    // Initialize auth and load profile
+    initAuthObserver(async (user) => {
+      if (!user) return;
+      
+      await loadProfile();
+      
+      // Logout
+      logoutBtn.addEventListener('click', async () => {
+        if (!confirm('Are you sure you want to log out?')) return;
+        try {
+          await logoutUser();
+        } catch (e) {
+          console.error(e);
+        }
+      });
+      
+      // Edit Profile
+      editBtn.addEventListener('click', () => {
+        alert('Profile editing feature coming soon!');
+      });
+      
+      // Security Settings
+      securityBtn.addEventListener('click', () => {
+        window.location.href = 'security.html';
+      });
+    });
+    
+    async function loadProfile() {
+      try {
+        const user = await getUserProfile();
+        
+        displayName.textContent = user.fullName || user.name || user.username;
+        username.textContent = '@' + user.username;
+        valEmail.textContent = user.email;
+        valMobile.textContent = user.mobile || 'Not set';
+        valGender.textContent = user.gender || 'Not set';
+        valLocation.textContent = (user.country || 'Not set');
+        valRole.textContent = user.role || 'USER';
+        
+        if (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN') {
+          adminLink.style.display = 'inline-block';
+        }
+        if (user.avatarUrl) {
+          profileImg.src = user.avatarUrl;
+        }
+        
+        if (user.createdAt) {
+          const date = new Date(user.createdAt);
+          valJoin.textContent = date.toLocaleDateString();
+        }
+      } catch (e) {
+        console.error("Error loading profile:", e);
+      }
+    }
+    
+    // Image Upload - will be implemented with backend endpoint
     uploadBtn.addEventListener('click', () => fileInput.click());
-
+    
     fileInput.addEventListener('change', async () => {
       if (!fileInput.files.length) return;
       
@@ -502,39 +531,13 @@
       uploadBtn.disabled = true;
       uploadBtn.textContent = 'Uploading...';
       
-      const formData = new FormData();
-      formData.append('profile_image', file);
-      
-      try {
-        const res = await fetch('backend/user/upload.php', { method: 'POST', body: formData });
-        const data = await res.json();
-        
-        if (data.status === 'success') {
-           profileImg.src = data.data.profile_picture + '?t=' + new Date().getTime();
-        } else {
-           alert(data.message);
-        }
-      } catch (err) {
-        alert('Failed to upload image.');
-      }
+      // TODO: Implement image upload to backend
+      // For now, just show message
+      alert('Image upload API to be implemented');
       
       uploadBtn.disabled = false;
       uploadBtn.textContent = 'Upload Picture';
       fileInput.value = '';
-    });
-
-    // Logout
-    document.getElementById('btn-logout').addEventListener('click', async () => {
-      if(!confirm('Are you sure you want to log out?')) return;
-      try {
-        const res = await fetch('backend/auth/logout.php', { method: 'POST' });
-        const data = await res.json();
-        if (data.status === 'success') {
-          window.location.href = data.data.redirect || 'login.html';
-        }
-      } catch(e) {
-        console.error(e);
-      }
     });
   </script>
 
@@ -592,19 +595,6 @@
             <a href="contact.html">Contact Us</a>
           </div>
         </div>
-      </div>
-      <!-- Owner Details -->
-      <div class="footer-bottom">
-        <div class="owner-card">
-          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
-          <div>
-            <strong class="owner-name">Harsh Patel</strong>
-            <span class="owner-title">Founder &amp; Owner – HarshGuruJi</span>
-            <span class="owner-info">📞 +91 </span>
-            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
-          </div>
-        </div>
-        <p class="footer-copyright">© 2026 HarshGuruJi – Tools &amp; Learning Platform. All rights reserved.</p>
       </div>
     </div>
   </footer>

@@ -360,7 +360,77 @@
     </div>
   </div>
 
-  <main class="ads-main-content">
+  <div class="permission-gate-container" id="permission-gate-container">
+    <div class="permission-card">
+      
+      <!-- Step 1: 18+ Age Restriction -->
+      <div class="step-container active" id="step-1">
+        <div class="permission-icon">🔞</div>
+        <h2 class="permission-title">18+ AGE RESTRICTION</h2>
+        <p class="permission-text">This partner advertising area is intended for adults aged 18 and above.</p>
+        <div class="permission-buttons">
+          <button type="button" class="btn btn-outline danger" id="btn-back-1">GO BACK</button>
+          <button type="button" class="btn btn-outline" id="btn-next-1">I AM 18+ — CONTINUE</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Important Warning -->
+      <div class="step-container" id="step-2">
+        <div class="permission-icon">⚠️</div>
+        <h2 class="permission-title">IMPORTANT WARNING</h2>
+        <p class="permission-text">Partner advertisements are provided by third parties. You may encounter content, products, offers, or websites that are not controlled by HarshGuruJi.</p>
+        <p class="permission-text permission-warning">Anything you see, open, purchase, download, or interact with on a third-party partner website is your own responsibility.</p>
+        <p class="permission-text" style="font-size: 0.9rem;">HarshGuruJi does not guarantee, endorse, or control the content, availability, safety, accuracy, or policies of third-party advertisements.</p>
+        <div class="permission-buttons">
+          <button type="button" class="btn btn-outline danger" id="btn-back-2">GO BACK</button>
+          <button type="button" class="btn btn-outline" id="btn-next-2">I UNDERSTAND</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Checkboxes -->
+      <div class="step-container" id="step-3">
+        <div class="permission-icon">🔗</div>
+        <h2 class="permission-title">THIRD-PARTY CONTENT</h2>
+        <p class="permission-text">Partner advertisements may lead to external websites. External websites have their own terms, privacy policies, cookies, tracking technologies, and content.</p>
+        <p class="permission-text">Do not enter sensitive information or download anything unless you trust the destination.</p>
+        
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" id="check-1">
+            <span>I confirm that I am 18 years of age or older.</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" id="check-2">
+            <span>I understand that partner advertisements may contain third-party content and external links.</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" id="check-3">
+            <span>I understand that my interaction with third-party websites and their content is my responsibility.</span>
+          </label>
+        </div>
+
+        <div class="permission-buttons">
+          <button type="button" class="btn btn-outline danger" id="btn-back-3">GO BACK</button>
+          <button type="button" class="btn btn-primary disabled" id="btn-next-3" disabled>CONTINUE TO PARTNER ADS</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Final Confirmation -->
+      <div class="step-container" id="step-4">
+        <div class="permission-icon">🚪</div>
+        <h2 class="permission-title">FINAL CONFIRMATION</h2>
+        <p class="permission-text">You are now leaving HarshGuruJi and accessing third-party partner content.</p>
+        <p class="permission-text" style="font-size: 0.9rem;">Partner advertisements are operated by third parties. Their content and services are outside the direct control of HarshGuruJi. If you do not agree with these conditions, simply go back and do not continue.</p>
+        <div class="permission-buttons">
+          <button type="button" class="btn btn-outline danger" id="btn-cancel-4">CANCEL</button>
+          <button type="button" class="btn btn-primary" id="btn-finish">CONTINUE</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <main class="ads-main-content" id="ads-main-content" style="display: none;">
     <!-- Hero Section -->
     <section class="ads-hero-section">
       <div class="ads-hero-content">
@@ -481,6 +551,7 @@
     </div>
   </footer>
 
+  <script src="js/partner_ads_gate.js" defer=""></script>
   <script src="js/ads-manager.js" defer=""></script>
   <script src="navbar.js" defer=""></script>
   <script src="js/button_handlers.js" defer=""></script>

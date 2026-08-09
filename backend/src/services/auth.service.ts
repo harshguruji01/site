@@ -5,7 +5,7 @@ import { env } from '../config/env';
 
 export const authService = {
   async registerUser(data: any) {
-    const { name, username, email, password } = data;
+    const { name, username, email, password, fullName, mobile, dob, gender, country, secretPin } = data;
 
     // Check if user exists
     const existing = await prisma.user.findFirst({
@@ -21,6 +21,11 @@ export const authService = {
 
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
+    
+    let secretPinHash: string | undefined;
+    if (secretPin) {
+      secretPinHash = await bcrypt.hash(secretPin, saltRounds);
+    }
 
     const user = await prisma.user.create({
       data: {
@@ -29,6 +34,12 @@ export const authService = {
         email,
         passwordHash,
         provider: 'local',
+        fullName,
+        mobile,
+        dob: dob ? new Date(dob) : null,
+        gender,
+        country,
+        secretPinHash,
       },
     });
 
@@ -75,6 +86,8 @@ export const authService = {
         username: user.username,
         email: user.email,
         role: user.role,
+        fullName: user.fullName,
+        avatarUrl: user.avatarUrl,
       },
     };
   },
@@ -115,5 +128,23 @@ export const authService = {
     });
 
     return { token, user };
+  },
+
+  async verifySecretPin(userId: string, pin: string) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { secretPinHash: true },
+    });
+
+    if (!user || !user.secretPinHash) {
+      throw { code: 'UNAUTHORIZED', message: 'Secret PIN not set' };
+    }
+
+    const isMatch = await bcrypt.compare(pin, user.secretPinHash);
+    if (!isMatch) {
+      throw { code: 'UNAUTHORIZED', message: 'Invalid secret PIN' };
+    }
+
+    return true;
   },
 };

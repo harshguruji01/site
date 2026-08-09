@@ -45,5 +45,18 @@ export const authController = {
 
   async me(req: any, res: Response, next: NextFunction) {
     res.json({ success: true, user: req.user });
+  },
+
+  async verifyPin(req: any, res: Response, next: NextFunction) {
+    try {
+      const { pin } = req.body;
+      if (!pin) {
+        return res.status(400).json({ success: false, message: 'PIN is required' });
+      }
+      await authService.verifySecretPin(req.user.id, pin);
+      res.json({ success: true, message: 'PIN verified successfully' });
+    } catch (error: any) {
+      res.status(401).json({ success: false, message: error.message });
+    }
   }
 };

@@ -9,5 +9,6 @@ router.post('/signup', authController.signup);
 router.post('/login', loginRateLimiter, authController.login);
 router.post('/logout', authController.logout);
 router.get('/me', authenticate, authController.me);
+router.post('/verify-pin', authenticate, authController.verifyPin);
 
 export default router;

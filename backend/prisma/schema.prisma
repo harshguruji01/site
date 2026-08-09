@@ -30,4 +30,12 @@ model User {
   updatedAt         DateTime  @updatedAt
   lastLoginAt       DateTime?
   isActive          Boolean   @default(true)
+  
+  // Extended profile fields
+  fullName          String?
+  mobile            String?
+  dob               DateTime?
+  gender            String?
+  country           String?
+  secretPinHash     String?
 }
