@@ -423,6 +423,10 @@ body.ads-page {
   margin-bottom: 1.5rem;
 }
 
+.permission-text-small {
+  font-size: 0.9rem;
+}
+
 .permission-warning {
   color: #ff4757;
   font-weight: 600;
