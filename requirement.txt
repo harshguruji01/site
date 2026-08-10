@@ -4,7 +4,7 @@ Here is the list of files, URLs, and APIs in the frontend that currently point t
 Currently uses `GS_ENDPOINT` for authentication and content fetching.
 - **Variable to Update:**
   - Line ~920: `const GS_ENDPOINT = window.GS_ENDPOINT || 'https://YOUR_GAS_WEBAPP_URL';`
-  - **New URL:** Should point to `https://api.webguruji.online/api` or `http://localhost:5000/api` for local development.
+  - **New URL:** Should point to `https://webguruji.online/` or `http://localhost:5000/` for local development.
 
 - **API Changes required in `script.js` / frontend forms:**
   - `?action=register` -> **Update to:** `POST /api/auth/signup`

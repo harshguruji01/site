@@ -92,6 +92,15 @@ export async function verifySecretPin(pin) {
   return result;
 }
 
+export async function signInWithGoogle() {
+  window.location.href = `${API_BASE}/auth/google`;
+}
+
+export function signInWithGoogleRedirect(redirectTo) {
+  const params = redirectTo ? `?redirect=${encodeURIComponent(redirectTo)}` : '';
+  window.location.href = `${API_BASE}/auth/google${params}`;
+}
+
 export function initAuthObserver(redirectOnAuth = true, redirectOnUnauth = true) {
   // Check auth status on page load
   checkAuthStatus(redirectOnAuth, redirectOnUnauth);

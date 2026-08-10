@@ -42,8 +42,8 @@ new_footer = """  <footer class="footer">
           <div class="footer-col">
             <h5>Pages</h5>
             <a href="daily-special.html">Daily Special</a>
-            <a href="games-and-apps.html">Games & Apps</a>
-            <a href="join-us.html">Join Us</a>
+            <a href="store.html">Store</a>
+            <a href="login.html">Login</a>
             <a href="about.html">About Us</a>
           </div>
           <div class="footer-col">

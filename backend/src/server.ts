@@ -9,6 +9,7 @@ import { rateLimiter } from './middleware/rateLimit.middleware';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import adminRoutes from './routes/admin.routes';
+import googleAuthRoutes from './routes/googleAuth.routes';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/auth', googleAuthRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
