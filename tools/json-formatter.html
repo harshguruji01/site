@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter & Validator | HarshGuruJi</title>
+  <meta name="description" content="Free online JSON formatter, beautifier, and validator tool.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <style>
+    .tool-container { max-width: 1000px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); }
+    .tool-header { margin-bottom: 2rem; text-align: center; }
+    .tool-header h1 { margin-bottom: 0.5rem; }
+    .tool-header p { color: var(--hub-text-secondary); }
+    .json-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 768px) { .json-grid { grid-template-columns: 1fr; } }
+    textarea { width: 100%; height: 400px; padding: 1rem; border-radius: 8px; border: 1px solid var(--hub-border); background: var(--bg-color, #1a1a1a); color: var(--hub-text-primary); font-family: monospace; font-size: 0.9rem; resize: vertical; transition: border-color 0.2s; white-space: pre; }
+    textarea:focus { outline: none; border-color: var(--hub-accent); }
+    .actions { display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; grid-column: 1 / -1; }
+    .error-msg { color: #ef4444; margin-top: 1rem; text-align: center; display: none; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2); }
+  </style>
+</head>
+<body class="hub-page dark-mode">
+<div id="navbar-placeholder"></div>
+
+
+
+
+<main class="tool-container">
+  <div class="tool-header">
+    <h1>JSON Formatter & Validator</h1>
+    <p>Format, beautify, and validate your JSON data instantly.</p>
+  </div>
+
+  <div class="json-grid">
+    <div>
+        <label style="display:block; margin-bottom:0.5rem; color:var(--hub-text-secondary);">Input JSON:</label>
+        <textarea id="jsonInput" placeholder='{"example": "Paste your JSON here"}'></textarea>
+    </div>
+    <div>
+        <label style="display:block; margin-bottom:0.5rem; color:var(--hub-text-secondary);">Formatted Output:</label>
+        <textarea id="jsonOutput" readonly placeholder="Formatted JSON will appear here"></textarea>
+    </div>
+    
+    <div class="actions">
+        <button id="formatBtn" class="hub-btn primary">Format / Beautify</button>
+        <button id="minifyBtn" class="hub-btn" style="background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary);">Minify</button>
+        <button id="copyBtn" class="hub-btn" style="background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary);">Copy Output</button>
+        <button id="clearBtn" class="hub-btn" style="background: transparent; border: 1px solid var(--hub-border); color: #ef4444;">Clear</button>
+    </div>
+  </div>
+  
+  <div id="errorMsg" class="error-msg"></div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const jsonInput = document.getElementById('jsonInput');
+    const jsonOutput = document.getElementById('jsonOutput');
+    const formatBtn = document.getElementById('formatBtn');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    function processJSON(spaces) {
+      errorMsg.style.display = 'none';
+      const raw = jsonInput.value.trim();
+      if (!raw) {
+          jsonOutput.value = '';
+          return;
+      }
+      
+      try {
+        const parsed = JSON.parse(raw);
+        jsonOutput.value = JSON.stringify(parsed, null, spaces);
+      } catch (e) {
+        errorMsg.textContent = 'Invalid JSON: ' + e.message;
+        errorMsg.style.display = 'block';
+        jsonOutput.value = '';
+      }
+    }
+
+    formatBtn.addEventListener('click', () => processJSON(2));
+    minifyBtn.addEventListener('click', () => processJSON(0));
+
+    clearBtn.addEventListener('click', () => {
+      jsonInput.value = '';
+      jsonOutput.value = '';
+      errorMsg.style.display = 'none';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (jsonOutput.value) {
+        navigator.clipboard.writeText(jsonOutput.value).then(() => {
+          const originalText = copyBtn.textContent;
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
+        });
+      }
+    });
+  });
+</script>
+
+<footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" id="footer-logo">
+            <img src="../logo.png" alt="HarshGuruJi Logo">
+            <span>HarshGuruJi</span>
+          </a>
+          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education &amp; Technology.</p>
+          <div class="social-links">
+            <a href="https://www.youtube.com/@TESVLOG1" target="_blank" class="social-btn" id="footer-yt"
+              aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path
+                  d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" class="social-btn" id="footer-ig"
+              aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path
+                  d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#features">Features</a>
+            <a href="../index.html#categories">Topics</a>
+            <a href="../index.html#ai">GuruJi AI</a>
+          </div>
+          <div class="footer-col">
+            <h5>Pages</h5>
+            <a href="../daily-special.html">Daily Special</a>
+            <a href="../games-and-apps.html">Games &amp; Apps</a>
+            <a href="../join-us.html">Join Us</a>
+            <a href="../about.html">About Us</a>
+          </div>
+          <div class="footer-col">
+            <h5>Legal</h5>
+            <a href="../privacy-policy.html">Privacy Policy</a>
+            <a href="../cookie.html">Cookie Policy</a>
+            <a href="../terms-and-conditions.html">Terms &amp; Conditions</a>
+            <a href="../contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+      <!-- Owner Details -->
+      <div class="footer-bottom">
+        <div class="owner-card">
+          <img src="../harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
+          <div>
+            <strong class="owner-name">Harsh Patel</strong>
+            <span class="owner-title">Founder &amp; Owner – HarshGuruJi</span>
+            <span class="owner-info">📞 +91 </span>
+            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 HarshGuruJi – Tools &amp; Learning Platform. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src='../navbar-premium.js' defer></script>
+<script type='module' src='../js/auth.js' defer></script>
+</body>
+</html>
+
+

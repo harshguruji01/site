@@ -374,3 +374,53 @@ body.hub-page {
     scroll-behavior: auto !important;
   }
 }
+
+/* Global UI Components for Learning & Quizzes */
+.hub-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--hub-surface);
+  color: var(--hub-text-primary);
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: var(--hub-transition);
+  border: 1px solid var(--hub-border);
+  cursor: pointer;
+}
+.hub-btn:hover {
+  background: var(--hub-card-hover);
+  border-color: var(--hub-accent);
+  transform: translateY(-2px);
+}
+.hub-btn.primary {
+  background: rgba(59,130,246,0.1);
+  color: var(--hub-accent);
+  border-color: transparent;
+}
+.hub-btn.primary:hover {
+  background: var(--hub-accent);
+  color: #fff;
+}
+
+.topic-card {
+  background: var(--hub-surface);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--hub-radius);
+  padding: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--hub-transition);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+.topic-card:hover {
+  background: var(--hub-card-hover);
+  border-color: var(--hub-accent);
+  transform: translateY(-2px);
+}

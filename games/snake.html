@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Classic | HarshGuruJi Games</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <style>
+    .game-container { max-width: 600px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); text-align: center; }
+    canvas { background: #000; display: block; margin: 0 auto 1.5rem auto; border-radius: 8px; border: 2px solid var(--hub-accent); box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .score-board { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.25rem; font-weight: bold; color: var(--hub-text-primary); }
+    .controls { display: grid; grid-template-columns: 50px 50px 50px; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    .ctrl-btn { width: 50px; height: 50px; background: var(--bg-color, #1a1a1a); border: 1px solid var(--hub-border); color: white; font-size: 1.5rem; border-radius: 8px; cursor: pointer; }
+    .ctrl-btn:active { background: var(--hub-accent); }
+    .start-btn { background: var(--hub-accent); color: white; border: none; padding: 0.75rem 2rem; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .back-btn { display: inline-block; margin-bottom: 1rem; color: var(--hub-text-secondary); text-decoration: none; }
+    .back-btn:hover { color: var(--hub-accent); }
+  </style>
+</head>
+<body class="hub-page dark-mode">
+<div id="navbar-placeholder"></div>
+
+
+
+
+<main class="game-container">
+  <div style="text-align: left;">
+    <a href="../gaming-hub.html" class="back-btn">← Back to Gaming Hub</a>
+  </div>
+  
+  <h1 style="color: var(--hub-accent); margin-bottom: 0.5rem;">Snake Classic</h1>
+  <p style="color: var(--hub-text-secondary); margin-bottom: 2rem;">Use arrow keys or buttons below to play.</p>
+
+  <div class="score-board">
+    <span>Score: <span id="score">0</span></span>
+    <span>High Score: <span id="highScore">0</span></span>
+  </div>
+
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <button class="start-btn" id="startBtn">Start Game</button>
+
+  <div class="controls" id="mobileControls" style="display: none;">
+    <div></div><button class="ctrl-btn" id="upBtn">↑</button><div></div>
+    <button class="ctrl-btn" id="leftBtn">←</button>
+    <button class="ctrl-btn" id="downBtn">↓</button>
+    <button class="ctrl-btn" id="rightBtn">→</button>
+  </div>
+</main>
+
+<script>
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const scale = 20;
+  const rows = canvas.height / scale;
+  const columns = canvas.width / scale;
+  
+  let snake;
+  let fruit;
+  let score = 0;
+  let highScore = localStorage.getItem('snakeHighScore') || 0;
+  document.getElementById('highScore').innerText = highScore;
+  let gameInterval;
+
+  // Show mobile controls if on small screen
+  if (window.innerWidth < 768) {
+      document.getElementById('mobileControls').style.display = 'grid';
+  }
+
+  function Snake() {
+    this.x = 0;
+    this.y = 0;
+    this.xSpeed = scale * 1;
+    this.ySpeed = 0;
+    this.total = 0;
+    this.tail = [];
+
+    this.draw = function() {
+      ctx.fillStyle = "#22c55e"; // Green snake
+      for (let i = 0; i < this.tail.length; i++) {
+        ctx.fillRect(this.tail[i].x, this.tail[i].y, scale, scale);
+      }
+      ctx.fillRect(this.x, this.y, scale, scale);
+    }
+
+    this.update = function() {
+      for (let i = 0; i < this.tail.length - 1; i++) {
+        this.tail[i] = this.tail[i + 1];
+      }
+      this.tail[this.total - 1] = { x: this.x, y: this.y };
+
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+
+      if (this.x >= canvas.width) this.x = 0;
+      if (this.y >= canvas.height) this.y = 0;
+      if (this.x < 0) this.x = canvas.width - scale;
+      if (this.y < 0) this.y = canvas.height - scale;
+    }
+
+    this.changeDirection = function(direction) {
+      switch(direction) {
+        case 'Up': if(this.ySpeed !== scale) { this.xSpeed = 0; this.ySpeed = -scale * 1; } break;
+        case 'Down': if(this.ySpeed !== -scale) { this.xSpeed = 0; this.ySpeed = scale * 1; } break;
+        case 'Left': if(this.xSpeed !== scale) { this.xSpeed = -scale * 1; this.ySpeed = 0; } break;
+        case 'Right': if(this.xSpeed !== -scale) { this.xSpeed = scale * 1; this.ySpeed = 0; } break;
+      }
+    }
+
+    this.eat = function(fruit) {
+      if (this.x === fruit.x && this.y === fruit.y) {
+        this.total++;
+        return true;
+      }
+      return false;
+    }
+
+    this.checkCollision = function() {
+      for (let i = 0; i < this.tail.length; i++) {
+        if (this.x === this.tail[i].x && this.y === this.tail[i].y) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  function Fruit() {
+    this.x;
+    this.y;
+    this.pickLocation = function() {
+      this.x = (Math.floor(Math.random() * columns)) * scale;
+      this.y = (Math.floor(Math.random() * rows)) * scale;
+    }
+    this.draw = function() {
+      ctx.fillStyle = "#ef4444"; // Red fruit
+      ctx.fillRect(this.x, this.y, scale, scale);
+    }
+  }
+
+  function setup() {
+    snake = new Snake();
+    fruit = new Fruit();
+    fruit.pickLocation();
+    score = 0;
+    document.getElementById('score').innerText = score;
+  }
+
+  function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fruit.draw();
+    snake.update();
+    snake.draw();
+
+    if (snake.eat(fruit)) {
+      score += 10;
+      document.getElementById('score').innerText = score;
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('snakeHighScore', highScore);
+        document.getElementById('highScore').innerText = highScore;
+      }
+      fruit.pickLocation();
+    }
+
+    if (snake.checkCollision()) {
+      clearInterval(gameInterval);
+      if (window.saveGameScore) window.saveGameScore('Snake Classic', score);
+      alert("Game Over! Score: " + score);
+      document.getElementById('startBtn').style.display = 'inline-block';
+    }
+  }
+
+  document.getElementById('startBtn').addEventListener('click', function() {
+    this.style.display = 'none';
+    setup();
+    if(gameInterval) clearInterval(gameInterval);
+    gameInterval = setInterval(gameLoop, 120);
+  });
+
+  window.addEventListener('keydown', ((evt) => {
+    const direction = evt.key.replace('Arrow', '');
+    snake.changeDirection(direction);
+  }));
+
+  // Mobile controls
+  document.getElementById('upBtn').onclick = () => snake.changeDirection('Up');
+  document.getElementById('downBtn').onclick = () => snake.changeDirection('Down');
+  document.getElementById('leftBtn').onclick = () => snake.changeDirection('Left');
+  document.getElementById('rightBtn').onclick = () => snake.changeDirection('Right');
+  
+  setup();
+  fruit.draw();
+</script>
+<footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" id="footer-logo">
+            <img src="../logo.png" alt="HarshGuruJi Logo">
+            <span>HarshGuruJi</span>
+          </a>
+          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education &amp; Technology.</p>
+          <div class="social-links">
+            <a href="https://www.youtube.com/@TESVLOG1" target="_blank" class="social-btn" id="footer-yt"
+              aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path
+                  d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" class="social-btn" id="footer-ig"
+              aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path
+                  d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#features">Features</a>
+            <a href="../index.html#categories">Topics</a>
+            <a href="../index.html#ai">GuruJi AI</a>
+          </div>
+          <div class="footer-col">
+            <h5>Pages</h5>
+            <a href="../daily-special.html">Daily Special</a>
+            <a href="../games-and-apps.html">Games &amp; Apps</a>
+            <a href="../join-us.html">Join Us</a>
+            <a href="../about.html">About Us</a>
+          </div>
+          <div class="footer-col">
+            <h5>Legal</h5>
+            <a href="../privacy-policy.html">Privacy Policy</a>
+            <a href="../cookie.html">Cookie Policy</a>
+            <a href="../terms-and-conditions.html">Terms &amp; Conditions</a>
+            <a href="../contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+      <!-- Owner Details -->
+      <div class="footer-bottom">
+        <div class="owner-card">
+          <img src="../harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
+          <div>
+            <strong class="owner-name">Harsh Patel</strong>
+            <span class="owner-title">Founder &amp; Owner – HarshGuruJi</span>
+            <span class="owner-info">📞 +91 </span>
+            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 HarshGuruJi – Tools &amp; Learning Platform. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/game-db-init.js"></script>
+  <script src='../navbar-premium.js' defer></script>
+  <script type='module' src='../js/auth.js' defer></script>
+</body>
+</html>
+

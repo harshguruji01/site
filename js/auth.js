@@ -1,5 +1,6 @@
 import { supabase } from './supabase.js';
 import { getProfile, updateProfile } from './profile.js';
+import { trackActivity } from './activity-tracker.js';
 
 // Expose AuthManager globally for convenience or use via exports
 export const AuthManager = {
@@ -45,8 +46,19 @@ export const AuthManager = {
         updated_at: new Date().toISOString(),
       };
       profile = await updateProfile(user.id, newProfile);
+      
+      // Log account created event
+      await trackActivity({
+          activity_type: 'account_created',
+          page_type: 'system',
+          page_name: 'Account Setup',
+          metadata: { provider: user.app_metadata.provider }
+      });
     }
     this.currentProfile = profile;
+
+    // Track a standard page view once we're sure the user is logged in
+    await trackActivity({ activity_type: 'page_view' });
 
     // Dispatch global event for UI updates
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Hub – Play & Discover Online Games | HarshGuruJi</title>
+  <meta name="description" content="Discover games, explore new experiences and play from one place. Browser games, arcade, puzzle, and more.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/hubs.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <style>
+    /* Custom Gaming Hub Styles */
+    .hub-hero { position: relative; overflow: hidden; }
+    .hub-hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 50%); z-index: -1; pointer-events: none; }
+    
+    .hub-title { background: linear-gradient(to right, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .game-section { padding: 4rem 1rem; max-width: 1280px; margin: 0 auto; }
+    
+    .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .topic-card { background: var(--hub-surface); border: 1px solid var(--hub-border); border-radius: var(--hub-radius); padding: 1.5rem; text-align: center; cursor: pointer; transition: var(--hub-transition); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .topic-card:hover { background: var(--hub-card-hover); border-color: #8b5cf6; transform: translateY(-3px); box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15); }
+    .topic-icon { font-size: 2.5rem; }
+    .topic-title { font-size: 1rem; font-weight: 600; color: var(--hub-text-primary); margin: 0; }
+    
+    .filter-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .sort-select { padding: 0.5rem 1rem; background: var(--hub-surface); color: var(--hub-text-primary); border: 1px solid var(--hub-border); border-radius: 8px; font-size: 0.9rem; cursor: pointer; }
+    .sort-select:focus { outline: none; border-color: #8b5cf6; }
+    
+    .quick-tools { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
+    .quick-tool-btn { white-space: nowrap; padding: 0.75rem 1.25rem; background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary); border-radius: 8px; text-decoration: none; font-weight: 500; transition: 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .quick-tool-btn:hover { background: var(--hub-card-hover); border-color: #8b5cf6; }
+    
+    #game-empty-state { display: none; }
+  </style>
+</head>
+<body class="hub-page dark-mode">
+<div id="navbar-placeholder"></div>
+
+
+
+<!-- Mobile Full Screen Menu -->
+<main class="hub-container">
+  <!-- Hero Section -->
+  <section class="hub-hero">
+    <h1 class="hub-title">Gaming Hub</h1>
+    <p class="hub-subtitle">Discover games, explore new experiences and play from one place.<br>Explore browser games, arcade, puzzles and multiplayer experiences.</p>
+  </section>
+
+  <!-- Search & Filters -->
+  <section class="hub-search-section" id="gaming-search-section">
+    <div class="hub-search-bar">
+      <span class="hub-search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+      <input type="text" id="game-search" class="hub-search-input" placeholder="Search games by name, genre or tags..." aria-label="Search games">
+      <button id="game-search-clear" class="hub-clear-btn" aria-label="Clear Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    
+    <div class="hub-filters">
+      <button class="hub-filter-btn active" data-filter="All Games">All Games</button>
+      <button class="hub-filter-btn" data-filter="Arcade">Arcade</button>
+      <button class="hub-filter-btn" data-filter="Puzzle">Puzzle</button>
+      <button class="hub-filter-btn" data-filter="Board">Board</button>
+      <button class="hub-filter-btn" data-filter="Multiplayer">Multiplayer</button>
+      <button class="hub-filter-btn" data-filter="Casual">Casual</button>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="game-section">
+    <h2 class="hub-section-title">What do you want to play?</h2>
+    <div class="topic-grid">
+      <div class="topic-card" data-category="Arcade">
+        <div class="topic-icon">🕹️</div>
+        <h3 class="topic-title">Arcade</h3>
+      </div>
+      <div class="topic-card" data-category="Puzzle">
+        <div class="topic-icon">🧩</div>
+        <h3 class="topic-title">Puzzle</h3>
+      </div>
+      <div class="topic-card" data-category="Multiplayer">
+        <div class="topic-icon">👥</div>
+        <h3 class="topic-title">Multiplayer</h3>
+      </div>
+      <div class="topic-card" data-category="Casual">
+        <div class="topic-icon">☕</div>
+        <h3 class="topic-title">Casual</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid -->
+  <section class="hub-section" style="padding-top: 0;">
+    
+    <div class="filter-controls">
+        <h2 class="hub-section-title" style="margin-bottom: 0;">Explore Games</h2>
+        
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="game-result-count" style="color: var(--hub-text-secondary); font-size: 0.9rem;">Loading...</span>
+            <select id="game-sort" class="sort-select">
+                <option value="recommended">Recommended</option>
+                <option value="az">A - Z</option>
+                <option value="za">Z - A</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="game-empty-state" class="hub-empty-state">
+        <div class="hub-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+        <h3>No games found</h3>
+        <p>No games are currently available in this category. Try another search or filter.</p>
+    </div>
+
+    <div id="game-grid" class="hub-grid">
+      <!-- Cards rendered via JS -->
+    </div>
+  </section>
+  
+  <!-- Gaming Resources -->
+  <section class="game-section" style="padding-top: 0;">
+    <h2 class="hub-section-title">Gaming Resources & Tools</h2>
+    <div class="quick-tools">
+        <a href="free-tools.html?search=Timer" class="quick-tool-btn">⏱️ Gaming Timer</a>
+        <a href="learning-hub.html" class="quick-tool-btn">📚 Game Tutorials</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" id="footer-logo">
+            <img src="logo.png" alt="HarshGuruJi Logo">
+            <span>HarshGuruJi</span>
+          </a>
+          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education & Technology.</p>
+          <div class="social-links">
+            <a href="https://www.youtube.com/@TESVLOG1" target="_blank" class="social-btn" id="footer-yt" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"></path></svg>
+            </a>
+            <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" class="social-btn" id="footer-ig" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"></path></svg>
+            </a>
+            <a href="https://www.telegram.com/" target="_blank" class="social-btn" id="footer-tg" aria-label="Telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.565 8.16-1.97 9.29c-.149.658-.537.82-1.088.51l-3.01-2.22-1.452 1.397c-.16.16-.295.295-.604.295l.216-3.067 5.582-5.043c.243-.216-.054-.337-.378-.121l-6.897 4.344-2.97-.927c-.646-.202-.658-.646.135-.956l11.61-4.477c.538-.196 1.007.121.826.975z"></path></svg>
+              </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <a href="index.html#home">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#categories">Topics</a>
+            <a href="index.html#ai">GuruJi AI</a>
+          </div>
+          <div class="footer-col">
+            <h5>Pages</h5>
+            <a href="daily-special.html">Daily Special</a>
+            <a href="games-and-apps.html">Games & Apps</a>
+            <a href="join-us.html">Join Us</a>
+            <a href="about.html">About Us</a>
+          </div>
+          <div class="footer-col">
+            <h5>Legal</h5>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="cookie.html">Cookie Policy</a>
+            <a href="terms-and-conditions.html">Terms & Conditions</a>
+            <a href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+      <!-- Owner Details -->
+      <div class="footer-bottom">
+        <div class="owner-card">
+          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
+          <div>
+            <strong class="owner-name">Harsh Patel</strong>
+            <span class="owner-title">Founder & Owner – HarshGuruJi</span>
+            <span class="owner-info">📞 +91 </span>
+            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="js/gaming-hub.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script type="module" src="js/auth.js" defer></script>
+</body>
+</html>

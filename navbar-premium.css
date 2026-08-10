@@ -554,3 +554,45 @@
     display: none; /* Hide theme/notif on very small screens to fit logo and burger */
   }
 }
+
+/* =========================================
+   CONTENT NAVBAR (Context-Aware)
+   ========================================= */
+.content-nav-item {
+  color: var(--hub-text-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+}
+.content-nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--hub-text-primary);
+}
+.content-nav-item.active {
+  color: var(--hub-accent);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.content-page-title {
+  color: var(--hub-accent);
+  font-weight: bold;
+  padding-left: 1rem;
+  border-left: 1px solid var(--hub-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+@media (max-width: 1024px) {
+  .content-nav-links {
+    display: none; /* Handled by mobile menu */
+  }
+  .content-page-title {
+    max-width: 150px;
+    font-size: 0.9rem;
+  }
+}

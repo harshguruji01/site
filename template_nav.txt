@@ -77,10 +77,10 @@
             <div class="mega-column">
               <div class="mega-column-title">📚 Subjects</div>
               <ul>
-                <li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer" class="mega-link"><div class="mega-link-icon">💻</div><span>Programming</span></a></li>
-                <li><a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer" class="mega-link"><div class="mega-link-icon">🔬</div><span>Science</span></a></li>
-                <li><a href="https://www.desmos.com/" target="_blank" rel="noopener noreferrer" class="mega-link"><div class="mega-link-icon">📐</div><span>Math</span></a></li>
-                <li><a href="https://www.history.com/" target="_blank" rel="noopener noreferrer" class="mega-link"><div class="mega-link-icon">🏺</div><span>History</span></a></li>
+                <li><a href="learning/class-10-science.html" class="mega-link"><div class="mega-link-icon">🔬</div><span>Class 10 Science</span></a></li>
+                <li><a href="learning-hub.html?class=Class+10&subject=Mathematics" class="mega-link"><div class="mega-link-icon">📐</div><span>Mathematics</span></a></li>
+                <li><a href="learning-hub.html?class=Class+10&subject=English" class="mega-link"><div class="mega-link-icon">📖</div><span>English</span></a></li>
+                <li><a href="learning-hub.html" class="mega-link"><div class="mega-link-icon">📚</div><span>View All Subjects</span></a></li>
               </ul>
             </div>
             <div class="mega-column">
