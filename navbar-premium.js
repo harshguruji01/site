@@ -79,4 +79,55 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // 6. Handle Auth State Changes
+  const updateNavUI = (user, profile) => {
+    const loginBtn = document.getElementById('premium-login-btn');
+    const userProfile = document.getElementById('premium-user-profile');
+    const userName = document.getElementById('premium-user-name');
+    const userAvatar = document.getElementById('premium-user-avatar');
+
+    if (user) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (userProfile) userProfile.style.display = 'flex';
+      
+      const displayName = (profile && profile.display_name) || user.email.split('@')[0];
+      if (userName) userName.textContent = displayName;
+      
+      if (userAvatar) {
+        userAvatar.src = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+      }
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-flex';
+      if (userProfile) userProfile.style.display = 'none';
+    }
+  };
+
+  window.addEventListener('auth-state-changed', (e) => {
+    updateNavUI(e.detail.user, e.detail.profile);
+  });
+
+  // Also check immediately in case the event fired before this listener was added
+  if (window.AuthManager && window.AuthManager.currentUser) {
+      updateNavUI(window.AuthManager.currentUser, window.AuthManager.currentProfile);
+  } else {
+      // Fallback: manually check supabase session if AuthManager isn't globally exposed
+      import('./js/supabase.js').then(async ({ supabase }) => {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+              import('./js/profile.js').then(async ({ getProfile }) => {
+                  const profile = await getProfile(session.user.id);
+                  updateNavUI(session.user, profile);
+              });
+          }
+      }).catch(err => console.log('Auth check deferred to event listener.'));
+  }
+
+  // Profile Dropdown logic
+  const profileToggle = document.getElementById("premium-user-profile");
+  if (profileToggle) {
+    profileToggle.addEventListener('click', () => {
+      window.location.href = "dashboard.html"; 
+    });
+  }
 });

@@ -17,8 +17,7 @@ export async function getProfile(userId) {
 export async function updateProfile(userId, profileData) {
     const { data, error } = await supabase
         .from('profiles')
-        .update(profileData)
-        .eq('id', userId)
+        .upsert(profileData)
         .select()
         .single();
         
@@ -43,7 +42,7 @@ export async function uploadAvatar(userId, file) {
         .getPublicUrl(filePath);
 
     // Update profile
-    await updateProfile(userId, { avatar_url: data.publicUrl });
+    await updateProfile(userId, { id: userId, avatar_url: data.publicUrl });
     
     // Update Auth Metadata
     await supabase.auth.updateUser({
@@ -62,7 +61,7 @@ export async function deleteAvatar(userId) {
         const fileName = urlParts[urlParts.length - 1];
         
         await supabase.storage.from('avatars').remove([`${userId}/${fileName}`]);
-        await updateProfile(userId, { avatar_url: null });
+        await updateProfile(userId, { id: userId, avatar_url: null });
         await supabase.auth.updateUser({
             data: { avatar_url: null }
         });

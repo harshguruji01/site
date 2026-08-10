@@ -237,34 +237,21 @@ files.forEach(file => {
   if (file.endsWith(".html")) {
     let content = fs.readFileSync(file, "utf8");
     
-    // Inject or replace Navbar
-    if (content.includes('<nav class="premium-navbar"') || content.includes('<nav id="navbar"')) {
-      content = content.replace(/<nav [\s\S]*?<\/nav>/, navbarHTML);
-    } else if (content.includes('<body>')) {
-      content = content.replace('<body>', '<body>\n' + navbarHTML);
-    }
+    // 1. Remove all old navbars completely
+    content = content.replace(/<nav (class="premium-navbar"|id="navbar"|id="premium-navbar")[\s\S]*?<\/nav>/g, '');
 
-    // Remove old mobile nav if exists to prevent duplication
-    if (content.includes('<div class="premium-mobile-nav"')) {
-      content = content.replace(/<div class="premium-mobile-nav" id="premium-mobile-nav">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/, ''); 
-      // The regex above might be tricky depending on how many nested divs. We'll just rely on the fact that sync_nav is injecting both now.
-      // Actually, since I'm placing the mobile nav outside the <nav> tag, we need to handle its replacement carefully.
-    }
+    // 2. Remove all mobile menus (both broken and complete)
+    // The mobile menu always ends with the "About Us" link and 3 closing divs.
+    content = content.replace(/<!-- Mobile Full Screen Menu -->[\s\S]*?<a href="about\.html" class="mobile-nav-link">About Us<\/a>\s*<\/div>\s*<\/div>\s*<\/div>/g, '');
 
-    // Remove old navbar.css to avoid conflicts
+    // 3. Clean up old css links
     if (content.includes('<link rel="stylesheet" href="navbar.css">')) {
       content = content.replace(/<link rel="stylesheet" href="navbar\.css">\s*/g, '');
     }
 
-    // First remove any existing premium-mobile-nav completely
-    content = content.replace(/<!-- Mobile Full Screen Menu -->\s*<div class="premium-mobile-nav"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/g, '');
-
-    // Now replace the nav itself
-    if (content.includes('<nav class="premium-navbar"') || content.includes('<nav id="navbar"')) {
-      content = content.replace(/<nav (class="premium-navbar"|id="navbar"|id="premium-navbar")[\s\S]*?<\/nav>/g, navbarHTML);
-    } else if (content.includes('<body>')) {
-      content = content.replace('<body>', '<body>\n' + navbarHTML);
-    }
+    // 4. Inject the new navbarHTML right after <body>
+    // First, remove any empty lines immediately following <body>
+    content = content.replace(/(<body[^>]*>)\s*/, '$1\n' + navbarHTML + '\n');
 
     // Ensure CSS is linked
     if (!content.includes('navbar-premium.css')) {
@@ -273,7 +260,11 @@ files.forEach(file => {
 
     // Ensure JS is linked
     if (!content.includes('navbar-premium.js')) {
-      content = content.replace('</body>', '  <script src="navbar-premium.js"></script>\n</body>');
+      content = content.replace('</body>', '  <script src="navbar-premium.js" defer></script>\n</body>');
+    }
+
+    if (!content.includes('js/auth.js')) {
+      content = content.replace('</body>', '  <script type="module" src="js/auth.js" defer></script>\n</body>');
     }
 
     fs.writeFileSync(file, content, "utf8");

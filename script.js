@@ -1,10 +1,3 @@
-// Dynamically load auth.js if not already present
-if (!document.querySelector('script[src*="auth.js"]')) {
-  const authScript = document.createElement('script');
-  authScript.src = 'auth.js';
-  document.head.appendChild(authScript);
-}
-
 // ── Shared daily thoughts pool ──
 const DAILY_THOUGHTS = [
   { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss" },
