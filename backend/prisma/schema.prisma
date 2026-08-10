@@ -16,26 +16,35 @@ enum Role {
 }
 
 model User {
-  id                String    @id @default(uuid())
-  name              String
-  username          String    @unique
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name              String?
+  username          String?   @unique
   email             String    @unique
-  passwordHash      String?
-  avatarUrl         String?
-  role              Role      @default(USER)
-  emailVerified     Boolean   @default(false)
-  provider          String    @default("local") // "local" or "google"
-  providerAccountId String?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  lastLoginAt       DateTime?
-  isActive          Boolean   @default(true)
+  avatarUrl         String?   @map("avatar_url")
+  role              String    @default("USER")
+  emailVerified     Boolean   @default(false) @map("email_verified")
+  provider          String    @default("local")
+  providerAccountId String?   @map("provider_account_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  lastLoginAt       DateTime? @map("last_login_at")
+  isActive          Boolean   @default(true) @map("is_active")
   
   // Extended profile fields
-  fullName          String?
+  fullName          String?   @map("full_name")
   mobile            String?
   dob               DateTime?
   gender            String?
   country           String?
-  secretPinHash     String?
+  secretPinHash     String?   @map("secret_pin_hash")
+
+  @@map("users")
+}
+
+model Todo {
+  id        BigInt   @id @default(autoincrement())
+  task      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("todos")
 }

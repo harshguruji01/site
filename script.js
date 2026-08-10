@@ -1422,10 +1422,11 @@ function toggleFaq(btn) {
 }
 
 // ── NEWSLETTER HANDLER (global function) ──
-function handleNewsletter(e) {
+async function handleNewsletter(e) {
   e.preventDefault();
   const email = document.getElementById('newsletter-email').value.trim();
   const msg = document.getElementById('newsletter-msg');
+  const btn = document.getElementById('btn-index-pvopr') || e.target.querySelector('button[type="submit"]');
   
   if (!email || !validateEmail(email)) {
     msg.style.color = '#ff3366';
@@ -1440,15 +1441,37 @@ function handleNewsletter(e) {
     return;
   }
   
-  subscriptions.push(email);
-  localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
-  
-  msg.style.color = '#10b981';
-  msg.innerText = `✅ Thank you! "${email}" has been subscribed. You'll receive daily updates at 6 AM!`;
-  document.getElementById('newsletter-email').value = '';
-  
-  // Trigger immediate welcome newsletter simulation
-  if (window.simulateWelcomeNewsletter) window.simulateWelcomeNewsletter(email);
+  try {
+    if(btn) { btn.disabled = true; btn.innerText = 'Subscribing...'; }
+    msg.style.color = '#3b82f6';
+    msg.innerText = 'Subscribing...';
+
+    // Call the backend API that uses Resend
+    const response = await fetch('/api/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      subscriptions.push(email);
+      localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
+      
+      msg.style.color = '#10b981';
+      msg.innerText = `✅ Thank you! "${email}" has been subscribed. A welcome email has been sent!`;
+      document.getElementById('newsletter-email').value = '';
+    } else {
+      throw new Error(result.message || 'Failed to subscribe');
+    }
+  } catch (error) {
+    console.error('Newsletter error:', error);
+    msg.style.color = '#ff3366';
+    msg.innerText = '❌ Failed to subscribe. Please try again later.';
+  } finally {
+    if(btn) { btn.disabled = false; btn.innerText = 'Subscribe →'; }
+  }
 }
 
 // Email validation helper

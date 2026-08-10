@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | HarshGuruJi</title>
+  <meta name="description" content="Sign in to HarshGuruJi to access premium tools, tutorials, and exclusive features.">
+  <link rel="canonical" href="https://www.webguruji.online/login.html">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="login.css">
+  <script src="navbar-premium.js" defer></script>
+</head>
+<body class="auth-page">
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav class="premium-navbar" id="premium-navbar" aria-label="Main Navigation">
+    <div class="premium-nav-container">
+      <!-- Mobile Hamburger -->
+      <button type="button" class="premium-hamburger" id="premium-hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Brand / Logo -->
+      <a href="index.html" class="premium-nav-logo" aria-label="HarshGuruJi Home">
+        <img src="favicon.ico" alt="HarshGuruJi Logo" fetchpriority="high" class="navbar-favicon">
+        <span class="premium-brand-text">HarshGuruJi</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="premium-nav-links">
+        <li class="premium-nav-item"><a href="index.html" class="premium-nav-link">Home</a></li>
+        <li class="premium-nav-item"><a href="daily-special.html" class="premium-nav-link">Daily Special</a></li>
+        <!-- Store Mega Menu -->
+        <li class="premium-nav-item has-mega-menu">
+          <a href="store.html" class="premium-nav-link">Store <svg width="12" height="12" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg></a>
+          <div class="premium-mega-menu">
+            <div class="mega-grid">
+              <div class="mega-column">
+                <div class="mega-column-title">🛒 Platforms</div>
+                <ul>
+                  <li><a href="store-windows.html" class="mega-link">
+                      <div class="mega-link-icon">🪟</div><span>Windows</span>
+                    </a></li>
+                  <li><a href="store-android.html" class="mega-link">
+                      <div class="mega-link-icon">🤖</div><span>Android</span>
+                    </a></li>
+                  <li><a href="store-linux.html" class="mega-link">
+                      <div class="mega-link-icon">🐧</div><span>Linux</span>
+                    </a></li>
+                  <li><a href="store-mac.html" class="mega-link">
+                      <div class="mega-link-icon">🍎</div><span>Mac</span>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="mega-column">
+                <div class="mega-column-title">📦 Digital</div>
+                <ul>
+                  <li><a href="store-apps.html" class="mega-link">
+                      <div class="mega-link-icon">📱</div><span>Apps</span>
+                    </a></li>
+                  <li><a href="store-extensions.html" class="mega-link">
+                      <div class="mega-link-icon">🧩</div><span>Extensions</span>
+                    </a></li>
+                  <li><a href="store-software.html" class="mega-link">
+                      <div class="mega-link-icon">💾</div><span>Software</span>
+                    </a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Search &amp; Actions -->
+      <div class="premium-nav-actions">
+        <!-- Search Bar -->
+        <div class="premium-search">
+          <div id="algolia-searchbox"></div>
+          <div id="algolia-hits-container">
+            <div id="algolia-hits"></div>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button type="button" class="action-btn" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- Notification -->
+        <button type="button" class="action-btn" aria-label="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </button>
+
+        <!-- Auth (Dynamic via JS) -->
+        <a href="login.html" id="premium-login-btn" class="premium-btn-primary">Login</a>
+        <div id="premium-user-profile" class="premium-user-profile" style="display:none;">
+          <img src="logo.png" alt="User" id="premium-user-avatar">
+          <span class="premium-user-name" id="premium-user-name">User</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Full Screen Menu -->
+  <div class="premium-mobile-nav" id="premium-mobile-nav">
+    <div class="mobile-menu-container">
+      <div class="mobile-nav-item">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">AI Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">ChatGPT</a>
+            <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Gemini</a>
+            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Claude</a>
+            <a href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Image
+              AI</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Tools Hub <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Developer</a>
+            <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">SEO</a>
+            <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">Design</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Learning <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg></a>
+        <div class="mobile-submenu">
+          <div class="mobile-submenu-inner">
+            <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Programming</a>
+            <a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Science</a>
+            <a href="https://tryhackme.com/" target="_blank" rel="noopener noreferrer"
+              class="mobile-sub-link">Cybersecurity</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="store.html" class="mobile-nav-link">Store</a>
+      </div>
+      <div class="mobile-nav-item">
+        <a href="about.html" class="mobile-nav-link">About Us</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Log in to continue to HarshGuruJi.</p>
+      </div>
+
+      <div class="auth-error" id="auth-error" style="display: none;"></div>
+
+      <button id="google-login-btn" class="btn btn-google">
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider">
+        <span>or</span>
+      </div>
+
+      <form id="login-form" class="auth-form">
+        <!-- Email Input Group -->
+        <div class="form-group" id="email-group">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-input" autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <!-- Phone Input Group (Hidden by default) -->
+        <div class="form-group" id="phone-group" style="display: none;">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" id="phone" class="form-input" placeholder="+1234567890">
+          <small style="color: var(--text-secondary); margin-top: 5px; display: block; font-size: 0.8rem;">Include country code (e.g. +91...)</small>
+        </div>
+
+        <!-- Password Input Group -->
+        <div class="form-group" id="password-group">
+          <div class="label-row">
+            <label for="password" class="form-label">Password</label>
+            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+          </div>
+          <input type="password" id="password" class="form-input" autocomplete="current-password" placeholder="••••••••">
+        </div>
+
+        <!-- OTP Input Group (Hidden by default) -->
+        <div class="form-group" id="otp-group" style="display: none;">
+          <label for="otp" class="form-label">Enter OTP</label>
+          <input type="text" id="otp" class="form-input" placeholder="123456">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="login-btn">
+          <span>Log In</span>
+          <div class="spinner" id="login-spinner" style="display: none;"></div>
+        </button>
+        
+        <div style="text-align: center; margin-top: 1rem;">
+          <button type="button" id="toggle-method-btn" style="background: none; border: none; color: var(--accent-primary); cursor: pointer; font-family: inherit; font-weight: 500;">
+            Sign in with Phone (OTP) instead
+          </button>
+        </div>
+      </form>
+      <p class="auth-footer-text">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { signIn, signInWithGoogle, getSession, signInWithPhone, verifyPhoneOtp } from './js/auth.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Check if already logged in
+      try {
+        const session = await getSession();
+        if (session) {
+          window.location.href = '/index.html'; // Redirect to dashboard/home
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      }
+    });
+
+    const form = document.getElementById('login-form');
+    const errorDiv = document.getElementById('auth-error');
+    const loginBtn = document.getElementById('login-btn');
+    const spinner = document.getElementById('login-spinner');
+    const googleBtn = document.getElementById('google-login-btn');
+    const toggleMethodBtn = document.getElementById('toggle-method-btn');
+
+    // UI Groups
+    const emailGroup = document.getElementById('email-group');
+    const phoneGroup = document.getElementById('phone-group');
+    const passwordGroup = document.getElementById('password-group');
+    const otpGroup = document.getElementById('otp-group');
+    
+    // Inputs
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const otpInput = document.getElementById('otp');
+
+    // State
+    let loginMethod = 'email'; // 'email' | 'phone' | 'verify'
+    let pendingPhone = '';
+
+    toggleMethodBtn.addEventListener('click', () => {
+      errorDiv.style.display = 'none';
+      if (loginMethod === 'email') {
+        // Switch to phone
+        loginMethod = 'phone';
+        emailGroup.style.display = 'none';
+        passwordGroup.style.display = 'none';
+        phoneGroup.style.display = 'block';
+        toggleMethodBtn.textContent = 'Sign in with Email instead';
+        loginBtn.querySelector('span').textContent = 'Send OTP';
+      } else {
+        // Switch back to email
+        loginMethod = 'email';
+        phoneGroup.style.display = 'none';
+        otpGroup.style.display = 'none';
+        emailGroup.style.display = 'block';
+        passwordGroup.style.display = 'block';
+        toggleMethodBtn.textContent = 'Sign in with Phone (OTP) instead';
+        loginBtn.querySelector('span').textContent = 'Log In';
+        pendingPhone = '';
+      }
+    });
+
+    googleBtn.addEventListener('click', async () => {
+      try {
+        errorDiv.style.display = 'none';
+        await signInWithGoogle();
+      } catch (err) {
+        errorDiv.textContent = 'Google sign-in failed: ' + err.message;
+        errorDiv.style.display = 'block';
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.style.display = 'none';
+      loginBtn.disabled = true;
+      spinner.style.display = 'block';
+      loginBtn.querySelector('span').style.display = 'none';
+      
+      try {
+        if (loginMethod === 'email') {
+          // Normal Email Login
+          const email = emailInput.value;
+          const password = passwordInput.value;
+          if(!email || !password) throw new Error("Email and password required.");
+          
+          await signIn(email, password);
+          window.location.href = '/index.html';
+          
+        } else if (loginMethod === 'phone') {
+          // Send Phone OTP
+          const phone = phoneInput.value;
+          if(!phone) throw new Error("Phone number required.");
+          
+          await signInWithPhone(phone);
+          pendingPhone = phone;
+          loginMethod = 'verify';
+          
+          // Switch UI to Verify mode
+          phoneGroup.style.display = 'none';
+          otpGroup.style.display = 'block';
+          loginBtn.querySelector('span').textContent = 'Verify OTP';
+          toggleMethodBtn.textContent = 'Change Phone Number';
+          
+          errorDiv.style.color = '#10b981';
+          errorDiv.style.borderColor = '#10b981';
+          errorDiv.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+          errorDiv.textContent = 'OTP sent successfully! Please check your messages.';
+          errorDiv.style.display = 'block';
+          
+        } else if (loginMethod === 'verify') {
+          // Verify Phone OTP
+          const otp = otpInput.value;
+          if(!otp) throw new Error("OTP required.");
+          
+          await verifyPhoneOtp(pendingPhone, otp);
+          window.location.href = '/index.html';
+        }
+      } catch (err) {
+        // Reset Error styles to default red
+        errorDiv.style.color = 'var(--error-color)';
+        errorDiv.style.borderColor = 'var(--error-color)';
+        errorDiv.style.backgroundColor = 'rgba(255, 71, 87, 0.1)';
+        errorDiv.textContent = err.message || 'Authentication failed. Please try again.';
+        errorDiv.style.display = 'block';
+      } finally {
+        loginBtn.disabled = false;
+        spinner.style.display = 'none';
+        loginBtn.querySelector('span').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
