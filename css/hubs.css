@@ -24,9 +24,9 @@ body.hub-page {
   color: var(--hub-text-primary);
   font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
-  padding-top: 72px; /* Navbar space */
   min-height: 100vh;
 }
+
 
 .hub-container {
   max-width: 1280px;

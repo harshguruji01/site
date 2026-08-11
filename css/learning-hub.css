@@ -1,0 +1,339 @@
+/* 🎓 HARSHGURUJI — LEARNING-HUB.CSS */
+
+/* Educational Content Layout */
+.edu-section {
+  padding: 4rem 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--hub-border);
+}
+
+.edu-section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edu-section-subtitle {
+  color: var(--hub-text-secondary);
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Grids */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .edu-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+  .edu-grid.three-col { grid-template-columns: repeat(2, 1fr); }
+  .edu-grid.four-col { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .edu-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+  .edu-grid.four-col { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Education Cards */
+.edu-card {
+  background: var(--hub-card-bg);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--hub-radius);
+  padding: 2rem;
+  transition: var(--hub-transition);
+}
+
+.edu-card:hover {
+  border-color: var(--hub-border-hover);
+}
+
+.edu-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--hub-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edu-card p {
+  color: var(--hub-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.edu-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.edu-card li {
+  color: var(--hub-text-secondary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.edu-card li::before {
+  content: '→';
+  color: var(--hub-accent);
+  font-weight: bold;
+}
+
+/* Overview Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dash-card {
+  background: linear-gradient(145deg, var(--hub-card-bg), var(--hub-surface));
+  border: 1px solid var(--hub-border);
+  padding: 2rem 1.5rem;
+  border-radius: var(--hub-radius);
+  text-align: center;
+  transition: var(--hub-transition);
+}
+
+.dash-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--hub-accent);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+}
+
+.dash-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.dash-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Workflow Flowcharts */
+.workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--hub-surface);
+  padding: 2rem;
+  border-radius: var(--hub-radius);
+  border: 1px solid var(--hub-border);
+}
+
+.workflow-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.workflow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px; /* center of 30px circle */
+  top: 30px;
+  width: 2px;
+  height: calc(100% + 1rem - 30px);
+  background: var(--hub-border);
+}
+
+.workflow-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--hub-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  border: 1px solid var(--hub-accent);
+}
+
+.workflow-text {
+  background: var(--hub-card-bg);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--hub-border);
+  flex-grow: 1;
+  color: var(--hub-text-secondary);
+}
+
+.workflow-text strong {
+  color: var(--hub-text-primary);
+}
+
+@media (min-width: 768px) {
+  .workflow.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .workflow.horizontal .workflow-step {
+    flex-direction: column;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .workflow.horizontal .workflow-step:not(:last-child)::after {
+    left: 50%;
+    top: auto;
+    bottom: -1rem;
+    width: 2px;
+    height: 1rem;
+  }
+}
+
+/* Expandable Accordions for FAQ / Dense Content */
+.accordion {
+  border: 1px solid var(--hub-border);
+  border-radius: var(--hub-radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--hub-surface);
+  border: none;
+  text-align: left;
+  color: var(--hub-text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--hub-transition);
+}
+
+.accordion-header:hover {
+  background: var(--hub-card-hover);
+}
+
+.accordion-icon {
+  transition: transform 0.3s;
+}
+
+.accordion-header.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 0 1.5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background: var(--hub-card-bg);
+  color: var(--hub-text-secondary);
+  line-height: 1.6;
+}
+
+.accordion-header.active + .accordion-content {
+  padding: 1.5rem;
+  max-height: 500px;
+}
+
+/* Learning Resource Filters */
+.advanced-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: var(--hub-surface);
+  padding: 1.5rem;
+  border-radius: var(--hub-radius);
+  border: 1px solid var(--hub-border);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  color: var(--hub-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--hub-card-bg);
+  border: 1px solid var(--hub-border);
+  color: var(--hub-text-primary);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--hub-accent);
+}
+
+/* Toolkit Links */
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.toolkit-item {
+  background: var(--hub-surface);
+  border: 1px solid var(--hub-border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  color: var(--hub-text-primary);
+  text-decoration: none;
+  transition: var(--hub-transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toolkit-item:hover {
+  background: var(--hub-card-hover);
+  border-color: var(--hub-accent);
+  transform: translateY(-2px);
+}
+
+.toolkit-icon {
+  font-size: 1.8rem;
+}
+
+.toolkit-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}

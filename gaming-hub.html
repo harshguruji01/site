@@ -7,7 +7,8 @@
   <meta name="description" content="Discover games, explore new experiences and play from one place. Browser games, arcade, puzzle, and more.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/hubs.css">
-  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="css/gaming-hub.css">
+  
   <style>
     /* Custom Gaming Hub Styles */
     .hub-hero { position: relative; overflow: hidden; }
@@ -33,162 +34,287 @@
     
     #game-empty-state { display: none; }
   </style>
+
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
 </head>
 <body class="hub-page dark-mode">
-<div id="navbar-placeholder"></div>
-
-
 
 <!-- Mobile Full Screen Menu -->
-<main class="hub-container">
+<!-- Main Content -->
+<main class="hub-container" style="max-width: 100%; padding: 0;">
+  
   <!-- Hero Section -->
-  <section class="hub-hero">
-    <h1 class="hub-title">Gaming Hub</h1>
-    <p class="hub-subtitle">Discover games, explore new experiences and play from one place.<br>Explore browser games, arcade, puzzles and multiplayer experiences.</p>
-  </section>
-
-  <!-- Search & Filters -->
-  <section class="hub-search-section" id="gaming-search-section">
-    <div class="hub-search-bar">
-      <span class="hub-search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
-      <input type="text" id="game-search" class="hub-search-input" placeholder="Search games by name, genre or tags..." aria-label="Search games">
-      <button id="game-search-clear" class="hub-clear-btn" aria-label="Clear Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-    </div>
+  <section class="hub-hero" style="padding-bottom: 2rem;">
+    <h1 class="hub-title" style="font-size: clamp(3rem, 6vw, 5rem);">🎮 Gaming Hub</h1>
+    <p class="hub-subtitle">Discover games, explore gaming technology, learn game development, understand esports, and build your own gaming skills.</p>
     
-    <div class="hub-filters">
-      <button class="hub-filter-btn active" data-filter="All Games">All Games</button>
-      <button class="hub-filter-btn" data-filter="Arcade">Arcade</button>
-      <button class="hub-filter-btn" data-filter="Puzzle">Puzzle</button>
-      <button class="hub-filter-btn" data-filter="Board">Board</button>
-      <button class="hub-filter-btn" data-filter="Multiplayer">Multiplayer</button>
-      <button class="hub-filter-btn" data-filter="Casual">Casual</button>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="#discover-games" class="hub-btn primary">Explore Games</a>
+        <a href="#game-development" class="hub-btn">Game Development</a>
+        <a href="#gaming-tools" class="hub-btn">Gaming Tools</a>
     </div>
   </section>
 
-  <!-- Use Cases -->
-  <section class="game-section">
-    <h2 class="hub-section-title">What do you want to play?</h2>
-    <div class="topic-grid">
-      <div class="topic-card" data-category="Arcade">
-        <div class="topic-icon">🕹️</div>
-        <h3 class="topic-title">Arcade</h3>
-      </div>
-      <div class="topic-card" data-category="Puzzle">
-        <div class="topic-icon">🧩</div>
-        <h3 class="topic-title">Puzzle</h3>
-      </div>
-      <div class="topic-card" data-category="Multiplayer">
-        <div class="topic-icon">👥</div>
-        <h3 class="topic-title">Multiplayer</h3>
-      </div>
-      <div class="topic-card" data-category="Casual">
-        <div class="topic-icon">☕</div>
-        <h3 class="topic-title">Casual</h3>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Grid -->
-  <section class="hub-section" style="padding-top: 0;">
-    
-    <div class="filter-controls">
-        <h2 class="hub-section-title" style="margin-bottom: 0;">Explore Games</h2>
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;">
+      <!-- Search -->
+      <section class="hub-search-section" id="gaming-search-section">
+        <div class="hub-search-bar">
+          <span class="hub-search-icon">🔍</span>
+          <input type="text" id="game-search" class="hub-search-input" placeholder="Search games, genres, platforms, engines, gaming topics...">
+          <button id="game-search-clear" class="hub-clear-btn">✕</button>
+        </div>
         
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <span id="game-result-count" style="color: var(--hub-text-secondary); font-size: 0.9rem;">Loading...</span>
-            <select id="game-sort" class="sort-select">
-                <option value="recommended">Recommended</option>
-                <option value="az">A - Z</option>
-                <option value="za">Z - A</option>
-            </select>
+        <div class="hub-categories-scroll">
+          <button class="hub-filter-btn active" data-filter="All">All</button>
+          <button class="hub-filter-btn" data-filter="PC">PC</button>
+          <button class="hub-filter-btn" data-filter="Mobile">Mobile</button>
+          <button class="hub-filter-btn" data-filter="Console">Console</button>
+          <button class="hub-filter-btn" data-filter="Action">Action</button>
+          <button class="hub-filter-btn" data-filter="Adventure">Adventure</button>
+          <button class="hub-filter-btn" data-filter="Racing">Racing</button>
+          <button class="hub-filter-btn" data-filter="Strategy">Strategy</button>
+          <button class="hub-filter-btn" data-filter="Simulation">Simulation</button>
+          <button class="hub-filter-btn" data-filter="Sports">Sports</button>
+          <button class="hub-filter-btn" data-filter="Puzzle">Puzzle</button>
+          <button class="hub-filter-btn" data-filter="Indie">Indie</button>
+          <button class="hub-filter-btn" data-filter="Esports">Esports</button>
+          <button class="hub-filter-btn" data-filter="Game Development">Game Development</button>
+          <button class="hub-filter-btn" data-filter="Game Engines">Game Engines</button>
+        </div>
+      </section>
+
+      <!-- Featured Games -->
+      <section class="hub-section">
+        <h2 class="hub-section-title">⭐ Featured Games</h2>
+        <div id="featured-games-grid" class="hub-grid"></div>
+      </section>
+
+      <!-- Discover Games -->
+      <section class="hub-section" id="discover-games">
+        <div class="filter-controls">
+            <h2 class="hub-section-title" style="margin-bottom: 0;">🔎 Discover Games</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span id="game-result-count" style="color: var(--hub-text-secondary); font-size: 0.9rem;">Loading...</span>
+                <select id="game-sort" class="sort-select">
+                    <option value="recommended">Recommended</option>
+                    <option value="az">A - Z</option>
+                    <option value="za">Z - A</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="game-empty-state" class="hub-empty-state">
+            <div class="hub-empty-icon">🎮</div>
+            <h3>No games found</h3>
+            <p>No games are currently available matching your criteria.</p>
+        </div>
+
+        <div id="game-grid" class="hub-grid"></div>
+      </section>
+  </div>
+
+  <!-- Educational Sections -->
+  <section class="edu-section" id="platforms">
+    <h2 class="edu-section-title">🖥️ Gaming Platforms</h2>
+    <div class="edu-grid three-col">
+        <div class="edu-card">
+            <h3>💻 PC Gaming</h3>
+            <p>The PC ecosystem offers massive digital stores like Steam and Epic Games, modding support, custom hardware, and infinite backward compatibility.</p>
+            <ul>
+                <li>High Performance limits</li>
+                <li>Modding ecosystem</li>
+                <li>Keyboard & Mouse precision</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3>📱 Mobile Gaming</h3>
+            <p>Gaming on Android and iOS devices focuses on accessibility, touch controls, and cloud integration for gaming on the go.</p>
+            <ul>
+                <li>Touch-optimized UI</li>
+                <li>Casual & Hyper-casual</li>
+                <li>Cloud saves</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3>🎮 Console Gaming</h3>
+            <p>Dedicated gaming hardware like PlayStation, Xbox, and Nintendo offer standardized, plug-and-play living room experiences.</p>
+            <ul>
+                <li>Exclusive titles</li>
+                <li>Controller optimized</li>
+                <li>Plug-and-play ease</li>
+            </ul>
         </div>
     </div>
-    
-    <div id="game-empty-state" class="hub-empty-state">
-        <div class="hub-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
-        <h3>No games found</h3>
-        <p>No games are currently available in this category. Try another search or filter.</p>
-    </div>
+  </section>
 
-    <div id="game-grid" class="hub-grid">
-      <!-- Cards rendered via JS -->
+  <section class="edu-section" id="genres">
+    <h2 class="edu-section-title">🎭 Game Genres Explained</h2>
+    <div class="edu-grid three-col">
+        <div class="edu-card">
+            <h3>⚔️ Action</h3>
+            <p>Focuses on physical challenges, hand-eye coordination and reaction-time (e.g., FPS, Hack & Slash).</p>
+        </div>
+        <div class="edu-card">
+            <h3>🗺️ Adventure</h3>
+            <p>Focuses on story, exploration, and puzzle-solving over reflex challenges.</p>
+        </div>
+        <div class="edu-card">
+            <h3>🧙 RPG</h3>
+            <p>Role-Playing Games involve character progression, stats, and deep narrative choices.</p>
+        </div>
+        <div class="edu-card">
+            <h3>♟️ Strategy</h3>
+            <p>Requires tactical thinking and planning (e.g., RTS, Turn-Based).</p>
+        </div>
+        <div class="edu-card">
+            <h3>🏗️ Simulation</h3>
+            <p>Designed to closely simulate real-world activities (e.g., Flight, City Building).</p>
+        </div>
+        <div class="edu-card">
+            <h3>🧩 Puzzle</h3>
+            <p>Tests logic, pattern recognition, and problem-solving skills.</p>
+        </div>
     </div>
   </section>
   
-  <!-- Gaming Resources -->
-  <section class="game-section" style="padding-top: 0;">
-    <h2 class="hub-section-title">Gaming Resources & Tools</h2>
-    <div class="quick-tools">
-        <a href="free-tools.html?search=Timer" class="quick-tool-btn">⏱️ Gaming Timer</a>
-        <a href="learning-hub.html" class="quick-tool-btn">📚 Game Tutorials</a>
+  <section class="edu-section" id="esports">
+    <h2 class="edu-section-title">🏆 Esports</h2>
+    <div class="edu-grid">
+        <div class="edu-card">
+            <h3>Competitive Gaming Ecosystem</h3>
+            <p>Esports refers to organized, multiplayer video game competitions, particularly between professional players, individually or as teams.</p>
+            <ul>
+                <li><strong>Leagues & Tournaments:</strong> Structured seasonal play leading to world championships.</li>
+                <li><strong>Teams & Orgs:</strong> Professional organizations managing rosters across multiple games.</li>
+                <li><strong>Broadcasts:</strong> Matches streamed live with professional casters and analysts.</li>
+            </ul>
+        </div>
     </div>
   </section>
+
+  <section class="edu-section" id="safety-skills">
+    <div class="edu-grid three-col">
+        <div class="edu-card">
+            <h3 style="color: #4ade80;">🎯 Gaming Skills</h3>
+            <p>Improving at games requires more than just fast reflexes.</p>
+            <ul>
+                <li><strong>Game Sense:</strong> Understanding objectives and situations.</li>
+                <li><strong>Decision Making:</strong> Choosing actions under pressure.</li>
+                <li><strong>Map Awareness:</strong> Understanding game environments.</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3 style="color: #38bdf8;">🧠 Responsible Gaming</h3>
+            <p>Maintaining a healthy balance is critical.</p>
+            <ul>
+                <li>Take regular screen breaks.</li>
+                <li>Maintain school/work responsibilities.</li>
+                <li>Protect your sleep schedule.</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3 style="color: #fb7185;">🔐 Gaming Safety</h3>
+            <p>Protect yourself online.</p>
+            <ul>
+                <li>Use strong passwords and 2FA.</li>
+                <li>Avoid phishing and suspicious links.</li>
+                <li>Report abusive behavior.</li>
+            </ul>
+        </div>
+    </div>
+  </section>
+
+  <section class="edu-section" id="game-development">
+    <h2 class="edu-section-title">🛠️ Learn Game Development</h2>
+    <p style="text-align: center; color: var(--hub-text-secondary); max-width: 800px; margin: 0 auto 2rem;">Game development is a massive multi-disciplinary process. Here is the standard pipeline.</p>
+    
+    <div class="pipeline-flow">
+        <div class="pipeline-step"><div class="step-number">1</div><div class="step-content"><h4>Game Design</h4><p>Mechanics, rules, story</p></div></div>
+        <div class="pipeline-step"><div class="step-number">2</div><div class="step-content"><h4>Prototype</h4><p>Testing the core loop</p></div></div>
+        <div class="pipeline-step"><div class="step-number">3</div><div class="step-content"><h4>Programming</h4><p>Code and logic</p></div></div>
+        <div class="pipeline-step"><div class="step-number">4</div><div class="step-content"><h4>Art & Audio</h4><p>Visuals and sound</p></div></div>
+        <div class="pipeline-step"><div class="step-number">5</div><div class="step-content"><h4>Testing</h4><p>QA and bug fixing</p></div></div>
+        <div class="pipeline-step"><div class="step-number">6</div><div class="step-content"><h4>Publishing</h4><p>Release to stores</p></div></div>
+    </div>
+  </section>
+
+  <section class="edu-section" id="game-engines">
+    <h2 class="edu-section-title">⚙️ Game Engines & Programming</h2>
+    <div class="edu-grid">
+        <div class="edu-card">
+            <h3>Game Engines</h3>
+            <p>Engines provide the foundational technology to render graphics, handle physics, and manage audio.</p>
+            <ul>
+                <li><strong>Unity:</strong> Highly versatile, uses C#, massive community. Great for 2D/3D and mobile.</li>
+                <li><strong>Unreal Engine:</strong> High-fidelity 3D, uses C++ and Blueprints visual scripting.</li>
+                <li><strong>Godot:</strong> Open-source, lightweight, uses GDScript/C#. Excellent for 2D.</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3>👨‍💻 Game Programming</h3>
+            <p>Code brings the game to life by defining the logic.</p>
+            <ul>
+                <li><strong>Game Loops:</strong> The continuous cycle of taking input, updating state, and rendering.</li>
+                <li><strong>Physics & Collision:</strong> Calculating how objects interact.</li>
+                <li><strong>State Management:</strong> Tracking player progress, scores, and menus.</li>
+            </ul>
+        </div>
+    </div>
+  </section>
+
+  <section class="edu-section" id="art-design">
+    <h2 class="edu-section-title">🎨 Art, Design & Audio</h2>
+    <div class="edu-grid three-col">
+        <div class="edu-card">
+            <h3>🎨 Game Design</h3>
+            <p>The core gameplay loop (Action → Feedback → Reward) dictates player engagement. Includes level flow, difficulty curves, and user experience.</p>
+        </div>
+        <div class="edu-card">
+            <h3>🖌️ Game Art</h3>
+            <p>Visual presentation including 2D sprites, 3D models, textures, lighting, animation, and UI design.</p>
+        </div>
+        <div class="edu-card">
+            <h3>🎵 Game Audio</h3>
+            <p>Sound effects for feedback, ambient audio for immersion, and music to set the tone and pacing.</p>
+        </div>
+    </div>
+  </section>
+
+  <section class="edu-section" id="tech-perf">
+    <h2 class="edu-section-title">⚡ Technology & Performance</h2>
+    <div class="edu-grid">
+        <div class="edu-card">
+            <h3>🌐 Multiplayer & AI</h3>
+            <ul>
+                <li><strong>Multiplayer:</strong> Client/Server architecture, synchronization, and latency mitigation.</li>
+                <li><strong>Game AI:</strong> NPC pathfinding, state machines, behavior trees, and procedural generation.</li>
+            </ul>
+        </div>
+        <div class="edu-card">
+            <h3>🖥️ Hardware & Performance</h3>
+            <ul>
+                <li><strong>FPS & Frame Time:</strong> Metrics for smooth gameplay.</li>
+                <li><strong>Settings:</strong> Resolution, texture quality, anti-aliasing impact on GPU/CPU loads.</li>
+            </ul>
+        </div>
+    </div>
+  </section>
+  
+  <section class="edu-section" id="gaming-tools" style="text-align: center; border-bottom: none;">
+      <h2 class="edu-section-title" style="justify-content: center;">🔧 Gaming Tools</h2>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="free-tools.html?search=Timer" class="hub-btn">⏱️ Gaming Timer</a>
+        <a href="learning-hub.html" class="hub-btn">📚 Game Tutorials</a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="footer">
-    <div class="footer-glow"></div>
-    <div class="footer-container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="#" class="nav-logo" id="footer-logo">
-            <img src="logo.png" alt="HarshGuruJi Logo">
-            <span>HarshGuruJi</span>
-          </a>
-          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education & Technology.</p>
-          <div class="social-links">
-            <a href="https://www.youtube.com/@TESVLOG1" target="_blank" class="social-btn" id="footer-yt" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"></path></svg>
-            </a>
-            <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" class="social-btn" id="footer-ig" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"></path></svg>
-            </a>
-            <a href="https://www.telegram.com/" target="_blank" class="social-btn" id="footer-tg" aria-label="Telegram">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.565 8.16-1.97 9.29c-.149.658-.537.82-1.088.51l-3.01-2.22-1.452 1.397c-.16.16-.295.295-.604.295l.216-3.067 5.582-5.043c.243-.216-.054-.337-.378-.121l-6.897 4.344-2.97-.927c-.646-.202-.658-.646.135-.956l11.61-4.477c.538-.196 1.007.121.826.975z"></path></svg>
-              </a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h5>Navigation</h5>
-            <a href="index.html#home">Home</a>
-            <a href="index.html#features">Features</a>
-            <a href="index.html#categories">Topics</a>
-            <a href="index.html#ai">GuruJi AI</a>
-          </div>
-          <div class="footer-col">
-            <h5>Pages</h5>
-            <a href="daily-special.html">Daily Special</a>
-            <a href="games-and-apps.html">Games & Apps</a>
-            <a href="join-us.html">Join Us</a>
-            <a href="about.html">About Us</a>
-          </div>
-          <div class="footer-col">
-            <h5>Legal</h5>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="cookie.html">Cookie Policy</a>
-            <a href="terms-and-conditions.html">Terms & Conditions</a>
-            <a href="contact.html">Contact Us</a>
-          </div>
-        </div>
-      </div>
-      <!-- Owner Details -->
-      <div class="footer-bottom">
-        <div class="owner-card">
-          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
-          <div>
-            <strong class="owner-name">Harsh Patel</strong>
-            <span class="owner-title">Founder & Owner – HarshGuruJi</span>
-            <span class="owner-info">📞 +91 </span>
-            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
-          </div>
-        </div>
-        <p class="footer-copyright">© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
 <script src="js/gaming-hub.js"></script>
-  <script src="navbar-premium.js" defer></script>
-  <script type="module" src="js/auth.js" defer></script>
+    <script type="module" src="js/auth.js" defer></script>
+
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
 </body>
 </html>

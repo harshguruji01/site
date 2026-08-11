@@ -3,194 +3,405 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learning Hub – Study Resources, Notes & Quizzes | HarshGuruJi</title>
-  <meta name="description" content="Explore subjects, study materials, quizzes, practice resources and learning tools designed to make studying easier and more engaging.">
+  <title>Learning Hub — Study Tools, Methods & Resources | HarshGuruJi</title>
+  <meta name="description" content="A complete digital learning center for a student. Learn smarter, understand deeply, practice consistently, and build skills for the future.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/hubs.css">
-  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="css/learning-hub.css">
+  
   <style>
-    /* Custom Learning Hub Styles */
-    .edu-section { padding: 4rem 1rem; max-width: 1280px; margin: 0 auto; }
-    
-    .class-selector-wrapper { background: var(--hub-surface); padding: 1.5rem; border-radius: var(--hub-radius); border: 1px solid var(--hub-border); margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .class-selector-wrapper label { font-weight: 600; color: var(--hub-text-secondary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
-    .class-select { width: 100%; max-width: 300px; padding: 0.75rem; background: var(--bg-color, #1a1a1a); color: var(--hub-text-primary); border: 1px solid var(--hub-border); border-radius: 8px; font-size: 1rem; cursor: pointer; }
-    
-    .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-    .topic-card { background: var(--hub-surface); border: 1px solid var(--hub-border); border-radius: var(--hub-radius); padding: 1.5rem; text-align: left; cursor: pointer; transition: var(--hub-transition); display: flex; align-items: center; gap: 1rem; }
-    .topic-card:hover { background: var(--hub-card-hover); border-color: var(--hub-accent); transform: translateY(-2px); }
-    .topic-icon { font-size: 2rem; background: rgba(59, 130, 246, 0.1); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
-    .topic-title { font-size: 1.05rem; font-weight: 600; color: var(--hub-text-primary); margin: 0; }
-    .topic-desc { font-size: 0.8rem; color: var(--hub-text-secondary); margin: 0; margin-top: 0.25rem; }
-    
-    .quick-tools { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
-    .quick-tool-btn { white-space: nowrap; padding: 0.75rem 1.25rem; background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary); border-radius: 50px; text-decoration: none; font-weight: 500; transition: 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .quick-tool-btn:hover { background: var(--hub-card-hover); border-color: var(--hub-accent); }
-    
+    /* Inline specific styles to keep structure self-contained if needed */
     #learning-empty-state { display: none; }
   </style>
+
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
 </head>
 <body class="hub-page dark-mode">
-<div id="navbar-placeholder"></div>
 
-
-
-<!-- Mobile Full Screen Menu -->
-<main class="hub-container">
+<!-- Main Content -->
+<main class="hub-container" style="max-width: 100%; padding: 0;">
+  
   <!-- Hero Section -->
-  <section class="hub-hero">
-    <h1 class="hub-title">Learning Hub</h1>
-    <p class="hub-subtitle">Learn smarter. Practice better. Grow every day.<br>Explore subjects, study materials, quizzes, and learning tools.</p>
+  <section class="hub-hero" style="padding-bottom: 2rem;">
+    <h1 class="hub-title" style="font-size: clamp(3rem, 6vw, 4.5rem);">Learning Hub</h1>
+    <p class="hub-subtitle">Learn smarter. Understand deeply. Practice consistently. Build skills for the future.</p>
+    <p style="color: var(--hub-text-secondary); max-width: 800px; margin: 0 auto 2rem;">
+        Your complete educational ecosystem bringing together study methods, learning tools, subject resources, exam preparation, and skill development.
+    </p>
+    
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="#learning-resources" class="hub-btn primary">Explore Learning</a>
+        <a href="#student-toolkit" class="hub-btn">Study Tools</a>
+        <a href="#learning-methods" class="hub-btn">Study Methods</a>
+    </div>
   </section>
 
-  <!-- Search & Filters -->
-  <section class="hub-search-section" id="learning-search-section">
-    <div class="class-selector-wrapper">
-        <label for="class-select">Select Your Class</label>
-        <select id="class-select" class="class-select" aria-label="Select Class">
-            <option value="All Classes">All Classes / General</option>
-            <option value="Class 12">Class 12</option>
-            <option value="Class 11">Class 11</option>
-            <option value="Class 10">Class 10</option>
-            <option value="Class 9">Class 9</option>
-            <option value="Class 8">Class 8</option>
-            <option value="Class 7">Class 7</option>
-            <option value="Class 6">Class 6</option>
-        </select>
+  <!-- Student Learning Dashboard -->
+  <section class="edu-section" style="padding-top: 0;">
+    <div class="dashboard-grid">
+        <div class="dash-card">
+            <div class="dash-icon">📖</div>
+            <div class="dash-title">Learn</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Understand new concepts deeply.</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-icon">🧠</div>
+            <div class="dash-title">Remember</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Use effective memory methods.</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-icon">✍️</div>
+            <div class="dash-title">Practice</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Solve and apply concepts.</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-icon">🔄</div>
+            <div class="dash-title">Revise</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Use spaced active recall.</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-icon">🎯</div>
+            <div class="dash-title">Prepare</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Test and exam strategies.</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-icon">🚀</div>
+            <div class="dash-title">Build Skills</div>
+            <div style="font-size: 0.9rem; color: var(--hub-text-secondary);">Learn practical digital skills.</div>
+        </div>
+    </div>
+  </section>
+
+  <!-- What is Effective Learning? -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">What Does Effective Learning Mean?</h2>
+      <p class="edu-section-subtitle">Effective learning is not simply spending more hours studying. It is about understanding, active recall, practice, feedback, and consistency.</p>
+      
+      <div class="edu-grid two-col">
+          <div class="edu-card" style="border-top: 3px solid #f87171;">
+              <h3>Passive Learning (Avoid)</h3>
+              <p>Passive learning feels easy but leads to poor retention.</p>
+              <ul>
+                  <li>Re-reading textbooks</li>
+                  <li>Highlighting everything</li>
+                  <li>Watching videos without testing yourself</li>
+                  <li>Copying notes word-for-word</li>
+              </ul>
+          </div>
+          <div class="edu-card" style="border-top: 3px solid #4ade80;">
+              <h3>Active Learning (Do this)</h3>
+              <p>Active learning forces your brain to retrieve and apply information.</p>
+              <ul>
+                  <li>Solving practice questions</li>
+                  <li>Explaining concepts out loud</li>
+                  <li>Self-testing without looking at notes</li>
+                  <li>Creating summaries from memory</li>
+              </ul>
+          </div>
+      </div>
+  </section>
+
+  <!-- Learning Methods -->
+  <section class="edu-section" id="learning-methods">
+      <h2 class="edu-section-title">🧠 Learning Methods</h2>
+      <p class="edu-section-subtitle">Science-backed techniques to learn faster and remember longer.</p>
+      
+      <div class="edu-grid three-col">
+          <div class="edu-card">
+              <h3>1. Active Recall</h3>
+              <p>Testing yourself to retrieve information from memory.</p>
+              <div class="workflow" style="padding: 1rem; margin-top: 1rem;">
+                  <div style="font-size: 0.8rem;">Study → Close Book → Recall → Check & Correct</div>
+              </div>
+          </div>
+          <div class="edu-card">
+              <h3>2. Spaced Repetition</h3>
+              <p>Reviewing information at increasing intervals to combat the forgetting curve.</p>
+              <ul style="font-size: 0.85rem; margin-top: 1rem;">
+                  <li>Day 1 → Day 2 → Day 4 → Day 7 → Day 14</li>
+              </ul>
+          </div>
+          <div class="edu-card">
+              <h3>3. Feynman Technique</h3>
+              <p>Explain the concept simply. Identify gaps. Study the gaps. Explain again.</p>
+          </div>
+          <div class="edu-card">
+              <h3>4. Pomodoro Technique</h3>
+              <p>Focus sessions (e.g., 25 mins) followed by short breaks. Adapt intervals to your focus level.</p>
+          </div>
+          <div class="edu-card">
+              <h3>5. Interleaving</h3>
+              <p>Mixing related problem types (e.g., Algebra, Geometry, Algebra) instead of practicing only one type repeatedly.</p>
+          </div>
+          <div class="edu-card">
+              <h3>6. Dual Coding</h3>
+              <p>Combining words with visuals (diagrams, timelines, concept maps) to strengthen memory pathways.</p>
+          </div>
+          <div class="edu-card">
+              <h3>7. Elaboration</h3>
+              <p>Asking Why, How, and What causes this? Connecting new information to what you already know.</p>
+          </div>
+          <div class="edu-card">
+              <h3>8. Practice Testing</h3>
+              <p>Using sample questions, previous papers, and mock tests to simulate exam conditions.</p>
+          </div>
+          <div class="edu-card">
+              <h3>9. Deliberate Practice</h3>
+              <p>Identifying your weakest area, practicing specifically, getting feedback, and correcting errors.</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- Note Taking -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">📝 Note-Taking Methods</h2>
+      <div class="edu-grid three-col">
+          <div class="edu-card">
+              <h3>Cornell Notes</h3>
+              <p>Divide paper into three sections: Notes (main area), Cues/Questions (left margin), and Summary (bottom).</p>
+          </div>
+          <div class="edu-card">
+              <h3>Mind Maps</h3>
+              <p>Central topic with branches, keywords, and relationships. Great for visual learners.</p>
+          </div>
+          <div class="edu-card">
+              <h3>Question Notes</h3>
+              <p>Convert headings into questions. Instead of writing "Photosynthesis", write "What are the stages of Photosynthesis?"</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- Subject Wise Learning -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">📚 Learn Different Subjects Differently</h2>
+      
+      <div class="accordion-container">
+          <div class="accordion">
+              <button class="accordion-header">Mathematics <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Focus on concepts, worked examples, and problem-solving. Analyze errors carefully.</p>
+                  <p><strong>Workflow:</strong> Understand concept → Study example → Solve easy → Solve medium → Solve difficult → Review mistakes.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">Physics <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Focus on concepts, units, diagrams, laws, derivations, and real-world numerical applications.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">Chemistry <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Master reactions, equations, periodic trends, numerical practice, and visualization of molecular structures.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">Biology & History <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Use diagrams, processes, and active recall. For history, use timelines, cause/effect, and maps.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">Computer Science <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Focus on syntax, examples, coding practice, debugging, and building projects.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Complete Revision System & Exam Prep -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">🔄 Complete Revision & Exam System</h2>
+      
+      <div class="workflow horizontal" style="margin-bottom: 2rem;">
+          <div class="workflow-step"><div class="workflow-num">1</div><div class="workflow-text">Learn</div></div>
+          <div class="workflow-step"><div class="workflow-num">2</div><div class="workflow-text">Recall</div></div>
+          <div class="workflow-step"><div class="workflow-num">3</div><div class="workflow-text">Practice</div></div>
+          <div class="workflow-step"><div class="workflow-num">4</div><div class="workflow-text">Spaced Review</div></div>
+          <div class="workflow-step"><div class="workflow-num">5</div><div class="workflow-text">Mock Tests</div></div>
+          <div class="workflow-step"><div class="workflow-num">6</div><div class="workflow-text">Weak-topic Fix</div></div>
+      </div>
+
+      <div class="edu-grid two-col">
+          <div class="edu-card">
+              <h3>🎯 Exam Preparation</h3>
+              <ul>
+                  <li><strong>Before:</strong> Understand syllabus, divide chapters, build revision plan.</li>
+                  <li><strong>During prep:</strong> Active recall, practice papers, timed practice.</li>
+                  <li><strong>After exam:</strong> Analyze mistakes, record recurring errors, adjust strategy.</li>
+              </ul>
+          </div>
+          <div class="edu-card">
+              <h3>❌ The Error Log</h3>
+              <p>Mistakes are useful feedback when analyzed properly. Track:</p>
+              <ul>
+                  <li>Topic & Question</li>
+                  <li>My mistake & Correct approach</li>
+                  <li>Why I made it & How to avoid it next time</li>
+              </ul>
+          </div>
+      </div>
+  </section>
+
+  <!-- AI & Digital Skills -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">🤖 AI & Digital Learning</h2>
+      <div class="edu-grid two-col">
+          <div class="edu-card">
+              <h3>AI-Assisted Learning</h3>
+              <p>AI should support learning, not replace thinking. Use it to:</p>
+              <ul>
+                  <li>Explain difficult concepts simply.</li>
+                  <li>Socratic Learning: Ask AI to guide you with questions.</li>
+                  <li>Generate practice quizzes or flashcards from notes.</li>
+                  <li>Get feedback on writing or code.</li>
+              </ul>
+              <p style="color: #f87171; font-size: 0.85rem; margin-top: 1rem;">IMPORTANT: Verify facts, use official sources, and do not use AI to cheat or bypass actual learning.</p>
+          </div>
+          <div class="edu-card">
+              <h3>🔎 Research & Information Literacy</h3>
+              <p>How to find reliable information:</p>
+              <ul>
+                  <li>Identify keywords & compare multiple sources.</li>
+                  <li>Check publication date and author credibility.</li>
+                  <li>Distinguish fact from opinion.</li>
+                  <li>Beware of misinformation, clickbait, and unverified claims.</li>
+              </ul>
+          </div>
+      </div>
+  </section>
+
+  <!-- Environment & Problem Solving -->
+  <section class="edu-section">
+      <div class="edu-grid two-col">
+          <div class="edu-card">
+              <h3>🧩 Problem-Solving Framework</h3>
+              <div class="workflow" style="padding: 1rem; margin-top: 1rem; font-size: 0.9rem;">
+                  <div>Understand problem → Identify info → Choose method → Solve → Check → Analyze mistake</div>
+              </div>
+          </div>
+          <div class="edu-card">
+              <h3>🧠 Focus & Environment</h3>
+              <ul>
+                  <li>Reduce distractions, use full-screen study mode.</li>
+                  <li>Maintain regular sleep and stay hydrated.</li>
+                  <li>Take structured breaks and avoid extreme exhaustion.</li>
+              </ul>
+          </div>
+      </div>
+  </section>
+
+  <!-- Student Toolkit -->
+  <section class="edu-section" id="student-toolkit">
+      <h2 class="edu-section-title" style="justify-content: center;">🎒 Student Toolkit</h2>
+      <p style="text-align: center; color: var(--hub-text-secondary); margin-bottom: 2rem;">Essential tools to help you calculate, plan, and execute your studies.</p>
+      
+      <div class="toolkit-grid">
+          <a href="free-tools.html?search=Calculator" class="toolkit-item"><span class="toolkit-icon">🧮</span><span class="toolkit-label">Calculator</span></a>
+          <a href="free-tools.html?search=Timer" class="toolkit-item"><span class="toolkit-icon">⏱️</span><span class="toolkit-label">Study Timer</span></a>
+          <a href="free-tools.html?search=Notes" class="toolkit-item"><span class="toolkit-icon">📝</span><span class="toolkit-label">Quick Notes</span></a>
+          <a href="free-tools.html?search=Dictionary" class="toolkit-item"><span class="toolkit-icon">📖</span><span class="toolkit-label">Dictionary</span></a>
+          <a href="free-tools.html?search=Converter" class="toolkit-item"><span class="toolkit-icon">🔄</span><span class="toolkit-label">Unit Converter</span></a>
+          <a href="free-tools.html?search=PDF" class="toolkit-item"><span class="toolkit-icon">📄</span><span class="toolkit-label">PDF Tools</span></a>
+          <a href="free-tools.html?search=Grammar" class="toolkit-item"><span class="toolkit-icon">✍️</span><span class="toolkit-label">Writing Tools</span></a>
+          <a href="free-tools.html?search=Code" class="toolkit-item"><span class="toolkit-icon">💻</span><span class="toolkit-label">Coding IDE</span></a>
+      </div>
+  </section>
+
+  <!-- Learning Resources Directory -->
+  <section class="edu-section" id="learning-resources">
+    <h2 class="edu-section-title">📚 Learning Resources Directory</h2>
+    
+    <!-- Advanced Filters -->
+    <div class="advanced-filters">
+        <div class="filter-group">
+            <label for="filter-subject">Subject</label>
+            <select id="filter-subject" class="filter-select">
+                <option value="All">All Subjects</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Science">Science</option>
+                <option value="Programming">Programming</option>
+                <option value="General">General Knowledge</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="filter-type">Resource Type</label>
+            <select id="filter-type" class="filter-select">
+                <option value="All">All Types</option>
+                <option value="Guide">Guide</option>
+                <option value="Practice">Practice</option>
+                <option value="Quiz">Quiz</option>
+                <option value="Tool">Tool</option>
+                <option value="Video">Video</option>
+                <option value="Book">Book</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="filter-difficulty">Difficulty</label>
+            <select id="filter-difficulty" class="filter-select">
+                <option value="All">All Levels</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+        </div>
     </div>
 
-    <div class="hub-search-bar">
-      <span class="hub-search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
-      <input type="text" id="learning-search" class="hub-search-input" placeholder="Search lessons, subjects, topics or questions..." aria-label="Search resources">
-      <button id="learning-search-clear" class="hub-clear-btn" aria-label="Clear Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    <!-- Search -->
+    <div class="hub-search-bar" style="max-width: 100%; margin-bottom: 2rem;">
+      <span class="hub-search-icon">🔍</span>
+      <input type="text" id="learning-search" class="hub-search-input" placeholder="Search guides, topics, tools, or resources...">
+      <button id="learning-search-clear" class="hub-clear-btn" style="display: none;">✕</button>
     </div>
     
-    <div class="hub-filters" id="subject-container">
-      <!-- Subjects injected via JS -->
-    </div>
-  </section>
-
-  <!-- Popular Topics -->
-  <section class="edu-section">
-    <h2 class="hub-section-title">Explore Topics</h2>
-    <div class="topic-grid">
-      <div class="topic-card" data-search="Algebra">
-        <div class="topic-icon">∑</div>
-        <div>
-            <h3 class="topic-title">Algebra</h3>
-            <p class="topic-desc">Equations & polynomials</p>
-        </div>
-      </div>
-      <div class="topic-card" data-search="Science">
-        <div class="topic-icon">🔬</div>
-        <div>
-            <h3 class="topic-title">Science</h3>
-            <p class="topic-desc">Physics, Chemistry, Bio</p>
-        </div>
-      </div>
-      <div class="topic-card" data-search="Quiz">
-        <div class="topic-icon">❓</div>
-        <div>
-            <h3 class="topic-title">Quizzes</h3>
-            <p class="topic-desc">Test your knowledge</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quick Study Tools -->
-  <section class="edu-section" style="padding-top: 0;">
-    <h2 class="hub-section-title">Quick Study Tools</h2>
-    <div class="quick-tools">
-        <a href="free-tools.html?search=Word+Counter" class="quick-tool-btn">📝 Word Counter</a>
-        <a href="free-tools.html?search=Case+Converter" class="quick-tool-btn">🔠 Case Converter</a>
-        <a href="free-tools.html" class="quick-tool-btn">🛠️ View All Tools</a>
-    </div>
-  </section>
-
-  <!-- Main Grid -->
-  <section class="hub-section" style="padding-top: 0;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h2 class="hub-section-title" style="margin-bottom: 0;">Learning Resources</h2>
         <span id="learning-result-count" style="color: var(--hub-text-secondary); font-size: 0.9rem;">Loading...</span>
     </div>
     
     <div id="learning-empty-state" class="hub-empty-state">
-        <div class="hub-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
-        <h3>No learning resources found</h3>
-        <p>Learning resources for this selection are not available yet. Try another topic, subject or class.</p>
+        <div class="hub-empty-icon">📚</div>
+        <h3>No resources found</h3>
+        <p>Try adjusting your filters or search terms.</p>
     </div>
 
     <div id="learning-grid" class="hub-grid">
       <!-- Cards rendered via JS -->
     </div>
   </section>
+
+  <!-- FAQ Section -->
+  <section class="edu-section">
+      <h2 class="edu-section-title">❓ Frequently Asked Questions</h2>
+      <div class="accordion-container">
+          <div class="accordion">
+              <button class="accordion-header">What is the best way to study? <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>There is no single method for everyone; effective learning generally combines understanding, active retrieval, practice, feedback, and spaced revision.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">Should I reread my notes? <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Rereading helps initially, but passive rereading is inefficient. You must include active retrieval and practice to actually embed the knowledge in long-term memory.</p>
+              </div>
+          </div>
+          <div class="accordion">
+              <button class="accordion-header">How can I learn programming? <span class="accordion-icon">▼</span></button>
+              <div class="accordion-content">
+                  <p>Learn fundamentals → practice small problems → build projects → practice debugging → read documentation.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
 </main>
 
-<footer class="footer">
-    <div class="footer-glow"></div>
-    <div class="footer-container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="#" class="nav-logo" id="footer-logo">
-            <img src="logo.png" alt="HarshGuruJi Logo">
-            <span>HarshGuruJi</span>
-          </a>
-          <p>Your go-to place for simple, clear, and reliable learning. Tools, AI, Education & Technology.</p>
-          <div class="social-links">
-            <a href="https://www.youtube.com/@TESVLOG1" target="_blank" class="social-btn" id="footer-yt" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"></path></svg>
-            </a>
-            <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" class="social-btn" id="footer-ig" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"></path></svg>
-            </a>
-            <a href="https://www.telegram.com/" target="_blank" class="social-btn" id="footer-tg" aria-label="Telegram">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.565 8.16-1.97 9.29c-.149.658-.537.82-1.088.51l-3.01-2.22-1.452 1.397c-.16.16-.295.295-.604.295l.216-3.067 5.582-5.043c.243-.216-.054-.337-.378-.121l-6.897 4.344-2.97-.927c-.646-.202-.658-.646.135-.956l11.61-4.477c.538-.196 1.007.121.826.975z"></path></svg>
-              </a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h5>Navigation</h5>
-            <a href="index.html#home">Home</a>
-            <a href="index.html#features">Features</a>
-            <a href="index.html#categories">Topics</a>
-            <a href="index.html#ai">GuruJi AI</a>
-          </div>
-          <div class="footer-col">
-            <h5>Pages</h5>
-            <a href="daily-special.html">Daily Special</a>
-            <a href="games-and-apps.html">Games & Apps</a>
-            <a href="join-us.html">Join Us</a>
-            <a href="about.html">About Us</a>
-          </div>
-          <div class="footer-col">
-            <h5>Legal</h5>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="cookie.html">Cookie Policy</a>
-            <a href="terms-and-conditions.html">Terms & Conditions</a>
-            <a href="contact.html">Contact Us</a>
-          </div>
-        </div>
-      </div>
-      <!-- Owner Details -->
-      <div class="footer-bottom">
-        <div class="owner-card">
-          <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Owner" class="owner-avatar">
-          <div>
-            <strong class="owner-name">Harsh Patel</strong>
-            <span class="owner-title">Founder & Owner – HarshGuruJi</span>
-            <span class="owner-info">📞 +91 </span>
-            <span class="owner-info">📍 Akbarpur, Ambedkarnagar, Uttar Pradesh, India – 224122</span>
-          </div>
-        </div>
-        <p class="footer-copyright">© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  <script src="js/learning-hub.js"></script>
+    <script type="module" src="js/auth.js" defer></script>
 
-<script src="js/learning-hub.js"></script>
-  <script src="navbar-premium.js" defer></script>
-  <script type="module" src="js/auth.js" defer></script>
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
 </body>
 </html>

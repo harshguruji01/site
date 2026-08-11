@@ -9,8 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="navbar-premium.css">
-  
+
   <style>
     .dashboard-container { max-width: 1200px; margin: 100px auto 4rem; padding: 0 1.5rem; }
     
@@ -104,11 +103,10 @@
     .empty-state { text-align: center; padding: 2rem; color: var(--text-secondary); font-style: italic; }
   </style>
 
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
 </head>
 <body class="auth-page">
-<div id="navbar-placeholder"></div>
-
-
 
 <main class="dashboard-container">
   <div class="profile-header">
@@ -199,15 +197,6 @@
   </div>
 </main>
 
-<footer class="footer">
-    <div class="footer-glow"></div>
-    <div class="footer-container">
-      <div class="footer-bottom">
-        <p class="footer-copyright">© 2026 HarshGuruJi – Tools & Learning Platform. All rights reserved.</p>
-      </div>
-    </div>
-</footer>
-
 <script>
   // Expose function for Auth state changes
   function renderUser(user, profile) {
@@ -227,7 +216,6 @@
   }
 </script>
 
-<script src="navbar-premium.js" defer></script>
 <script type="module" src="js/auth.js" defer></script>
 <script type="module" src="js/dashboard.js" defer></script>
 
@@ -282,5 +270,8 @@
       renderUser(e.detail.user, e.detail.profile);
   });
 </script>
+
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
 </body>
 </html>

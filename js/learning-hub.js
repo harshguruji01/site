@@ -3,9 +3,9 @@ const learningData = [
     id: "lrn-001",
     title: "Chemical Reactions and Equations",
     description: "Complete notes and revision material for Class 10 Science.",
-    classLevel: "Class 10",
     subject: "Science",
-    type: "Notes",
+    type: "Guide",
+    difficulty: "Beginner",
     route: "learning/class-10-science.html",
     featured: true
   },
@@ -13,9 +13,9 @@ const learningData = [
     id: "lrn-002",
     title: "Polynomials & Algebra Practice",
     description: "Practice questions and step-by-step solutions for Algebra.",
-    classLevel: "Class 9",
     subject: "Mathematics",
     type: "Practice",
+    difficulty: "Intermediate",
     route: "learning/class-9-math.html",
     featured: true
   },
@@ -23,101 +23,66 @@ const learningData = [
     id: "lrn-003",
     title: "General Knowledge Quiz",
     description: "Test your general knowledge with this quick interactive quiz.",
-    classLevel: "All Classes",
-    subject: "General Knowledge",
+    subject: "General",
     type: "Quiz",
+    difficulty: "Beginner",
     route: "learning/gk-quiz.html",
+    featured: false
+  },
+  {
+    id: "lrn-004",
+    title: "Introduction to Python",
+    description: "Learn the basics of Python programming, syntax, and simple logic.",
+    subject: "Programming",
+    type: "Video",
+    difficulty: "Beginner",
+    route: "https://www.python.org/about/gettingstarted/",
+    featured: true
+  },
+  {
+    id: "lrn-005",
+    title: "Calculus Fundamentals",
+    description: "Deep dive into limits, derivatives, and integrals.",
+    subject: "Mathematics",
+    type: "Guide",
+    difficulty: "Advanced",
+    route: "learning/calculus.html",
+    featured: false
+  },
+  {
+    id: "lrn-006",
+    title: "Interactive Periodic Table",
+    description: "Explore elements, properties, and trends dynamically.",
+    subject: "Science",
+    type: "Tool",
+    difficulty: "Beginner",
+    route: "https://ptable.com/",
     featured: true
   }
 ];
 
-const availableSubjects = {
-    "All Classes": ["General Knowledge"],
-    "Class 10": ["Science", "Mathematics", "Social Science", "English", "Hindi"],
-    "Class 9": ["Mathematics", "Science", "Social Science", "English", "Hindi"]
-};
-
 document.addEventListener('DOMContentLoaded', () => {
-  const classSelect = document.getElementById('class-select');
-  const subjectContainer = document.getElementById('subject-container');
   const resourceGrid = document.getElementById('learning-grid');
   const searchInput = document.getElementById('learning-search');
   const clearBtn = document.getElementById('learning-search-clear');
   const resultCounter = document.getElementById('learning-result-count');
   const emptyState = document.getElementById('learning-empty-state');
   
-  let currentClass = 'All Classes';
-  let currentSubject = 'All';
+  // Filters
+  const subjectSelect = document.getElementById('filter-subject');
+  const typeSelect = document.getElementById('filter-type');
+  const difficultySelect = document.getElementById('filter-difficulty');
+  
   let searchQuery = '';
 
-  function initURLParams() {
-      const params = new URLSearchParams(window.location.search);
-      const search = params.get('search');
-      const cls = params.get('class');
-      const sub = params.get('subject');
-
-      if (search) {
-          searchInput.value = search;
-          searchQuery = search;
-          if (clearBtn) clearBtn.style.display = 'flex';
-      }
-      
-      if (cls && classSelect.querySelector(`option[value="${cls}"]`)) {
-          classSelect.value = cls;
-          currentClass = cls;
-      }
-      
-      renderSubjects();
-      
-      if (sub) {
-          currentSubject = sub;
-          // select the button
-          setTimeout(() => {
-              const btn = document.querySelector(`.hub-filter-btn[data-subject="${sub}"]`);
-              if(btn) {
-                  document.querySelectorAll('.hub-filter-btn').forEach(b => b.classList.remove('active'));
-                  btn.classList.add('active');
-              }
-          }, 50);
-      }
-  }
-
-  function renderSubjects() {
-      if(!subjectContainer) return;
-      subjectContainer.innerHTML = '';
-      
-      // Always add All Subjects
-      const allBtn = document.createElement('button');
-      allBtn.className = 'hub-filter-btn' + (currentSubject === 'All' ? ' active' : '');
-      allBtn.dataset.subject = 'All';
-      allBtn.textContent = 'All Subjects';
-      allBtn.onclick = () => setSubject('All', allBtn);
-      subjectContainer.appendChild(allBtn);
-
-      const subjects = availableSubjects[currentClass] || [];
-      
-      subjects.forEach(sub => {
-          const btn = document.createElement('button');
-          btn.className = 'hub-filter-btn' + (currentSubject === sub ? ' active' : '');
-          btn.dataset.subject = sub;
-          btn.textContent = sub;
-          btn.onclick = () => setSubject(sub, btn);
-          subjectContainer.appendChild(btn);
-      });
-  }
-
-  function setSubject(sub, btnElement) {
-      currentSubject = sub;
-      document.querySelectorAll('#subject-container .hub-filter-btn').forEach(b => b.classList.remove('active'));
-      if(btnElement) btnElement.classList.add('active');
-      filterData();
-  }
-
   function getTypeIcon(type) {
-      if(type === 'Notes') return '📝';
+      if(type === 'Guide') return '📖';
       if(type === 'Practice') return '✏️';
       if(type === 'Quiz') return '❓';
-      return '📚';
+      if(type === 'Tool') return '🔧';
+      if(type === 'Video') return '🎥';
+      if(type === 'Book') return '📚';
+      return '📄';
   }
 
   function renderResources(resources) {
@@ -142,7 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resources.forEach(res => {
       const card = document.createElement('a');
+      const isExternal = res.route.startsWith('http');
       card.href = res.route;
+      if (isExternal) {
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+      }
       card.className = 'hub-card tool-card';
       
       const typeIcon = getTypeIcon(res.type);
@@ -153,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "<div class='tool-card-badges'>" + featuredBadge + "</div>" +
         "</div>" +
         "<div class='hub-card-content'>" +
-          "<div style='color: var(--hub-text-secondary); font-size: 0.8rem; margin-bottom: 0.5rem;'>" + res.classLevel + " &bull; " + res.subject + "</div>" +
+          "<div style='color: var(--hub-text-secondary); font-size: 0.8rem; margin-bottom: 0.5rem;'>" + res.subject + " &bull; " + res.difficulty + "</div>" +
           "<h3 class='hub-card-title' style='margin-bottom: 0.5rem;'>" + res.title + "</h3>" +
           "<p class='hub-card-desc'>" + res.description + "</p>" +
           "<div style='margin-top: 1rem;'>" +
@@ -161,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
           "</div>" +
         "</div>" +
         "<div class='hub-card-footer'>" +
-          "<span class='hub-btn primary tool-visit-btn' style='width: 100%;'>Open " + res.type + "</span>" +
+          "<span class='hub-btn primary tool-visit-btn' style='width: 100%;'>Open " + res.type + " →</span>" +
         "</div>";
       fragment.appendChild(card);
     });
@@ -170,16 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function filterData() {
+    if (!resourceGrid) return;
+    
     let filtered = learningData;
 
-    // Filter by Class
-    if (currentClass !== 'All Classes') {
-      filtered = filtered.filter(r => r.classLevel === currentClass || r.classLevel === 'All Classes');
+    // Apply Select Filters
+    if (subjectSelect && subjectSelect.value !== 'All') {
+      filtered = filtered.filter(r => r.subject === subjectSelect.value);
     }
-
-    // Filter by Subject
-    if (currentSubject !== 'All') {
-      filtered = filtered.filter(r => r.subject === currentSubject);
+    if (typeSelect && typeSelect.value !== 'All') {
+      filtered = filtered.filter(r => r.type === typeSelect.value);
+    }
+    if (difficultySelect && difficultySelect.value !== 'All') {
+      filtered = filtered.filter(r => r.difficulty === difficultySelect.value);
     }
 
     // Filter by Search
@@ -189,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         r.title.toLowerCase().includes(q) || 
         r.description.toLowerCase().includes(q) ||
         r.subject.toLowerCase().includes(q) ||
-        r.classLevel.toLowerCase().includes(q) ||
         r.type.toLowerCase().includes(q)
       );
     }
@@ -197,23 +169,19 @@ document.addEventListener('DOMContentLoaded', () => {
     renderResources(filtered);
   }
 
-  // Event Listeners
-  if (classSelect) {
-      classSelect.addEventListener('change', (e) => {
-          currentClass = e.target.value;
-          currentSubject = 'All'; // reset subject when class changes
-          renderSubjects();
-          filterData();
-      });
-  }
-
+  // Search Event Listener (Debounced)
+  let debounceTimer;
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.trim();
       if (clearBtn) {
         clearBtn.style.display = searchQuery.length > 0 ? 'flex' : 'none';
       }
-      filterData();
+      
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        filterData();
+      }, 300);
     });
   }
 
@@ -226,19 +194,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Topic Card quick links
-  document.querySelectorAll('.topic-card').forEach(card => {
-      card.addEventListener('click', () => {
-          const s = card.dataset.search;
-          if(searchInput) searchInput.value = s;
-          searchQuery = s;
-          if (clearBtn) clearBtn.style.display = 'flex';
-          filterData();
-          document.getElementById('learning-search-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+  // Select Event Listeners
+  if (subjectSelect) subjectSelect.addEventListener('change', filterData);
+  if (typeSelect) typeSelect.addEventListener('change', filterData);
+  if (difficultySelect) difficultySelect.addEventListener('change', filterData);
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#' && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+      }
+    });
+  });
+
+  // Accordion Logic
+  const accordions = document.querySelectorAll('.accordion-header');
+  accordions.forEach(acc => {
+    acc.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
   });
 
   // Init
-  initURLParams();
   filterData();
 });

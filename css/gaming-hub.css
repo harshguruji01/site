@@ -1,0 +1,193 @@
+/* 🎮 HARSHGURUJI — GAMING-HUB.CSS */
+
+/* Horizontal category scroll (overriding hubs.css for chips) */
+.hub-categories-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hub-categories-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Educational Content Layout */
+.edu-section {
+  padding: 4rem 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--hub-border);
+}
+
+.edu-section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .edu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .edu-grid.three-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Education Cards */
+.edu-card {
+  background: var(--hub-card-bg);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--hub-radius);
+  padding: 2rem;
+  transition: var(--hub-transition);
+}
+
+.edu-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--hub-border-hover);
+  box-shadow: var(--hub-shadow-hover);
+}
+
+.edu-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--hub-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edu-card p {
+  color: var(--hub-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.edu-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.edu-card li {
+  color: var(--hub-text-secondary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edu-card li::before {
+  content: '•';
+  color: var(--hub-accent);
+  font-weight: bold;
+}
+
+/* Pipeline Flowchart Visualization */
+.pipeline-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pipeline-step {
+  background: var(--hub-surface);
+  border: 1px solid var(--hub-border);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.pipeline-step::after {
+  content: '↓';
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--hub-accent);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.pipeline-step:last-child::after {
+  display: none;
+}
+
+.step-number {
+  background: var(--hub-accent);
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex-grow: 1;
+}
+
+.step-content h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--hub-text-primary);
+}
+
+.step-content p {
+  margin: 0;
+  color: var(--hub-text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 1024px) {
+  .pipeline-flow {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .pipeline-step {
+    width: 250px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .pipeline-step::after {
+    content: '→';
+    right: -25px;
+    bottom: auto;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .pipeline-step:nth-child(4n)::after {
+    display: none;
+  }
+}
