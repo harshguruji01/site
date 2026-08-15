@@ -572,7 +572,39 @@ function openAppDetails(app) {
   
   // Buttons
   elements.mDownload.href = app.downloadUrl || '#';
-  elements.mDownload.textContent = app.platform === 'Web' ? 'Open App' : 'Download';
+  elements.mDownload.innerHTML = `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+    ${app.platform === 'Web' ? 'Open App' : 'Download'}
+  `;
+  
+  elements.mDownload.onclick = async (e) => {
+    e.preventDefault();
+    if (!app.downloadUrl || app.downloadUrl === '#') {
+      alert("Download link not available for this app.");
+      return;
+    }
+
+    // Trigger download first for better user experience (no delay)
+    const link = document.createElement('a');
+    link.href = app.downloadUrl;
+    link.target = '_blank';
+    link.download = '';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Then increment the download count in background
+    if (app.id && app.id.startsWith('app-') === false) { // Don't track mock apps
+      try {
+        const { data } = await supabase.from('store_apps').select('downloads').eq('id', app.id).single();
+        if (data) {
+          await supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', app.id);
+        }
+      } catch (err) {
+        console.error("Failed to track download:", err);
+      }
+    }
+  };
   
   if (app.officialUrl) {
     elements.mOfficial.href = app.officialUrl;
