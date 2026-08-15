@@ -63,10 +63,46 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+    
+    .stat-card.active {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
     }
     
     .stat-card h3 { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; }
     .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text-main); font-family: 'Space Grotesk', sans-serif; }
+    
+    #app-list-section {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    #app-list-section h2 {
+      margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .table-responsive { overflow-x: auto; }
+    table.admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+    table.admin-table th, table.admin-table td { padding: 1rem; border-bottom: 1px solid var(--border); }
+    table.admin-table th { color: var(--text-muted); font-weight: 500; font-size: 0.9rem; }
+    table.admin-table tr:hover { background: rgba(255,255,255,0.02); }
+    
+    .action-btn { background: transparent; border: none; cursor: pointer; padding: 0.4rem; border-radius: 4px; transition: background 0.2s; }
+    .action-btn.edit { color: var(--primary); }
+    .action-btn.edit:hover { background: rgba(59, 130, 246, 0.1); }
+    .action-btn.delete { color: var(--danger); }
+    .action-btn.delete:hover { background: rgba(239, 68, 68, 0.1); }
     
     .upload-container {
       background: var(--bg-panel);
@@ -214,31 +250,53 @@
   </div>
 
   <div class="container" id="admin-content">
-    
     <div class="dashboard-stats">
-      <div class="stat-card">
+      <div class="stat-card" id="card-total" data-filter="all">
         <h3>Total Apps</h3>
         <div class="value" id="stat-total">0</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" id="card-published" data-filter="published">
         <h3>Published</h3>
         <div class="value" id="stat-published" style="color: var(--success);">0</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" id="card-drafts" data-filter="drafts">
         <h3>Drafts</h3>
         <div class="value" id="stat-drafts" style="color: #f59e0b;">0</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" id="card-downloads" data-filter="downloads">
         <h3>Total Downloads</h3>
         <div class="value" id="stat-downloads">0</div>
       </div>
     </div>
 
+    <div id="app-list-section">
+      <h2>
+        <span id="list-section-title">App List</span>
+        <button class="btn btn-secondary" id="btn-close-list" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Close List</button>
+      </h2>
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 60px;">Icon</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Downloads</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="app-list-body">
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="upload-container">
-      <h2>Publish New Application</h2>
-      
+      <h2 id="upload-form-title">Publish New Application</h2>
       <form id="apk-upload-form">
-        
+        <!-- Hidden input for Update Mode -->
+        <input type="hidden" id="edit-app-id" value="">
         <div class="form-grid">
           <!-- Files -->
           <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
@@ -259,7 +317,6 @@
               </div>
             </div>
           </div>
-          
           <div class="form-group full-width">
             <label>Screenshots (Up to 5 images)</label>
             <div class="file-upload-box" id="screenshots-dropzone">
@@ -274,22 +331,18 @@
             <label class="required">App Name</label>
             <input type="text" id="app-name" required placeholder="e.g. Awesome App">
           </div>
-          
           <div class="form-group">
             <label class="required">URL Slug</label>
             <input type="text" id="app-slug" required placeholder="e.g. awesome-app">
           </div>
-          
           <div class="form-group full-width">
             <label class="required">Short Description (Max 160 chars)</label>
             <input type="text" id="app-short-desc" required maxlength="160" placeholder="Brief summary for app cards">
           </div>
-          
           <div class="form-group full-width">
             <label>Full Description (Supports paragraphs)</label>
             <textarea id="app-full-desc" placeholder="Detailed description of features..."></textarea>
           </div>
-          
           <!-- Metadata -->
           <div class="form-group">
             <label class="required">Category</label>
@@ -303,48 +356,39 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          
           <div class="form-group">
             <label>Subcategory</label>
             <input type="text" id="app-subcategory" placeholder="e.g. Puzzle, Productivity">
           </div>
-          
           <div class="form-group">
             <label>Developer Name</label>
             <input type="text" id="app-developer" placeholder="e.g. HarshGuruJi Studios">
           </div>
-          
           <div class="form-group">
             <label>Package Name</label>
             <input type="text" id="app-package" placeholder="e.g. com.harshguruji.app">
           </div>
-          
           <div class="form-group">
             <label class="required">Version Name</label>
             <input type="text" id="app-version" required placeholder="e.g. 1.0.0">
           </div>
-          
           <div class="form-group">
             <label>Version Code (Integer)</label>
             <input type="number" id="app-version-code" placeholder="e.g. 1">
           </div>
-          
           <div class="form-group full-width">
             <label>What's New (Changelog)</label>
             <textarea id="app-whats-new" placeholder="List of updates in this version..." style="min-height: 80px;"></textarea>
           </div>
-          
           <!-- Toggles -->
           <div class="form-group checkbox-group">
             <input type="checkbox" id="app-featured">
             <label for="app-featured">Featured App (Shows in hero section)</label>
           </div>
-          
           <div class="form-group checkbox-group">
             <input type="checkbox" id="app-verified" checked>
             <label for="app-verified">Verified Source Badge</label>
           </div>
-          
           <div class="form-group full-width" style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
             <label>Initial Status</label>
             <select id="app-status" style="max-width: 200px;">
@@ -352,14 +396,11 @@
               <option value="Draft">Draft (Hidden)</option>
             </select>
           </div>
-          
         </div>
-        
         <div class="form-actions">
           <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
           <button type="submit" class="btn btn-primary" id="btn-submit">Upload & Publish</button>
         </div>
-        
       </form>
     </div>
   </div>
@@ -368,26 +409,21 @@
   <div id="progress-overlay">
     <div class="progress-box">
       <h3 id="progress-title">Processing Upload...</h3>
-      
       <div id="progress-item-logo" style="margin-bottom: 1rem;">
         <div class="progress-text"><span>Logo</span> <span class="pct">0%</span></div>
         <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
       </div>
-      
       <div id="progress-item-apk" style="margin-bottom: 1rem;">
         <div class="progress-text"><span>APK File</span> <span class="pct">0%</span></div>
         <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
       </div>
-      
       <div id="progress-item-screenshots" style="margin-bottom: 1rem;">
         <div class="progress-text"><span>Screenshots</span> <span class="pct">0%</span></div>
         <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
       </div>
-      
       <div id="progress-item-db">
         <div class="progress-text"><span>Saving to Database</span> <span class="pct">Pending</span></div>
       </div>
-      
       <p style="text-align: center; font-size: 0.8rem; color: var(--danger); margin-top: 1.5rem;">Do not close this page.</p>
     </div>
   </div>
