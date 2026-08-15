@@ -152,14 +152,52 @@ const MOCK_APPS = [
   }
 ];
 
+import { supabase } from './supabase.js';
+
 // In a real scenario, this would be an API call
 async function fetchStoreApps() {
-  // Simulate network delay
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(MOCK_APPS);
-    }, 400);
-  });
+  try {
+    const { data, error } = await supabase
+      .from('store_apps')
+      .select('*')
+      .eq('status', 'Published')
+      .order('featured', { ascending: false })
+      .order('updated_at', { ascending: false });
+      
+    if (error) {
+      console.error("Supabase Error:", error);
+      return [];
+    }
+    
+    // Map Supabase rows to our frontend format
+    return data.map(app => ({
+      id: app.id,
+      name: app.name,
+      slug: app.slug,
+      icon: app.logo_url || "logo.png",
+      description: app.short_description || "",
+      longDescription: app.description || "",
+      category: app.category || "Apps",
+      platform: "Android", // Default for APK store
+      type: app.subcategory || "App",
+      developer: app.developer_name || "Unknown",
+      version: app.version || "1.0",
+      size: app.file_size || "Unknown",
+      rating: 5.0, // Future: Add rating to DB
+      tags: [], // Future: Add tags to DB
+      featured: app.featured,
+      trending: false, // Future logic
+      verified: app.verified,
+      openSource: false,
+      license: "Free",
+      updatedAt: app.updated_at,
+      officialUrl: null,
+      downloadUrl: app.download_url
+    }));
+  } catch (err) {
+    console.error("Store Fetch Error:", err);
+    return [];
+  }
 }
 
 // --- STATE MANAGEMENT ---

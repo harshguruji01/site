@@ -1,56 +1,269 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learning Hub | HarshGuruJi</title>
+  <title>Learning Hub – Classes 1 to 12 | HarshGuruJi</title>
+  <meta name="description" content="HarshGuruJi Learning Hub provides free educational resources, notes, subjects, quizzes, study materials and learning tools for students from Class 1 to Class 12.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/hubs.css">
-  <meta name="algolia-site-verification" content="DDB1E9756D46C4F7">
-  <!-- Algolia InstantSearch -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/satellite-min.css">
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.23.3/dist/algoliasearch-lite.umd.js" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.66.1/dist/instantsearch.production.min.js" defer=""></script>
-
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
+  <style>
+    /* Hero Section Specifics */
+    .learning-hero {
+        text-align: center;
+        padding: 5rem 1rem 3rem;
+        background: radial-gradient(circle at center, rgba(59,130,246,0.1) 0%, transparent 70%);
+    }
+    .learning-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        color: var(--hub-text-primary);
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    .learning-hero h1 span { color: var(--hub-accent); }
+    .learning-hero p {
+        color: var(--hub-text-secondary);
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+    }
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    /* Search Bar */
+    .quick-search {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+        position: relative;
+        padding: 0 1rem;
+    }
+    .search-input {
+        width: 100%;
+        padding: 1.25rem 3rem 1.25rem 1.5rem;
+        border-radius: 50px;
+        border: 2px solid var(--hub-border);
+        background: var(--hub-surface);
+        color: var(--hub-text-primary);
+        font-size: 1.1rem;
+        transition: 0.3s ease;
+        outline: none;
+    }
+    .search-input:focus {
+        border-color: var(--hub-accent);
+        box-shadow: 0 0 15px rgba(59,130,246,0.2);
+    }
+    .search-icon {
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.25rem;
+        color: var(--hub-text-secondary);
+    }
+    
+    /* Class Grid */
+    .class-section {
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+        padding: 0 1rem;
+    }
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--hub-text-primary);
+    }
+    
+    .class-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .class-card {
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .class-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 4px;
+        background: var(--hub-accent);
+        opacity: 0;
+        transition: 0.3s;
+    }
+    
+    .class-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--hub-accent);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .class-card:hover::before { opacity: 1; }
+    
+    .class-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--hub-accent);
+    }
+    
+    .class-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--hub-text-primary);
+        margin-bottom: 0.75rem;
+    }
+    
+    .class-desc {
+        color: var(--hub-text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* PDF Library Banner Link */
+    .pdf-promo {
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+        background: rgba(59,130,246,0.1);
+        border: 1px solid var(--hub-accent);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        text-align: center;
+    }
+  </style>
 </head>
 <body class="hub-page dark-mode">
 
-<!-- Mobile Full Screen Menu -->
-<main class="hub-container">
+<script src="navbar-premium.js"></script>
+
+<main class="hub-container" style="padding: 0;">
+
   <!-- Hero Section -->
-  <section class="hub-hero">
-    <h1 class="hub-title">Learning Hub</h1>
-    <p class="hub-subtitle">Learn, practice and explore knowledge with HarshGuruJi.</p>
+  <section class="learning-hero">
+      <h1>Learn Better. <span>Practice Smarter.</span> Achieve More.</h1>
+      <p>Explore free learning resources for Classes 1 to 12, including subjects, notes, quizzes, question banks, and study materials.</p>
+      <div class="hero-buttons">
+          <a href="#class-section" class="hub-btn primary">Explore Classes</a>
+          <a href="learning-hub.html" class="hub-btn">Study Tools & Methods</a>
+      </div>
   </section>
 
-  <!-- Search & Filters -->
-  <section class="hub-search-section">
-    <div class="hub-search-bar">
-      <span class="hub-search-icon">??</span>
-      <input type="text" id="hub-search" class="hub-search-input" placeholder="Search Learning Hub..." aria-label="Search">
-      <button id="hub-search-clear" class="hub-clear-btn" aria-label="Clear Search">?</button>
-    </div>
-    <div class="hub-filters">
-      <button class="hub-filter-btn active" data-filter="All">All</button>
-      <!-- Categories injected dynamically or statically based on page -->
-    </div>
+  <!-- Quick Search -->
+  <div class="quick-search">
+      <input type="text" class="search-input" placeholder="Search classes, subjects, chapters, notes, quizzes..." id="quick-search-input">
+      <span class="search-icon">🔍</span>
+  </div>
+
+  <!-- Class Selection Section -->
+  <section class="class-section" id="class-section">
+      <h2 class="section-title">Choose Your Class</h2>
+      <div class="class-grid">
+          <a href="learning/class.html?id=1" class="class-card">
+              <div class="class-icon">🍎</div>
+              <div class="class-title">Class 1</div>
+              <div class="class-desc">Foundation learning for young students. Basics of alphabet, numbers, and environment.</div>
+          </a>
+          <a href="learning/class.html?id=2" class="class-card">
+              <div class="class-icon">✏️</div>
+              <div class="class-title">Class 2</div>
+              <div class="class-desc">Build stronger basic concepts in language and mathematics.</div>
+          </a>
+          <a href="learning/class.html?id=3" class="class-card">
+              <div class="class-icon">🎨</div>
+              <div class="class-title">Class 3</div>
+              <div class="class-desc">Explore subjects and strengthen fundamentals through active learning.</div>
+          </a>
+          <a href="learning/class.html?id=4" class="class-card">
+              <div class="class-icon">🧩</div>
+              <div class="class-title">Class 4</div>
+              <div class="class-desc">Develop knowledge and problem-solving skills for growing minds.</div>
+          </a>
+          <a href="learning/class.html?id=5" class="class-card">
+              <div class="class-icon">🌱</div>
+              <div class="class-title">Class 5</div>
+              <div class="class-desc">Prepare for advanced school concepts bridging primary to middle school.</div>
+          </a>
+          <a href="learning/class.html?id=6" class="class-card">
+              <div class="class-icon">🔬</div>
+              <div class="class-title">Class 6</div>
+              <div class="class-desc">Start middle-school level learning with dedicated science and social studies.</div>
+          </a>
+          <a href="learning/class.html?id=7" class="class-card">
+              <div class="class-icon">📐</div>
+              <div class="class-title">Class 7</div>
+              <div class="class-desc">Strengthen concepts through practice and deeper analytical thinking.</div>
+          </a>
+          <a href="learning/class.html?id=8" class="class-card">
+              <div class="class-icon">🏗️</div>
+              <div class="class-title">Class 8</div>
+              <div class="class-desc">Build a strong academic foundation before entering secondary school.</div>
+          </a>
+          <a href="learning/class.html?id=9" class="class-card">
+              <div class="class-icon">🚀</div>
+              <div class="class-title">Class 9</div>
+              <div class="class-desc">Prepare for secondary-level academics and board exam fundamentals.</div>
+          </a>
+          <a href="learning/class.html?id=10" class="class-card">
+              <!-- Using the existing class 10 science page as a special link, but users can use PDF library too -->
+              <div class="class-icon">🎯</div>
+              <div class="class-title">Class 10</div>
+              <div class="class-desc">Crucial board exam year. Focus on concepts, practice, and revision.</div>
+          </a>
+          <a href="learning/class.html?id=11" class="class-card">
+              <div class="class-icon">⚡</div>
+              <div class="class-title">Class 11</div>
+              <div class="class-desc">Stream specialization. Deep dive into Science, Commerce, or Arts.</div>
+          </a>
+          <a href="learning/class.html?id=12" class="class-card">
+              <div class="class-icon">🎓</div>
+              <div class="class-title">Class 12</div>
+              <div class="class-desc">Final school year. Rigorous board exam preparation and competitive readiness.</div>
+          </a>
+      </div>
   </section>
 
-  <!-- Main Grid -->
-  <section class="hub-section">
-    <h2 class="hub-section-title">Explore</h2>
-    <div id="hub-grid" class="hub-grid">
-      <!-- Cards rendered via JS -->
-    </div>
+  <!-- PDF Library Banner -->
+  <section class="pdf-promo">
+      <h2 style="color: var(--hub-accent); font-size: 2.2rem; margin-bottom: 1rem;">Official NCERT PDF Library</h2>
+      <p style="color: var(--hub-text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">Read and download complete NCERT books, chapters, and exemplar problems using our high-speed embedded PDF viewer.</p>
+      <a href="learning/pdf-library.html" class="hub-btn primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">Access PDF Library</a>
   </section>
+
 </main>
 
-<script src="js/hub-core.js"></script>
-<script src="js/learning-hub.js"></script>
-<script src="navbar.js" defer=""></script>
+<script>
+    // Simple mock search function for the quick search bar
+    document.getElementById('quick-search-input').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.class-card');
+        
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if(text.includes(query)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 
-  <script src="navbar-premium.js" defer=""></script>  <script type="module" src="js/auth.js" defer></script>
-
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
-</body></html>
+<script src="footer-premium.js"></script>
+</body>
+</html>

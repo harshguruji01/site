@@ -160,8 +160,15 @@
   </div>
 
   <div class="dashboard-grid">
-    <!-- Left Column: Activity Timeline -->
+    <!-- Left Column: Activity Timeline & Contributor Status -->
     <div class="dash-col">
+      <div class="dash-card" id="contributor-status-card">
+        <h3>🤝 Contributor Status</h3>
+        <div id="contributor-status-content" style="text-align: center; padding: 1rem 0;">
+          <p class="empty-state">Loading status...</p>
+        </div>
+      </div>
+
       <div class="dash-card">
         <h3>Recent Activity</h3>
         <div class="timeline" id="recent-activity-container">

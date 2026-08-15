@@ -1,154 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>General Knowledge Quiz | HarshGuruJi</title>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../css/hubs.css">
-  <style>
-    .edu-container { max-width: 800px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); text-align: center; }
-    .quiz-area { display: none; margin-top: 2rem; text-align: left; }
-    .quiz-area.active { display: block; }
-    .question { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
-    .options { display: flex; flex-direction: column; gap: 0.75rem; }
-    .option-btn { background: var(--bg-color, #1a1a1a); border: 1px solid var(--hub-border); color: var(--hub-text-primary); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: left; font-size: 1rem; transition: 0.2s; }
-    .option-btn:hover { background: var(--hub-card-hover); border-color: var(--hub-accent); }
-    .option-btn.correct { background: rgba(34, 197, 94, 0.2); border-color: #22c55e; }
-    .option-btn.wrong { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; }
-    .nav-btn { background: var(--hub-accent); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; margin-top: 2rem; font-weight: 600; }
-    .result-area { display: none; text-align: center; }
-    .result-area.active { display: block; }
-    .score { font-size: 3rem; color: var(--hub-accent); margin: 1rem 0; font-weight: bold; }
-  </style>
-
-  <link rel="stylesheet" href="../navbar-premium.css">
-  <link rel="stylesheet" href="../footer-premium.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Quiz India...</title>
+    <!-- Redirect after 0 seconds -->
+    <meta http-equiv="refresh" content="0; url='../Quiz%20India/index.html'" />
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        a:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
 </head>
-<body class="hub-page dark-mode">
+<body>
+    <h2>Loading Quiz India...</h2>
+    <p>You are being redirected to the GK Quiz game.</p>
+    <p>If you are not redirected automatically, click the button below:</p>
+    <a href="../Quiz%20India/index.html">Go to Quiz India</a>
 
-<main class="edu-container">
-  
-  <div id="startScreen" class="quiz-area active">
-    <h1>General Knowledge Quiz</h1>
-    <p style="color: var(--hub-text-secondary); margin-bottom: 2rem;">Test your general knowledge with this quick 3-question quiz.</p>
-    <button class="nav-btn" onclick="startQuiz()">Start Quiz</button>
-  </div>
-
-  <div id="questionScreen" class="quiz-area">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--hub-text-secondary);">
-      <span id="qNumber">Question 1 of 3</span>
-      <span id="scoreTracker">Score: 0</span>
-    </div>
-    <div id="qText" class="question">Question text here?</div>
-    <div id="options" class="options">
-      <!-- Options injected here -->
-    </div>
-    <button id="nextBtn" class="nav-btn" style="display: none;" onclick="nextQuestion()">Next Question</button>
-  </div>
-
-  <div id="resultScreen" class="result-area">
-    <h2>Quiz Completed!</h2>
-    <div id="finalScore" class="score">0 / 3</div>
-    <p style="margin-bottom: 2rem;">Great job! Keep practicing to learn more.</p>
-    <a href="../learning-hub.html" class="nav-btn" style="text-decoration:none;">Back to Learning Hub</a>
-  </div>
-
-</main>
-
-<script>
-  const quizData = [
-    {
-      q: "Which planet is known as the Red Planet?",
-      opts: ["Earth", "Mars", "Jupiter", "Venus"],
-      correct: 1
-    },
-    {
-      q: "What is the capital of India?",
-      opts: ["Mumbai", "Kolkata", "New Delhi", "Chennai"],
-      correct: 2
-    },
-    {
-      q: "Who wrote the national anthem of India?",
-      opts: ["Rabindranath Tagore", "Bankim Chandra Chatterjee", "Mahatma Gandhi", "Subhas Chandra Bose"],
-      correct: 0
-    }
-  ];
-
-  let currentQ = 0;
-  let score = 0;
-  let answered = false;
-
-  const startScreen = document.getElementById('startScreen');
-  const questionScreen = document.getElementById('questionScreen');
-  const resultScreen = document.getElementById('resultScreen');
-  const qText = document.getElementById('qText');
-  const optionsDiv = document.getElementById('options');
-  const nextBtn = document.getElementById('nextBtn');
-  const qNumber = document.getElementById('qNumber');
-  const scoreTracker = document.getElementById('scoreTracker');
-
-  function startQuiz() {
-    startScreen.classList.remove('active');
-    questionScreen.classList.add('active');
-    loadQuestion();
-  }
-
-  function loadQuestion() {
-    answered = false;
-    nextBtn.style.display = 'none';
-    const q = quizData[currentQ];
-    qText.textContent = q.q;
-    qNumber.textContent = `Question ${currentQ + 1} of ${quizData.length}`;
-    scoreTracker.textContent = `Score: ${score}`;
-    
-    optionsDiv.innerHTML = '';
-    q.opts.forEach((opt, index) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt;
-      btn.onclick = () => checkAnswer(index, btn);
-      optionsDiv.appendChild(btn);
-    });
-  }
-
-  function checkAnswer(index, btn) {
-    if (answered) return;
-    answered = true;
-    const correctIdx = quizData[currentQ].correct;
-    
-    if (index === correctIdx) {
-      btn.classList.add('correct');
-      score++;
-      scoreTracker.textContent = `Score: ${score}`;
-    } else {
-      btn.classList.add('wrong');
-      // show correct one
-      optionsDiv.children[correctIdx].classList.add('correct');
-    }
-    nextBtn.style.display = 'inline-block';
-  }
-
-  function nextQuestion() {
-    currentQ++;
-    if (currentQ < quizData.length) {
-      loadQuestion();
-    } else {
-      showResults();
-    }
-  }
-
-  function showResults() {
-    questionScreen.classList.remove('active');
-    resultScreen.classList.add('active');
-    document.getElementById('finalScore').textContent = `${score} / ${quizData.length}`;
-  }
-</script>
-
-<script type='module' src='../js/auth.js' defer></script>
-
-  <script src="../navbar-premium.js"></script>
-  <script src="../footer-premium.js"></script>
+    <script>
+        // Fallback JavaScript redirect
+        window.location.href = '../Quiz India/index.html';
+    </script>
 </body>
 </html>
-

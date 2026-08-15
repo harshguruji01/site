@@ -44,6 +44,60 @@ export class DashboardManager {
         this.renderCategorized('tool', 'tools-activity-container');
         this.renderCategorized('game', 'games-activity-container');
         this.renderCategorized('learning', 'learning-activity-container');
+        this.loadContributorStatus();
+    }
+
+    async loadContributorStatus() {
+        const container = document.getElementById('contributor-status-content');
+        if (!container) return;
+
+        try {
+            // Check contributor status
+            const { data: contributor, error: cErr } = await supabase
+                .from('contributors')
+                .select('status')
+                .eq('user_id', this.userId)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .single();
+
+            if (contributor) {
+                if (contributor.status === 'ACTIVE') {
+                    container.innerHTML = `
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
+                        <h4 style="color: var(--success, #10b981); margin-bottom: 1rem;">You are a HarshGuruJi Contributor</h4>
+                        <a href="contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">View Profile</a>
+                    `;
+                } else if (contributor.status === 'PENDING') {
+                    container.innerHTML = `
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
+                        <h4 style="color: #3b82f6; margin-bottom: 1rem;">Application Pending</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Your application is currently being reviewed.</p>
+                    `;
+                } else if (contributor.status === 'REJECTED') {
+                    container.innerHTML = `
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">❌</div>
+                        <h4 style="color: var(--danger, #ef4444); margin-bottom: 1rem;">Application Not Approved</h4>
+                        <a href="join-contributor.html" class="premium-btn-outline" style="display:inline-block; text-decoration:none;">Apply Again</a>
+                    `;
+                }
+            } else {
+                // Not applied
+                container.innerHTML = `
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
+                    <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
+                `;
+            }
+        } catch (err) {
+            console.error("Failed to load contributor status:", err);
+            // Ignore single fetch errors (like no rows found), treat as not applied
+            container.innerHTML = `
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
+                    <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
+                `;
+        }
     }
 
     renderHeader() {

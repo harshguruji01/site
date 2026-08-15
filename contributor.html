@@ -22,7 +22,56 @@
 </head><body>
 
 <!-- Mobile Full Screen Menu -->
-<div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header"><div class="badge">The Team</div><h1 class="page-title">Our <span class="gradient-text">Contributors</span></h1><p class="page-desc">Meet the amazing people who make HarshGuruJi possible.</p></section><section class="section section-dark" style="padding-top:0"><div class="contributors-container"><div class="head-contributor"><img src="Contributors/harsh.png" alt="Harsh Patel" width="800" height="600" loading="lazy" decoding="async"><h2>Harsh Patel</h2><p>Owner &amp; Founder of HarshGuruJi</p></div><div class="contributors-grid"><div class="contributor-card"><img src="Contributors/aditya.png" alt="Aditya" width="800" height="600" loading="lazy" decoding="async"><h3>Aditya</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/gaurav.png" alt="Gaurav" width="800" height="600" loading="lazy" decoding="async"><h3>Gaurav</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/piyush.png" alt="Piyush" width="800" height="600" loading="lazy" decoding="async"><h3>Piyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/pratyush.png" alt="Pratyush" width="800" height="600" loading="lazy" decoding="async"><h3>Pratyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/swastik.png" alt="Swastik" width="800" height="600" loading="lazy" decoding="async"><h3>Swastik</h3><p>Contributor</p></div></div></div></section><script src="script.js" defer="true"></script><script src="navbar.js" defer="true"></script><script type="module" src="js/auth.js" defer="true"></script>
+<div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header"><div class="badge">The Team</div><h1 class="page-title">Our <span class="gradient-text">Contributors</span></h1><p class="page-desc">Meet the amazing people who make HarshGuruJi possible.</p></section><section class="section section-dark" style="padding-top:0"><div class="contributors-container"><div class="head-contributor"><img src="Contributors/harsh.png" alt="Harsh Patel" width="800" height="600" loading="lazy" decoding="async"><h2>Harsh Patel</h2><p>Owner &amp; Founder of HarshGuruJi</p></div><div class="contributors-grid" id="dynamic-contributors">
+  <!-- Fallback static content while loading -->
+  <div class="contributor-card"><img src="Contributors/aditya.png" alt="Aditya" width="800" height="600" loading="lazy" decoding="async"><h3>Aditya</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/gaurav.png" alt="Gaurav" width="800" height="600" loading="lazy" decoding="async"><h3>Gaurav</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/piyush.png" alt="Piyush" width="800" height="600" loading="lazy" decoding="async"><h3>Piyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/pratyush.png" alt="Pratyush" width="800" height="600" loading="lazy" decoding="async"><h3>Pratyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/swastik.png" alt="Swastik" width="800" height="600" loading="lazy" decoding="async"><h3>Swastik</h3><p>Contributor</p></div>
+</div></div></section><script src="script.js" defer="true"></script><script src="navbar.js" defer="true"></script><script type="module" src="js/auth.js" defer="true"></script>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const { data, error } = await supabase
+        .from('contributors')
+        .select('display_name, role, profile_image_path')
+        .eq('status', 'ACTIVE')
+        .order('created_at', { ascending: true });
+        
+      if (!error && data && data.length > 0) {
+        const grid = document.getElementById('dynamic-contributors');
+        grid.innerHTML = ''; // Clear fallback
+        
+        data.forEach(contributor => {
+          // Skip the owner as they are in the head-contributor section
+          if(contributor.display_name.toLowerCase().includes('harsh')) return;
+          
+          const card = document.createElement('div');
+          card.className = 'contributor-card';
+          
+          const img = document.createElement('img');
+          img.src = contributor.profile_image_path || 'logo.png';
+          img.alt = contributor.display_name;
+          img.loading = 'lazy';
+          
+          const h3 = document.createElement('h3');
+          h3.textContent = contributor.display_name;
+          
+          const p = document.createElement('p');
+          p.textContent = contributor.role;
+          
+          card.appendChild(img);
+          card.appendChild(h3);
+          card.appendChild(p);
+          
+          grid.appendChild(card);
+        });
+      }
+    } catch (err) {
+      console.error('Failed to load contributors', err);
+    }
+  });
+</script>
 
   <script src="js/button_handlers.js" defer=""></script>
   <script src="cookie.js" defer=""></script>

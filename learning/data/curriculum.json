@@ -1,0 +1,108 @@
+{
+  "classes": {
+    "10": {
+      "id": "10",
+      "name": "Class 10",
+      "description": "Crucial board exam year. Focus on concepts, practice, and revision.",
+      "subjects": [
+        {
+          "id": "science",
+          "name": "Science",
+          "icon": "🔬",
+          "books": [
+            {
+              "id": "ncert-science-10",
+              "title": "NCERT Science Class 10",
+              "chapters": [
+                {
+                  "id": "class-10-science-chapter-01",
+                  "chapterNumber": 1,
+                  "title": "Chemical Reactions and Equations",
+                  "topics": 8,
+                  "verified": true,
+                  "pdf_link": "class-10/science.pdf"
+                },
+                {
+                  "id": "class-10-science-chapter-02",
+                  "chapterNumber": 2,
+                  "title": "Acids, Bases and Salts",
+                  "topics": 6,
+                  "verified": true,
+                  "pdf_link": "class-10/science.pdf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mathematics",
+          "name": "Mathematics",
+          "icon": "📐",
+          "books": [
+            {
+              "id": "ncert-math-10",
+              "title": "NCERT Mathematics Class 10",
+              "chapters": [
+                {
+                  "id": "class-10-math-chapter-01",
+                  "chapterNumber": 1,
+                  "title": "Real Numbers",
+                  "topics": 5,
+                  "verified": true,
+                  "pdf_link": "class-10/math.pdf"
+                },
+                {
+                  "id": "class-10-math-chapter-02",
+                  "chapterNumber": 2,
+                  "title": "Polynomials",
+                  "topics": 4,
+                  "verified": true,
+                  "pdf_link": "class-10/math.pdf"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "11": {
+      "id": "11",
+      "name": "Class 11",
+      "description": "Stream specialization. Deep dive into Science, Commerce, or Arts.",
+      "streams": ["Science", "Commerce", "Humanities"],
+      "subjects": [
+        {
+          "id": "physics",
+          "name": "Physics",
+          "icon": "⚡",
+          "stream": "Science",
+          "books": []
+        }
+      ]
+    }
+  },
+  "chapter_content": {
+    "class-10-science-chapter-01": {
+      "overview": "This chapter discusses how chemical reactions occur and how they can be represented using equations. It covers balancing chemical equations and the different types of chemical reactions such as combination, decomposition, displacement, and double displacement reactions.",
+      "objectives": [
+        "Understand what a chemical reaction is.",
+        "Learn to write and balance chemical equations.",
+        "Identify different types of chemical reactions."
+      ],
+      "topics": [
+        {
+          "title": "1.1 Chemical Equations",
+          "content": "A chemical equation is the symbolic representation of a chemical reaction in the form of symbols and formulae. For example, the burning of magnesium in air can be written as: Mg + O2 → MgO."
+        },
+        {
+          "title": "1.2 Types of Chemical Reactions",
+          "content": "Reactions are classified into Combination, Decomposition, Displacement, Double Displacement, and Oxidation-Reduction reactions based on how products are formed."
+        }
+      ],
+      "important_points": [
+        "A complete chemical equation represents the reactants, products and their physical states symbolically.",
+        "A chemical equation is balanced so that the numbers of atoms of each type involved in a chemical reaction are the same on the reactant and product sides."
+      ]
+    }
+  }
+}

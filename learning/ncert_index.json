@@ -1,0 +1,13 @@
+[
+    {
+        "class": 10,
+        "board": "CBSE/NCERT",
+        "subject": "Science",
+        "book": "NCERT Science",
+        "edition": "Rationalised 2023-24",
+        "chapter_number": 1,
+        "chapter_name": "Chemical Reactions and Equations",
+        "pdf_path": "learning/class-10/science/ncert/01-chemical-reactions-and-equations.pdf",
+        "verification_status": "verified"
+    }
+]

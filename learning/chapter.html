@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter | HarshGuruJi Learning Hub</title>
+  
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  
+  <style>
+    /* Full height layout similar to the PDF viewer */
+    body.hub-page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .hub-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 !important;
+        margin-top: 60px;
+    }
+    
+    /* Header Area */
+    .chapter-header {
+        background: var(--hub-surface);
+        border-bottom: 1px solid var(--hub-border);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .chap-title-area h1 {
+        font-size: 1.5rem;
+        color: var(--hub-text-primary);
+        margin: 0;
+    }
+    .chap-breadcrumbs {
+        font-size: 0.85rem;
+        color: var(--hub-text-secondary);
+        margin-bottom: 0.25rem;
+    }
+    .chap-breadcrumbs a { color: var(--hub-accent); text-decoration: none; }
+    
+    .header-actions {
+        display: flex;
+        gap: 1rem;
+    }
+    .btn-action {
+        background: var(--bg-color, #1a1a1a);
+        border: 1px solid var(--hub-border);
+        color: var(--hub-text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .btn-action:hover {
+        border-color: var(--hub-accent);
+        color: var(--hub-accent);
+    }
+    .btn-action.ai {
+        border-color: #a855f7;
+        color: #a855f7;
+    }
+    .btn-action.ai:hover {
+        background: rgba(168, 85, 247, 0.1);
+    }
+    
+    /* Layout */
+    .viewer-container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 300px;
+        background: var(--hub-surface);
+        border-right: 1px solid var(--hub-border);
+        overflow-y: auto;
+    }
+    
+    .sidebar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .nav-item {
+        padding: 1rem;
+        border-bottom: 1px solid var(--hub-border);
+        cursor: pointer;
+        color: var(--hub-text-secondary);
+        transition: 0.2s;
+    }
+    .nav-item:hover, .nav-item.active {
+        background: rgba(59,130,246,0.1);
+        color: var(--hub-accent);
+        border-left: 4px solid var(--hub-accent);
+    }
+    
+    /* Main Content Area */
+    .main-area {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+        background: var(--bg-color, #111);
+    }
+    
+    .content-box {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        border-radius: 12px;
+        padding: 2rem;
+        display: none; /* Toggled via JS */
+    }
+    .content-box.active {
+        display: block;
+    }
+    
+    .content-box h2 {
+        color: var(--hub-accent);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--hub-border);
+    }
+    
+    .content-text {
+        color: var(--hub-text-primary);
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+    
+    /* Quiz Styles */
+    .quiz-container {
+        text-align: center;
+        padding: 2rem 0;
+    }
+    .quiz-btn {
+        background: var(--hub-accent);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .quiz-btn:hover { background: #2563eb; }
+    
+    @media (max-width: 768px) {
+        .viewer-container { flex-direction: column; }
+        .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--hub-border); }
+        .sidebar-nav { display: flex; overflow-x: auto; white-space: nowrap; }
+        .nav-item { border-bottom: none; border-right: 1px solid var(--hub-border); }
+        .nav-item.active { border-left: none; border-bottom: 4px solid var(--hub-accent); }
+    }
+  </style>
+</head>
+<body class="hub-page dark-mode">
+
+<script src="../navbar-premium.js"></script>
+
+<main class="hub-container">
+    
+    <header class="chapter-header">
+        <div class="chap-title-area">
+            <div class="chap-breadcrumbs" id="bc-container">Loading...</div>
+            <h1 id="chapter-title">Loading Chapter...</h1>
+        </div>
+        <div class="header-actions">
+            <button class="btn-action ai" onclick="alert('GuruAI Integration Coming Soon!')">🤖 Ask GuruAI</button>
+            <button class="btn-action" id="btn-complete">✔️ Mark Complete</button>
+        </div>
+    </header>
+
+    <div class="viewer-container">
+        
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item active" data-target="overview">Overview & Objectives</li>
+                <li class="nav-item" data-target="topics">Topics</li>
+                <li class="nav-item" data-target="important">Important Points</li>
+                <li class="nav-item" data-target="pdf">Read Official PDF</li>
+                <li class="nav-item" data-target="quiz">Chapter Quiz</li>
+            </ul>
+        </aside>
+        
+        <section class="main-area">
+            
+            <div class="content-box active" id="sec-overview">
+                <h2>Overview</h2>
+                <div class="content-text" id="content-overview">Loading...</div>
+                
+                <h2 style="margin-top: 2rem;">Learning Objectives</h2>
+                <ul class="content-text" id="content-objectives" style="padding-left: 1.5rem;">
+                </ul>
+            </div>
+            
+            <div class="content-box" id="sec-topics">
+                <h2>Topics</h2>
+                <div id="content-topics" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
+            </div>
+            
+            <div class="content-box" id="sec-important">
+                <h2>Important Points to Remember</h2>
+                <ul class="content-text" id="content-important" style="padding-left: 1.5rem;"></ul>
+            </div>
+            
+            <div class="content-box" id="sec-pdf" style="height: 100%; padding: 0; max-width: 1000px;">
+                <iframe id="pdf-viewer" src="" style="width: 100%; height: 100%; min-height: 600px; border: none;"></iframe>
+            </div>
+            
+            <div class="content-box" id="sec-quiz">
+                <h2>Chapter Quiz</h2>
+                <div class="quiz-container">
+                    <p style="color: var(--hub-text-secondary); margin-bottom: 2rem;">Test your knowledge on this chapter with an interactive MCQ quiz.</p>
+                    <button class="quiz-btn" onclick="alert('Quiz engine will be initialized here!')">Start Quiz</button>
+                </div>
+            </div>
+            
+        </section>
+        
+    </div>
+
+</main>
+
+<script src="js/curriculumEngine.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if(window.CurriculumEngine) {
+            window.CurriculumEngine.initChapterLearning();
+        }
+    });
+</script>
+
+</body>
+</html>

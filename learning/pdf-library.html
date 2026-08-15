@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT PDF Textbook Viewer | HarshGuruJi</title>
+  <meta name="description" content="Official-style NCERT PDF viewer for Class 1 to 12.">
+  
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  
+  <style>
+    /* Full-height app layout override */
+    body.hub-page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .hub-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 !important; /* Override default hub padding */
+        max-width: 100%;
+        margin-top: 60px; /* Account for navbar */
+    }
+    
+    /* Top Control Bar */
+    .control-bar {
+        background: var(--hub-surface);
+        border-bottom: 1px solid var(--hub-border);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+    
+    .ncert-select {
+        background: var(--bg-color, #1a1a1a);
+        color: var(--hub-text-primary);
+        border: 1px solid var(--hub-border);
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        min-width: 200px;
+        outline: none;
+    }
+    
+    .ncert-select:focus {
+        border-color: var(--hub-accent);
+    }
+    
+    .ncert-go-btn {
+        background: var(--hub-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    
+    .ncert-go-btn:hover {
+        background: #2563eb;
+    }
+    
+    /* Split Pane Viewer */
+    .viewer-container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 300px;
+        background: var(--hub-surface);
+        border-right: 1px solid var(--hub-border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar-header {
+        padding: 1rem;
+        border-bottom: 1px solid var(--hub-border);
+        font-weight: bold;
+        color: var(--hub-accent);
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .chapter-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .chapter-item {
+        padding: 1rem;
+        border-bottom: 1px solid var(--hub-border);
+        cursor: pointer;
+        color: var(--hub-text-secondary);
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .chapter-item:hover {
+        background: rgba(59,130,246,0.05);
+        color: var(--hub-text-primary);
+    }
+    
+    .chapter-item.active {
+        background: rgba(59,130,246,0.1);
+        color: var(--hub-accent);
+        border-left: 4px solid var(--hub-accent);
+    }
+    
+    .download-all-btn {
+        margin: 1rem;
+        padding: 0.75rem;
+        background: transparent;
+        border: 1px solid var(--hub-accent);
+        color: var(--hub-accent);
+        text-align: center;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        transition: 0.2s;
+    }
+    
+    .download-all-btn:hover {
+        background: var(--hub-accent);
+        color: white;
+    }
+
+    /* Mobile Sidebar Toggle */
+    .mobile-sidebar-toggle {
+        display: none;
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        color: var(--hub-text-primary);
+        padding: 0.5rem;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    /* Main Content Area */
+    .main-area {
+        flex: 1;
+        background: #333; /* Dark background for PDF viewer */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .iframe-wrapper {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+    }
+    
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
+    .placeholder-msg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #aaa;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .control-bar {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 1rem;
+        }
+        
+        .viewer-container {
+            flex-direction: column;
+        }
+        
+        .mobile-sidebar-toggle {
+            display: block;
+        }
+        
+        .sidebar {
+            width: 100%;
+            max-height: 40vh; /* Limit height on mobile */
+            border-right: none;
+            border-bottom: 2px solid var(--hub-accent);
+        }
+        
+        .sidebar.collapsed {
+            display: none;
+        }
+    }
+    
+    /* Hide the footer on this specific app-like page */
+    footer { display: none !important; }
+  </style>
+</head>
+<body class="hub-page dark-mode">
+
+<!-- Include Navbar -->
+<script src="../navbar-premium.js"></script>
+
+<main class="hub-container">
+  
+  <!-- 1. Top Control Bar (NCERT Style) -->
+  <div class="control-bar">
+      <select id="class-select" class="ncert-select">
+          <option value="" disabled selected>-- Select Class --</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+      </select>
+      
+      <select id="subject-select" class="ncert-select" disabled>
+          <option value="" disabled selected>-- Select Subject --</option>
+      </select>
+      
+      <select id="book-select" class="ncert-select" disabled>
+          <option value="" disabled selected>-- Select Book Title --</option>
+      </select>
+      
+      <button id="go-btn" class="ncert-go-btn" disabled>GO</button>
+  </div>
+
+  <button id="mobile-toggle" class="mobile-sidebar-toggle">📖 View Chapters Menu</button>
+
+  <!-- 2. Split Pane Viewer -->
+  <div class="viewer-container">
+      
+      <!-- Left Sidebar: Chapters -->
+      <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+              <span id="sidebar-title">Book Contents</span>
+          </div>
+          <ul class="chapter-list" id="chapter-list">
+              <li style="padding: 2rem 1rem; text-align: center; color: var(--hub-text-secondary);">
+                  Please select a Class, Subject, and Book from the top menu, then click GO.
+              </li>
+          </ul>
+      </aside>
+      
+      <!-- Right Main Area: PDF Viewer -->
+      <section class="main-area">
+          <div class="placeholder-msg" id="placeholder-msg">
+              <h2>HarshGuruJi PDF Viewer</h2>
+              <p>Select a chapter from the menu to read.</p>
+          </div>
+          <div class="iframe-wrapper">
+              <iframe id="pdf-frame" src="" title="PDF Viewer"></iframe>
+          </div>
+      </section>
+      
+  </div>
+
+</main>
+
+<script src="pdf-library.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Admin - APK Store Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --bg-dark: #0f172a;
+      --bg-panel: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 12px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+    
+    .admin-header {
+      background: var(--bg-panel);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .admin-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .admin-header .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: var(--bg-panel);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .stat-card h3 { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text-main); font-family: 'Space Grotesk', sans-serif; }
+    
+    .upload-container {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+    
+    .upload-container h2 { margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .form-group { margin-bottom: 1rem; }
+    .form-group.full-width { grid-column: 1 / -1; }
+    
+    label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; color: #cbd5e1; }
+    label.required::after { content: " *"; color: var(--danger); }
+    
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+    textarea { resize: vertical; min-height: 100px; }
+    
+    .file-upload-box {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .file-upload-box:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); }
+    .file-upload-box input[type="file"] {
+      position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer;
+    }
+    .file-upload-box .icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    
+    .checkbox-group { display: flex; align-items: center; gap: 0.5rem; }
+    .checkbox-group input { width: 18px; height: 18px; cursor: pointer; }
+    .checkbox-group label { margin: 0; cursor: pointer; display: inline-block; }
+    
+    .form-actions {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+    
+    /* Progress UI */
+    #progress-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 1000;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    #progress-overlay.active { opacity: 1; pointer-events: all; }
+    
+    .progress-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: var(--radius);
+      width: 90%; max-width: 500px;
+    }
+    
+    .progress-box h3 { margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif; }
+    
+    .progress-track {
+      width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;
+    }
+    .progress-fill {
+      height: 100%; background: var(--primary); width: 0%; transition: width 0.3s;
+    }
+    
+    .progress-text { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+    
+    #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+    .toast {
+      background: #1e293b; color: #fff; padding: 1rem 1.5rem; border-radius: 8px;
+      margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-left: 4px solid var(--primary);
+      animation: slideIn 0.3s forwards;
+    }
+    .toast.error { border-color: var(--danger); }
+    .toast.success { border-color: var(--success); }
+    
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    
+    /* Unauthorized State */
+    #unauthorized-msg { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70vh; text-align: center; }
+    #admin-content { display: none; }
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <div>
+      <h1>HARSHGURUJI ADMIN</h1>
+      <span class="subtitle">APK STORE MANAGEMENT</span>
+    </div>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <span id="admin-user-email" style="font-size: 0.9rem; color: var(--text-muted);">Loading...</span>
+      <button class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;" id="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <div id="unauthorized-msg">
+    <h2>Access Denied</h2>
+    <p style="color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem;">You must be logged in as an Administrator to access this dashboard.</p>
+    <a href="index.html" class="btn btn-primary">Return Home</a>
+  </div>
+
+  <div class="container" id="admin-content">
+    
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <h3>Total Apps</h3>
+        <div class="value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Published</h3>
+        <div class="value" id="stat-published" style="color: var(--success);">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Drafts</h3>
+        <div class="value" id="stat-drafts" style="color: #f59e0b;">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Downloads</h3>
+        <div class="value" id="stat-downloads">0</div>
+      </div>
+    </div>
+
+    <div class="upload-container">
+      <h2>Publish New Application</h2>
+      
+      <form id="apk-upload-form">
+        
+        <div class="form-grid">
+          <!-- Files -->
+          <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
+            <div>
+              <label class="required">App Logo (512x512 recommended)</label>
+              <div class="file-upload-box" id="logo-dropzone">
+                <span class="icon">🖼️</span>
+                <span id="logo-filename">Drag & Drop or Click to Select (PNG/WebP)</span>
+                <input type="file" id="app-logo" accept="image/png, image/jpeg, image/webp" required>
+              </div>
+            </div>
+            <div>
+              <label class="required">APK File</label>
+              <div class="file-upload-box" id="apk-dropzone">
+                <span class="icon">📦</span>
+                <span id="apk-filename">Drag & Drop or Click to Select (.apk)</span>
+                <input type="file" id="app-apk" accept=".apk" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group full-width">
+            <label>Screenshots (Up to 5 images)</label>
+            <div class="file-upload-box" id="screenshots-dropzone">
+              <span class="icon">📱</span>
+              <span id="screenshots-filename">Select multiple screenshot images</span>
+              <input type="file" id="app-screenshots" accept="image/png, image/jpeg, image/webp" multiple>
+            </div>
+          </div>
+
+          <!-- Basics -->
+          <div class="form-group">
+            <label class="required">App Name</label>
+            <input type="text" id="app-name" required placeholder="e.g. Awesome App">
+          </div>
+          
+          <div class="form-group">
+            <label class="required">URL Slug</label>
+            <input type="text" id="app-slug" required placeholder="e.g. awesome-app">
+          </div>
+          
+          <div class="form-group full-width">
+            <label class="required">Short Description (Max 160 chars)</label>
+            <input type="text" id="app-short-desc" required maxlength="160" placeholder="Brief summary for app cards">
+          </div>
+          
+          <div class="form-group full-width">
+            <label>Full Description (Supports paragraphs)</label>
+            <textarea id="app-full-desc" placeholder="Detailed description of features..."></textarea>
+          </div>
+          
+          <!-- Metadata -->
+          <div class="form-group">
+            <label class="required">Category</label>
+            <select id="app-category" required>
+              <option value="Apps">Apps</option>
+              <option value="Game">Games</option>
+              <option value="AI">AI Tools</option>
+              <option value="Education">Education</option>
+              <option value="Software">Software</option>
+              <option value="Development">Development</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Subcategory</label>
+            <input type="text" id="app-subcategory" placeholder="e.g. Puzzle, Productivity">
+          </div>
+          
+          <div class="form-group">
+            <label>Developer Name</label>
+            <input type="text" id="app-developer" placeholder="e.g. HarshGuruJi Studios">
+          </div>
+          
+          <div class="form-group">
+            <label>Package Name</label>
+            <input type="text" id="app-package" placeholder="e.g. com.harshguruji.app">
+          </div>
+          
+          <div class="form-group">
+            <label class="required">Version Name</label>
+            <input type="text" id="app-version" required placeholder="e.g. 1.0.0">
+          </div>
+          
+          <div class="form-group">
+            <label>Version Code (Integer)</label>
+            <input type="number" id="app-version-code" placeholder="e.g. 1">
+          </div>
+          
+          <div class="form-group full-width">
+            <label>What's New (Changelog)</label>
+            <textarea id="app-whats-new" placeholder="List of updates in this version..." style="min-height: 80px;"></textarea>
+          </div>
+          
+          <!-- Toggles -->
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="app-featured">
+            <label for="app-featured">Featured App (Shows in hero section)</label>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="app-verified" checked>
+            <label for="app-verified">Verified Source Badge</label>
+          </div>
+          
+          <div class="form-group full-width" style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <label>Initial Status</label>
+            <select id="app-status" style="max-width: 200px;">
+              <option value="Published">Published (Public)</option>
+              <option value="Draft">Draft (Hidden)</option>
+            </select>
+          </div>
+          
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit">Upload & Publish</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <!-- Progress Overlay -->
+  <div id="progress-overlay">
+    <div class="progress-box">
+      <h3 id="progress-title">Processing Upload...</h3>
+      
+      <div id="progress-item-logo" style="margin-bottom: 1rem;">
+        <div class="progress-text"><span>Logo</span> <span class="pct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
+      </div>
+      
+      <div id="progress-item-apk" style="margin-bottom: 1rem;">
+        <div class="progress-text"><span>APK File</span> <span class="pct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
+      </div>
+      
+      <div id="progress-item-screenshots" style="margin-bottom: 1rem;">
+        <div class="progress-text"><span>Screenshots</span> <span class="pct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
+      </div>
+      
+      <div id="progress-item-db">
+        <div class="progress-text"><span>Saving to Database</span> <span class="pct">Pending</span></div>
+      </div>
+      
+      <p style="text-align: center; font-size: 0.8rem; color: var(--danger); margin-top: 1.5rem;">Do not close this page.</p>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Load the main supabase client -->
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    import { getProfile } from './js/profile.js';
+    window.supabaseClient = supabase;
+    window.getProfile = getProfile;
+  </script>
+  <script src="js/admin-upload.js" defer></script>
+</body>
+</html>

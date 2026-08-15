@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Context-Aware Path Resolver ---
   // The prefix helps correctly link assets/pages if we are currently inside a subdirectory (e.g. /games/snake.html)
   const depth = (window.location.pathname.match(/\//g) || []).length;
-  const isSubDir = window.location.pathname.includes('/tools/') || window.location.pathname.includes('/games/') || window.location.pathname.includes('/learning/') || window.location.pathname.includes('/oauth/');
+  const isSubDir = window.location.pathname.includes('/tools/') || window.location.pathname.includes('/games/') || window.location.pathname.includes('/learning/') || window.location.pathname.includes('/oauth/') || window.location.pathname.includes('/Quiz');
   const prefix = isSubDir ? '../' : '';
 
   // Remove old implementations if present
@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${prefix}learning-hub.html" class="hg-dropdown-link">Learning Hub</a>
                 <a href="${prefix}education.html" class="hg-dropdown-link">Education Hub</a>
                 <a href="${prefix}learning/gk-quiz.html" class="hg-dropdown-link">GK Quiz</a>
-                <a href="${prefix}learning/class-10-science.html" class="hg-dropdown-link">Class 10 Science</a>
-                <a href="${prefix}learning/class-9-math.html" class="hg-dropdown-link">Class 9 Math</a>
+                <a href="${prefix}learning/class.html?id=10" class="hg-dropdown-link">Class 10</a>
+                <a href="${prefix}learning/class.html?id=9" class="hg-dropdown-link">Class 9</a>
               </div>
             </li>
 
@@ -135,8 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="hg-mobile-accordion-toggle">Learning <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
             <div class="hg-mobile-accordion-content">
               <a href="${prefix}learning-hub.html" class="hg-mobile-sublink">Learning Hub</a>
-              <a href="${prefix}learning/class-10-science.html" class="hg-mobile-sublink">Class 10 Science</a>
-              <a href="${prefix}learning/class-9-math.html" class="hg-mobile-sublink">Class 9 Math</a>
+              <a href="${prefix}learning/class.html?id=10" class="hg-mobile-sublink">Class 10</a>
+              <a href="${prefix}learning/class.html?id=9" class="hg-mobile-sublink">Class 9</a>
             </div>
           </li>
 

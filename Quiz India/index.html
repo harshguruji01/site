@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Quiz India — Interactive Learning & Quiz Game for Students">
+    <meta name="theme-color" content="#6366f1">
+    <meta property="og:title" content="Quiz India">
+    <meta property="og:description" content="India's Premier Educational Quiz Platform for Students">
+    <meta property="og:type" content="website">
+    <title>Quiz India — Interactive Learning & Quiz Game</title>
+    <!-- We skip manifest for now to avoid complexity, but it can be added for PWA -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇳</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Global Navigation System -->
+    <link rel="stylesheet" href="../navbar-premium.css">
+    <script src="../navbar-premium.js" defer></script>
+</head>
+<body class="theme-dark" style="padding-top: 60px;">
+    <!-- Main App Container -->
+    <div id="app">
+        <!-- Onboarding View -->
+        <div id="onboarding-view" class="view hidden">
+            <div class="glass-panel text-center fade-in">
+                <div class="logo-large mb-4">🇮🇳 Quiz India</div>
+                <!-- Step 1 -->
+                <div id="onboarding-step-1" class="onboarding-step active">
+                    <h2 class="mb-2" data-i18n="onboarding_name_title">What should we call you?</h2>
+                    <p class="text-secondary mb-4" data-i18n="onboarding_name_desc">Enter your display name to start.</p>
+                    <input type="text" id="ob-name-input" class="modern-input mb-4" placeholder="Your Name" required autocomplete="off">
+                    <button class="btn btn-primary w-full" id="btn-ob-next-1" data-i18n="btn_next">Next</button>
+                </div>
+                <!-- Step 2 -->
+                <div id="onboarding-step-2" class="onboarding-step hidden">
+                    <h2 class="mb-2" data-i18n="onboarding_class_title">Which class are you in?</h2>
+                    <p class="text-secondary mb-4" data-i18n="onboarding_class_desc">This helps us recommend questions.</p>
+                    <select id="ob-class-select" class="modern-input mb-4">
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8" selected>Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+                        <option value="other">Other / Competitive</option>
+                    </select>
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline flex-1" id="btn-ob-back-2" data-i18n="btn_back">Back</button>
+                        <button class="btn btn-primary flex-1" id="btn-ob-next-2" data-i18n="btn_next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="onboarding-step-3" class="onboarding-step hidden">
+                    <h2 class="mb-2" data-i18n="onboarding_lang_title">Select Language</h2>
+                    <p class="text-secondary mb-4" data-i18n="onboarding_lang_desc">Choose your preferred language.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <button class="lang-card active" data-lang="en">
+                            <span class="lang-icon">A</span>
+                            <span class="lang-name">English</span>
+                        </button>
+                        <button class="lang-card" data-lang="hi">
+                            <span class="lang-icon">अ</span>
+                            <span class="lang-name">हिन्दी</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline flex-1" id="btn-ob-back-3" data-i18n="btn_back">Back</button>
+                        <button class="btn btn-primary flex-1" id="btn-ob-finish" data-i18n="btn_start">Start Playing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home View -->
+        <div id="home-view" class="view hidden slide-in">
+            <!-- Header -->
+            <header class="home-header">
+                <div class="user-profile-summary cursor-pointer" id="btn-profile">
+                    <div class="avatar" id="home-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name" id="home-user-name">Player</div>
+                        <div class="user-level" id="home-user-level">Lvl 1</div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="streak-badge" id="home-streak-badge">
+                        🔥 <span id="home-streak-count">0</span>
+                    </div>
+                    <button class="icon-btn" id="btn-settings" aria-label="Settings">⚙️</button>
+                </div>
+            </header>
+            <!-- XP Progress -->
+            <div class="xp-bar-container glass-panel p-4 mx-4 mt-2 mb-4">
+                <div class="flex justify-between text-sm mb-1">
+                    <span data-i18n="xp_progress">XP Progress</span>
+                    <span id="home-xp-text">0 / 100</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill xp-fill" id="home-xp-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <main class="home-main scrollable pb-20">
+                <!-- Daily Challenge -->
+                <div class="daily-challenge-card glow-card mx-4 mb-6" id="btn-daily-challenge">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg" data-i18n="daily_challenge">Daily Challenge</h3>
+                        <span class="badge pulse">New</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-3" data-i18n="daily_challenge_desc">Play today's special quiz and earn 100 XP bonus!</p>
+                    <button class="btn btn-accent w-full" data-i18n="btn_play_now">Play Now</button>
+                <!-- Quick Modes -->
+                <div class="grid grid-cols-2 gap-4 mx-4 mb-6">
+                    <div class="game-mode-card glass-panel" id="btn-quick-quiz">
+                        <div class="mode-icon">⚡</div>
+                        <h4 data-i18n="mode_quick">Quick Quiz</h4>
+                        <p class="text-xs text-secondary">10 Questions</p>
+                    </div>
+                    <div class="game-mode-card glass-panel" id="btn-classic-quiz">
+                        <div class="mode-icon">🎓</div>
+                        <h4 data-i18n="mode_classic">Classic Quiz</h4>
+                        <p class="text-xs text-secondary">20 Questions</p>
+                    </div>
+                </div>
+
+                <!-- Subjects Grid -->
+                <div class="mx-4 mb-4">
+                    <div class="flex justify-between items-end mb-3">
+                        <h3 class="font-bold text-lg" data-i18n="explore_subjects">Explore Subjects</h3>
+                        <button class="text-sm text-primary" id="btn-all-subjects" data-i18n="see_all">See All</button>
+                    </div>
+                    <div class="subjects-grid" id="home-subjects-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </main>
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav glass-nav">
+                <button class="nav-item active" data-target="home-view">
+                    <div class="nav-icon">🏠</div>
+                    <span data-i18n="nav_home">Home</span>
+                </button>
+                <button class="nav-item" data-target="leaderboard-view">
+                    <div class="nav-icon">🏆</div>
+                    <span data-i18n="nav_leaderboard">Ranks</span>
+                </button>
+                <button class="nav-item" data-target="achievements-view">
+                    <div class="nav-icon">🏅</div>
+                    <span data-i18n="nav_achievements">Badges</span>
+                </button>
+                <button class="nav-item" id="btn-nav-profile">
+                    <div class="nav-icon">👤</div>
+                    <span data-i18n="nav_profile">Profile</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Quiz Gameplay View -->
+        <div id="quiz-view" class="view hidden">
+            <!-- Quiz Header -->
+            <header class="quiz-header glass-header">
+                <button class="icon-btn" id="btn-quiz-exit" aria-label="Exit Quiz">❌</button>
+                <div class="quiz-progress-container">
+                    <div class="text-center font-bold" id="quiz-q-tracker">Q 1 / 10</div>
+                    <div class="progress-bar-bg small">
+                        <div class="progress-bar-fill quiz-progress-fill" id="quiz-progress-bar" style="width: 10%"></div>
+                    </div>
+                </div>
+                <div class="quiz-timer" id="quiz-timer-display">
+                    ⏱️ <span id="quiz-time-left">60</span>
+                </div>
+            </header>
+
+            <div class="quiz-score-hud">
+                <span class="hud-item badge badge-primary">Score: <span id="quiz-score-val">0</span></span>
+                <span class="hud-item badge badge-accent" id="quiz-streak-hud">Streak: 0</span>
+                <span class="hud-item badge badge-danger hidden" id="quiz-lives-hud">❤️❤️❤️</span>
+            </div>
+
+            <!-- Main Question Area -->
+            <main class="quiz-main scrollable">
+                <div class="question-container glass-panel fade-in" id="question-card">
+                    <div class="question-meta text-xs text-secondary mb-2 uppercase tracking-wide flex justify-between">
+                        <span id="q-subject-label">Subject</span>
+                        <span id="q-difficulty-badge" class="badge-sm">Medium</span>
+                    </div>
+                    <!-- Question Content -->
+                    <div class="question-text text-xl font-bold mb-6" id="q-text">
+                        Loading question...
+                    </div>
+                    <!-- Options Container -->
+                    <div class="options-grid flex flex-col gap-3" id="q-options-container">
+                        <!-- Options injected by JS -->
+                    </div>
+                </div>
+                <!-- Feedback & Explanation Area (Hidden initially) -->
+                <div id="q-feedback-area" class="feedback-area glass-panel mt-4 hidden scale-up">
+                    <div class="feedback-header flex items-center gap-2 mb-2">
+                        <span class="feedback-icon text-2xl" id="fb-icon">✓</span>
+                        <h3 class="feedback-title font-bold text-xl" id="fb-title">Correct!</h3>
+                        <span class="feedback-xp ml-auto font-bold text-green-400" id="fb-xp">+10 XP</span>
+                    </div>
+                    <p class="feedback-explanation text-sm text-secondary" id="fb-explanation">Explanation here.</p>
+                </div>
+            </main>
+            <!-- Quiz Footer Action -->
+            <footer class="quiz-footer p-4">
+                <button class="btn btn-primary w-full hidden slide-up" id="btn-quiz-next" data-i18n="btn_next_question">Next Question ➔</button>
+            </footer>
+        </div>
+
+        <!-- Results View -->
+        <div id="results-view" class="view hidden">
+            <main class="results-main scrollable p-6 text-center">
+                <div class="results-animation mb-6 zoom-in">
+                    <div class="confetti-container" id="results-confetti"></div>
+                    <div class="score-circle">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle-fill" id="results-accuracy-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage" id="results-accuracy-text">0%</text>
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-bold mb-2" data-i18n="quiz_completed">Quiz Completed!</h1>
+                <p class="text-secondary mb-6" id="results-message">Great job! Keep practicing.</p>
+                <div class="stats-grid grid grid-cols-2 gap-4 mb-8">
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label" data-i18n="stat_score">Score</div>
+                        <div class="stat-value text-accent" id="results-score">0</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label" data-i18n="stat_xp">XP Earned</div>
+                        <div class="stat-value text-primary" id="results-xp">+0</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label" data-i18n="stat_correct">Correct</div>
+                        <div class="stat-value text-green-400" id="results-correct">0 / 0</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label" data-i18n="stat_streak">Best Streak</div>
+                        <div class="stat-value text-orange-400" id="results-streak">0</div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <button class="btn btn-primary w-full" id="btn-results-review" data-i18n="btn_review">Review Answers</button>
+                    <div class="flex gap-3">
+                        <button class="btn btn-outline flex-1" id="btn-results-home" data-i18n="btn_home">Home</button>
+                        <button class="btn btn-accent flex-1" id="btn-results-retry" data-i18n="btn_retry">Play Again</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Subjects View -->
+        <div id="subjects-view" class="view hidden slide-in">
+            <header class="glass-header flex items-center p-4">
+                <button class="icon-btn mr-4 btn-back-home">🔙</button>
+                <h2 class="font-bold text-xl" data-i18n="all_subjects">All Subjects</h2>
+            </header>
+            <main class="scrollable p-4 pb-20">
+                <div class="grid gap-4" id="all-subjects-list">
+                    <!-- JS populated -->
+                </div>
+            </main>
+        </div>
+        <!-- Profile View -->
+        <div id="profile-view" class="view hidden slide-in">
+            <header class="glass-header flex items-center p-4">
+                <button class="icon-btn mr-4 btn-back-home">🔙</button>
+                <h2 class="font-bold text-xl" data-i18n="profile_title">Player Profile</h2>
+                <button class="icon-btn ml-auto" id="btn-edit-profile">✏️</button>
+            </header>
+            <main class="scrollable p-4 pb-20">
+                <div class="profile-header text-center mb-6 pt-4">
+                    <div class="avatar-large mx-auto mb-3 text-5xl" id="profile-avatar-large">👤</div>
+                    <h2 class="text-2xl font-bold" id="profile-name">Player Name</h2>
+                    <p class="text-secondary" id="profile-class">Class 8</p>
+                </div>
+                <div class="glass-panel p-4 mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg">Level <span id="profile-level" class="text-accent">1</span></h3>
+                        <span class="text-sm text-secondary" id="profile-total-xp">0 XP</span>
+                    </div>
+                    <div class="progress-bar-bg mb-2">
+                        <div class="progress-bar-fill xp-fill" id="profile-xp-fill" style="width:0%"></div>
+                    </div>
+                    <p class="text-xs text-center text-secondary" id="profile-xp-next">100 XP to next level</p>
+                </div>
+                <h3 class="font-bold mb-3" data-i18n="statistics">Statistics</h3>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="stat-card glass-panel">
+                        <div class="text-xs text-secondary">Quizzes Played</div>
+                        <div class="font-bold text-xl" id="stat-quizzes">0</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="text-xs text-secondary">Questions Ans.</div>
+                        <div class="font-bold text-xl" id="stat-questions">0</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="text-xs text-secondary">Overall Acc.</div>
+                        <div class="font-bold text-xl" id="stat-accuracy">0%</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="text-xs text-secondary">Longest Streak</div>
+                        <div class="font-bold text-xl text-orange-400" id="stat-best-streak">0</div>
+                    </div>
+                </div>
+                <button class="btn btn-accent w-full mt-4" id="btn-open-auth">Login to Save Progress</button>
+                <button class="btn btn-outline w-full mt-2 hidden" id="btn-logout">Logout</button>
+                <button class="btn btn-danger w-full mt-4" id="btn-reset-data" data-i18n="btn_reset_data">Reset All Progress</button>
+            </main>
+        </div>
+
+        <!-- Leaderboard & Achievements Views (Simplified for brevity, can expand later) -->
+        <div id="leaderboard-view" class="view hidden slide-in">
+            <header class="glass-header flex items-center p-4">
+                <button class="icon-btn mr-4 btn-back-home">🔙</button>
+                <h2 class="font-bold text-xl" data-i18n="leaderboard_title">Leaderboard</h2>
+            </header>
+            <main class="scrollable p-4 pb-20">
+                <div class="glass-panel p-6 text-center mb-4">
+                    <h3 class="text-accent text-xl font-bold mb-2">Local Mode</h3>
+                    <p class="text-secondary text-sm">You are currently playing offline. Compete against your own best scores!</p>
+                </div>
+                <div class="leaderboard-list" id="leaderboard-container">
+                    <!-- Populated by JS -->
+                </div>
+            </main>
+        </div>
+
+        <div id="achievements-view" class="view hidden slide-in">
+            <header class="glass-header flex items-center p-4">
+                <button class="icon-btn mr-4 btn-back-home">🔙</button>
+                <h2 class="font-bold text-xl" data-i18n="achievements_title">Achievements</h2>
+            </header>
+            <main class="scrollable p-4 pb-20">
+                <div class="grid grid-cols-2 gap-4" id="achievements-container">
+                    <!-- Populated by JS -->
+                </div>
+            </main>
+        </div>
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="font-bold text-xl" data-i18n="settings_title">Settings</h2>
+                    <button class="icon-btn btn-close-modal">❌</button>
+                </div>
+                <div class="setting-item flex justify-between items-center py-3 border-b border-white/10">
+                    <div>
+                        <div class="font-bold" data-i18n="setting_lang">Language</div>
+                        <div class="text-xs text-secondary">English / Hindi</div>
+                    </div>
+                    <select id="setting-lang-select" class="modern-input !w-auto !py-1">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                    </select>
+                </div>
+                <div class="setting-item flex justify-between items-center py-3 border-b border-white/10">
+                    <div>
+                        <div class="font-bold" data-i18n="setting_sound">Sound Effects</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="setting-sound-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item flex justify-between items-center py-3 border-b border-white/10">
+                    <div>
+                        <div class="font-bold" data-i18n="setting_theme">Dark Mode</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="setting-theme-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button class="btn btn-primary w-full mt-6 btn-close-modal">Done</button>
+            </div>
+        </div>
+        <!-- Auth Modal -->
+        <div id="auth-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel text-center">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="font-bold text-xl">Sign In / Sign Up</h2>
+                    <button class="icon-btn btn-close-modal">❌</button>
+                </div>
+                <p class="text-sm text-secondary mb-4">Save your progress across all devices.</p>
+                <input type="email" id="auth-email" class="modern-input mb-3" placeholder="Email address">
+                <input type="password" id="auth-password" class="modern-input mb-4" placeholder="Password">
+                <div class="flex gap-2 mb-4">
+                    <button class="btn btn-outline flex-1" id="btn-auth-signup">Sign Up</button>
+                    <button class="btn btn-primary flex-1" id="btn-auth-login">Log In</button>
+                </div>
+                <div class="text-secondary text-sm mb-4">OR</div>
+                <button class="btn btn-outline w-full flex items-center justify-center" id="btn-auth-google" style="background: white; color: #333; border: 1px solid #ddd;">
+                    <img src="https://www.google.com/favicon.ico" width="16" height="16" style="margin-right:8px;"> Continue with Google
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/services/supabaseService.js"></script>
+    <script src="js/data/i18n.js"></script>
+    <script src="js/data/questionDb.js"></script>
+    <script src="js/data/subjects.js"></script>
+    <script src="js/services/storageService.js"></script>
+    <script src="js/services/i18nService.js"></script>
+    <script src="js/services/soundService.js"></script>
+    <script src="js/ui/animations.js"></script>
+    <script src="js/quizEngine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join as Contributor | HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .join-container { max-width: 800px; margin: 100px auto 4rem; padding: 0 1.5rem; }
+    
+    .join-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .join-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-primary); }
+    .join-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    
+    .application-card {
+      background: var(--card-bg, #1a1a1a);
+      border: 1px solid var(--hub-border, #333);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    .step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      color: var(--accent-primary, #3b82f6);
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .step-title:first-child { margin-top: 0; }
+    
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #cbd5e1; font-size: 0.95rem; }
+    .form-group label.required::after { content: " *"; color: #ef4444; }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--hub-border, #333);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus { outline: none; border-color: var(--accent-primary); }
+    textarea.form-control { resize: vertical; min-height: 100px; }
+    
+    .account-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255,255,255,0.02);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--hub-border);
+      margin-bottom: 1.5rem;
+    }
+    .account-info img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+    .account-info div { flex: 1; }
+    .account-info h4 { margin: 0 0 0.25rem 0; color: var(--text-primary); }
+    .account-info p { margin: 0; font-size: 0.85rem; color: var(--text-secondary); }
+    
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .checkbox-item { display: flex; align-items: center; gap: 0.5rem; }
+    .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+    .checkbox-item label { margin: 0; cursor: pointer; font-size: 0.9rem; }
+    
+    .file-upload {
+      border: 2px dashed var(--hub-border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255,255,255,0.01);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .file-upload:hover { border-color: var(--accent-primary); background: rgba(59, 130, 246, 0.05); }
+    .file-upload input[type="file"] { display: none; }
+    .image-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-top: 1rem; display: none; border: 2px solid var(--hub-border); }
+    
+    .confirmation-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .confirmation-box p { margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.5; color: var(--text-primary); }
+    .phrase-box {
+      background: rgba(0,0,0,0.3);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+      user-select: all;
+    }
+    
+    .terms-box {
+      max-height: 200px;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--hub-border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    .terms-box ol { padding-left: 1.5rem; margin: 0; }
+    .terms-box li { margin-bottom: 0.5rem; }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      margin-top: 2rem;
+      transition: all 0.3s;
+    }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    /* Unauthorized State */
+    #unauthorized-msg, #success-msg, #already-applied-msg { display: none; text-align: center; padding: 4rem 1rem; }
+    #unauthorized-msg h2, #success-msg h2, #already-applied-msg h2 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; }
+    
+  </style>
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+</head>
+<body class="auth-page">
+
+  <div id="unauthorized-msg">
+    <h2>Please Log In</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">You must be logged in to apply as a contributor.</p>
+    <a href="login.html" class="premium-btn-primary">Login Now</a>
+  </div>
+
+  <div id="already-applied-msg">
+    <h2>Application Status</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;" id="already-applied-text">Your application is currently under review.</p>
+    <a href="dashboard.html" class="premium-btn-outline">Go to Dashboard</a>
+  </div>
+
+  <div id="success-msg">
+    <h2>🎉 Application Submitted</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Your contributor application has been successfully submitted and is waiting for admin approval.</p>
+    <a href="dashboard.html" class="premium-btn-primary">Go to Dashboard</a>
+  </div>
+
+  <main class="join-container" id="application-content" style="display:none;">
+    <div class="join-header">
+      <h1>Join HarshGuruJi as a Contributor</h1>
+      <p>Contributors help improve HarshGuruJi through development, design, content, testing, ideas and other meaningful contributions.</p>
+    </div>
+
+    <form class="application-card" id="contributor-form">
+      
+      <h3 class="step-title">Step 1 — Your Account</h3>
+      <div class="account-info">
+        <img src="logo.png" id="acc-avatar" alt="Avatar">
+        <div>
+          <h4 id="acc-name">Loading...</h4>
+          <p id="acc-email">loading@email.com</p>
+          <p style="font-size: 0.75rem; font-family: monospace; opacity: 0.5;" id="acc-id">ID: ...</p>
+        </div>
+      </div>
+
+      <h3 class="step-title">Step 2 — Profile Information</h3>
+      
+      <div class="form-group">
+        <label class="required" for="display_name">Display Name (Public)</label>
+        <input type="text" id="display_name" class="form-control" required placeholder="How you want to be known">
+      </div>
+      
+      <div class="form-group">
+        <label class="required" for="role">Contributor Role</label>
+        <input type="text" id="role" class="form-control" required placeholder="e.g. Frontend Developer, Content Writer">
+      </div>
+      
+      <div class="form-group">
+        <label for="bio">Short Bio</label>
+        <textarea id="bio" class="form-control" placeholder="Tell us a little about yourself..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Contribution Areas</label>
+        <div class="checkbox-grid">
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Development" id="area-dev"><label for="area-dev">Development</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Web Development" id="area-web"><label for="area-web">Web Dev</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="App Development" id="area-app"><label for="area-app">App Dev</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="UI/UX Design" id="area-ui"><label for="area-ui">UI/UX Design</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Graphic Design" id="area-gfx"><label for="area-gfx">Graphic Design</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Content" id="area-content"><label for="area-content">Content</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Documentation" id="area-docs"><label for="area-docs">Documentation</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Testing" id="area-test"><label for="area-test">Testing</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Research" id="area-research"><label for="area-research">Research</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Education" id="area-edu"><label for="area-edu">Education</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Ideas" id="area-ideas"><label for="area-ideas">Ideas</label></div>
+          <div class="checkbox-item"><input type="checkbox" name="area" value="Community" id="area-community"><label for="area-community">Community</label></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="skills">Key Skills (Comma separated)</label>
+        <input type="text" id="skills" class="form-control" placeholder="e.g. JavaScript, Figma, Python">
+      </div>
+
+      <div class="form-group">
+        <label>Profile Image (1:1 Ratio recommended, Max 5MB)</label>
+        <div class="file-upload" id="image-dropzone">
+          <span id="image-text">Click to upload a profile picture (PNG, JPG, WEBP)</span>
+          <input type="file" id="profile_image" accept="image/png, image/jpeg, image/webp">
+          <img id="image-preview" class="image-preview" src="" alt="Preview">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="github_url">GitHub URL (Optional)</label>
+        <input type="url" id="github_url" class="form-control" placeholder="https://github.com/username">
+      </div>
+      
+      <div class="form-group">
+        <label for="website_url">Website URL (Optional)</label>
+        <input type="url" id="website_url" class="form-control" placeholder="https://yourwebsite.com">
+      </div>
+
+      <h3 class="step-title">Step 3 — Explicit Confirmation</h3>
+      
+      <div class="confirmation-box">
+        <h4>Contributor Intent Confirmation</h4>
+        <p>To confirm that you genuinely want to apply as a HarshGuruJi Contributor, enter the following phrase exactly:</p>
+        <div class="phrase-box">I Wants To Became Contributor</div>
+        <input type="text" id="confirm_step_1" class="form-control" required placeholder="Enter confirmation phrase">
+        <p id="err_step_1" style="color: var(--danger); font-size: 0.8rem; margin-top: 0.5rem; display: none;">Phrase does not match.</p>
+      </div>
+
+      <div class="confirmation-box">
+        <h4>Terms & Conditions Confirmation</h4>
+        <p>Please confirm that you agree to all HarshGuruJi Contributor Terms and Conditions.</p>
+        <div class="terms-box">
+          <ol>
+            <li>Contributor status is subject to admin approval.</li>
+            <li>Approval does not guarantee permanent contributor status.</li>
+            <li>HarshGuruJi may review contributor submissions.</li>
+            <li>Contributors must not submit illegal or harmful content.</li>
+            <li>Contributors must respect copyright.</li>
+            <li>Contributors must not intentionally upload malicious files.</li>
+            <li>Contributors must not impersonate another person.</li>
+            <li>Contributors must provide truthful profile information.</li>
+            <li>HarshGuruJi may remove or suspend contributor profiles when necessary.</li>
+            <li>Contributor status can be revoked for violations.</li>
+            <li>Public contributor information may appear on contributor.html.</li>
+            <li>The user should only submit information they are comfortable displaying publicly.</li>
+          </ol>
+        </div>
+        <div class="phrase-box">I Agree With All Terms And Condition</div>
+        <input type="text" id="confirm_step_2" class="form-control" required placeholder="Enter confirmation phrase">
+        <p id="err_step_2" style="color: var(--danger); font-size: 0.8rem; margin-top: 0.5rem; display: none;">Phrase does not match.</p>
+        
+        <div class="checkbox-item" style="margin-top: 1rem;">
+          <input type="checkbox" id="terms_checkbox" required>
+          <label for="terms_checkbox">I have read and agree to the Contributor Terms & Conditions (v1.0)</label>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-btn" class="premium-btn-primary submit-btn">Submit Contributor Application</button>
+
+    </form>
+  </main>
+
+  <!-- Supabase & Scripts -->
+  <script type="module" src="js/auth.js" defer></script>
+  <script type="module" src="js/join-contributor.js" defer></script>
+  
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
+</body>
+</html>
