@@ -7,28 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initCustomAuth() {
-    const pass1 = prompt("Step 1: Enter Admin Password");
-    if (pass1 !== "AdminHarsh@StoreApk") {
+    const pass = prompt("Enter Contributor Admin Password:");
+    if (pass !== "HarshGuruJi@Contributor") {
         alert("Access Denied.");
         window.location.href = "index.html";
         return;
     }
     
-    const pass2 = prompt("Step 2: Enter Secondary Password");
-    if (pass2 !== "RealAdminHarsh@StoreApk") {
-        alert("Access Denied.");
-        window.location.href = "index.html";
-        return;
-    }
-    
-    const email = prompt("Step 3: Enter Admin Email");
-    if (email !== "harshguruji01@gmail.com") {
-        alert("Access Denied.");
-        window.location.href = "index.html";
-        return;
-    }
-    
-    document.getElementById('admin-user-email').textContent = email;
+    document.getElementById('admin-user-email').textContent = "Contributor Admin";
     document.getElementById('unauthorized-msg').style.display = 'none';
     document.getElementById('admin-content').style.display = 'block';
     
