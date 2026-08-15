@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Contributor Application – HarshGuruJi</title>
+  <meta name="description" content="Verify your contributor application with the secret access code.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --secondary: #ec4899;
+      --bg-dark: #0a0a0f;
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --text-main: #f8fafc;
+      --text-muted: #64748b;
+      --text-secondary: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(99, 102, 241, 0.5);
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem 1rem;
+      overflow: hidden;
+    }
+
+    /* bg blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.15; pointer-events: none; z-index: 0; animation: blobFloat 14s ease-in-out infinite alternate; }
+    .blob-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -120px; right: -80px; animation-delay: -7s; }
+    @keyframes blobFloat { from { transform: scale(1); } to { transform: scale(1.2) translate(20px, 15px); } }
+
+    .card {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 480px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(32px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    .step-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #fff, #a5b4fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+
+    .input-wrap {
+      position: relative; margin-bottom: 1rem;
+    }
+    .input-wrap input {
+      width: 100%; padding: 1rem 3.2rem 1rem 1.1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-main);
+      font-size: 1rem; font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+      letter-spacing: 0.08em;
+    }
+    .input-wrap input:focus {
+      border-color: var(--border-active);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .toggle-eye {
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--text-muted);
+      padding: 0; font-size: 1.1rem; transition: color 0.2s;
+    }
+    .toggle-eye:hover { color: var(--text-main); }
+
+    .btn-verify {
+      width: 100%; padding: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; border: none; border-radius: var(--radius-md);
+      font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 0 30px var(--primary-glow);
+      margin-top: 0.5rem;
+    }
+    .btn-verify:hover { transform: translateY(-2px); box-shadow: 0 0 60px var(--primary-glow); }
+    .btn-verify:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .divider { margin: 1.5rem 0; display: flex; align-items: center; gap: 1rem; color: var(--text-muted); font-size: 0.85rem; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .ask-admin-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%; padding: 0.9rem 1.5rem;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-secondary);
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      transition: all 0.25s;
+    }
+    .ask-admin-btn:hover {
+      background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2);
+      color: var(--text-main); transform: translateY(-2px);
+    }
+    .ask-admin-btn .ig-icon { font-size: 1.15rem; }
+
+    .alert-msg {
+      padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1rem;
+      font-size: 0.9rem; display: none; text-align: left;
+    }
+    .alert-msg.error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .alert-msg.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; text-align: center; }
+
+    /* Success state */
+    #success-view { display: none; text-align: center; }
+    #success-view .success-icon { font-size: 5rem; margin-bottom: 1.5rem; display: block; animation: bounceIn 0.6s both; }
+    @keyframes bounceIn { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+    #success-view h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; color: #6ee7b7; margin-bottom: 0.75rem; }
+    #success-view p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-home {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.8rem; border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; font-weight: 600; text-decoration: none; font-size: 0.95rem;
+      transition: all 0.3s; box-shadow: 0 0 25px var(--primary-glow);
+    }
+    .btn-home:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--primary-glow); }
+
+    .pending-note {
+      margin-top: 1.5rem; padding: 0.9rem 1rem;
+      background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius-md); font-size: 0.85rem; color: #a5b4fc;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 520px) { .card { padding: 2rem 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="card">
+
+    <!-- VERIFY FORM VIEW -->
+    <div id="verify-view">
+      <span class="step-icon">🔑</span>
+      <h1>One Last Step!</h1>
+      <p class="subtitle">
+        Enter the <strong style="color:#a5b4fc;">Secret Contributor Code</strong> to complete your application.
+        Don't have it? Ask the admin directly on Instagram!
+      </p>
+
+      <div id="verify-alert" class="alert-msg"></div>
+
+      <div class="input-wrap">
+        <input type="password" id="secret-input" placeholder="Enter secret code..." autocomplete="off">
+        <button class="toggle-eye" onclick="togglePwd()" title="Show/hide password" id="eye-btn">👁</button>
+      </div>
+
+      <button class="btn-verify" id="btn-verify" onclick="verifyCode()">
+        Verify & Complete →
+      </button>
+
+      <div class="divider">or</div>
+
+      <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" rel="noopener" class="ask-admin-btn">
+        <span class="ig-icon">📸</span>
+        Ask Password from Admin — <strong>@harshpatelverma1</strong>
+      </a>
+
+      <div class="pending-note">
+        ⏳ Your application is saved as <strong>Pending</strong>. Once you enter the correct code, it will be marked as <strong>Active</strong> and visible on the contributors page.
+      </div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div id="success-view">
+      <span class="success-icon">🎉</span>
+      <h2>Welcome to the Team!</h2>
+      <p>Your contributor profile is now <strong>Active</strong>. You'll be visible on the Contributors page shortly!</p>
+      <a href="contributor.html" class="btn-home">View Contributors Page →</a>
+    </div>
+
+  </div>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+  window._supabase = supabase;
+
+  // Redirect if no session data (user came directly to this page)
+  document.addEventListener('DOMContentLoaded', async () => {
+    const userId = sessionStorage.getItem('contributor_user_id');
+    if (!userId) {
+      // Check if they are logged in and have a pending application
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        window.location.href = 'apply-contributor.html';
+        return;
+      }
+      // Store their ID
+      sessionStorage.setItem('contributor_user_id', session.user.id);
+    }
+  });
+</script>
+
+<script>
+  const SECRET_CODE = 'HarshGuruJi@Contributor';
+  let eyeVisible = false;
+
+  function togglePwd() {
+    const inp = document.getElementById('secret-input');
+    const btn = document.getElementById('eye-btn');
+    eyeVisible = !eyeVisible;
+    inp.type = eyeVisible ? 'text' : 'password';
+    btn.textContent = eyeVisible ? '🙈' : '👁';
+  }
+
+  // Allow Enter key
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('secret-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') verifyCode();
+    });
+  });
+
+  async function verifyCode() {
+    const input = document.getElementById('secret-input').value.trim();
+    const alertBox = document.getElementById('verify-alert');
+    const btn = document.getElementById('btn-verify');
+
+    alertBox.style.display = 'none';
+
+    if (!input) {
+      alertBox.className = 'alert-msg error';
+      alertBox.textContent = '⚠️ Please enter the secret code.';
+      alertBox.style.display = 'block';
+      return;
+    }
+
+    if (input !== SECRET_CODE) {
+      alertBox.className = 'alert-msg error';
+      alertBox.textContent = '❌ Incorrect code! Ask the admin on Instagram: @harshpatelverma1';
+      alertBox.style.display = 'block';
+      document.getElementById('secret-input').value = '';
+      return;
+    }
+
+    // Code is correct — update status in DB
+    btn.disabled = true;
+    btn.textContent = 'Activating your profile...';
+
+    const userId = sessionStorage.getItem('contributor_user_id');
+    const supabase = window._supabase;
+
+    try {
+      const { error } = await supabase
+        .from('contributors')
+        .update({ status: 'ACTIVE', approved_at: new Date().toISOString() })
+        .eq('user_id', userId)
+        .eq('status', 'PENDING');
+
+      if (error) throw error;
+
+      // Show success
+      sessionStorage.removeItem('contributor_user_id');
+      sessionStorage.removeItem('contributor_display_name');
+      document.getElementById('verify-view').style.display = 'none';
+      document.getElementById('success-view').style.display = 'block';
+
+    } catch (err) {
+      alertBox.className = 'alert-msg error';
+      alertBox.textContent = '❌ Error: ' + err.message;
+      alertBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Verify & Complete →';
+    }
+  }
+</script>
+</body>
+</html>

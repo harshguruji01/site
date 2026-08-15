@@ -74,3 +74,10 @@ CREATE TABLE IF NOT EXISTS app_downloads (
 ALTER TABLE app_downloads ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public insert for downloads" ON app_downloads FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public select for downloads" ON app_downloads FOR SELECT USING (true);
+
+-- Add approved_at column to contributors table (run in Supabase SQL editor)
+ALTER TABLE contributors ADD COLUMN IF NOT EXISTS approved_at TIMESTAMPTZ;
+ALTER TABLE contributors ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL;
+ALTER TABLE contributors ADD COLUMN IF NOT EXISTS full_name TEXT;
+ALTER TABLE contributors ADD COLUMN IF NOT EXISTS instagram TEXT;
+ALTER TABLE contributors ADD COLUMN IF NOT EXISTS youtube TEXT;
