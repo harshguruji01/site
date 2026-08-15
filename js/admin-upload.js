@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let appsCache = []; // Global cache for loaded apps
+let downloadsCache = []; // Cache for user downloads
 
 function initCustomAuth() {
     // 1st Password
@@ -97,6 +98,30 @@ async function loadStats() {
     document.getElementById('stat-drafts').textContent = drafts;
     document.getElementById('stat-downloads').textContent = downloads;
     
+    // Fetch recent logged-in downloads
+    const { data: dlData, error: dlError } = await supabase.from('app_downloads').select('*').order('downloaded_at', { ascending: false }).limit(100);
+    if (!dlError && dlData) {
+        const userIds = [...new Set(dlData.map(d => d.user_id))];
+        const { data: profData } = await supabase.from('profiles').select('*').in('id', userIds);
+        const profileMap = {};
+        if (profData) {
+            profData.forEach(p => profileMap[p.id] = p);
+        }
+        
+        downloadsCache = dlData.map(d => {
+            const app = appsCache.find(a => a.id === d.app_id);
+            const profile = profileMap[d.user_id];
+            return {
+                ...d,
+                app_name: app ? app.name : 'Unknown App',
+                app_logo: app ? app.logo_url : 'logo.png',
+                user_name: profile ? profile.display_name : 'Unknown User',
+                user_avatar: profile ? profile.avatar_url : 'ai.png',
+                user_email: profile ? profile.email : ''
+            };
+        });
+    }
+    
     // Refresh table if open
     const activeCard = document.querySelector('.stat-card.active');
     if (activeCard) renderAppList(activeCard.dataset.filter);
@@ -104,10 +129,55 @@ async function loadStats() {
 
 function renderAppList(filter) {
     const section = document.getElementById('app-list-section');
+    const thead = document.getElementById('app-list-head');
     const tbody = document.getElementById('app-list-body');
     const title = document.getElementById('list-section-title');
     
     section.style.display = 'block';
+    
+    if (filter === 'downloads') {
+        title.textContent = 'Recent User Downloads';
+        thead.innerHTML = `
+            <tr>
+                <th style="width: 50px;">User</th>
+                <th>Name / Email</th>
+                <th>App Downloaded</th>
+                <th>Time</th>
+            </tr>
+        `;
+        
+        if (downloadsCache.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">No logged-in user downloads yet</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = downloadsCache.map(d => `
+            <tr>
+                <td><img src="${d.user_avatar}" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border);"></td>
+                <td><strong>${d.user_name}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${d.user_email}</span></td>
+                <td>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <img src="${d.app_logo}" style="width: 24px; height: 24px; border-radius: 4px; object-fit: cover;">
+                        <span>${d.app_name}</span>
+                    </div>
+                </td>
+                <td style="color: var(--text-muted); font-size: 0.9rem;">${new Date(d.downloaded_at).toLocaleString()}</td>
+            </tr>
+        `).join('');
+        return;
+    }
+    
+    // Default App List View
+    thead.innerHTML = `
+        <tr>
+            <th style="width: 60px;">Icon</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Downloads</th>
+            <th>Actions</th>
+        </tr>
+    `;
+    
     let filtered = appsCache;
     
     if (filter === 'published') {
@@ -116,9 +186,6 @@ function renderAppList(filter) {
     } else if (filter === 'drafts') {
         filtered = appsCache.filter(a => a.status === 'Draft');
         title.textContent = 'Draft Apps';
-    } else if (filter === 'downloads') {
-        filtered = [...appsCache].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-        title.textContent = 'Apps by Downloads';
     } else {
         title.textContent = 'All Apps';
     }

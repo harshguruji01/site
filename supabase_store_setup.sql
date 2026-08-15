@@ -61,3 +61,16 @@ CREATE POLICY "Update Access" ON storage.objects FOR UPDATE USING ( bucket_id = 
 CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING ( bucket_id = 'app-screenshots' );
 CREATE POLICY "Upload Access" ON storage.objects FOR INSERT WITH CHECK ( bucket_id = 'app-screenshots' );
 CREATE POLICY "Update Access" ON storage.objects FOR UPDATE USING ( bucket_id = 'app-screenshots' );
+
+-- Create app_downloads table to track logged-in users' downloads
+CREATE TABLE IF NOT EXISTS app_downloads (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    app_id UUID REFERENCES store_apps(id) ON DELETE CASCADE,
+    downloaded_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Allow public inserts (so frontend can log downloads) and public read (so admin can view)
+ALTER TABLE app_downloads ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public insert for downloads" ON app_downloads FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public select for downloads" ON app_downloads FOR SELECT USING (true);

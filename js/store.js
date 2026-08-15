@@ -153,6 +153,7 @@ const MOCK_APPS = [
 ];
 
 import { supabase } from './supabase.js';
+import { AuthManager } from './auth.js';
 
 // In a real scenario, this would be an API call
 async function fetchStoreApps() {
@@ -584,6 +585,25 @@ function openAppDetails(app) {
       return;
     }
 
+    let user = AuthManager.currentUser;
+    if (!user) {
+      // Guest mode logic
+      const today = new Date().toISOString().split('T')[0];
+      let guestData = JSON.parse(localStorage.getItem('guest_downloads') || '{"date":"","count":0}');
+      
+      if (guestData.date !== today) {
+          guestData = { date: today, count: 0 };
+      }
+      
+      if (guestData.count >= 5) {
+          alert("You have reached your free limit of 5 downloads per day. Please log in to download more apps!");
+          return;
+      }
+      
+      guestData.count += 1;
+      localStorage.setItem('guest_downloads', JSON.stringify(guestData));
+    }
+
     // Trigger download first for better user experience (no delay)
     const link = document.createElement('a');
     link.href = app.downloadUrl;
@@ -599,6 +619,14 @@ function openAppDetails(app) {
         const { data } = await supabase.from('store_apps').select('downloads').eq('id', app.id).single();
         if (data) {
           await supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', app.id);
+        }
+        
+        // Log to app_downloads if user is logged in
+        if (user) {
+            await supabase.from('app_downloads').insert({
+                user_id: user.id,
+                app_id: app.id
+            });
         }
       } catch (err) {
         console.error("Failed to track download:", err);
