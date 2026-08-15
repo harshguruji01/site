@@ -2,37 +2,49 @@ let currentUser = null;
 let currentProfile = null;
 let applications = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
-    let checkInterval = setInterval(async () => {
-        if (window.supabaseClient && window.getProfile) {
+document.addEventListener('DOMContentLoaded', () => {
+    initCustomAuth();
+});
+
+function initCustomAuth() {
+    const pass1 = prompt("Step 1: Enter Admin Password");
+    if (pass1 !== "AdminHarsh@StoreApk") {
+        alert("Access Denied.");
+        window.location.href = "index.html";
+        return;
+    }
+    
+    const pass2 = prompt("Step 2: Enter Secondary Password");
+    if (pass2 !== "RealAdminHarsh@StoreApk") {
+        alert("Access Denied.");
+        window.location.href = "index.html";
+        return;
+    }
+    
+    const email = prompt("Step 3: Enter Admin Email");
+    if (email !== "harshguruji01@gmail.com") {
+        alert("Access Denied.");
+        window.location.href = "index.html";
+        return;
+    }
+    
+    document.getElementById('admin-user-email').textContent = email;
+    document.getElementById('unauthorized-msg').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'block';
+    
+    let checkInterval = setInterval(() => {
+        if (window.supabaseClient) {
             clearInterval(checkInterval);
-            await initAdmin();
+            initAdmin();
         }
     }, 100);
-});
+}
 
 async function initAdmin() {
     const supabase = window.supabaseClient;
     
-    // Auth Check
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) return;
-    
-    currentUser = session.user;
-    document.getElementById('admin-user-email').textContent = currentUser.email;
-    
-    // Admin Check
-    // We assume getProfile works, or you could do the JWT check: currentUser.app_metadata.is_admin
-    currentProfile = await window.getProfile(currentUser.id);
-    if (!currentProfile || !currentProfile.is_admin) return;
-    
-    // Unhide
-    document.getElementById('unauthorized-msg').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'block';
-    
     // Bindings
     document.getElementById('btn-logout').addEventListener('click', async () => {
-        await supabase.auth.signOut();
         window.location.href = 'index.html';
     });
     
