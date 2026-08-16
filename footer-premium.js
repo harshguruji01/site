@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <h5>Games & Store</h5>
             <ul>
               <li><a href="${prefix}gaming-hub.html">Gaming Hub</a></li>
-              <li><a href="${prefix}games-and-apps.html">Games & Apps</a></li>
               <li><a href="${prefix}store.html">Store</a></li>
               <li><a href="${prefix}games/tic-tac-toe.html">Tic Tac Toe</a></li>
               <li><a href="${prefix}games/snake.html">Snake</a></li>

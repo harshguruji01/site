@@ -98,7 +98,6 @@
         <h5>Games & Store</h5>
         <ul>
           <li><a href="gaming-hub.html">Gaming Hub</a></li>
-          <li><a href="games-and-apps.html">Games & Apps</a></li>
           <li><a href="store.html">Store</a></li>
           <li><a href="games/tic-tac-toe.html">Tic Tac Toe</a></li>
           <li><a href="games/snake.html">Snake</a></li>

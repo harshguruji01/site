@@ -62,10 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </li>
 
             <li class="hg-nav-item hg-has-dropdown">
-              <a href="${prefix}games-and-apps.html" class="hg-nav-link">Games & Apps <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+              <a href="${prefix}store.html" class="hg-nav-link">Store <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
               <div class="hg-dropdown">
                 <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">Gaming Hub</a>
-                <a href="${prefix}games-and-apps.html" class="hg-dropdown-link">Games & Apps</a>
                 <a href="${prefix}store.html" class="hg-dropdown-link">Store</a>
                 <a href="${prefix}games/snake.html" class="hg-dropdown-link">Snake Game</a>
                 <a href="${prefix}games/tic-tac-toe.html" class="hg-dropdown-link">Tic Tac Toe</a>
@@ -141,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </li>
 
           <li class="hg-mobile-item hg-has-accordion">
-            <button class="hg-mobile-accordion-toggle">Games & Apps <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
+            <button class="hg-mobile-accordion-toggle">Store <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
             <div class="hg-mobile-accordion-content">
               <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">Gaming Hub</a>
               <a href="${prefix}store.html" class="hg-mobile-sublink">Store</a>

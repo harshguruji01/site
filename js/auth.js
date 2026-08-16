@@ -60,6 +60,25 @@ export const AuthManager = {
     // Track a standard page view once we're sure the user is logged in
     await trackActivity({ activity_type: 'page_view' });
 
+    // Check if user is a contributor (any status) to hide CTAs
+    try {
+      const { data: contributorData } = await supabase
+        .from('contributors')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+        
+      if (contributorData) {
+        // Hide contributor CTAs across the site
+        const indexCta = document.getElementById('contributor-cta');
+        if (indexCta) indexCta.style.display = 'none';
+        const pageCta = document.getElementById('become-cta');
+        if (pageCta) pageCta.style.display = 'none';
+      }
+    } catch(err) {
+      console.error('Error checking contributor status:', err);
+    }
+
     // Dispatch global event for UI updates
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 
       detail: { user: this.currentUser, profile: this.currentProfile } 
