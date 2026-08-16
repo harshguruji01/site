@@ -9,5 +9,8 @@ Disallow: /notifications.html
 Disallow: /messages.html
 Disallow: /bookmarks.html
 Disallow: /billing.html
+Disallow: /verify-contributor.html
+Disallow: /admin-contacts.html
+Disallow: /admin-verification.html
 
 Sitemap: https://www.webguruji.online/sitemap.xml
