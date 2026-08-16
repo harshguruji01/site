@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Verification – HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #ec4899;
+      --bg-dark: #0a0a0f;
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --text-main: #f8fafc;
+      --text-muted: #64748b;
+      --border: rgba(255, 255, 255, 0.08);
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 20px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      margin: 0; padding: 2rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem; }
+    
+    /* Login Gate */
+    #login-gate {
+      background: var(--bg-glass); padding: 3rem; border-radius: var(--radius-lg);
+      border: 1px solid var(--border); text-align: center; max-width: 400px; margin: 4rem auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    #login-gate input {
+      width: 100%; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #fff;
+      font-size: 1rem; font-family: 'Inter', sans-serif;
+    }
+    #login-gate button {
+      width: 100%; padding: 1rem; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; font-weight: bold; border: none; cursor: pointer; font-size: 1rem; transition: transform 0.2s;
+    }
+    #login-gate button:hover { transform: scale(1.02); }
+    
+    /* Dashboard */
+    #dashboard { display: none; }
+    .request-card {
+      background: var(--bg-glass); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: transform 0.2s;
+    }
+    .request-card:hover { transform: translateY(-3px); border-color: rgba(99, 102, 241, 0.4); }
+    .info h3 { margin: 0 0 0.5rem 0; color: #a5b4fc; }
+    .info p { margin: 0 0 0.3rem 0; font-size: 0.95rem; }
+    .info strong { color: var(--text-muted); font-weight: 500; }
+    .actions { display: flex; gap: 0.8rem; }
+    .actions button {
+      padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s;
+    }
+    .btn-approve { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .btn-approve:hover { background: rgba(16, 185, 129, 0.3); }
+    .btn-reject { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .btn-reject:hover { background: rgba(239, 68, 68, 0.3); }
+    
+    .empty-state { text-align: center; padding: 3rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Gate -->
+  <div id="login-gate">
+    <h2>Admin Login</h2>
+    <p style="color:var(--text-muted); margin-bottom: 1.5rem;">Enter password to view requests</p>
+    <input type="password" id="admin-pwd" placeholder="Enter Admin Password" autocomplete="off">
+    <button onclick="checkAdmin()">Unlock Dashboard</button>
+    <p id="login-err" style="color:var(--danger); display:none; margin-top:1rem;">Incorrect Password</p>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard">
+    <h1>Pending Contributor Requests</h1>
+    <div id="requests-list"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+  window._supabase = supabase;
+</script>
+
+<script>
+  // Allow Enter key
+  document.getElementById('admin-pwd').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkAdmin();
+  });
+
+  function checkAdmin() {
+    const pwd = document.getElementById('admin-pwd').value;
+    if(pwd === 'Admin@Verification') {
+      document.getElementById('login-gate').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      loadRequests();
+    } else {
+      document.getElementById('login-err').style.display = 'block';
+      setTimeout(() => document.getElementById('login-err').style.display = 'none', 3000);
+    }
+  }
+
+  async function loadRequests() {
+    const list = document.getElementById('requests-list');
+    list.innerHTML = '<p style="text-align:center;">Loading requests...</p>';
+    
+    try {
+      const { data, error } = await window._supabase
+        .from('contributors')
+        .select('*')
+        .eq('status', 'PENDING')
+        .order('created_at', { ascending: false });
+        
+      if (error) throw error;
+      
+      if (!data || data.length === 0) {
+        list.innerHTML = '<div class="empty-state">No pending requests found.</div>';
+        return;
+      }
+      
+      list.innerHTML = '';
+      data.forEach(req => {
+        list.innerHTML += `
+          <div class="request-card" id="req-${req.user_id}">
+            <div class="info">
+              <h3>${req.display_name} (${req.role})</h3>
+              <p><strong>Name:</strong> ${req.full_name}</p>
+              <p><strong>Bio:</strong> ${req.bio}</p>
+              <p><strong>Instagram:</strong> ${req.instagram || 'N/A'} | <strong>YouTube:</strong> ${req.youtube || 'N/A'}</p>
+            </div>
+            <div class="actions">
+              <button class="btn-approve" onclick="approveReq('${req.user_id}')">Approve</button>
+              <button class="btn-reject" onclick="rejectReq('${req.user_id}')">Reject</button>
+            </div>
+          </div>
+        `;
+      });
+    } catch(err) {
+      list.innerHTML = `<p style="color:var(--danger); text-align:center;">Error loading requests: ${err.message}</p>`;
+    }
+  }
+
+  window.approveReq = async function(userId) {
+    if(!confirm("Are you sure you want to approve this contributor?")) return;
+    try {
+      const { error } = await window._supabase
+        .from('contributors')
+        .update({ status: 'ACTIVE', approved_at: new Date().toISOString() })
+        .eq('user_id', userId);
+        
+      if(error) throw error;
+      
+      document.getElementById(`req-${userId}`).remove();
+      // Check if list is empty now
+      if (document.querySelectorAll('.request-card').length === 0) {
+        document.getElementById('requests-list').innerHTML = '<div class="empty-state">No pending requests found.</div>';
+      }
+    } catch(err) {
+      alert("Error: " + err.message);
+    }
+  }
+
+  window.rejectReq = async function(userId) {
+    if(!confirm("Are you sure you want to reject and delete this request?")) return;
+    try {
+      const { error } = await window._supabase
+        .from('contributors')
+        .delete()
+        .eq('user_id', userId);
+        
+      if(error) throw error;
+      
+      document.getElementById(`req-${userId}`).remove();
+      // Check if list is empty now
+      if (document.querySelectorAll('.request-card').length === 0) {
+        document.getElementById('requests-list').innerHTML = '<div class="empty-state">No pending requests found.</div>';
+      }
+    } catch(err) {
+      alert("Error: " + err.message);
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -178,10 +178,10 @@
 
       <div class="divider">or</div>
 
-      <a href="https://www.instagram.com/harshpatelverma1/" target="_blank" rel="noopener" class="ask-admin-btn">
-        <span class="ig-icon">📸</span>
-        Ask Password from Admin — <strong>@harshpatelverma1</strong>
-      </a>
+      <button class="ask-admin-btn" id="btn-manual" onclick="sendManualRequest()" style="cursor: pointer;">
+        <span class="ig-icon">👨‍💻</span>
+        Send Manual Verification Request to Admin
+      </button>
 
       <div class="pending-note">
         ⏳ Your application is saved as <strong>Pending</strong>. Once you enter the correct code, it will be marked as <strong>Active</strong> and visible on the contributors page.
@@ -288,6 +288,26 @@
       btn.disabled = false;
       btn.textContent = 'Verify & Complete →';
     }
+  }
+
+  function sendManualRequest() {
+    const btn = document.getElementById('btn-manual');
+    const verifyBtn = document.getElementById('btn-verify');
+    
+    btn.disabled = true;
+    verifyBtn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    setTimeout(() => {
+      document.getElementById('verify-view').style.display = 'none';
+      document.getElementById('success-view').innerHTML = `
+        <span class="success-icon">⏳</span>
+        <h2>Request Sent Successfully!</h2>
+        <p>Your request has been forwarded to the Admin for manual verification. Once approved, your profile will appear on the Contributors page.</p>
+        <a href="contributor.html" class="btn-home">View Contributors Page →</a>
+      `;
+      document.getElementById('success-view').style.display = 'block';
+    }, 800);
   }
 </script>
 </body>
