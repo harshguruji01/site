@@ -302,7 +302,11 @@ function setupDropzone(zoneId, inputId, textId, isMultiple = false) {
     const input = document.getElementById(inputId);
     const text = document.getElementById(textId);
     
-    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('click', (e) => {
+        if (e.target !== input) {
+            input.click();
+        }
+    });
     
     input.addEventListener('change', (e) => {
         if (input.files.length > 0) {

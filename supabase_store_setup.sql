@@ -81,3 +81,19 @@ ALTER TABLE contributors ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.u
 ALTER TABLE contributors ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE contributors ADD COLUMN IF NOT EXISTS instagram TEXT;
 ALTER TABLE contributors ADD COLUMN IF NOT EXISTS youtube TEXT;
+
+-- Added missing policies for Admin Dashboard functionality
+CREATE POLICY "Allow select all for everyone (Temp Admin)" ON store_apps
+    FOR SELECT USING (true);
+
+CREATE POLICY "Allow delete for everyone (Temp Admin)" ON store_apps
+    FOR DELETE USING (true);
+
+CREATE POLICY "Delete Access" ON storage.objects
+    FOR DELETE USING ( bucket_id = 'apk-files' );
+    
+CREATE POLICY "Delete Access Logos" ON storage.objects
+    FOR DELETE USING ( bucket_id = 'app-logos' );
+    
+CREATE POLICY "Delete Access Screenshots" ON storage.objects
+    FOR DELETE USING ( bucket_id = 'app-screenshots' );
