@@ -12,7 +12,7 @@
   
   --hg-text-primary: #ffffff;
   --hg-text-secondary: #a1a1aa;
-  --hg-accent: #3b82f6;
+  --hg-accent: #ff6b4a; /* PeachWeb Coral */
   
   --hg-trans: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }

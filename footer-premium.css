@@ -70,7 +70,7 @@
 }
 
 .hg-footer-col a:hover { 
-  color: var(--accent-primary, #3b82f6); 
+  color: var(--accent-primary, #ff6b4a); 
   transform: translateX(4px); 
 }
 
@@ -87,8 +87,8 @@
 }
 
 .hg-footer-search:focus-within { 
-  border-color: var(--accent-primary, #3b82f6); 
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); 
+  border-color: var(--accent-primary, #ff6b4a); 
+  box-shadow: 0 0 0 2px rgba(255, 107, 74, 0.25); 
 }
 
 .hg-footer-search input { 
@@ -102,7 +102,7 @@
 }
 
 .hg-footer-search button { 
-  background: var(--accent-primary, #3b82f6); 
+  background: var(--accent-primary, #ff6b4a); 
   color: white; 
   border: none; 
   border-radius: 6px; 

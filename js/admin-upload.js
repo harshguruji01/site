@@ -227,7 +227,7 @@ window.editApp = function(id) {
     document.getElementById('app-slug').value = app.slug;
     document.getElementById('app-short-desc').value = app.short_description;
     document.getElementById('app-full-desc').value = app.description || '';
-    document.getElementById('app-category').value = app.category;
+    document.getElementById('app-category').value = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
     document.getElementById('app-subcategory').value = app.subcategory || '';
     document.getElementById('app-developer').value = app.developer_name || '';
     document.getElementById('app-package').value = app.package_name || '';
@@ -390,8 +390,8 @@ async function handleUpload(e) {
         // 1. Upload Logo (if changed)
         if (logoFile) {
             updateProgress('logo', 50);
-            const logoExt = logoFile.name.split('.').pop();
-            const logoPath = `${slug}/icon.${logoExt}`;
+            const logoExt = (logoFile.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '');
+            const logoPath = `${slug}/icon_${Date.now()}.${logoExt}`;
             const { error: logoErr } = await supabase.storage.from('app-logos').upload(logoPath, logoFile, { upsert: true });
             if (logoErr) throw new Error("Logo upload failed: " + logoErr.message);
             const { data: logoPub } = supabase.storage.from('app-logos').getPublicUrl(logoPath);
@@ -405,7 +405,8 @@ async function handleUpload(e) {
         if (apkFile) {
             updateProgress('apk', 30);
             const version = document.getElementById('app-version').value;
-            apkPath = `${slug}/${version}/${apkFile.name}`;
+            const cleanApkName = apkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            apkPath = `${slug}/${version}/${Date.now()}_${cleanApkName}`;
             const { error: apkErr } = await supabase.storage.from('apk-files').upload(apkPath, apkFile, { upsert: true });
             if (apkErr) throw new Error("APK upload failed: " + apkErr.message);
             
@@ -419,11 +420,10 @@ async function handleUpload(e) {
         // 3. Upload Screenshots (append if new provided)
         if (screenshots.length > 0) {
             let scCount = 0;
-            // Optionally clear old ones or append. We will overwrite/append for simplicity
-            screenshotUrls = []; // Clear old if new uploaded
+            screenshotUrls = [];
             for (let i = 0; i < screenshots.length; i++) {
                 const sc = screenshots[i];
-                const scExt = sc.name.split('.').pop();
+                const scExt = (sc.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '');
                 const scPath = `${slug}/sc_${i}_${Date.now()}.${scExt}`;
                 const { error: scErr } = await supabase.storage.from('app-screenshots').upload(scPath, sc, { upsert: true });
                 if (!scErr) {
@@ -441,23 +441,24 @@ async function handleUpload(e) {
         document.getElementById('progress-item-db').querySelector('.pct').textContent = "Saving...";
         
         const status = document.getElementById('app-status').value;
+        const selectedCat = document.getElementById('app-category').value || 'Apps';
         const appData = {
             name: document.getElementById('app-name').value,
             slug: slug,
             short_description: document.getElementById('app-short-desc').value,
-            description: document.getElementById('app-full-desc').value,
-            logo_url: logoUrl,
-            category: document.getElementById('app-category').value,
-            subcategory: document.getElementById('app-subcategory').value,
-            developer_name: document.getElementById('app-developer').value,
-            package_name: document.getElementById('app-package').value,
-            version: document.getElementById('app-version').value,
+            description: document.getElementById('app-full-desc').value || '',
+            logo_url: logoUrl || targetApp.logo_url || "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/app-logos/aurora-store/icon.png",
+            category: [selectedCat], // CRITICAL: Supabase Postgres column is TEXT[] (array)
+            subcategory: document.getElementById('app-subcategory').value || '',
+            developer_name: document.getElementById('app-developer').value || '',
+            package_name: document.getElementById('app-package').value || '',
+            version: document.getElementById('app-version').value || '1.0',
             version_code: parseInt(document.getElementById('app-version-code').value) || 1,
-            file_size: apkFile ? ((apkFile.size / (1024 * 1024)).toFixed(1) + " MB") : targetApp.file_size,
-            whats_new: document.getElementById('app-whats-new').value,
+            file_size: apkFile ? ((apkFile.size / (1024 * 1024)).toFixed(1) + " MB") : (targetApp.file_size || "Unknown"),
+            whats_new: document.getElementById('app-whats-new').value || '',
             apk_storage_path: apkPath,
             download_url: downloadUrl,
-            screenshots: screenshotUrls,
+            screenshots: Array.isArray(screenshotUrls) ? screenshotUrls : [],
             featured: document.getElementById('app-featured').checked,
             verified: document.getElementById('app-verified').checked,
             status: status

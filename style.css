@@ -1,18 +1,18 @@
 :root {
   --bg-main: #000000;
-  --bg-secondary: #0d0d0d;
+  --bg-secondary: #08080c;
   --text-primary: #ffffff;
-  --text-secondary: #afafaf;
-  --accent-primary: #3b82f6;
-  --accent-secondary: #7c3aed;
-  --accent-tertiary: #06b6d4;
-  --nav-bg: rgba(0, 0, 0, 0.85);
-  --card-bg: #0d0d0d;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glow-primary: rgba(59, 130, 246, 0.4);
-  --glow-secondary: rgba(124, 58, 237, 0.4);
+  --text-secondary: #a1a1aa;
+  --accent-primary: #ff6b4a; /* PeachWeb Coral Peach */
+  --accent-secondary: #feb47b; /* PeachWeb Sunset Peach */
+  --accent-tertiary: #9d4edd; /* PeachWeb Neon Violet */
+  --nav-bg: rgba(5, 5, 8, 0.88);
+  --card-bg: #0c0c10;
+  --card-border: rgba(255, 107, 74, 0.18);
+  --glass-bg: rgba(20, 15, 25, 0.55);
+  --glass-border: rgba(255, 107, 74, 0.25);
+  --glow-primary: rgba(255, 107, 74, 0.45);
+  --glow-secondary: rgba(254, 180, 123, 0.4);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }

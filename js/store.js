@@ -178,7 +178,7 @@ async function fetchStoreApps() {
       icon: app.logo_url || "logo.png",
       description: app.short_description || "",
       longDescription: app.description || "",
-      category: app.category || "Apps",
+      category: Array.isArray(app.category) ? (app.category[0] || "Apps") : (app.category || "Apps"),
       platform: "Android", // Default for APK store
       type: app.subcategory || "App",
       developer: app.developer_name || "Unknown",
