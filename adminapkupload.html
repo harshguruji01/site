@@ -288,6 +288,26 @@
 
     <div class="upload-container">
       <h2 id="upload-form-title">Publish New Application</h2>
+      <!-- Success Link Notification Card -->
+      <div id="upload-success-card" style="display: none; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--success); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">
+              <span>✅ Application Published Successfully!</span>
+            </div>
+            <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 0.5rem;">
+              Dedicated App URL:
+            </p>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="success-app-url" readonly style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); color: #38bdf8; font-family: monospace; font-size: 0.9rem; padding: 0.5rem 0.75rem; border-radius: 6px; width: 380px; max-width: 100%;">
+              <button type="button" class="btn btn-primary" id="btn-copy-url" style="padding: 0.5rem 1rem; font-size: 0.85rem;">📋 Copy Link</button>
+              <a href="#" id="btn-visit-app" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">🚀 Open App Page ↗</a>
+            </div>
+          </div>
+          <button type="button" onclick="document.getElementById('upload-success-card').style.display='none'" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;">✕</button>
+        </div>
+      </div>
+
       <form id="apk-upload-form">
         <!-- Hidden input for Update Mode -->
         <input type="hidden" id="edit-app-id" value="">
@@ -303,11 +323,15 @@
               </div>
             </div>
             <div>
-              <label class="required">APK File</label>
+              <label id="apk-file-label" class="required">APK File (.apk) or Direct Download URL</label>
               <div class="file-upload-box" id="apk-dropzone">
                 <span class="icon">📦</span>
                 <span id="apk-filename">Drag & Drop or Click to Select (.apk)</span>
-                <input type="file" id="app-apk" accept=".apk" required>
+                <input type="file" id="app-apk" accept=".apk">
+              </div>
+              <div style="margin-top: 0.5rem;">
+                <input type="text" id="app-direct-url" placeholder="Or paste Direct APK Link (Drive, GitHub, Mediafire, etc.)" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
+                <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.25rem;">Supports direct file upload OR external mirror links (useful if file &gt; 50MB).</small>
               </div>
             </div>
           </div>

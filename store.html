@@ -36,6 +36,17 @@
 
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
+
+  <script>
+    // Seamless redirect to dedicated app page if legacy URL parameter passed
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const appSlug = params.get('app') || params.get('slug');
+      if (appSlug) {
+        window.location.replace('app.html?slug=' + encodeURIComponent(appSlug));
+      }
+    })();
+  </script>
 </head>
 <body>
 

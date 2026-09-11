@@ -466,9 +466,12 @@ function renderGrid(append = false) {
   const appsToRender = append ? displayedApps.slice(startIndex, endIndex) : displayedApps;
   
   appsToRender.forEach((app, index) => {
-    const card = document.createElement('div');
+    const card = document.createElement('a');
+    card.href = `app.html?slug=${encodeURIComponent(app.slug)}`;
     card.className = 'app-card animate-fade-in';
     card.style.animationDelay = `${index * 0.05}s`;
+    card.style.textDecoration = 'none';
+    card.style.color = 'inherit';
     
     // Build badges
     let verifiedHtml = app.verified ? `<div class="verified-badge">✓ Verified</div>` : '';
@@ -496,9 +499,6 @@ function renderGrid(append = false) {
         ${featuredHtml || `<span class="app-badge">${app.category}</span>`}
       </div>
     `;
-    
-    // Event listener to open details
-    card.addEventListener('click', () => openAppDetails(app));
     
     elements.grid.appendChild(card);
   });

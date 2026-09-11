@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Download APK — HarshGuruJi Store</title>
+  <meta id="meta-description" name="description" content="Download the latest verified APK safely from HarshGuruJi Store. High-speed downloads, virus scanned, free.">
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" id="og-title" content="Download APK — HarshGuruJi Store">
+  <meta property="og:description" id="og-description" content="Safe, verified and high-speed APK downloads on HarshGuruJi Store.">
+  <meta property="og:image" id="og-image" content="logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="tw-title" content="Download APK — HarshGuruJi Store">
+  <meta name="twitter:description" id="tw-description" content="Safe and verified APK downloads on HarshGuruJi Store.">
+  <meta name="twitter:image" id="tw-image" content="logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cookie.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+
+  <style>
+    :root {
+      --app-bg: #0b0f19;
+      --app-panel: rgba(18, 26, 43, 0.85);
+      --app-border: rgba(255, 255, 255, 0.08);
+      --app-border-hover: rgba(59, 130, 246, 0.4);
+      --app-primary: #3b82f6;
+      --app-primary-hover: #2563eb;
+      --app-success: #10b981;
+      --app-text: #f8fafc;
+      --app-text-muted: #94a3b8;
+      --app-radius: 16px;
+    }
+
+    body {
+      background-color: var(--app-bg);
+      color: var(--app-text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app-page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 7.5rem 1.25rem 4rem;
+    }
+
+    /* Breadcrumbs */
+    .app-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--app-text-muted);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .app-breadcrumb a {
+      color: var(--app-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .app-breadcrumb a:hover {
+      color: var(--app-primary);
+    }
+    .app-breadcrumb .separator {
+      opacity: 0.5;
+    }
+    .app-breadcrumb .current {
+      color: var(--app-text);
+      font-weight: 600;
+    }
+
+    /* Hero Card */
+    .app-hero-card {
+      background: var(--app-panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--app-border);
+      border-radius: var(--app-radius);
+      padding: 2.25rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .app-hero-main {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .app-main-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+      background: #1e293b;
+      flex-shrink: 0;
+    }
+
+    .app-header-details {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .app-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .app-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-featured {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .app-dev-name {
+      color: var(--app-text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-chips {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--app-border);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .app-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-download-apk {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-download-apk:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-download-apk:active {
+      transform: translateY(0);
+    }
+
+    .btn-share-app {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--app-text);
+      padding: 0.9rem 1.4rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--app-border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-share-app:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Security Verified Box */
+    .security-banner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2.5rem;
+      color: #6ee7b7;
+      font-size: 0.95rem;
+    }
+
+    /* Screenshots Section */
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .screenshots-strip {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      margin-bottom: 2.5rem;
+    }
+
+    .screenshots-strip::-webkit-scrollbar {
+      height: 8px;
+    }
+    .screenshots-strip::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    .screenshot-thumb {
+      height: 380px;
+      width: auto;
+      border-radius: 12px;
+      border: 1px solid var(--app-border);
+      scroll-snap-align: start;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .screenshot-thumb:hover {
+      transform: scale(1.02);
+      border-color: var(--app-primary);
+    }
+
+    /* Content Layout */
+    .app-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 860px) {
+      .app-content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .content-box {
+      background: var(--app-panel);
+      border: 1px solid var(--app-border);
+      border-radius: var(--app-radius);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .app-desc-text {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      white-space: pre-line;
+    }
+
+    /* Changelog Box */
+    .whats-new-box {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .whats-new-title {
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Tech Specs Table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .specs-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .specs-table td {
+      padding: 0.85rem 0;
+      font-size: 0.95rem;
+    }
+
+    .specs-table td.label {
+      color: var(--app-text-muted);
+      width: 42%;
+    }
+
+    .specs-table td.value {
+      color: #fff;
+      font-weight: 500;
+      text-align: right;
+      word-break: break-all;
+    }
+
+    /* Related Apps */
+    .related-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .related-card {
+      background: var(--app-panel);
+      border: 1px solid var(--app-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--app-primary);
+    }
+
+    .related-card img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .related-info h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .related-info p {
+      font-size: 0.8rem;
+      color: var(--app-text-muted);
+    }
+
+    /* Loading & Not Found */
+    .status-state {
+      text-align: center;
+      padding: 6rem 1rem;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,0.1);
+      border-top-color: var(--app-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Toast Notification */
+    .app-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      border-left: 4px solid var(--app-primary);
+      z-index: 9999;
+      font-size: 0.95rem;
+      animation: toastIn 0.3s ease;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Container -->
+  <div class="app-page-wrapper">
+
+    <!-- Loading Screen -->
+    <div id="loading-state" class="status-state">
+      <div class="spinner"></div>
+      <h2 style="color: #cbd5e1; font-weight: 500;">Loading application details...</h2>
+    </div>
+
+    <!-- Error / Not Found Screen -->
+    <div id="not-found-state" class="status-state" style="display: none;">
+      <span style="font-size: 3.5rem; display: block; margin-bottom: 1rem;">🔍</span>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 0.75rem;">Application Not Found</h2>
+      <p style="color: var(--app-text-muted); max-width: 500px; margin: 0 auto 2rem;">
+        The requested application could not be found or has been moved. Check out other popular tools and games in the store.
+      </p>
+      <a href="store.html" class="btn-download-apk" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Browse All Apps</a>
+    </div>
+
+    <!-- App Details Container -->
+    <div id="app-container" style="display: none;">
+      <!-- Breadcrumb -->
+      <nav class="app-breadcrumb" aria-label="Breadcrumbs">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="store.html">Store</a>
+        <span class="separator">/</span>
+        <a href="store.html" id="bc-category">Apps</a>
+        <span class="separator">/</span>
+        <span class="current" id="bc-app-name">Application</span>
+      </nav>
+
+      <!-- App Hero Card -->
+      <section class="app-hero-card">
+        <div class="app-hero-main">
+          <img src="logo.png" alt="App Logo" id="app-icon" class="app-main-icon">
+
+          <div class="app-header-details">
+            <div class="app-name-row">
+              <h1 class="app-title" id="app-name">App Name</h1>
+              <span id="badge-verified" class="badge-verified">✓ Verified APK</span>
+              <span id="badge-featured" class="badge-featured" style="display: none;">⭐ Featured</span>
+            </div>
+
+            <div class="app-dev-name">
+              <span>By</span>
+              <strong id="app-dev" style="color: #cbd5e1;">Developer Name</strong>
+              <span id="app-package-inline" style="opacity: 0.6; font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="app-chips">
+              <div class="chip">📱 Android</div>
+              <div class="chip" id="chip-category">🏷️ Category</div>
+              <div class="chip" id="chip-version">📦 v1.0.0</div>
+              <div class="chip" id="chip-size">💾 10 MB</div>
+              <div class="chip" id="chip-downloads">⬇️ <span id="val-downloads">0</span> downloads</div>
+            </div>
+
+            <div class="app-actions">
+              <button type="button" class="btn-download-apk" id="btn-main-download">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download APK (<span id="btn-size-label">0 MB</span>)</span>
+              </button>
+
+              <button type="button" class="btn-share-app" id="btn-share">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                <span>Share</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Security Guarantee Banner -->
+      <div class="security-banner">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <div>
+          <strong style="color: #fff; display: block; margin-bottom: 2px;">100% Virus &amp; Malware Free</strong>
+          <span>This APK package is digitally verified and checked for integrity by HarshGuruJi Store before publication.</span>
+        </div>
+      </div>
+
+      <!-- Screenshots Strip -->
+      <div id="screenshots-section" style="display: none;">
+        <h3 class="section-title">📱 App Screenshots</h3>
+        <div class="screenshots-strip" id="screenshots-strip">
+          <!-- Screenshots injected by JS -->
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="app-content-grid">
+        <!-- Left: Overview & Changelog -->
+        <div class="content-left">
+          <!-- What's New Box -->
+          <div class="whats-new-box" id="whats-new-box" style="display: none;">
+            <div class="whats-new-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>What's New in this Version:</span>
+            </div>
+            <p id="whats-new-text" style="color: #cbd5e1; margin: 0; line-height: 1.6;"></p>
+          </div>
+
+          <!-- Description -->
+          <div class="content-box">
+            <h3 class="section-title">Description</h3>
+            <div class="app-desc-text" id="app-description">
+              <!-- Description text injected here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Technical Details -->
+        <div class="content-right">
+          <div class="content-box">
+            <h3 class="section-title" style="font-size: 1.2rem; margin-bottom: 1.25rem;">Technical Specifications</h3>
+            <table class="specs-table">
+              <tbody>
+                <tr>
+                  <td class="label">Package Name</td>
+                  <td class="value" id="spec-package">-</td>
+                </tr>
+                <tr>
+                  <td class="label">Version Name</td>
+                  <td class="value" id="spec-version">-</td>
+                </tr>
+                <tr>
+                  <td class="label">Version Code</td>
+                  <td class="value" id="spec-version-code">1</td>
+                </tr>
+                <tr>
+                  <td class="label">Category</td>
+                  <td class="value" id="spec-category">Apps</td>
+                </tr>
+                <tr>
+                  <td class="label">Subcategory</td>
+                  <td class="value" id="spec-subcategory">-</td>
+                </tr>
+                <tr>
+                  <td class="label">File Size</td>
+                  <td class="value" id="spec-size">-</td>
+                </tr>
+                <tr>
+                  <td class="label">License</td>
+                  <td class="value" style="color: var(--app-success);">Free</td>
+                </tr>
+                <tr>
+                  <td class="label">Published</td>
+                  <td class="value" id="spec-published">-</td>
+                </tr>
+                <tr>
+                  <td class="label">Updated</td>
+                  <td class="value" id="spec-updated">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Download Action Card in Sidebar -->
+          <div class="content-box" style="text-align: center; border-color: rgba(59, 130, 246, 0.3);">
+            <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem;">Ready to Install?</h4>
+            <p style="color: var(--app-text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+              Direct fast download from our secure cloud storage.
+            </p>
+            <button type="button" class="btn-download-apk" id="btn-side-download" style="width: 100%; justify-content: center; padding: 0.75rem 1rem; font-size: 1rem;">
+              Download APK Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Apps Section -->
+      <section class="related-section" id="related-section" style="margin-top: 2rem;">
+        <h3 class="section-title">✨ More Applications from Store</h3>
+        <div class="related-apps-grid" id="related-grid">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div id="toast-root"></div>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
+
+  <!-- Supabase & App Logic -->
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    import { AuthManager } from './js/auth.js';
+
+    let currentApp = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAppPage();
+    });
+
+    async function initAppPage() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug') || params.get('app');
+      const id = params.get('id');
+
+      if (!slug && !id) {
+        showNotFound();
+        return;
+      }
+
+      try {
+        let query = supabase.from('store_apps').select('*');
+        if (slug) {
+          query = query.eq('slug', slug);
+        } else {
+          query = query.eq('id', id);
+        }
+
+        const { data, error } = await query.single();
+
+        if (error || !data) {
+          console.error("App lookup error:", error);
+          showNotFound();
+          return;
+        }
+
+        currentApp = data;
+        renderApp(data);
+        loadRelatedApps(data.category, data.id);
+
+      } catch (err) {
+        console.error("Page init error:", err);
+        showNotFound();
+      }
+    }
+
+    function renderApp(app) {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('app-container').style.display = 'block';
+
+      // Dynamic Title & Meta
+      document.title = `${app.name} APK Download (v${app.version || '1.0'}) — HarshGuruJi Store`;
+      const metaDesc = app.short_description || `Download ${app.name} APK for Android free and safe on HarshGuruJi Store.`;
+      document.getElementById('meta-description').setAttribute('content', metaDesc);
+      document.getElementById('og-title').setAttribute('content', `${app.name} APK Download`);
+      document.getElementById('og-description').setAttribute('content', metaDesc);
+      if (app.logo_url) {
+        document.getElementById('og-image').setAttribute('content', app.logo_url);
+        document.getElementById('tw-image').setAttribute('content', app.logo_url);
+      }
+
+      // Breadcrumb
+      const catName = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
+      document.getElementById('bc-category').textContent = catName;
+      document.getElementById('bc-app-name').textContent = app.name;
+
+      // Hero
+      document.getElementById('app-icon').src = app.logo_url || 'logo.png';
+      document.getElementById('app-name').textContent = app.name;
+      document.getElementById('app-dev').textContent = app.developer_name || 'HarshGuruJi';
+
+      if (app.package_name) {
+        document.getElementById('app-package-inline').textContent = `(${app.package_name})`;
+      }
+
+      if (app.featured) {
+        document.getElementById('badge-featured').style.display = 'inline-block';
+      }
+
+      // Chips
+      document.getElementById('chip-category').textContent = `🏷️ ${catName}`;
+      document.getElementById('chip-version').textContent = `📦 v${app.version || '1.0'}`;
+      document.getElementById('chip-size').textContent = `💾 ${app.file_size || 'Unknown'}`;
+      document.getElementById('val-downloads').textContent = (app.downloads || 0).toLocaleString();
+
+      // Download Buttons labels
+      const sizeLabel = app.file_size || 'APK';
+      document.getElementById('btn-size-label').textContent = sizeLabel;
+
+      // What's New
+      if (app.whats_new && app.whats_new.trim()) {
+        document.getElementById('whats-new-box').style.display = 'block';
+        document.getElementById('whats-new-text').textContent = app.whats_new;
+      }
+
+      // Description
+      const descText = app.description || app.short_description || "No description provided.";
+      document.getElementById('app-description').textContent = descText;
+
+      // Specs Table
+      document.getElementById('spec-package').textContent = app.package_name || 'N/A';
+      document.getElementById('spec-version').textContent = app.version || '1.0';
+      document.getElementById('spec-version-code').textContent = app.version_code || '1';
+      document.getElementById('spec-category').textContent = catName;
+      document.getElementById('spec-subcategory').textContent = app.subcategory || 'Standard';
+      document.getElementById('spec-size').textContent = app.file_size || 'Varies';
+      document.getElementById('spec-published').textContent = app.published_at ? new Date(app.published_at).toLocaleDateString() : 'Recent';
+      document.getElementById('spec-updated').textContent = app.updated_at ? new Date(app.updated_at).toLocaleDateString() : 'Recent';
+
+      // Screenshots
+      if (Array.isArray(app.screenshots) && app.screenshots.length > 0) {
+        const strip = document.getElementById('screenshots-strip');
+        strip.innerHTML = app.screenshots.map(sc => `
+          <img src="${sc}" alt="${app.name} screenshot" class="screenshot-thumb" loading="lazy">
+        `).join('');
+        document.getElementById('screenshots-section').style.display = 'block';
+      }
+
+      // Setup Download Triggers
+      const downloadHandler = () => triggerDownload(app);
+      document.getElementById('btn-main-download').addEventListener('click', downloadHandler);
+      document.getElementById('btn-side-download').addEventListener('click', downloadHandler);
+
+      // Share Trigger
+      document.getElementById('btn-share').addEventListener('click', () => {
+        const shareData = {
+          title: `${app.name} APK Download`,
+          text: `Download ${app.name} safely from HarshGuruJi Store:`,
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          navigator.share(shareData).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            showToast("Application link copied to clipboard!");
+          });
+        }
+      });
+    }
+
+    async function triggerDownload(app) {
+      if (!app.download_url) {
+        alert("Download URL is currently unavailable for this application.");
+        return;
+      }
+
+      // Guest download limits
+      const user = AuthManager.currentUser;
+      if (!user) {
+        const today = new Date().toISOString().split('T')[0];
+        let guestData = JSON.parse(localStorage.getItem('guest_downloads') || '{"date":"","count":0}');
+        if (guestData.date !== today) {
+          guestData = { date: today, count: 0 };
+        }
+        if (guestData.count >= 5) {
+          alert("You have reached your daily limit of 5 free downloads. Please log in to download unlimited APKs!");
+          return;
+        }
+        guestData.count += 1;
+        localStorage.setItem('guest_downloads', JSON.stringify(guestData));
+      }
+
+      // Initiate download
+      const link = document.createElement('a');
+      link.href = app.download_url;
+      link.target = '_blank';
+      link.download = '';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast("Download started! Thank you for using HarshGuruJi Store.");
+
+      // Increment downloads in database
+      try {
+        const newCount = (app.downloads || 0) + 1;
+        document.getElementById('val-downloads').textContent = newCount.toLocaleString();
+        await supabase.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+
+        if (user) {
+          await supabase.from('app_downloads').insert({
+            user_id: user.id,
+            app_id: app.id
+          });
+        }
+      } catch (err) {
+        console.error("Failed to track download count:", err);
+      }
+    }
+
+    async function loadRelatedApps(cat, currentId) {
+      try {
+        const { data: related } = await supabase
+          .from('store_apps')
+          .select('id, name, slug, logo_url, short_description, version')
+          .eq('status', 'Published')
+          .neq('id', currentId)
+          .limit(4);
+
+        if (related && related.length > 0) {
+          const container = document.getElementById('related-grid');
+          container.innerHTML = related.map(item => `
+            <a href="app.html?slug=${encodeURIComponent(item.slug)}" class="related-card">
+              <img src="${item.logo_url || 'logo.png'}" alt="${item.name}">
+              <div class="related-info">
+                <h4>${item.name}</h4>
+                <p>v${item.version || '1.0'}</p>
+              </div>
+            </a>
+          `).join('');
+        } else {
+          document.getElementById('related-section').style.display = 'none';
+        }
+      } catch (err) {
+        console.error("Failed to load related apps:", err);
+      }
+    }
+
+    function showNotFound() {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('not-found-state').style.display = 'block';
+    }
+
+    function showToast(msg) {
+      const root = document.getElementById('toast-root');
+      const toast = document.createElement('div');
+      toast.className = 'app-toast';
+      toast.textContent = msg;
+      root.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
