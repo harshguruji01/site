@@ -327,6 +327,46 @@
   import { supabase } from './js/supabase.js';
 
   document.addEventListener('DOMContentLoaded', async () => {
+    // Hide "Want to become a contributor" button if current logged-in user is already a contributor or admin
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        const userId = session.user.id;
+        const userEmail = (session.user.email || '').toLowerCase();
+        let isContributor = userEmail === 'harshguruji01@gmail.com';
+
+        if (!isContributor) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('golden_tick, role')
+            .eq('id', userId)
+            .maybeSingle();
+
+          if (profile && (profile.golden_tick === true || profile.role === 'contributor')) {
+            isContributor = true;
+          }
+        }
+
+        if (!isContributor) {
+          const { data: contrib } = await supabase
+            .from('contributors')
+            .select('id, status')
+            .eq('user_id', userId)
+            .in('status', ['ACTIVE', 'approved'])
+            .maybeSingle();
+
+          if (contrib) isContributor = true;
+        }
+
+        if (isContributor) {
+          const cta = document.getElementById('become-cta');
+          if (cta) cta.style.display = 'none';
+        }
+      }
+    } catch (err) {
+      console.warn("Contributor CTA check notice:", err);
+    }
+
     try {
       // Query all ACTIVE contributors
       const { data, error } = await supabase

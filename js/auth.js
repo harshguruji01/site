@@ -66,15 +66,24 @@ export const AuthManager = {
     // Track standard page view
     await trackActivity({ activity_type: 'page_view' });
 
-    // Check contributor status
+    // Check contributor status - hide "Want to become a contributor" button if user is already an active contributor
     try {
-      const { data: contributorData } = await supabase
-        .from('contributors')
-        .select('id')
-        .eq('user_id', user.id)
-        .maybeSingle();
-        
-      if (contributorData) {
+      const isOwner = (user.email || '').toLowerCase() === 'harshguruji01@gmail.com';
+      const hasGoldenTick = this.currentProfile && this.currentProfile.golden_tick === true;
+      let isContributor = isOwner || hasGoldenTick;
+
+      if (!isContributor) {
+        const { data: contributorData } = await supabase
+          .from('contributors')
+          .select('id, status')
+          .eq('user_id', user.id)
+          .in('status', ['ACTIVE', 'approved'])
+          .maybeSingle();
+          
+        if (contributorData) isContributor = true;
+      }
+
+      if (isContributor) {
         const indexCta = document.getElementById('contributor-cta');
         if (indexCta) indexCta.style.display = 'none';
         const pageCta = document.getElementById('become-cta');
@@ -84,7 +93,7 @@ export const AuthManager = {
       // Non-critical
     }
 
-    // Dispatch global event for UI updates (navbar, dashboard, settings)
+    // Dispatch global event for UI updates (navbar, dashboard, settings, contributor)
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 
       detail: { user: this.currentUser, profile: this.currentProfile } 
     }));
@@ -93,6 +102,10 @@ export const AuthManager = {
   handleUserLogout() {
     this.currentUser = null;
     this.currentProfile = null;
+    const indexCta = document.getElementById('contributor-cta');
+    if (indexCta) indexCta.style.display = '';
+    const pageCta = document.getElementById('become-cta');
+    if (pageCta) pageCta.style.display = '';
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 
       detail: { user: null, profile: null } 
     }));
