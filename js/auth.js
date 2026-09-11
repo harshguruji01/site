@@ -1,91 +1,87 @@
-import { auth, googleProvider, db } from './firebase.js';
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signInWithPopup, 
-  signOut as firebaseSignOut, 
-  onAuthStateChanged,
-  updateProfile as updateAuthProfile 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { supabase } from './supabase.js';
 import { getProfile, updateProfile } from './profile.js';
 import { trackActivity } from './activity-tracker.js';
 
 // Expose AuthManager globally for convenience or use via exports
 export const AuthManager = {
-  auth,
+  supabase,
   currentUser: null,
   currentProfile: null,
-  _initialResolve: null,
-  _initialized: false,
 
-  init() {
-    if (this._initialized) return;
-    this._initialized = true;
-
-    // Listen to Firebase Auth state changes
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // Ensure user.id matches user.uid for compatibility with legacy templates
-        user.id = user.uid;
-        await this.handleUserLogin(user);
+  async init() {
+    try {
+      // Check initial session
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (session && session.user) {
+        await this.handleUserLogin(session.user);
       } else {
         this.handleUserLogout();
       }
+    } catch (err) {
+      console.warn("Session check notice:", err);
+      this.handleUserLogout();
+    }
 
-      if (this._initialResolve) {
-        this._initialResolve(this.currentUser ? { user: this.currentUser } : null);
-        this._initialResolve = null;
+    // Listen to Supabase Auth state changes
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Supabase Auth Event:', event);
+      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session && session.user) {
+        await this.handleUserLogin(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        this.handleUserLogout();
       }
     });
   },
 
   async handleUserLogin(user) {
-    user.id = user.uid;
-    user.app_metadata = {
-      provider: user.providerData?.[0]?.providerId || 'password',
-      providers: (user.providerData || []).map(p => p.providerId.replace('.com', ''))
-    };
     this.currentUser = user;
     
-    // Check if profile exists in Firestore, if not, create one
-    let profile = await getProfile(user.uid);
+    // Ensure both user.id and user.uid are available for backward compatibility
+    user.uid = user.id;
+
+    // Check if profile exists, if not, create one
+    let profile = await getProfile(user.id);
     if (!profile) {
-      console.log("No profile found in Firestore, creating default profile...");
-      const displayName = user.displayName || (user.email ? user.email.split('@')[0] : "User");
+      console.log("No profile found in Supabase, creating from metadata...");
+      const userMetadata = user.user_metadata || {};
       const newProfile = {
-        id: user.uid,
-        display_name: displayName,
-        avatar_url: user.photoURL || null,
+        id: user.id,
+        display_name: userMetadata.full_name || userMetadata.name || (user.email ? user.email.split('@')[0] : 'User'),
+        avatar_url: userMetadata.avatar_url || userMetadata.picture || null,
         email: user.email,
         updated_at: new Date().toISOString(),
       };
-      profile = await updateProfile(user.uid, newProfile);
+      profile = await updateProfile(user.id, newProfile);
       
       // Log account created event
       await trackActivity({
         activity_type: 'account_created',
         page_type: 'system',
         page_name: 'Account Setup',
-        metadata: { provider: user.providerData?.[0]?.providerId || 'password' }
+        metadata: { provider: user.app_metadata?.provider || 'supabase' }
       });
     }
     this.currentProfile = profile;
 
-    // Track a standard page view once user is logged in
+    // Track standard page view
     await trackActivity({ activity_type: 'page_view' });
 
-    // Check contributor status if collection exists
+    // Check contributor status
     try {
-      const contribDoc = await getDoc(doc(db, 'contributors', user.uid));
-      if (contribDoc.exists()) {
+      const { data: contributorData } = await supabase
+        .from('contributors')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+        
+      if (contributorData) {
         const indexCta = document.getElementById('contributor-cta');
         if (indexCta) indexCta.style.display = 'none';
         const pageCta = document.getElementById('become-cta');
         if (pageCta) pageCta.style.display = 'none';
       }
-    } catch (err) {
-      // Non-critical, ignore error
+    } catch(err) {
+      // Non-critical
     }
 
     // Dispatch global event for UI updates (navbar, dashboard, settings)
@@ -104,163 +100,98 @@ export const AuthManager = {
 };
 
 /**
- * Sign in with Email and Password
+ * Sign In with Supabase Email & Password
  */
 export async function signIn(email, password) {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    user.id = user.uid;
-    return { user };
-  } catch (error) {
-    console.error("Firebase Sign In error:", error);
-    let message = error.message;
-    if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-      message = "Invalid email or password. Please check your credentials.";
-    } else if (error.code === 'auth/too-many-requests') {
-      message = "Too many failed attempts. Please try again later.";
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    console.error("Supabase sign in error:", error);
+    let msg = error.message;
+    if (msg.includes('Invalid login credentials')) {
+      msg = "Invalid email or password. Please check your credentials.";
+    } else if (msg.includes('Email not confirmed')) {
+      msg = "Please verify your email before signing in.";
     }
-    throw new Error(message);
+    throw new Error(msg);
   }
+  return data;
 }
 
 /**
- * Sign up with Email and Password and optional Name
+ * Sign Up with Supabase Email & Password
  */
 export async function signUp(email, password, name) {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    user.id = user.uid;
-
-    if (name) {
-      await updateAuthProfile(user, { displayName: name });
-    }
-
-    // Store profile in Firestore
-    await updateProfile(user.uid, {
-      id: user.uid,
-      display_name: name || email.split('@')[0],
-      email: email,
-      avatar_url: null,
-      created_at: new Date().toISOString()
-    });
-
-    return { user };
-  } catch (error) {
-    console.error("Firebase Sign Up error:", error);
-    let message = error.message;
-    if (error.code === 'auth/email-already-in-use') {
-      message = "This email is already registered. Please log in instead.";
-    } else if (error.code === 'auth/weak-password') {
-      message = "Password should be at least 6 characters.";
-    } else if (error.code === 'auth/invalid-email') {
-      message = "Please provide a valid email address.";
-    }
-    throw new Error(message);
-  }
-}
-
-/**
- * Sign in / Sign up with Google Popup
- */
-export async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
-    user.id = user.uid;
-
-    // Safely ensure Firestore profile is updated with Google photo and name
-    try {
-      const existing = await getProfile(user.uid);
-      if (!existing) {
-        await updateProfile(user.uid, {
-          id: user.uid,
-          display_name: user.displayName || (user.email ? user.email.split('@')[0] : "User"),
-          avatar_url: user.photoURL || null,
-          email: user.email,
-          created_at: new Date().toISOString()
-        });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { 
+        full_name: name,
+        name: name
       }
-    } catch (profileErr) {
-      console.warn("Notice: Firestore profile sync will complete in AuthManager listener:", profileErr);
     }
-
-    return { user };
-  } catch (error) {
-    console.error("Firebase Google Sign In error:", error);
-    let message = error.message;
-    if (error.code === 'auth/popup-closed-by-user') {
-      message = "Google sign-in popup was closed before completing.";
-    } else if (error.code === 'auth/popup-blocked') {
-      message = "The sign-in popup was blocked by your browser. Please allow popups for this site.";
-    } else if (error.code === 'auth/unauthorized-domain') {
-      message = "This domain is not in your Firebase Authorized Domains. Add it in Firebase Console > Authentication > Settings > Authorized domains.";
-    } else if (error.code === 'auth/operation-not-allowed') {
-      message = "Google sign-in is not enabled in Firebase Console. Go to Authentication > Sign-in method and enable Google.";
-    } else if (error.code === 'auth/network-request-failed') {
-      message = "Network error. Please check your internet connection and try again.";
-    }
-    throw new Error(message);
-  }
-}
-
-/**
- * Sign out current user
- */
-export async function signOut() {
-  try {
-    await firebaseSignOut(auth);
-    window.location.href = '/index.html';
-  } catch (error) {
-    console.error("Firebase Sign Out error:", error);
+  });
+  if (error) {
+    console.error("Supabase sign up error:", error);
     throw error;
   }
+  return data;
 }
 
 /**
- * Get current session / user
+ * Sign In with Supabase Google OAuth
+ */
+export async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + '/dashboard.html'
+    }
+  });
+  if (error) {
+    console.error("Supabase Google sign in error:", error);
+    throw error;
+  }
+  if (data && data.url) {
+    window.location.href = data.url;
+  }
+  return data;
+}
+
+/**
+ * Sign Out
+ */
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error("Supabase sign out error:", error);
+    throw error;
+  }
+  window.location.href = '/index.html';
+}
+
+/**
+ * Get Current Session
  */
 export async function getSession() {
-  if (auth.currentUser) {
-    auth.currentUser.id = auth.currentUser.uid;
-    return { user: auth.currentUser };
-  }
-
-  return new Promise((resolve) => {
-    let resolved = false;
-    const timeout = setTimeout(() => {
-      if (!resolved) {
-        resolved = true;
-        resolve(auth.currentUser ? { user: auth.currentUser } : null);
-      }
-    }, 2000);
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!resolved) {
-        resolved = true;
-        clearTimeout(timeout);
-        unsubscribe();
-        if (user) {
-          user.id = user.uid;
-          resolve({ user });
-        } else {
-          resolve(null);
-        }
-      }
-    });
-  });
+  const { data: { session }, error } = await supabase.auth.getSession();
+  if (error) return null;
+  return session;
 }
 
 /**
- * Phone Auth helpers
+ * Phone OTP Auth (Optional)
  */
 export async function signInWithPhone(phone) {
-  throw new Error("Phone OTP is optional and requires RecaptchaVerifier setup. Please use Email/Password or Google Sign-In.");
+  const { data, error } = await supabase.auth.signInWithOtp({ phone });
+  if (error) throw error;
+  return data;
 }
 
 export async function verifyPhoneOtp(phone, token) {
-  throw new Error("Phone OTP verification not configured. Please use Email/Password or Google Sign-In.");
+  const { data, error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
+  if (error) throw error;
+  return data;
 }
 
 // Automatically start AuthManager listener and expose on window

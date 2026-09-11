@@ -1,6 +1,4 @@
-import { auth, db } from './firebase.js';
-import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { collection, query, where, getDocs, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { supabase } from './supabase.js';
 
 export class DashboardManager {
     constructor() {
@@ -10,35 +8,30 @@ export class DashboardManager {
     }
 
     async init() {
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = 'login.html';
-                return;
-            }
-            this.userId = user.uid;
-            await this.fetchData();
-            this.renderAll();
-        });
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session || !session.user) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        this.userId = session.user.id;
+        await this.fetchData();
+        this.renderAll();
     }
 
     async fetchData() {
         try {
-            if (!this.userId) return;
-            const activitiesRef = collection(db, 'activities');
-            const q = query(activitiesRef, where('user_id', '==', this.userId));
-            const querySnapshot = await getDocs(q);
-            
-            const list = [];
-            querySnapshot.forEach(docSnap => {
-                list.push({ id: docSnap.id, ...docSnap.data() });
-            });
-
-            // Sort descending by timestamp
-            list.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-            this.activities = list;
+            const { data, error } = await supabase
+                .from('user_activity')
+                .select('*')
+                .eq('user_id', this.userId)
+                .order('timestamp', { ascending: false });
+                
+            if (error) throw error;
+            this.activities = data || [];
             this.isLoading = false;
         } catch (err) {
-            console.warn("Failed to load dashboard activities from Firestore:", err);
+            console.warn("Failed to load dashboard data from Supabase:", err);
             this.activities = [];
             this.isLoading = false;
         }
@@ -62,24 +55,28 @@ export class DashboardManager {
         if (!container) return;
 
         try {
-            if (!this.userId) return;
-            const contribDoc = await getDoc(doc(db, 'contributors', this.userId));
+            const { data: contributor } = await supabase
+                .from('contributors')
+                .select('status')
+                .eq('user_id', this.userId)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
 
-            if (contribDoc.exists()) {
-                const contributor = contribDoc.data();
-                if (contributor.status === 'ACTIVE') {
+            if (contributor) {
+                if (contributor.status === 'approved' || contributor.status === 'ACTIVE') {
                     container.innerHTML = `
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
                         <h4 style="color: var(--success, #10b981); margin-bottom: 1rem;">You are a HarshGuruJi Contributor</h4>
                         <a href="contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">View Profile</a>
                     `;
-                } else if (contributor.status === 'PENDING') {
+                } else if (contributor.status === 'pending' || contributor.status === 'PENDING') {
                     container.innerHTML = `
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
                         <h4 style="color: #3b82f6; margin-bottom: 1rem;">Application Pending</h4>
                         <p style="font-size: 0.85rem; color: var(--text-secondary);">Your application is currently being reviewed.</p>
                     `;
-                } else if (contributor.status === 'REJECTED') {
+                } else if (contributor.status === 'rejected' || contributor.status === 'REJECTED') {
                     container.innerHTML = `
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">❌</div>
                         <h4 style="color: var(--danger, #ef4444); margin-bottom: 1rem;">Application Not Approved</h4>
@@ -107,7 +104,7 @@ export class DashboardManager {
         const accountCreatedEvent = this.activities.find(a => a.activity_type === 'account_created');
         const creationDate = accountCreatedEvent 
             ? new Date(accountCreatedEvent.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-            : (auth.currentUser?.metadata?.creationTime ? new Date(auth.currentUser.metadata.creationTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Active");
+            : "Active";
             
         const lastActive = this.activities.length > 0 
             ? this.timeAgo(this.activities[0].timestamp)
