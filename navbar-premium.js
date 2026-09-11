@@ -94,6 +94,34 @@ document.addEventListener('DOMContentLoaded', () => {
           
           <!-- Auth (Dynamic via JS) -->
           <a href="${prefix}login.html" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>
+
+          <!-- Notifications Bell & Feedback Dropdown (For Logged In Users) -->
+          <div class="hg-notif-container" id="hg-notif-container" style="display:none;">
+            <button type="button" class="hg-notif-btn" id="hg-notif-btn" aria-label="Feedback & Messages" title="My Feedback & Messages">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="hg-notif-badge" id="hg-notif-badge" style="display:none;">0</span>
+            </button>
+            
+            <div class="hg-notif-dropdown" id="hg-notif-dropdown" style="display:none;">
+              <div class="hg-notif-header">
+                <div class="hg-notif-header-title">
+                  <span>🔔</span>
+                  <span>Feedback &amp; Messages</span>
+                </div>
+                <button type="button" class="hg-notif-refresh-btn" id="hg-notif-refresh" title="Refresh Messages">↻</button>
+              </div>
+              <div class="hg-notif-list" id="hg-notif-list">
+                <div class="hg-notif-empty">Loading messages...</div>
+              </div>
+              <div class="hg-notif-footer">
+                <a href="${prefix}contact.html">Send New Feedback / Message &rarr;</a>
+                <div style="font-size:0.72rem; color:#71717a; margin-top:4px;">⏱️ Messages auto-clear after 1 to 2 weeks</div>
+              </div>
+            </div>
+          </div>
           
           <div class="hg-user-menu" id="hg-user-profile" style="display:none;">
             <div class="hg-user-trigger" tabindex="0" role="button" aria-haspopup="true">
@@ -282,23 +310,224 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- NOTIFICATION CENTER & USER FEEDBACK LOGIC ---
+  let userMessagesCache = [];
+  let isNotifDropdownOpen = false;
+
+  const notifContainer = document.getElementById('hg-notif-container');
+  const notifBtn = document.getElementById('hg-notif-btn');
+  const notifBadge = document.getElementById('hg-notif-badge');
+  const notifDropdown = document.getElementById('hg-notif-dropdown');
+  const notifList = document.getElementById('hg-notif-list');
+  const notifRefreshBtn = document.getElementById('hg-notif-refresh');
+
+  function toggleNotifDropdown(forceState) {
+    if (!notifDropdown) return;
+    const shouldOpen = typeof forceState === 'boolean' ? forceState : !isNotifDropdownOpen;
+    isNotifDropdownOpen = shouldOpen;
+
+    if (shouldOpen) {
+      notifDropdown.style.display = 'block';
+      if (notifBtn) notifBtn.classList.add('active');
+
+      // If user had unread replies, mark them as read in DB so badge clears
+      markRepliesAsRead();
+    } else {
+      notifDropdown.style.display = 'none';
+      if (notifBtn) notifBtn.classList.remove('active');
+    }
+  }
+
+  if (notifBtn) {
+    notifBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleNotifDropdown();
+    });
+  }
+
+  if (notifRefreshBtn) {
+    notifRefreshBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const currentUserId = window._currentNavUserId;
+      if (currentUserId) loadUserNotifications(currentUserId);
+    });
+  }
+
+  // Close notification dropdown on click outside
+  document.addEventListener('click', (e) => {
+    if (isNotifDropdownOpen && notifContainer && !notifContainer.contains(e.target)) {
+      toggleNotifDropdown(false);
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isNotifDropdownOpen) {
+      toggleNotifDropdown(false);
+    }
+  });
+
+  async function loadUserNotifications(userId) {
+    if (!userId || !notifList) return;
+    window._currentNavUserId = userId;
+
+    try {
+      const { supabase } = await import('./js/supabase.js');
+
+      // Auto-clear threshold: Maximum 14 days (2 weeks).
+      const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .select('*')
+        .eq('user_id', userId)
+        .gte('created_at', fourteenDaysAgo)
+        .order('created_at', { ascending: false })
+        .limit(30);
+
+      if (error) {
+        console.warn("Could not load notifications:", error);
+        return;
+      }
+
+      const now = Date.now();
+      const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+      const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
+
+      // Auto-clear: read replies clear after 1 week (7 days); all messages clear after 2 weeks maximum (14 days)
+      userMessagesCache = (data || []).filter(m => {
+        const createdMs = new Date(m.created_at).getTime();
+        if (now - createdMs > TWO_WEEKS_MS) return false; // Max 2 weeks
+
+        if (m.admin_reply && m.user_read && m.replied_at) {
+          const repliedMs = new Date(m.replied_at).getTime();
+          if (now - repliedMs > ONE_WEEK_MS) return false; // Read replies clear after 1 week
+        }
+
+        return true;
+      });
+
+      // Check unread count (admin replied but user hasn't seen it yet)
+      const unreadCount = userMessagesCache.filter(m => m.admin_reply && !m.user_read).length;
+      if (notifBadge) {
+        if (unreadCount > 0) {
+          notifBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+          notifBadge.style.display = 'flex';
+        } else {
+          notifBadge.style.display = 'none';
+        }
+      }
+
+      renderNotificationList();
+
+    } catch (err) {
+      console.warn("Notification error:", err);
+    }
+  }
+
+  function renderNotificationList() {
+    if (!notifList) return;
+
+    if (userMessagesCache.length === 0) {
+      notifList.innerHTML = `
+        <div class="hg-notif-empty">
+          <div style="font-size: 1.8rem; margin-bottom: 0.35rem;">💬</div>
+          <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">No Messages Yet</strong>
+          <span>Send feedback or questions from the Contact page and admin replies will appear here!</span>
+        </div>
+      `;
+      return;
+    }
+
+    notifList.innerHTML = userMessagesCache.map(msg => {
+      const isReplied = !!msg.admin_reply;
+      const isUnread = isReplied && !msg.user_read;
+      const dateStr = msg.created_at ? new Date(msg.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+      const replyDate = msg.replied_at ? new Date(msg.replied_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+
+      return `
+        <div class="hg-notif-item ${isUnread ? 'has-unread-reply' : ''}">
+          <div class="hg-notif-item-top">
+            <span>Feedback / Query</span>
+            <span>${dateStr}</span>
+          </div>
+          <p class="hg-notif-user-msg">${escapeNavHtml(msg.message)}</p>
+
+          ${isReplied ? `
+            <div class="hg-notif-admin-reply">
+              <div class="hg-notif-admin-meta">💬 ${msg.replied_by || 'Admin (HarshGuruJi)'} • ${replyDate}</div>
+              <div>${escapeNavHtml(msg.admin_reply)}</div>
+            </div>
+          ` : `
+            <div class="hg-notif-pending-status">
+              <span>⏳ Status: Received &amp; in review by team</span>
+            </div>
+          `}
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function markRepliesAsRead() {
+    const unread = userMessagesCache.filter(m => m.admin_reply && !m.user_read);
+    if (unread.length === 0) return;
+
+    const unreadIds = unread.map(m => m.id);
+    // Optimistically update local
+    unread.forEach(m => m.user_read = true);
+    if (notifBadge) notifBadge.style.display = 'none';
+
+    try {
+      const { supabase } = await import('./js/supabase.js');
+      await supabase
+        .from('contact_messages')
+        .update({ user_read: true })
+        .in('id', unreadIds);
+    } catch (err) {
+      console.warn("Could not mark replies as read:", err);
+    }
+  }
+
+  function escapeNavHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Listen for feedback submission from contact.html
+  window.addEventListener('feedback-submitted', () => {
+    const currentUserId = window._currentNavUserId;
+    if (currentUserId) loadUserNotifications(currentUserId);
+  });
+
   // 6. Handle Auth State Changes
   const updateNavUI = (user, profile) => {
     const loginBtn = document.getElementById('hg-login-btn');
     const userMenu = document.getElementById('hg-user-profile');
     const userAvatar = document.getElementById('hg-user-avatar');
+    const notifBox = document.getElementById('hg-notif-container');
 
     if (user) {
       if (loginBtn) loginBtn.style.display = 'none';
       if (userMenu) userMenu.style.display = 'block';
+      if (notifBox) notifBox.style.display = 'flex';
       
       const displayName = (profile && profile.display_name) || user.email.split('@')[0];
       if (userAvatar) {
         userAvatar.src = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
       }
+
+      loadUserNotifications(user.id);
     } else {
       if (loginBtn) loginBtn.style.display = 'inline-flex';
       if (userMenu) userMenu.style.display = 'none';
+      if (notifBox) notifBox.style.display = 'none';
+      toggleNotifDropdown(false);
+      window._currentNavUserId = null;
     }
   };
 
