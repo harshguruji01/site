@@ -304,55 +304,15 @@
     </div>
 
     <div class="contributors-grid" id="dynamic-contributors">
-      <!-- Fallback static contributors while loading or if offline -->
-      <div class="contributor-card">
-        <div class="card-avatar-wrap">
-          <img src="Contributors/aditya.png" alt="Aditya" loading="lazy">
-          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
-        </div>
-        <h3>Aditya</h3>
-        <p class="role">Contributor</p>
-        <div class="joined">🗓 Verified Contributor</div>
-      </div>
-      
-      <div class="contributor-card">
-        <div class="card-avatar-wrap">
-          <img src="Contributors/gaurav.png" alt="Gaurav" loading="lazy">
-          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
-        </div>
-        <h3>Gaurav</h3>
-        <p class="role">Contributor</p>
-        <div class="joined">🗓 Verified Contributor</div>
-      </div>
-      
-      <div class="contributor-card">
-        <div class="card-avatar-wrap">
-          <img src="Contributors/piyush.png" alt="Piyush" loading="lazy">
-          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
-        </div>
-        <h3>Piyush</h3>
-        <p class="role">Contributor</p>
-        <div class="joined">🗓 Verified Contributor</div>
-      </div>
-      
-      <div class="contributor-card">
-        <div class="card-avatar-wrap">
-          <img src="Contributors/pratyush.png" alt="Pratyush" loading="lazy">
-          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
-        </div>
-        <h3>Pratyush</h3>
-        <p class="role">Contributor</p>
-        <div class="joined">🗓 Verified Contributor</div>
-      </div>
-      
-      <div class="contributor-card">
-        <div class="card-avatar-wrap">
-          <img src="Contributors/swastik.png" alt="Swastik" loading="lazy">
-          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
-        </div>
-        <h3>Swastik</h3>
-        <p class="role">Contributor</p>
-        <div class="joined">🗓 Verified Contributor</div>
+      <!-- Empty state when no approved contributors yet -->
+      <div id="no-contributors-state" style="grid-column: 1 / -1; text-align: center; padding: 3.5rem 1.5rem; background: var(--card-bg, #131b2e); border: 1px dashed rgba(255, 255, 255, 0.12); border-radius: 20px;">
+        <div style="font-size: 2.8rem; margin-bottom: 0.75rem;">👥</div>
+        <h4 style="color: #f8fafc; font-size: 1.3rem; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">No Contributors Yet</h4>
+        <p style="color: #94a3b8; font-size: 0.92rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">Be the very first member to join the HarshGuruJi team! Submit your application and earn your verified Golden Tick on your profile.</p>
+        <a href="apply-contributor.html" class="btn-become" style="padding: 0.7rem 1.6rem; font-size: 0.95rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Join As First Contributor
+        </a>
       </div>
     </div>
 
@@ -464,9 +424,17 @@
             grid.appendChild(card);
           });
         }
+        if (countSpan) {
+          countSpan.textContent = `${list.length} Verified Member${list.length === 1 ? '' : 's'}`;
+        }
+      } else {
+        const countSpan = document.getElementById('active-contributors-count');
+        if (countSpan) countSpan.textContent = '0 Verified Members';
       }
     } catch (err) {
       console.error('Failed to load dynamic contributors:', err);
+      const countSpan = document.getElementById('active-contributors-count');
+      if (countSpan) countSpan.textContent = '0 Verified Members';
     }
   });
 </script>
