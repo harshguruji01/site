@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS store_apps (
     logo_url TEXT,
     category TEXT NOT NULL,
     subcategory TEXT,
+    platform TEXT DEFAULT 'Android',
+    app_type TEXT DEFAULT 'APK',
     developer_name TEXT,
     package_name TEXT,
     version TEXT NOT NULL,
@@ -25,6 +27,14 @@ CREATE TABLE IF NOT EXISTS store_apps (
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Ensure platform, app_type, license, rating, is_mod, mod_info columns exist on existing tables
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS platform TEXT DEFAULT 'Android';
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS app_type TEXT DEFAULT 'APK';
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS license TEXT DEFAULT 'Free';
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS rating NUMERIC(2,1) DEFAULT 4.8;
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS is_mod BOOLEAN DEFAULT false;
+ALTER TABLE store_apps ADD COLUMN IF NOT EXISTS mod_info TEXT DEFAULT '';
 
 -- Enable RLS
 ALTER TABLE store_apps ENABLE ROW LEVEL SECURITY;

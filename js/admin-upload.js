@@ -199,8 +199,10 @@ function renderAppList(filter) {
     // Default App List View
     thead.innerHTML = `
         <tr>
-            <th style="width: 60px;">Icon</th>
-            <th>Name & Version</th>
+            <th style="width: 50px;">Icon</th>
+            <th>Name & Details</th>
+            <th>Category & Platform</th>
+            <th>License & Rating</th>
             <th>Status</th>
             <th>Downloads</th>
             <th>Dedicated URL</th>
@@ -221,15 +223,38 @@ function renderAppList(filter) {
     }
 
     if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No apps found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-muted);">No apps found</td></tr>';
         return;
     }
 
     tbody.innerHTML = filtered.map(app => {
+        const platformIcon = getPlatformIcon(app.platform || 'Android');
+        const platform = app.platform || 'Android';
+        const appType = app.app_type || 'APK';
+        const category = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
+        const modBadge = app.is_mod ? `<span style="background: rgba(255, 119, 0, 0.2); color: #ff7700; border: 1px solid rgba(255,119,0,0.4); padding: 1px 5px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; margin-left: 4px;">MOD</span>` : '';
+        const featuredBadge = app.featured ? `<span style="color: #f59e0b; font-size: 0.75rem;" title="Featured">⭐</span>` : '';
+
         return `
         <tr>
             <td><img src="${app.logo_url || 'logo.png'}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;"></td>
-            <td><strong>${app.name}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${app.version || '1.0'}</span></td>
+            <td>
+                <strong>${app.name}</strong> ${modBadge} ${featuredBadge}<br>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">v${app.version || '1.0'} &bull; ${app.file_size || 'N/A'}</span>
+            </td>
+            <td>
+                <div style="display:flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 0.75rem; color: #cbd5e1; font-weight: 600;">${category}</span>
+                    <div style="display:flex; gap: 4px;">
+                        <span class="platform-pill">${platformIcon} ${platform}</span>
+                        <span class="type-pill">${appType}</span>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <span style="font-size: 0.8rem; color: #10b981; font-weight: 600;">${app.license || 'Free'}</span><br>
+                <span style="font-size: 0.75rem; color: #f59e0b;">★ ${Number(app.rating || 4.8).toFixed(1)}</span>
+            </td>
             <td>
                 <span style="color: ${app.status === 'Published' ? 'var(--success)' : '#f59e0b'}; font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; background: rgba(255,255,255,0.05);">
                     ${app.status}
@@ -258,6 +283,20 @@ function renderAppList(filter) {
     `}).join('');
 }
 
+function getPlatformIcon(platform) {
+    switch ((platform || '').toLowerCase()) {
+        case 'windows': return '🪟';
+        case 'android': return '🤖';
+        case 'mac':
+        case 'macos': return '🍎';
+        case 'linux': return '🐧';
+        case 'web': return '🌐';
+        case 'ios': return '🍏';
+        case 'cross-platform': return '⚡';
+        default: return '📦';
+    }
+}
+
 window.copyAppUrl = function(slug) {
     const fullUrl = `${window.location.origin}/app.html?slug=${encodeURIComponent(slug)}`;
     navigator.clipboard.writeText(fullUrl).then(() => {
@@ -277,8 +316,33 @@ window.editApp = function(id) {
     document.getElementById('app-slug').value = app.slug;
     document.getElementById('app-short-desc').value = app.short_description || '';
     document.getElementById('app-full-desc').value = app.description || '';
+    
+    if (document.getElementById('app-platform')) {
+        document.getElementById('app-platform').value = app.platform || 'Android';
+    }
+    if (document.getElementById('app-type')) {
+        document.getElementById('app-type').value = app.app_type || 'APK';
+    }
+
     document.getElementById('app-category').value = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
     document.getElementById('app-subcategory').value = app.subcategory || '';
+    
+    if (document.getElementById('app-license')) {
+        document.getElementById('app-license').value = app.license || 'Free';
+    }
+    if (document.getElementById('app-rating')) {
+        document.getElementById('app-rating').value = app.rating || 4.8;
+    }
+    if (document.getElementById('app-is-mod')) {
+        document.getElementById('app-is-mod').checked = !!app.is_mod;
+    }
+    if (document.getElementById('app-mod-info')) {
+        document.getElementById('app-mod-info').value = app.mod_info || '';
+    }
+    if (document.getElementById('app-custom-size')) {
+        document.getElementById('app-custom-size').value = app.file_size || '';
+    }
+
     document.getElementById('app-developer').value = app.developer_name || '';
     document.getElementById('app-package').value = app.package_name || '';
     document.getElementById('app-version').value = app.version || '1.0';
@@ -295,7 +359,7 @@ window.editApp = function(id) {
 
     // Set file boxes (to optional for update)
     document.getElementById('logo-filename').textContent = "Upload new logo (Optional - current kept)";
-    document.getElementById('apk-filename').textContent = "Upload new APK (Optional - current kept)";
+    document.getElementById('apk-filename').textContent = "Upload new file package (Optional - current kept)";
     document.getElementById('app-logo').removeAttribute('required');
 
     // Scroll and show UI
@@ -333,7 +397,7 @@ window.deleteApp = async function(id, name) {
 function resetFormMode() {
     document.getElementById('apk-upload-form').reset();
     document.getElementById('edit-app-id').value = '';
-    document.getElementById('upload-form-title').textContent = "Publish New Application";
+    document.getElementById('upload-form-title').textContent = "Publish New Application / Software";
     document.getElementById('btn-submit').textContent = "Upload & Publish";
     document.getElementById('btn-submit').disabled = false;
     document.getElementById('app-logo').setAttribute('required', 'true');
@@ -368,9 +432,35 @@ function setupDropzone(zoneId, inputId, textId, isMultiple = false) {
                 const sizeMB = (f.size / (1024 * 1024)).toFixed(1);
                 text.textContent = `${f.name} (${sizeMB} MB)`;
                 
-                // Warn if APK file > 50MB (Supabase free storage limit)
-                if (inputId === 'app-apk' && f.size > 50 * 1024 * 1024) {
-                    showToast("Notice: APK is over 50MB. If Supabase storage rejects it, paste a direct link below.", "error");
+                // Auto-detect platform and type from file extension
+                if (inputId === 'app-apk') {
+                    const ext = (f.name.split('.').pop() || '').toLowerCase();
+                    const platformSelect = document.getElementById('app-platform');
+                    const typeSelect = document.getElementById('app-type');
+
+                    if (['exe', 'msi'].includes(ext)) {
+                        if (platformSelect) platformSelect.value = 'Windows';
+                        if (typeSelect) typeSelect.value = ext.toUpperCase();
+                    } else if (['apk', 'xapk', 'aab'].includes(ext)) {
+                        if (platformSelect) platformSelect.value = 'Android';
+                        if (typeSelect) typeSelect.value = ext === 'apk' ? 'APK' : 'XAPK';
+                    } else if (['dmg', 'pkg'].includes(ext)) {
+                        if (platformSelect) platformSelect.value = 'Mac';
+                        if (typeSelect) typeSelect.value = ext === 'dmg' ? 'DMG' : 'PKG';
+                    } else if (['deb', 'appimage', 'rpm', 'tar.gz'].includes(ext)) {
+                        if (platformSelect) platformSelect.value = 'Linux';
+                        if (typeSelect) typeSelect.value = 'AppImage';
+                    } else if (ext === 'ipa') {
+                        if (platformSelect) platformSelect.value = 'iOS';
+                        if (typeSelect) typeSelect.value = 'IPA';
+                    } else if (['zip', 'rar', '7z'].includes(ext)) {
+                        if (typeSelect) typeSelect.value = 'ZIP';
+                    }
+
+                    // Warn if file > 50MB (Supabase free storage limit)
+                    if (f.size > 50 * 1024 * 1024) {
+                        showToast("Notice: File is over 50MB. If Supabase storage rejects it, paste a direct mirror link below.", "warning");
+                    }
                 }
             }
             zone.style.borderColor = 'var(--success)';
@@ -399,7 +489,7 @@ function setupDropzone(zoneId, inputId, textId, isMultiple = false) {
 
 function resetFileBoxes() {
     document.getElementById('logo-filename').textContent = "Drag & Drop or Click to Select (PNG/WebP)";
-    document.getElementById('apk-filename').textContent = "Drag & Drop or Click to Select (.apk)";
+    document.getElementById('apk-filename').textContent = "Drag & Drop or Select File (.apk, .exe, .zip, .dmg, .msi, etc.)";
     document.getElementById('screenshots-filename').textContent = "Select multiple screenshot images";
     document.querySelectorAll('.file-upload-box').forEach(b => b.style.borderColor = 'var(--border)');
     const directUrl = document.getElementById('app-direct-url');
@@ -443,11 +533,11 @@ async function handleUpload(e) {
 
     if (!isUpdate) {
         if (!logoFile) {
-            showToast("App Logo is required.", "error");
+            showToast("App Logo / Icon is required.", "error");
             return;
         }
         if (!apkFile && !directUrl) {
-            showToast("Please select an APK file or provide a Direct Download URL.", "error");
+            showToast("Please select an application file or provide a Direct Download / Web URL.", "error");
             return;
         }
     }
@@ -484,12 +574,12 @@ async function handleUpload(e) {
             updateProgress('logo', 100);
         }
 
-        // 2. Upload APK or use direct URL
+        // 2. Upload Application File or use direct URL
         if (apkFile) {
             updateProgress('apk', 30);
             const version = document.getElementById('app-version').value || '1.0';
-            const cleanApkName = apkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-            apkPath = `${slug}/${version}/${Date.now()}_${cleanApkName}`;
+            const cleanFileName = apkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            apkPath = `${slug}/${version}/${Date.now()}_${cleanFileName}`;
 
             const { error: apkErr } = await supabase.storage.from('apk-files').upload(apkPath, apkFile, { upsert: true });
             if (apkErr) {
@@ -497,9 +587,9 @@ async function handleUpload(e) {
                 if (directUrl) {
                     downloadUrl = directUrl;
                     apkPath = 'external:' + directUrl;
-                    showToast("File storage exceeded, using provided direct link instead.", "warning");
+                    showToast("File storage limit reached, using provided direct link instead.", "warning");
                 } else {
-                    throw new Error("APK upload failed: " + apkErr.message + " (If file is >50MB, paste an external direct link)");
+                    throw new Error("File upload failed: " + apkErr.message + " (If file is >50MB, paste an external direct link)");
                 }
             } else {
                 const { data: apkPub } = supabase.storage.from('apk-files').getPublicUrl(apkPath);
@@ -537,9 +627,18 @@ async function handleUpload(e) {
 
         const status = document.getElementById('app-status').value || 'Published';
         const selectedCat = document.getElementById('app-category').value || 'Apps';
+        const platform = document.getElementById('app-platform')?.value || 'Android';
+        const appType = document.getElementById('app-type')?.value || 'APK';
+        const license = document.getElementById('app-license')?.value || 'Free';
+        const rating = parseFloat(document.getElementById('app-rating')?.value) || 4.8;
+        const isMod = document.getElementById('app-is-mod')?.checked || false;
+        const modInfo = (document.getElementById('app-mod-info')?.value || '').trim();
+        const customSize = (document.getElementById('app-custom-size')?.value || '').trim();
 
         let calculatedSize = "Unknown";
-        if (apkFile) {
+        if (customSize) {
+            calculatedSize = customSize;
+        } else if (apkFile) {
             calculatedSize = (apkFile.size / (1024 * 1024)).toFixed(1) + " MB";
         } else if (targetApp.file_size) {
             calculatedSize = targetApp.file_size;
@@ -553,6 +652,12 @@ async function handleUpload(e) {
             logo_url: logoUrl || targetApp.logo_url || "logo.png",
             category: [selectedCat], // Array format
             subcategory: document.getElementById('app-subcategory').value.trim() || '',
+            platform: platform,
+            app_type: appType,
+            license: license,
+            rating: rating,
+            is_mod: isMod,
+            mod_info: modInfo,
             developer_name: document.getElementById('app-developer').value.trim() || 'HarshGuruJi',
             package_name: document.getElementById('app-package').value.trim() || '',
             version: document.getElementById('app-version').value.trim() || '1.0',

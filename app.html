@@ -468,9 +468,137 @@
       animation: toastIn 0.3s ease;
     }
 
-    @keyframes toastIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    /* Related Apps / Games Recommendation Section */
+    .related-section {
+      background: var(--app-panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--app-border);
+      border-radius: var(--app-radius);
+      padding: 1.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .related-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .related-app-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 1.15rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .related-app-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .related-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .related-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+
+    .related-card-details {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .related-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 3px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .related-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: var(--app-text-muted);
+    }
+
+    .related-rating {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .related-card-desc {
+      font-size: 0.82rem;
+      color: var(--app-text-muted);
+      line-height: 1.4;
+      margin: 0 0 1rem 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .related-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .related-plat-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #cbd5e1;
+    }
+
+    .related-mod-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255, 119, 0, 0.18);
+      color: #ff9933;
+      border: 1px solid rgba(255, 119, 0, 0.3);
+    }
+
+    .related-btn-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--app-primary);
+      transition: transform 0.2s;
+    }
+
+    .related-app-card:hover .related-btn-link {
+      transform: translateX(3px);
+      color: #60a5fa;
     }
   </style>
 </head>
@@ -527,7 +655,8 @@
             </div>
 
             <div class="app-chips">
-              <div class="chip">📱 Android</div>
+              <div class="chip" id="chip-platform">📱 Android</div>
+              <div class="chip" id="chip-app-type">📦 APK</div>
               <div class="chip" id="chip-category">🏷️ Category</div>
               <div class="chip" id="chip-version">📦 v1.0.0</div>
               <div class="chip" id="chip-size">💾 10 MB</div>
@@ -537,7 +666,7 @@
             <div class="app-actions">
               <button type="button" class="btn-download-apk" id="btn-main-download">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>Download APK (<span id="btn-size-label">0 MB</span>)</span>
+                <span id="btn-download-text">Download Application (<span id="btn-size-label">0 MB</span>)</span>
               </button>
 
               <button type="button" class="btn-share-app" id="btn-share">
@@ -554,7 +683,7 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         <div>
           <strong style="color: #fff; display: block; margin-bottom: 2px;">100% Virus &amp; Malware Free</strong>
-          <span>This APK package is digitally verified and checked for integrity by HarshGuruJi Store before publication.</span>
+          <span>This application package is digitally verified and checked for integrity by HarshGuruJi Store before publication.</span>
         </div>
       </div>
 
@@ -570,6 +699,14 @@
       <div class="app-content-grid">
         <!-- Left: Overview & Changelog -->
         <div class="content-left">
+          <!-- MOD Features Banner (AN1 style) -->
+          <div id="mod-banner" style="display: none; background: rgba(255, 119, 0, 0.12); border: 1px solid rgba(255, 119, 0, 0.35); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; color: #ff9933;">
+            <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+              <span>⚡ MOD Features &amp; Unlocked Edition</span>
+            </div>
+            <p id="mod-details-text" style="color: #fbd38d; margin: 0; font-size: 0.95rem; line-height: 1.5;"></p>
+          </div>
+
           <!-- What's New Box -->
           <div class="whats-new-box" id="whats-new-box" style="display: none;">
             <div class="whats-new-title">
@@ -595,7 +732,15 @@
             <table class="specs-table">
               <tbody>
                 <tr>
-                  <td class="label">Package Name</td>
+                  <td class="label">Platform / OS</td>
+                  <td class="value" id="spec-platform">Android</td>
+                </tr>
+                <tr>
+                  <td class="label">Package Format</td>
+                  <td class="value" id="spec-format">APK</td>
+                </tr>
+                <tr>
+                  <td class="label">Package / App ID</td>
                   <td class="value" id="spec-package">-</td>
                 </tr>
                 <tr>
@@ -620,7 +765,7 @@
                 </tr>
                 <tr>
                   <td class="label">License</td>
-                  <td class="value" style="color: var(--app-success);">Free</td>
+                  <td class="value" style="color: var(--app-success);" id="spec-license">Free</td>
                 </tr>
                 <tr>
                   <td class="label">Published</td>
@@ -647,11 +792,14 @@
         </div>
       </div>
 
-      <!-- Related Apps Section -->
-      <section class="related-section" id="related-section" style="margin-top: 2rem;">
-        <h3 class="section-title">✨ More Applications from Store</h3>
+      <!-- Related Apps / Games Recommendation Section (Strictly from Database) -->
+      <section class="related-section" id="related-section" style="display: none; margin-top: 2.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+          <h3 class="section-title" id="related-title" style="margin-bottom: 0;">✨ Related Applications &amp; Games</h3>
+          <a href="store.html" style="color: var(--app-primary); font-size: 0.88rem; text-decoration: none; font-weight: 600;">Browse All &rarr;</a>
+        </div>
         <div class="related-apps-grid" id="related-grid">
-          <!-- Injected by JS -->
+          <!-- Injected dynamically by JS: only real uploaded apps from store_apps -->
         </div>
       </section>
 
@@ -704,7 +852,7 @@
 
         currentApp = data;
         renderApp(data);
-        loadRelatedApps(data.category, data.id);
+        loadRelatedApps(data);
 
       } catch (err) {
         console.error("Page init error:", err);
@@ -716,11 +864,28 @@
       document.getElementById('loading-state').style.display = 'none';
       document.getElementById('app-container').style.display = 'block';
 
+      // Detect Platform and App Format
+      const platform = app.platform || (app.package_name && app.package_name.includes('.') ? 'Android' : 'Windows');
+      const appType = app.app_type || (platform === 'Android' ? 'APK' : (platform === 'Windows' ? 'EXE' : 'Application'));
+
+      const platIcon = (() => {
+        switch ((platform || '').toLowerCase()) {
+          case 'windows': return '🪟';
+          case 'android': return '🤖';
+          case 'mac':
+          case 'macos': return '🍎';
+          case 'linux': return '🐧';
+          case 'web': return '🌐';
+          case 'ios': return '🍏';
+          default: return '📦';
+        }
+      })();
+
       // Dynamic Title & Meta
-      document.title = `${app.name} APK Download (v${app.version || '1.0'}) — HarshGuruJi Store`;
-      const metaDesc = app.short_description || `Download ${app.name} APK for Android free and safe on HarshGuruJi Store.`;
+      document.title = `${app.name} (${platform} · ${appType}) Download — HarshGuruJi Store`;
+      const metaDesc = app.short_description || `Download ${app.name} for ${platform} (${appType}) free and safe on HarshGuruJi Store.`;
       document.getElementById('meta-description').setAttribute('content', metaDesc);
-      document.getElementById('og-title').setAttribute('content', `${app.name} APK Download`);
+      document.getElementById('og-title').setAttribute('content', `${app.name} Download`);
       document.getElementById('og-description').setAttribute('content', metaDesc);
       if (app.logo_url) {
         document.getElementById('og-image').setAttribute('content', app.logo_url);
@@ -746,14 +911,42 @@
       }
 
       // Chips
+      const chipPlat = document.getElementById('chip-platform');
+      if (chipPlat) chipPlat.textContent = `${platIcon} ${platform}`;
+      const chipType = document.getElementById('chip-app-type');
+      if (chipType) chipType.textContent = `📦 ${appType}`;
       document.getElementById('chip-category').textContent = `🏷️ ${catName}`;
       document.getElementById('chip-version').textContent = `📦 v${app.version || '1.0'}`;
       document.getElementById('chip-size').textContent = `💾 ${app.file_size || 'Unknown'}`;
       document.getElementById('val-downloads').textContent = (app.downloads || 0).toLocaleString();
 
       // Download Buttons labels
-      const sizeLabel = app.file_size || 'APK';
-      document.getElementById('btn-size-label').textContent = sizeLabel;
+      const sizeLabel = app.file_size || appType;
+      const downloadTextEl = document.getElementById('btn-download-text');
+      const sideBtn = document.getElementById('btn-side-download');
+
+      if (platform === 'Web') {
+        if (downloadTextEl) downloadTextEl.innerHTML = `Launch Web Application`;
+        if (sideBtn) sideBtn.textContent = 'Launch Web App';
+      } else if (platform === 'Windows') {
+        if (downloadTextEl) downloadTextEl.innerHTML = `Download for Windows (<span id="btn-size-label">${sizeLabel}</span>)`;
+        if (sideBtn) sideBtn.textContent = `Download for Windows (${sizeLabel})`;
+      } else if (platform === 'Mac') {
+        if (downloadTextEl) downloadTextEl.innerHTML = `Download for Mac (<span id="btn-size-label">${sizeLabel}</span>)`;
+        if (sideBtn) sideBtn.textContent = `Download for Mac (${sizeLabel})`;
+      } else if (platform === 'Linux') {
+        if (downloadTextEl) downloadTextEl.innerHTML = `Download for Linux (<span id="btn-size-label">${sizeLabel}</span>)`;
+        if (sideBtn) sideBtn.textContent = `Download for Linux (${sizeLabel})`;
+      } else {
+        if (downloadTextEl) downloadTextEl.innerHTML = `Download APK (<span id="btn-size-label">${sizeLabel}</span>)`;
+        if (sideBtn) sideBtn.textContent = `Download APK (${sizeLabel})`;
+      }
+
+      // MOD Banner
+      if (app.is_mod) {
+        document.getElementById('mod-banner').style.display = 'block';
+        document.getElementById('mod-details-text').textContent = app.mod_info || 'Unlocked / Modified Features enabled for this edition.';
+      }
 
       // What's New
       if (app.whats_new && app.whats_new.trim()) {
@@ -766,6 +959,14 @@
       document.getElementById('app-description').textContent = descText;
 
       // Specs Table
+      const specPlat = document.getElementById('spec-platform');
+      if (specPlat) specPlat.textContent = `${platIcon} ${platform}`;
+      const specFormat = document.getElementById('spec-format');
+      if (specFormat) specFormat.textContent = appType;
+
+      const specLic = document.getElementById('spec-license');
+      if (specLic) specLic.textContent = app.license || 'Free';
+
       document.getElementById('spec-package').textContent = app.package_name || 'N/A';
       document.getElementById('spec-version').textContent = app.version || '1.0';
       document.getElementById('spec-version-code').textContent = app.version_code || '1';
@@ -857,31 +1058,116 @@
       }
     }
 
-    async function loadRelatedApps(cat, currentId) {
-      try {
-        const { data: related } = await supabase
-          .from('store_apps')
-          .select('id, name, slug, logo_url, short_description, version')
-          .eq('status', 'Published')
-          .neq('id', currentId)
-          .limit(4);
+    async function loadRelatedApps(targetApp) {
+      const section = document.getElementById('related-section');
+      const grid = document.getElementById('related-grid');
+      if (!section || !grid) return;
 
-        if (related && related.length > 0) {
-          const container = document.getElementById('related-grid');
-          container.innerHTML = related.map(item => `
-            <a href="app.html?slug=${encodeURIComponent(item.slug)}" class="related-card">
-              <img src="${item.logo_url || 'logo.png'}" alt="${item.name}">
-              <div class="related-info">
-                <h4>${item.name}</h4>
-                <p>v${item.version || '1.0'}</p>
+      // Always reset and start hidden
+      section.style.display = 'none';
+      grid.innerHTML = '';
+
+      if (!targetApp || !targetApp.id) return;
+
+      try {
+        // Query strictly published apps from Supabase uploaded via admin panel
+        const { data: allPublished, error } = await supabase
+          .from('store_apps')
+          .select('id, name, slug, logo_url, short_description, version, platform, app_type, category, subcategory, rating, is_mod, developer_name')
+          .eq('status', 'Published')
+          .neq('id', targetApp.id)
+          .limit(24);
+
+        if (error || !allPublished || allPublished.length === 0) {
+          // No other apps in database -> keep completely empty and hidden
+          section.style.display = 'none';
+          return;
+        }
+
+        // Current app attributes for intelligent recommendation
+        const targetCats = Array.isArray(targetApp.category)
+          ? targetApp.category.map(c => String(c).toLowerCase().trim())
+          : [String(targetApp.category || '').toLowerCase().trim()].filter(Boolean);
+
+        const targetSubcat = String(targetApp.subcategory || '').toLowerCase().trim();
+        const targetPlat = String(targetApp.platform || '').toLowerCase().trim();
+        const targetType = String(targetApp.app_type || '').toLowerCase().trim();
+        const isTargetMod = !!targetApp.is_mod;
+
+        // Score relevance strictly based on actual app properties
+        const scored = allPublished.map(item => {
+          let score = 0;
+          const itemCats = Array.isArray(item.category)
+            ? item.category.map(c => String(c).toLowerCase().trim())
+            : [String(item.category || '').toLowerCase().trim()].filter(Boolean);
+          const itemSubcat = String(item.subcategory || '').toLowerCase().trim();
+          const itemPlat = String(item.platform || '').toLowerCase().trim();
+          const itemType = String(item.app_type || '').toLowerCase().trim();
+
+          // Category match (+10)
+          if (targetCats.some(c => itemCats.includes(c))) score += 10;
+          // Subcategory match (+6)
+          if (targetSubcat && itemSubcat && targetSubcat === itemSubcat) score += 6;
+          // Platform match (+4)
+          if (targetPlat && itemPlat && targetPlat === itemPlat) score += 4;
+          // App format / type match (+3)
+          if (targetType && itemType && targetType === itemType) score += 3;
+          // MOD feature affinity (+2)
+          if (isTargetMod && item.is_mod) score += 2;
+
+          return { item, score };
+        });
+
+        // Sort by relevance score, then rating
+        scored.sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return (Number(b.item.rating) || 0) - (Number(a.item.rating) || 0);
+        });
+
+        const topRelated = scored.slice(0, 4).map(s => s.item);
+
+        if (topRelated.length === 0) {
+          section.style.display = 'none';
+          return;
+        }
+
+        // Render recommendation cards from database
+        grid.innerHTML = topRelated.map(item => {
+          const plat = item.platform || (item.app_type === 'APK' ? 'Android' : 'Windows');
+          const platIcon = plat === 'Windows' ? '🪟' : (plat === 'Mac' ? '🍎' : (plat === 'Web' ? '🌐' : '📱'));
+          const isMod = item.is_mod;
+          const badgeHtml = isMod
+            ? `<span class="related-mod-badge">⚡ MOD</span>`
+            : `<span class="related-plat-badge">${platIcon} ${plat}</span>`;
+
+          return `
+            <a href="app.html?slug=${encodeURIComponent(item.slug)}" class="related-app-card">
+              <div class="related-card-top">
+                <img src="${item.logo_url || 'logo.png'}" alt="${item.name}" class="related-card-icon" onerror="this.src='logo.png'" loading="lazy">
+                <div class="related-card-details">
+                  <h4 class="related-card-title" title="${item.name}">${item.name}</h4>
+                  <div class="related-card-meta">
+                    <span class="related-ver">v${item.version || '1.0'}</span>
+                    <span class="related-dot">•</span>
+                    <span class="related-rating">★ ${(Number(item.rating) || 4.8).toFixed(1)}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="related-card-desc">${item.short_description || 'Verified download package available on HarshGuruJi Store.'}</p>
+              <div class="related-card-footer">
+                ${badgeHtml}
+                <span class="related-btn-link">Download &rarr;</span>
               </div>
             </a>
-          `).join('');
-        } else {
-          document.getElementById('related-section').style.display = 'none';
-        }
+          `;
+        }).join('');
+
+        // Show section when items exist
+        section.style.display = 'block';
+
       } catch (err) {
         console.error("Failed to load related apps:", err);
+        section.style.display = 'none';
       }
     }
 

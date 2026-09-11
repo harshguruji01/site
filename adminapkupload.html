@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HarshGuruJi Admin - APK Store Management</title>
+  <title>HarshGuruJi Admin - App & Software Store Management</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -103,6 +103,31 @@
     .action-btn.edit:hover { background: rgba(59, 130, 246, 0.1); }
     .action-btn.delete { color: var(--danger); }
     .action-btn.delete:hover { background: rgba(239, 68, 68, 0.1); }
+
+    .platform-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-right: 4px;
+    }
+
+    .type-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
     
     .upload-container {
       background: var(--bg-panel);
@@ -138,6 +163,46 @@
     
     input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
     textarea { resize: vertical; min-height: 100px; }
+
+    .form-section-card {
+      grid-column: 1 / -1;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .form-section-header h3 {
+      font-size: 1.1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: #fff;
+    }
+    .form-section-header span.badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .form-inner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 768px) {
+      .form-inner-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
     
     .file-upload-box {
       border: 2px dashed var(--border);
@@ -235,7 +300,7 @@
   <header class="admin-header">
     <div>
       <h1>HARSHGURUJI ADMIN</h1>
-      <span class="subtitle">APK STORE MANAGEMENT</span>
+      <span class="subtitle">APPLICATION & SOFTWARE MANAGEMENT</span>
     </div>
     <div style="display: flex; gap: 1rem; align-items: center;">
       <span id="admin-user-email" style="font-size: 0.9rem; color: var(--text-muted);">Loading...</span>
@@ -287,7 +352,7 @@
     </div>
 
     <div class="upload-container">
-      <h2 id="upload-form-title">Publish New Application</h2>
+      <h2 id="upload-form-title">Publish New Application / Software</h2>
       <!-- Success Link Notification Card -->
       <div id="upload-success-card" style="display: none; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem;">
         <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
@@ -312,108 +377,237 @@
         <!-- Hidden input for Update Mode -->
         <input type="hidden" id="edit-app-id" value="">
         <div class="form-grid">
-          <!-- Files -->
-          <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
-            <div>
-              <label class="required">App Logo (512x512 recommended)</label>
-              <div class="file-upload-box" id="logo-dropzone">
-                <span class="icon">🖼️</span>
-                <span id="logo-filename">Drag & Drop or Click to Select (PNG/WebP)</span>
-                <input type="file" id="app-logo" accept="image/png, image/jpeg, image/webp" required>
-              </div>
+          
+          <!-- SECTION 1: Platform & Category (Matches Store Sidebar 1:1) -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">🏷️</span>
+              <h3>Store Classification & Category</h3>
+              <span class="badge">Matches Store Filters</span>
             </div>
-            <div>
-              <label id="apk-file-label" class="required">APK File (.apk) or Direct Download URL</label>
-              <div class="file-upload-box" id="apk-dropzone">
-                <span class="icon">📦</span>
-                <span id="apk-filename">Drag & Drop or Click to Select (.apk)</span>
-                <input type="file" id="app-apk" accept=".apk">
+            <div class="form-inner-grid">
+              <div class="form-group">
+                <label class="required">App Category</label>
+                <select id="app-category" required>
+                  <option value="Game">🎮 Games</option>
+                  <option value="Apps">📱 Mobile Applications (Android)</option>
+                  <option value="Software">💻 Windows & PC Software</option>
+                  <option value="AI">🤖 AI Tools & Web Apps</option>
+                  <option value="Education">📚 Education & Learning</option>
+                  <option value="Development">🛠️ Developer & System Tools</option>
+                  <option value="Utility">⚙️ Utilities & Productivity</option>
+                </select>
+                <small style="color: var(--text-muted); font-size: 0.75rem;">Determines where the app shows in store sections and sidebar categories.</small>
               </div>
-              <div style="margin-top: 0.5rem;">
-                <input type="text" id="app-direct-url" placeholder="Or paste Direct APK Link (Drive, GitHub, Mediafire, etc.)" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
-                <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.25rem;">Supports direct file upload OR external mirror links (useful if file &gt; 50MB).</small>
+
+              <div class="form-group">
+                <label>Subcategory / Genre</label>
+                <input type="text" id="app-subcategory" placeholder="e.g. Action, Racing, Sandbox, Media, IDE, Productivity">
+                <small style="color: var(--text-muted); font-size: 0.75rem;">Specific genre or group for search and AN1 category clusters.</small>
               </div>
-            </div>
-          </div>
-          <div class="form-group full-width">
-            <label>Screenshots (Up to 5 images)</label>
-            <div class="file-upload-box" id="screenshots-dropzone">
-              <span class="icon">📱</span>
-              <span id="screenshots-filename">Select multiple screenshot images</span>
-              <input type="file" id="app-screenshots" accept="image/png, image/jpeg, image/webp" multiple>
+
+              <div class="form-group">
+                <label class="required">Platform / Operating System</label>
+                <select id="app-platform" required>
+                  <option value="Android">🤖 Android (Phone/Tablet/TV)</option>
+                  <option value="Windows">🪟 Windows (PC / Laptop)</option>
+                  <option value="Mac">🍎 macOS (Apple Mac)</option>
+                  <option value="Web">🌐 Web App / Online Tool (PWA)</option>
+                  <option value="Linux">🐧 Linux (Ubuntu, Debian, etc.)</option>
+                  <option value="iOS">🍏 iOS (iPhone / iPad)</option>
+                  <option value="Cross-Platform">⚡ Cross-Platform</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="required">Package Format / App Type</label>
+                <select id="app-type" required>
+                  <option value="APK">Android Package (.apk)</option>
+                  <option value="XAPK">Android App Bundle / XAPK (.xapk, .aab)</option>
+                  <option value="EXE">Windows Executable / Setup (.exe)</option>
+                  <option value="MSI">Windows Installer (.msi)</option>
+                  <option value="ZIP">Archive Package (.zip, .rar, .7z)</option>
+                  <option value="DMG">macOS Disk Image (.dmg, .pkg)</option>
+                  <option value="AppImage">Linux AppImage / DEB (.appimage, .deb)</option>
+                  <option value="Web App">Web Application / Online Service</option>
+                  <option value="IPA">iOS Package (.ipa)</option>
+                  <option value="Software">General Software / Tool</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <!-- Basics -->
-          <div class="form-group">
-            <label class="required">App Name</label>
-            <input type="text" id="app-name" required placeholder="e.g. Awesome App">
+          <!-- SECTION 2: License, Rating & AN1 MOD Features -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">⭐</span>
+              <h3>License, Rating & MOD Features (AN1 Style)</h3>
+              <span class="badge">AN1 System</span>
+            </div>
+            <div class="form-inner-grid">
+              <div class="form-group">
+                <label class="required">License Type</label>
+                <select id="app-license" required>
+                  <option value="Free">Free</option>
+                  <option value="Paid">Paid / Premium</option>
+                  <option value="Open Source">Open Source</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="required">Star Rating (1.0 to 5.0)</label>
+                <input type="number" id="app-rating" step="0.1" min="1.0" max="5.0" value="4.8" required placeholder="e.g. 4.8">
+              </div>
+
+              <div class="form-group" style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="app-is-mod">
+                  <label for="app-is-mod" style="font-weight: 700; color: #f59e0b;">⚡ Mark as MOD / Unlocked Edition</label>
+                </div>
+                <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">Displays prominent orange MOD badge on store cards (like AN1.com).</small>
+              </div>
+
+              <div class="form-group">
+                <label>MOD Features Info (Optional)</label>
+                <input type="text" id="app-mod-info" placeholder="e.g. Unlimited Money, Unlimited Gems, All Levels Unlocked, No Ads">
+              </div>
+
+              <div class="form-group checkbox-group">
+                <input type="checkbox" id="app-featured">
+                <label for="app-featured">⭐ Featured App (Editor's Choice & Hero Spotlight)</label>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <input type="checkbox" id="app-verified" checked>
+                <label for="app-verified">✓ Verified Source & Malware Scanned Badge</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="required">URL Slug</label>
-            <input type="text" id="app-slug" required placeholder="e.g. awesome-app">
+
+          <!-- SECTION 3: App Identity & Details -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">📝</span>
+              <h3>App Identity & Description</h3>
+            </div>
+            <div class="form-inner-grid">
+              <div class="form-group">
+                <label class="required">App Name</label>
+                <input type="text" id="app-name" required placeholder="e.g. Subway Surfers, VS Code, Claude AI">
+              </div>
+
+              <div class="form-group">
+                <label class="required">URL Slug (Unique)</label>
+                <input type="text" id="app-slug" required placeholder="e.g. subway-surfers-mod">
+              </div>
+
+              <div class="form-group">
+                <label>Developer / Publisher Name</label>
+                <input type="text" id="app-developer" placeholder="e.g. HarshGuruJi, Microsoft, Kiloo">
+              </div>
+
+              <div class="form-group">
+                <label>Package Name / App ID (Optional)</label>
+                <input type="text" id="app-package" placeholder="e.g. com.kiloo.subwaysurf, setup.exe">
+              </div>
+
+              <div class="form-group full-width">
+                <label class="required">Short Description (Max 160 characters)</label>
+                <input type="text" id="app-short-desc" required maxlength="160" placeholder="Brief summary displayed on app cards and search results">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Full Detailed Description</label>
+                <textarea id="app-full-desc" placeholder="Comprehensive features, installation guide, system requirements..."></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>What's New (Changelog)</label>
+                <textarea id="app-whats-new" placeholder="List of new features, bug fixes or updates in this release..." style="min-height: 80px;"></textarea>
+              </div>
+            </div>
           </div>
-          <div class="form-group full-width">
-            <label class="required">Short Description (Max 160 chars)</label>
-            <input type="text" id="app-short-desc" required maxlength="160" placeholder="Brief summary for app cards">
+
+          <!-- SECTION 4: Version & Sizing -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">🔢</span>
+              <h3>Version & System Specifications</h3>
+            </div>
+            <div class="form-inner-grid">
+              <div class="form-group">
+                <label class="required">Version Name</label>
+                <input type="text" id="app-version" required placeholder="e.g. 1.0.0, 3.28.1">
+              </div>
+
+              <div class="form-group">
+                <label>Version Code (Integer)</label>
+                <input type="number" id="app-version-code" placeholder="e.g. 1, 105">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Custom File Size (Optional override)</label>
+                <input type="text" id="app-custom-size" placeholder="Auto-calculated if file uploaded, or specify e.g. 45 MB, 1.2 GB">
+              </div>
+            </div>
           </div>
-          <div class="form-group full-width">
-            <label>Full Description (Supports paragraphs)</label>
-            <textarea id="app-full-desc" placeholder="Detailed description of features..."></textarea>
+
+          <!-- SECTION 5: Files & Media -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">📦</span>
+              <h3>Files, Logo & Screenshots</h3>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+              <div>
+                <label class="required">App Logo / Icon (512x512 recommended)</label>
+                <div class="file-upload-box" id="logo-dropzone">
+                  <span class="icon">🖼️</span>
+                  <span id="logo-filename">Drag & Drop or Click to Select (PNG/WebP)</span>
+                  <input type="file" id="app-logo" accept="image/png, image/jpeg, image/webp" required>
+                </div>
+              </div>
+              <div>
+                <label id="app-file-label" class="required">Application File or Direct Download URL</label>
+                <div class="file-upload-box" id="apk-dropzone">
+                  <span class="icon">📦</span>
+                  <span id="apk-filename">Drag & Drop or Select File (.apk, .exe, .zip, .dmg, .msi, etc.)</span>
+                  <input type="file" id="app-apk" accept=".apk,.xapk,.aab,.exe,.msi,.zip,.rar,.7z,.dmg,.pkg,.deb,.rpm,.appimage,.tar.gz,.ipa">
+                </div>
+                <div style="margin-top: 0.5rem;">
+                  <input type="text" id="app-direct-url" placeholder="Or paste Direct File Link / Web App URL (Drive, GitHub, Mediafire, etc.)" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
+                  <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.25rem;">Supports all file formats (.apk, .exe, .dmg, .zip, etc.) OR external download / web URLs.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Screenshots (Up to 5 images)</label>
+              <div class="file-upload-box" id="screenshots-dropzone">
+                <span class="icon">📱</span>
+                <span id="screenshots-filename">Select multiple screenshot images</span>
+                <input type="file" id="app-screenshots" accept="image/png, image/jpeg, image/webp" multiple>
+              </div>
+            </div>
           </div>
-          <!-- Metadata -->
-          <div class="form-group">
-            <label class="required">Category</label>
-            <select id="app-category" required>
-              <option value="Apps">Apps</option>
-              <option value="Game">Games</option>
-              <option value="AI">AI Tools</option>
-              <option value="Education">Education</option>
-              <option value="Software">Software</option>
-              <option value="Development">Development</option>
-              <option value="Other">Other</option>
-            </select>
+
+          <!-- SECTION 6: Status -->
+          <div class="form-section-card">
+            <div class="form-section-header">
+              <span style="font-size: 1.3rem;">🚀</span>
+              <h3>Publishing Status</h3>
+            </div>
+            <div class="form-inner-grid">
+              <div class="form-group">
+                <label class="required">Status</label>
+                <select id="app-status">
+                  <option value="Published">Published (Visible on Store immediately)</option>
+                  <option value="Draft">Draft (Saved in admin only, hidden from store)</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Subcategory</label>
-            <input type="text" id="app-subcategory" placeholder="e.g. Puzzle, Productivity">
-          </div>
-          <div class="form-group">
-            <label>Developer Name</label>
-            <input type="text" id="app-developer" placeholder="e.g. HarshGuruJi Studios">
-          </div>
-          <div class="form-group">
-            <label>Package Name</label>
-            <input type="text" id="app-package" placeholder="e.g. com.harshguruji.app">
-          </div>
-          <div class="form-group">
-            <label class="required">Version Name</label>
-            <input type="text" id="app-version" required placeholder="e.g. 1.0.0">
-          </div>
-          <div class="form-group">
-            <label>Version Code (Integer)</label>
-            <input type="number" id="app-version-code" placeholder="e.g. 1">
-          </div>
-          <div class="form-group full-width">
-            <label>What's New (Changelog)</label>
-            <textarea id="app-whats-new" placeholder="List of updates in this version..." style="min-height: 80px;"></textarea>
-          </div>
-          <!-- Toggles -->
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="app-featured">
-            <label for="app-featured">Featured App (Shows in hero section)</label>
-          </div>
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="app-verified" checked>
-            <label for="app-verified">Verified Source Badge</label>
-          </div>
-          <div class="form-group full-width" style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-            <label>Initial Status</label>
-            <select id="app-status" style="max-width: 200px;">
-              <option value="Published">Published (Public)</option>
-              <option value="Draft">Draft (Hidden)</option>
-            </select>
-          </div>
+
         </div>
         <div class="form-actions">
           <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
@@ -432,7 +626,7 @@
         <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
       </div>
       <div id="progress-item-apk" style="margin-bottom: 1rem;">
-        <div class="progress-text"><span>APK File</span> <span class="pct">0%</span></div>
+        <div class="progress-text"><span>Application File</span> <span class="pct">0%</span></div>
         <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
       </div>
       <div id="progress-item-screenshots" style="margin-bottom: 1rem;">

@@ -50,95 +50,196 @@
 </head>
 <body>
 
-<!-- Mobile Full Screen Menu -->
-<section class="store-hero">
-    <h1>Discover Apps, Games &amp;<br>Digital Tools</h1>
-    <p>Your one-stop destination for discovering the best applications, games, AI tools, educational resources, and useful software for all platforms.</p>
+<!-- AN1-Style Top Hero & Catalog Section -->
+<section class="an1-hero-section">
+  <div class="an1-hero-container">
+    <div class="an1-header-title">
+      <h1>HarshGuruJi <span>App & Game Store</span></h1>
+      <p>Download free, verified games, programs, PC software, AI tools and mobile applications.</p>
+    </div>
+
+    <!-- Live Search Input -->
     <div class="store-search-container">
       <svg class="store-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <path d="M21 21l-4.35-4.35"></path>
       </svg>
-      <input type="text" id="store-search" class="store-search-input" placeholder="🔍 Search apps, games, AI tools and software..." aria-label="Search store">
+      <input type="text" id="store-search" class="store-search-input" placeholder="Search games, programs, APKs, Windows software and AI tools..." aria-label="Search store">
+      <button type="button" class="search-clear-btn" id="search-clear-btn" style="display: none;" title="Clear Search">✕</button>
     </div>
 
-    <div class="store-quick-cats">
-      <button type="button" class="quick-cat-btn" data-cat="Apps">📱 Apps</button>
+    <!-- Dual Catalog Cards (AN1 main-head style) -->
+    <div class="an1-catalog-split">
+      <div class="an1-catalog-card card-games" id="banner-btn-games" role="button" tabindex="0">
+        <div class="catalog-card-icon">🎮</div>
+        <div class="catalog-card-info">
+          <h3>Games Catalog</h3>
+          <p>Download the latest version of popular games, mods and entertainment.</p>
+          <span class="catalog-card-link">Browse Games &rarr;</span>
+        </div>
+      </div>
+      <div class="an1-catalog-card card-programs" id="banner-btn-programs" role="button" tabindex="0">
+        <div class="catalog-card-icon">💻</div>
+        <div class="catalog-card-info">
+          <h3>Programs Catalog</h3>
+          <p>Discover productivity software, Windows utilities, AI tools & mobile apps.</p>
+          <span class="catalog-card-link">Browse Programs &rarr;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Navigation Chips -->
+    <div class="store-quick-cats" id="store-quick-cats">
+      <button type="button" class="quick-cat-btn active" data-cat="All">🔥 All Items</button>
       <button type="button" class="quick-cat-btn" data-cat="Game">🎮 Games</button>
-      <button type="button" class="quick-cat-btn" data-cat="AI">🤖 AI</button>
+      <button type="button" class="quick-cat-btn" data-cat="Apps">📱 Android Apps</button>
+      <button type="button" class="quick-cat-btn" data-cat="Software">💻 Windows (PC)</button>
+      <button type="button" class="quick-cat-btn" data-cat="AI">🤖 AI & Web Apps</button>
       <button type="button" class="quick-cat-btn" data-cat="Education">📚 Education</button>
-      <button type="button" class="quick-cat-btn" data-cat="Software">💻 Windows</button>
-      <button type="button" class="quick-cat-btn" data-cat="Development">🛠️ Tools</button>
+      <button type="button" class="quick-cat-btn" data-cat="Development">🛠️ Developer Tools</button>
+      <button type="button" class="quick-cat-btn" data-cat="Utility">⚙️ Utilities</button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════ STORE LAYOUT ═══════════════════ -->
-  <main class="store-layout">
-
-    <button type="button" class="mobile-filter-btn" id="mobile-filter-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-      Filters
-    </button>
-
-    <!-- Sidebar Filters -->
-    <aside class="store-sidebar" id="store-sidebar">
-      <button type="button" class="sidebar-close" id="sidebar-close">✕</button>
-
-      <div class="filter-section">
-        <h3>Category</h3>
-        <div class="filter-options">
-          <label class="filter-label"><input type="radio" name="category" value="All" checked=""> All Categories</label>
-          <label class="filter-label"><input type="radio" name="category" value="Featured"> ⭐ Featured</label>
-          <label class="filter-label"><input type="radio" name="category" value="Trending"> 🔥 Trending</label>
-          <label class="filter-label"><input type="radio" name="category" value="Apps"> Apps</label>
-          <label class="filter-label"><input type="radio" name="category" value="Game"> Games</label>
-          <label class="filter-label"><input type="radio" name="category" value="AI"> AI Tools</label>
-          <label class="filter-label"><input type="radio" name="category" value="Education"> Education</label>
-          <label class="filter-label"><input type="radio" name="category" value="Software"> Software</label>
+<!-- ═══════════════════ AN1 CAROUSELS & CATEGORY STRIPS ═══════════════════ -->
+<section class="an1-showcase-section" id="an1-showcase-section">
+  <div class="an1-showcase-container">
+    
+    <!-- Latest Games Carousel -->
+    <div class="an1-carousel-block" id="games-carousel-block">
+      <div class="an1-carousel-header">
+        <div class="an1-carousel-title">
+          <span class="an1-section-badge">🎮</span>
+          <h2>Latest & Trending Games</h2>
+        </div>
+        <div class="an1-carousel-actions">
+          <button type="button" class="an1-carousel-arrow arrow-prev" id="games-prev-btn" aria-label="Previous Games">‹</button>
+          <button type="button" class="an1-carousel-arrow arrow-next" id="games-next-btn" aria-label="Next Games">›</button>
+          <button type="button" class="an1-view-all-link" id="link-all-games">All Games &rarr;</button>
         </div>
       </div>
+      <div class="an1-carousel-track" id="games-carousel-track">
+        <!-- Injected dynamically by JS -->
+      </div>
+    </div>
 
-      <div class="filter-section">
-        <h3>Platform</h3>
-        <div class="filter-options">
-          <label class="filter-label"><input type="radio" name="platform" value="All" checked=""> All Platforms</label>
-          <label class="filter-label"><input type="radio" name="platform" value="Android"> Android</label>
-          <label class="filter-label"><input type="radio" name="platform" value="Windows"> Windows</label>
-          <label class="filter-label"><input type="radio" name="platform" value="Mac"> Mac</label>
-          <label class="filter-label"><input type="radio" name="platform" value="Web"> Web Apps</label>
+    <!-- Latest Programs / Software Carousel -->
+    <div class="an1-carousel-block" id="programs-carousel-block">
+      <div class="an1-carousel-header">
+        <div class="an1-carousel-title">
+          <span class="an1-section-badge">📱</span>
+          <h2>Latest Programs & Software</h2>
+        </div>
+        <div class="an1-carousel-actions">
+          <button type="button" class="an1-carousel-arrow arrow-prev" id="programs-prev-btn" aria-label="Previous Programs">‹</button>
+          <button type="button" class="an1-carousel-arrow arrow-next" id="programs-next-btn" aria-label="Next Programs">›</button>
+          <button type="button" class="an1-view-all-link" id="link-all-programs">All Programs &rarr;</button>
         </div>
       </div>
-
-      <div class="filter-section">
-        <h3>License</h3>
-        <div class="filter-options">
-          <label class="filter-label"><input type="radio" name="license" value="All" checked=""> All</label>
-          <label class="filter-label"><input type="radio" name="license" value="Free"> Free</label>
-          <label class="filter-label"><input type="radio" name="license" value="Paid"> Paid</label>
-          <label class="filter-label"><input type="radio" name="license" value="Open Source"> Open Source</label>
-        </div>
+      <div class="an1-carousel-track" id="programs-carousel-track">
+        <!-- Injected dynamically by JS -->
       </div>
-    </aside>
+    </div>
 
-    <!-- Main Grid Area -->
-    <div class="store-main">
-      <div class="grid-top-bar">
-        <div class="results-count" id="results-count">Showing results</div>
+    <!-- AN1 Style Category Preview Clusters (cat-apps) -->
+    <div class="an1-categories-section">
+      <div class="an1-categories-header">
+        <div class="an1-carousel-title">
+          <span class="an1-section-badge">📂</span>
+          <h2>Popular Categories</h2>
+        </div>
+        <span class="an1-categories-hint">Explore apps and games grouped by genre</span>
+      </div>
+      <div class="an1-clusters-grid" id="an1-clusters-grid">
+        <!-- Category thumbnail boxes injected dynamically by JS -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ MAIN STORE ARCHITECTURE & GRID ═══════════════════ -->
+<main class="store-layout" id="store-main-layout">
+
+  <button type="button" class="mobile-filter-btn" id="mobile-filter-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+    Filter by Platform & Category
+  </button>
+
+  <!-- Sidebar Filters (AN1 Dark-Green Theme) -->
+  <aside class="store-sidebar" id="store-sidebar">
+    <button type="button" class="sidebar-close" id="sidebar-close">✕</button>
+
+    <div class="filter-section">
+      <h3>Category</h3>
+      <div class="filter-options">
+        <label class="filter-label"><input type="radio" name="category" value="All" checked=""> All Items</label>
+        <label class="filter-label"><input type="radio" name="category" value="Game"> 🎮 Games</label>
+        <label class="filter-label"><input type="radio" name="category" value="Apps"> 📱 Mobile Applications</label>
+        <label class="filter-label"><input type="radio" name="category" value="Software"> 💻 Windows & PC Software</label>
+        <label class="filter-label"><input type="radio" name="category" value="AI"> 🤖 AI & Web Apps</label>
+        <label class="filter-label"><input type="radio" name="category" value="Education"> 📚 Education & Books</label>
+        <label class="filter-label"><input type="radio" name="category" value="Development"> 🛠️ Developer & System Tools</label>
+        <label class="filter-label"><input type="radio" name="category" value="Utility"> ⚙️ Utilities & Productivity</label>
+        <label class="filter-label"><input type="radio" name="category" value="Featured"> ⭐ Editor's Choice</label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Platform / Format</h3>
+      <div class="filter-options">
+        <label class="filter-label"><input type="radio" name="platform" value="All" checked=""> All Platforms</label>
+        <label class="filter-label"><input type="radio" name="platform" value="Android"> 🤖 Android (APK/XAPK)</label>
+        <label class="filter-label"><input type="radio" name="platform" value="Windows"> 🪟 Windows (EXE/MSI)</label>
+        <label class="filter-label"><input type="radio" name="platform" value="Mac"> 🍎 macOS (DMG)</label>
+        <label class="filter-label"><input type="radio" name="platform" value="Web"> 🌐 Web Application</label>
+        <label class="filter-label"><input type="radio" name="platform" value="Linux"> 🐧 Linux</label>
+        <label class="filter-label"><input type="radio" name="platform" value="iOS"> 🍏 iOS</label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>License</h3>
+      <div class="filter-options">
+        <label class="filter-label"><input type="radio" name="license" value="All" checked=""> All Licenses</label>
+        <label class="filter-label"><input type="radio" name="license" value="Free"> Free</label>
+        <label class="filter-label"><input type="radio" name="license" value="Paid"> Paid / Premium</label>
+        <label class="filter-label"><input type="radio" name="license" value="Open Source"> Open Source</label>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="store-main">
+    <div class="grid-top-bar" id="grid-top-bar">
+      <div class="results-count" id="results-count">Showing recently updated releases</div>
+      <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+        <button type="button" class="btn-reset-filter" id="btn-reset-filter" style="display:none;">&larr; Back to Full Catalog</button>
         <select class="sort-select" id="sort-select" aria-label="Sort apps">
           <option value="featured">Featured First</option>
           <option value="latest">Recently Updated</option>
           <option value="rating">Highest Rated</option>
-          <option value="az">A-Z</option>
-          <option value="za">Z-A</option>
+          <option value="az">Name: A to Z</option>
+          <option value="za">Name: Z to A</option>
         </select>
       </div>
+    </div>
 
-      <div class="store-grid" id="store-grid">
-        <!-- App cards injected here by JS -->
-      </div>
+    <!-- Sections View (Default view: categorized sections by app type) -->
+    <div id="store-sections-view" class="store-sections-view">
+      <!-- Injected by JS: Featured, Android, Windows, AI, Games, Tools sections -->
+    </div>
 
-      <div class="load-more-container">
-        <button type="button" class="btn-load-more" id="load-more-btn" style="display: none;">Load More</button>
+    <!-- Filtered View (Active when specific filter or search query is applied) -->
+    <div id="store-filtered-view" style="display: none;">
+      <div class="store-grid an1-grid" id="store-grid">
+          <!-- App cards injected here by JS -->
+        </div>
+
+        <div class="load-more-container">
+          <button type="button" class="btn-load-more" id="load-more-btn" style="display: none;">Load More</button>
+        </div>
       </div>
     </div>
   </main>
