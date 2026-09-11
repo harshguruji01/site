@@ -305,7 +305,7 @@ function renderAn1Showcase() {
 
 function createCarouselItem(app) {
   const item = document.createElement('a');
-  item.href = `app.html?slug=${encodeURIComponent(app.slug)}`;
+  item.href = `store-detail.html?slug=${encodeURIComponent(app.slug || app.id)}`;
   item.className = 'an1-carousel-item animate-fade-in';
   
   const badgeHtml = app.is_mod 
@@ -877,7 +877,7 @@ function renderFilteredGrid(append = false) {
 // --- AN1 APP CARD COMPONENT ---
 function createAppCard(app, index) {
   const card = document.createElement('a');
-  card.href = `app.html?slug=${encodeURIComponent(app.slug)}`;
+  card.href = `store-detail.html?slug=${encodeURIComponent(app.slug || app.id)}`;
   card.className = 'app-card animate-fade-in';
   card.style.animationDelay = `${index * 0.03}s`;
   card.style.textDecoration = 'none';

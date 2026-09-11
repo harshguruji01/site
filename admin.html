@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
   <title>Master Admin Command Center | HarshGuruJi</title>
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -439,10 +440,10 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Live Telemetry Stats Grid */
+    /* Live Telemetry Stats Grid - Interactive Clickable Cards */
     .stats-bar {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.25rem;
       margin-bottom: 2.5rem;
     }
@@ -452,13 +453,46 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 1.5rem;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, var(--tile-glow, rgba(99, 102, 241, 0.18)), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
     }
 
     .stat-tile:hover {
-      transform: translateY(-3px);
-      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-5px);
+      border-color: var(--tile-border, rgba(99, 102, 241, 0.6));
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px var(--tile-glow, rgba(99, 102, 241, 0.25));
     }
+
+    .stat-tile:hover::after {
+      opacity: 1;
+    }
+
+    .stat-tile:active {
+      transform: translateY(-2px) scale(0.99);
+    }
+
+    /* Distinct tile glow accents */
+    .tile-apps { --tile-glow: rgba(59, 130, 246, 0.25); --tile-border: #3b82f6; }
+    .tile-messages { --tile-glow: rgba(236, 72, 153, 0.25); --tile-border: #ec4899; }
+    .tile-contrib { --tile-glow: rgba(245, 158, 11, 0.25); --tile-border: #f59e0b; }
+    .tile-gold { --tile-glow: rgba(255, 215, 0, 0.3); --tile-border: #ffd700; }
 
     .stat-top {
       display: flex;
@@ -473,27 +507,730 @@
       letter-spacing: 0.06em;
       color: var(--text-muted);
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .stat-badge-hint {
+      font-size: 0.65rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      color: #cbd5e1;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
     }
 
     .stat-icon-mini {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      transition: transform 0.2s;
+    }
+
+    .stat-tile:hover .stat-icon-mini {
+      transform: scale(1.15) rotate(5deg);
     }
 
     .stat-number {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 700;
       color: #fff;
       line-height: 1;
+      margin: 0.25rem 0;
     }
 
     .stat-subtext {
       font-size: 0.78rem;
       color: #34d399;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
       display: flex;
       align-items: center;
       gap: 0.3rem;
+    }
+
+    .stat-click-cta {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #93c5fd;
+      transition: color 0.2s;
+    }
+
+    .stat-tile:hover .stat-click-cta {
+      color: #fff;
+    }
+
+    .stat-click-cta span.arrow {
+      transition: transform 0.2s;
+    }
+
+    .stat-tile:hover .stat-click-cta span.arrow {
+      transform: translateX(4px);
+    }
+
+    /* MASTER DETAIL CONTROL MODAL */
+    .master-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 15, 0.88);
+      backdrop-filter: blur(20px);
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .master-modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .master-modal-dialog {
+      background: #0d1222;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 1120px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(99, 102, 241, 0.15);
+      overflow: hidden;
+      transform: scale(0.96) translateY(20px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .master-modal-overlay.active .master-modal-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .master-modal-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      background: rgba(17, 24, 39, 0.6);
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+    }
+
+    .modal-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .modal-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .modal-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-modal-refresh {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #e5e7eb;
+      padding: 0.5rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-modal-refresh:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-modal-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    /* Modal Tabs Navigation */
+    .master-modal-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      background: rgba(10, 14, 26, 0.8);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .master-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.65rem 1.1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .master-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .master-tab-btn.active {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+    }
+
+    .tab-pill {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      font-weight: 700;
+    }
+
+    .master-tab-btn.active .tab-pill {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .tab-pill.pill-pending { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .tab-pill.pill-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .tab-pill.pill-gold { background: rgba(255, 215, 0, 0.2); color: #ffd700; }
+
+    /* Modal Content Body */
+    .master-modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      flex: 1;
+      position: relative;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Toolbar inside Panes */
+    .pane-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pane-search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+      max-width: 420px;
+    }
+
+    .pane-search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.4rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .pane-search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .pane-search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+
+    .pane-filters {
+      display: flex;
+      gap: 0.4rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip:hover { color: #fff; }
+    .filter-chip.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Common Micro Action Buttons */
+    .btn-action-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-action-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-action-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .btn-action-success:hover {
+      background: rgba(16, 185, 129, 0.3);
+      color: #fff;
+    }
+
+    .btn-action-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .btn-action-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+
+    .btn-action-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.25));
+      color: #ffd700;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .btn-action-gold:hover {
+      background: linear-gradient(135deg, #f59e0b, #ffd700);
+      color: #0f172a;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-action-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-action-outline:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Common Table Styling */
+    .master-table-card {
+      background: rgba(17, 24, 39, 0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+    }
+
+    .master-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .master-table th {
+      padding: 0.9rem 1.1rem;
+      background: rgba(10, 14, 26, 0.7);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .master-table td {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      vertical-align: middle;
+    }
+
+    .master-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* User / Contributor Avatar with Golden Tick */
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1f2937;
+      border: 1px solid var(--border);
+    }
+
+    .avatar-wrapper .golden-tick {
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      color: #0f172a;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #0f172a;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+    }
+
+    .entity-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .entity-title {
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .entity-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Status Pills */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .status-pill.active, .status-pill.replied, .status-pill.published {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-pill.pending {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .status-pill.rejected, .status-pill.draft {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-pill.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Message Cards in Inquiries Pane */
+    .inquiry-card {
+      background: rgba(17, 24, 39, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .inquiry-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .inquiry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .inquiry-user-row {
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+    }
+    .inquiry-sender-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .inquiry-msg-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1.1rem;
+      font-size: 0.92rem;
+      color: #e5e7eb;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      white-space: pre-wrap;
+    }
+    .admin-reply-bubble {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .reply-bubble-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 0.4rem;
+    }
+    .reply-bubble-text {
+      color: #f8fafc;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      margin: 0;
+    }
+
+    .reply-box-wrap {
+      background: rgba(10, 14, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    .reply-box-wrap textarea {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      min-height: 75px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .reply-box-wrap textarea:focus {
+      border-color: var(--primary);
+    }
+    .quick-chips-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.85rem;
+    }
+    .quick-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-chip:hover {
+      background: rgba(99, 102, 241, 0.2);
+      color: #c7d2fe;
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* Floating Toast */
+    .master-toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #111827;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.9rem 1.4rem;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .master-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .master-toast.toast-success { border-left: 4px solid var(--success); }
+    .master-toast.toast-error { border-left: 4px solid var(--danger); }
+    .master-toast.toast-info { border-left: 4px solid var(--primary); }
+
+    /* Empty state */
+    .empty-pane {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+    }
+    .empty-pane-icon {
+      font-size: 2.8rem;
+      margin-bottom: 0.75rem;
+      display: block;
     }
 
     /* SECTION TITLE */
@@ -869,42 +1606,70 @@
         </div>
       </section>
 
-      <!-- Live Stat Tiles -->
-      <section class="stats-bar">
-        <div class="stat-tile">
+      <!-- Live Stat Tiles - Clickable Master Control Triggers -->
+      <section class="stats-bar" aria-label="Command Center Quick Access">
+        <div class="stat-tile tile-apps" id="tile-store-apps" role="button" tabindex="0" title="Click to view full Store Catalog, edit apps or delete">
           <div class="stat-top">
-            <span class="stat-title">Store Applications</span>
+            <span class="stat-title">
+              <span>Store Applications</span>
+              <span class="stat-badge-hint">Manage 🎮</span>
+            </span>
             <span class="stat-icon-mini">🎮</span>
           </div>
           <div class="stat-number" id="stat-apps-count">...</div>
           <div class="stat-subtext"><span>📦</span> Live in Store Catalog</div>
+          <div class="stat-click-cta">
+            <span>View Catalog &amp; Control</span>
+            <span class="arrow">&rarr;</span>
+          </div>
         </div>
 
-        <div class="stat-tile">
+        <div class="stat-tile tile-messages" id="tile-user-messages" role="button" tabindex="0" title="Click to view who messaged, read inquiry, and send direct reply">
           <div class="stat-top">
-            <span class="stat-title">User Inquiries</span>
+            <span class="stat-title">
+              <span>User Inquiries</span>
+              <span class="stat-badge-hint">Reply Desk 💬</span>
+            </span>
             <span class="stat-icon-mini">💬</span>
           </div>
           <div class="stat-number" id="stat-messages-count">...</div>
           <div class="stat-subtext"><span>📬</span> Contact &amp; Feedback Messages</div>
+          <div class="stat-click-cta">
+            <span>Read &amp; Reply Messages</span>
+            <span class="arrow">&rarr;</span>
+          </div>
         </div>
 
-        <div class="stat-tile">
+        <div class="stat-tile tile-contrib" id="tile-contrib-apps" role="button" tabindex="0" title="Click to review contributor applications, activate or reject">
           <div class="stat-top">
-            <span class="stat-title">Contributor Apps</span>
+            <span class="stat-title">
+              <span>Contributor Apps</span>
+              <span class="stat-badge-hint">Review 📋</span>
+            </span>
             <span class="stat-icon-mini">📋</span>
           </div>
           <div class="stat-number" id="stat-contrib-count">...</div>
           <div class="stat-subtext"><span id="stat-pending-badge">⏳ Reviewing queue</span></div>
+          <div class="stat-click-cta">
+            <span>Inspect &amp; Approve Apps</span>
+            <span class="arrow">&rarr;</span>
+          </div>
         </div>
 
-        <div class="stat-tile">
+        <div class="stat-tile tile-gold" id="tile-golden-users" role="button" tabindex="0" title="Click to view all site users and grant/revoke Golden Ticks">
           <div class="stat-top">
-            <span class="stat-title">Golden Tick Users</span>
+            <span class="stat-title">
+              <span>Golden Tick Users</span>
+              <span class="stat-badge-hint">Universal ⭐</span>
+            </span>
             <span class="stat-icon-mini">⭐</span>
           </div>
           <div class="stat-number" id="stat-gold-count" style="color: #ffd700;">...</div>
           <div class="stat-subtext"><span>✓</span> Verified Site Profiles</div>
+          <div class="stat-click-cta">
+            <span>Manage Golden Ticks</span>
+            <span class="arrow">&rarr;</span>
+          </div>
         </div>
       </section>
 
@@ -1059,21 +1824,225 @@
     </main>
   </div>
 
-  <!-- Supabase & 2-Step Auth Script -->
+  <!-- MASTER LIVE CONTROL & DETAIL SUITE MODAL -->
+  <div class="master-modal-overlay" id="master-control-modal" role="dialog" aria-modal="true" aria-labelledby="modal-main-title">
+    <div class="master-modal-dialog">
+      <!-- Modal Header -->
+      <div class="master-modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" id="modal-active-icon">🎮</div>
+          <div>
+            <h2 class="modal-title" id="modal-main-title">Store Applications Catalog</h2>
+            <p class="modal-subtitle" id="modal-sub-title">Live database telemetry &amp; full administrative actions</p>
+          </div>
+        </div>
+        <div class="modal-header-actions">
+          <button type="button" class="btn-modal-refresh" id="btn-modal-refresh" title="Reload live data from database">
+            <span>🔄</span>
+            <span>Refresh</span>
+          </button>
+          <button type="button" class="btn-modal-close" id="btn-modal-close" title="Close Panel (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="master-modal-tabs">
+        <button type="button" class="master-tab-btn active" data-tab="store" id="mtab-store">
+          <span>🎮</span>
+          <span>Store Applications</span>
+          <span class="tab-pill" id="mpill-store">0</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="messages" id="mtab-messages">
+          <span>💬</span>
+          <span>User Inquiries</span>
+          <span class="tab-pill pill-pending" id="mpill-messages">0</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="contributors" id="mtab-contributors">
+          <span>📋</span>
+          <span>Contributor Apps</span>
+          <span class="tab-pill pill-warning" id="mpill-contributors">0</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="goldentick" id="mtab-goldentick">
+          <span>⭐</span>
+          <span>Golden Tick Users</span>
+          <span class="tab-pill pill-gold" id="mpill-goldentick">0</span>
+        </button>
+      </div>
+
+      <!-- Modal Body with Scrollable Panes -->
+      <div class="master-modal-body">
+        
+        <!-- PANE 1: STORE APPLICATIONS -->
+        <div class="tab-pane active" id="pane-store">
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-store-apps" placeholder="Search store apps by title, category, developer...">
+            </div>
+            <div class="pane-filters" id="filters-store-category">
+              <button type="button" class="filter-chip active" data-cat="ALL">All Apps</button>
+              <button type="button" class="filter-chip" data-cat="Game">🎮 Games</button>
+              <button type="button" class="filter-chip" data-cat="Apps">📱 Mobile Apps</button>
+              <button type="button" class="filter-chip" data-cat="Software">💻 Software</button>
+              <button type="button" class="filter-chip" data-cat="AI">🤖 AI Tools</button>
+            </div>
+            <a href="adminapkupload.html" target="_blank" class="btn-action-primary">
+              <span>➕ Publish New App / APK</span>
+            </a>
+          </div>
+
+          <div class="master-table-card">
+            <table class="master-table">
+              <thead>
+                <tr>
+                  <th>Application / Game</th>
+                  <th>Category &amp; Platform</th>
+                  <th>Version / Size</th>
+                  <th>Downloads</th>
+                  <th>Status</th>
+                  <th>Site Actions</th>
+                </tr>
+              </thead>
+              <tbody id="store-apps-tbody">
+                <tr><td colspan="6" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading live store applications...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 2: USER INQUIRIES & MESSAGES -->
+        <div class="tab-pane" id="pane-messages">
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-messages" placeholder="Search inquiries by sender name, email, query...">
+            </div>
+            <div class="pane-filters" id="filters-messages-status">
+              <button type="button" class="filter-chip active" data-status="ALL">All Messages</button>
+              <button type="button" class="filter-chip" data-status="PENDING">⏳ Pending Review</button>
+              <button type="button" class="filter-chip" data-status="REPLIED">✓ Replied</button>
+            </div>
+            <a href="contact.html" target="_blank" class="btn-action-outline">
+              <span>Open Public Contact Form ↗</span>
+            </a>
+          </div>
+
+          <div id="messages-cards-container">
+            <div class="empty-pane">Loading user messages and feedback desk...</div>
+          </div>
+        </div>
+
+        <!-- PANE 3: CONTRIBUTOR APPLICATIONS -->
+        <div class="tab-pane" id="pane-contributors">
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-contributors" placeholder="Search applications by applicant name, role, bio...">
+            </div>
+            <div class="pane-filters" id="filters-contrib-status">
+              <button type="button" class="filter-chip active" data-status="ALL">All Applications</button>
+              <button type="button" class="filter-chip" data-status="PENDING">⏳ Pending Review</button>
+              <button type="button" class="filter-chip" data-status="ACTIVE">✓ Active Contributors</button>
+              <button type="button" class="filter-chip" data-status="REJECTED">❌ Rejected</button>
+            </div>
+            <a href="contributor.html" target="_blank" class="btn-action-outline">
+              <span>View Public Contributor Page ↗</span>
+            </a>
+          </div>
+
+          <div class="master-table-card">
+            <table class="master-table">
+              <thead>
+                <tr>
+                  <th>Applicant</th>
+                  <th>Proposed Role</th>
+                  <th>Applied On</th>
+                  <th>Status</th>
+                  <th>Bio &amp; Social Links</th>
+                  <th>Site Access Control</th>
+                </tr>
+              </thead>
+              <tbody id="contributors-tbody">
+                <tr><td colspan="6" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading contributor applications...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 4: GOLDEN TICK USERS -->
+        <div class="tab-pane" id="pane-goldentick">
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-users" placeholder="Search site users by display name, username, email...">
+            </div>
+            <div class="pane-filters" id="filters-users-tick">
+              <button type="button" class="filter-chip active" data-tick="ALL">All Users</button>
+              <button type="button" class="filter-chip" data-tick="GOLDEN">⭐ Golden Tick Only</button>
+              <button type="button" class="filter-chip" data-tick="STANDARD">Standard Users</button>
+            </div>
+            <a href="admincontributors.html" target="_blank" class="btn-action-outline">
+              <span>Open Dedicated Verification Hub ↗</span>
+            </a>
+          </div>
+
+          <div class="master-table-card">
+            <table class="master-table">
+              <thead>
+                <tr>
+                  <th>User Profile</th>
+                  <th>Username / Email</th>
+                  <th>Universal Verification</th>
+                  <th>Site Access Control (1-Click)</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody">
+                <tr><td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading registered users...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div class="master-toast" id="admin-master-toast">
+    <span id="master-toast-icon">✓</span>
+    <span id="master-toast-text">Action executed successfully</span>
+  </div>
+
+  <!-- Supabase Module Script -->
   <script type="module">
     import { supabase } from './js/supabase.js';
     window.supabaseClient = supabase;
   </script>
 
+  <!-- Master Control Center Controller -->
   <script>
-    // CREDENTIALS REQUIRED BY USER
+    // CREDENTIALS REQUIRED BY MASTER SECURITY GATE
     const REQUIRED_EMAIL = "harshguruji01@gmail.com";
     const REQUIRED_ID = "2547277654";
     const SESSION_KEY = "hg_master_admin_authenticated";
 
+    // Application Master State
+    let storeAppsData = [];
+    let messagesData = [];
+    let contributorsData = [];
+    let usersData = [];
+
+    // Filter states
+    let currentMasterTab = 'store';
+    let storeCatFilter = 'ALL';
+    let messagesFilter = 'ALL';
+    let contribFilter = 'ALL';
+    let userFilter = 'ALL';
+
     document.addEventListener('DOMContentLoaded', () => {
       initSecurityGate();
       startLiveClock();
+      bindMasterModalEvents();
     });
 
     // 1. Two-Step Verification Controller
@@ -1167,63 +2136,930 @@
       function unlockDashboard() {
         securityGate.style.display = 'none';
         adminDashboard.style.display = 'block';
-        loadLiveTelemetry();
+        loadAllMasterData();
       }
     }
 
-    // 2. Fetch Live Stats from Supabase
-    async function loadLiveTelemetry() {
-      let interval = setInterval(async () => {
-        if (window.supabaseClient) {
-          clearInterval(interval);
-          const sb = window.supabaseClient;
+    // 2. Bind Master Modal & Stat Tile Click Events
+    function bindMasterModalEvents() {
+      // 4 Main Stat Tiles as Buttons
+      const tileApps = document.getElementById('tile-store-apps');
+      const tileMsgs = document.getElementById('tile-user-messages');
+      const tileContrib = document.getElementById('tile-contrib-apps');
+      const tileGold = document.getElementById('tile-golden-users');
 
-          try {
-            // Apps count
-            const { count: appsCount } = await sb.from('store_apps').select('*', { count: 'exact', head: true });
-            document.getElementById('stat-apps-count').textContent = appsCount !== null ? appsCount : '0';
-          } catch(e) {
-            document.getElementById('stat-apps-count').textContent = 'Live';
-          }
+      if (tileApps) {
+        tileApps.addEventListener('click', () => openMasterModal('store'));
+        tileApps.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('store'); } });
+      }
+      if (tileMsgs) {
+        tileMsgs.addEventListener('click', () => openMasterModal('messages'));
+        tileMsgs.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('messages'); } });
+      }
+      if (tileContrib) {
+        tileContrib.addEventListener('click', () => openMasterModal('contributors'));
+        tileContrib.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('contributors'); } });
+      }
+      if (tileGold) {
+        tileGold.addEventListener('click', () => openMasterModal('goldentick'));
+        tileGold.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('goldentick'); } });
+      }
 
-          try {
-            // Messages count
-            const { count: msgCount } = await sb.from('contact_messages').select('*', { count: 'exact', head: true });
-            document.getElementById('stat-messages-count').textContent = msgCount !== null ? msgCount : '0';
-          } catch(e) {
-            document.getElementById('stat-messages-count').textContent = 'Live';
-          }
+      // Close button and Backdrop
+      const modalOverlay = document.getElementById('master-control-modal');
+      const btnClose = document.getElementById('btn-modal-close');
+      const btnRefresh = document.getElementById('btn-modal-refresh');
 
-          try {
-            // Contributors count & pending
-            const { data: contribs } = await sb.from('contributors').select('status');
-            if (contribs) {
-              document.getElementById('stat-contrib-count').textContent = contribs.length;
-              const pending = contribs.filter(c => (c.status || '').toUpperCase() === 'PENDING').length;
-              const badge = document.getElementById('stat-pending-badge');
-              if (pending > 0) {
-                badge.textContent = `⏳ ${pending} Pending Review`;
-                badge.style.color = '#60a5fa';
-              } else {
-                badge.textContent = `✓ Queue clear`;
-              }
-            }
-          } catch(e) {
-            document.getElementById('stat-contrib-count').textContent = 'Live';
-          }
+      if (btnClose) btnClose.addEventListener('click', closeMasterModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) closeMasterModal();
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMasterModal();
+      });
 
-          try {
-            // Golden tick users count
-            const { count: goldCount } = await sb.from('profiles').select('*', { count: 'exact', head: true }).eq('golden_tick', true);
-            document.getElementById('stat-gold-count').textContent = goldCount !== null ? goldCount : '0';
-          } catch(e) {
-            document.getElementById('stat-gold-count').textContent = 'Live';
-          }
-        }
-      }, 100);
+      if (btnRefresh) {
+        btnRefresh.addEventListener('click', () => {
+          loadAllMasterData(true);
+        });
+      }
+
+      // Modal Tab navigation buttons
+      document.querySelectorAll('.master-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTab = btn.dataset.tab;
+          if (targetTab) switchMasterTab(targetTab);
+        });
+      });
+
+      // Filter Chips - Store Apps
+      document.querySelectorAll('#filters-store-category .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#filters-store-category .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          storeCatFilter = chip.dataset.cat || 'ALL';
+          renderStoreApps();
+        });
+      });
+
+      // Search - Store Apps
+      const searchApps = document.getElementById('search-store-apps');
+      if (searchApps) searchApps.addEventListener('input', renderStoreApps);
+
+      // Filter Chips - Messages
+      document.querySelectorAll('#filters-messages-status .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#filters-messages-status .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          messagesFilter = chip.dataset.status || 'ALL';
+          renderMessages();
+        });
+      });
+
+      // Search - Messages
+      const searchMsgs = document.getElementById('search-messages');
+      if (searchMsgs) searchMsgs.addEventListener('input', renderMessages);
+
+      // Filter Chips - Contributors
+      document.querySelectorAll('#filters-contrib-status .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#filters-contrib-status .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          contribFilter = chip.dataset.status || 'ALL';
+          renderContributors();
+        });
+      });
+
+      // Search - Contributors
+      const searchContrib = document.getElementById('search-contributors');
+      if (searchContrib) searchContrib.addEventListener('input', renderContributors);
+
+      // Filter Chips - Users
+      document.querySelectorAll('#filters-users-tick .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#filters-users-tick .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          userFilter = chip.dataset.tick || 'ALL';
+          renderUsers();
+        });
+      });
+
+      // Search - Users
+      const searchUsers = document.getElementById('search-users');
+      if (searchUsers) searchUsers.addEventListener('input', renderUsers);
     }
 
-    // 3. Live Real-Time Clock
+    // Open Modal to Specific Tab
+    window.openMasterModal = function(tabName) {
+      const modal = document.getElementById('master-control-modal');
+      if (!modal) return;
+
+      switchMasterTab(tabName);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // If data is empty, trigger fetch
+      if (storeAppsData.length === 0 && messagesData.length === 0 && usersData.length === 0) {
+        loadAllMasterData();
+      }
+    };
+
+    // Close Modal
+    window.closeMasterModal = function() {
+      const modal = document.getElementById('master-control-modal');
+      if (modal) modal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    // Switch Tab in Modal
+    window.switchMasterTab = function(tabName) {
+      currentMasterTab = tabName;
+
+      // Update tab buttons
+      document.querySelectorAll('.master-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+      });
+
+      // Update panes
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+      });
+      const targetPane = document.getElementById(`pane-${tabName}`);
+      if (targetPane) targetPane.classList.add('active');
+
+      // Update Modal Header Text & Icon
+      const iconEl = document.getElementById('modal-active-icon');
+      const titleEl = document.getElementById('modal-main-title');
+      const subEl = document.getElementById('modal-sub-title');
+
+      if (tabName === 'store') {
+        if (iconEl) iconEl.textContent = '🎮';
+        if (titleEl) titleEl.textContent = 'Store Applications Catalog';
+        if (subEl) subEl.textContent = 'Manage live APKs, games & software, inspect store pages, edit or delete.';
+      } else if (tabName === 'messages') {
+        if (iconEl) iconEl.textContent = '💬';
+        if (titleEl) titleEl.textContent = 'User Inquiries & Messages Desk';
+        if (subEl) subEl.textContent = 'View who contacted, read feedback queries, and send instant admin replies to notification bell.';
+      } else if (tabName === 'contributors') {
+        if (iconEl) iconEl.textContent = '📋';
+        if (titleEl) titleEl.textContent = 'Contributor Applications Queue';
+        if (subEl) subEl.textContent = 'Review candidate profiles, approve contributors & grant Golden Tick verifications.';
+      } else if (tabName === 'goldentick') {
+        if (iconEl) iconEl.textContent = '⭐';
+        if (titleEl) titleEl.textContent = 'Universal Golden Tick & Site Users';
+        if (subEl) subEl.textContent = '1-Click control to grant or revoke the official Golden Tick (✓) for any registered user.';
+      }
+    };
+
+    // 3. Load All Master Data from Supabase
+    async function loadAllMasterData(showToastNotice = false) {
+      const waitForSupabase = () => new Promise(resolve => {
+        if (window.supabaseClient) return resolve(window.supabaseClient);
+        const timer = setInterval(() => {
+          if (window.supabaseClient) {
+            clearInterval(timer);
+            resolve(window.supabaseClient);
+          }
+        }, 80);
+      });
+
+      const sb = await waitForSupabase();
+
+      try {
+        const [appsRes, msgRes, contribRes, usersRes] = await Promise.allSettled([
+          sb.from('store_apps').select('*').order('created_at', { ascending: false }),
+          sb.from('contact_messages').select('*').order('created_at', { ascending: false }),
+          sb.from('contributors').select('*').order('created_at', { ascending: false }),
+          sb.from('profiles').select('*').order('created_at', { ascending: false })
+        ]);
+
+        if (appsRes.status === 'fulfilled' && appsRes.value.data) {
+          storeAppsData = appsRes.value.data;
+        }
+        if (msgRes.status === 'fulfilled' && msgRes.value.data) {
+          messagesData = msgRes.value.data;
+        }
+        if (contribRes.status === 'fulfilled' && contribRes.value.data) {
+          contributorsData = contribRes.value.data;
+        }
+        if (usersRes.status === 'fulfilled' && usersRes.value.data) {
+          usersData = usersRes.value.data;
+        }
+
+        updateAllTelemetryDisplay();
+        renderStoreApps();
+        renderMessages();
+        renderContributors();
+        renderUsers();
+
+        if (showToastNotice) {
+          showMasterToast("✅ Telemetry & site data refreshed successfully!", "success");
+        }
+      } catch (err) {
+        console.error("Master data load error:", err);
+        if (showToastNotice) {
+          showMasterToast("❌ Failed to reload database telemetry", "error");
+        }
+      }
+    }
+
+    // 4. Synchronize all Telemetry Counters
+    function updateAllTelemetryDisplay() {
+      // 1. Store Apps Counts
+      const totalApps = storeAppsData.length;
+      document.getElementById('stat-apps-count').textContent = totalApps;
+      const mpillStore = document.getElementById('mpill-store');
+      if (mpillStore) mpillStore.textContent = totalApps;
+
+      // 2. User Inquiries Counts
+      const totalMessages = messagesData.length;
+      const pendingMessages = messagesData.filter(m => !m.admin_reply || m.status === 'Pending').length;
+      document.getElementById('stat-messages-count').textContent = totalMessages;
+      const mpillMsg = document.getElementById('mpill-messages');
+      if (mpillMsg) {
+        mpillMsg.textContent = pendingMessages > 0 ? `${pendingMessages} New` : totalMessages;
+      }
+
+      // 3. Contributor Counts & Pending Queue
+      const totalContrib = contributorsData.length;
+      const pendingContrib = contributorsData.filter(c => (c.status || '').toUpperCase() === 'PENDING').length;
+      document.getElementById('stat-contrib-count').textContent = totalContrib;
+      const badge = document.getElementById('stat-pending-badge');
+      if (badge) {
+        if (pendingContrib > 0) {
+          badge.textContent = `⏳ ${pendingContrib} Pending Review`;
+          badge.style.color = '#60a5fa';
+        } else {
+          badge.textContent = `✓ Queue clear`;
+          badge.style.color = '#34d399';
+        }
+      }
+      const mpillContrib = document.getElementById('mpill-contributors');
+      if (mpillContrib) {
+        mpillContrib.textContent = pendingContrib > 0 ? `${pendingContrib} Pending` : totalContrib;
+      }
+
+      // 4. Golden Tick Users Counts
+      const goldenUsersCount = usersData.filter(u => u.golden_tick === true).length;
+      document.getElementById('stat-gold-count').textContent = goldenUsersCount;
+      const mpillGold = document.getElementById('mpill-goldentick');
+      if (mpillGold) mpillGold.textContent = goldenUsersCount;
+    }
+
+    // 4b. Universal Avatar & Identity Resolver
+    function resolveUserAvatar(userOrIdOrEmail, defaultName = 'User') {
+      if (!userOrIdOrEmail) {
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(defaultName)}&background=3b82f6&color=fff`;
+      }
+
+      let prof = null;
+      let contrib = null;
+
+      if (typeof userOrIdOrEmail === 'object' && userOrIdOrEmail !== null) {
+        prof = userOrIdOrEmail;
+        const uid = prof.id || prof.user_id;
+        const uemail = (prof.email || '').toLowerCase();
+        contrib = contributorsData.find(c => (uid && c.user_id === uid) || (uemail && c.email && c.email.toLowerCase() === uemail));
+      } else {
+        const key = String(userOrIdOrEmail).trim().toLowerCase();
+        prof = usersData.find(u => u.id === userOrIdOrEmail || (u.email && u.email.toLowerCase() === key));
+        contrib = contributorsData.find(c => c.id === userOrIdOrEmail || (c.user_id && c.user_id === userOrIdOrEmail) || (c.email && c.email.toLowerCase() === key));
+      }
+
+      let avatar = prof?.avatar_url || contrib?.avatar_url || contrib?.profile_image_path;
+
+      // Filter out invalid placeholder values or logo.png for human avatar
+      if (!avatar || typeof avatar !== 'string' || avatar.trim() === '' || avatar === 'logo.png' || avatar === 'null' || avatar === 'undefined') {
+        const name = prof?.display_name || contrib?.display_name || contrib?.name || defaultName;
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4f46e5&color=fff`;
+      }
+
+      return avatar;
+    }
+
+    // 5. Render Store Applications
+    function renderStoreApps() {
+      const tbody = document.getElementById('store-apps-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-store-apps')?.value || '').toLowerCase().trim();
+
+      let list = storeAppsData.filter(app => {
+        if (storeCatFilter !== 'ALL') {
+          const cat = (app.category || '').toLowerCase();
+          if (!cat.includes(storeCatFilter.toLowerCase())) return false;
+        }
+
+        if (searchTerm) {
+          const title = (app.name || app.title || '').toLowerCase();
+          const dev = (app.developer_name || app.developer || '').toLowerCase();
+          const pkg = (app.package_name || app.slug || '').toLowerCase();
+          const subcat = (app.subcategory || '').toLowerCase();
+          return title.includes(searchTerm) || dev.includes(searchTerm) || pkg.includes(searchTerm) || subcat.includes(searchTerm);
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 3rem;">No applications found matching filter criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(app => {
+        const title = app.name || app.title || 'Untitled App';
+        const icon = app.logo_url || app.icon_url || 'logo.png';
+        const dev = app.developer_name || app.developer || 'HarshGuruJi';
+        const isPublished = app.is_published !== false && app.status !== 'DRAFT';
+        const statusClass = isPublished ? 'published' : 'draft';
+        const statusLabel = isPublished ? 'Live in Store' : 'Draft';
+        const downloads = app.downloads_count || app.downloads || 0;
+        const devAvatar = resolveUserAvatar(app.user_id || dev, dev);
+
+        return `
+          <tr>
+            <td>
+              <div class="entity-cell">
+                <img src="${escapeHtml(icon)}" alt="${escapeHtml(title)}" style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border);" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='logo.png';">
+                <div>
+                  <div class="entity-title">
+                    <span>${escapeHtml(title)}</span>
+                    ${app.is_mod ? '<span style="font-size:0.65rem; background:rgba(236,72,153,0.2); color:#f472b6; padding:1px 5px; border-radius:4px; font-weight:700;">MOD</span>' : ''}
+                  </div>
+                  <div class="entity-sub" style="display:flex; align-items:center; gap:6px; margin-top:3px;">
+                    <img src="${escapeHtml(devAvatar)}" style="width:16px; height:16px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(dev)}&background=3b82f6&color=fff';">
+                    <span>${escapeHtml(dev)}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="status-pill pending" style="margin-bottom: 2px;">${escapeHtml(app.category || 'General')}</span>
+              <div class="entity-sub">Platform: ${escapeHtml(app.platform || 'Android')}</div>
+            </td>
+            <td>
+              <div style="font-weight: 600; color: #fff;">v${escapeHtml(app.version || '1.0')}</div>
+              <div class="entity-sub">${escapeHtml(app.file_size || 'N/A')}</div>
+            </td>
+            <td>
+              <div style="font-weight: 600; color: #34d399;">📥 ${downloads}</div>
+            </td>
+            <td>
+              <span class="status-pill ${statusClass}">${statusLabel}</span>
+            </td>
+            <td>
+              <div style="display: flex; gap: 0.4rem; align-items: center;">
+                <a href="store-detail.html?id=${encodeURIComponent(app.id)}" target="_blank" class="btn-action-outline" title="Open Public Store Page">
+                  <span>👁 View</span>
+                </a>
+                <a href="adminapkupload.html?edit=${encodeURIComponent(app.id)}" target="_blank" class="btn-action-primary" title="Edit App in APK Uploader">
+                  <span>✏ Edit</span>
+                </a>
+                <button type="button" class="btn-action-danger" onclick="deleteStoreApp('${app.id}', '${escapeJs(title)}')" title="Permanently delete application from catalog">
+                  <span>🗑</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 6. Delete Store App Controller
+    window.deleteStoreApp = async function(appId, title) {
+      if (!confirm(`Are you sure you want to permanently delete "${title}" from the Store catalog?`)) return;
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb.from('store_apps').delete().eq('id', appId);
+        if (error) throw error;
+
+        storeAppsData = storeAppsData.filter(a => a.id !== appId);
+        updateAllTelemetryDisplay();
+        renderStoreApps();
+        showMasterToast(`Application "${title}" deleted from catalog.`, "info");
+      } catch (err) {
+        console.error("Delete store app failed:", err);
+        alert("Failed to delete application: " + err.message);
+      }
+    };
+
+    // 7. Render User Inquiries & Messages
+    function renderMessages() {
+      const container = document.getElementById('messages-cards-container');
+      if (!container) return;
+
+      const searchTerm = (document.getElementById('search-messages')?.value || '').toLowerCase().trim();
+
+      let list = messagesData.filter(msg => {
+        const isReplied = !!msg.admin_reply || msg.status === 'Replied';
+        if (messagesFilter === 'PENDING' && isReplied) return false;
+        if (messagesFilter === 'REPLIED' && !isReplied) return false;
+
+        if (searchTerm) {
+          const name = (msg.name || '').toLowerCase();
+          const email = (msg.email || '').toLowerCase();
+          const message = (msg.message || '').toLowerCase();
+          const reply = (msg.admin_reply || '').toLowerCase();
+          return name.includes(searchTerm) || email.includes(searchTerm) || message.includes(searchTerm) || reply.includes(searchTerm);
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-pane">
+            <span class="empty-pane-icon">📭</span>
+            <h3 style="color:#fff; margin-bottom:0.5rem;">No Inquiries Found</h3>
+            <p>No user inquiries match the active status and search filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(req => {
+        const isReplied = !!req.admin_reply || req.status === 'Replied';
+        const statusClass = isReplied ? 'replied' : 'pending';
+        const statusText = isReplied ? '✓ Replied' : '⏳ Pending Review';
+        const dateStr = req.created_at ? new Date(req.created_at).toLocaleString() : 'Recent';
+
+        // Match logged-in user profile from Supabase profiles
+        const userProfile = usersData.find(u => (req.user_id && u.id === req.user_id) || (req.email && u.email && u.email.toLowerCase() === req.email.toLowerCase()));
+        const senderName = req.name || userProfile?.display_name || (req.email ? req.email.split('@')[0] : 'Anonymous User');
+        const senderAvatar = resolveUserAvatar(userProfile || req.email || req.user_id, senderName);
+        const senderHasGolden = userProfile?.golden_tick === true;
+        const senderIsAdmin = userProfile?.is_admin === true;
+
+        let adminReplyHtml = '';
+        if (req.admin_reply) {
+          const readBadge = req.user_read 
+            ? '<span style="color:#10b981;">✓ Opened by User</span>' 
+            : '<span style="color:#f59e0b;">⏳ User Bell Alert Active</span>';
+
+          adminReplyHtml = `
+            <div class="admin-reply-bubble">
+              <div class="reply-bubble-header">
+                <span>💬 Sent by: ${escapeHtml(req.replied_by || 'HarshGuruJi Admin')} • ${req.replied_at ? new Date(req.replied_at).toLocaleString() : 'Recently'}</span>
+                <span>${readBadge}</span>
+              </div>
+              <p class="reply-bubble-text">${escapeHtml(req.admin_reply)}</p>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="inquiry-card" id="inquiry-${req.id}">
+            <div class="inquiry-top">
+              <div class="inquiry-user-row">
+                <div class="avatar-wrapper" style="width: 46px; height: 46px;">
+                  <img src="${escapeHtml(senderAvatar)}" alt="${escapeHtml(senderName)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(senderName)}&background=3b82f6&color=fff';">
+                  ${senderHasGolden ? '<span class="golden-tick" title="Universal Golden Verified User">✓</span>' : ''}
+                </div>
+                <div>
+                  <div style="font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                    <span>${escapeHtml(senderName)}</span>
+                    ${senderIsAdmin ? '<span style="font-size: 0.65rem; background: rgba(99,102,241,0.25); color:#a5b4fc; padding: 2px 6px; border-radius: 4px; font-weight:700;">ADMIN</span>' : ''}
+                    ${req.user_id || userProfile ? '<span style="font-size: 0.7rem; background: rgba(59,130,246,0.2); color: #60a5fa; padding: 2px 8px; border-radius: 6px; font-weight:600;">✓ Registered Account</span>' : ''}
+                  </div>
+                  <div class="inquiry-sender-meta">
+                    <span>✉️ <a href="mailto:${encodeURIComponent(req.email || '')}" style="color:#93c5fd; text-decoration:none;">${escapeHtml(req.email || 'No email')}</a></span>
+                    ${req.phone ? `<span>📞 ${escapeHtml(req.phone)}</span>` : ''}
+                    ${req.gender ? `<span>⚧ ${escapeHtml(req.gender)}</span>` : ''}
+                    <span>🕒 ${dateStr}</span>
+                  </div>
+                </div>
+              </div>
+              <span class="status-pill ${statusClass}">${statusText}</span>
+            </div>
+
+            <!-- User Query Content -->
+            <div class="inquiry-msg-box">
+              <strong style="color: #cbd5e1; display: block; margin-bottom: 0.35rem; font-size: 0.8rem; text-transform: uppercase;">Message Content:</strong>
+              ${escapeHtml(req.message || 'No message text.')}
+            </div>
+
+            <!-- Previous Admin Reply -->
+            ${adminReplyHtml}
+
+            <!-- Direct Response Composer -->
+            <div class="reply-box-wrap">
+              <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.4rem;">
+                ${req.admin_reply ? '✏️ Update Admin Reply (Updates User Navbar Bell 🔔):' : '💬 Send Direct Admin Reply (Delivers to User Notification Bell 🔔):'}
+              </label>
+              <textarea id="reply-textarea-${req.id}" placeholder="Type your response to ${escapeHtml(senderName)}..."></textarea>
+              
+              <div class="quick-chips-row">
+                <span class="quick-chip" onclick="applyQuickReply('${req.id}', 'Thank you for your feedback! We have noted this and our team is already on it.')">💡 General Thanks</span>
+                <span class="quick-chip" onclick="applyQuickReply('${req.id}', 'Thank you for reporting this issue! Our engineering team has resolved the bug. Please refresh and check.')">🛠️ Bug Resolved</span>
+                <span class="quick-chip" onclick="applyQuickReply('${req.id}', 'Hi, thanks for reaching out! We are currently investigating this query and will update you shortly.')">⏳ Under Investigation</span>
+                <span class="quick-chip" onclick="applyQuickReply('${req.id}', 'Great suggestion! We have accepted this feature request for the upcoming store release.')">🚀 Added to Roadmap</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <button type="button" class="btn-action-primary" onclick="sendInquiryReply('${req.id}')">
+                  <span>📨 Send Reply to User</span>
+                </button>
+                <button type="button" class="btn-action-danger" onclick="deleteInquiry('${req.id}')">
+                  <span>🗑 Delete Message</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.applyQuickReply = function(id, text) {
+      const textarea = document.getElementById(`reply-textarea-${id}`);
+      if (textarea) {
+        textarea.value = text;
+        textarea.focus();
+      }
+    };
+
+    // 8. Send Reply to Inquiry Controller
+    window.sendInquiryReply = async function(inquiryId) {
+      const textarea = document.getElementById(`reply-textarea-${inquiryId}`);
+      const text = textarea ? textarea.value.trim() : '';
+
+      if (!text) {
+        alert("Please write a reply before sending.");
+        return;
+      }
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const now = new Date().toISOString();
+        const { error } = await sb
+          .from('contact_messages')
+          .update({
+            admin_reply: text,
+            replied_at: now,
+            replied_by: 'HarshGuruJi (Admin)',
+            status: 'Replied',
+            user_read: false,
+            updated_at: now
+          })
+          .eq('id', inquiryId);
+
+        if (error) throw error;
+
+        // Update local object
+        const item = messagesData.find(m => m.id === inquiryId);
+        if (item) {
+          item.admin_reply = text;
+          item.replied_at = now;
+          item.replied_by = 'HarshGuruJi (Admin)';
+          item.status = 'Replied';
+          item.user_read = false;
+        }
+
+        updateAllTelemetryDisplay();
+        renderMessages();
+        showMasterToast("✅ Reply sent! Notification alert pushed to the user's navbar bell.", "success");
+      } catch (err) {
+        console.error("Reply failed:", err);
+        alert("Failed to send reply: " + err.message);
+      }
+    };
+
+    // 9. Delete Inquiry Controller
+    window.deleteInquiry = async function(inquiryId) {
+      if (!confirm("Are you sure you want to permanently delete this user inquiry?")) return;
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb.from('contact_messages').delete().eq('id', inquiryId);
+        if (error) throw error;
+
+        messagesData = messagesData.filter(m => m.id !== inquiryId);
+        updateAllTelemetryDisplay();
+        renderMessages();
+        showMasterToast("Message deleted successfully.", "info");
+      } catch (err) {
+        console.error("Delete message failed:", err);
+        alert("Failed to delete message: " + err.message);
+      }
+    };
+
+    // 10. Render Contributor Applications
+    function renderContributors() {
+      const tbody = document.getElementById('contributors-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-contributors')?.value || '').toLowerCase().trim();
+
+      let list = contributorsData.filter(app => {
+        const status = (app.status || 'PENDING').toUpperCase();
+        if (contribFilter !== 'ALL' && status !== contribFilter) return false;
+
+        if (searchTerm) {
+          const name = (app.display_name || '').toLowerCase();
+          const role = (app.role || '').toLowerCase();
+          const bio = (app.bio || '').toLowerCase();
+          const email = (app.email || '').toLowerCase();
+          return name.includes(searchTerm) || role.includes(searchTerm) || bio.includes(searchTerm) || email.includes(searchTerm);
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 3rem;">No contributor applications found matching filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(app => {
+        const status = (app.status || 'PENDING').toUpperCase();
+        let badgeClass = 'pending';
+        let badgeLabel = 'Pending Review';
+
+        if (status === 'ACTIVE') {
+          badgeClass = 'active';
+          badgeLabel = 'Active Contributor';
+        } else if (status === 'REJECTED') {
+          badgeClass = 'rejected';
+          badgeLabel = 'Rejected';
+        }
+
+        const date = app.created_at ? new Date(app.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
+        const userProfile = usersData.find(u => (app.user_id && u.id === app.user_id) || (app.email && u.email && u.email.toLowerCase() === app.email.toLowerCase()));
+        const displayName = app.display_name || app.name || userProfile?.display_name || (app.email ? app.email.split('@')[0] : 'Contributor');
+        const img = resolveUserAvatar(userProfile || app, displayName);
+        const isVerified = status === 'ACTIVE' || app.verified === true || userProfile?.golden_tick === true;
+
+        return `
+          <tr>
+            <td>
+              <div class="entity-cell">
+                <div class="avatar-wrapper">
+                  <img src="${escapeHtml(img)}" alt="${escapeHtml(displayName)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=6366f1&color=fff';">
+                  ${isVerified ? '<span class="golden-tick" title="Golden Verified">✓</span>' : ''}
+                </div>
+                <div>
+                  <div class="entity-title">${escapeHtml(displayName)}</div>
+                  <div class="entity-sub">${escapeHtml(app.full_name || app.email || '')}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span style="font-weight: 600; color: #fff;">${escapeHtml(app.role || 'Contributor')}</span>
+            </td>
+            <td style="color: var(--text-muted); font-size: 0.85rem;">${date}</td>
+            <td>
+              <span class="status-pill ${badgeClass}">${badgeLabel}</span>
+            </td>
+            <td>
+              <div style="max-width: 240px; font-size: 0.82rem; color: #d1d5db; line-height: 1.4;">
+                <div style="white-space: pre-wrap; max-height: 50px; overflow-y: auto;">${escapeHtml(app.bio || 'No bio submitted.')}</div>
+                <div style="margin-top: 4px; display: flex; gap: 8px;">
+                  ${app.instagram ? `<a href="${escapeHtml(app.instagram)}" target="_blank" style="color:#60a5fa; text-decoration:none; font-size:0.75rem;">Instagram ↗</a>` : ''}
+                  ${app.youtube ? `<a href="${escapeHtml(app.youtube)}" target="_blank" style="color:#f87171; text-decoration:none; font-size:0.75rem;">YouTube ↗</a>` : ''}
+                </div>
+              </div>
+            </td>
+            <td>
+              <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
+                ${status !== 'ACTIVE' ? `
+                  <button type="button" class="btn-action-gold" onclick="activateContributorApp('${app.id}', '${app.user_id || ''}', '${escapeJs(app.email || '')}')" title="Approve applicant and award universal Golden Tick">
+                    <span>⭐ Activate &amp; Award Golden Tick</span>
+                  </button>
+                ` : `
+                  <button type="button" class="btn-action-danger" onclick="deactivateContributorApp('${app.id}', '${app.user_id || ''}', '${escapeJs(app.email || '')}')" title="Deactivate contributor and revoke tick">
+                    <span>❌ Deactivate</span>
+                  </button>
+                `}
+                <button type="button" class="btn-action-outline" onclick="deleteContributorApp('${app.id}', '${app.user_id || ''}')" title="Delete application" style="color: #f87171;">
+                  <span>🗑</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 11. Contributor Actions (Activate, Deactivate, Delete)
+    window.activateContributorApp = async function(appId, userId, email) {
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error: cErr } = await sb
+          .from('contributors')
+          .update({
+            status: 'ACTIVE',
+            verified: true,
+            approved_at: new Date().toISOString()
+          })
+          .eq('id', appId);
+
+        if (cErr) throw cErr;
+
+        // Award golden_tick in profiles
+        if (userId) {
+          await sb.from('profiles').update({ golden_tick: true }).eq('id', userId);
+        } else if (email) {
+          await sb.from('profiles').update({ golden_tick: true }).eq('email', email.trim());
+        }
+
+        showMasterToast("⭐ Contributor Activated & Golden Tick granted across site!", "success");
+        await loadAllMasterData();
+      } catch (err) {
+        console.error("Activation failed:", err);
+        alert("Failed to activate contributor: " + err.message);
+      }
+    };
+
+    window.deactivateContributorApp = async function(appId, userId, email) {
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error: cErr } = await sb
+          .from('contributors')
+          .update({
+            status: 'REJECTED',
+            verified: false
+          })
+          .eq('id', appId);
+
+        if (cErr) throw cErr;
+
+        // Revoke golden tick in profiles
+        if (userId) {
+          await sb.from('profiles').update({ golden_tick: false }).eq('id', userId);
+        } else if (email) {
+          await sb.from('profiles').update({ golden_tick: false }).eq('email', email.trim());
+        }
+
+        showMasterToast("Contributor deactivated & Golden Tick revoked.", "info");
+        await loadAllMasterData();
+      } catch (err) {
+        console.error("Deactivation failed:", err);
+        alert("Failed to deactivate: " + err.message);
+      }
+    };
+
+    window.deleteContributorApp = async function(appId, userId) {
+      if (!confirm("Are you sure you want to permanently delete this contributor application?")) return;
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb.from('contributors').delete().eq('id', appId);
+        if (error) throw error;
+
+        showMasterToast("Contributor application deleted.", "info");
+        await loadAllMasterData();
+      } catch (err) {
+        console.error("Delete contributor application failed:", err);
+        alert("Failed to delete application: " + err.message);
+      }
+    };
+
+    // 12. Render Golden Tick & Site Users
+    function renderUsers() {
+      const tbody = document.getElementById('users-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-users')?.value || '').toLowerCase().trim();
+
+      let list = usersData.filter(u => {
+        const hasGolden = u.golden_tick === true;
+        if (userFilter === 'GOLDEN' && !hasGolden) return false;
+        if (userFilter === 'STANDARD' && hasGolden) return false;
+
+        if (searchTerm) {
+          const name = (u.display_name || '').toLowerCase();
+          const uname = (u.username || '').toLowerCase();
+          const email = (u.email || '').toLowerCase();
+          return name.includes(searchTerm) || uname.includes(searchTerm) || email.includes(searchTerm);
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 3rem;">No site users found matching search criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(u => {
+        const hasGolden = u.golden_tick === true;
+        const displayName = u.display_name || (u.email ? u.email.split('@')[0] : 'Member');
+        const img = resolveUserAvatar(u, displayName);
+        const emailOrUser = u.email || (u.username ? '@' + u.username : 'Registered Member');
+
+        return `
+          <tr>
+            <td>
+              <div class="entity-cell">
+                <div class="avatar-wrapper">
+                  <img src="${escapeHtml(img)}" alt="${escapeHtml(displayName)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=10b981&color=fff';">
+                  ${hasGolden ? '<span class="golden-tick" title="Universal Golden Verified">✓</span>' : ''}
+                </div>
+                <div>
+                  <div class="entity-title">
+                    <span>${escapeHtml(displayName)}</span>
+                    ${u.is_admin ? '<span style="font-size: 0.65rem; background: rgba(99,102,241,0.25); color:#a5b4fc; padding: 2px 6px; border-radius: 4px; font-weight:700;">ADMIN</span>' : ''}
+                  </div>
+                  <div class="entity-sub">ID: ${escapeHtml(u.id.substring(0, 10))}...</div>
+                </div>
+              </div>
+            </td>
+            <td style="color: var(--text-muted); font-size: 0.88rem;">${escapeHtml(emailOrUser)}</td>
+            <td>
+              ${hasGolden ? `
+                <span class="status-pill gold">⭐ Golden Verified</span>
+              ` : `
+                <span class="status-pill" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border);">Standard User</span>
+              `}
+            </td>
+            <td>
+              ${hasGolden ? `
+                <button type="button" class="btn-action-danger" onclick="toggleUserGoldenTick('${u.id}', false)">
+                  <span>❌ Remove Golden Tick</span>
+                </button>
+              ` : `
+                <button type="button" class="btn-action-gold" onclick="toggleUserGoldenTick('${u.id}', true)">
+                  <span>⭐ Give Golden Tick</span>
+                </button>
+              `}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 13. 1-Click Toggle User Golden Tick Controller
+    window.toggleUserGoldenTick = async function(userId, enable) {
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        // 1. Update profiles table
+        const { error: pErr } = await sb
+          .from('profiles')
+          .update({ golden_tick: enable })
+          .eq('id', userId);
+
+        if (pErr) throw pErr;
+
+        // 2. Synchronize contributors table if this user is a contributor
+        if (enable) {
+          await sb.from('contributors').update({ status: 'ACTIVE', verified: true }).eq('user_id', userId);
+        } else {
+          await sb.from('contributors').update({ verified: false }).eq('user_id', userId);
+        }
+
+        showMasterToast(enable ? "⭐ Universal Golden Tick awarded to user!" : "Golden Tick revoked from user.", "success");
+        await loadAllMasterData();
+      } catch (err) {
+        console.error("Toggle golden tick failed:", err);
+        alert("Failed to update Golden Tick: " + err.message);
+      }
+    };
+
+    // 14. Toast Notification
+    function showMasterToast(text, type = 'success') {
+      const toast = document.getElementById('admin-master-toast');
+      const icon = document.getElementById('master-toast-icon');
+      const msg = document.getElementById('master-toast-text');
+      if (!toast || !icon || !msg) return;
+
+      toast.className = `master-toast toast-${type} show`;
+      icon.textContent = type === 'success' ? '✓' : (type === 'error' ? '✕' : 'ℹ');
+      msg.textContent = text;
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    // 15. Helper Utilities
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    // 16. Live Real-Time Clock
     function startLiveClock() {
       const clockEl = document.getElementById('live-clock');
       function update() {

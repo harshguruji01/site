@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Download Application — HarshGuruJi Store</title>
+  <meta id="meta-description" name="description" content="Download verified apps, games, and PC software safely from HarshGuruJi Store. High-speed, scanned, and clean downloads.">
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Open Graph Meta -->
+  <meta property="og:title" id="og-title" content="Download Application — HarshGuruJi Store">
+  <meta property="og:description" id="og-description" content="Safe, verified, high-speed downloads on HarshGuruJi Store.">
+  <meta property="og:image" id="og-image" content="logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="tw-title" content="Download Application — HarshGuruJi Store">
+  <meta name="twitter:description" id="tw-description" content="Safe and verified downloads on HarshGuruJi Store.">
+  <meta name="twitter:image" id="tw-image" content="logo.png">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cookie.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+
+  <style>
+    :root {
+      --detail-bg: #090d16;
+      --detail-card: rgba(17, 24, 39, 0.85);
+      --detail-card-hover: rgba(26, 36, 56, 0.95);
+      --detail-border: rgba(255, 255, 255, 0.08);
+      --detail-border-glow: rgba(99, 102, 241, 0.4);
+      --detail-primary: #3b82f6;
+      --detail-primary-hover: #2563eb;
+      --detail-accent: #6366f1;
+      --detail-green: #10b981;
+      --detail-green-glow: rgba(16, 185, 129, 0.35);
+      --detail-mod: #ec4899;
+      --detail-gold: #f59e0b;
+      --detail-text: #f9fafb;
+      --detail-text-muted: #94a3b8;
+      --detail-radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--detail-bg);
+      color: var(--detail-text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient background glows */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+    .glow-1 { width: 500px; height: 500px; background: #3b82f6; top: -100px; left: -100px; }
+    .glow-2 { width: 450px; height: 450px; background: #10b981; top: 35%; right: -120px; }
+
+    .detail-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 7.5rem 1.5rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--detail-text-muted);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .breadcrumb-nav a {
+      color: var(--detail-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb-nav a:hover {
+      color: #fff;
+    }
+    .breadcrumb-nav .sep {
+      opacity: 0.4;
+      font-size: 0.75rem;
+    }
+    .breadcrumb-nav .current-item {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    /* Main Hero Card */
+    .app-hero-panel {
+      background: var(--detail-card);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--detail-border);
+      border-radius: var(--detail-radius);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(59, 130, 246, 0.08);
+      display: flex;
+      gap: 2.25rem;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-hero-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #10b981, #6366f1);
+    }
+
+    /* App Icon */
+    .app-icon-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+    }
+    .app-icon-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      object-fit: cover;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.25);
+    }
+    .icon-badge-verified {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      background: #10b981;
+      color: #0f172a;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+      border: 2.5px solid #0b0f19;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+    }
+
+    /* App Hero Info */
+    .app-hero-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .app-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .app-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .badge-mod-tag {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.25), rgba(219, 39, 119, 0.35));
+      color: #f472b6;
+      border: 1px solid rgba(236, 72, 153, 0.5);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.3);
+    }
+
+    .badge-featured-tag {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    .app-dev-name {
+      color: #93c5fd;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .app-dev-name span.pkg {
+      color: var(--detail-text-muted);
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Meta Pill Chips */
+    .app-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .app-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--detail-border);
+      border-radius: 8px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 500;
+    }
+
+    .app-chip strong {
+      color: #fff;
+    }
+
+    .app-chip.rating-chip {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+    }
+
+    /* Action Buttons Row */
+    .app-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-download-primary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.95rem 2rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    }
+    .btn-download-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+
+    .btn-action-round {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--detail-border);
+      color: var(--detail-text-muted);
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-action-round:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* MOD / Special Banner */
+    .mod-features-banner {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(99, 102, 241, 0.12));
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+      position: relative;
+    }
+    .mod-banner-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #f472b6;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .mod-banner-content {
+      color: #f1f5f9;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    /* What's New Card */
+    .whats-new-panel {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    .whats-new-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #34d399;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .whats-new-content {
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+
+    /* Content Layout (Main + Sidebar) */
+    .detail-grid-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .detail-section-card {
+      background: var(--detail-card);
+      border: 1px solid var(--detail-border);
+      border-radius: var(--detail-radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.75rem;
+    }
+
+    .app-description-text {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+
+    /* Screenshots Strip */
+    .screenshots-scroll-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.75rem;
+      scrollbar-width: thin;
+    }
+    .screenshot-thumb-item {
+      width: 220px;
+      height: 380px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      object-fit: cover;
+      background: #1e293b;
+      border: 1px solid var(--detail-border);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .screenshot-thumb-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--detail-primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Technical Specifications Table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .specs-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .specs-table td {
+      padding: 0.85rem 0.5rem;
+    }
+    .specs-table td.label {
+      color: var(--detail-text-muted);
+      width: 45%;
+      font-weight: 500;
+    }
+    .specs-table td.value {
+      color: #fff;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Safety & Security Guarantee Box */
+    .security-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .security-box .sec-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .security-box h4 {
+      font-size: 1.05rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .security-box p {
+      color: var(--detail-text-muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    /* Related Apps List */
+    .related-apps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .related-app-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--detail-border);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .related-app-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--detail-primary);
+      transform: translateX(4px);
+    }
+    .related-app-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #1e293b;
+      flex-shrink: 0;
+    }
+    .related-app-info h5 {
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .related-app-meta {
+      font-size: 0.78rem;
+      color: var(--detail-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Lightbox Modal for Screenshots */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 1rem;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--detail-border);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    /* Loading / Not Found States */
+    .state-view {
+      text-align: center;
+      padding: 8rem 1rem;
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--detail-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast */
+    .detail-toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1e293b;
+      border-left: 4px solid var(--detail-primary);
+      color: #fff;
+      padding: 0.9rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      z-index: 3000;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    @media (max-width: 868px) {
+      .app-hero-panel { flex-direction: column; align-items: center; text-align: center; padding: 1.75rem; }
+      .app-chips-grid { justify-content: center; }
+      .app-hero-actions { justify-content: center; }
+      .detail-grid-layout { grid-template-columns: 1fr; }
+      .app-title { font-size: 1.6rem; }
+      .app-title-row { justify-content: center; }
+      .app-dev-name { justify-content: center; }
+      .detail-container { padding-top: 6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Loading State -->
+  <div id="loading-state" class="state-view">
+    <div class="loading-spinner"></div>
+    <h2 style="color: #fff; font-family: 'Space Grotesk', sans-serif;">Loading Application Details...</h2>
+    <p style="color: var(--detail-text-muted); margin-top: 0.5rem;">Fetching verified package from HarshGuruJi Store catalog...</p>
+  </div>
+
+  <!-- Not Found State -->
+  <div id="not-found-state" class="state-view" style="display: none;">
+    <div style="font-size: 3.5rem; margin-bottom: 1rem;">📦</div>
+    <h2 style="color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">Application Not Found</h2>
+    <p style="color: var(--detail-text-muted); max-width: 480px; margin: 0.75rem auto 1.75rem;">The requested app or game could not be located in our store catalog. It might have been updated or moved.</p>
+    <a href="store.html" class="btn-download-primary" style="text-decoration: none;">
+      <span>&larr; Return to App Store</span>
+    </a>
+  </div>
+
+  <!-- Application Details View -->
+  <main id="app-content-view" class="detail-container" style="display: none;">
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="store.html">App Store</a>
+      <span class="sep">&rsaquo;</span>
+      <span id="bc-category">Apps</span>
+      <span class="sep">&rsaquo;</span>
+      <span class="current-item" id="bc-app-title">Application</span>
+    </nav>
+
+    <!-- Main Hero Card -->
+    <header class="app-hero-panel">
+      <div class="app-icon-wrapper">
+        <img src="logo.png" alt="App Icon" class="app-icon-img" id="app-icon">
+        <span class="icon-badge-verified" title="Verified Safe Package">✓</span>
+      </div>
+
+      <div class="app-hero-details">
+        <div class="app-title-row">
+          <h1 class="app-title" id="app-title">App Name</h1>
+          <span class="badge-mod-tag" id="badge-mod" style="display: none;">⚡ MOD UNLOCKED</span>
+          <span class="badge-featured-tag" id="badge-featured" style="display: none;">⭐ Editor's Choice</span>
+        </div>
+
+        <div class="app-dev-name">
+          <span>By</span>
+          <strong id="app-dev">HarshGuruJi</strong>
+          <span class="pkg" id="app-package-name"></span>
+        </div>
+
+        <!-- Chips -->
+        <div class="app-chips-grid">
+          <div class="app-chip" id="chip-platform">
+            <span>🤖</span>
+            <strong id="val-platform">Android</strong>
+          </div>
+          <div class="app-chip" id="chip-format">
+            <span>📦</span>
+            <strong id="val-format">APK</strong>
+          </div>
+          <div class="app-chip" id="chip-category">
+            <span>🏷️</span>
+            <strong id="val-category">General</strong>
+          </div>
+          <div class="app-chip" id="chip-version">
+            <span>v</span>
+            <strong id="val-version">1.0</strong>
+          </div>
+          <div class="app-chip" id="chip-size">
+            <span>💾</span>
+            <strong id="val-size">Varies</strong>
+          </div>
+          <div class="app-chip" id="chip-license">
+            <span>⚖️</span>
+            <strong id="val-license">Free</strong>
+          </div>
+          <div class="app-chip rating-chip" id="chip-rating">
+            <span>★</span>
+            <strong id="val-rating">4.8</strong>
+          </div>
+          <div class="app-chip" id="chip-downloads">
+            <span>📥</span>
+            <strong id="val-downloads">0</strong>
+            <span>Downloads</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="app-hero-actions">
+          <button type="button" class="btn-download-primary" id="btn-primary-download">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span id="btn-download-label">Download APK</span>
+          </button>
+
+          <a href="#" id="btn-official-link" target="_blank" rel="noopener" class="btn-action-round" title="Visit Official Site" style="display: none;">
+            🌐
+          </a>
+
+          <button type="button" id="btn-share-app" class="btn-action-round" title="Share Application">
+            🔗
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOD Features Banner (Shown if is_mod) -->
+    <section class="mod-features-banner" id="mod-banner">
+      <div class="mod-banner-head">
+        <span>⚡</span>
+        <span>Modified / Unlocked Features in this Build</span>
+      </div>
+      <p class="mod-banner-content" id="mod-details-text"></p>
+    </section>
+
+    <!-- What's New Panel (Shown if whats_new provided) -->
+    <section class="whats-new-panel" id="whats-new-panel">
+      <div class="whats-new-head">
+        <span>🚀</span>
+        <span>What's New in This Version</span>
+      </div>
+      <p class="whats-new-content" id="whats-new-text"></p>
+    </section>
+
+    <!-- 2-Column Main Content Layout -->
+    <div class="detail-grid-layout">
+      
+      <!-- Left Column: Description & Screenshots -->
+      <div class="detail-main-col">
+
+        <!-- Screenshots Strip -->
+        <section class="detail-section-card" id="screenshots-section" style="display: none;">
+          <h2 class="section-headline">
+            <span>📸</span>
+            <span>Screenshots &amp; Interface Preview</span>
+          </h2>
+          <div class="screenshots-scroll-container" id="screenshots-container">
+            <!-- Injected by JS -->
+          </div>
+        </section>
+
+        <!-- Description -->
+        <section class="detail-section-card">
+          <h2 class="section-headline">
+            <span>📝</span>
+            <span>About this Application</span>
+          </h2>
+          <div class="app-description-text" id="app-description">
+            <!-- Injected by JS -->
+          </div>
+        </section>
+
+        <!-- Installation Guide -->
+        <section class="detail-section-card">
+          <h2 class="section-headline">
+            <span>💡</span>
+            <span>How to Install &amp; Safe Usage Guide</span>
+          </h2>
+          <div class="app-description-text" id="install-guide-text">
+            1. Tap the <strong>Download</strong> button above to get the verified package.<br>
+            2. For Android APKs: Enable <em>"Install from Unknown Sources"</em> in your Android security settings if prompted.<br>
+            3. Tap the downloaded file in your Notification Bar or Downloads folder to install.<br>
+            4. Launch and enjoy! All packages hosted on HarshGuruJi Store are scanned and verified clean.
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Technical Specs & Recommendations -->
+      <aside class="detail-side-col">
+
+        <!-- Technical Specs Card -->
+        <section class="detail-section-card">
+          <h3 class="section-headline">
+            <span>⚙️</span>
+            <span>Technical Specifications</span>
+          </h3>
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <td class="label">Package Name</td>
+                <td class="value" id="spec-package">-</td>
+              </tr>
+              <tr>
+                <td class="label">Platform / OS</td>
+                <td class="value" id="spec-platform">-</td>
+              </tr>
+              <tr>
+                <td class="label">Package Format</td>
+                <td class="value" id="spec-format">-</td>
+              </tr>
+              <tr>
+                <td class="label">Current Version</td>
+                <td class="value" id="spec-version">-</td>
+              </tr>
+              <tr>
+                <td class="label">File Size</td>
+                <td class="value" id="spec-size">-</td>
+              </tr>
+              <tr>
+                <td class="label">Category</td>
+                <td class="value" id="spec-category">-</td>
+              </tr>
+              <tr>
+                <td class="label">Subcategory / Genre</td>
+                <td class="value" id="spec-subcategory">-</td>
+              </tr>
+              <tr>
+                <td class="label">License</td>
+                <td class="value" id="spec-license">-</td>
+              </tr>
+              <tr>
+                <td class="label">Developer</td>
+                <td class="value" id="spec-developer">-</td>
+              </tr>
+              <tr>
+                <td class="label">Last Updated</td>
+                <td class="value" id="spec-updated">-</td>
+              </tr>
+              <tr>
+                <td class="label">Virus Scan</td>
+                <td class="value" style="color: #10b981;">Passed (100% Clean)</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Security Guarantee Seal -->
+        <div class="security-box">
+          <span class="sec-icon">🛡️</span>
+          <h4>100% Verified Safe Download</h4>
+          <p>Scanned with cloud antivirus engines. No adware, no malware, no spyware. Tested on real devices prior to publication.</p>
+        </div>
+
+        <!-- Related Recommendations -->
+        <section class="detail-section-card" id="related-section" style="display: none;">
+          <h3 class="section-headline">
+            <span>🔥</span>
+            <span>Related Apps &amp; Games</span>
+          </h3>
+          <div class="related-apps-list" id="related-container">
+            <!-- Injected by JS -->
+          </div>
+        </section>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Fullscreen Screenshot Lightbox -->
+  <div class="lightbox-overlay" id="lightbox-modal">
+    <button type="button" class="lightbox-close" id="lightbox-close" title="Close Lightbox">✕</button>
+    <img src="" alt="Screenshot Full View" class="lightbox-img" id="lightbox-img">
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="detail-toast" id="detail-toast"></div>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
+
+  <!-- Supabase Data Binding -->
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    import { AuthManager } from './js/auth.js';
+
+    let currentApp = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initStoreDetailPage();
+      setupLightbox();
+    });
+
+    async function initStoreDetailPage() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const slug = params.get('slug') || params.get('app');
+
+      if (!id && !slug) {
+        showNotFound();
+        return;
+      }
+
+      try {
+        let query = supabase.from('store_apps').select('*');
+        if (id) {
+          query = query.eq('id', id);
+        } else {
+          query = query.eq('slug', slug);
+        }
+
+        const { data, error } = await query.single();
+
+        if (error || !data) {
+          console.warn("App record not found:", error);
+          showNotFound();
+          return;
+        }
+
+        currentApp = data;
+        renderAppDetails(data);
+        loadRelatedApps(data);
+
+      } catch (err) {
+        console.error("Store detail fetch error:", err);
+        showNotFound();
+      }
+    }
+
+    function renderAppDetails(app) {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('app-content-view').style.display = 'block';
+
+      const appName = app.name || app.title || 'Untitled App';
+      const platform = app.platform || (app.package_name && app.package_name.includes('.') ? 'Android' : 'Windows');
+      const appType = app.app_type || (platform === 'Android' ? 'APK' : (platform === 'Windows' ? 'EXE' : 'Package'));
+      const devName = app.developer_name || app.developer || 'HarshGuruJi';
+      const iconUrl = app.logo_url || app.icon_url || 'logo.png';
+      const category = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
+      const version = app.version || '1.0';
+      const fileSize = app.file_size || app.size || 'Varies';
+      const license = app.license || 'Free';
+      const rating = Number(app.rating) || 4.8;
+      const downloads = Number(app.downloads || app.downloads_count) || 0;
+
+      // Platform Icon
+      const platIcon = (() => {
+        switch ((platform || '').toLowerCase()) {
+          case 'windows': return '🪟';
+          case 'android': return '🤖';
+          case 'mac': case 'macos': return '🍎';
+          case 'linux': return '🐧';
+          case 'web': return '🌐';
+          case 'ios': return '🍏';
+          default: return '📦';
+        }
+      })();
+
+      // Dynamic Title & Meta Tags
+      document.title = `${appName} (${platform} · ${appType}) Download — HarshGuruJi Store`;
+      const descSnippet = app.short_description || app.description || `Download ${appName} for ${platform} safely from HarshGuruJi Store.`;
+      document.getElementById('meta-description').setAttribute('content', descSnippet);
+      document.getElementById('og-title').setAttribute('content', `${appName} Download`);
+      document.getElementById('og-description').setAttribute('content', descSnippet);
+      document.getElementById('og-image').setAttribute('content', iconUrl);
+      document.getElementById('tw-title').setAttribute('content', `${appName} Download`);
+      document.getElementById('tw-description').setAttribute('content', descSnippet);
+      document.getElementById('tw-image').setAttribute('content', iconUrl);
+
+      // Breadcrumbs
+      document.getElementById('bc-category').textContent = category;
+      document.getElementById('bc-app-title').textContent = appName;
+
+      // Hero Elements
+      document.getElementById('app-icon').src = iconUrl;
+      document.getElementById('app-title').textContent = appName;
+      document.getElementById('app-dev').textContent = devName;
+      if (app.package_name) {
+        document.getElementById('app-package-name').textContent = `(${app.package_name})`;
+      }
+
+      // Badges
+      if (app.is_mod) {
+        document.getElementById('badge-mod').style.display = 'inline-flex';
+      }
+      if (app.featured) {
+        document.getElementById('badge-featured').style.display = 'inline-flex';
+      }
+
+      // Chips
+      document.getElementById('val-platform').textContent = `${platIcon} ${platform}`;
+      document.getElementById('val-format').textContent = appType;
+      document.getElementById('val-category').textContent = category;
+      document.getElementById('val-version').textContent = `v${version}`;
+      document.getElementById('val-size').textContent = fileSize;
+      document.getElementById('val-license').textContent = license;
+      document.getElementById('val-rating').textContent = rating.toFixed(1);
+      document.getElementById('val-downloads').textContent = downloads.toLocaleString();
+
+      // Download Button Label
+      const downloadBtn = document.getElementById('btn-primary-download');
+      const downloadLabel = document.getElementById('btn-download-label');
+      if (platform.toLowerCase() === 'web') {
+        downloadLabel.textContent = 'Launch Web App 🚀';
+      } else {
+        downloadLabel.textContent = `Download ${appType} (${fileSize})`;
+      }
+
+      downloadBtn.addEventListener('click', () => handleDownload(app));
+
+      // Official URL Button
+      if (app.official_url) {
+        const offBtn = document.getElementById('btn-official-link');
+        offBtn.href = app.official_url;
+        offBtn.style.display = 'inline-flex';
+      }
+
+      // Share Button
+      document.getElementById('btn-share-app').addEventListener('click', () => {
+        const shareData = {
+          title: `${appName} Download`,
+          text: `Download ${appName} verified from HarshGuruJi Store:`,
+          url: window.location.href
+        };
+        if (navigator.share) {
+          navigator.share(shareData).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            showToast("Application link copied to clipboard!");
+          });
+        }
+      });
+
+      // MOD Banner
+      if (app.is_mod && app.mod_info) {
+        const modBanner = document.getElementById('mod-banner');
+        const modText = document.getElementById('mod-details-text');
+        modText.textContent = app.mod_info;
+        modBanner.style.display = 'block';
+      }
+
+      // What's New
+      if (app.whats_new && app.whats_new.trim()) {
+        const wnPanel = document.getElementById('whats-new-panel');
+        const wnText = document.getElementById('whats-new-text');
+        wnText.textContent = app.whats_new;
+        wnPanel.style.display = 'block';
+      }
+
+      // Screenshots
+      if (Array.isArray(app.screenshots) && app.screenshots.length > 0) {
+        const scSection = document.getElementById('screenshots-section');
+        const scContainer = document.getElementById('screenshots-container');
+        scContainer.innerHTML = app.screenshots.map((sc, i) => `
+          <img src="${sc}" alt="${appName} Screenshot ${i+1}" class="screenshot-thumb-item" onclick="openLightbox('${sc}')" loading="lazy">
+        `).join('');
+        scSection.style.display = 'block';
+      }
+
+      // Description
+      document.getElementById('app-description').textContent = app.description || app.short_description || "No full description provided.";
+
+      // Specs Table
+      document.getElementById('spec-package').textContent = app.package_name || 'N/A';
+      document.getElementById('spec-platform').textContent = `${platIcon} ${platform}`;
+      document.getElementById('spec-format').textContent = appType;
+      document.getElementById('spec-version').textContent = version;
+      document.getElementById('spec-size').textContent = fileSize;
+      document.getElementById('spec-category').textContent = category;
+      document.getElementById('spec-subcategory').textContent = app.subcategory || 'Standard';
+      document.getElementById('spec-license').textContent = license;
+      document.getElementById('spec-developer').textContent = devName;
+      document.getElementById('spec-updated').textContent = app.updated_at ? new Date(app.updated_at).toLocaleDateString() : 'Recent';
+    }
+
+    async function handleDownload(app) {
+      if (!app.download_url) {
+        alert("Download URL is currently unavailable for this release.");
+        return;
+      }
+
+      // Initiate download
+      const link = document.createElement('a');
+      link.href = app.download_url;
+      link.target = '_blank';
+      link.download = '';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast("Download started! Thank you for using HarshGuruJi Store.");
+
+      // Increment download counter
+      try {
+        const currentCount = Number(app.downloads || app.downloads_count) || 0;
+        const newCount = currentCount + 1;
+        document.getElementById('val-downloads').textContent = newCount.toLocaleString();
+        await supabase.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+      } catch (e) {
+        console.warn("Could not increment downloads:", e);
+      }
+    }
+
+    async function loadRelatedApps(targetApp) {
+      const relatedSection = document.getElementById('related-section');
+      const relatedContainer = document.getElementById('related-container');
+      if (!relatedSection || !relatedContainer) return;
+
+      try {
+        const { data: list, error } = await supabase
+          .from('store_apps')
+          .select('id, name, slug, logo_url, platform, app_type, version, rating, downloads')
+          .eq('status', 'Published')
+          .neq('id', targetApp.id)
+          .limit(4);
+
+        if (error || !list || list.length === 0) {
+          relatedSection.style.display = 'none';
+          return;
+        }
+
+        relatedContainer.innerHTML = list.map(item => `
+          <a href="store-detail.html?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
+            <img src="${item.logo_url || 'logo.png'}" alt="${item.name}" class="related-app-icon" onerror="this.src='logo.png'">
+            <div class="related-app-info">
+              <h5>${item.name}</h5>
+              <div class="related-app-meta">
+                <span>v${item.version || '1.0'}</span>
+                <span>&bull;</span>
+                <span>★ ${(Number(item.rating) || 4.8).toFixed(1)}</span>
+                <span>&bull;</span>
+                <span>${item.platform || 'Android'}</span>
+              </div>
+            </div>
+          </a>
+        `).join('');
+
+        relatedSection.style.display = 'block';
+
+      } catch (err) {
+        console.warn("Related apps fetch error:", err);
+      }
+    }
+
+    function showNotFound() {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('not-found-state').style.display = 'block';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('detail-toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+
+    // Lightbox Controls
+    function setupLightbox() {
+      const overlay = document.getElementById('lightbox-modal');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      window.openLightbox = function(src) {
+        document.getElementById('lightbox-img').src = src;
+        overlay.classList.add('active');
+      };
+
+      if (closeBtn) closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+      if (overlay) {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) overlay.classList.remove('active');
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') overlay.classList.remove('active');
+      });
+    }
+  </script>
+</body>
+</html>

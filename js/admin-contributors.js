@@ -241,13 +241,14 @@ window.openAppModal = function(id) {
 
     const status = (app.status || 'PENDING').toUpperCase();
     const isVerified = status === 'ACTIVE';
-    const img = app.profile_image_path || 'logo.png';
+    const rawImg = app.avatar_url || app.profile_image_path;
+    const img = (rawImg && rawImg !== 'logo.png') ? rawImg : `https://ui-avatars.com/api/?name=${encodeURIComponent(app.display_name || 'Contributor')}&background=6366f1&color=fff`;
     const date = app.created_at ? new Date(app.created_at).toLocaleString() : 'N/A';
 
     modalBody.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 1.5rem;">
             <div class="avatar-wrapper" style="width: 80px; height: 80px; margin-bottom: 0.75rem;">
-                <img src="${escapeHtml(img)}" alt="${escapeHtml(app.display_name)}" onerror="this.src='logo.png'" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                <img src="${escapeHtml(img)}" alt="${escapeHtml(app.display_name)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(app.display_name || 'Contributor')}&background=6366f1&color=fff'" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                 ${isVerified ? '<span class="golden-tick" style="width: 24px; height: 24px; font-size: 14px; top: -2px; left: -2px;" title="Golden Verified">✓</span>' : ''}
             </div>
             <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 0.2rem;">${escapeHtml(app.display_name)}</h3>
@@ -468,7 +469,7 @@ function renderUsers() {
     tbody.innerHTML = list.map(u => {
         const hasGolden = u.golden_tick === true;
         const displayName = u.display_name || (u.email ? u.email.split('@')[0] : 'User');
-        const img = u.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+        const img = (u.avatar_url && u.avatar_url !== 'logo.png') ? u.avatar_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=10b981&color=fff`;
         const emailOrUser = u.email || (u.username ? '@' + u.username : 'Registered User');
 
         return `
@@ -476,7 +477,7 @@ function renderUsers() {
                 <td>
                     <div class="user-cell">
                         <div class="avatar-wrapper">
-                            <img src="${escapeHtml(img)}" alt="${escapeHtml(displayName)}" onerror="this.src='logo.png'">
+                            <img src="${escapeHtml(img)}" alt="${escapeHtml(displayName)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=10b981&color=fff';">
                             ${hasGolden ? '<span class="golden-tick" title="Golden Verified">✓</span>' : ''}
                         </div>
                         <div>

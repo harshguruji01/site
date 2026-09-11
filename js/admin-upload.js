@@ -691,7 +691,7 @@ async function handleUpload(e) {
         document.getElementById('progress-item-db').querySelector('.pct').style.color = "var(--success)";
 
         // Dedicated URL for this app
-        const appDedicatedUrl = `${window.location.origin}/app.html?slug=${encodeURIComponent(slug)}`;
+        const appDedicatedUrl = `${window.location.origin}/store-detail.html?slug=${encodeURIComponent(slug)}`;
 
         setTimeout(async () => {
             overlay.classList.remove('active');
@@ -704,7 +704,7 @@ async function handleUpload(e) {
 
             if (successCard && urlInput && visitBtn) {
                 urlInput.value = appDedicatedUrl;
-                visitBtn.href = `app.html?slug=${encodeURIComponent(slug)}`;
+                visitBtn.href = `store-detail.html?slug=${encodeURIComponent(slug)}`;
                 successCard.style.display = 'block';
                 successCard.scrollIntoView({ behavior: 'smooth' });
             }

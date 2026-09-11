@@ -43,7 +43,7 @@
       const params = new URLSearchParams(window.location.search);
       const appSlug = params.get('app') || params.get('slug');
       if (appSlug) {
-        window.location.replace('app.html?slug=' + encodeURIComponent(appSlug));
+        window.location.replace('store-detail.html?slug=' + encodeURIComponent(appSlug));
       }
     })();
   </script>
