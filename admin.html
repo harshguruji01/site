@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Admin Command Center | HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.4);
+      --accent: #ec4899;
+      --gold: #f59e0b;
+      --gold-light: #ffd700;
+      --bg-dark: #070913;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-focus: rgba(99, 102, 241, 0.6);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      animation: floatGlow 18s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 550px; height: 550px; background: #6366f1; top: -150px; left: -150px; }
+    .blob-2 { width: 480px; height: 480px; background: #ec4899; bottom: -100px; right: -100px; animation-delay: -8s; }
+    .blob-3 { width: 420px; height: 420px; background: #f59e0b; top: 40%; left: 35%; opacity: 0.12; }
+
+    @keyframes floatGlow {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.15) translate(30px, -25px); }
+      100% { transform: scale(0.95) translate(-25px, 35px); }
+    }
+
+    /* 2-STEP SECURITY VERIFICATION GATE */
+    .gate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 19, 0.94);
+      backdrop-filter: blur(24px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+
+    .gate-card {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: cardPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardPop {
+      0% { opacity: 0; transform: scale(0.94) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .gate-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #6366f1, #ec4899, #f59e0b);
+    }
+
+    .gate-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .gate-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .gate-subtitle {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    /* 2-Step Progress Dots */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-node {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .step-node.active {
+      color: #fff;
+    }
+
+    .step-node.completed {
+      color: var(--success);
+    }
+
+    .step-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+    }
+
+    .step-node.active .step-pill {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+      color: #fff;
+    }
+
+    .step-node.completed .step-pill {
+      background: var(--success);
+      border-color: var(--success);
+      color: #000;
+      font-weight: bold;
+    }
+
+    .step-line {
+      width: 36px;
+      height: 2px;
+      background: var(--border);
+    }
+    .step-line.active {
+      background: linear-gradient(90deg, var(--success), var(--primary));
+    }
+
+    .gate-form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .gate-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .gate-input-wrapper {
+      position: relative;
+    }
+
+    .gate-input {
+      width: 100%;
+      padding: 0.95rem 1.1rem;
+      background: rgba(10, 14, 26, 0.8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .gate-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+      background: rgba(13, 18, 35, 0.95);
+    }
+
+    .gate-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .gate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 45px rgba(99, 102, 241, 0.6);
+    }
+
+    .gate-error {
+      color: #f87171;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      display: none;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+    }
+
+    /* COMMAND CENTER CONTAINER */
+    #admin-dashboard {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: none;
+    }
+
+    /* Header */
+    .top-navbar {
+      background: rgba(11, 15, 27, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-section img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .brand-info h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .master-badge {
+      font-size: 0.7rem;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      color: #0f172a;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
+
+    .brand-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    .btn-lock {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      padding: 0.5rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-lock:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Main Content */
+    .dashboard-wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* Hero Banner */
+    .admin-hero {
+      background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.15), transparent 60%),
+                  var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .admin-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+
+    .meta-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Live Telemetry Stats Grid */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stat-tile:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .stat-icon-mini {
+      font-size: 1.3rem;
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stat-subtext {
+      font-size: 0.78rem;
+      color: #34d399;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* SECTION TITLE */
+    .section-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-headline h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* ADMIN MODULES GRID */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3rem;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .module-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, var(--card-glow, rgba(99, 102, 241, 0.15)), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .module-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--card-border-hover, #6366f1);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px var(--card-glow, rgba(99, 102, 241, 0.2));
+    }
+
+    .module-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .module-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      background: var(--icon-bg, rgba(99, 102, 241, 0.15));
+      border: 1px solid var(--icon-border, rgba(99, 102, 241, 0.3));
+      box-shadow: 0 0 20px var(--icon-glow, rgba(99, 102, 241, 0.2));
+    }
+
+    .card-title-group h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+    .badge-gold { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .module-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.86rem;
+      color: #d1d5db;
+    }
+
+    .feature-list li span.dot {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .card-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.95rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      background: var(--btn-bg, linear-gradient(135deg, #6366f1, #4f46e5));
+      border: 1px solid var(--btn-border, rgba(255, 255, 255, 0.1));
+      transition: all 0.25s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--btn-glow, rgba(99, 102, 241, 0.5));
+    }
+
+    /* QUICK SHORTCUTS & SYSTEM LINKS */
+    .quick-links-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .shortcuts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .shortcut-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.2s;
+    }
+
+    .shortcut-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .shortcut-icon {
+      font-size: 1.4rem;
+    }
+
+    .shortcut-text strong {
+      display: block;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .shortcut-text span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    .admin-footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .top-navbar { padding: 1rem 1.25rem; flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .top-controls { width: 100%; justify-content: space-between; }
+      .dashboard-wrapper { padding: 1.5rem 1rem 3rem; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .admin-hero { padding: 1.75rem; }
+      .hero-content h2 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Elements -->
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+  <div class="glow-blob blob-3"></div>
+
+  <!-- 2-STEP SECURITY VERIFICATION GATE -->
+  <div class="gate-overlay" id="security-gate">
+    <div class="gate-card">
+      <div class="gate-icon">🛡️</div>
+      <h2 class="gate-title">HarshGuruJi Admin</h2>
+      <p class="gate-subtitle">Two-Step Identity Verification is required to access the Master Command Center.</p>
+
+      <!-- Step Indicator -->
+      <div class="step-indicator">
+        <div class="step-node active" id="node-step-1">
+          <div class="step-pill" id="pill-step-1">1</div>
+          <span>Email ID</span>
+        </div>
+        <div class="step-line" id="node-line"></div>
+        <div class="step-node" id="node-step-2">
+          <div class="step-pill" id="pill-step-2">2</div>
+          <span>Admin Key ID</span>
+        </div>
+      </div>
+
+      <!-- STEP 1 FORM: EMAIL VERIFICATION -->
+      <form id="step-1-form">
+        <div class="gate-form-group">
+          <label class="gate-label" for="input-admin-email">Master Admin Email</label>
+          <div class="gate-input-wrapper">
+            <input 
+              type="email" 
+              id="input-admin-email" 
+              class="gate-input" 
+              placeholder="Enter administrator email address" 
+              required 
+              autofocus 
+              autocomplete="username"
+            >
+          </div>
+          <div class="gate-error" id="error-step-1"></div>
+        </div>
+        <button type="submit" class="gate-btn">
+          <span>Proceed to Step 2</span>
+          <span>&rarr;</span>
+        </button>
+      </form>
+
+      <!-- STEP 2 FORM: ID VERIFICATION (HIDDEN INITIALLY) -->
+      <form id="step-2-form" style="display: none;">
+        <div class="gate-form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="gate-label" for="input-admin-id" style="margin-bottom: 0;">Master Admin Security ID</label>
+            <span style="font-size: 0.75rem; color: #34d399;">✓ Email Verified</span>
+          </div>
+          <div class="gate-input-wrapper">
+            <input 
+              type="password" 
+              id="input-admin-id" 
+              class="gate-input" 
+              placeholder="Enter 10-digit Master ID Key" 
+              required 
+              autocomplete="current-password"
+            >
+          </div>
+          <div class="gate-error" id="error-step-2"></div>
+        </div>
+        <button type="submit" class="gate-btn">
+          <span>Unlock Command Center</span>
+          <span>🔓</span>
+        </button>
+        <button type="button" id="btn-back-step-1" style="background: none; border: none; color: var(--text-muted); font-size: 0.82rem; margin-top: 1rem; cursor: pointer; text-decoration: underline;">
+          &larr; Re-enter email address
+        </button>
+      </form>
+
+      <div style="margin-top: 1.75rem; border-top: 1px solid var(--border); padding-top: 1.25rem;">
+        <a href="index.html" style="color: var(--text-muted); font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+          <span>&larr;</span> Back to Public Site
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASTER COMMAND CENTER (SHOWN AFTER 2-STEP SUCCESS) -->
+  <div id="admin-dashboard">
+    
+    <!-- Top Navbar -->
+    <header class="top-navbar">
+      <div class="brand-section">
+        <img src="logo.png" alt="HarshGuruJi Logo">
+        <div class="brand-info">
+          <h1>
+            <span>HarshGuruJi Command Center</span>
+            <span class="master-badge">Master</span>
+          </h1>
+          <p id="admin-session-display">Authenticated: harshguruji01@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>System Online</span>
+        </div>
+        <a href="index.html" target="_blank" class="shortcut-item" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px;">
+          <span>Live Site &nearr;</span>
+        </a>
+        <button class="btn-lock" id="btn-lock-session" title="End Session & Lock">
+          <span>🔒</span>
+          <span>Lock &amp; Exit</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard-wrapper">
+      
+      <!-- Hero Header -->
+      <section class="admin-hero">
+        <div class="hero-content">
+          <h2>Central Administrator Hub</h2>
+          <p>Complete control panel for HarshGuruJi platform operations: upload &amp; update Store APKs/Games, respond to user inquiries, review contributor applications, and manage Universal Golden Tick verifications.</p>
+          
+          <div class="admin-meta-tags">
+            <div class="meta-chip">
+              <span>👤 Admin:</span>
+              <strong style="color:#60a5fa;">Harsh Patel</strong>
+            </div>
+            <div class="meta-chip">
+              <span>🛡️ Security:</span>
+              <span style="color:#34d399;">2-Step Protected</span>
+            </div>
+            <div class="meta-chip">
+              <span>⚡ Supabase:</span>
+              <span style="color:#a78bfa;">Connected</span>
+            </div>
+            <div class="meta-chip">
+              <span>🕒 Local Time:</span>
+              <span id="live-clock">--:--:--</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Stat Tiles -->
+      <section class="stats-bar">
+        <div class="stat-tile">
+          <div class="stat-top">
+            <span class="stat-title">Store Applications</span>
+            <span class="stat-icon-mini">🎮</span>
+          </div>
+          <div class="stat-number" id="stat-apps-count">...</div>
+          <div class="stat-subtext"><span>📦</span> Live in Store Catalog</div>
+        </div>
+
+        <div class="stat-tile">
+          <div class="stat-top">
+            <span class="stat-title">User Inquiries</span>
+            <span class="stat-icon-mini">💬</span>
+          </div>
+          <div class="stat-number" id="stat-messages-count">...</div>
+          <div class="stat-subtext"><span>📬</span> Contact &amp; Feedback Messages</div>
+        </div>
+
+        <div class="stat-tile">
+          <div class="stat-top">
+            <span class="stat-title">Contributor Apps</span>
+            <span class="stat-icon-mini">📋</span>
+          </div>
+          <div class="stat-number" id="stat-contrib-count">...</div>
+          <div class="stat-subtext"><span id="stat-pending-badge">⏳ Reviewing queue</span></div>
+        </div>
+
+        <div class="stat-tile">
+          <div class="stat-top">
+            <span class="stat-title">Golden Tick Users</span>
+            <span class="stat-icon-mini">⭐</span>
+          </div>
+          <div class="stat-number" id="stat-gold-count" style="color: #ffd700;">...</div>
+          <div class="stat-subtext"><span>✓</span> Verified Site Profiles</div>
+        </div>
+      </section>
+
+      <!-- SECTION: CORE MANAGEMENT MODULES -->
+      <div class="section-headline">
+        <h3>
+          <span>⚙️</span>
+          <span>Core Administration Modules</span>
+        </h3>
+      </div>
+
+      <section class="modules-grid">
+        
+        <!-- CARD 1: STORE APK & GAMES MANAGER -->
+        <article class="module-card" style="--card-glow: rgba(59, 130, 246, 0.25); --card-border-hover: #3b82f6; --icon-bg: rgba(59, 130, 246, 0.15); --icon-border: rgba(59, 130, 246, 0.35); --icon-glow: rgba(59, 130, 246, 0.3); --btn-bg: linear-gradient(135deg, #3b82f6, #2563eb); --btn-border: rgba(59, 130, 246, 0.4); --btn-glow: rgba(59, 130, 246, 0.5);">
+          <div>
+            <div class="card-head">
+              <div class="module-icon-wrap">📱</div>
+              <div class="card-title-group">
+                <h4>Store APK &amp; Games Manager</h4>
+                <span class="card-badge badge-blue">Store Control</span>
+              </div>
+            </div>
+            <p class="module-desc">Upload, update, and manage Android APKs and Games catalog for store.html. Includes AN1-style features, mod specs, screenshots, category filtering, and direct links.</p>
+            <ul class="feature-list">
+              <li><span class="dot">✔</span> Publish new Apps and MOD Games</li>
+              <li><span class="dot">✔</span> Manage Package, Version, Developer &amp; Size</li>
+              <li><span class="dot">✔</span> Set AN1-style MOD details &amp; download URLs</li>
+              <li><span class="dot">✔</span> Synchronized with live store.html &amp; store-detail.html</li>
+            </ul>
+          </div>
+          <a href="adminapkupload.html" class="card-action-btn">
+            <span>Launch Store APK Manager</span>
+            <span>&rarr;</span>
+          </a>
+        </article>
+
+        <!-- CARD 2: CONTACT & FEEDBACK MESSAGES HUB -->
+        <article class="module-card" style="--card-glow: rgba(236, 72, 153, 0.25); --card-border-hover: #ec4899; --icon-bg: rgba(236, 72, 153, 0.15); --icon-border: rgba(236, 72, 153, 0.35); --icon-glow: rgba(236, 72, 153, 0.3); --btn-bg: linear-gradient(135deg, #ec4899, #db2777); --btn-border: rgba(236, 72, 153, 0.4); --btn-glow: rgba(236, 72, 153, 0.5);">
+          <div>
+            <div class="card-head">
+              <div class="module-icon-wrap">💬</div>
+              <div class="card-title-group">
+                <h4>Messages &amp; Feedback Hub</h4>
+                <span class="card-badge badge-pink">Support Desk</span>
+              </div>
+            </div>
+            <p class="module-desc">Central communication desk for all messages sent from contact.html. Reply directly to users, update query statuses, and synchronize user notification center.</p>
+            <ul class="feature-list">
+              <li><span class="dot">✔</span> View incoming messages from logged-in users</li>
+              <li><span class="dot">✔</span> Write &amp; send instant admin replies</li>
+              <li><span class="dot">✔</span> User gets live alert in Home/Navbar notification bell</li>
+              <li><span class="dot">✔</span> 1-2 week auto-cleanup scheduler support</li>
+            </ul>
+          </div>
+          <a href="admin-contacts.html" class="card-action-btn">
+            <span>Open Messages &amp; Reply Desk</span>
+            <span>&rarr;</span>
+          </a>
+        </article>
+
+        <!-- CARD 3: CONTRIBUTOR & UNIVERSAL GOLDEN TICK MANAGER -->
+        <article class="module-card" style="--card-glow: rgba(245, 158, 11, 0.25); --card-border-hover: #f59e0b; --icon-bg: rgba(245, 158, 11, 0.15); --icon-border: rgba(245, 158, 11, 0.35); --icon-glow: rgba(245, 158, 11, 0.3); --btn-bg: linear-gradient(135deg, #f59e0b, #d97706); --btn-border: rgba(245, 158, 11, 0.4); --btn-glow: rgba(245, 158, 11, 0.5);">
+          <div>
+            <div class="card-head">
+              <div class="module-icon-wrap">⭐</div>
+              <div class="card-title-group">
+                <h4>Contributor &amp; Golden Tick Hub</h4>
+                <span class="card-badge badge-gold">Identity &amp; Roles</span>
+              </div>
+            </div>
+            <p class="module-desc">Manage contributor applications and universal verification. Activate/deactivate contributors, and award or revoke the Golden Tick (✓) for any user with 1 click.</p>
+            <ul class="feature-list">
+              <li><span class="dot">✔</span> Review applications submitted via apply-contributor.html</li>
+              <li><span class="dot">✔</span> Activate/Deactivate contributors to appear on contributor.html</li>
+              <li><span class="dot">✔</span> 1-Click Universal Golden Tick verification for any user</li>
+              <li><span class="dot">✔</span> Dynamic badge on avatar's top-left corner across site</li>
+            </ul>
+          </div>
+          <a href="admincontributors.html" class="card-action-btn">
+            <span>Manage Contributors &amp; Ticks</span>
+            <span>&rarr;</span>
+          </a>
+        </article>
+
+      </section>
+
+      <!-- SECTION: QUICK SHORTCUTS & SYSTEM STATUS -->
+      <div class="section-headline">
+        <h3>
+          <span>⚡</span>
+          <span>Quick Public Shortcuts &amp; Database Tools</span>
+        </h3>
+      </div>
+
+      <section class="quick-links-panel">
+        <div class="shortcuts-grid">
+          <a href="store.html" target="_blank" class="shortcut-item">
+            <span class="shortcut-icon">🛒</span>
+            <div class="shortcut-text">
+              <strong>Public App Store</strong>
+              <span>Inspect store.html live</span>
+            </div>
+          </a>
+
+          <a href="contributor.html" target="_blank" class="shortcut-item">
+            <span class="shortcut-icon">👥</span>
+            <div class="shortcut-text">
+              <strong>Contributors Page</strong>
+              <span>Inspect team list &amp; ticks</span>
+            </div>
+          </a>
+
+          <a href="contact.html" target="_blank" class="shortcut-item">
+            <span class="shortcut-icon">✉️</span>
+            <div class="shortcut-text">
+              <strong>Contact &amp; Feedback Form</strong>
+              <span>Test message sending form</span>
+            </div>
+          </a>
+
+          <a href="dashboard.html" target="_blank" class="shortcut-item">
+            <span class="shortcut-icon">📊</span>
+            <div class="shortcut-text">
+              <strong>User Dashboard</strong>
+              <span>Profile &amp; avatar preview</span>
+            </div>
+          </a>
+
+          <a href="apply-contributor.html" target="_blank" class="shortcut-item">
+            <span class="shortcut-icon">📝</span>
+            <div class="shortcut-text">
+              <strong>Contributor Application</strong>
+              <span>Public join application page</span>
+            </div>
+          </a>
+
+          <a href="https://supabase.com/dashboard/project/wumdbpyhpblvgjttsbpv" target="_blank" rel="noopener noreferrer" class="shortcut-item">
+            <span class="shortcut-icon">🗄️</span>
+            <div class="shortcut-text">
+              <strong>Supabase Project Console</strong>
+              <span>Direct cloud database access</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <footer class="admin-footer">
+        <p>HarshGuruJi Master Admin Console &bull; Secured with Multi-Factor 2-Step Authentication &bull; &copy; 2026 HarshGuruJi</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Supabase & 2-Step Auth Script -->
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    window.supabaseClient = supabase;
+  </script>
+
+  <script>
+    // CREDENTIALS REQUIRED BY USER
+    const REQUIRED_EMAIL = "harshguruji01@gmail.com";
+    const REQUIRED_ID = "2547277654";
+    const SESSION_KEY = "hg_master_admin_authenticated";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initSecurityGate();
+      startLiveClock();
+    });
+
+    // 1. Two-Step Verification Controller
+    function initSecurityGate() {
+      const securityGate = document.getElementById('security-gate');
+      const adminDashboard = document.getElementById('admin-dashboard');
+
+      const step1Form = document.getElementById('step-1-form');
+      const step2Form = document.getElementById('step-2-form');
+
+      const emailInput = document.getElementById('input-admin-email');
+      const idInput = document.getElementById('input-admin-id');
+
+      const error1 = document.getElementById('error-step-1');
+      const error2 = document.getElementById('error-step-2');
+
+      const node1 = document.getElementById('node-step-1');
+      const node2 = document.getElementById('node-step-2');
+      const nodeLine = document.getElementById('node-line');
+      const pill1 = document.getElementById('pill-step-1');
+      const btnBack = document.getElementById('btn-back-step-1');
+      const btnLock = document.getElementById('btn-lock-session');
+
+      // Check if already authenticated in this browser session
+      if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+        unlockDashboard();
+        return;
+      }
+
+      // Step 1: Validate Email
+      step1Form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        error1.style.display = 'none';
+        const enteredEmail = emailInput.value.trim().toLowerCase();
+
+        if (enteredEmail === REQUIRED_EMAIL.toLowerCase()) {
+          // Advance to Step 2
+          node1.classList.remove('active');
+          node1.classList.add('completed');
+          pill1.textContent = '✓';
+          nodeLine.classList.add('active');
+          node2.classList.add('active');
+
+          step1Form.style.display = 'none';
+          step2Form.style.display = 'block';
+          idInput.value = '';
+          idInput.focus();
+        } else {
+          error1.textContent = '❌ Access Denied: Unauthorized administrator email address.';
+          error1.style.display = 'block';
+          emailInput.focus();
+        }
+      });
+
+      // Step 2: Validate ID
+      step2Form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        error2.style.display = 'none';
+        const enteredID = idInput.value.trim();
+
+        if (enteredID === REQUIRED_ID) {
+          // Success! Save session and unlock
+          sessionStorage.setItem(SESSION_KEY, 'true');
+          unlockDashboard();
+        } else {
+          error2.textContent = '❌ Invalid Security ID key! Access rejected.';
+          error2.style.display = 'block';
+          idInput.value = '';
+          idInput.focus();
+        }
+      });
+
+      // Back to Step 1 button
+      btnBack.addEventListener('click', () => {
+        step2Form.style.display = 'none';
+        step1Form.style.display = 'block';
+        node2.classList.remove('active');
+        nodeLine.classList.remove('active');
+        node1.classList.remove('completed');
+        node1.classList.add('active');
+        pill1.textContent = '1';
+        emailInput.focus();
+      });
+
+      // Lock / Logout button
+      btnLock.addEventListener('click', () => {
+        sessionStorage.removeItem(SESSION_KEY);
+        window.location.reload();
+      });
+
+      function unlockDashboard() {
+        securityGate.style.display = 'none';
+        adminDashboard.style.display = 'block';
+        loadLiveTelemetry();
+      }
+    }
+
+    // 2. Fetch Live Stats from Supabase
+    async function loadLiveTelemetry() {
+      let interval = setInterval(async () => {
+        if (window.supabaseClient) {
+          clearInterval(interval);
+          const sb = window.supabaseClient;
+
+          try {
+            // Apps count
+            const { count: appsCount } = await sb.from('store_apps').select('*', { count: 'exact', head: true });
+            document.getElementById('stat-apps-count').textContent = appsCount !== null ? appsCount : '0';
+          } catch(e) {
+            document.getElementById('stat-apps-count').textContent = 'Live';
+          }
+
+          try {
+            // Messages count
+            const { count: msgCount } = await sb.from('contact_messages').select('*', { count: 'exact', head: true });
+            document.getElementById('stat-messages-count').textContent = msgCount !== null ? msgCount : '0';
+          } catch(e) {
+            document.getElementById('stat-messages-count').textContent = 'Live';
+          }
+
+          try {
+            // Contributors count & pending
+            const { data: contribs } = await sb.from('contributors').select('status');
+            if (contribs) {
+              document.getElementById('stat-contrib-count').textContent = contribs.length;
+              const pending = contribs.filter(c => (c.status || '').toUpperCase() === 'PENDING').length;
+              const badge = document.getElementById('stat-pending-badge');
+              if (pending > 0) {
+                badge.textContent = `⏳ ${pending} Pending Review`;
+                badge.style.color = '#60a5fa';
+              } else {
+                badge.textContent = `✓ Queue clear`;
+              }
+            }
+          } catch(e) {
+            document.getElementById('stat-contrib-count').textContent = 'Live';
+          }
+
+          try {
+            // Golden tick users count
+            const { count: goldCount } = await sb.from('profiles').select('*', { count: 'exact', head: true }).eq('golden_tick', true);
+            document.getElementById('stat-gold-count').textContent = goldCount !== null ? goldCount : '0';
+          } catch(e) {
+            document.getElementById('stat-gold-count').textContent = 'Live';
+          }
+        }
+      }, 100);
+    }
+
+    // 3. Live Real-Time Clock
+    function startLiveClock() {
+      const clockEl = document.getElementById('live-clock');
+      function update() {
+        const now = new Date();
+        if (clockEl) {
+          clockEl.textContent = now.toLocaleTimeString('en-IN', { hour12: true });
+        }
+      }
+      update();
+      setInterval(update, 1000);
+    }
+  </script>
+</body>
+</html>
