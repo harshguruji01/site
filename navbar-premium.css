@@ -196,13 +196,18 @@
   transition: all 0.2s;
 }
 
+.hg-search-wrapper {
+  position: relative;
+}
+
 .hg-search-box:focus-within {
   border-color: var(--hg-accent);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 107, 74, 0.2);
 }
 
 .hg-search-box svg {
   color: var(--hg-text-secondary);
+  flex-shrink: 0;
 }
 
 .hg-search-box input {
@@ -211,7 +216,197 @@
   color: var(--hg-text-primary);
   font-size: 0.9rem;
   outline: none;
-  width: 160px;
+  width: 170px;
+  transition: width 0.2s ease;
+}
+
+.hg-search-box input:focus {
+  width: 210px;
+}
+
+/* --- SEARCH AUTOCOMPLETE DROPDOWN --- */
+.hg-search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 380px;
+  max-width: 90vw;
+  background: rgba(15, 20, 32, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.7);
+  z-index: 1100;
+  overflow: hidden;
+  display: none;
+  animation: searchSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hg-search-dropdown.show {
+  display: block;
+}
+
+@keyframes searchSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hg-search-results-list {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 0.4rem;
+}
+
+.hg-search-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.15s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hg-search-item:hover, .hg-search-item.selected {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(2px);
+}
+
+.hg-search-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.hg-search-item-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.hg-search-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.hg-search-item-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hg-search-item-desc {
+  font-size: 0.75rem;
+  color: var(--hg-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.hg-search-item-badge {
+  font-size: 0.65rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.hg-search-item-badge.store { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.hg-search-item-badge.tool { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.hg-search-item-badge.ai { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+.hg-search-item-badge.learning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.hg-search-item-badge.game { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+.hg-search-item-badge.page { background: rgba(255, 255, 255, 0.1); color: #e2e8f0; }
+
+.hg-search-dropdown-footer {
+  padding: 0.6rem 0.85rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.75rem;
+  color: var(--hg-text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hg-search-dropdown-footer a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 600;
+}
+.hg-search-dropdown-footer a:hover {
+  color: #a5b4fc;
+}
+
+.hg-search-no-results {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--hg-text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Mobile Search Trigger Icon Button */
+.hg-mobile-search-btn {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--hg-text-secondary);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.hg-mobile-search-btn:hover, .hg-mobile-search-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Mobile Expandable Search Strip */
+.hg-mobile-search-strip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 14, 26, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1005;
+}
+
+.hg-mobile-drawer-search {
+  margin-bottom: 1.5rem;
+}
+.hg-mobile-drawer-search .hg-search-box {
+  width: 100%;
+}
+.hg-mobile-drawer-search .hg-search-box input {
+  width: 100%;
 }
 
 .hg-btn-primary {
@@ -419,6 +614,40 @@
 
 @media (max-width: 768px) {
   .hg-search-box { display: none; }
+  .hg-mobile-search-btn { display: flex; }
+
+  .hg-nav-actions {
+    gap: 0.5rem;
+  }
+
+  /* Mobile Notification Dropdown Fix: Anchor with uniform margin across screen */
+  .hg-notif-dropdown {
+    position: fixed !important;
+    top: calc(var(--hg-nav-height) + 6px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 85px) !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    z-index: 2500 !important;
+    border-radius: 14px !important;
+  }
+
+  .hg-notif-list {
+    max-height: calc(100vh - 220px) !important;
+  }
+
+  /* Mobile search dropdown positioning */
+  .hg-mobile-search-strip .hg-search-dropdown {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 8px !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
 }
 
 /* --- NOTIFICATION BELL & DROPDOWN --- */

@@ -2,8 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Context-Aware Path Resolver ---
   // The prefix helps correctly link assets/pages if we are currently inside a subdirectory (e.g. /games/snake.html)
-  const depth = (window.location.pathname.match(/\//g) || []).length;
-  const isSubDir = window.location.pathname.includes('/tools/') || window.location.pathname.includes('/games/') || window.location.pathname.includes('/learning/') || window.location.pathname.includes('/oauth/') || window.location.pathname.includes('/Quiz');
+  const isSubDir = window.location.pathname.includes('/tools/') || 
+                   window.location.pathname.includes('/games/') || 
+                   window.location.pathname.includes('/learning/') || 
+                   window.location.pathname.includes('/oauth/') || 
+                   window.location.pathname.includes('/Quiz');
   const prefix = isSubDir ? '../' : '';
 
   // Remove old implementations if present
@@ -25,60 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
           <span></span><span></span><span></span>
         </button>
         
-        <!-- Brand / Logo -->
+        <!-- Brand / Logo (Left untouched) -->
         <a href="${prefix}index.html" class="hg-nav-logo" aria-label="HarshGuruJi Home">
           <img src="${prefix}logo.png" alt="HarshGuruJi Logo" fetchpriority="high">
           <span class="hg-brand-text">HarshGuruJi</span>
         </a>
 
-        <!-- Desktop Navigation -->
+        <!-- Desktop Navigation: Home | Daily Special | Store | Contributor | More -->
         <nav class="hg-desktop-nav">
           <ul class="hg-nav-list">
-            <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link">Home</a></li>
-            <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link">Daily Special</a></li>
+            <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
+            <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
+            <li class="hg-nav-item"><a href="${prefix}store.html" class="hg-nav-link" id="nav-link-store">Store</a></li>
+            <li class="hg-nav-item"><a href="${prefix}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
             
-            <li class="hg-nav-item hg-has-dropdown">
-              <a href="${prefix}free-tools.html" class="hg-nav-link">Tools <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
+            <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
+              <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
               <div class="hg-dropdown">
-                <a href="${prefix}free-tools.html" class="hg-dropdown-link">All Tools</a>
-                <a href="${prefix}tools/case-converter.html" class="hg-dropdown-link">Case Converter</a>
-                <a href="${prefix}tools/word-counter.html" class="hg-dropdown-link">Word Counter</a>
-                <a href="${prefix}tools/password-generator.html" class="hg-dropdown-link">Password Generator</a>
-                <a href="${prefix}tools/json-formatter.html" class="hg-dropdown-link">JSON Formatter</a>
-              </div>
-            </li>
-
-            <li class="hg-nav-item"><a href="${prefix}ai-hub.html" class="hg-nav-link">AI</a></li>
-
-            <li class="hg-nav-item hg-has-dropdown">
-              <a href="${prefix}learning-hub.html" class="hg-nav-link">Learning <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-              <div class="hg-dropdown">
-                <a href="${prefix}learning-hub.html" class="hg-dropdown-link">Learning Hub</a>
-                <a href="${prefix}education.html" class="hg-dropdown-link">Education Hub</a>
-                <a href="${prefix}learning/gk-quiz.html" class="hg-dropdown-link">GK Quiz</a>
-                <a href="${prefix}learning/class.html?id=10" class="hg-dropdown-link">Class 10</a>
-                <a href="${prefix}learning/class.html?id=9" class="hg-dropdown-link">Class 9</a>
-              </div>
-            </li>
-
-            <li class="hg-nav-item hg-has-dropdown">
-              <a href="${prefix}store.html" class="hg-nav-link">Store <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-              <div class="hg-dropdown">
-                <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">Gaming Hub</a>
-                <a href="${prefix}store.html" class="hg-dropdown-link">Store</a>
-                <a href="${prefix}games/snake.html" class="hg-dropdown-link">Snake Game</a>
-                <a href="${prefix}games/tic-tac-toe.html" class="hg-dropdown-link">Tic Tac Toe</a>
-              </div>
-            </li>
-            
-            <li class="hg-nav-item hg-has-dropdown">
-              <a href="#" class="hg-nav-link">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-              <div class="hg-dropdown">
+                <a href="${prefix}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
+                <a href="${prefix}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
+                <a href="${prefix}learning-hub.html" class="hg-dropdown-link">📚 Learning Hub</a>
+                <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
+                <div class="hg-dropdown-divider"></div>
                 <a href="${prefix}about.html" class="hg-dropdown-link">About Us</a>
                 <a href="${prefix}contact.html" class="hg-dropdown-link">Contact</a>
-                <a href="${prefix}contributor.html" class="hg-dropdown-link">Contributors</a>
                 <a href="${prefix}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
-                <a href="${prefix}terms-and-conditions.html" class="hg-dropdown-link">Terms & Conditions</a>
+                <a href="${prefix}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
               </div>
             </li>
           </ul>
@@ -87,10 +62,19 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Right Side Actions -->
         <div class="hg-nav-actions">
           
-          <div class="hg-search-box">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-            <input type="text" id="hg-search-input" placeholder="Search HarshGuruJi..." aria-label="Search the website">
+          <!-- Desktop Searchbox with autocomplete dropdown -->
+          <div class="hg-search-wrapper">
+            <div class="hg-search-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+              <input type="text" id="hg-search-input" placeholder="Search entire site..." aria-label="Search the website" autocomplete="off">
+            </div>
+            <div class="hg-search-dropdown" id="hg-search-dropdown-desktop"></div>
           </div>
+
+          <!-- Mobile Search Trigger Button -->
+          <button type="button" class="hg-mobile-search-btn" id="hg-mobile-search-btn" aria-label="Search Site" title="Search HarshGuruJi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+          </button>
           
           <!-- Auth (Dynamic via JS) -->
           <a href="${prefix}login.html" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>
@@ -140,56 +124,52 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
       </div>
+
+      <!-- Mobile Expandable Search Strip (Revealed when tapping search icon on phone) -->
+      <div class="hg-mobile-search-strip" id="hg-mobile-search-strip" style="display:none;">
+        <div class="hg-search-box" style="display:flex; width:100%;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+          <input type="text" id="hg-search-input-strip" placeholder="Search entire site..." aria-label="Search website" autocomplete="off" style="width:100%;">
+        </div>
+        <div class="hg-search-dropdown" id="hg-search-dropdown-strip"></div>
+      </div>
     </header>
 
     <!-- Mobile Navigation Overlay -->
     <div class="hg-mobile-nav" id="hg-mobile-nav" aria-hidden="true">
       <div class="hg-mobile-scroll">
+
+        <!-- Mobile Drawer Search -->
+        <div class="hg-mobile-drawer-search">
+          <div class="hg-search-box" style="display:flex; width:100%;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+            <input type="text" id="hg-search-input-mobile" placeholder="Search entire site..." aria-label="Search website" autocomplete="off" style="width:100%;">
+          </div>
+          <div class="hg-search-dropdown" id="hg-search-dropdown-mobile"></div>
+        </div>
+
         <ul class="hg-mobile-list">
-          <li><a href="${prefix}index.html" class="hg-mobile-link">Home</a></li>
-          <li><a href="${prefix}daily-special.html" class="hg-mobile-link">Daily Special</a></li>
+          <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
+          <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
+          <li><a href="${prefix}store.html" class="hg-mobile-link" id="mob-link-store">Store</a></li>
+          <li><a href="${prefix}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
           
-          <li class="hg-mobile-item hg-has-accordion">
-            <button class="hg-mobile-accordion-toggle">Tools <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
+            <button type="button" class="hg-mobile-accordion-toggle">More <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
             <div class="hg-mobile-accordion-content">
-              <a href="${prefix}free-tools.html" class="hg-mobile-sublink">All Tools</a>
-              <a href="${prefix}tools/case-converter.html" class="hg-mobile-sublink">Case Converter</a>
-              <a href="${prefix}tools/password-generator.html" class="hg-mobile-sublink">Password Generator</a>
-            </div>
-          </li>
-
-          <li><a href="${prefix}ai-hub.html" class="hg-mobile-link">AI Hub</a></li>
-          
-          <li class="hg-mobile-item hg-has-accordion">
-            <button class="hg-mobile-accordion-toggle">Learning <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
-            <div class="hg-mobile-accordion-content">
-              <a href="${prefix}learning-hub.html" class="hg-mobile-sublink">Learning Hub</a>
-              <a href="${prefix}learning/class.html?id=10" class="hg-mobile-sublink">Class 10</a>
-              <a href="${prefix}learning/class.html?id=9" class="hg-mobile-sublink">Class 9</a>
-            </div>
-          </li>
-
-          <li class="hg-mobile-item hg-has-accordion">
-            <button class="hg-mobile-accordion-toggle">Store <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
-            <div class="hg-mobile-accordion-content">
-              <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">Gaming Hub</a>
-              <a href="${prefix}store.html" class="hg-mobile-sublink">Store</a>
-              <a href="${prefix}games/snake.html" class="hg-mobile-sublink">Snake Game</a>
-            </div>
-          </li>
-          
-          <li class="hg-mobile-item hg-has-accordion">
-            <button class="hg-mobile-accordion-toggle">More <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
-            <div class="hg-mobile-accordion-content">
+              <a href="${prefix}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
+              <a href="${prefix}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
+              <a href="${prefix}learning-hub.html" class="hg-mobile-sublink">📚 Learning Hub</a>
+              <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
               <a href="${prefix}about.html" class="hg-mobile-sublink">About Us</a>
               <a href="${prefix}contact.html" class="hg-mobile-sublink">Contact</a>
               <a href="${prefix}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
+              <a href="${prefix}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
             </div>
           </li>
         </ul>
         
         <div class="hg-mobile-footer-actions">
-           <!-- Mobile Auth fallback in case it's needed inside menu -->
            <a href="${prefix}login.html" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
         </div>
       </div>
@@ -203,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('hg-global-navbar');
   const hamburger = document.getElementById('hg-hamburger');
   const mobileNav = document.getElementById('hg-mobile-nav');
-  const searchInput = document.getElementById('hg-search-input');
   
   // 1. Scroll Effect (Sticky Header shadow)
   if (header) {
@@ -218,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Mobile Menu Toggle
   function closeMobileMenu() {
+    if (!hamburger || !mobileNav) return;
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
     mobileNav.classList.remove('active');
@@ -255,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Mobile Accordions
+  // 3. Mobile Accordions (for More section)
   const accordions = document.querySelectorAll('.hg-mobile-accordion-toggle');
   accordions.forEach(acc => {
     acc.addEventListener('click', () => {
@@ -276,41 +256,282 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Search Implementation
-  if (searchInput) {
-    searchInput.addEventListener('keydown', (e) => {
+  // =========================================================================
+  // 4. ENTIRE SITE SEARCH IMPLEMENTATION (Tools, Apps, Games, Learning, Pages)
+  // =========================================================================
+
+  const SITE_SEARCH_INDEX = [
+    // Tools
+    { title: 'Case Converter', desc: 'Convert text to UPPERCASE, lowercase, Title Case, Sentence case', url: 'tools/case-converter.html', type: 'tool', icon: '🔤' },
+    { title: 'Word Counter', desc: 'Real-time word, character, sentence and reading time counter', url: 'tools/word-counter.html', type: 'tool', icon: '📝' },
+    { title: 'Password Generator', desc: 'Generate ultra-secure random passwords with custom rules', url: 'tools/password-generator.html', type: 'tool', icon: '🔑' },
+    { title: 'JSON Formatter & Validator', desc: 'Format, validate, beautify and minify JSON data online', url: 'tools/json-formatter.html', type: 'tool', icon: '📦' },
+    { title: 'Base64 Encoder & Decoder', desc: 'Encode and decode strings and files in Base64 format', url: 'tools/base64.html', type: 'tool', icon: '🔄' },
+    { title: 'Free Tools Hub', desc: 'Collection of 50+ developer, SEO, student and productivity tools', url: 'free-tools.html', type: 'tool', icon: '🛠️' },
+    { title: 'Tools Directory', desc: 'Browse all free web utilities and developer instruments', url: 'tools.html', type: 'tool', icon: '⚙️' },
+
+    // Games
+    { title: 'Snake Game', desc: 'Classic retro arcade snake game with score leaderboards', url: 'games/snake.html', type: 'game', icon: '🐍' },
+    { title: 'Tic Tac Toe', desc: 'Play Tic Tac Toe against intelligent AI or with a friend', url: 'games/tic-tac-toe.html', type: 'game', icon: '❌' },
+    { title: 'Memory Match Game', desc: 'Brain training memory card matching game', url: 'games/memory.html', type: 'game', icon: '🧠' },
+    { title: 'Gaming Hub', desc: 'Play free online browser games, arcade and puzzle challenges', url: 'gaming-hub.html', type: 'game', icon: '🎮' },
+    { title: 'Gaming Directory', desc: 'Curated arcade games and interactive web entertainment', url: 'gaming.html', type: 'game', icon: '🕹️' },
+
+    // Store & Apps
+    { title: 'Store Catalog', desc: 'Discover & download curated Android APKs, PC software and games', url: 'store.html', type: 'store', icon: '🛍️' },
+    { title: 'Daily Special', desc: 'Today’s top featured tools, trending apps and exclusive updates', url: 'daily-special.html', type: 'store', icon: '✨' },
+    { title: 'Store Applications', desc: 'Browse latest verified applications and utility APKs', url: 'app.html', type: 'store', icon: '📱' },
+
+    // Learning & Education
+    { title: 'Learning Hub', desc: 'NCERT solutions, study notes, question banks and exam prep', url: 'learning-hub.html', type: 'learning', icon: '📚' },
+    { title: 'Education Hub', desc: 'Comprehensive study materials, subjects and revision guides', url: 'education.html', type: 'learning', icon: '🎓' },
+    { title: 'GK Quiz Challenge', desc: 'Test your general knowledge with interactive multi-topic quizzes', url: 'learning/gk-quiz.html', type: 'learning', icon: '💡' },
+    { title: 'Class 10 NCERT Solutions', desc: 'Complete Class 10 Science, Mathematics and Social Science notes', url: 'learning/class.html?id=10', type: 'learning', icon: '📖' },
+    { title: 'Class 9 NCERT Solutions', desc: 'Class 9 chapters, video tutorials and question papers', url: 'learning/class.html?id=9', type: 'learning', icon: '📘' },
+    { title: 'PDF Library & Books', desc: 'Download syllabus textbooks, previous year papers and guides', url: 'learning/pdf-library.html', type: 'learning', icon: '📄' },
+    { title: 'Quiz India', desc: 'Interactive competitive examination quizzes for Indian students', url: 'Quiz India/index.html', type: 'learning', icon: '🇮🇳' },
+
+    // AI Hub
+    { title: 'AI Hub', desc: 'Explore top Artificial Intelligence models, prompts and tools', url: 'ai-hub.html', type: 'ai', icon: '🤖' },
+    { title: 'AI Directory', desc: 'Curated list of generative AI tools for writing, coding and design', url: 'ai.html', type: 'ai', icon: '⚡' },
+
+    // Community & Contributor
+    { title: 'Contributor Hub', desc: 'Explore top platform contributors and submit your applications', url: 'contributor.html', type: 'page', icon: '🌟' },
+    { title: 'Apply as Contributor', desc: 'Submit your creator or developer application for verification', url: 'apply-contributor.html', type: 'page', icon: '📝' },
+    { title: 'Join Contributor Program', desc: 'Join HarshGuruJi creator network and earn golden badges', url: 'join-contributor.html', type: 'page', icon: '🤝' },
+
+    // Pages & Info
+    { title: 'Explore & Search', desc: 'Explore all subjects, programming languages and web tools', url: 'explore.html', type: 'page', icon: '🔍' },
+    { title: 'About HarshGuruJi', desc: 'Learn more about our mission, creator story and team', url: 'about.html', type: 'page', icon: 'ℹ️' },
+    { title: 'Contact & Support', desc: 'Send feedback, ask questions or report issues to the team', url: 'contact.html', type: 'page', icon: '📬' },
+    { title: 'Dashboard', desc: 'User profile, activity tracking and saved preferences', url: 'dashboard.html', type: 'page', icon: '📊' },
+    { title: 'Settings', desc: 'Manage account settings, profile and security', url: 'settings.html', type: 'page', icon: '⚙️' },
+    { title: 'Privacy Policy', desc: 'HarshGuruJi privacy policy, cookies and data guidelines', url: 'privacy-policy.html', type: 'page', icon: '🔒' },
+    { title: 'Terms & Conditions', desc: 'Platform terms of service and usage regulations', url: 'terms-and-conditions.html', type: 'page', icon: '📜' }
+  ];
+
+  let dynamicStoreApps = [];
+  async function fetchLiveStoreApps() {
+    try {
+      const { supabase } = await import('./js/supabase.js');
+      const { data, error } = await supabase
+        .from('store_apps')
+        .select('id, name, title, short_description, description, icon_url, category')
+        .limit(60);
+      if (!error && Array.isArray(data)) {
+        dynamicStoreApps = data.map(app => {
+          const appTitle = app.title || app.name || 'Store App';
+          const appDesc = app.short_description || app.description || (app.category ? `Category: ${app.category}` : 'Verified Store Application');
+          const hasImg = app.icon_url && app.icon_url.startsWith('http');
+          return {
+            title: appTitle,
+            desc: appDesc,
+            url: `store-detail.html?id=${encodeURIComponent(app.id)}`,
+            type: 'store',
+            icon: hasImg ? `<img src="${app.icon_url}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.parentElement.innerHTML='📱';">` : '📱'
+          };
+        });
+      }
+    } catch (e) {
+      // Ignore if Supabase is unavailable
+    }
+  }
+  fetchLiveStoreApps();
+
+  function performSearch(query) {
+    const q = query.toLowerCase().trim();
+    if (!q) return [];
+
+    const combined = [...dynamicStoreApps, ...SITE_SEARCH_INDEX];
+    const scored = [];
+
+    for (const item of combined) {
+      const titleLower = item.title.toLowerCase();
+      const descLower = (item.desc || '').toLowerCase();
+      const typeLower = (item.type || '').toLowerCase();
+      
+      let score = 0;
+      if (titleLower === q) score += 100;
+      else if (titleLower.startsWith(q)) score += 60;
+      else if (titleLower.includes(q)) score += 35;
+
+      if (descLower.includes(q)) score += 15;
+      if (typeLower.includes(q)) score += 10;
+
+      if (score > 0) {
+        scored.push({ item, score });
+      }
+    }
+
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 8).map(s => s.item);
+  }
+
+  function renderSearchResults(results, container, query) {
+    if (!container) return;
+
+    if (!query) {
+      container.innerHTML = '';
+      container.classList.remove('show');
+      return;
+    }
+
+    if (results.length === 0) {
+      container.innerHTML = `
+        <div class="hg-search-no-results">
+          <div style="font-size:1.6rem; margin-bottom:4px;">🔍</div>
+          <div>No exact match for <strong>"${escapeNavHtml(query)}"</strong></div>
+          <div style="margin-top:6px; font-size:0.75rem; color:#a1a1aa;">Press Enter to search entire database on Explore page</div>
+        </div>
+        <div class="hg-search-dropdown-footer">
+          <span>Search entire site</span>
+          <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">Search on Explore &rarr;</a>
+        </div>
+      `;
+      container.classList.add('show');
+      return;
+    }
+
+    const itemsHtml = results.map(item => {
+      const isImgIcon = typeof item.icon === 'string' && item.icon.startsWith('<img');
+      const iconHtml = isImgIcon ? item.icon : `<span>${item.icon || '🔗'}</span>`;
+      const linkUrl = item.url.startsWith('http') ? item.url : `${prefix}${item.url}`;
+
+      return `
+        <a href="${linkUrl}" class="hg-search-item">
+          <div class="hg-search-item-icon">${iconHtml}</div>
+          <div class="hg-search-item-info">
+            <div class="hg-search-item-title">
+              <span>${escapeNavHtml(item.title)}</span>
+              <span class="hg-search-item-badge ${item.type}">${item.type}</span>
+            </div>
+            <div class="hg-search-item-desc">${escapeNavHtml(item.desc)}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="hg-search-results-list">
+        ${itemsHtml}
+      </div>
+      <div class="hg-search-dropdown-footer">
+        <span>${results.length} results</span>
+        <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">View on Explore &rarr;</a>
+      </div>
+    `;
+    container.classList.add('show');
+  }
+
+  function setupSearchField(inputId, dropdownId) {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!input || !dropdown) return;
+
+    let debounceTimer = null;
+
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const query = input.value.trim();
+        const results = performSearch(query);
+        renderSearchResults(results, dropdown, query);
+      }, 150);
+    });
+
+    input.addEventListener('focus', () => {
+      const query = input.value.trim();
+      if (query) {
+        const results = performSearch(query);
+        renderSearchResults(results, dropdown, query);
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const query = searchInput.value.trim();
-        if (query) {
-          window.location.href = prefix + 'explore.html?search=' + encodeURIComponent(query);
+        const query = input.value.trim();
+        if (!query) return;
+        const results = performSearch(query);
+        if (results.length > 0) {
+          const first = results[0];
+          const dest = first.url.startsWith('http') ? first.url : `${prefix}${first.url}`;
+          window.location.href = dest;
+        } else {
+          window.location.href = `${prefix}explore.html?search=${encodeURIComponent(query)}`;
         }
+      } else if (e.key === 'Escape') {
+        dropdown.classList.remove('show');
       }
     });
   }
 
-  // 5. Active Page Highlighting
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  const allLinks = document.querySelectorAll('.hg-nav-link, .hg-dropdown-link, .hg-mobile-link, .hg-mobile-sublink');
-  
-  allLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && href.endsWith(currentPath)) {
-      link.classList.add('active');
-      
-      // Highlight parent dropdown in desktop
-      const parentDropdown = link.closest('.hg-has-dropdown');
-      if (parentDropdown) {
-        parentDropdown.querySelector('.hg-nav-link').classList.add('active');
-      }
+  // Setup desktop search, mobile strip search, and mobile drawer search
+  setupSearchField('hg-search-input', 'hg-search-dropdown-desktop');
+  setupSearchField('hg-search-input-strip', 'hg-search-dropdown-strip');
+  setupSearchField('hg-search-input-mobile', 'hg-search-dropdown-mobile');
 
-      // Open parent accordion in mobile
-      const parentAccordion = link.closest('.hg-mobile-item');
-      if (parentAccordion) {
-        parentAccordion.classList.add('open');
-        parentAccordion.querySelector('.hg-mobile-accordion-toggle').classList.add('active');
+  // Mobile Search Strip Toggle Button
+  const mobileSearchBtn = document.getElementById('hg-mobile-search-btn');
+  const mobileSearchStrip = document.getElementById('hg-mobile-search-strip');
+  const mobileSearchInputStrip = document.getElementById('hg-search-input-strip');
+
+  if (mobileSearchBtn && mobileSearchStrip) {
+    mobileSearchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = mobileSearchStrip.style.display !== 'none';
+      if (isVisible) {
+        mobileSearchStrip.style.display = 'none';
+        mobileSearchBtn.classList.remove('active');
+      } else {
+        mobileSearchStrip.style.display = 'block';
+        mobileSearchBtn.classList.add('active');
+        if (mobileSearchInputStrip) mobileSearchInputStrip.focus();
       }
+    });
+  }
+
+  // Close search dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.hg-search-wrapper') && !e.target.closest('.hg-mobile-search-strip') && !e.target.closest('.hg-mobile-drawer-search')) {
+      document.querySelectorAll('.hg-search-dropdown.show').forEach(el => el.classList.remove('show'));
     }
   });
+
+  // 5. Active Page Highlighting (Accurate for Home, Daily Special, Store, Contributor, More)
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  
+  if (currentPath === 'index.html' || currentPath === '') {
+    document.getElementById('nav-link-home')?.classList.add('active');
+    document.getElementById('mob-link-home')?.classList.add('active');
+  } else if (currentPath === 'daily-special.html') {
+    document.getElementById('nav-link-dailyspecial')?.classList.add('active');
+    document.getElementById('mob-link-dailyspecial')?.classList.add('active');
+  } else if (currentPath === 'store.html' || currentPath === 'store-detail.html' || currentPath === 'app.html') {
+    document.getElementById('nav-link-store')?.classList.add('active');
+    document.getElementById('mob-link-store')?.classList.add('active');
+  } else if (currentPath === 'contributor.html' || currentPath === 'apply-contributor.html' || currentPath === 'join-contributor.html' || currentPath === 'admincontributors.html') {
+    document.getElementById('nav-link-contributor')?.classList.add('active');
+    document.getElementById('mob-link-contributor')?.classList.add('active');
+  } else {
+    // Check if current page is inside More dropdown
+    const allLinks = document.querySelectorAll('.hg-dropdown-link, .hg-mobile-sublink');
+    let matchedMore = false;
+    allLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && href.endsWith(currentPath)) {
+        link.classList.add('active');
+        matchedMore = true;
+      }
+    });
+    if (matchedMore) {
+      document.getElementById('nav-link-more')?.classList.add('active');
+      const mobMoreItem = document.getElementById('mob-item-more');
+      if (mobMoreItem) {
+        mobMoreItem.classList.add('open');
+        mobMoreItem.querySelector('.hg-mobile-accordion-toggle')?.classList.add('active');
+      }
+    }
+  }
 
   // --- NOTIFICATION CENTER & USER FEEDBACK LOGIC ---
   let userMessagesCache = [];
