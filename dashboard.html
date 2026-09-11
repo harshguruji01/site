@@ -23,7 +23,32 @@
       gap: 2rem;
       margin-bottom: 2rem;
     }
+    .profile-avatar-wrap {
+      position: relative;
+      display: inline-flex;
+      width: 100px;
+      height: 100px;
+      flex-shrink: 0;
+    }
     .profile-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent-primary, #3b82f6); object-fit: cover; }
+    .profile-golden-tick {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.85);
+      border: 3px solid #1a1a1a;
+      z-index: 5;
+    }
     .profile-info { flex: 1; }
     .profile-name { font-size: 1.8rem; margin: 0 0 0.25rem 0; color: var(--text-primary); }
     .profile-email { color: var(--text-secondary); margin: 0 0 1rem 0; }
@@ -110,7 +135,9 @@
 
 <main class="dashboard-container">
   <div class="profile-header">
-    <img src="logo.png" alt="Profile" class="profile-avatar" id="user-avatar-display">
+    <div class="profile-avatar-wrap" id="dash-avatar-wrap">
+      <img src="logo.png" alt="Profile" class="profile-avatar" id="user-avatar-display">
+    </div>
     <div class="profile-info">
       <h1 class="profile-name" id="user-name-display">Loading...</h1>
       <p class="profile-email" id="user-email-display"></p>
@@ -216,6 +243,24 @@
     document.getElementById('user-email-display').textContent = user.email;
     document.getElementById('user-avatar-display').src = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
     
+    // Golden Tick on left corner of avatar
+    const avatarWrap = document.getElementById('dash-avatar-wrap');
+    if (avatarWrap) {
+      let tick = document.getElementById('dash-golden-tick');
+      if (profile && profile.golden_tick === true) {
+        if (!tick) {
+          tick = document.createElement('span');
+          tick.id = 'dash-golden-tick';
+          tick.className = 'profile-golden-tick';
+          tick.title = 'Golden Verified Contributor';
+          tick.textContent = '✓';
+          avatarWrap.appendChild(tick);
+        }
+      } else if (tick) {
+        tick.remove();
+      }
+    }
+
     // Auto-init dashboard if AuthManager loads profile
     if (window.Dashboard && window.Dashboard.activities && window.Dashboard.activities.length === 0) {
         window.Dashboard.init();

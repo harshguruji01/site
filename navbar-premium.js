@@ -125,7 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
           
           <div class="hg-user-menu" id="hg-user-profile" style="display:none;">
             <div class="hg-user-trigger" tabindex="0" role="button" aria-haspopup="true">
-              <img src="${prefix}logo.png" alt="User" id="hg-user-avatar">
+              <div class="hg-avatar-wrap" id="hg-user-avatar-wrap">
+                <img src="${prefix}logo.png" alt="User" id="hg-user-avatar">
+              </div>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
             </div>
             <div class="hg-dropdown hg-dropdown-right">
@@ -519,6 +521,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const displayName = (profile && profile.display_name) || user.email.split('@')[0];
       if (userAvatar) {
         userAvatar.src = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+      }
+
+      // Left-corner Golden Tick on user profile avatar
+      const avatarWrap = document.getElementById('hg-user-avatar-wrap');
+      if (avatarWrap) {
+        let tick = document.getElementById('hg-nav-golden-tick');
+        if (profile && profile.golden_tick === true) {
+          if (!tick) {
+            tick = document.createElement('span');
+            tick.id = 'hg-nav-golden-tick';
+            tick.className = 'golden-tick-badge';
+            tick.title = 'Golden Verified Contributor';
+            tick.textContent = '✓';
+            avatarWrap.appendChild(tick);
+          }
+        } else if (tick) {
+          tick.remove();
+        }
       }
 
       loadUserNotifications(user.id);

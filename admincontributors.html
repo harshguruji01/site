@@ -3,26 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Contributor Management</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <title>Admin - Contributor & Verification Management | HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #3b82f6;
-      --bg-dark: #0f172a;
-      --bg-panel: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --gold: #f59e0b;
+      --gold-light: #ffd700;
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-panel: #1f2937;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #374151;
+      --border-light: rgba(255, 255, 255, 0.08);
       --success: #10b981;
       --danger: #ef4444;
+      --warning: #f59e0b;
       --radius: 12px;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
     
+    /* Header */
     .admin-header {
-      background: var(--bg-panel);
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
       padding: 1rem 2rem;
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -33,191 +50,668 @@
       z-index: 100;
     }
     
-    .admin-header h1 {
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .admin-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .admin-brand h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
-      color: var(--primary);
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .admin-brand span {
+      font-size: 0.72rem;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     
-    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .admin-header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
     
-    .dashboard-stats {
+    /* Container */
+    .container { max-width: 1240px; margin: 2rem auto; padding: 0 1.25rem; }
+    
+    /* Auth Gate Modal */
+    .auth-gate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 13, 22, 0.95);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+    .auth-gate-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .auth-gate-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.25rem;
+    }
+    .auth-gate-card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .auth-gate-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+    .auth-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .auth-input:focus {
+      border-color: var(--primary);
+    }
+    
+    /* Tabs Navigation */
+    .admin-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      padding: 0.4rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+    
+    /* Stats Row */
+    .stats-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
     }
-    
-    .stat-card {
-      background: var(--bg-panel);
-      padding: 1.5rem;
-      border-radius: var(--radius);
+    .stat-box {
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      text-align: center;
-    }
-    .stat-card h3 { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; }
-    .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text-main); }
-    
-    .table-container {
-      background: var(--bg-panel);
       border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow-x: auto;
+      padding: 1.25rem 1.5rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .stat-num {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
     }
     
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
-    th { color: var(--text-muted); font-weight: 500; font-size: 0.85rem; text-transform: uppercase; background: rgba(0,0,0,0.2); }
+    /* Search & Filter Toolbar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .search-bar {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-bar:focus {
+      border-color: var(--primary);
+    }
     
-    .app-row img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-    
-    .badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
+    .filter-pills {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .pill {
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
       font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pill:hover, .pill.active {
+      color: #fff;
+      background: var(--bg-panel);
+      border-color: var(--primary);
+    }
+    
+    /* Cards & Table */
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--border-light); }
+    th {
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    
+    /* User Row Component */
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .avatar-wrapper {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+    }
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+    
+    /* Golden Tick on Profile Avatar Left Corner */
+    .golden-tick {
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 17px;
+      height: 17px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 10px;
+      font-weight: 900;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+      border: 2px solid #111827;
+      z-index: 2;
+    }
+    
+    .user-name-title {
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .user-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    /* Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
-    .badge.pending { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-    .badge.approved { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge.rejected { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-badge.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-badge.pending {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .status-badge.rejected {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-badge.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
     
+    /* Action Buttons */
     .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
       transition: all 0.2s;
-      background: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border);
+      text-decoration: none;
     }
-    .btn:hover { background: rgba(255,255,255,0.05); }
-    .btn-primary { background: var(--primary); border: none; }
-    .btn-primary:hover { background: #2563eb; }
+    .btn-sm {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.78rem;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+    .btn-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .btn-success:hover {
+      background: rgba(16, 185, 129, 0.3);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.3));
+      color: #ffd700;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #f59e0b, #ffd700);
+      color: #000;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-outline:hover {
+      color: #fff;
+      border-color: var(--text-muted);
+    }
+    
+    .actions-cluster {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
     
     /* Modal */
-    .modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.8);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1000;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 1rem;
     }
-    .modal.active { opacity: 1; pointer-events: all; }
-    
-    .modal-content {
-      background: var(--bg-panel);
-      width: 90%; max-width: 600px;
-      border-radius: var(--radius);
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      max-height: 90vh;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 580px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .modal-head {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 75vh;
       overflow-y: auto;
     }
-    
-    .modal-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .modal-body { padding: 1.5rem; }
-    .modal-footer {
-      padding: 1.5rem;
+    .modal-foot {
+      padding: 1rem 1.5rem;
       border-top: 1px solid var(--border);
-      display: flex; justify-content: flex-end; gap: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.15);
     }
     
-    .detail-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; margin-bottom: 1rem; }
-    .detail-label { color: var(--text-muted); font-size: 0.85rem; }
-    .detail-value { color: var(--text-main); }
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1f2937;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
     
-    #unauthorized-msg { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70vh; text-align: center; }
-    #admin-content { display: none; }
+    @media (max-width: 768px) {
+      .admin-header { padding: 1rem; }
+      .table-card { overflow-x: auto; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .filter-pills { overflow-x: auto; padding-bottom: 0.5rem; }
+    }
   </style>
 </head>
 <body>
 
-  <header class="admin-header">
-    <div>
-      <h1>HARSHGURUJI ADMIN</h1>
-      <span style="font-size: 0.8rem; color: var(--text-muted);">CONTRIBUTOR MANAGEMENT</span>
-    </div>
-    <div style="display: flex; gap: 1rem; align-items: center;">
-      <span id="admin-user-email" style="font-size: 0.9rem; color: var(--text-muted);">Loading...</span>
-      <button class="btn" id="btn-logout">Logout</button>
-    </div>
-  </header>
-
-  <div id="unauthorized-msg">
-    <h2>Access Denied</h2>
-    <p style="color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem;">You must be logged in as an Administrator to access this dashboard.</p>
-    <a href="index.html" class="btn btn-primary" style="text-decoration:none; display:inline-block; padding:0.75rem 1.5rem;">Return Home</a>
-  </div>
-
-  <div class="container" id="admin-content">
-    <div class="dashboard-stats">
-      <div class="stat-card">
-        <h3>Total Applications</h3>
-        <div class="value" id="stat-total">0</div>
-      </div>
-      <div class="stat-card">
-        <h3>Pending</h3>
-        <div class="value" id="stat-pending" style="color: #60a5fa;">0</div>
-      </div>
-      <div class="stat-card">
-        <h3>Approved</h3>
-        <div class="value" id="stat-approved" style="color: var(--success);">0</div>
-      </div>
-      <div class="stat-card">
-        <h3>Active Contributors</h3>
-        <div class="value" id="stat-active">0</div>
-      </div>
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Profile</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="app-table-body">
-          <tr><td colspan="6" style="text-align:center;">Loading applications...</td></tr>
-        </tbody>
-      </table>
+  <!-- Password Security Gate Modal -->
+  <div class="auth-gate-overlay" id="auth-gate">
+    <div class="auth-gate-card">
+      <div class="auth-gate-icon">🔐</div>
+      <h2>Admin Verification Required</h2>
+      <p>Enter the master administrator key to manage contributor applications and user Golden Ticks.</p>
+      <form id="auth-gate-form">
+        <div class="auth-input-group">
+          <input type="password" id="admin-pass-input" class="auth-input" placeholder="Enter Admin Password" required autofocus autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.95rem;">Unlock Panel</button>
+        <div style="margin-top: 1rem;">
+          <a href="index.html" style="color: var(--text-muted); font-size: 0.82rem; text-decoration: none;">&larr; Return to HarshGuruJi Home</a>
+        </div>
+      </form>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal" id="review-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 style="font-family: 'Space Grotesk', sans-serif;">Review Application</h2>
-        <button class="btn" id="close-modal">✕</button>
+  <!-- Admin Main Interface -->
+  <div id="admin-app" style="display: none;">
+    <header class="admin-header">
+      <div class="admin-brand">
+        <img src="logo.png" alt="HarshGuruJi Logo">
+        <div>
+          <h1>HarshGuruJi Admin</h1>
+        </div>
+        <span>Contributor &amp; Verified Hub</span>
       </div>
-      <div class="modal-body" id="modal-body-content">
-        <!-- Injected via JS -->
+      <div class="admin-header-actions">
+        <a href="contributor.html" target="_blank" class="btn btn-outline btn-sm">
+          <span>View Public Contributor Page &rarr;</span>
+        </a>
+        <button class="btn btn-outline btn-sm" id="btn-lock">Lock &amp; Exit</button>
       </div>
-      <div class="modal-footer" id="modal-footer-content">
-        <!-- Injected via JS -->
+    </header>
+
+    <main class="container">
+      <!-- Top Tabs -->
+      <div class="admin-tabs">
+        <button class="tab-btn active" id="tab-btn-applications" onclick="switchTab('applications')">
+          <span>📋</span>
+          <span>Contributor Applications</span>
+          <span class="status-badge pending" id="tab-badge-pending" style="margin-left: 4px; display: none;">0</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-users" onclick="switchTab('users')">
+          <span>⭐</span>
+          <span>Universal Golden Tick Manager</span>
+          <span class="status-badge gold" id="tab-badge-verified" style="margin-left: 4px; display: none;">0</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: CONTRIBUTOR APPLICATIONS -->
+      <section id="tab-pane-applications">
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-num" id="stat-total-apps">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Pending Review</div>
+            <div class="stat-num" id="stat-pending-apps" style="color: #60a5fa;">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Active Contributors</div>
+            <div class="stat-num" id="stat-active-apps" style="color: #34d399;">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Rejected</div>
+            <div class="stat-num" id="stat-rejected-apps" style="color: #f87171;">0</div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+            <input type="text" id="app-search-input" class="search-bar" placeholder="Search applications by name, role or bio...">
+          </div>
+          <div class="filter-pills">
+            <button class="pill active" onclick="setAppFilter('ALL', this)">All</button>
+            <button class="pill" onclick="setAppFilter('PENDING', this)">Pending</button>
+            <button class="pill" onclick="setAppFilter('ACTIVE', this)">Active</button>
+            <button class="pill" onclick="setAppFilter('REJECTED', this)">Rejected</button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Applicant</th>
+                <th>Role</th>
+                <th>Applied Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="applications-tbody">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">Loading applications...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 2: UNIVERSAL GOLDEN TICK MANAGER -->
+      <section id="tab-pane-users" style="display: none;">
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-label">Total Registered Users</div>
+            <div class="stat-num" id="stat-total-users">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Golden Tick Verified</div>
+            <div class="stat-num" id="stat-golden-users" style="color: #ffd700;">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Regular Members</div>
+            <div class="stat-num" id="stat-regular-users">0</div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+            <input type="text" id="user-search-input" class="search-bar" placeholder="Search site users by display name, username or email...">
+          </div>
+          <div class="filter-pills">
+            <button class="pill active" onclick="setUserFilter('ALL', this)">All Users</button>
+            <button class="pill" onclick="setUserFilter('GOLDEN', this)">⭐ Golden Tick Only</button>
+            <button class="pill" onclick="setUserFilter('NON_GOLDEN', this)">Without Tick</button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Username / Email</th>
+                <th>Verification</th>
+                <th>Actions (1-Click)</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr>
+                <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 3rem;">Loading registered users...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="app-modal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 style="font-family: 'Space Grotesk', sans-serif;">Application Details</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeAppModal()">✕</button>
+      </div>
+      <div class="modal-body" id="app-modal-body">
+        <!-- Dynamic JS -->
+      </div>
+      <div class="modal-foot" id="app-modal-foot">
+        <!-- Dynamic JS -->
       </div>
     </div>
   </div>
 
-  <!-- Supabase -->
+  <!-- Toast Notification -->
+  <div class="toast-box" id="admin-toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-message">Action successful</span>
+  </div>
+
+  <!-- Supabase & Controller Script -->
   <script type="module">
     import { supabase } from './js/supabase.js';
     import { getProfile } from './js/profile.js';
     window.supabaseClient = supabase;
     window.getProfile = getProfile;
   </script>
-  <script src="js/admin-contributors.js?v=2" defer></script>
+  <script src="js/admin-contributors.js?v=3" defer></script>
 </body>
 </html>

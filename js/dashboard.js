@@ -66,36 +66,40 @@ export class DashboardManager {
             if (contributor) {
                 if (contributor.status === 'approved' || contributor.status === 'ACTIVE') {
                     container.innerHTML = `
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
-                        <h4 style="color: var(--success, #10b981); margin-bottom: 1rem;">You are a HarshGuruJi Contributor</h4>
-                        <a href="contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">View Profile</a>
+                        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">⭐</div>
+                        <h4 style="color: #ffd700; margin-bottom: 0.35rem; font-size: 1.15rem;">Verified Contributor</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">You have a Golden Tick and your profile is live on the team page.</p>
+                        <a href="contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">View On Contributor Page</a>
                     `;
                 } else if (contributor.status === 'pending' || contributor.status === 'PENDING') {
                     container.innerHTML = `
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
-                        <h4 style="color: #3b82f6; margin-bottom: 1rem;">Application Pending</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Your application is currently being reviewed.</p>
+                        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">⏳</div>
+                        <h4 style="color: #60a5fa; margin-bottom: 0.35rem;">Application Under Review</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem;">Admin is reviewing your application. You will receive your Golden Tick once activated!</p>
                     `;
                 } else if (contributor.status === 'rejected' || contributor.status === 'REJECTED') {
                     container.innerHTML = `
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">❌</div>
-                        <h4 style="color: var(--danger, #ef4444); margin-bottom: 1rem;">Application Not Approved</h4>
-                        <a href="join-contributor.html" class="premium-btn-outline" style="display:inline-block; text-decoration:none;">Apply Again</a>
+                        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">❌</div>
+                        <h4 style="color: #f87171; margin-bottom: 0.35rem;">Application Not Approved</h4>
+                        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem;">Your application was not approved or was deactivated by admin.</p>
+                        <a href="apply-contributor.html" class="premium-btn-outline" style="display:inline-block; text-decoration:none;">Apply Again</a>
                     `;
                 }
             } else {
                 container.innerHTML = `
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
-                    <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
+                    <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🤝</div>
+                    <h4 style="color: #f8fafc; margin-bottom: 0.35rem;">Become a Contributor</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">Share your skills, get verified, and earn a Golden Tick on your profile.</p>
+                    <a href="apply-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Apply Now</a>
                 `;
             }
         } catch (err) {
             console.warn("Failed to load contributor status:", err);
             container.innerHTML = `
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
-                <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
+                <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🤝</div>
+                <h4 style="color: #f8fafc; margin-bottom: 0.35rem;">Become a Contributor</h4>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">Share your skills, get verified, and earn a Golden Tick on your profile.</p>
+                <a href="apply-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Apply Now</a>
             `;
         }
     }

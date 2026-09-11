@@ -286,6 +286,20 @@
       </form>
     </div>
 
+    <!-- SUCCESS CONFIRMATION VIEW (NO PASSWORD NEEDED) -->
+    <div id="apply-success-section" style="display:none; background:var(--bg-glass); backdrop-filter:blur(24px); border:1px solid var(--border); border-radius:var(--radius-lg); padding:3rem 2rem; text-align:center; animation:slideUp 0.5s ease both;">
+      <div style="font-size:4.5rem; margin-bottom:1rem; animation:pulse 2s infinite;">🎉</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:1.8rem; color:#6ee7b7; margin-bottom:0.75rem;">Application Submitted Successfully!</h2>
+      <p style="color:var(--text-secondary); font-size:1.05rem; line-height:1.7; max-width:480px; margin:0 auto 1.75rem;">
+        Your contributor application is now in the queue for <strong>Administrator Review</strong>. No secret code is required!
+        Once the admin activates your application, you will receive an exclusive <strong style="color:#ffd700;">Golden Tick (✓)</strong> on your profile corner and appear on the official Contributors page!
+      </p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <a href="contributor.html" class="btn-login-gate" style="text-decoration:none;">View Contributors Page →</a>
+        <a href="dashboard.html" class="btn-login-gate" style="background:rgba(255,255,255,0.06); border:1px solid var(--border); box-shadow:none; text-decoration:none;">Go to Dashboard</a>
+      </div>
+    </div>
+
   </div><!-- end main-content -->
 </div>
 
@@ -311,10 +325,40 @@
     document.getElementById('greeting-name').textContent = meta.full_name || user.email;
     if (meta.avatar_url) document.getElementById('greeting-avatar').src = meta.avatar_url;
 
-    // Pre-fill name
+    // Pre-fill name and avatar
     document.getElementById('f-name').value = meta.full_name || '';
-    document.getElementById('f-display-name').value = meta.full_name || '';
+    document.getElementById('f-display-name').value = meta.full_name || user.email.split('@')[0];
     document.getElementById('f-avatar').value = meta.avatar_url || '';
+
+    // Check if user already applied
+    try {
+      const { data: existing } = await supabase
+        .from('contributors')
+        .select('id, status, display_name')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (existing) {
+        if (existing.status === 'ACTIVE') {
+          const banner = document.createElement('div');
+          banner.className = 'alert-msg success';
+          banner.style.display = 'block';
+          banner.innerHTML = '🌟 <strong>You are an Active Contributor with Golden Verification!</strong> You can update your details below.';
+          document.getElementById('form-section').prepend(banner);
+        } else if (existing.status === 'PENDING') {
+          const banner = document.createElement('div');
+          banner.className = 'alert-msg';
+          banner.style.display = 'block';
+          banner.style.background = 'rgba(245,158,11,0.12)';
+          banner.style.borderColor = 'rgba(245,158,11,0.3)';
+          banner.style.color = '#fcd34d';
+          banner.innerHTML = '⏳ <strong>Your application is currently Pending Admin Review.</strong> You can revise your details below.';
+          document.getElementById('form-section').prepend(banner);
+        }
+      }
+    } catch(checkErr) {
+      console.warn("Application check notice:", checkErr);
+    }
 
     // Handle form submit
     document.getElementById('contributor-form').addEventListener('submit', async (e) => {
@@ -322,32 +366,52 @@
       const btn = document.getElementById('btn-form-submit');
       const alert = document.getElementById('form-alert');
       btn.disabled = true;
-      btn.textContent = 'Submitting...';
+      btn.textContent = 'Submitting Application...';
       alert.style.display = 'none';
 
       const payload = {
         user_id: user.id,
+        email: user.email,
         display_name: document.getElementById('f-display-name').value.trim(),
         full_name: document.getElementById('f-name').value.trim(),
         role: document.getElementById('f-role').value,
         bio: document.getElementById('f-bio').value.trim(),
         instagram: document.getElementById('f-instagram').value.trim(),
         youtube: document.getElementById('f-youtube').value.trim(),
-        profile_image_path: document.getElementById('f-avatar').value.trim() || null,
+        profile_image_path: document.getElementById('f-avatar').value.trim() || meta.avatar_url || null,
         status: 'PENDING',
         created_at: new Date().toISOString()
       };
 
       try {
-        const { error } = await supabase.from('contributors').insert(payload);
-        if (error) throw error;
+        const { data: existingApp } = await supabase
+          .from('contributors')
+          .select('id')
+          .eq('user_id', user.id)
+          .maybeSingle();
 
-        // Save user_id to session storage for verify page
-        sessionStorage.setItem('contributor_user_id', user.id);
-        sessionStorage.setItem('contributor_display_name', payload.display_name);
+        if (existingApp) {
+          const { error } = await supabase
+            .from('contributors')
+            .update({ ...payload, updated_at: new Date().toISOString() })
+            .eq('id', existingApp.id);
+          if (error) throw error;
+        } else {
+          const { error } = await supabase.from('contributors').insert(payload);
+          if (error) throw error;
+        }
 
-        // Redirect to password page
-        window.location.href = 'verify-contributor.html';
+        // Show in-page success confirmation (NO PASSWORD ASKED)
+        document.getElementById('form-section').style.display = 'none';
+        const startBtn = document.getElementById('btn-start-apply');
+        if (startBtn) startBtn.style.display = 'none';
+        const heroEl = document.querySelector('.apply-hero');
+        if (heroEl) heroEl.style.display = 'none';
+
+        const successView = document.getElementById('apply-success-section');
+        successView.style.display = 'block';
+        successView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
       } catch (err) {
         alert.className = 'alert-msg error';
         alert.textContent = '❌ ' + err.message;

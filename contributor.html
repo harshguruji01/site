@@ -1,97 +1,479 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contributors – HarshGuruJi</title><meta name="description" content="Meet the contributors behind HarshGuruJi."><link rel="icon" type="image/png" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css"><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script><style>.contributors-container{max-width:1000px;margin:0 auto;padding:2rem}.head-contributor{display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:3rem;margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,.5)}.head-contributor img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid var(--accent-primary);margin-bottom:1.5rem}.head-contributor h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--text-primary);margin-bottom:.5rem}.head-contributor p{color:var(--accent-primary);font-weight:600;font-size:1.1rem}.become-contributor-cta{background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(236,72,153,0.12));border:1px solid rgba(99,102,241,0.25);border-radius:16px;padding:2rem;text-align:center;margin-bottom:2.5rem;}.become-contributor-cta h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;color:#f8fafc;margin-bottom:.5rem}.become-contributor-cta p{color:#94a3b8;margin-bottom:1.25rem;font-size:.95rem}.btn-become{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.8rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;transition:all .3s;box-shadow:0 0 30px rgba(99,102,241,.3)}.btn-become:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(99,102,241,.5)}.contributors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2rem}.contributor-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:15px;padding:2rem 1rem;text-align:center;transition:transform .3s ease,box-shadow .3s ease}.contributor-card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,.4);border-color:var(--accent-secondary)}.contributor-card img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid var(--card-border);margin-bottom:1rem}.contributor-card h3{font-family:'Space Grotesk',sans-serif;color:var(--text-primary);font-size:1.2rem;margin-bottom:.3rem;text-transform:capitalize}.contributor-card .role{color:var(--text-secondary);font-size:.9rem;margin-bottom:.4rem}.contributor-card .joined{color:#6366f1;font-size:.78rem;font-weight:600;margin-top:.4rem;letter-spacing:.02em}</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3366"><link rel="apple-touch-icon" href="logo.png"><script type="application/ld+json">
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "HarshGuruJi",
-    "url": "https://www.webguruji.online",
-    "logo": "https://www.webguruji.online/logo.png",
-    "description": "India's most premium educational platform with AI.",
-    "sameAs": [
-      "https://github.com",
-      "https://guruai.zapier.app"
-    ]
-  }
-</script><meta http-equiv="X-XSS-Protection" content="1; mode=block">  <link rel="stylesheet" href="cookie.css">
-  <meta name="algolia-site-verification" content="DDB1E9756D46C4F7">
-  <!-- Algolia InstantSearch -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/satellite-min.css">
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.23.3/dist/algoliasearch-lite.umd.js" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.66.1/dist/instantsearch.production.min.js" defer=""></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contributors – HarshGuruJi</title>
+  <meta name="description" content="Meet the contributors behind HarshGuruJi.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+  
+  <style>
+    .contributors-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    /* Top Founder Card */
+    .head-contributor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(99, 102, 241, 0.15), var(--card-bg) 70%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,.6), 0 0 30px rgba(245, 158, 11, 0.08);
+      position: relative;
+    }
+    
+    .founder-avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .head-contributor img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #f59e0b;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+    }
+    
+    /* Left Corner Golden Tick Badge */
+    .golden-tick-badge-lg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      font-size: 16px;
+      font-weight: 900;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.85);
+      border: 3px solid #0f172a;
+      z-index: 5;
+    }
+    
+    .head-contributor h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      color: var(--text-primary);
+      margin-bottom: .4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .head-contributor p {
+      color: #f59e0b;
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+    }
+    
+    /* CTA Box */
+    .become-contributor-cta {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(236,72,153,0.12));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .become-contributor-cta h3 {
+      font-family: 'Space Grotesk',sans-serif;
+      font-size: 1.5rem;
+      color: #f8fafc;
+      margin-bottom: .6rem;
+    }
+    .become-contributor-cta p {
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-become {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .85rem 2rem;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Space Grotesk',sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 0 0 30px rgba(99,102,241,.4);
+    }
+    .btn-become:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(99,102,241,.6);
+    }
+    
+    /* Contributor Grid */
+    .section-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.75rem;
+    }
+    .section-title-wrap h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      color: #f8fafc;
+    }
+    
+    .contributors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.75rem;
+    }
+    
+    .contributor-card {
+      background: var(--card-bg, #131b2e);
+      border: 1px solid var(--card-border, #1e293b);
+      border-radius: 18px;
+      padding: 2rem 1.25rem;
+      text-align: center;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .contributor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.5);
+      border-color: #6366f1;
+    }
+    
+    .card-avatar-wrap {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin-bottom: 1.1rem;
+    }
+    .contributor-card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Contributor Avatar Corner Golden Tick */
+    .golden-tick-badge-card {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+      border: 2px solid #131b2e;
+      z-index: 3;
+    }
+    
+    .contributor-card h3 {
+      font-family: 'Space Grotesk',sans-serif;
+      color: var(--text-primary, #fff);
+      font-size: 1.25rem;
+      margin-bottom: .3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .contributor-card .role {
+      color: #818cf8;
+      font-size: .92rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .contributor-card .bio-snippet {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 0.85rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .contributor-card .social-links {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .contributor-card .social-links a {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contributor-card .social-links a:hover {
+      color: #60a5fa;
+    }
+    .contributor-card .joined {
+      color: #64748b;
+      font-size: .75rem;
+      font-weight: 500;
+      margin-top: auto;
+      letter-spacing: .02em;
+    }
+  </style>
 
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff3366">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
-</head><body>
+</head>
+<body>
 
-<!-- Mobile Full Screen Menu -->
-<div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header"><div class="badge">The Team</div><h1 class="page-title">Our <span class="gradient-text">Contributors</span></h1><p class="page-desc">Meet the amazing people who make HarshGuruJi possible.</p></section><section class="section section-dark" style="padding-top:0"><div class="contributors-container"><div class="head-contributor"><img src="Contributors/harsh.png" alt="Harsh Patel" width="800" height="600" loading="lazy" decoding="async"><h2>Harsh Patel</h2><p>Owner &amp; Founder of HarshGuruJi</p></div>
-  <!-- Become a Contributor CTA -->
-  <div class="become-contributor-cta" id="become-cta">
-    <h3>🌟 Want To Join Our Team?</h3>
-    <p>Become a contributor and share your knowledge with thousands of learners. Fill out a quick application to get started!</p>
-    <a href="apply-contributor.html" class="btn-become">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-      I Want To Become A Contributor
-    </a>
+<div id="scroll-progress"></div>
+<canvas id="particleCanvas"></canvas>
+
+<section class="section page-header">
+  <div class="badge">The Team</div>
+  <h1 class="page-title">Our <span class="gradient-text">Contributors</span></h1>
+  <p class="page-desc">Meet the amazing verified team and contributors who power HarshGuruJi.</p>
+</section>
+
+<section class="section section-dark" style="padding-top:0">
+  <div class="contributors-container">
+    
+    <!-- Founder & Admin At The Very Top -->
+    <div class="head-contributor">
+      <div class="founder-avatar-wrap">
+        <img src="Contributors/harsh.png" alt="Harsh Patel" width="140" height="140" loading="lazy" decoding="async">
+        <span class="golden-tick-badge-lg" title="Founder &amp; Golden Verified">✓</span>
+      </div>
+      <h2>
+        <span>Harsh Patel</span>
+      </h2>
+      <p>Owner &amp; Founder of HarshGuruJi</p>
+    </div>
+
+    <!-- Become a Contributor CTA -->
+    <div class="become-contributor-cta" id="become-cta">
+      <h3>🌟 Want To Join Our Verified Contributor Team?</h3>
+      <p>Share your technical skills, create educational guides, and contribute to HarshGuruJi. Submit your details for review by the admin!</p>
+      <a href="apply-contributor.html" class="btn-become">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        I Want To Become A Contributor
+      </a>
+    </div>
+
+    <!-- Activated Contributors Section Below Founder -->
+    <div class="section-title-wrap">
+      <h3>Verified Contributors</h3>
+      <span id="active-contributors-count" style="color: #94a3b8; font-size: 0.9rem;"></span>
+    </div>
+
+    <div class="contributors-grid" id="dynamic-contributors">
+      <!-- Fallback static contributors while loading or if offline -->
+      <div class="contributor-card">
+        <div class="card-avatar-wrap">
+          <img src="Contributors/aditya.png" alt="Aditya" loading="lazy">
+          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+        </div>
+        <h3>Aditya</h3>
+        <p class="role">Contributor</p>
+        <div class="joined">🗓 Verified Contributor</div>
+      </div>
+      
+      <div class="contributor-card">
+        <div class="card-avatar-wrap">
+          <img src="Contributors/gaurav.png" alt="Gaurav" loading="lazy">
+          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+        </div>
+        <h3>Gaurav</h3>
+        <p class="role">Contributor</p>
+        <div class="joined">🗓 Verified Contributor</div>
+      </div>
+      
+      <div class="contributor-card">
+        <div class="card-avatar-wrap">
+          <img src="Contributors/piyush.png" alt="Piyush" loading="lazy">
+          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+        </div>
+        <h3>Piyush</h3>
+        <p class="role">Contributor</p>
+        <div class="joined">🗓 Verified Contributor</div>
+      </div>
+      
+      <div class="contributor-card">
+        <div class="card-avatar-wrap">
+          <img src="Contributors/pratyush.png" alt="Pratyush" loading="lazy">
+          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+        </div>
+        <h3>Pratyush</h3>
+        <p class="role">Contributor</p>
+        <div class="joined">🗓 Verified Contributor</div>
+      </div>
+      
+      <div class="contributor-card">
+        <div class="card-avatar-wrap">
+          <img src="Contributors/swastik.png" alt="Swastik" loading="lazy">
+          <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+        </div>
+        <h3>Swastik</h3>
+        <p class="role">Contributor</p>
+        <div class="joined">🗓 Verified Contributor</div>
+      </div>
+    </div>
+
   </div>
-<div class="contributors-grid" id="dynamic-contributors">
-  <!-- Fallback static content while loading -->
-  <div class="contributor-card"><img src="Contributors/aditya.png" alt="Aditya" width="800" height="600" loading="lazy" decoding="async"><h3>Aditya</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/gaurav.png" alt="Gaurav" width="800" height="600" loading="lazy" decoding="async"><h3>Gaurav</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/piyush.png" alt="Piyush" width="800" height="600" loading="lazy" decoding="async"><h3>Piyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/pratyush.png" alt="Pratyush" width="800" height="600" loading="lazy" decoding="async"><h3>Pratyush</h3><p>Contributor</p></div><div class="contributor-card"><img src="Contributors/swastik.png" alt="Swastik" width="800" height="600" loading="lazy" decoding="async"><h3>Swastik</h3><p>Contributor</p></div>
-</div></div></section><script src="script.js" defer="true"></script><script src="navbar.js" defer="true"></script><script type="module" src="js/auth.js" defer="true"></script>
+</section>
+
+<script src="script.js" defer="true"></script>
+<script src="navbar.js" defer="true"></script>
+<script type="module" src="js/auth.js" defer="true"></script>
 
 <script type="module">
   import { supabase } from './js/supabase.js';
 
   document.addEventListener('DOMContentLoaded', async () => {
     try {
+      // Query all ACTIVE contributors
       const { data, error } = await supabase
         .from('contributors')
-        .select('display_name, role, profile_image_path, approved_at, created_at')
+        .select('display_name, full_name, role, bio, profile_image_path, instagram, youtube, approved_at, created_at')
         .eq('status', 'ACTIVE')
         .order('created_at', { ascending: true });
         
       if (!error && data && data.length > 0) {
         const grid = document.getElementById('dynamic-contributors');
-        grid.innerHTML = ''; // Clear fallback
+        const countSpan = document.getElementById('active-contributors-count');
         
-        data.forEach(contributor => {
-          if(contributor.display_name.toLowerCase().includes('harsh')) return;
+        // Filter out Harsh if duplicate in contributors table since he is already pinned at the top
+        const list = data.filter(c => !((c.display_name || '').toLowerCase().includes('harsh patel')));
+
+        if (countSpan) {
+          countSpan.textContent = `${list.length} Verified Member${list.length === 1 ? '' : 's'}`;
+        }
+
+        if (list.length > 0) {
+          grid.innerHTML = ''; // Clear fallback
           
-          const card = document.createElement('div');
-          card.className = 'contributor-card';
-          
-          const img = document.createElement('img');
-          img.src = contributor.profile_image_path || 'logo.png';
-          img.alt = contributor.display_name;
-          img.loading = 'lazy';
-          
-          const h3 = document.createElement('h3');
-          h3.textContent = contributor.display_name;
-          
-          const role = document.createElement('p');
-          role.className = 'role';
-          role.textContent = contributor.role;
-          
-          const joined = document.createElement('div');
-          joined.className = 'joined';
-          const joinDate = contributor.approved_at || contributor.created_at;
-          joined.textContent = '🗓 Contributor since ' + new Date(joinDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'long' });
-          
-          card.appendChild(img);
-          card.appendChild(h3);
-          card.appendChild(role);
-          card.appendChild(joined);
-          
-          grid.appendChild(card);
-        });
+          list.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'contributor-card';
+            
+            const avatarWrap = document.createElement('div');
+            avatarWrap.className = 'card-avatar-wrap';
+
+            const img = document.createElement('img');
+            img.src = c.profile_image_path || 'logo.png';
+            img.alt = c.display_name || 'Contributor';
+            img.loading = 'lazy';
+            img.onerror = () => { img.src = 'logo.png'; };
+
+            const tick = document.createElement('span');
+            tick.className = 'golden-tick-badge-card';
+            tick.title = 'Golden Verified Contributor';
+            tick.textContent = '✓';
+
+            avatarWrap.appendChild(img);
+            avatarWrap.appendChild(tick);
+            
+            const h3 = document.createElement('h3');
+            h3.textContent = c.display_name || 'Contributor';
+            
+            const role = document.createElement('p');
+            role.className = 'role';
+            role.textContent = c.role || 'Contributor';
+            
+            card.appendChild(avatarWrap);
+            card.appendChild(h3);
+            card.appendChild(role);
+
+            if (c.bio) {
+              const bio = document.createElement('p');
+              bio.className = 'bio-snippet';
+              bio.textContent = c.bio;
+              card.appendChild(bio);
+            }
+
+            // Social links
+            if (c.instagram || c.youtube) {
+              const socials = document.createElement('div');
+              socials.className = 'social-links';
+              if (c.instagram) {
+                const ig = document.createElement('a');
+                ig.href = c.instagram;
+                ig.target = '_blank';
+                ig.rel = 'noopener noreferrer';
+                ig.textContent = '📸 Instagram';
+                socials.appendChild(ig);
+              }
+              if (c.youtube) {
+                const yt = document.createElement('a');
+                yt.href = c.youtube;
+                yt.target = '_blank';
+                yt.rel = 'noopener noreferrer';
+                yt.textContent = '▶ YouTube';
+                socials.appendChild(yt);
+              }
+              card.appendChild(socials);
+            }
+            
+            const joined = document.createElement('div');
+            joined.className = 'joined';
+            const joinDate = c.approved_at || c.created_at;
+            if (joinDate) {
+              joined.textContent = '🗓 Joined ' + new Date(joinDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            } else {
+              joined.textContent = '⭐ Verified Contributor';
+            }
+            card.appendChild(joined);
+            
+            grid.appendChild(card);
+          });
+        }
       }
     } catch (err) {
-      console.error('Failed to load contributors', err);
+      console.error('Failed to load dynamic contributors:', err);
     }
   });
 </script>
 
-  <script src="js/button_handlers.js" defer=""></script>
-  <script src="cookie.js" defer=""></script>
-
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
-</body></html>
+<script src="js/button_handlers.js" defer=""></script>
+<script src="cookie.js" defer=""></script>
+<script src="navbar-premium.js"></script>
+<script src="footer-premium.js"></script>
+</body>
+</html>

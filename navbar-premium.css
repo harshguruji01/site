@@ -248,11 +248,40 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.hg-user-trigger img {
+.hg-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.hg-avatar-wrap img, .hg-user-trigger img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.golden-tick-badge {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #ffd700, #f59e0b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.85);
+  border: 1.5px solid #0f172a;
+  color: #0f172a;
+  font-size: 8.5px;
+  font-weight: 900;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .hg-user-trigger svg {
