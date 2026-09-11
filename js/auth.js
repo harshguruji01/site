@@ -170,16 +170,20 @@ export async function signInWithGoogle() {
     const user = result.user;
     user.id = user.uid;
 
-    // Ensure Firestore profile is updated with Google photo and name
-    const existing = await getProfile(user.uid);
-    if (!existing) {
-      await updateProfile(user.uid, {
-        id: user.uid,
-        display_name: user.displayName || user.email.split('@')[0],
-        avatar_url: user.photoURL || null,
-        email: user.email,
-        created_at: new Date().toISOString()
-      });
+    // Safely ensure Firestore profile is updated with Google photo and name
+    try {
+      const existing = await getProfile(user.uid);
+      if (!existing) {
+        await updateProfile(user.uid, {
+          id: user.uid,
+          display_name: user.displayName || (user.email ? user.email.split('@')[0] : "User"),
+          avatar_url: user.photoURL || null,
+          email: user.email,
+          created_at: new Date().toISOString()
+        });
+      }
+    } catch (profileErr) {
+      console.warn("Notice: Firestore profile sync will complete in AuthManager listener:", profileErr);
     }
 
     return { user };
@@ -188,8 +192,14 @@ export async function signInWithGoogle() {
     let message = error.message;
     if (error.code === 'auth/popup-closed-by-user') {
       message = "Google sign-in popup was closed before completing.";
+    } else if (error.code === 'auth/popup-blocked') {
+      message = "The sign-in popup was blocked by your browser. Please allow popups for this site.";
     } else if (error.code === 'auth/unauthorized-domain') {
-      message = "This domain is not authorized in Firebase Console (Authentication > Settings > Authorized domains).";
+      message = "This domain is not in your Firebase Authorized Domains. Add it in Firebase Console > Authentication > Settings > Authorized domains.";
+    } else if (error.code === 'auth/operation-not-allowed') {
+      message = "Google sign-in is not enabled in Firebase Console. Go to Authentication > Sign-in method and enable Google.";
+    } else if (error.code === 'auth/network-request-failed') {
+      message = "Network error. Please check your internet connection and try again.";
     }
     throw new Error(message);
   }

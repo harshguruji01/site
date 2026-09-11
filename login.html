@@ -216,10 +216,16 @@
     googleBtn.addEventListener('click', async () => {
       try {
         errorDiv.style.display = 'none';
+        googleBtn.disabled = true;
+        googleBtn.style.opacity = '0.7';
         await signInWithGoogle();
+        window.location.href = '/dashboard.html';
       } catch (err) {
         errorDiv.textContent = 'Google sign-in failed: ' + err.message;
         errorDiv.style.display = 'block';
+      } finally {
+        googleBtn.disabled = false;
+        googleBtn.style.opacity = '1';
       }
     });
 
