@@ -1,13 +1,14 @@
-import { supabase } from './supabase.js';
+import { db, auth } from './firebase.js';
+import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 export async function trackActivity(eventParams) {
     try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return; // Only track authenticated users
+        const user = auth.currentUser;
+        if (!user) return; // Only track authenticated users
         
-        const userId = session.user.id;
+        const userId = user.uid;
         
-        // Auto-detect missing fields using the logic we built in navbar
+        // Auto-detect missing fields
         const path = window.location.pathname;
         let defaultPageType = 'other';
         const normalPages = ['/', '/index.html', 'ai-hub.html', 'tool-hub.html', 'free-tools.html', 'gaming-hub.html', 'learning-hub.html', 'store.html', 'daily-special.html', 'about.html', 'contact.html', 'dashboard.html'];
@@ -28,7 +29,8 @@ export async function trackActivity(eventParams) {
             page_type: eventParams.page_type || defaultPageType,
             page_name: eventParams.page_name || defaultPageName,
             page_path: eventParams.page_path || path,
-            metadata: eventParams.metadata || {}
+            metadata: eventParams.metadata || {},
+            timestamp: new Date().toISOString()
         };
         
         // Prevent massive duplicate page_view floods in single session state changes
@@ -36,19 +38,16 @@ export async function trackActivity(eventParams) {
             const cacheKey = `last_page_view_${payload.page_path}`;
             const lastView = sessionStorage.getItem(cacheKey);
             const now = Date.now();
-            // Debounce page views for the same path to 1 minute
             if (lastView && now - parseInt(lastView) < 60000) {
                 return;
             }
             sessionStorage.setItem(cacheKey, now.toString());
         }
 
-        const { error } = await supabase.from('user_activity').insert([payload]);
-        if (error) {
-            console.error("Error tracking activity:", error);
-        }
+        await addDoc(collection(db, 'activities'), payload);
     } catch (err) {
-        console.error("Activity tracking failed:", err);
+        // Silently catch tracking errors so application flow is never disrupted
+        console.warn("Activity tracking notice:", err);
     }
 }
 

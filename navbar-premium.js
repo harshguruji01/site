@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Desktop Navigation -->
         <nav class="hg-desktop-nav">
           <ul class="hg-nav-list">
-            <li class="hg-nav-item"><a href="${prefix}index.html#3d" class="hg-nav-link" style="color:var(--primary, #ff6b4a); font-weight:700;" onclick="if(window.UniverseEngine){window.UniverseEngine.enter3DMode();return false;}">🌌 3D Universe</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link">Daily Special</a></li>
             
             <li class="hg-nav-item hg-has-dropdown">
@@ -117,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="hg-mobile-scroll">
         <ul class="hg-mobile-list">
           <li><a href="${prefix}index.html" class="hg-mobile-link">Home</a></li>
-          <li><a href="${prefix}index.html#3d" class="hg-mobile-link" style="color:var(--primary, #ff6b4a); font-weight:700;" onclick="if(window.UniverseEngine){window.UniverseEngine.enter3DMode(); const mob = document.getElementById('hg-mobile-nav'); if(mob){mob.classList.remove('hg-active'); mob.setAttribute('aria-hidden','true');} return false;}">🌌 3D Universe</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link">Daily Special</a></li>
           
           <li class="hg-mobile-item hg-has-accordion">

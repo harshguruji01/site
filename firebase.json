@@ -42,12 +42,24 @@
           },
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self' https://pagead2.googlesyndication.com https://firebase.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com 'unsafe-inline' 'unsafe-eval' data: blob:;"
+            "value": "default-src 'self' https://pagead2.googlesyndication.com https://firebase.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://accounts.google.com https://apis.google.com https://*.firebaseapp.com 'unsafe-inline' 'unsafe-eval' data: blob:;"
           }
         ]
       }
     ],
     "cleanUrls": true,
     "trailingSlash": false
+  },
+  "auth": {
+    "providers": {
+      "emailPassword": true,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "HarshGuruJi"
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

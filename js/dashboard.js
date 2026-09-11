@@ -1,35 +1,45 @@
-import { supabase } from './supabase.js';
+import { auth, db } from './firebase.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { collection, query, where, getDocs, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 export class DashboardManager {
     constructor() {
         this.activities = [];
         this.isLoading = true;
+        this.userId = null;
     }
 
     async init() {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-            window.location.href = 'login.html';
-            return;
-        }
-
-        this.userId = session.user.id;
-        await this.fetchData();
-        this.renderAll();
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            this.userId = user.uid;
+            await this.fetchData();
+            this.renderAll();
+        });
     }
 
     async fetchData() {
         try {
-            const { data, error } = await supabase
-                .from('user_activity')
-                .select('*')
-                .order('timestamp', { ascending: false });
-                
-            if (error) throw error;
-            this.activities = data || [];
+            if (!this.userId) return;
+            const activitiesRef = collection(db, 'activities');
+            const q = query(activitiesRef, where('user_id', '==', this.userId));
+            const querySnapshot = await getDocs(q);
+            
+            const list = [];
+            querySnapshot.forEach(docSnap => {
+                list.push({ id: docSnap.id, ...docSnap.data() });
+            });
+
+            // Sort descending by timestamp
+            list.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+            this.activities = list;
             this.isLoading = false;
         } catch (err) {
-            console.error("Failed to load dashboard data:", err);
+            console.warn("Failed to load dashboard activities from Firestore:", err);
+            this.activities = [];
             this.isLoading = false;
         }
     }
@@ -52,16 +62,11 @@ export class DashboardManager {
         if (!container) return;
 
         try {
-            // Check contributor status
-            const { data: contributor, error: cErr } = await supabase
-                .from('contributors')
-                .select('status')
-                .eq('user_id', this.userId)
-                .order('created_at', { ascending: false })
-                .limit(1)
-                .single();
+            if (!this.userId) return;
+            const contribDoc = await getDoc(doc(db, 'contributors', this.userId));
 
-            if (contributor) {
+            if (contribDoc.exists()) {
+                const contributor = contribDoc.data();
                 if (contributor.status === 'ACTIVE') {
                     container.innerHTML = `
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
@@ -82,7 +87,6 @@ export class DashboardManager {
                     `;
                 }
             } else {
-                // Not applied
                 container.innerHTML = `
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
                     <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
@@ -90,13 +94,12 @@ export class DashboardManager {
                 `;
             }
         } catch (err) {
-            console.error("Failed to load contributor status:", err);
-            // Ignore single fetch errors (like no rows found), treat as not applied
+            console.warn("Failed to load contributor status:", err);
             container.innerHTML = `
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
-                    <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
-                `;
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Share your skills and help build HarshGuruJi.</p>
+                <a href="join-contributor.html" class="premium-btn-primary" style="display:inline-block; text-decoration:none;">Join as Contributor</a>
+            `;
         }
     }
 
@@ -104,31 +107,38 @@ export class DashboardManager {
         const accountCreatedEvent = this.activities.find(a => a.activity_type === 'account_created');
         const creationDate = accountCreatedEvent 
             ? new Date(accountCreatedEvent.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-            : "Unknown";
+            : (auth.currentUser?.metadata?.creationTime ? new Date(auth.currentUser.metadata.creationTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Active");
             
         const lastActive = this.activities.length > 0 
             ? this.timeAgo(this.activities[0].timestamp)
-            : "Never";
+            : "Recently";
 
-        document.getElementById('member-since').textContent = creationDate;
-        document.getElementById('last-active').textContent = lastActive;
+        const memberEl = document.getElementById('member-since');
+        if (memberEl) memberEl.textContent = creationDate;
+        const lastActiveEl = document.getElementById('last-active');
+        if (lastActiveEl) lastActiveEl.textContent = lastActive;
     }
 
     renderStatsCards() {
-        document.getElementById('total-activity-count').textContent = this.activities.length;
+        const totalEl = document.getElementById('total-activity-count');
+        if (totalEl) totalEl.textContent = this.activities.length;
         
         const toolsUsed = new Set(this.activities.filter(a => a.page_type === 'tool').map(a => a.page_path)).size;
-        document.getElementById('tools-used-count').textContent = toolsUsed;
+        const toolsEl = document.getElementById('tools-used-count');
+        if (toolsEl) toolsEl.textContent = toolsUsed;
 
         const gamesPlayed = new Set(this.activities.filter(a => a.page_type === 'game').map(a => a.page_path)).size;
-        document.getElementById('games-played-count').textContent = gamesPlayed;
+        const gamesEl = document.getElementById('games-played-count');
+        if (gamesEl) gamesEl.textContent = gamesPlayed;
         
         const learningPages = new Set(this.activities.filter(a => a.page_type === 'learning').map(a => a.page_path)).size;
-        document.getElementById('learning-activity-count').textContent = learningPages;
+        const learnEl = document.getElementById('learning-activity-count');
+        if (learnEl) learnEl.textContent = learningPages;
     }
 
     renderTimeline() {
         const container = document.getElementById('recent-activity-container');
+        if (!container) return;
         container.innerHTML = '';
         
         if (this.activities.length === 0) {
@@ -169,6 +179,7 @@ export class DashboardManager {
 
         const sorted = Object.values(counts).sort((a, b) => b.count - a.count).slice(0, 5);
         const container = document.getElementById('most-visited-container');
+        if (!container) return;
         container.innerHTML = '';
 
         if (sorted.length === 0) {
@@ -190,7 +201,7 @@ export class DashboardManager {
 
     renderCategorized(pageType, containerId) {
         const container = document.getElementById(containerId);
-        if(!container) return;
+        if (!container) return;
         
         const counts = {};
         let lastUsed = {};
@@ -212,11 +223,11 @@ export class DashboardManager {
         container.innerHTML = '';
 
         if (items.length === 0) {
-            container.parentElement.style.display = 'none';
+            if (container.parentElement) container.parentElement.style.display = 'none';
             return;
         }
         
-        container.parentElement.style.display = 'block';
+        if (container.parentElement) container.parentElement.style.display = 'block';
 
         items.forEach(item => {
             const el = document.createElement('div');
@@ -231,6 +242,7 @@ export class DashboardManager {
     }
 
     timeAgo(dateString) {
+        if (!dateString) return "Recently";
         const date = new Date(dateString);
         const seconds = Math.floor((new Date() - date) / 1000);
         
@@ -252,6 +264,6 @@ export class DashboardManager {
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
     const dashboard = new DashboardManager();
-    // Expose for debugging or UI callbacks
     window.Dashboard = dashboard; 
+    dashboard.init();
 });
