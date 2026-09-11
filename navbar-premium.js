@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Desktop Navigation -->
         <nav class="hg-desktop-nav">
           <ul class="hg-nav-list">
+            <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link">Home</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link">Daily Special</a></li>
             
             <li class="hg-nav-item hg-has-dropdown">
