@@ -325,13 +325,13 @@ window.activateContributor = async function(appId, userId) {
                 .update({ golden_tick: true })
                 .eq('id', userId);
         } else {
-            // Find user in applications
+            // Find user in applications by exact email
             const app = applicationsData.find(a => a.id === appId);
-            if (app && app.display_name) {
+            if (app && app.email) {
                 await supabase
                     .from('profiles')
                     .update({ golden_tick: true })
-                    .ilike('display_name', app.display_name);
+                    .eq('email', app.email.trim());
             }
         }
 
@@ -368,11 +368,11 @@ window.deactivateContributor = async function(appId, userId) {
                 .eq('id', userId);
         } else {
             const app = applicationsData.find(a => a.id === appId);
-            if (app && app.display_name) {
+            if (app && app.email) {
                 await supabase
                     .from('profiles')
                     .update({ golden_tick: false })
-                    .ilike('display_name', app.display_name);
+                    .eq('email', app.email.trim());
             }
         }
 

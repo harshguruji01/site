@@ -49,6 +49,7 @@ export const AuthManager = {
         display_name: userMetadata.full_name || userMetadata.name || (user.email ? user.email.split('@')[0] : 'User'),
         avatar_url: userMetadata.avatar_url || userMetadata.picture || null,
         email: user.email,
+        golden_tick: false,
         updated_at: new Date().toISOString(),
       };
       profile = await updateProfile(user.id, newProfile);
@@ -61,28 +62,47 @@ export const AuthManager = {
         metadata: { provider: user.app_metadata?.provider || 'supabase' }
       });
     }
-    this.currentProfile = profile;
 
     // Track standard page view
     await trackActivity({ activity_type: 'page_view' });
 
-    // Check contributor status - hide "Want to become a contributor" button if user is already an active contributor
-    try {
-      const isOwner = (user.email || '').toLowerCase() === 'harshguruji01@gmail.com';
-      const hasGoldenTick = this.currentProfile && this.currentProfile.golden_tick === true;
-      let isContributor = isOwner || hasGoldenTick;
+    // Verify contributor and golden_tick integrity
+    const userEmail = (user.email || '').toLowerCase();
+    const isOwner = userEmail === 'harshguruji01@gmail.com';
+    let isContributor = isOwner;
 
-      if (!isContributor) {
-        const { data: contributorData } = await supabase
-          .from('contributors')
-          .select('id, status')
-          .eq('user_id', user.id)
-          .in('status', ['ACTIVE', 'approved'])
-          .maybeSingle();
-          
-        if (contributorData) isContributor = true;
+    try {
+      // Check if user has an active, verified contributor record
+      const { data: contributorData } = await supabase
+        .from('contributors')
+        .select('id, status, verified')
+        .eq('user_id', user.id)
+        .in('status', ['ACTIVE', 'approved'])
+        .maybeSingle();
+
+      if (contributorData && (contributorData.verified === true || contributorData.status === 'ACTIVE')) {
+        isContributor = true;
       }
 
+      // Safety: If profile has golden_tick = true but user is NOT the owner and NOT an active approved contributor, revoke golden_tick immediately!
+      if (profile && profile.golden_tick === true && !isContributor) {
+        profile.golden_tick = false;
+        await supabase
+          .from('profiles')
+          .update({ golden_tick: false })
+          .eq('id', user.id);
+      }
+
+      // Conversely, if user IS owner or verified contributor, ensure golden_tick is true
+      if (profile && profile.golden_tick !== true && isContributor) {
+        profile.golden_tick = true;
+        await supabase
+          .from('profiles')
+          .update({ golden_tick: true })
+          .eq('id', user.id);
+      }
+
+      // Hide contributor CTA buttons if already a verified contributor or owner
       if (isContributor) {
         const indexCta = document.getElementById('contributor-cta');
         if (indexCta) indexCta.style.display = 'none';
@@ -90,8 +110,10 @@ export const AuthManager = {
         if (pageCta) pageCta.style.display = 'none';
       }
     } catch(err) {
-      // Non-critical
+      console.warn("Contributor status check notice:", err);
     }
+
+    this.currentProfile = profile;
 
     // Dispatch global event for UI updates (navbar, dashboard, settings, contributor)
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 
