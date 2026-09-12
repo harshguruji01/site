@@ -606,10 +606,157 @@
 }
 
 
-/* --- RESPONSIVE BREAKPOINTS --- */
+/* --- MOBILE & TABLET BOTTOM NAVIGATION BAR (Low-Ratio Devices Only) --- */
+.hg-bottom-bar {
+  display: none !important;
+}
+
+/* --- RESPONSIVE BREAKPOINTS (Mobile & Tablet: <= 1024px) --- */
 @media (max-width: 1024px) {
   .hg-desktop-nav { display: none; }
   .hg-hamburger { display: flex; }
+
+  /* Add bottom padding to body on mobile & tablet so content is never blocked */
+  body {
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Show Bottom Navigation Bar on Mobile & Tablet devices */
+  .hg-bottom-bar {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    background: rgba(10, 14, 26, 0.94) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6) !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    z-index: 1200 !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .hg-bottom-item {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none !important;
+    color: #94a3b8;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 6px 4px 4px 4px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .hg-bottom-item:active {
+    transform: scale(0.92);
+  }
+
+  .hg-bottom-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    transition: all 0.2s ease;
+  }
+
+  .hg-bottom-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #94a3b8;
+    transition: all 0.2s ease;
+  }
+
+  .hg-bottom-label {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  /* Active Navigation Tab */
+  .hg-bottom-item.active {
+    color: #ff6b4a;
+  }
+
+  .hg-bottom-item.active .hg-bottom-icon svg {
+    stroke: #ff6b4a;
+    filter: drop-shadow(0 0 8px rgba(255, 107, 74, 0.6));
+    transform: translateY(-2px);
+  }
+
+  .hg-bottom-item.active .hg-bottom-label {
+    color: #ff6b4a;
+    font-weight: 700;
+  }
+
+  /* Glowing indicator on top edge of active tab */
+  .hg-bottom-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, #ff6b4a, #ec4899);
+    box-shadow: 0 2px 10px rgba(255, 107, 74, 0.8);
+  }
+
+  /* Profile Avatar in Bottom Bar */
+  #bottom-auth-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #ff6b4a;
+    box-shadow: 0 0 8px rgba(255, 107, 74, 0.4);
+  }
+
+  .bottom-golden-tick {
+    position: absolute;
+    bottom: -2px;
+    right: -4px;
+    width: 13px;
+    height: 13px;
+    background: linear-gradient(135deg, #ffd700, #f59e0b);
+    color: #0f172a;
+    border-radius: 50%;
+    font-size: 8.5px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #0b0f19;
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.85);
+  }
+
+  /* On mobile/tablet screens, hide top header login button so it's clean and centered in bottom bar */
+  #hg-login-btn {
+    display: none !important;
+  }
 }
 
 @media (max-width: 768px) {

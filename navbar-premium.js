@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Remove old implementations if present
   const oldNav = document.getElementById('hg-global-navbar');
   const oldMobile = document.getElementById('hg-mobile-nav');
+  const oldBottom = document.getElementById('hg-bottom-bar');
   if (oldNav) oldNav.remove();
   if (oldMobile) oldMobile.remove();
+  if (oldBottom) oldBottom.remove();
   
   // Legacy cleanup
   document.querySelectorAll('.premium-navbar, .premium-mobile-nav').forEach(el => el.remove());
@@ -170,10 +172,55 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
         
         <div class="hg-mobile-footer-actions">
-           <a href="${prefix}login.html" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
+           <a href="${prefix}login.html" id="hg-mobile-drawer-auth" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
         </div>
       </div>
     </div>
+
+    <!-- Mobile & Tablet Bottom Navigation Bar (Low-Ratio Devices Only) -->
+    <nav class="hg-bottom-bar" id="hg-bottom-bar" aria-label="Mobile Navigation">
+      <a href="${prefix}index.html" class="hg-bottom-item" id="bottom-nav-home">
+        <span class="hg-bottom-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Home</span>
+      </a>
+
+      <a href="${prefix}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial">
+        <span class="hg-bottom-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Daily Special</span>
+      </a>
+
+      <a href="${prefix}store.html" class="hg-bottom-item" id="bottom-nav-store">
+        <span class="hg-bottom-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Store</span>
+      </a>
+
+      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth">
+        <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
+          <svg id="bottom-auth-default-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <img id="bottom-auth-avatar" src="${prefix}logo.png" alt="Profile" style="display:none;" />
+          <span id="bottom-golden-tick" class="bottom-golden-tick" style="display:none;">✓</span>
+        </span>
+        <span class="hg-bottom-label" id="bottom-auth-label">Login</span>
+      </a>
+    </nav>
   `;
 
   document.body.insertAdjacentHTML('afterbegin', navHTML);
@@ -233,6 +280,23 @@ document.addEventListener('DOMContentLoaded', () => {
         closeMobileMenu();
       }
     });
+  }
+
+  // Highlight active bottom navigation tab based on URL path
+  const currentNavPath = (window.location.pathname || '').toLowerCase();
+  const isHomePath = currentNavPath.endsWith('/') || currentNavPath.endsWith('/index.html') || currentNavPath.endsWith('site/') || currentNavPath === '';
+  const isDailySpecialPath = currentNavPath.includes('daily-special');
+  const isStorePath = currentNavPath.includes('store') || currentNavPath.includes('app.html');
+  const isAuthPath = currentNavPath.includes('login') || currentNavPath.includes('signup') || currentNavPath.includes('dashboard') || currentNavPath.includes('settings');
+
+  if (isHomePath) {
+    document.getElementById('bottom-nav-home')?.classList.add('active');
+  } else if (isDailySpecialPath) {
+    document.getElementById('bottom-nav-dailyspecial')?.classList.add('active');
+  } else if (isStorePath) {
+    document.getElementById('bottom-nav-store')?.classList.add('active');
+  } else if (isAuthPath) {
+    document.getElementById('bottom-nav-auth')?.classList.add('active');
   }
 
   // 3. Mobile Accordions (for More section)
@@ -734,14 +798,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const userAvatar = document.getElementById('hg-user-avatar');
     const notifBox = document.getElementById('hg-notif-container');
 
+    const bottomAuthItem = document.getElementById('bottom-nav-auth');
+    const bottomAuthLabel = document.getElementById('bottom-auth-label');
+    const bottomAuthDefaultIcon = document.getElementById('bottom-auth-default-icon');
+    const bottomAuthAvatar = document.getElementById('bottom-auth-avatar');
+    const bottomGoldenTick = document.getElementById('bottom-golden-tick');
+    const mobileDrawerAuth = document.getElementById('hg-mobile-drawer-auth');
+
     if (user) {
       if (loginBtn) loginBtn.style.display = 'none';
       if (userMenu) userMenu.style.display = 'block';
       if (notifBox) notifBox.style.display = 'flex';
       
       const displayName = (profile && profile.display_name) || user.email.split('@')[0];
+      const avatarUrl = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
       if (userAvatar) {
-        userAvatar.src = (profile && profile.avatar_url) || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+        userAvatar.src = avatarUrl;
+      }
+
+      // Update Bottom Bar Auth Tab to Profile
+      if (bottomAuthItem) {
+        bottomAuthItem.href = prefix + 'dashboard.html';
+        const p = (window.location.pathname || '').toLowerCase();
+        if (p.includes('dashboard') || p.includes('settings')) {
+          bottomAuthItem.classList.add('active');
+        }
+      }
+      if (bottomAuthLabel) {
+        bottomAuthLabel.textContent = 'Profile';
+      }
+      if (bottomAuthDefaultIcon) {
+        bottomAuthDefaultIcon.style.display = 'none';
+      }
+      if (bottomAuthAvatar) {
+        bottomAuthAvatar.src = avatarUrl;
+        bottomAuthAvatar.style.display = 'block';
+      }
+      if (bottomGoldenTick) {
+        bottomGoldenTick.style.display = (profile && profile.golden_tick === true) ? 'flex' : 'none';
+      }
+      if (mobileDrawerAuth) {
+        mobileDrawerAuth.href = prefix + 'dashboard.html';
+        mobileDrawerAuth.textContent = 'My Profile & Dashboard';
       }
 
       // Left-corner Golden Tick on user profile avatar
@@ -769,6 +867,31 @@ document.addEventListener('DOMContentLoaded', () => {
       if (notifBox) notifBox.style.display = 'none';
       toggleNotifDropdown(false);
       window._currentNavUserId = null;
+
+      // Update Bottom Bar Auth Tab to Login
+      if (bottomAuthItem) {
+        bottomAuthItem.href = prefix + 'login.html';
+        const p = (window.location.pathname || '').toLowerCase();
+        if (p.includes('login') || p.includes('signup')) {
+          bottomAuthItem.classList.add('active');
+        }
+      }
+      if (bottomAuthLabel) {
+        bottomAuthLabel.textContent = 'Login';
+      }
+      if (bottomAuthDefaultIcon) {
+        bottomAuthDefaultIcon.style.display = 'block';
+      }
+      if (bottomAuthAvatar) {
+        bottomAuthAvatar.style.display = 'none';
+      }
+      if (bottomGoldenTick) {
+        bottomGoldenTick.style.display = 'none';
+      }
+      if (mobileDrawerAuth) {
+        mobileDrawerAuth.href = prefix + 'login.html';
+        mobileDrawerAuth.textContent = 'Sign In to HarshGuruJi';
+      }
     }
   };
 
