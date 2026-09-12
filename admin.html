@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
+  <meta name="referrer" content="same-origin">
   <title>Master Admin Command Center | HarshGuruJi</title>
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2021,6 +2021,7 @@
     import { supabase } from './js/supabase.js';
     window.supabaseClient = supabase;
   </script>
+  <script src="js/admin-bridge.js"></script>
 
   <!-- Master Control Center Controller -->
   <script>
@@ -2132,13 +2133,20 @@
 
       // Lock / Logout button
       btnLock.addEventListener('click', () => {
-        sessionStorage.removeItem(SESSION_KEY);
+        if (window.clearAdminSessions) {
+          window.clearAdminSessions();
+        } else {
+          sessionStorage.removeItem(SESSION_KEY);
+        }
         window.location.reload();
       });
 
       function unlockDashboard() {
         securityGate.style.display = 'none';
         adminDashboard.style.display = 'block';
+        if (window.setupAdminMasterLinks) {
+          window.setupAdminMasterLinks();
+        }
         loadAllMasterData();
       }
     }

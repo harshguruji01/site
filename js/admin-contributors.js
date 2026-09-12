@@ -19,10 +19,20 @@ function initAuthGate() {
     const lockBtn = document.getElementById('btn-lock');
 
     function unlockAdmin() {
-        sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
+        if (window.grantDirectAdminAccess) {
+            window.grantDirectAdminAccess();
+        } else {
+            sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
+        }
         if (authGate) authGate.style.display = 'none';
         if (adminApp) adminApp.style.display = 'block';
         waitForSupabaseAndLoad();
+    }
+
+    // 1. Check if entering from admin.html or already authenticated in session
+    if (window.checkAdminAccess && window.checkAdminAccess()) {
+        unlockAdmin();
+        return;
     }
 
     // Check existing unlock in session
@@ -51,10 +61,10 @@ function initAuthGate() {
         authForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const val = passInput.value.trim();
-            if (val === ADMIN_PASS) {
+            if (val.toLowerCase() === ADMIN_PASS.toLowerCase()) {
                 unlockAdmin();
             } else {
-                showToast("Invalid password! Access denied.", "error");
+                showToast("Invalid admin email password! Access denied.", "error");
                 passInput.value = '';
                 passInput.focus();
             }
@@ -63,7 +73,11 @@ function initAuthGate() {
 
     if (lockBtn) {
         lockBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('hg_contributor_admin_unlocked');
+            if (window.clearAdminSessions) {
+                window.clearAdminSessions();
+            } else {
+                sessionStorage.removeItem('hg_contributor_admin_unlocked');
+            }
             window.location.href = 'index.html';
         });
     }

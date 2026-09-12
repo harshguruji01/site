@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
+  <meta name="referrer" content="same-origin">
   <title>Admin - Contributor & Verification Management | HarshGuruJi</title>
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -710,12 +710,13 @@
   </div>
 
   <!-- Supabase & Controller Script -->
+  <script src="js/admin-bridge.js"></script>
   <script type="module">
     import { supabase } from './js/supabase.js';
     import { getProfile } from './js/profile.js';
     window.supabaseClient = supabase;
     window.getProfile = getProfile;
   </script>
-  <script src="js/admin-contributors.js?v=3" defer></script>
+  <script src="js/admin-contributors.js?v=4" defer></script>
 </body>
 </html>

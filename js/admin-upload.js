@@ -7,25 +7,49 @@ let appsCache = []; // Global cache for loaded apps
 let downloadsCache = []; // Cache for user downloads
 
 function initCustomAuth() {
-    // 1-step security check: Verify admin email
+    // 1. Check if entering from admin.html or already authenticated in session
+    if (window.checkAdminAccess && window.checkAdminAccess()) {
+        grantAdminAccess("harshguruji01@gmail.com");
+        return;
+    }
+
     const cachedEmail = sessionStorage.getItem('admin_apk_email');
     if (cachedEmail === "harshguruji01@gmail.com") {
         grantAdminAccess(cachedEmail);
         return;
     }
 
-    const inputEmail = prompt("Enter Admin Email (Step 1):");
-    const email = (inputEmail || '').trim().toLowerCase();
+    // Direct URL entry: Show in-page password gate card
+    const unauthBox = document.getElementById('unauthorized-msg');
+    const authForm = document.getElementById('apk-auth-gate-form');
+    const passInput = document.getElementById('apk-admin-pass-input');
+    const authErr = document.getElementById('apk-auth-error');
 
-    if (email !== "harshguruji01@gmail.com") {
-        alert("Access Denied: Only harshguruji01@gmail.com is authorized to manage APKs.");
-        window.location.href = "index.html";
-        return;
+    if (unauthBox) unauthBox.style.display = 'flex';
+    const adminContent = document.getElementById('admin-content');
+    if (adminContent) adminContent.style.display = 'none';
+
+    if (authForm && passInput) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = passInput.value.trim();
+            if (val.toLowerCase() === "harshguruji01@gmail.com") {
+                if (window.grantDirectAdminAccess) {
+                    window.grantDirectAdminAccess();
+                } else {
+                    sessionStorage.setItem('admin_apk_email', "harshguruji01@gmail.com");
+                }
+                grantAdminAccess("harshguruji01@gmail.com");
+            } else {
+                if (authErr) {
+                    authErr.style.display = 'block';
+                    setTimeout(() => { if (authErr) authErr.style.display = 'none'; }, 3500);
+                }
+                passInput.value = '';
+                passInput.focus();
+            }
+        });
     }
-
-    // Save verified session
-    sessionStorage.setItem('admin_apk_email', email);
-    grantAdminAccess(email);
 }
 
 function grantAdminAccess(email) {
@@ -63,7 +87,11 @@ function initAdmin() {
     });
 
     document.getElementById('btn-logout').addEventListener('click', () => {
-        sessionStorage.removeItem('admin_apk_email');
+        if (window.clearAdminSessions) {
+            window.clearAdminSessions();
+        } else {
+            sessionStorage.removeItem('admin_apk_email');
+        }
         window.location.href = 'index.html';
     });
 

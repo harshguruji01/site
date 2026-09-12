@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
+  <meta name="referrer" content="same-origin">
   <title>Admin Contacts & Feedback Management – HarshGuruJi</title>
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -518,26 +518,29 @@
 
   <div id="admin-toast"></div>
 
-  <!-- Supabase Import -->
+  <!-- Admin Bridge & Supabase Import -->
+  <script src="js/admin-bridge.js"></script>
   <script type="module">
     import { supabase } from './js/supabase.js';
     window._supabase = supabase;
 
-    // Check if user is already signed in with harshguruji01@gmail.com
     document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Check if entering from admin.html or already authenticated in session
+      if (window.checkAdminAccess && window.checkAdminAccess()) {
+        unlockDashboard();
+        return;
+      }
+
+      // 2. Check if user is signed into Supabase as master admin
       try {
         const { data: { session } } = await supabase.auth.getSession();
         if (session && session.user && session.user.email === 'harshguruji01@gmail.com') {
+          if (window.grantDirectAdminAccess) window.grantDirectAdminAccess();
           unlockDashboard();
           return;
         }
       } catch(err) {
         console.warn("Session check error:", err);
-      }
-
-      // Check cached session
-      if (sessionStorage.getItem('admin_contacts_auth') === 'true') {
-        unlockDashboard();
       }
     });
   </script>
@@ -555,11 +558,16 @@
 
     function checkAdmin() {
       const pwd = document.getElementById('admin-pwd').value.trim();
-      if (pwd === ADMIN_PASS) {
-        sessionStorage.setItem('admin_contacts_auth', 'true');
+      if (pwd.toLowerCase() === ADMIN_PASS.toLowerCase()) {
+        if (window.grantDirectAdminAccess) {
+          window.grantDirectAdminAccess();
+        } else {
+          sessionStorage.setItem('admin_contacts_auth', 'true');
+        }
         unlockDashboard();
       } else {
         const errEl = document.getElementById('login-err');
+        errEl.textContent = '❌ Incorrect admin email password.';
         errEl.style.display = 'block';
         setTimeout(() => errEl.style.display = 'none', 3500);
       }
@@ -573,7 +581,11 @@
     }
 
     function logoutAdmin() {
-      sessionStorage.removeItem('admin_contacts_auth');
+      if (window.clearAdminSessions) {
+        window.clearAdminSessions();
+      } else {
+        sessionStorage.removeItem('admin_contacts_auth');
+      }
       window.location.reload();
     }
 

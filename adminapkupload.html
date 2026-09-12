@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="same-origin">
   <title>HarshGuruJi Admin - App & Software Store Management</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
@@ -311,10 +312,20 @@
     </div>
   </header>
 
-  <div id="unauthorized-msg">
-    <h2>Access Denied</h2>
-    <p style="color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem;">You must be logged in as an Administrator to access this dashboard.</p>
-    <a href="index.html" class="btn btn-primary">Return Home</a>
+  <div id="unauthorized-msg" style="display: none; padding: 2rem 1rem;">
+    <div style="background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 2.5rem 2rem; max-width: 440px; width: 100%; text-align: center; margin: 2rem auto; box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
+      <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔐</div>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff;">Admin Verification Required</h2>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;">Enter the master administrator key to manage APKs and store applications.</p>
+      <form id="apk-auth-gate-form" onsubmit="return false;">
+        <input type="password" id="apk-admin-pass-input" placeholder="Enter Admin Password" required autofocus autocomplete="current-password" style="width: 100%; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.3); color: #fff; font-size: 0.95rem; margin-bottom: 1rem; outline: none; box-sizing: border-box;">
+        <button type="submit" id="btn-apk-unlock" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-weight: 600; font-size: 0.95rem; border-radius: 10px; border: none; cursor: pointer; justify-content: center;">Unlock APK Manager</button>
+        <p id="apk-auth-error" style="color: var(--danger); font-size: 0.85rem; margin-top: 0.75rem; display: none;">❌ Invalid admin email password! Access denied.</p>
+      </form>
+      <div style="margin-top: 1.25rem;">
+        <a href="index.html" style="color: var(--text-muted); font-size: 0.82rem; text-decoration: none;">&larr; Return to HarshGuruJi Home</a>
+      </div>
+    </div>
   </div>
 
   <div class="container" id="admin-content">
@@ -648,6 +659,7 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Load the main supabase client -->
+  <script src="js/admin-bridge.js"></script>
   <script type="module">
     import { supabase } from './js/supabase.js';
     import { getProfile } from './js/profile.js';
