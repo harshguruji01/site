@@ -55,11 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <header class="hg-header" id="hg-global-navbar" aria-label="Main Navigation">
       <div class="hg-nav-container">
         
-        <!-- Mobile Hamburger -->
-        <button type="button" class="hg-hamburger" id="hg-hamburger" aria-label="Toggle Navigation" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-        
         <!-- Brand / Logo (Left untouched) -->
         <a href="${prefix}index.html" class="hg-nav-logo" aria-label="HarshGuruJi Home">
           <img src="${prefix}logo.png" alt="HarshGuruJi Logo" fetchpriority="high">
@@ -253,17 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label" id="bottom-auth-label">Login</span>
       </a>
     </nav>
-
-    <!-- Global Floating Bottom-Middle Chat Button (Phone, Laptop, Desktop) -->
-    <a href="${prefix}chat.html" class="hg-floating-chat-btn" id="hg-floating-chat-btn" aria-label="HarshGuruJi Chat" title="Open Chat">
-      <div class="hg-chat-btn-inner">
-        <svg class="hg-chat-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-        </svg>
-        <span class="hg-chat-btn-text">Chat</span>
-        <span class="hg-chat-unread-badge" id="hg-chat-unread-badge" style="display:none;">0</span>
-      </div>
-    </a>
   `;
 
   document.body.insertAdjacentHTML('afterbegin', navHTML);
@@ -375,102 +359,608 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
 
   const SITE_SEARCH_INDEX = [
-    // Tools
-    { title: 'Case Converter', desc: 'Convert text to UPPERCASE, lowercase, Title Case, Sentence case', url: 'tools/case-converter.html', type: 'tool', icon: '🔤' },
-    { title: 'Word Counter', desc: 'Real-time word, character, sentence and reading time counter', url: 'tools/word-counter.html', type: 'tool', icon: '📝' },
-    { title: 'Password Generator', desc: 'Generate ultra-secure random passwords with custom rules', url: 'tools/password-generator.html', type: 'tool', icon: '🔑' },
-    { title: 'JSON Formatter & Validator', desc: 'Format, validate, beautify and minify JSON data online', url: 'tools/json-formatter.html', type: 'tool', icon: '📦' },
-    { title: 'Base64 Encoder & Decoder', desc: 'Encode and decode strings and files in Base64 format', url: 'tools/base64.html', type: 'tool', icon: '🔄' },
-    { title: 'Free Tools Hub', desc: 'Collection of 50+ developer, SEO, student and productivity tools', url: 'free-tools.html', type: 'tool', icon: '🛠️' },
-    { title: 'Tools Directory', desc: 'Browse all free web utilities and developer instruments', url: 'tools.html', type: 'tool', icon: '⚙️' },
+    // --- AUTH & ACCOUNT ---
+    { 
+      title: 'Login / Sign In', 
+      desc: 'Sign in to your account, access dashboard, tools, and manage saved preferences', 
+      url: 'login.html', 
+      type: 'auth', 
+      icon: '🔐', 
+      keywords: 'login log in signin sign in account auth authentication user portal password access enter' 
+    },
+    { 
+      title: 'Sign Up / Register', 
+      desc: 'Create your free HarshGuruJi account to access tools, bookmark apps and join community', 
+      url: 'signup.html', 
+      type: 'auth', 
+      icon: '✨', 
+      keywords: 'signup sign up register create account registration join new user' 
+    },
+    { 
+      title: 'User Dashboard', 
+      desc: 'Holographic user profile, tool activity logs, bookmarks and saved preferences', 
+      url: 'dashboard.html', 
+      type: 'page', 
+      icon: '📊', 
+      keywords: 'dashboard profile my account stats history bookmarks user account' 
+    },
+    { 
+      title: 'Account Settings', 
+      desc: 'Manage account security, profile details, preferences and notifications', 
+      url: 'settings.html', 
+      type: 'page', 
+      icon: '⚙️', 
+      keywords: 'settings preferences config security profile account password' 
+    },
+    { 
+      title: 'Appearance & Theme', 
+      desc: 'Customize dark mode, system themes, vibrant accent colors and visual display', 
+      url: 'appearance.html', 
+      type: 'page', 
+      icon: '🎨', 
+      keywords: 'appearance theme dark mode light mode colors display ui styling' 
+    },
 
-    // Games
-    { title: 'Snake Game', desc: 'Classic retro arcade snake game with score leaderboards', url: 'games/snake.html', type: 'game', icon: '🐍' },
-    { title: 'Tic Tac Toe', desc: 'Play Tic Tac Toe against intelligent AI or with a friend', url: 'games/tic-tac-toe.html', type: 'game', icon: '❌' },
-    { title: 'Memory Match Game', desc: 'Brain training memory card matching game', url: 'games/memory.html', type: 'game', icon: '🧠' },
-    { title: 'Gaming Hub', desc: 'Play free online browser games, arcade and puzzle challenges', url: 'gaming-hub.html', type: 'game', icon: '🎮' },
-    { title: 'Gaming Directory', desc: 'Curated arcade games and interactive web entertainment', url: 'gaming.html', type: 'game', icon: '🕹️' },
+    // --- FEATURED APPLICATIONS (APKs, PC Software & Web Apps) ---
+    { 
+      title: 'Visual Studio Code', 
+      desc: 'Lightweight and powerful source code editor by Microsoft for Windows, macOS and Linux', 
+      url: 'store-detail.html?id=app-001', 
+      type: 'app', 
+      icon: '💻', 
+      keywords: 'visual studio code vscode vs code code editor ide microsoft development programming app application' 
+    },
+    { 
+      title: 'VLC Media Player', 
+      desc: 'Free, open source universal multimedia player and framework for video and audio by VideoLAN', 
+      url: 'store-detail.html?id=app-002', 
+      type: 'app', 
+      icon: '🎬', 
+      keywords: 'vlc media player videolan video audio movie mp4 mkv music player app application' 
+    },
+    { 
+      title: 'Figma', 
+      desc: 'Leading collaborative web & desktop interface design, UI/UX prototyping and vector graphics tool', 
+      url: 'store-detail.html?id=app-003', 
+      type: 'app', 
+      icon: '🎨', 
+      keywords: 'figma design ui ux prototyping wireframe vector graphics designer app application' 
+    },
+    { 
+      title: 'ChatGPT', 
+      desc: 'Leading conversational AI model and assistant by OpenAI for answering, writing and coding', 
+      url: 'store-detail.html?id=app-004', 
+      type: 'app', 
+      icon: '🤖', 
+      keywords: 'chatgpt chat gpt openai ai artificial intelligence chatbot assistant bot app application' 
+    },
+    { 
+      title: 'Brave Browser', 
+      desc: 'Ultra-fast, privacy-oriented web browser with built-in ad blocker and shields by Brave Software', 
+      url: 'store-detail.html?id=app-005', 
+      type: 'app', 
+      icon: '🦁', 
+      keywords: 'brave browser web internet privacy adblock shield secure chromium app application' 
+    },
+    { 
+      title: 'Bitwarden', 
+      desc: 'Zero-knowledge open source password management and encrypted credential vault', 
+      url: 'store-detail.html?id=app-006', 
+      type: 'app', 
+      icon: '🛡️', 
+      keywords: 'bitwarden password manager passwords credentials vault security login app application' 
+    },
 
-    // Store & Apps
-    { title: 'Store Catalog', desc: 'Discover & download curated Android APKs, PC software and games', url: 'store.html', type: 'store', icon: '🛍️' },
-    { title: 'Daily Special', desc: 'Today’s top featured tools, trending apps and exclusive updates', url: 'daily-special.html', type: 'store', icon: '✨' },
-    { title: 'Store Applications', desc: 'Browse latest verified applications and utility APKs', url: 'app.html', type: 'store', icon: '📱' },
+    // --- STORE & DOWNLOADS ---
+    { 
+      title: 'App & Game Store', 
+      desc: 'Discover and download verified Android APKs, PC software installers, games and tools', 
+      url: 'store.html', 
+      type: 'store', 
+      icon: '🛍️', 
+      keywords: 'store app store games download apk software apps windows android pc packages catalog' 
+    },
+    { 
+      title: 'Store Applications Catalog', 
+      desc: 'Browse all verified utilities, mobile applications and productivity programs', 
+      url: 'app.html', 
+      type: 'store', 
+      icon: '📱', 
+      keywords: 'applications apps android apk software program store downloads utility' 
+    },
+    { 
+      title: 'Daily Special Station', 
+      desc: 'Fresh daily wisdom, inspiring quotes, productivity tips, and historical facts updated daily', 
+      url: 'daily-special.html', 
+      type: 'store', 
+      icon: '🌅', 
+      keywords: 'daily special daily facts wisdom tips quotes inspiration trending' 
+    },
+    { 
+      title: 'Daily Life Hacks & Lifestyle', 
+      desc: 'Practical life hacks, health tips, mental productivity and daily routine guides', 
+      url: 'daily-life.html', 
+      type: 'page', 
+      icon: '🌱', 
+      keywords: 'daily life lifestyle productivity life hacks habits routines tips' 
+    },
 
-    // Learning & Education
-    { title: 'Learning Hub', desc: 'NCERT solutions, study notes, question banks and exam prep', url: 'learning-hub.html', type: 'learning', icon: '📚' },
-    { title: 'Education Hub', desc: 'Comprehensive study materials, subjects and revision guides', url: 'education.html', type: 'learning', icon: '🎓' },
-    { title: 'GK Quiz Challenge', desc: 'Test your general knowledge with interactive multi-topic quizzes', url: 'learning/gk-quiz.html', type: 'learning', icon: '💡' },
-    { title: 'Class 10 NCERT Solutions', desc: 'Complete Class 10 Science, Mathematics and Social Science notes', url: 'learning/class.html?id=10', type: 'learning', icon: '📖' },
-    { title: 'Class 9 NCERT Solutions', desc: 'Class 9 chapters, video tutorials and question papers', url: 'learning/class.html?id=9', type: 'learning', icon: '📘' },
-    { title: 'PDF Library & Books', desc: 'Download syllabus textbooks, previous year papers and guides', url: 'learning/pdf-library.html', type: 'learning', icon: '📄' },
-    { title: 'Quiz India', desc: 'Interactive competitive examination quizzes for Indian students', url: 'Quiz India/index.html', type: 'learning', icon: '🇮🇳' },
+    // --- TOOLS & UTILITIES ---
+    { 
+      title: 'Free Tools Hub', 
+      desc: 'Curated collection of 50+ developer, SEO, student, converter and productivity utilities', 
+      url: 'free-tools.html', 
+      type: 'tool', 
+      icon: '🛠️', 
+      keywords: 'tools hub free tools online utilities productivity converters instruments' 
+    },
+    { 
+      title: 'Tools Directory', 
+      desc: 'Complete index of all free online tools, text formatters and developer instruments', 
+      url: 'tools.html', 
+      type: 'tool', 
+      icon: '⚙️', 
+      keywords: 'tools directory utilities list instruments collection' 
+    },
+    { 
+      title: 'Case Converter', 
+      desc: 'Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase and kebab-case', 
+      url: 'tools/case-converter.html', 
+      type: 'tool', 
+      icon: '🔤', 
+      keywords: 'case converter uppercase lowercase title sentence text capitalize case' 
+    },
+    { 
+      title: 'Word Counter', 
+      desc: 'Real-time word, character, sentence, paragraph and estimated reading time counter', 
+      url: 'tools/word-counter.html', 
+      type: 'tool', 
+      icon: '📝', 
+      keywords: 'word counter character count length text statistics sentences reading time' 
+    },
+    { 
+      title: 'Password Generator', 
+      desc: 'Generate ultra-secure random passwords with custom symbols, numbers and entropy rules', 
+      url: 'tools/password-generator.html', 
+      type: 'tool', 
+      icon: '🔑', 
+      keywords: 'password generator random strong password security credentials pass generator' 
+    },
+    { 
+      title: 'JSON Formatter & Validator', 
+      desc: 'Format, validate, beautify, tree-view and minify JSON data online in real time', 
+      url: 'tools/json-formatter.html', 
+      type: 'tool', 
+      icon: '📦', 
+      keywords: 'json formatter validator beautifier minify parse format json parser dev' 
+    },
+    { 
+      title: 'Base64 Encoder & Decoder', 
+      desc: 'Encode and decode strings and files in Base64 format with instant preview', 
+      url: 'tools/base64.html', 
+      type: 'tool', 
+      icon: '🔄', 
+      keywords: 'base64 encode decode encoder decoder binary string text convert' 
+    },
 
-    // AI Hub
-    { title: 'AI Hub', desc: 'Explore top Artificial Intelligence models, prompts and tools', url: 'ai-hub.html', type: 'ai', icon: '🤖' },
-    { title: 'AI Directory', desc: 'Curated list of generative AI tools for writing, coding and design', url: 'ai.html', type: 'ai', icon: '⚡' },
+    // --- GAMES & ARCADE ---
+    { 
+      title: 'Gaming Hub', 
+      desc: 'Play free online browser games, retro arcade, brain teasers and multiplayer challenges', 
+      url: 'gaming-hub.html', 
+      type: 'game', 
+      icon: '🎮', 
+      keywords: 'gaming hub play games arcade browser games fun play' 
+    },
+    { 
+      title: 'Gaming Directory', 
+      desc: 'Curated arcade games and interactive web entertainment experiences', 
+      url: 'gaming.html', 
+      type: 'game', 
+      icon: '🕹️', 
+      keywords: 'gaming arcade entertainment interactive play game' 
+    },
+    { 
+      title: 'Snake Game', 
+      desc: 'Classic retro arcade snake game with smooth controls and high-score leaderboards', 
+      url: 'games/snake.html', 
+      type: 'game', 
+      icon: '🐍', 
+      keywords: 'snake game retro arcade classic 8bit arcade fun score' 
+    },
+    { 
+      title: 'Tic Tac Toe', 
+      desc: 'Play Tic Tac Toe against intelligent AI bot or challenge a friend locally', 
+      url: 'games/tic-tac-toe.html', 
+      type: 'game', 
+      icon: '❌', 
+      keywords: 'tic tac toe zero kata noughts crosses board game multiplayer ai' 
+    },
+    { 
+      title: 'Memory Match Game', 
+      desc: 'Brain-boosting card memory matching challenge with timer and flip animations', 
+      url: 'games/memory.html', 
+      type: 'game', 
+      icon: '🧠', 
+      keywords: 'memory game card match brain training puzzle cards concentration' 
+    },
 
-    // Community & Contributor
-    { title: 'Contributor Hub', desc: 'Explore top platform contributors and submit your applications', url: 'contributor.html', type: 'page', icon: '🌟' },
-    { title: 'Apply as Contributor', desc: 'Submit your creator or developer application for verification', url: 'apply-contributor.html', type: 'page', icon: '📝' },
-    { title: 'Join Contributor Program', desc: 'Join HarshGuruJi creator network and earn golden badges', url: 'join-contributor.html', type: 'page', icon: '🤝' },
+    // --- LEARNING & EDUCATION ---
+    { 
+      title: 'Learning Hub', 
+      desc: 'NCERT solutions, study notes, question banks and comprehensive exam preparation', 
+      url: 'learning-hub.html', 
+      type: 'learning', 
+      icon: '📚', 
+      keywords: 'learning hub study notes education ncert exams questions syllabus school' 
+    },
+    { 
+      title: 'Education Hub', 
+      desc: 'Comprehensive study materials, academic subjects and subject revision guides', 
+      url: 'education.html', 
+      type: 'learning', 
+      icon: '🎓', 
+      keywords: 'education hub learning school college subjects syllabus study' 
+    },
+    { 
+      title: 'Class 10 NCERT Solutions', 
+      desc: 'Complete Class 10 Science, Mathematics and Social Science chapter-wise notes', 
+      url: 'learning/class.html?id=10', 
+      type: 'learning', 
+      icon: '📖', 
+      keywords: 'class 10 ncert science maths 10th standard notes cbse class10' 
+    },
+    { 
+      title: 'Class 9 NCERT Solutions', 
+      desc: 'Class 9 chapters, video tutorials, question papers and key formula guides', 
+      url: 'learning/class.html?id=9', 
+      type: 'learning', 
+      icon: '📘', 
+      keywords: 'class 9 ncert science maths 9th class notes cbse class9' 
+    },
+    { 
+      title: 'Class 10 Science Notes', 
+      desc: 'Chapter-wise Class 10 Science notes, chemical formulas, physics and biology guides', 
+      url: 'learning/class-10-science.html', 
+      type: 'learning', 
+      icon: '🔬', 
+      keywords: 'class 10 science physics chemistry biology notes cbse science' 
+    },
+    { 
+      title: 'Chemical Reactions & Equations', 
+      desc: 'Class 10 Science Chapter 1 detailed NCERT solutions, types of reactions and equations', 
+      url: 'learning/class-10/science/ncert/01-chemical-reactions-and-equations.html', 
+      type: 'learning', 
+      icon: '🧪', 
+      keywords: 'chemical reactions equations chapter 1 class 10 chemistry ncert science' 
+    },
+    { 
+      title: 'GK Quiz Challenge', 
+      desc: 'Test your general knowledge with interactive multi-topic quizzes and scoring', 
+      url: 'learning/gk-quiz.html', 
+      type: 'learning', 
+      icon: '💡', 
+      keywords: 'gk quiz general knowledge quiz questions trivia test competitive' 
+    },
+    { 
+      title: 'Quiz India', 
+      desc: 'Interactive competitive examination quizzes for Indian students (UPSC, SSC, Railway)', 
+      url: 'Quiz India/index.html', 
+      type: 'learning', 
+      icon: '🇮🇳', 
+      keywords: 'quiz india indian exams ssc upsc gk competition railway competitive' 
+    },
+    { 
+      title: 'PDF Library & Books', 
+      desc: 'Download syllabus textbooks, previous year question papers and revision guides', 
+      url: 'learning/pdf-library.html', 
+      type: 'learning', 
+      icon: '📄', 
+      keywords: 'pdf library books download textbooks pyq papers syllabus ncert pdf' 
+    },
 
-    // Pages & Info
-    { title: 'Explore & Search', desc: 'Explore all subjects, programming languages and web tools', url: 'explore.html', type: 'page', icon: '🔍' },
-    { title: 'About HarshGuruJi', desc: 'Learn more about our mission, creator story and team', url: 'about.html', type: 'page', icon: 'ℹ️' },
-    { title: 'Contact & Support', desc: 'Send feedback, ask questions or report issues to the team', url: 'contact.html', type: 'page', icon: '📬' },
-    { title: 'Dashboard', desc: 'User profile, activity tracking and saved preferences', url: 'dashboard.html', type: 'page', icon: '📊' },
-    { title: 'Settings', desc: 'Manage account settings, profile and security', url: 'settings.html', type: 'page', icon: '⚙️' },
-    { title: 'Privacy Policy', desc: 'HarshGuruJi privacy policy, cookies and data guidelines', url: 'privacy-policy.html', type: 'page', icon: '🔒' },
-    { title: 'Terms & Conditions', desc: 'Platform terms of service and usage regulations', url: 'terms-and-conditions.html', type: 'page', icon: '📜' }
+    // --- AI PAGES (Under Construction) ---
+    { 
+      title: 'AI Hub (Under Construction)', 
+      desc: 'Next-generation Artificial Intelligence tools, prompt engines and assistants (under active construction)', 
+      url: 'ai-hub.html', 
+      type: 'ai', 
+      icon: '🤖', 
+      keywords: 'ai hub artificial intelligence models ai tools under construction machine learning' 
+    },
+    { 
+      title: 'AI Directory (Under Construction)', 
+      desc: 'Curated generative AI tools directory (currently undergoing fine-tuning and construction)', 
+      url: 'ai.html', 
+      type: 'ai', 
+      icon: '⚡', 
+      keywords: 'ai directory artificial intelligence tools under construction generative ai' 
+    },
+
+    // --- COMMUNITY, CREATORS & PAGES ---
+    { 
+      title: 'Contributor Hub', 
+      desc: 'Explore top platform creators, contributors and verified software authors', 
+      url: 'contributor.html', 
+      type: 'page', 
+      icon: '🌟', 
+      keywords: 'contributor creators community authors partners team network' 
+    },
+    { 
+      title: 'Apply as Contributor', 
+      desc: 'Submit your creator or developer application for verification and golden badge', 
+      url: 'apply-contributor.html', 
+      type: 'page', 
+      icon: '📝', 
+      keywords: 'apply contributor application creator form badge golden verification' 
+    },
+    { 
+      title: 'Join Contributor Program', 
+      desc: 'Join HarshGuruJi creator network, share tools and earn verified golden badges', 
+      url: 'join-contributor.html', 
+      type: 'page', 
+      icon: '🤝', 
+      keywords: 'join contributor program rewards community creators network' 
+    },
+    { 
+      title: 'Verify Contributor Badge', 
+      desc: 'Verify the authenticity and status of verified developers and contributors', 
+      url: 'verify-contributor.html', 
+      type: 'page', 
+      icon: '✅', 
+      keywords: 'verify contributor badge check status authenticity valid creator' 
+    },
+    { 
+      title: 'HarshGuruJi Chat', 
+      desc: 'Community chat, discussion channels and interactive peer support', 
+      url: 'chat.html', 
+      type: 'page', 
+      icon: '💬', 
+      keywords: 'chat harshguruji chat community discussion messages talk' 
+    },
+    { 
+      title: 'Explore Knowledge', 
+      desc: 'Explore all subjects, programming languages, technologies and web tools', 
+      url: 'explore.html', 
+      type: 'page', 
+      icon: '🔍', 
+      keywords: 'explore search discover all subjects topics search site everything' 
+    },
+    { 
+      title: 'About HarshGuruJi', 
+      desc: 'Learn more about our educational mission, creator story, values and team', 
+      url: 'about.html', 
+      type: 'page', 
+      icon: 'ℹ️', 
+      keywords: 'about harshguruji creator team mission story who we are about us' 
+    },
+    { 
+      title: 'Contact & Support', 
+      desc: 'Send feedback, ask questions or report issues to the HarshGuruJi support team', 
+      url: 'contact.html', 
+      type: 'page', 
+      icon: '📬', 
+      keywords: 'contact support help feedback report issue email customer message' 
+    },
+    { 
+      title: 'Daily Insights & Wisdom', 
+      desc: 'Inspiring knowledge, daily wisdom articles and self-improvement thoughts', 
+      url: 'insights.html', 
+      type: 'page', 
+      icon: '💡', 
+      keywords: 'insights wisdom knowledge articles learning philosophy thought' 
+    },
+    { 
+      title: 'Technology Hub', 
+      desc: 'Insights into modern computing, technology developments and web trends', 
+      url: 'technology.html', 
+      type: 'page', 
+      icon: '💻', 
+      keywords: 'technology tech computers software trends development innovation' 
+    },
+    { 
+      title: 'Partner Ads & Sponsorships', 
+      desc: 'Official advertising and sponsorship partners of HarshGuruJi platform', 
+      url: 'ads.html', 
+      type: 'page', 
+      icon: '📢', 
+      keywords: 'ads partner advertising sponsor promotions partner ads' 
+    },
+    { 
+      title: 'Privacy Policy', 
+      desc: 'HarshGuruJi privacy policy, cookies, data safety and user security guidelines', 
+      url: 'privacy-policy.html', 
+      type: 'page', 
+      icon: '🔒', 
+      keywords: 'privacy policy safety data security personal info terms privacy' 
+    },
+    { 
+      title: 'Terms & Conditions', 
+      desc: 'Platform terms of service, acceptable usage guidelines and regulations', 
+      url: 'terms-and-conditions.html', 
+      type: 'page', 
+      icon: '📜', 
+      keywords: 'terms conditions terms of service legal rules acceptable usage' 
+    },
+    { 
+      title: 'Cookie Policy', 
+      desc: 'Information regarding cookie consent, tracking preferences and local data', 
+      url: 'cookie.html', 
+      type: 'page', 
+      icon: '🍪', 
+      keywords: 'cookie cookies policy tracking consent preferences storage' 
+    },
+
+    // --- ADMIN PORTAL ---
+    { 
+      title: 'Admin Dashboard', 
+      desc: 'System management center, analytics, content controls and app publishing', 
+      url: 'admin.html', 
+      type: 'admin', 
+      icon: '🛡️', 
+      keywords: 'admin administrator panel control center dashboard management system' 
+    },
+    { 
+      title: 'Admin APK Upload', 
+      desc: 'Upload, manage and publish Android APK packages and software to the Store', 
+      url: 'adminapkupload.html', 
+      type: 'admin', 
+      icon: '📤', 
+      keywords: 'upload apk admin app upload publish store admin software installer' 
+    },
+    { 
+      title: 'Admin Contributors', 
+      desc: 'Review contributor requests, manage verification statuses and assign badges', 
+      url: 'admincontributors.html', 
+      type: 'admin', 
+      icon: '👥', 
+      keywords: 'admin contributors manage creators approval verify badge admin' 
+    },
+    { 
+      title: 'Admin Contacts & Inquiries', 
+      desc: 'Manage incoming user inquiries, support feedback and message submissions', 
+      url: 'admin-contacts.html', 
+      type: 'admin', 
+      icon: '📬', 
+      keywords: 'admin contacts messages feedback inquiries support tickets' 
+    }
   ];
 
   let dynamicStoreApps = [];
+
+  // Robust multi-source apps fetcher (Local JSON + Supabase Database)
   async function fetchLiveStoreApps() {
+    // 1. Fetch static apps.json to ensure all packaged apps are loaded
     try {
-      const { supabase } = await import('./js/supabase.js');
-      const { data, error } = await supabase
-        .from('store_apps')
-        .select('id, name, title, short_description, description, icon_url, category')
-        .limit(60);
-      if (!error && Array.isArray(data)) {
-        dynamicStoreApps = data.map(app => {
-          const appTitle = app.title || app.name || 'Store App';
-          const appDesc = app.short_description || app.description || (app.category ? `Category: ${app.category}` : 'Verified Store Application');
-          const hasImg = app.icon_url && app.icon_url.startsWith('http');
-          return {
-            title: appTitle,
-            desc: appDesc,
-            url: `store-detail.html?id=${encodeURIComponent(app.id)}`,
-            type: 'store',
-            icon: hasImg ? `<img src="${app.icon_url}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.parentElement.innerHTML='📱';">` : '📱'
-          };
-        });
+      const resp = await fetch(`${prefix}data/apps.json`);
+      if (resp.ok) {
+        const jsonApps = await resp.json();
+        if (Array.isArray(jsonApps)) {
+          jsonApps.forEach(app => {
+            const appTitle = app.name || app.title || 'Store App';
+            const exists = dynamicStoreApps.some(a => a.id === app.id || a.title.toLowerCase() === appTitle.toLowerCase());
+            if (!exists) {
+              const iconSrc = app.icon || 'logo.png';
+              const hasImg = iconSrc && (iconSrc.startsWith('http') || iconSrc.endsWith('.png') || iconSrc.endsWith('.svg') || iconSrc.endsWith('.webp'));
+              dynamicStoreApps.push({
+                id: app.id,
+                title: appTitle,
+                desc: app.description ? (app.description.slice(0, 110) + '...') : (app.category || 'Store Application'),
+                url: `store-detail.html?id=${encodeURIComponent(app.id)}`,
+                type: 'app',
+                keywords: `${appTitle} ${app.developer || ''} ${app.category || ''} ${app.id} app application software download ${app.platforms ? Object.keys(app.platforms).join(' ') : ''}`.toLowerCase(),
+                icon: hasImg ? `<img src="${iconSrc}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.parentElement.innerHTML='📱';">` : '📱'
+              });
+            }
+          });
+        }
       }
     } catch (e) {
-      // Ignore if Supabase is unavailable
+      // Local apps.json fallback handled gracefully
+    }
+
+    // 2. Fetch live store_apps table from Supabase
+    try {
+      const { supabase } = await import(`${prefix}js/supabase.js`);
+      if (supabase && typeof supabase.from === 'function') {
+        const { data, error } = await supabase
+          .from('store_apps')
+          .select('id, name, title, short_description, description, icon_url, logo_url, category, platform, app_type')
+          .limit(100);
+        if (!error && Array.isArray(data)) {
+          data.forEach(app => {
+            const appTitle = app.title || app.name || 'Store App';
+            const iconImg = app.icon_url || app.logo_url;
+            const hasImg = iconImg && (iconImg.startsWith('http') || iconImg.endsWith('.png') || iconImg.endsWith('.svg'));
+            const appObj = {
+              id: app.id,
+              title: appTitle,
+              desc: app.short_description || (app.description ? app.description.slice(0, 110) + '...' : (app.category ? `Category: ${app.category}` : 'Verified Store Application')),
+              url: `store-detail.html?id=${encodeURIComponent(app.id)}`,
+              type: 'app',
+              keywords: `${appTitle} ${app.category || ''} ${app.platform || ''} ${app.app_type || ''} store app application software download`.toLowerCase(),
+              icon: hasImg ? `<img src="${iconImg}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.parentElement.innerHTML='📱';">` : '📱'
+            };
+            const existingIdx = dynamicStoreApps.findIndex(a => a.id === app.id || a.title.toLowerCase() === appTitle.toLowerCase());
+            if (existingIdx >= 0) {
+              dynamicStoreApps[existingIdx] = appObj;
+            } else {
+              dynamicStoreApps.push(appObj);
+            }
+          });
+        }
+      }
+    } catch (e) {
+      // Supabase fetch error ignored (handled by local apps and static index)
     }
   }
+
   fetchLiveStoreApps();
 
+  // High-accuracy multi-tier search matching engine
   function performSearch(query) {
-    const q = query.toLowerCase().trim();
-    if (!q) return [];
+    const raw = (query || '').trim();
+    if (!raw) return [];
+    const q = raw.toLowerCase();
+    const queryTokens = q.split(/\s+/).filter(t => t.length > 0);
 
-    const combined = [...dynamicStoreApps, ...SITE_SEARCH_INDEX];
+    const combined = [...SITE_SEARCH_INDEX, ...dynamicStoreApps];
+    const seenUrls = new Set();
     const scored = [];
 
     for (const item of combined) {
-      const titleLower = item.title.toLowerCase();
+      // Deduplicate by URL or title
+      const uniqueKey = (item.url || item.title).toLowerCase();
+      if (seenUrls.has(uniqueKey)) continue;
+      seenUrls.add(uniqueKey);
+
+      const titleLower = (item.title || '').toLowerCase();
       const descLower = (item.desc || '').toLowerCase();
       const typeLower = (item.type || '').toLowerCase();
+      const keywordsLower = (item.keywords || '').toLowerCase();
       
       let score = 0;
-      if (titleLower === q) score += 100;
-      else if (titleLower.startsWith(q)) score += 60;
-      else if (titleLower.includes(q)) score += 35;
 
+      // 1. Exact match on title (e.g. "login", "vlc", "vscode")
+      if (titleLower === q) {
+        score += 200;
+      } else if (titleLower.startsWith(q)) {
+        score += 120;
+      } else if (titleLower.includes(q)) {
+        score += 70;
+      }
+
+      // 2. High priority for Auth queries (e.g. "login", "signin", "signup")
+      if (q === 'login' || q === 'log in' || q === 'signin' || q === 'sign in') {
+        if (item.url === 'login.html') score += 250;
+      } else if (q === 'signup' || q === 'sign up' || q === 'register') {
+        if (item.url === 'signup.html') score += 250;
+      }
+
+      // 3. Keywords matching
+      if (keywordsLower.includes(q)) {
+        score += 80;
+      }
+
+      // 4. Token-by-token scoring (handles "vs code", "case convert", "science 10")
+      let allTokensMatch = queryTokens.length > 1;
+      for (const token of queryTokens) {
+        const inTitle = titleLower.includes(token);
+        const inKw = keywordsLower.includes(token);
+        const inDesc = descLower.includes(token);
+
+        if (inTitle) score += 30;
+        else if (inKw) score += 20;
+        else if (inDesc) score += 10;
+        else allTokensMatch = false;
+      }
+      if (allTokensMatch && queryTokens.length > 1) {
+        score += 50;
+      }
+
+      // 5. Description & Type matching
       if (descLower.includes(q)) score += 15;
-      if (typeLower.includes(q)) score += 10;
+      if (typeLower === q) score += 25;
 
       if (score > 0) {
         scored.push({ item, score });
@@ -478,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     scored.sort((a, b) => b.score - a.score);
-    return scored.slice(0, 8).map(s => s.item);
+    return scored.slice(0, 10).map(s => s.item);
   }
 
   function renderSearchResults(results, container, query) {
@@ -494,11 +984,11 @@ document.addEventListener('DOMContentLoaded', () => {
       container.innerHTML = `
         <div class="hg-search-no-results">
           <div style="font-size:1.6rem; margin-bottom:4px;">🔍</div>
-          <div>No exact match for <strong>"${escapeNavHtml(query)}"</strong></div>
-          <div style="margin-top:6px; font-size:0.75rem; color:#a1a1aa;">Press Enter to search entire database on Explore page</div>
+          <div>No exact match found for <strong>"${escapeNavHtml(query)}"</strong></div>
+          <div style="margin-top:6px; font-size:0.75rem; color:#a1a1aa;">Press Enter to search all resources on the Explore page</div>
         </div>
         <div class="hg-search-dropdown-footer">
-          <span>Search entire site</span>
+          <span>Search entire catalog</span>
           <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">Search on Explore &rarr;</a>
         </div>
       `;
@@ -517,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="hg-search-item-info">
             <div class="hg-search-item-title">
               <span>${escapeNavHtml(item.title)}</span>
-              <span class="hg-search-item-badge ${item.type}">${item.type}</span>
+              <span class="hg-search-item-badge ${item.type}">${item.type.toUpperCase()}</span>
             </div>
             <div class="hg-search-item-desc">${escapeNavHtml(item.desc)}</div>
           </div>
@@ -530,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ${itemsHtml}
       </div>
       <div class="hg-search-dropdown-footer">
-        <span>${results.length} results</span>
+        <span>${results.length} results matching "${escapeNavHtml(query)}"</span>
         <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">View on Explore &rarr;</a>
       </div>
     `;
@@ -550,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = input.value.trim();
         const results = performSearch(query);
         renderSearchResults(results, dropdown, query);
-      }, 150);
+      }, 120);
     });
 
     input.addEventListener('focus', () => {
@@ -583,6 +1073,29 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSearchField('hg-search-input', 'hg-search-dropdown-desktop');
   setupSearchField('hg-search-input-strip', 'hg-search-dropdown-strip');
   setupSearchField('hg-search-input-mobile', 'hg-search-dropdown-mobile');
+  setupSearchField('hero-search-input', 'hero-search-dropdown');
+
+  // Hero Search Submit Button Binding
+  const heroBtn = document.getElementById('hero-search-btn');
+  const heroInput = document.getElementById('hero-search-input');
+  if (heroBtn && heroInput) {
+    heroBtn.addEventListener('click', () => {
+      const query = heroInput.value.trim();
+      if (!query) return;
+      const results = performSearch(query);
+      if (results.length > 0) {
+        const first = results[0];
+        const dest = first.url.startsWith('http') ? first.url : `${prefix}${first.url}`;
+        window.location.href = dest;
+      } else {
+        window.location.href = `${prefix}explore.html?search=${encodeURIComponent(query)}`;
+      }
+    });
+  }
+
+  // Also expose globally for hero or dynamic search inputs
+  window.__hgPerformSearch = performSearch;
+  window.__hgSetupSearchField = setupSearchField;
 
   // Mobile Search Strip Toggle Button
   const mobileSearchBtn = document.getElementById('hg-mobile-search-btn');
@@ -606,8 +1119,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Close search dropdowns on outside click
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.hg-search-wrapper') && !e.target.closest('.hg-mobile-search-strip') && !e.target.closest('.hg-mobile-drawer-search')) {
-      document.querySelectorAll('.hg-search-dropdown.show').forEach(el => el.classList.remove('show'));
+    if (!e.target.closest('.hg-search-wrapper') && 
+        !e.target.closest('.hg-mobile-search-strip') && 
+        !e.target.closest('.hg-mobile-drawer-search') &&
+        !e.target.closest('.hero-search-container')) {
+      document.querySelectorAll('.hg-search-dropdown.show, .hero-search-dropdown.show').forEach(el => el.classList.remove('show'));
     }
   });
 

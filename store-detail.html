@@ -915,7 +915,46 @@
         const { data, error } = await query.single();
 
         if (error || !data) {
-          console.warn("App record not found:", error);
+          // Fallback to local data/apps.json
+          try {
+            const resp = await fetch('data/apps.json');
+            if (resp.ok) {
+              const staticApps = await resp.json();
+              const found = staticApps.find(a => a.id === id || (a.name && a.name.toLowerCase() === (slug || id).toLowerCase()));
+              if (found) {
+                const appObj = {
+                  id: found.id,
+                  name: found.name,
+                  title: found.name,
+                  developer_name: found.developer,
+                  category: found.category,
+                  version: found.version,
+                  file_size: found.size,
+                  license: found.license,
+                  rating: found.rating,
+                  downloads: found.downloads,
+                  logo_url: found.icon,
+                  icon_url: found.icon,
+                  description: found.description,
+                  short_description: found.description ? found.description.slice(0, 150) + '...' : '',
+                  official_url: found.website,
+                  download_url: found.platforms?.windows || found.platforms?.android || found.platforms?.web || found.website,
+                  screenshots: found.screenshots || [],
+                  platform: (found.requirements?.OS?.includes('Windows') ? 'Windows' : 'Android'),
+                  app_type: (found.requirements?.OS?.includes('Windows') ? 'EXE' : 'APK'),
+                  updated_at: found.updatedDate,
+                  features: found.features || [],
+                  pros: found.pros || [],
+                  cons: found.cons || []
+                };
+                currentApp = appObj;
+                renderAppDetails(appObj);
+                return;
+              }
+            }
+          } catch(errFallback) {}
+
+          console.warn("App record not found in Supabase or local apps:", error);
           showNotFound();
           return;
         }
