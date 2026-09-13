@@ -25,9 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const oldNav = document.getElementById('hg-global-navbar');
   const oldMobile = document.getElementById('hg-mobile-nav');
   const oldBottom = document.getElementById('hg-bottom-bar');
+  const oldFloatingChat = document.getElementById('hg-floating-chat-btn');
   if (oldNav) oldNav.remove();
   if (oldMobile) oldMobile.remove();
   if (oldBottom) oldBottom.remove();
+  if (oldFloatingChat) oldFloatingChat.remove();
   
   // Legacy cleanup
   document.querySelectorAll('.premium-navbar, .premium-mobile-nav').forEach(el => el.remove());
@@ -70,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
             <li class="hg-nav-item"><a href="${prefix}store.html" class="hg-nav-link" id="nav-link-store">Store</a></li>
+            <li class="hg-nav-item"><a href="${prefix}chat.html" class="hg-nav-link" id="nav-link-chat">Chat</a></li>
             <li class="hg-nav-item"><a href="${prefix}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
             
             <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
@@ -182,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
           <li><a href="${prefix}store.html" class="hg-mobile-link" id="mob-link-store">Store</a></li>
+          <li><a href="${prefix}chat.html" class="hg-mobile-link" id="mob-link-chat">Chat</a></li>
           <li><a href="${prefix}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
           
           <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
@@ -249,6 +253,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label" id="bottom-auth-label">Login</span>
       </a>
     </nav>
+
+    <!-- Global Floating Bottom-Middle Chat Button (Phone, Laptop, Desktop) -->
+    <a href="${prefix}chat.html" class="hg-floating-chat-btn" id="hg-floating-chat-btn" aria-label="HarshGuruJi Chat" title="Open Chat">
+      <div class="hg-chat-btn-inner">
+        <svg class="hg-chat-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+        <span class="hg-chat-btn-text">Chat</span>
+        <span class="hg-chat-unread-badge" id="hg-chat-unread-badge" style="display:none;">0</span>
+      </div>
+    </a>
   `;
 
   document.body.insertAdjacentHTML('afterbegin', navHTML);
@@ -316,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isDailySpecialPath = currentNavPath.includes('daily-special');
   const isStorePath = currentNavPath.includes('store') || currentNavPath.includes('app.html');
   const isAuthPath = currentNavPath.includes('login') || currentNavPath.includes('signup') || currentNavPath.includes('dashboard') || currentNavPath.includes('settings');
+  const isChatPath = currentNavPath.includes('chat');
 
   if (isHomePath) {
     document.getElementById('bottom-nav-home')?.classList.add('active');
@@ -325,6 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('bottom-nav-store')?.classList.add('active');
   } else if (isAuthPath) {
     document.getElementById('bottom-nav-auth')?.classList.add('active');
+  }
+
+  if (isChatPath) {
+    document.getElementById('nav-link-chat')?.classList.add('active');
+    document.getElementById('mob-link-chat')?.classList.add('active');
+    document.body.classList.add('is-chat-page');
   }
 
   // 3. Mobile Accordions (for More section)
@@ -819,6 +841,51 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentUserId) loadUserNotifications(currentUserId);
   });
 
+  // Chat Unread Count Sync for Global Floating Button
+  async function syncChatUnreadBadge(userId) {
+    if (!userId) return;
+    try {
+      const { supabase } = await import('./js/supabase.js');
+      const { count, error } = await supabase
+        .from('messages')
+        .select('id', { count: 'exact', head: true })
+        .eq('receiver_id', userId)
+        .neq('status', 'seen');
+
+      const badge = document.getElementById('hg-chat-unread-badge');
+      if (badge) {
+        if (!error && count && count > 0) {
+          badge.textContent = count > 9 ? '9+' : count;
+          badge.style.display = 'inline-flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+    } catch (e) {
+      console.warn("Chat badge sync notice:", e);
+    }
+  }
+
+  function subscribeToChatRealtimeBadge(userId) {
+    if (!userId || window.__chatBadgeSubscribed) return;
+    window.__chatBadgeSubscribed = true;
+    try {
+      import('./js/supabase.js').then(({ supabase }) => {
+        supabase
+          .channel('nav_chat_badge')
+          .on('postgres_changes', {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'messages',
+            filter: `receiver_id=eq.${userId}`
+          }, () => {
+            syncChatUnreadBadge(userId);
+          })
+          .subscribe();
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
   // 6. Handle Auth State Changes
   const updateNavUI = (user, profile) => {
     const loginBtn = document.getElementById('hg-login-btn');
@@ -889,12 +956,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       loadUserNotifications(user.id);
+      syncChatUnreadBadge(user.id);
+      subscribeToChatRealtimeBadge(user.id);
     } else {
       if (loginBtn) loginBtn.style.display = 'inline-flex';
       if (userMenu) userMenu.style.display = 'none';
       if (notifBox) notifBox.style.display = 'none';
       toggleNotifDropdown(false);
       window._currentNavUserId = null;
+
+      const chatBadge = document.getElementById('hg-chat-unread-badge');
+      if (chatBadge) chatBadge.style.display = 'none';
 
       // Update Bottom Bar Auth Tab to Login
       if (bottomAuthItem) {
