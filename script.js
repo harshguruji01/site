@@ -1,40 +1,40 @@
 // ── Shared daily thoughts pool ──
 const DAILY_THOUGHTS = [
-  { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss" },
-  { quote: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
-  { quote: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
-  { quote: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
-  { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-  { quote: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
-  { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { quote: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
-  { quote: "The mind is everything. What you think you become.", author: "Buddha" },
-  { quote: "An investment in knowledge pays the best interest.", author: "Benjamin Franklin" },
-  { quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
-  { quote: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { quote: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
-  { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
-  { quote: "It always seems impossible until it's done.", author: "Nelson Mandela" },
-  { quote: "Knowledge is power.", author: "Francis Bacon" },
-  { quote: "Change your thoughts and you change your world.", author: "Norman Vincent Peale" },
-  { quote: "What you get by achieving your goals is not as important as what you become.", author: "Zig Ziglar" },
-  { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-  { quote: "Try not to become a man of success, but rather become a man of value.", author: "Albert Einstein" },
-  { quote: "A person who never made a mistake never tried anything new.", author: "Albert Einstein" },
-  { quote: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" },
-  { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
-  { quote: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
-  { quote: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky" },
-  { quote: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
-  { quote: "Spread love everywhere you go. Let no one ever come to you without leaving happier.", author: "Mother Teresa" },
-  { quote: "When you reach the end of your rope, tie a knot in it and hang on.", author: "Franklin D. Roosevelt" },
-  { quote: "Always remember that you are absolutely unique. Just like everyone else.", author: "Margaret Mead" },
-  { quote: "Learning never exhausts the mind.", author: "Leonardo da Vinci" },
-  { quote: "The expert in anything was once a beginner.", author: "Helen Hayes" },
-  { quote: "Dream big and dare to fail.", author: "Norman Vaughan" },
-  { quote: "Act as if what you do makes a difference. It does.", author: "William James" },
-  { quote: "What we think, we become.", author: "Buddha" },
+  { quote: "The more that you read, the more things you will know.", author: "Dr. Seuss", hindi: "आप जितना अधिक पढ़ेंगे, उतनी ही अधिक बातें आप जानेंगे।" },
+  { quote: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela", hindi: "शिक्षा सबसे शक्तिशाली हथियार है जिसका उपयोग आप दुनिया को बदलने के लिए कर सकते हैं।" },
+  { quote: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King", hindi: "सीखने की सबसे खूबसूरत बात यह है कि इसे आपसे कोई छीन नहीं सकता।" },
+  { quote: "In the middle of difficulty lies opportunity.", author: "Albert Einstein", hindi: "कठिनाइयों के बीच ही अवसर छिपे होते हैं।" },
+  { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius", hindi: "इससे कोई फर्क नहीं पड़ता कि आप कितनी धीमी गति से चलते हैं, जब तक कि आप रुकते नहीं।" },
+  { quote: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill", hindi: "सफलता अंतिम नहीं है, असफलता घातक नहीं है: जारी रखने का साहस ही मायने रखता है।" },
+  { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt", hindi: "विश्वास रखें कि आप कर सकते हैं, और आपने आधा रास्ता तय कर लिया है।" },
+  { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs", hindi: "महान कार्य करने का एकमात्र तरीका यह है कि आप अपने काम से प्यार करें।" },
+  { quote: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein", hindi: "सफल व्यक्ति बनने का प्रयास न करें, बल्कि मूल्यवान व्यक्ति बनें।" },
+  { quote: "The mind is everything. What you think you become.", author: "Buddha", hindi: "मन ही सब कुछ है। आप जैसा सोचते हैं, वैसा ही बन जाते हैं।" },
+  { quote: "An investment in knowledge pays the best interest.", author: "Benjamin Franklin", hindi: "ज्ञान में किया गया निवेश सबसे अच्छा फल देता है।" },
+  { quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi", hindi: "ऐसे जिएं जैसे कि आपको कल मरना है। ऐसे सीखें जैसे कि आपको हमेशा जीना है।" },
+  { quote: "The secret of getting ahead is getting started.", author: "Mark Twain", hindi: "आगे बढ़ने का रहस्य शुरुआत करना है।" },
+  { quote: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson", hindi: "घड़ी को मत देखो; वही करो जो वह करती है। निरंतर चलते रहो।" },
+  { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis", hindi: "आप कभी भी दूसरा लक्ष्य निर्धारित करने या नया सपना देखने के लिए बहुत बूढ़े नहीं होते।" },
+  { quote: "It always seems impossible until it's done.", author: "Nelson Mandela", hindi: "जब तक कोई काम पूरा न हो जाए, वह हमेशा असंभव ही लगता है।" },
+  { quote: "Knowledge is power.", author: "Francis Bacon", hindi: "ज्ञान ही शक्ति है।" },
+  { quote: "Change your thoughts and you change your world.", author: "Norman Vincent Peale", hindi: "अपने विचारों को बदलिए और आप अपनी दुनिया बदल देंगे।" },
+  { quote: "What you get by achieving your goals is not as important as what you become.", author: "Zig Ziglar", hindi: "लक्ष्य हासिल करके आपको क्या मिलता है, यह उतना महत्वपूर्ण नहीं जितना कि आप क्या बन जाते हैं।" },
+  { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", hindi: "भविष्य उनका है जो अपने सपनों की सुंदरता में विश्वास रखते हैं।" },
+  { quote: "Try not to become a man of success, but rather become a man of value.", author: "Albert Einstein", hindi: "सफल बनने की कोशिश न करें, बल्कि मूल्यों वाले इंसान बनें।" },
+  { quote: "A person who never made a mistake never tried anything new.", author: "Albert Einstein", hindi: "जिस व्यक्ति ने कभी कोई गलती नहीं की, उसने कभी कुछ नया करने की कोशिश नहीं की।" },
+  { quote: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt", hindi: "कल की हमारी उपलब्धियों की एकमात्र सीमा आज के हमारे संदेह होंगे।" },
+  { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt", hindi: "आप जहाँ हैं, जो आपके पास है, उसी से वह करें जो आप कर सकते हैं।" },
+  { quote: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe", hindi: "जहाँ हैं वहीं से शुरू करें। जो है उसका इस्तेमाल करें। जो कर सकते हैं वो करें।" },
+  { quote: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky", hindi: "जिन मौकों पर आप प्रयास नहीं करते, उनमें आप शत-प्रतिशत चूक जाते हैं।" },
+  { quote: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle", hindi: "हमारे सबसे कठिन समय में ही हमें रोशनी देखने पर ध्यान केंद्रित करना चाहिए।" },
+  { quote: "Spread love everywhere you go. Let no one ever come to you without leaving happier.", author: "Mother Teresa", hindi: "जहाँ भी जाएँ प्यार फैलाएँ। कोई भी आपके पास से बिना खुश हुए न लौटे।" },
+  { quote: "When you reach the end of your rope, tie a knot in it and hang on.", author: "Franklin D. Roosevelt", hindi: "जब आप अपनी रस्सी के छोर पर पहुँच जाएँ, तो उसमें एक गाँठ बाँध लें और डटे रहें।" },
+  { quote: "Always remember that you are absolutely unique. Just like everyone else.", author: "Margaret Mead", hindi: "हमेशा याद रखें कि आप बिल्कुल अनोखे हैं। ठीक बाकी सभी की तरह।" },
+  { quote: "Learning never exhausts the mind.", author: "Leonardo da Vinci", hindi: "सीखने से दिमाग कभी थकता नहीं है।" },
+  { quote: "The expert in anything was once a beginner.", author: "Helen Hayes", hindi: "किसी भी क्षेत्र का विशेषज्ञ कभी शुरुआती ही था।" },
+  { quote: "Dream big and dare to fail.", author: "Norman Vaughan", hindi: "बड़ा सपना देखें और असफल होने का साहस रखें।" },
+  { quote: "Act as if what you do makes a difference. It does.", author: "William James", hindi: "ऐसे कार्य करें जैसे कि आपके काम से फर्क पड़ता है। और सच में पड़ता है।" },
+  { quote: "What we think, we become.", author: "Buddha", hindi: "हम जैसा सोचते हैं, वैसे ही बन जाते हैं।" },
 ];
 
 function getDayOfYear() {
@@ -105,6 +105,7 @@ function renderDailyThoughtsGrid(count) {
       <article class="thought-card">
         <div class="thought-card-num">Thought ${i + 1}</div>
         <p class="thought-text">"${t.quote}"</p>
+        ${t.hindi ? `<p class="thought-hindi"><span class="thought-hi-badge">हिंदी अर्थ</span> "${t.hindi}"</p>` : ''}
         <footer class="thought-author">— ${t.author}</footer>
       </article>`;
   }
@@ -561,8 +562,42 @@ document.addEventListener('DOMContentLoaded', () => {
     thoughtContainer.innerHTML = `
       <blockquote class="thought-quote">
         <p class="thought-text">"${t.quote}"</p>
+        ${t.hindi ? `<p class="thought-hindi"><span class="thought-hi-badge">हिंदी अर्थ</span> "${t.hindi}"</p>` : ''}
         <footer class="thought-author">— ${t.author}</footer>
       </blockquote>`;
+  }
+
+  // ─── TRANSLATION HELPER FOR NEWS HEADLINES ───────────────────────────
+  const newsTranslationCache = {};
+
+  async function translateNewsToHindi(text, targetElId) {
+    if (!text || text.trim() === '') return;
+    const cleanText = text.replace(/<[^>]*>?/gm, '').trim();
+
+    if (newsTranslationCache[cleanText]) {
+      const el = document.getElementById(targetElId);
+      if (el) el.innerHTML = `<span class="news-hi-badge">हिंदी</span> ${newsTranslationCache[cleanText]}`;
+      return;
+    }
+
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(cleanText)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data[0] && data[0].length) {
+        const translated = data[0].map(segment => segment[0]).join(' ').trim();
+        if (translated) {
+          newsTranslationCache[cleanText] = translated;
+          const el = document.getElementById(targetElId);
+          if (el) {
+            el.innerHTML = `<span class="news-hi-badge">हिंदी</span> ${translated}`;
+          }
+        }
+      }
+    } catch {
+      const el = document.getElementById(targetElId);
+      if (el) el.style.display = 'none';
+    }
   }
 
   // ─── NEWS FETCHER (RSS via rss2json proxy, auto-refresh) ──────────────
@@ -575,18 +610,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const maxItems = limit || 8;
     let html = '';
-    items.slice(0, maxItems).forEach(item => {
+    const pendingTranslations = [];
+
+    items.slice(0, maxItems).forEach((item, index) => {
       const title  = item.title  || 'No Title';
       const link   = item.link   || item.url || '#';
       const source = item.author || item.source?.name || 'News Source';
       const pubDate = item.pubDate ? new Date(item.pubDate).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
+      const hiId = `news-hi-${containerId}-${index}`;
+
+      pendingTranslations.push({ text: title, id: hiId });
+
       html += `
         <a class="news-card" href="${link}" target="_blank" rel="noopener noreferrer">
           <span class="news-title">${title}</span>
+          <span class="news-title-hi" id="${hiId}"><span class="news-hi-badge">हिंदी</span> अनुवाद लोड हो रहा है...</span>
           <span class="news-meta">${source}${pubDate ? ' · ' + pubDate : ''}</span>
         </a>`;
     });
     el.innerHTML = html;
+
+    // Fetch Hindi translations asynchronously
+    pendingTranslations.forEach(item => {
+      translateNewsToHindi(item.text, item.id);
+    });
   }
 
   function updateNewsTimestamp() {

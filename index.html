@@ -58,6 +58,20 @@
 
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff3366">
+  <link rel="apple-touch-icon" href="logo-192.png">
+  <link rel="stylesheet" href="css/pwa-install.css" id="hg-pwa-css">
+  <!-- Immediate PWA Prompt Capture: captures browser install dialog before any delay -->
+  <script>
+    window.__hgDeferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      window.__hgDeferredPrompt = e;
+      window.deferredPwaPrompt = e;
+      window.dispatchEvent(new CustomEvent('hg-pwa-ready'));
+    });
+  </script>
 </head>
 
 <body>
@@ -538,6 +552,7 @@
 
   <script src="navbar-premium.js"></script>
   <script src="footer-premium.js"></script>
+  <script src="js/pwa-install.js" defer></script>
 </body>
 
 </html>

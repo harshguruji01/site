@@ -1,21 +1,33 @@
 {
-  "name": "HarshGuruJi - Premium Education",
+  "name": "HarshGuruJi – Free Tools & Learning Platform",
   "short_name": "HarshGuruJi",
-  "description": "India's most premium educational platform with AI.",
-  "start_url": "/index.html",
+  "description": "India's most premium educational platform with free tools, AI, and daily insights.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "harshguruji-pwa-app",
   "display": "standalone",
-  "background_color": "#050505",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0b10",
   "theme_color": "#ff3366",
+  "categories": ["education", "tools", "productivity"],
   "icons": [
     {
-      "src": "logo.png",
+      "src": "logo-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

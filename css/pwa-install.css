@@ -1,0 +1,478 @@
+/* ==========================================================================
+   HarshGuruJi PWA Install & Shortcut Top Banner
+   ========================================================================== */
+
+/* Top Sliding Banner Container */
+.hg-pwa-banner {
+  position: fixed;
+  top: 78px;
+  left: 50%;
+  transform: translate(-50%, -200%);
+  width: calc(100% - 28px);
+  max-width: 680px;
+  z-index: 99999;
+  background: rgba(13, 15, 26, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 51, 102, 0.35);
+  border-radius: 18px;
+  box-shadow: 
+    0 16px 45px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(255, 51, 102, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  padding: 12px 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.45s ease,
+    visibility 0.45s ease;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* Slide Down Visible State */
+.hg-pwa-banner.hg-pwa-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Inner Layout */
+.hg-pwa-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Left Brand & Icon Area */
+.hg-pwa-left {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex: 1;
+  min-width: 0;
+}
+
+.hg-pwa-icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(121, 40, 202, 0.2));
+  padding: 2px;
+  box-shadow: 0 0 14px rgba(255, 51, 102, 0.4);
+}
+
+.hg-pwa-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 11px;
+  object-fit: cover;
+  display: block;
+}
+
+.hg-pwa-badge-pulse {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
+  background: #00f2fe;
+  border: 2px solid #0d0f1a;
+  border-radius: 50%;
+  animation: hgPwaPulse 2s infinite;
+}
+
+@keyframes hgPwaPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.8); }
+  70% { box-shadow: 0 0 0 8px rgba(0, 242, 254, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+}
+
+/* Text Content */
+.hg-pwa-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.hg-pwa-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hg-pwa-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.hg-pwa-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.25), rgba(121, 40, 202, 0.35));
+  border: 1px solid rgba(255, 51, 102, 0.45);
+  color: #ff80a0;
+  padding: 2px 7px;
+  border-radius: 100px;
+}
+
+.hg-pwa-desc {
+  font-size: 0.8rem;
+  color: #a0a6bd;
+  margin: 0;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right Actions */
+.hg-pwa-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Install Button */
+.hg-pwa-install-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #ff3366 0%, #ff5252 50%, #7928ca 100%);
+  background-size: 200% auto;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(255, 51, 102, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hg-pwa-install-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(255, 51, 102, 0.65);
+  background-position: right center;
+}
+
+.hg-pwa-install-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.hg-pwa-install-btn svg {
+  flex-shrink: 0;
+}
+
+.hg-pwa-install-btn.hg-pwa-loading {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+@keyframes hgPwaSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hg-pwa-spin {
+  animation: hgPwaSpin 0.75s linear infinite;
+  transform-origin: center center;
+}
+
+.hg-pwa-left {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.hg-pwa-left:hover {
+  opacity: 0.95;
+}
+
+/* Close / Later Button */
+.hg-pwa-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.hg-pwa-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Instruction Modal (For iOS Safari & Unsupported Browsers)
+   ========================================================================== */
+.hg-pwa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hg-pwa-modal-overlay.hg-pwa-modal-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hg-pwa-modal-card {
+  position: relative;
+  background: #0f111e;
+  border: 1px solid rgba(255, 51, 102, 0.35);
+  border-radius: 22px;
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 51, 102, 0.2);
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  transform: scale(0.92) translateY(15px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hg-pwa-modal-overlay.hg-pwa-modal-open .hg-pwa-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.hg-pwa-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.hg-pwa-modal-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 51, 102, 0.4);
+  box-shadow: 0 0 16px rgba(255, 51, 102, 0.35);
+}
+
+.hg-pwa-modal-title-wrap {
+  flex: 1;
+}
+
+.hg-pwa-modal-title {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.hg-pwa-modal-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.hg-pwa-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hg-pwa-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Steps List */
+.hg-pwa-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.hg-pwa-step-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.hg-pwa-step-number {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #ff3366, #7928ca);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.hg-pwa-step-text {
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.hg-pwa-step-text strong {
+  color: #ffffff;
+}
+
+.hg-pwa-step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 51, 102, 0.18);
+  border: 1px solid rgba(255, 51, 102, 0.35);
+  color: #ff7597;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.hg-pwa-modal-done-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff3366, #7928ca);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255, 51, 102, 0.4);
+  transition: all 0.2s;
+}
+
+.hg-pwa-modal-done-btn:hover {
+  box-shadow: 0 6px 24px rgba(255, 51, 102, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Success Toast */
+.hg-pwa-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #101221;
+  border: 1px solid #10b981;
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.3);
+  z-index: 1000003;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hg-pwa-toast.hg-pwa-toast-show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 640px) {
+  .hg-pwa-banner {
+    top: 74px;
+    width: calc(100% - 16px);
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+
+  .hg-pwa-icon-wrap {
+    width: 42px;
+    height: 42px;
+  }
+
+  .hg-pwa-title {
+    font-size: 0.88rem;
+  }
+
+  .hg-pwa-desc {
+    font-size: 0.74rem;
+    max-width: 170px;
+  }
+
+  .hg-pwa-tag {
+    display: none; /* Keep header compact on small screens */
+  }
+
+  .hg-pwa-install-btn {
+    padding: 8px 13px;
+    font-size: 0.78rem;
+    gap: 5px;
+  }
+
+  .hg-pwa-close-btn {
+    width: 30px;
+    height: 30px;
+  }
+}

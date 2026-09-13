@@ -1,3 +1,15 @@
+// Global early PWA install prompt capture across all pages
+if (typeof window !== 'undefined' && !window.__hgPromptCaptured) {
+  window.__hgPromptCaptured = true;
+  window.__hgDeferredPrompt = window.__hgDeferredPrompt || null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    window.__hgDeferredPrompt = e;
+    window.deferredPwaPrompt = e;
+    window.dispatchEvent(new CustomEvent('hg-pwa-ready'));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // --- Context-Aware Path Resolver ---
@@ -19,6 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Legacy cleanup
   document.querySelectorAll('.premium-navbar, .premium-mobile-nav').forEach(el => el.remove());
+
+  // Ensure PWA Install & Shortcut resources are loaded across all pages
+  if (!document.getElementById('hg-pwa-css')) {
+    const pwaLink = document.createElement('link');
+    pwaLink.id = 'hg-pwa-css';
+    pwaLink.rel = 'stylesheet';
+    pwaLink.href = `${prefix}css/pwa-install.css`;
+    document.head.appendChild(pwaLink);
+  }
+  if (!window.__HG_PWA_INITIALIZED__ && !document.getElementById('hg-pwa-js')) {
+    const pwaScript = document.createElement('script');
+    pwaScript.id = 'hg-pwa-js';
+    pwaScript.src = `${prefix}js/pwa-install.js`;
+    pwaScript.defer = true;
+    document.body.appendChild(pwaScript);
+  }
 
   const navHTML = `
     <!-- Global Header -->
