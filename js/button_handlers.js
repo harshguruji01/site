@@ -75,13 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // GuruAI Buttons (Try AI / GuruAI Nav)
-    if (id === 'hero-ai-btn' || id === 'ai-try-btn' || target.classList.contains('btn-ai-nav')) {
-      if (window.toggleGuruJiWidget) {
-        window.toggleGuruJiWidget();
-      } else {
-        window.open('https://guruai.zapier.app', '_blank', 'noopener,noreferrer');
-      }
+    // GuruAI Buttons (Try AI / GuruAI Nav / Chat Demo)
+    if (id === 'ai-try-btn' || id === 'ai-send-btn' || id === 'ai-demo-input' || target.classList.contains('btn-ai-nav')) {
+      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
       return;
     }
 
@@ -137,11 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Floating Global AI Toggle Button
-    if (id === 'global-ai-btn') {
-      if (window.toggleGuruJiWidget) window.toggleGuruJiWidget();
-      return;
-    }
+
 
     // Generic button fallback handler if no action bound
     const hasInlineOnClick = target.hasAttribute('onclick');

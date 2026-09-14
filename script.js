@@ -217,27 +217,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // AI Chat Demo Simple Interaction
+  // AI Chat Demo Interaction - Opens HarshGuruJi Zapier Chatbot
   const aiInput = document.getElementById('ai-demo-input');
   const aiSendBtn = document.getElementById('ai-send-btn');
-  const aiChatBody = document.querySelector('.chat-body');
 
-  if(aiInput && aiSendBtn && aiChatBody) {
-    aiSendBtn.addEventListener('click', () => {
-      // Create user message
-      const userMsg = document.createElement('div');
-      userMsg.className = 'chat-msg user';
-      userMsg.innerHTML = '<div class="msg-bubble">Tell me more!</div>';
-      aiChatBody.appendChild(userMsg);
-      
-      // Auto reply
-      setTimeout(() => {
-        const aiMsg = document.createElement('div');
-        aiMsg.className = 'chat-msg ai';
-        aiMsg.innerHTML = '<img src="logo.png" class="msg-avatar" style="width:30px;height:30px;border-radius:50%;padding:0;background:transparent;flex-shrink:0;"/><div class="msg-bubble">I am GuruJi AI! Try the real version on our website to ask anything you want! 🚀</div>';
-        aiChatBody.appendChild(aiMsg);
-        aiChatBody.scrollTop = aiChatBody.scrollHeight;
-      }, 1000);
+  if(aiInput) {
+    aiInput.addEventListener('click', () => {
+      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
+    });
+  }
+  if(aiSendBtn) {
+    aiSendBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
     });
   }
 
@@ -867,92 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- FLOATING AI WIDGET FOR WHOLE SITE ---
-  function createFloatingWidget() {
-    const widgetBtn = document.createElement('div');
-    widgetBtn.innerHTML = '<img src="ai.png" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;" />';
-    widgetBtn.id = 'global-ai-btn';
-    widgetBtn.style.cssText = `
-      position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 50%; display: flex; justify-content: center; align-items: center;
-      font-size: 2rem; color: white; cursor: pointer; box-shadow: 0 10px 30px var(--glow-primary);
-      z-index: 9999; transition: transform 0.3s;
-    `;
-    widgetBtn.onmouseover = () => widgetBtn.style.transform = 'scale(1.1)';
-    widgetBtn.onmouseout = () => widgetBtn.style.transform = 'scale(1)';
-    
-    const widgetBox = document.createElement('div');
-    widgetBox.id = 'global-ai-box';
-    widgetBox.style.cssText = `
-      position: fixed; bottom: 100px; right: 30px; width: 320px; height: 420px;
-      background: rgba(15, 15, 15, 0.95); border: 1px solid var(--glass-border);
-      border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 9998;
-      backdrop-filter: blur(20px); display: none; flex-direction: column; overflow: hidden;
-      transform-origin: bottom right; transition: all 0.3s ease;
-    `;
-    
-    widgetBox.innerHTML = `
-      <div style="background: rgba(25,25,25,0.9); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between;">
-        <div style="display:flex; align-items:center; gap:0.5rem;">
-          <img src="ai.png" style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" />
-          <span style="font-weight:600;">GuruJi AI</span>
-        </div>
-        <button id="close-widget" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer; line-height:1;">×</button>
-      </div>
-      <div id="widget-chat-body" style="flex:1; padding:1.2rem; overflow-y:auto; display:flex; flex-direction:column; gap:1rem;">
-        <div style="background: rgba(255,255,255,0.05); padding:0.8rem 1rem; border-radius: 0 15px 15px 15px; font-size:0.9rem; max-width:85%; border: 1px solid rgba(255,255,255,0.05);">
-          Hi! I am GuruJi AI. You can ask me anything and I will search the site's Wikipedia integration for you! 🚀
-        </div>
-      </div>
-      <div style="padding:1rem; border-top: 1px solid rgba(255,255,255,0.05); display:flex; gap:0.8rem; background: rgba(10,10,10,0.9);">
-        <input type="text" id="widget-input" placeholder="Ask anything..." style="flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:50px; padding:0.6rem 1.2rem; color:white; outline:none; font-family:'Inter', sans-serif;">
-        <button id="widget-send" style="background:var(--accent-primary); border:none; width:40px; height:40px; border-radius:50%; color:white; font-size:1.2rem; cursor:pointer; display:flex; justify-content:center; align-items:center; transition:0.3s;">➔</button>
-      </div>
-    `;
-    
-    document.body.appendChild(widgetBox);
-    document.body.appendChild(widgetBtn);
-    
-    let isOpen = false;
-    window.toggleGuruJiWidget = () => {
-      isOpen = !isOpen;
-      widgetBox.style.display = isOpen ? 'flex' : 'none';
-      if(isOpen) document.getElementById('widget-input').focus();
-    };
-    
-    widgetBtn.onclick = window.toggleGuruJiWidget;
-    document.getElementById('close-widget').onclick = window.toggleGuruJiWidget;
-    
-    const wInput = document.getElementById('widget-input');
-    const wSend = document.getElementById('widget-send');
-    const wBody = document.getElementById('widget-chat-body');
-    
-    const handleSend = () => {
-      const text = wInput.value.trim();
-      if(!text) return;
-      
-      const uMsg = document.createElement('div');
-      uMsg.style.cssText = 'align-self: flex-end; background: var(--accent-secondary); padding: 0.8rem 1rem; border-radius: 15px 0 15px 15px; font-size: 0.9rem; max-width: 85%; color: white;';
-      uMsg.innerText = text;
-      wBody.appendChild(uMsg);
-      wInput.value = '';
-      wBody.scrollTop = wBody.scrollHeight;
-      
-      setTimeout(() => {
-        const aMsg = document.createElement('div');
-        aMsg.style.cssText = 'background: rgba(255,255,255,0.05); padding: 0.8rem 1rem; border-radius: 0 15px 15px 15px; font-size: 0.9rem; max-width: 85%; border: 1px solid rgba(255,255,255,0.05);';
-        aMsg.innerHTML = `Here's what I found for "<strong>${text}</strong>": <br><br><a href="search.html?q=${encodeURIComponent(text)}" style="color:var(--accent-tertiary); text-decoration:none; font-weight:bold;">View Search Results ➔</a>`;
-        wBody.appendChild(aMsg);
-        wBody.scrollTop = wBody.scrollHeight;
-      }, 800);
-    };
-    
-    wSend.onclick = handleSend;
-    wInput.onkeypress = (e) => { if(e.key === 'Enter') handleSend(); };
-  }
-
-  createFloatingWidget();
+  // (Floating AI chat widget removed - chatbot accessible directly via harshguruji.zapier.app)
 
   // --- AUTH / SSO HELPERS ---
   // Configure your deployed Google Apps Script Web App URL here.
