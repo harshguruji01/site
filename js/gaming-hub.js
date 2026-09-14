@@ -91,7 +91,7 @@ const gameData = [
   {
     id: "gm-009",
     name: "Portal 2",
-    description: "The "Portal" series draws from the award-winning formula of innovative gameplay, story, and music.",
+    description: "The 'Portal' series draws from the award-winning formula of innovative gameplay, story, and music.",
     genre: "Puzzle",
     categories: ["All", "PC", "Console", "Puzzle", "Adventure"],
     tags: ["Co-op", "Physics"],

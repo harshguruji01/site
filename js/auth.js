@@ -229,6 +229,20 @@ export async function verifyPhoneOtp(phone, token) {
   return data;
 }
 
+export async function resetPassword(email) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/reset-password.html'
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePassword(newPassword) {
+  const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+  if (error) throw error;
+  return data;
+}
+
 // Automatically start AuthManager listener and expose on window
 window.AuthManager = AuthManager;
 AuthManager.init();
