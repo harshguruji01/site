@@ -35,9 +35,7 @@
     .hg-footer-socials a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-color, #1a1a1a); color: var(--text-secondary, #a1a1aa); transition: all 0.3s; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); }
     .hg-footer-socials a:hover { background: var(--accent-primary, #3b82f6); color: white; border-color: var(--accent-primary, #3b82f6); transform: translateY(-3px); }
 
-    .hg-back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary, #3b82f6); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 99; }
-    .hg-back-to-top.show { opacity: 1; visibility: visible; }
-    .hg-back-to-top:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(59, 130, 246, 0.6); color: white; }
+
   </style>
 
   <div class="hg-footer-grid">
@@ -132,11 +130,6 @@
     </p>
   </div>
 
-  <!-- Back to Top Button -->
-  <button class="hg-back-to-top" id="backToTop" aria-label="Back to Top">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-  </button>
-
   <script>
     // Set dynamic year
     document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -157,18 +150,6 @@
         }
       }
     });
-
-    // Back to top button logic
-    const bttBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        bttBtn.classList.add('show');
-      } else {
-        bttBtn.classList.remove('show');
-      }
-    });
-    bttBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
   </script>
 </footer>
+

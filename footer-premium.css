@@ -150,30 +150,4 @@
   transform: translateY(-3px); 
 }
 
-.hg-back-to-top { 
-  position: fixed; 
-  bottom: 2rem; 
-  right: 2rem; 
-  background: var(--accent-primary, #3b82f6); 
-  color: white; 
-  width: 45px; 
-  height: 45px; 
-  border-radius: 50%; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  text-decoration: none; 
-  border: none; 
-  cursor: pointer; 
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); 
-  opacity: 0; 
-  visibility: hidden; 
-  transition: all 0.3s ease; 
-  z-index: 99; 
-}
-.hg-back-to-top.show { opacity: 1; visibility: visible; }
-.hg-back-to-top:hover { 
-  transform: translateY(-5px); 
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.6); 
-  color: white; 
-}
+

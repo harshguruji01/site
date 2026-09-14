@@ -104,11 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
           Made with ❤️ by HarshGuruJi.
         </p>
       </div>
-
-      <!-- Back to Top Button -->
-      <button class="hg-back-to-top" id="hg-backToTop" aria-label="Back to Top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-      </button>
     </footer>
   `;
 
@@ -135,19 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // Back to top button logic
-  const bttBtn = document.getElementById('hg-backToTop');
-  if (bttBtn) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        bttBtn.classList.add('show');
-      } else {
-        bttBtn.classList.remove('show');
-      }
-    });
-    bttBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
 });
+

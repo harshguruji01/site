@@ -522,10 +522,7 @@ body::before {
 /* ── Scroll Progress Bar ── */
 #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); z-index: 9999; transition: width 0.1s linear; }
 
-/* ── Back to Top Button ── */
-#back-to-top { position: fixed; bottom: 100px; right: 30px; width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary)); color: white; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 998; box-shadow: 0 4px 15px var(--glow-primary); display: flex; align-items: center; justify-content: center; }
-#back-to-top.visible { opacity: 1; visibility: visible; }
-#back-to-top:hover { transform: translateY(-3px); }
+
 
 /* ── Cookie Consent ── */
 #cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--glass-border); padding: 1rem 5%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; z-index: 9997; transition: transform 0.4s ease; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-secondary); }

@@ -54,11 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- C. SPECIFIC BUTTON FUNCTIONS BY ID OR CLASS ---
 
-    // Back to Top Button
-    if (id === 'back-to-top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
+
 
     // Cookie Accept Button
     if (id === 'cookie-accept') {
