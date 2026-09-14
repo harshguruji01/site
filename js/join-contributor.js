@@ -119,19 +119,28 @@ async function handleSubmit(e) {
         const skillsRaw = document.getElementById('skills').value;
         const skills = skillsRaw ? skillsRaw.split(',').map(s => s.trim()).filter(s => s) : [];
 
+        const dName = document.getElementById('display_name').value.trim() || 'Contributor';
         const application = {
             user_id: currentUser.id,
-            display_name: document.getElementById('display_name').value,
+            display_name: dName,
+            name: dName,
             role: document.getElementById('role').value,
             bio: document.getElementById('bio').value,
             profile_image_path: imageUrl,
+            avatar_url: imageUrl,
             status: 'PENDING',
             contribution_areas: areas,
             skills: skills
         };
 
-        const { error: dbErr } = await supabase.from('contributors').insert(application);
-        if (dbErr) throw new Error(dbErr.message);
+        let dbResult = await supabase.from('contributors').insert(application);
+        if (dbResult.error) {
+            console.warn("Retrying insert without optional fields:", dbResult.error.message);
+            delete application.name;
+            delete application.avatar_url;
+            dbResult = await supabase.from('contributors').insert(application);
+        }
+        if (dbResult.error) throw new Error(dbResult.error.message);
 
         document.getElementById('application-content').style.display = 'none';
         document.getElementById('success-msg').style.display = 'block';

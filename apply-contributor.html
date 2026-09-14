@@ -1373,22 +1373,25 @@ ${portfolio ? `🌐 Portfolio: ${portfolio}\n` : ''}${linkedin ? `💼 LinkedIn:
 ${whyJoin}
 ${pastWork ? `\n📂 Past Work / Proof:\n${pastWork}` : ''}`;
 
-      // Core payload with standard columns universally supported in Postgres
+      // Core payload matching public.contributors schema
       const basePayload = {
         user_id: currentUser.id,
-        email: currentUser.email,
-        full_name: fullName,
-        name: fullName,
-        display_name: displayName,
+        display_name: displayName || fullName || (currentUser.email ? currentUser.email.split('@')[0] : 'Contributor'),
         role: role,
         bio: formattedBio,
-        instagram: instagram || null,
-        youtube: youtube || null,
-        profile_image_path: finalAvatarUrl,
-        avatar_url: finalAvatarUrl,
+        profile_image_path: finalAvatarUrl || null,
         status: 'PENDING',
         created_at: new Date().toISOString()
       };
+      if (fullName) {
+        basePayload.full_name = fullName;
+        basePayload.name = fullName;
+      }
+      if (currentUser.email) basePayload.email = currentUser.email;
+      if (finalAvatarUrl) basePayload.avatar_url = finalAvatarUrl;
+      if (instagram) basePayload.instagram = instagram;
+      if (youtube) basePayload.youtube = youtube;
+      if (skills) basePayload.skills = skills.split(',').map(s => s.trim()).filter(Boolean);
 
       btn.innerHTML = `Saving Application...`;
 
@@ -1450,35 +1453,46 @@ ${pastWork ? `\n📂 Past Work / Proof:\n${pastWork}` : ''}`;
     }
   }
 
-  // Safe Upsert helper to handle schema differences seamlessly
+  // Safe Upsert helper to handle schema differences seamlessly with automated retry loop
   async function safeUpsertContributor(action, id, data) {
     let payload = { ...data };
+    let retries = 6;
     
-    // First try standard write
-    let result = action === 'update'
-      ? await supabase.from('contributors').update(payload).eq('id', id)
-      : await supabase.from('contributors').insert(payload);
+    while (retries > 0) {
+      retries--;
+      const result = action === 'update'
+        ? await supabase.from('contributors').update(payload).eq('id', id)
+        : await supabase.from('contributors').insert(payload);
 
-    if (!result.error) return result;
+      if (!result.error) return result;
 
-    // If error is about a missing column, strip optional columns and retry
-    console.warn("PostgREST schema cache retry triggered:", result.error.message);
-    const errMessage = (result.error.message || '').toLowerCase();
+      const errMsg = result.error.message || '';
+      console.warn(`[safeUpsertContributor] Attempt failed (${retries} retries left):`, errMsg);
 
-    // Candidate fields to drop if column not in schema
-    const possibleExtraFields = ['name', 'email', 'avatar_url', 'updated_at'];
-    for (const field of possibleExtraFields) {
-      if (errMessage.includes(`'${field}'`) || errMessage.includes(`"${field}"`)) {
-        delete payload[field];
+      // Match "Could not find the 'column_name' column of 'contributors' in the schema cache"
+      const match = errMsg.match(/Could not find the ['"]?([a-zA-Z0-9_]+)['"]? column/i);
+      if (match && match[1] && payload.hasOwnProperty(match[1])) {
+        console.warn(`[safeUpsertContributor] Stripping unrecognized column '${match[1]}' and retrying...`);
+        delete payload[match[1]];
+        continue;
       }
+
+      // If specific optional fields are mentioned in the error, remove them
+      let stripped = false;
+      const optionalFields = ['name', 'avatar_url', 'updated_at', 'email', 'skills', 'contribution_areas', 'instagram', 'youtube', 'full_name'];
+      for (const field of optionalFields) {
+        if (errMsg.toLowerCase().includes(field) && payload.hasOwnProperty(field)) {
+          console.warn(`[safeUpsertContributor] Stripping optional column '${field}' and retrying...`);
+          delete payload[field];
+          stripped = true;
+        }
+      }
+      if (stripped) continue;
+
+      // If it's a non-column error (e.g. RLS or network), return it directly
+      return result;
     }
-
-    // Secondary attempt with stripped fields
-    result = action === 'update'
-      ? await supabase.from('contributors').update(payload).eq('id', id)
-      : await supabase.from('contributors').insert(payload);
-
-    return result;
+    return { error: new Error("Failed to submit contributor application after schema retries.") };
   }
 
   // Compress image helper as guaranteed fallback
