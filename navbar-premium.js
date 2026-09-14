@@ -248,6 +248,38 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label" id="bottom-auth-label">Login</span>
       </a>
     </nav>
+
+    <!-- Mobile Bottom Profile Sheet (<= 1024px) -->
+    <div class="hg-bottom-profile-overlay" id="hg-bottom-profile-overlay" style="display:none;" aria-hidden="true">
+      <div class="hg-bottom-profile-sheet" id="hg-bottom-profile-sheet">
+        <div class="hg-bottom-sheet-handle"></div>
+        <div class="hg-bottom-profile-header">
+          <div class="hg-bottom-profile-avatar-wrap">
+            <img id="hg-bottom-sheet-avatar" src="${prefix}logo.png" alt="User">
+          </div>
+          <div class="hg-bottom-profile-meta">
+            <div class="hg-bottom-profile-name" id="hg-bottom-sheet-name">User</div>
+            <div class="hg-bottom-profile-email" id="hg-bottom-sheet-email">user@example.com</div>
+          </div>
+          <button class="hg-bottom-sheet-close" id="hg-bottom-sheet-close" aria-label="Close Profile Menu">&times;</button>
+        </div>
+        <div class="hg-bottom-profile-links">
+          <a href="${prefix}dashboard.html" class="hg-bottom-sheet-link">
+            <span class="hg-sheet-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="${prefix}settings.html" class="hg-bottom-sheet-link">
+            <span class="hg-sheet-icon">⚙️</span>
+            <span>Settings</span>
+          </a>
+          <div class="hg-bottom-sheet-divider"></div>
+          <button id="hg-bottom-sheet-logout-btn" class="hg-bottom-sheet-link hg-bottom-sheet-logout">
+            <span class="hg-sheet-icon">🚪</span>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
   `;
 
   document.body.insertAdjacentHTML('afterbegin', navHTML);
@@ -1427,13 +1459,36 @@ document.addEventListener('DOMContentLoaded', () => {
         userAvatar.src = avatarUrl;
       }
 
-      // Update Bottom Bar Auth Tab to Profile
+      // Update Bottom Bar Auth Tab to Profile & sync bottom sheet
+      const sheetAvatar = document.getElementById('hg-bottom-sheet-avatar');
+      if (sheetAvatar) sheetAvatar.src = avatarUrl;
+      const sheetName = document.getElementById('hg-bottom-sheet-name');
+      if (sheetName) sheetName.textContent = displayName;
+      const sheetEmail = document.getElementById('hg-bottom-sheet-email');
+      if (sheetEmail) sheetEmail.textContent = user.email || '';
+
       if (bottomAuthItem) {
         bottomAuthItem.href = prefix + 'dashboard.html';
         const p = (window.location.pathname || '').toLowerCase();
         if (p.includes('dashboard') || p.includes('settings')) {
           bottomAuthItem.classList.add('active');
         }
+        bottomAuthItem.onclick = (e) => {
+          if (window.innerWidth <= 1024) {
+            e.preventDefault();
+            const overlay = document.getElementById('hg-bottom-profile-overlay');
+            if (overlay) {
+              if (overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                setTimeout(() => { if (!overlay.classList.contains('active')) overlay.style.display = 'none'; }, 250);
+              } else {
+                overlay.style.display = 'flex';
+                void overlay.offsetWidth;
+                overlay.classList.add('active');
+              }
+            }
+          }
+        };
       }
       if (bottomAuthLabel) {
         bottomAuthLabel.textContent = 'Profile';
@@ -1484,8 +1539,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const chatBadge = document.getElementById('hg-chat-unread-badge');
       if (chatBadge) chatBadge.style.display = 'none';
 
+      const overlay = document.getElementById('hg-bottom-profile-overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+      }
+
       // Update Bottom Bar Auth Tab to Login
       if (bottomAuthItem) {
+        bottomAuthItem.onclick = null;
         bottomAuthItem.href = prefix + 'login.html';
         const p = (window.location.pathname || '').toLowerCase();
         if (p.includes('login') || p.includes('signup')) {
@@ -1510,6 +1572,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   };
+
+  // Mobile bottom profile sheet interactions
+  const bottomSheetClose = () => {
+    const overlay = document.getElementById('hg-bottom-profile-overlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+      setTimeout(() => {
+        if (!overlay.classList.contains('active')) overlay.style.display = 'none';
+      }, 250);
+    }
+  };
+
+  const sheetCloseBtn = document.getElementById('hg-bottom-sheet-close');
+  if (sheetCloseBtn) {
+    sheetCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      bottomSheetClose();
+    });
+  }
+
+  const bottomOverlay = document.getElementById('hg-bottom-profile-overlay');
+  if (bottomOverlay) {
+    bottomOverlay.addEventListener('click', (e) => {
+      if (e.target === bottomOverlay) {
+        bottomSheetClose();
+      }
+    });
+  }
+
+  const bottomSheetLogout = document.getElementById('hg-bottom-sheet-logout-btn');
+  if (bottomSheetLogout) {
+    bottomSheetLogout.addEventListener('click', () => {
+      bottomSheetClose();
+      import('./js/supabase.js').then(async ({ supabase }) => {
+        await supabase.auth.signOut();
+        window.location.href = prefix + "index.html";
+      }).catch(err => console.log('Supabase signout not available on this page.'));
+    });
+  }
 
   // Logout listener
   const logoutBtn = document.getElementById('hg-logout-btn');
