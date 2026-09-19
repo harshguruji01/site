@@ -1,1376 +1,261 @@
-# HARSHGURUJI — PRIVATE CHAT SYSTEM
-
-## Website: [www.webguruji.online](http://www.webguruji.online)
-
-Build a complete, production-ready **private one-to-one messaging/chat system** for the existing HarshGuruJi / WebGuruJi website.
-
-The chat system must be available only to authenticated/logged-in users. It must integrate with the website's existing authentication, user database, profile system, and overall design without breaking existing pages or functionality.
-
-The experience should combine approximately **90% of the visual quality and interaction style of Instagram Direct Messages** with the practical messaging behavior of WhatsApp.
-
-IMPORTANT:
-
-* This is a CHAT-ONLY system.
-* Do NOT add Instagram Reels.
-* Do NOT add a public reel/video feed.
-* Do NOT add a social media feed.
-* Do NOT add unnecessary entertainment features.
-* Main purpose: users finding friends and exchanging private messages.
+# CHAT.WEBGURUJI.ONLINE — MASTER ARCHITECTURE & IMPLEMENTATION INSTRUCTIONS
+**Official Production Blueprint for HarshGuruJi Real-Time Messaging Web & Mobile Application**
 
 ---
 
-# 1. MAIN CHAT PAGE
+## 1. EXECUTIVE OVERVIEW & DOMAIN ROUTING
 
-Create a dedicated chat page, for example:
-
-`/chat`
-
-or an equivalent route compatible with the existing website architecture.
-
-The page should contain:
-
-### Desktop layout
-
-A modern two-column messaging interface.
-
-### LEFT SIDEBAR
-
-* HarshGuruJi logo/name
-* "Messages" heading
-* User/chat search bar
-* New Chat button
-* Recent conversations
-* User avatar
-* User display name
-* Username
-* Last message preview
-* Last message time
-* Unread message badge
-* Online indicator where applicable
-
-### RIGHT PANEL
-
-* Selected user's profile/avatar
-* Display name
-* Username
-* Online/offline status
-* Chat messages
-* Message input
-* Send button
-* Message actions
-
-The interface should feel familiar to users of modern messaging applications while maintaining the unique HarshGuruJi branding.
+- **Production Live URL**: `https://chat.webguruji.online`
+- **Main Ecosystem Portal**: `https://www.webguruji.online`
+- **Application Repository**: `chatbase` (React 19 + TypeScript + Vite + Capacitor 8 Android + Supabase)
+- **Primary Objective**: Provide a blazing fast, ultra-secure, high-aesthetic, production-grade 1-on-1 private messaging application with real-time synchronization, voice notes, media sharing, delivery receipts, user discovery via HarshGuruJi ID, and cross-platform native feel.
 
 ---
 
-# 2. MOBILE RESPONSIVE DESIGN
+## 2. CORE ARCHITECTURAL PRINCIPLES
 
-The chat system MUST be completely responsive.
+1. **Standalone Subdomain Independence**:
+   - `chat.webguruji.online` operates as an independent, optimized Single Page Application (SPA) & Progressive Web App (PWA) with native Android capabilities (Capacitor).
+   - Unified authentication session linked to Supabase Project.
+   - Zero bloat: No infinite feeds, no reels, no unrelated social clutter. Only direct, distraction-free messaging.
 
-Desktop:
+2. **Real-time First**:
+   - Powered by Supabase Realtime (PostgreSQL Changes + Broadcast + Presence channels).
+   - Zero polling for chat interactions. Sub-100ms latency for message transmission.
 
-* Two-column layout.
-
-Tablet:
-
-* Adaptive sidebar and chat panel.
-
-Mobile:
-
-* Conversation list becomes the main screen.
-* Tapping a conversation opens the full-screen chat.
-* Add a back button to return to conversations.
-* Message composer must remain usable above the mobile keyboard.
-* No horizontal scrolling.
-* Touch targets should be comfortable.
-* Bottom navigation must not overlap the chat composer.
-
-The application should work smoothly on:
-
-* Android phones
-* iPhones
-* Tablets
-* Windows
-* macOS
-* Different browser sizes
+3. **Optimistic UI & Resilient Offline State**:
+   - Outgoing messages immediately render in the chat window with a pending clock indicator (`🕒`).
+   - Background retry mechanism for unstable cellular or Wi-Fi connections.
+   - IndexedDB / LocalStorage caching of active conversations and recent messages.
 
 ---
 
-# 3. UNIQUE USER ID SYSTEM
+## 3. USER IDENTITY & DISCOVERY SYSTEM
 
-Every registered user must automatically receive a unique public chat/user ID.
+### 3.1 Profile Attributes
+Every user account on `chat.webguruji.online` holds:
+- **`id`**: UUID (Primary Key, matching Supabase `auth.users.id`).
+- **`username`**: Unique handle formatted in lowercase (e.g. `@harsh`, `@alex_coder`). Min 3 chars, max 24 chars.
+- **`hgj_id`**: Unique HarshGuruJi Identifier formatted as `HGJ-XXXXXX` (6 alphanumeric characters, e.g. `HGJ-789412`).
+  - Generated automatically on first login.
+  - Displayed prominently in the user profile drawer with a one-click copy chip.
+- **`display_name`**: Full name or nickname (e.g. "Harsh Vardhan").
+- **`avatar_url`**: Cloud-hosted profile avatar. Fallback to high-contrast modern initials avatar.
+- **`is_golden_tick` / `is_verified`**: Boolean flag showing the golden checkmark (`✓`) for verified contributors, creators, and community staff.
+- **`bio`**: Custom status text (up to 160 characters).
+- **`last_seen`**: Timestamp updated on client activity or disconnect.
 
-Example:
-
-`HGJ-7F42K9`
-
-or another secure unique format.
-
-The ID must:
-
-* Be unique.
-* Never duplicate another user's ID.
-* Be searchable.
-* Be associated with exactly one account.
-* Not expose internal database IDs.
-* Remain stable unless the system explicitly supports changing it.
-
-Example profile:
-
-Display Name:
-`Rahul`
-
-Username:
-`@rahul`
-
-HarshGuruJi ID:
-`HGJ-7F42K9`
-
-Users should be able to copy their ID.
-
-Add:
-
-**Copy ID**
-
-button with a small success animation/toast after copying.
+### 3.2 Dual Search & Auto-Suggest
+The search input must dynamically support:
+1. **Username Search**: Matches any string prefixed with `@` or raw text against `username` and `display_name`.
+2. **HarshGuruJi ID Search**: Exact or prefix lookup for `HGJ-XXXXXX`.
+3. **Live Typeahead Dropdown**:
+   - Debounced by 250ms.
+   - Shows user avatar, display name, verified badge, `@username`, and `HGJ-ID` chip.
+   - Direct button: "Message Now" which immediately initiates or opens existing 1-on-1 conversation.
 
 ---
 
-# 4. ADVANCED USER SEARCH SYSTEM
+## 4. CHAT EXPERIENCE & MESSAGE LIFECYCLE
 
-Create a powerful search system in the chat page.
+### 4.1 Message Delivery Pipeline
+Each message progresses through 4 explicit states with visual indicators:
+1. **Pending / Sending (`🕒`)**: Message added optimistically to client feed, waiting for network ack.
+2. **Sent (`✓` Single Gray Checkmark)**: Message saved to Supabase `messages` table.
+3. **Delivered (`✓✓` Double Gray Checkmark)**: Recipient's client received the realtime payload or notification.
+4. **Seen (`✓✓` Double Blue/Emerald Checkmark)**: Recipient has conversation open and scrolled into viewport.
 
-The search bar must support searching users using BOTH:
-
-### A. Username
-
-Example:
-
-`@rahul`
-
-or:
-
-`rahul`
-
-### B. HarshGuruJi Unique ID
-
-Example:
-
-`HGJ-7F42K9`
-
-The user should NOT need to know the unique ID if they already know the person's username.
+### 4.2 Live Presence & Typing Indicators
+- **Supabase Realtime Presence**:
+  - Automatically joins room `presence:global` or conversation-specific room.
+  - Status: `online`, `offline`, with relative timestamp ("Active now", "Last seen 5m ago", "Yesterday at 6:40 PM").
+- **Typing Indicator**:
+  - Broadcast event `typing:start` and `typing:stop` sent via Supabase Realtime Broadcast.
+  - Displays animated 3-dot pulse: "*[User] is typing...*".
+  - Auto-expires after 3 seconds of typing inactivity to prevent stuck state.
 
 ---
 
-# 5. SEARCH BAR UI
+## 5. SPECIAL & ADVANCED FEATURES
 
-Place the search bar prominently at the top of the chat sidebar.
+### 5.1 Voice Notes & Audio Messaging (🎙️)
+- **Direct Recording**: High-fidelity web audio recording (Opus / WebM / AAC) with mic permission management.
+- **Live Waveform Visualizer**: Real-time frequency bars during recording and audio playback.
+- **Playback Controls**:
+  - Interactive scrubbable seekbar.
+  - Multi-speed toggle button: **1.0x → 1.5x → 2.0x**.
+  - Current time and total duration chips.
+- **Storage**: Uploaded directly to Supabase Storage bucket `chat-media/voice-notes/`.
 
-Example placeholder:
+### 5.2 Rich Media & Document Sharing (📷 / 📎)
+- **Images**:
+  - Client-side auto-compression before upload (max 2048px, WebP format).
+  - Blurhash or low-res placeholder during loading.
+  - Full-screen Pinch-to-zoom / Lightbox modal with download button.
+- **Files & Documents**:
+  - Supports PDF, ZIP, DOCX, TXT, APK up to 25MB.
+  - Clean preview chip showing file type badge, file name, and exact size (e.g. `2.4 MB`).
 
-`Search username or HarshGuruJi ID...`
+### 5.3 Quick Message Reactions & Celebration Confetti (❤️ 🎉)
+- **Reaction Tray**: Hover (desktop) or long-press (mobile) reveals emoji quick bar: `❤️`, `👍`, `😂`, `🔥`, `😮`, `🙏` plus a `+` custom picker.
+- **Reaction Badges**: Clustered badges under message bubble with participant counters.
+- **Interactive Confetti**: When special celebration emojis (e.g. `🎉`, `🥳`, `❤️`) are reacted or clicked, trigger a celebratory micro-burst using `canvas-confetti`.
 
-The search bar should support:
+### 5.4 Message Quoting, Replies & Context Jumping
+- Swipe right on mobile or click "Reply" icon on desktop.
+- Input bar previews quoted message: Sender name, truncated text / media icon, and dismiss button (`✕`).
+- Clicking the quoted preview in any sent message smooth-scrolls and briefly highlights the target original message in the chat timeline.
 
-* Username search
-* Partial username search
-* Exact username search
-* HarshGuruJi ID search
-* Partial ID matching where appropriate
-* Case-insensitive username matching
-* Search suggestions
+### 5.5 Message Modification & Deletion
+- **Delete for Me**: Soft-deletes message for the current user's view only.
+- **Delete for Everyone**:
+  - Available within 24 hours of sending.
+  - Replaces text with a tombstone: *"This message was deleted"* with italic muted styling.
+- **Copy Text**: Quick button to copy raw message text to clipboard with confirmation toast.
 
-Do NOT require users to type the `@` symbol.
+### 5.6 Ephemeral / Disappearing Messages (⏳)
+- Option in conversation settings: **Off | 24 Hours | 7 Days**.
+- Visual clock badge shown in chat header when active.
+- Background cleanup or client-side filter hides expired messages automatically.
 
-For example:
+### 5.7 Privacy, Safety & User Blocking (🛡️)
+- **Block / Unblock Action**:
+  - Instant toggle in conversation settings menu.
+  - Blocked users cannot send messages or view online status.
+  - Attempts to send display a clear error: *"You have blocked this user"* or *"You cannot message this user"*.
+- **Report User**:
+  - Modal with predefined categories: Spam, Harassment, Inappropriate Media, Impersonation.
+  - Stores report in Supabase `reports` table for administrator review.
+- **Clear Chat History**: Clears message stream locally while keeping contact in conversation list.
 
-Searching:
+### 5.8 Audio & Haptic Feedback
+- Crisp, gentle sound effect for message sent (subtle bubble pop).
+- Audible ding for message received when tab is not in active focus.
+- Settings toggle: **Sound Effects (ON/OFF)**.
+- Native vibration / haptic feedback on Android via Capacitor Haptics.
 
-`rahul`
-
-should find:
-
-`@rahul`
-
-Searching:
-
-`@rahul`
-
-should also find:
-
-`@rahul`
-
-Searching:
-
-`HGJ-7F42K9`
-
-should find the corresponding user.
+### 5.9 Theme System
+- Three curated themes:
+  1. **Cyber Obsidian (Default)**: Deep `#0d1117` background with vibrant orange-red accent (`#ff6b4a`) and clean glass panels.
+  2. **Midnight OLED**: `#000000` pitch black for maximum battery saving on mobile AMOLED screens.
+  3. **Crystal Light**: Clean `#f8fafc` background with crisp contrast and refined typography.
+- Smooth CSS transition without flickering during theme changes.
 
 ---
 
-# 6. USERNAME-RELATED SEARCH RESULTS UNDER SEARCH BAR
+## 6. SUPABASE DATABASE SPECIFICATION
 
-This is an important requirement.
+### 6.1 Database Tables
 
-While the user is typing inside the search bar, display **live search suggestions/results directly underneath the search bar**.
+```sql
+-- 1. User Profiles
+CREATE TABLE IF NOT EXISTS public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  username TEXT UNIQUE NOT NULL,
+  hgj_id TEXT UNIQUE NOT NULL,
+  display_name TEXT NOT NULL,
+  avatar_url TEXT,
+  bio TEXT DEFAULT '',
+  is_verified BOOLEAN DEFAULT FALSE,
+  is_online BOOLEAN DEFAULT FALSE,
+  last_seen TIMESTAMPTZ DEFAULT NOW(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-Example:
+-- 2. Conversations
+CREATE TABLE IF NOT EXISTS public.conversations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type TEXT NOT NULL DEFAULT 'direct', -- 'direct' or 'group'
+  disappearing_duration INTERVAL DEFAULT NULL, -- NULL, '24 hours', '7 days'
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  last_message_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-Search input:
+-- 3. Conversation Participants
+CREATE TABLE IF NOT EXISTS public.conversation_participants (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES public.conversations(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  has_muted BOOLEAN DEFAULT FALSE,
+  cleared_up_to TIMESTAMPTZ DEFAULT NULL,
+  joined_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(conversation_id, user_id)
+);
 
-`rah`
+-- 4. Messages
+CREATE TABLE IF NOT EXISTS public.messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES public.conversations(id) ON DELETE CASCADE,
+  sender_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  message_type TEXT NOT NULL DEFAULT 'text', -- 'text', 'image', 'audio', 'file'
+  content TEXT,
+  media_url TEXT,
+  file_name TEXT,
+  file_size BIGINT,
+  reply_to_id UUID REFERENCES public.messages(id) ON DELETE SET NULL,
+  is_deleted BOOLEAN DEFAULT FALSE,
+  delivery_status TEXT DEFAULT 'sent', -- 'sent', 'delivered', 'seen'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-Under the search bar:
+-- 5. Message Reactions
+CREATE TABLE IF NOT EXISTS public.message_reactions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  message_id UUID REFERENCES public.messages(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  emoji TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(message_id, user_id, emoji)
+);
 
-```text
-Search results
-
-○ Rahul
-  @rahul
-  HGJ-7F42K9
-
-○ Rahul Kumar
-  @rahulkumar
-  HGJ-91KD82
-
-○ Rahul Singh
-  @rahuls
-  HGJ-X82K4P
+-- 6. User Blocks
+CREATE TABLE IF NOT EXISTS public.user_blocks (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  blocker_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  blocked_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(blocker_id, blocked_id)
+);
 ```
 
-Each result should contain:
-
-* Profile avatar
-* Display name
-* Username
-* HarshGuruJi ID
-* Online indicator when applicable
-
-The results should update dynamically as the user types.
+### 6.2 Essential RLS Security Rules
+- Enable RLS on all tables: `profiles`, `conversations`, `conversation_participants`, `messages`, `message_reactions`, `user_blocks`.
+- Users can read all public profiles. Users can only update their own profile (`auth.uid() = id`).
+- Users can only read conversations and messages where they are registered in `conversation_participants`.
+- Users cannot insert messages into conversations where they are blocked by the other participant.
 
 ---
 
-# 7. SEARCH RESULT DESIGN
+## 7. MOBILE & PWA CAPABILITIES (CAPACITOR + ANDROID)
 
-Search suggestions should appear in a polished dropdown/list directly below the search field.
-
-Example:
-
-```text
-┌─────────────────────────────────────┐
-│ 🔍 rahul                            │
-└─────────────────────────────────────┘
-
-   Search results
-
-   ○ Rahul
-     @rahul
-     HGJ-7F42K9
-
-   ○ Rahul Kumar
-     @rahulkumar
-     HGJ-91KD82
-
-   ○ Rahul Singh
-     @rahuls
-     HGJ-X82K4P
-```
-
-Use:
-
-* Smooth dropdown animation.
-* Rounded result cards.
-* Avatar.
-* Username emphasis.
-* ID displayed in smaller secondary text.
-* Online indicator.
-* Hover animation on desktop.
-* Touch feedback on mobile.
-
-Clicking a search result should open that user's profile/chat options.
+- **Capacitor Configuration (`capacitor.config.ts`)**:
+  - App ID: `com.webguruji.chat`
+  - App Name: `WebGuruJi Chat`
+  - Web Dir: `dist`
+- **Native Android Optimizations**:
+  - `Keyboard.setResizeMode({ mode: KeyboardResize.Native })` for viewport pushing without breaking chat history.
+  - Safe-area insets (`env(safe-area-inset-top)` & `env(safe-area-inset-bottom)`) for edge-to-edge screens.
+  - Android Back Button handler: Closes open modals, then active conversation, and exits app on double-tap.
+  - Native Push Notifications via `@capacitor/push-notifications` or Firebase Cloud Messaging (FCM).
 
 ---
 
-# 8. SEARCH RESULT PRIORITY
+## 8. PRODUCTION DEPLOYMENT & VERIFICATION WORKFLOW
 
-Rank results intelligently.
-
-For example, if the user searches:
-
-`rahul`
-
-Prioritize:
-
-1. Exact username match.
-2. Username beginning with the search text.
-3. Username containing the search text.
-4. Display-name matches.
-5. HarshGuruJi ID matches.
-
-Example:
-
-Search:
-
-`rahul`
-
-Results:
-
-`@rahul` — highest priority
-
-`@rahulkumar`
-
-`@rahulsingh`
-
-`@the_rahul`
-
-Avoid showing unrelated users.
+1. **Build Step**:
+   ```bash
+   npm run build
+   ```
+2. **Capacitor Sync** (for Android APK generation):
+   ```bash
+   npx cap sync android
+   ```
+3. **Domain Verification**:
+   - Verify CNAME record: `chat.webguruji.online` points to the deployment target host.
+   - Verify HTTPS SSL certificate validity.
+   - Test seamless deep-linking from `https://www.webguruji.online` hero and navbar.
 
 ---
-
-# 9. SEARCH PERFORMANCE
-
-Implement efficient search.
-
-Use:
-
-* Debouncing.
-* Indexed username searches.
-* Indexed unique ID searches.
-* Pagination for large result sets.
-* Server-side search where appropriate.
-
-Do not send an API request for every individual keystroke.
-
-Example:
-
-User types:
-
-`r`
-
-`ra`
-
-`rah`
-
-`rahul`
-
-Use a short debounce interval before performing the search.
-
-For a small local cached user list, client-side filtering can be used where appropriate.
-
----
-
-# 10. SEARCH EMPTY STATE
-
-If there are no results, show:
-
-`No users found`
-
-And below:
-
-`Try searching with a username or HarshGuruJi ID.`
-
-Do not reveal private information.
-
----
-
-# 11. START NEW CHAT
-
-When a user finds another user, provide:
-
-**Message**
-
-button.
-
-Clicking Message should:
-
-* Create/open a one-to-one conversation.
-* Prevent duplicate conversations between the same two users.
-* Open the conversation immediately.
-* Focus the message input.
-
-If a conversation already exists, open the existing conversation instead of creating another one.
-
----
-
-# 12. CHAT HEADER
-
-At the top of an active conversation show:
-
-* Back button on mobile
-* User avatar
-* Display name
-* Username
-* Online/offline status
-* Last seen/status where appropriate
-* More/options button
-
-Example:
-
-`● Rahul`
-
-`@rahul`
-
-`Online`
-
----
-
-# 13. MESSAGE UI
-
-Create a modern message interface inspired by Instagram/WhatsApp.
-
-Current user's messages:
-
-* Right aligned.
-* Visually distinct.
-* Rounded message bubble.
-* Timestamp.
-* Delivery/seen status.
-
-Other user's messages:
-
-* Left aligned.
-* Different bubble appearance.
-* Avatar can optionally appear beside message groups.
-* Timestamp.
-
-Messages should support:
-
-### Text messages
-
-Normal text communication.
-
-### Message timestamp
-
-Show:
-
-* Time for recent messages.
-* Date separators for older messages.
-
-Example:
-
-`Today`
-
-`Yesterday`
-
-`12 September 2026`
-
----
-
-# 14. MESSAGE STATUS
-
-Implement WhatsApp-style message states:
-
-### Sending
-
-Message is being uploaded/sent.
-
-### Sent
-
-Message successfully reached the server.
-
-### Delivered
-
-Message has reached the recipient.
-
-### Seen
-
-Recipient has opened/read the conversation.
-
-Display appropriate indicators.
-
-For example:
-
-`✓` — Sent
-
-`✓✓` — Delivered
-
-`✓✓` — Seen
-
-The system should update message status in real time whenever possible.
-
----
-
-# 15. REAL-TIME MESSAGING
-
-Messages should appear without requiring page refresh.
-
-When User A sends a message:
-
-User B should receive it immediately when online.
-
-Use an appropriate real-time architecture such as:
-
-* WebSocket
-* Socket.IO
-* Firebase realtime functionality
-* Supabase realtime
-
-Choose the technology that best matches the existing WebGuruJi project.
-
-Do NOT create a completely separate authentication system if the website already has authentication.
-
-Use the existing logged-in user's identity.
-
----
-
-# 16. MESSAGE COMPOSER
-
-At the bottom of the chat:
-
-* Text input
-* Send button
-
-Placeholder:
-
-`Message...`
-
-Features:
-
-* Enter sends message.
-* Shift + Enter creates a new line on desktop.
-* Send button works on mobile.
-* Empty messages cannot be sent.
-* Trim unnecessary whitespace.
-* Disable send while invalid.
-* Show sending state when necessary.
-
-Buttons must have:
-
-* Modern outline styling.
-* Hover animation.
-* Press/click animation.
-* Smooth transitions.
-
----
-
-# 17. MESSAGE DELETE
-
-Implement message deletion.
-
-When the current user selects their own message, provide:
-
-`Delete`
-
-Use a confirmation dialog:
-
-`Delete this message?`
-
-Options:
-
-`Cancel`
-
-`Delete`
-
-Support:
-
-### Delete for me
-
-Removes the message from the current user's view.
-
-If desired by the architecture, also support:
-
-### Delete for everyone
-
-Removes/hides the message for both participants according to the application's message-retention rules.
-
-A deleted message can display:
-
-`Message deleted`
-
-instead of its original content.
-
----
-
-# 18. USER BLOCK SYSTEM
-
-Implement user blocking.
-
-From the chat options menu:
-
-`Block user`
-
-Show confirmation:
-
-`Block this user?`
-
-Explain that blocking prevents the two accounts from communicating.
-
-After blocking:
-
-* Prevent new messages between the users.
-* Hide/disable message composer.
-* Stop new chat requests from the blocked user.
-* Do not allow blocked users to bypass the restriction by searching the ID or username.
-* Clearly show that the user is blocked.
-
-Example:
-
-`You blocked this user.`
-
-Button:
-
-`Unblock`
-
----
-
-# 19. BLOCKED USER BEHAVIOR
-
-Implement blocking securely on the backend.
-
-Do NOT rely only on frontend JavaScript.
-
-The server/database must verify:
-
-* Sender is authenticated.
-* Recipient exists.
-* Sender has not blocked recipient.
-* Recipient has not blocked sender.
-* Conversation belongs to the requesting user.
-* User has permission to perform the requested action.
-
-A malicious user must not be able to bypass blocking by directly calling an API endpoint.
-
----
-
-# 20. CHAT OPTIONS MENU
-
-Add a three-dot menu in the chat header.
-
-Possible options:
-
-* View Profile
-* Search in Conversation
-* Mute Notifications
-* Block User
-* Unblock User
-* Delete Conversation
-* Report User (if reporting is implemented)
-
-Only display options that make sense for the current state.
-
----
-
-# 21. DELETE CONVERSATION
-
-Allow a user to remove a conversation from their own conversation list.
-
-Confirmation:
-
-`Delete this conversation?`
-
-The behavior should be clearly defined as:
-
-* Delete for me
-  OR
-* Permanently delete according to the application's retention policy.
-
-Do not accidentally delete the conversation for the other participant unless explicitly intended.
-
----
-
-# 22. UNREAD MESSAGE SYSTEM
-
-Show unread count beside conversations.
-
-Example:
-
-`Rahul                         3`
-
-When the conversation is opened:
-
-* Mark applicable messages as read.
-* Update the unread count.
-* Update seen status.
-
-Unread messages should remain unread until the conversation is actually opened according to the application's read-state logic.
-
----
-
-# 23. ONLINE / OFFLINE STATUS
-
-If supported by the backend, display:
-
-`Online`
-
-or
-
-`Last seen recently`
-
-Do not expose unnecessary precise activity information.
-
-Use an online indicator near the avatar.
-
----
-
-# 24. SEARCH CHATS
-
-The sidebar search should also allow searching existing conversations by:
-
-* Display name
-* Username
-* HarshGuruJi ID
-
-Search results should update smoothly while typing.
-
-Use debouncing for server-side searches to avoid unnecessary requests.
-
----
-
-# 25. EMPTY STATES
-
-Create polished empty states.
-
-No conversations:
-
-`No messages yet`
-
-`Search for a friend using their username or HarshGuruJi ID to start chatting.`
-
-No user found:
-
-`No users found`
-
-No selected conversation:
-
-`Select a conversation to start messaging`
-
-Blocked:
-
-`You can't send messages to this user.`
-
----
-
-# 26. LOADING STATES
-
-Never show a blank screen during loading.
-
-Use:
-
-* Skeleton loaders
-* Shimmer placeholders
-* Loading indicators
-* Smooth transitions
-
-Example conversation skeleton:
-
-Avatar circle + name line + message preview line.
-
-Search loading state:
-
-```text
-Searching users...
-```
-
-Use a small animated loading indicator beneath the search bar.
-
----
-
-# 27. ERROR HANDLING
-
-Every API operation must have proper error handling.
-
-Handle:
-
-* Network failure
-* Server failure
-* Invalid user ID
-* Invalid username
-* User not found
-* Unauthorized request
-* Expired session
-* Blocked user
-* Message send failure
-* Message deletion failure
-* Real-time connection failure
-
-Show friendly messages rather than raw errors.
-
-Example:
-
-`Message couldn't be sent. Please try again.`
-
-Provide retry where appropriate.
-
----
-
-# 28. SECURITY
-
-This is extremely important.
-
-Implement backend authorization.
-
-Never trust:
-
-* User IDs from frontend.
-* Conversation IDs.
-* Message IDs.
-* Block status sent by client.
-* Delete permissions sent by client.
-
-Every request must be verified server-side.
-
-Users must only be able to access conversations they are participants in.
-
-Users must not be able to:
-
-* Read another user's private conversations.
-* Delete another user's messages.
-* Modify another user's account.
-* Impersonate another user.
-* Change another user's chat ID.
-* Bypass blocking.
-
-Sanitize message content appropriately.
-
-Prevent:
-
-* XSS
-* Injection attacks
-* Unauthorized API access
-* ID enumeration where practical
-* Duplicate message creation
-* Spam abuse
-
-Rate-limit message sending and user-search endpoints where appropriate.
-
----
-
-# 29. PRIVACY
-
-The chat system is private.
-
-Only conversation participants can access conversation messages.
-
-Do not create a public message feed.
-
-Do not index private messages publicly.
-
-Do not expose message contents through public profile pages.
-
-Search results should reveal only the user's intended public information:
-
-* Avatar
-* Display name
-* Username
-* HarshGuruJi ID
-* Appropriate online status
-
----
-
-# 30. INSTAGRAM-INSPIRED UI DIRECTION
-
-The visual design should be approximately 90% inspired by the usability and cleanliness of modern Instagram Direct Messages, but it must NOT be an exact copy.
-
-Use:
-
-* Clean modern sidebar.
-* Rounded avatars.
-* Minimal interface.
-* Spacious message layout.
-* Smooth transitions.
-* Modern typography.
-* Subtle borders.
-* Soft shadows.
-* Elegant modal dialogs.
-* Modern search field.
-* Live search suggestions.
-* Responsive conversation layout.
-
-Create a unique HarshGuruJi visual identity rather than copying Instagram branding.
-
-DO NOT add:
-
-* Reels
-* Stories
-* Explore feed
-* Public posts
-* Likes
-* Followers feed
-* Short-video feed
-
-This is strictly a messaging product.
-
----
-
-# 31. ANIMATIONS
-
-Keep animations smooth and lightweight.
-
-Add:
-
-* Button press animation.
-* Message send animation.
-* Conversation opening animation.
-* Search result animation.
-* Search dropdown animation.
-* Modal fade/scale animation.
-* Sidebar transition.
-* Skeleton shimmer.
-* Toast notification animation.
-
-Avoid excessive animation that causes lag.
-
-Use GPU-friendly CSS transitions where possible.
-
----
-
-# 32. TOAST NOTIFICATIONS
-
-Create a reusable toast system.
-
-Examples:
-
-`Message sent`
-
-`Message deleted`
-
-`User blocked`
-
-`User unblocked`
-
-`ID copied`
-
-`Conversation deleted`
-
-`User found`
-
-`Something went wrong`
-
-Toasts should automatically disappear after a short period.
-
----
-
-# 33. PROFILE POPUP
-
-Clicking a user's avatar/name can open a compact profile view.
-
-Display only public information such as:
-
-* Avatar
-* Display name
-* Username
-* HarshGuruJi ID
-* Online status
-* Message button
-* Block/Unblock option
-
-Do not expose private account information.
-
----
-
-# 34. DATABASE STRUCTURE
-
-Design a proper relational/data model.
-
-Recommended conceptual entities:
-
-### Users
-
-* id
-* unique_chat_id
-* username
-* display_name
-* avatar
-* created_at
-* status
-
-### Conversations
-
-* id
-* participant_one
-* participant_two
-* created_at
-* updated_at
-
-Ensure a unique relationship between two participants so duplicate one-to-one conversations cannot be created.
-
-### Messages
-
-* id
-* conversation_id
-* sender_id
-* receiver_id
-* message_type
-* content
-* created_at
-* updated_at
-* delivered_at
-* seen_at
-* deleted_for_sender
-* deleted_for_receiver
-* deleted_for_everyone
-
-### Blocks
-
-* id
-* blocker_id
-* blocked_user_id
-* created_at
-
-Add appropriate indexes for:
-
-* unique_chat_id
-* username
-* conversation participants
-* conversation_id
-* message timestamps
-* block relationships
-
----
-
-# 35. PERFORMANCE
-
-The chat page must be fast.
-
-Do not load thousands of messages at once.
-
-Use:
-
-* Pagination
-* Cursor-based message loading where appropriate
-* Lazy loading
-* Debounced search
-* Optimized database queries
-* Efficient real-time subscriptions
-* Image optimization
-* Message virtualization if conversation history becomes large
-
-Initially load the newest messages.
-
-When the user scrolls upward, load older messages.
-
----
-
-# 36. CONNECTION RECOVERY
-
-If the real-time connection drops:
-
-Show a small status:
-
-`Reconnecting...`
-
-Automatically reconnect when possible.
-
-After reconnecting:
-
-* Synchronize missed messages.
-* Restore conversation state.
-* Correct delivery/read status.
-
-Do not duplicate messages during reconnection.
-
----
-
-# 37. MESSAGE ORDERING
-
-Messages must always appear in correct chronological order.
-
-Use server timestamps rather than trusting the user's device clock.
-
-Handle rapid consecutive messages correctly.
-
-Prevent duplicate messages caused by retries or reconnects.
-
----
-
-# 38. AUTHENTICATION INTEGRATION
-
-Use the existing WebGuruJi authentication system.
-
-If the user is not logged in:
-
-Redirect them to the existing login page.
-
-After login:
-
-* Load their profile.
-* Load their conversations.
-* Load their unique HarshGuruJi ID.
-* Load their username.
-
-Never create a second independent login system unless absolutely required by the existing architecture.
-
----
-
-# 39. UI ROUTES
-
-Implement suitable routes such as:
-
-`/chat`
-
-`/chat/:conversationId`
-
-or equivalent routes based on the existing website framework.
-
-The chat page should preserve the website's existing header/navigation where appropriate.
-
----
-
-# 40. ACCESSIBILITY
-
-Support:
-
-* Keyboard navigation.
-* Proper button labels.
-* Accessible input fields.
-* Focus states.
-* Screen-reader-friendly controls.
-* Sufficient contrast.
-* Escape key for dialogs.
-* Enter/Shift+Enter message behavior.
-
----
-
-# 41. RESPONSIVE CHAT EXPERIENCE
-
-On mobile, prioritize the conversation.
-
-Recommended flow:
-
-**Chat Home**
-→ **Search username or ID**
-→ **Live search suggestions**
-→ **Select user**
-→ **User profile**
-→ **Message**
-→ **Full-screen conversation**
-
-Conversation screen:
-
-**Back | Avatar | Name | More**
-
-Messages
-
-**Message input | Send**
-
-The keyboard must not cover the input.
-
----
-
-# 42. UI COMPONENT ARCHITECTURE
-
-Build reusable components such as:
-
-* ChatSidebar
-* ChatSearch
-* SearchSuggestions
-* UserSearchResult
-* ConversationList
-* ConversationItem
-* ChatHeader
-* MessageList
-* MessageBubble
-* MessageComposer
-* MessageStatus
-* ChatOptionsMenu
-* UserProfileModal
-* BlockConfirmationModal
-* DeleteConfirmationModal
-* Toast
-* LoadingSkeleton
-* EmptyState
-
-Keep components modular and maintainable.
-
----
-
-# 43. SEARCH EXPERIENCE EXAMPLE
-
-The final search experience should work like this:
-
-### Step 1
-
-User opens Chat.
-
-### Step 2
-
-User taps:
-
-`Search username or HarshGuruJi ID...`
-
-### Step 3
-
-User types:
-
-`rah`
-
-### Step 4
-
-The system dynamically shows:
-
-```text
-Search results
-
-Rahul
-@rahul
-HGJ-7F42K9
-
-Rahul Kumar
-@rahulkumar
-HGJ-91KD82
-
-Rahul Singh
-@rahuls
-HGJ-X82K4P
-```
-
-### Step 5
-
-User taps a result.
-
-### Step 6
-
-Show profile information.
-
-### Step 7
-
-User taps:
-
-`Message`
-
-### Step 8
-
-Open or create the existing one-to-one conversation.
-
-This flow must be fast and smooth.
-
----
-
-# 44. FINAL QUALITY REQUIREMENTS
-
-The final implementation must be:
-
-* Production-ready.
-* Fully functional.
-* Responsive.
-* Secure.
-* Fast.
-* Modern.
-* Real-time.
-* Mobile friendly.
-* Easy to maintain.
-* Integrated with the existing WebGuruJi system.
-
-Do not create fake/demo chat functionality.
-
-Do not use hardcoded users or fake messages in production.
-
-All users, conversations, messages, seen states, deleted states, search results and blocks must come from the real backend/database.
-
----
-
-# 45. IMPORTANT DEVELOPMENT RULE
-
-Before modifying the project:
-
-1. Inspect the existing WebGuruJi project.
-2. Identify the existing framework.
-3. Identify the existing authentication system.
-4. Identify the existing database.
-5. Identify the existing user/profile schema.
-6. Identify the existing username system.
-7. Identify the existing API architecture.
-8. Reuse existing components/styles where appropriate.
-9. Do not break existing website functionality.
-10. Integrate the chat system into the existing architecture.
-11. Only create new backend/database structures where necessary.
-
-Do not blindly replace the existing website.
-
----
-
-# 46. FINAL ACCEPTANCE TEST
-
-Before considering the feature complete, test this complete flow:
-
-User A logs in.
-
-User A opens Chat.
-
-User A sees their unique HarshGuruJi ID and username.
-
-User A searches User B using User B's username.
-
-User B appears underneath the search bar.
-
-User A searches User B using User B's unique HarshGuruJi ID.
-
-User B appears.
-
-User A starts a conversation.
-
-User A sends:
-
-`Hello`
-
-User B receives it in real time.
-
-User B opens the conversation.
-
-User A sees the message become delivered/seen according to the implementation.
-
-User B replies.
-
-Both users see the messages in the correct order.
-
-User A deletes their message.
-
-Verify the correct delete behavior.
-
-User A blocks User B.
-
-Verify User B cannot send messages.
-
-Verify User B cannot bypass the block by searching the username or ID.
-
-User A unblocks User B.
-
-Verify messaging works again.
-
-Test:
-
-* Desktop
-* Tablet
-* Mobile
-* Username search
-* Partial username search
-* Exact username search
-* ID search
-* Invalid username
-* Invalid ID
-* Live search suggestions
-* Slow network
-* Offline/reconnect
-* Refresh
-* Logout/login
-* Multiple conversations
-* Empty states
-* Unauthorized requests
-* Message deletion
-* User blocking
-
-Fix all discovered bugs before completion.
-
----
-
-# FINAL PRODUCT VISION
-
-The finished HarshGuruJi Chat page should feel like a polished, modern private messaging application integrated directly into:
-
-[www.webguruji.online](http://www.webguruji.online)
-
-The core experience should be:
-
-**Search Username / ID → Find User → Open Profile → Message → Send → Delivered → Seen → Delete → Block/Unblock**
-
-The search system should make finding friends extremely easy:
-
-**Username search + HarshGuruJi ID search + live username-related suggestions**
-
-Keep the system focused on private messaging.
-
-No Reels.
-No public feed.
-No unnecessary social-media features.
-
-Build it as a reliable, secure, responsive and production-ready **HarshGuruJi private chat system**.
+**Maintained by HarshGuruJi Engineering — Keep focused, secure, fast, and delightful.**

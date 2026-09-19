@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
             <li class="hg-nav-item"><a href="${prefix}store.html" class="hg-nav-link" id="nav-link-store">Store</a></li>
-            <li class="hg-nav-item"><a href="${prefix}chat.html" class="hg-nav-link" id="nav-link-chat">Chat</a></li>
+            <li class="hg-nav-item"><a href="https://chat.webguruji.online" class="hg-nav-link" id="nav-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
             <li class="hg-nav-item"><a href="${prefix}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
             
             <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
           <li><a href="${prefix}store.html" class="hg-mobile-link" id="mob-link-store">Store</a></li>
-          <li><a href="${prefix}chat.html" class="hg-mobile-link" id="mob-link-chat">Chat</a></li>
+          <li><a href="https://chat.webguruji.online" class="hg-mobile-link" id="mob-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
           <li><a href="${prefix}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
           
           <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
@@ -745,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { 
       title: 'HarshGuruJi Chat', 
       desc: 'Community chat, discussion channels and interactive peer support', 
-      url: 'chat.html', 
+      url: 'https://chat.webguruji.online', 
       type: 'page', 
       icon: '💬', 
       keywords: 'chat harshguruji chat community discussion messages talk' 
