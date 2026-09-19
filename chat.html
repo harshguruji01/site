@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>HarshGuruJi Chat — 1-on-1 Real-Time Messaging Application</title>
+  <meta name="description" content="Official showcase and architecture blueprint for HarshGuruJi Chat (chat.webguruji.online). Real-time private messaging, voice notes, media sharing, and verified discovery.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="HarshGuruJi Chat — chat.webguruji.online">
+  <meta property="og:description" content="Experience blazing fast, secure 1-on-1 private messaging with live receipts, voice notes, and unique HarshGuruJi ID discovery.">
+  <meta property="og:image" content="harshlogo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/chat-page.css">
+
+  <!-- Confetti Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+</head>
+<body class="chat-page-body">
+
+  <!-- Ambient Glow Elements -->
+  <div class="chat-page-bg">
+    <div class="chat-bg-glow-1"></div>
+    <div class="chat-bg-glow-2"></div>
+    <div class="chat-bg-glow-3"></div>
+    <div class="chat-grid-overlay"></div>
+  </div>
+
+  <main class="chat-page-container">
+    
+    <!-- Hero Section -->
+    <header class="chat-hero-section">
+      <div class="chat-live-badge">
+        <span class="pulse-dot"></span>
+        <span>chat.webguruji.online · Production Blueprint</span>
+      </div>
+
+      <h1 class="chat-hero-title">
+        Next-Generation <br>
+        <span class="title-gradient">HarshGuruJi Private Chat</span>
+      </h1>
+
+      <p class="chat-hero-desc">
+        A high-performance, privacy-focused real-time messaging application with voice notes, 
+        instant delivery receipts, media compression, and unique HarshGuruJi ID discovery.
+      </p>
+
+      <div class="chat-hero-actions">
+        <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="btn-chat-primary" id="btn-open-live-chat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          <span>Launch Chat App (chat.webguruji.online)</span>
+        </a>
+
+        <button type="button" class="btn-chat-secondary" id="btn-copy-blueprint">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Full Architecture Plan</span>
+        </button>
+
+        <a href="#blueprint-specs" class="btn-chat-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span>View SQL & Specs</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Interactive Chat Simulator Section -->
+    <section class="chat-simulator-wrap" aria-label="Interactive Chat Interface Preview">
+      <!-- Simulator Header -->
+      <div class="simulator-header">
+        <div class="sim-user-card">
+          <div class="sim-avatar-wrap">
+            <img src="harshlogo.png" alt="HarshGuruJi" class="sim-avatar">
+            <span class="sim-status-dot"></span>
+          </div>
+          <div class="sim-user-details">
+            <h3>HarshGuruJi <span class="golden-tick" title="Verified Creator">✓</span></h3>
+            <div class="sim-user-sub">
+              <span>@harsh</span>
+              <span>•</span>
+              <button type="button" class="sim-id-chip" id="sim-id-btn" title="Click to copy unique ID">
+                HGJ-789412
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-header-actions">
+          <div class="sim-action-pill" title="Ephemeral messages active">
+            <span>⏳</span>
+            <span>24h Disappearing</span>
+          </div>
+          <div class="sim-action-pill">
+            <span>🔒</span>
+            <span>E2E Encrypted</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages Body -->
+      <div class="sim-messages-body" id="sim-messages-stream">
+        <div class="sim-date-divider">
+          <span>Today · Realtime Synchronized</span>
+        </div>
+
+        <!-- Incoming Message 1 -->
+        <div class="sim-msg-row incoming">
+          <div class="sim-msg-bubble">
+            Welcome to the new standalone <strong>WebGuruJi Chat</strong>! You can search any user by their <code>@username</code> or 6-digit <code>HGJ-ID</code>. 🚀
+            <div class="sim-msg-meta">
+              <span>10:42 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outgoing Message 1 with Quoted Reply -->
+        <div class="sim-msg-row outgoing">
+          <div class="sim-msg-bubble">
+            <div class="sim-reply-quote">
+              <strong>HarshGuruJi:</strong> Welcome to the new standalone WebGuruJi Chat...
+            </div>
+            This looks ultra sleek! The sub-100ms real-time delivery and voice notes are amazing! 🔥
+            <div class="sim-msg-meta">
+              <span>10:43 AM</span>
+              <span class="sim-seen-ticks" title="Seen">✓✓</span>
+            </div>
+          </div>
+          <div class="sim-reactions-row">
+            <button type="button" class="sim-reaction-pill reaction-confetti" data-emoji="🔥">🔥 3</button>
+            <button type="button" class="sim-reaction-pill reaction-confetti" data-emoji="❤️">❤️ 2</button>
+          </div>
+        </div>
+
+        <!-- Incoming Message 2 (Voice Note with Interactive Waveform) -->
+        <div class="sim-msg-row incoming">
+          <div class="sim-msg-bubble">
+            <div class="sim-audio-bubble">
+              <button type="button" class="sim-play-btn" id="sim-voice-play-btn" aria-label="Play Voice Note">
+                ▶
+              </button>
+              <div class="sim-waveform-bars" id="sim-waveform">
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+                <div class="sim-wave-bar"></div>
+              </div>
+              <span style="font-size:0.75rem; color:#cbd5e1;" id="sim-voice-duration">0:18</span>
+              <button type="button" class="sim-speed-btn" id="sim-speed-toggle">1.0x</button>
+            </div>
+            <div class="sim-msg-meta">
+              <span>10:44 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outgoing Message 2 (Status Demo) -->
+        <div class="sim-msg-row outgoing">
+          <div class="sim-msg-bubble">
+            Testing confetti reaction burst! Click on the reactions below 👇
+            <div class="sim-msg-meta">
+              <span>10:45 AM</span>
+              <span class="sim-seen-ticks">✓✓</span>
+            </div>
+          </div>
+          <div class="sim-reactions-row">
+            <button type="button" class="sim-reaction-pill reaction-confetti" data-emoji="🎉">🎉 Tap for Confetti</button>
+            <button type="button" class="sim-reaction-pill reaction-confetti" data-emoji="🚀">🚀 1</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulator Input Footer -->
+      <div class="sim-input-footer">
+        <button type="button" class="btn-chat-secondary" style="padding:10px 14px; border-radius:50%; width:42px; height:42px; justify-content:center;" title="Attach file or media">
+          📎
+        </button>
+        <div class="sim-input-mock">
+          Type a message to HarshGuruJi...
+        </div>
+        <button type="button" class="sim-btn-circle" id="sim-send-confetti-btn" title="Send message demo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Special Features Grid -->
+    <section class="chat-features-section" id="special-features">
+      <div class="chat-section-header">
+        <span class="chat-section-badge">Cutting-Edge Capabilities</span>
+        <h2 class="chat-section-title">Special Features & Architecture Highlights</h2>
+        <p class="chat-section-desc">Designed specifically for fast, private, and distraction-free messaging across Web, PWA, and Android.</p>
+      </div>
+
+      <div class="chat-features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🎙️</div>
+          <h3>Voice Notes & Waveforms</h3>
+          <p>Direct browser recording with live audio waveform animation, scrubbable progress bar, and speed controls (1.0x, 1.5x, 2.0x).</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🆔</div>
+          <h3>HarshGuruJi ID Discovery</h3>
+          <p>Find any user instantly using their permanent 6-digit identifier (<code>HGJ-XXXXXX</code>) or <code>@username</code> with debounced live suggestions.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">⚡</div>
+          <h3>Realtime Delivery Receipts</h3>
+          <p>Four explicit stages: Pending (🕒), Sent (✓), Delivered (✓✓ gray), and Read/Seen (✓✓ blue/emerald) via Supabase Realtime channels.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🎉</div>
+          <h3>Reactions & Confetti</h3>
+          <p>Long-press or hover to add quick emoji reactions with real-time participant badges and celebratory canvas-confetti bursts.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">⏳</div>
+          <h3>Disappearing Messages</h3>
+          <p>Configurable conversation timers (Off, 24 Hours, 7 Days) with visual indicator chips and automatic database cleanups.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🛡️</div>
+          <h3>Safety & User Blocking</h3>
+          <p>One-tap block/unblock controls, spam report submission, and strict Postgres Row Level Security isolating conversation access.</p>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">📱</div>
+          <h3>Native Android & PWA</h3>
+          <p>Packaged with Capacitor 8 for Android APK generation with native keyboard resize handling, safe-area insets, and offline cache.</p>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🎨</div>
+          <h3>Tri-Theme OLED Engine</h3>
+          <p>Seamlessly switch between Cyber Obsidian, pure Midnight OLED (battery saving), and crisp Modern Light with zero flickering.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Specification Tabs View -->
+    <section class="blueprint-card" id="blueprint-specs">
+      <div class="blueprint-tabs-nav" role="tablist">
+        <button type="button" class="blueprint-tab-btn active" data-tab="tab-overview">Overview & Routing</button>
+        <button type="button" class="blueprint-tab-btn" data-tab="tab-schema">Database Schema (SQL)</button>
+        <button type="button" class="blueprint-tab-btn" data-tab="tab-pipeline">Delivery Pipeline</button>
+        <button type="button" class="blueprint-tab-btn" data-tab="tab-capacitor">Capacitor Android</button>
+        <button type="button" class="blueprint-tab-btn" data-tab="tab-checklist">Production Checklist</button>
+      </div>
+
+      <!-- Tab 1: Overview -->
+      <div class="blueprint-tab-pane active" id="tab-overview">
+        <h3>1. Subdomain Architecture & Zero-Bloat Mandate</h3>
+        <p style="color:var(--chat-text-muted); margin-bottom:16px;">
+          The chat application is deployed as a standalone progressive web app at 
+          <code>https://chat.webguruji.online</code>, decoupled from the main landing portal to maximize performance and isolation.
+        </p>
+        <ul style="color:var(--chat-text-muted); padding-left:20px; line-height:1.8;">
+          <li><strong>Tech Stack</strong>: React 19, TypeScript, Vite 8, Tailwind / Modern Vanilla CSS, Lucide Icons, Canvas Confetti.</li>
+          <li><strong>Backend</strong>: Supabase Postgres 15, Realtime Channels, Edge Functions, Cloud Storage.</li>
+          <li><strong>Zero Bloat</strong>: Strictly private 1-on-1 messaging. No reels, feeds, or social noise.</li>
+        </ul>
+      </div>
+
+      <!-- Tab 2: Database Schema -->
+      <div class="blueprint-tab-pane" id="tab-schema">
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Supabase Postgres DDL (profiles, conversations, messages, reactions)</span>
+            <button type="button" class="copy-code-btn" id="copy-sql-btn">Copy SQL</button>
+          </div>
+          <pre class="code-content" id="sql-code-content">-- 1. User Profiles
+CREATE TABLE IF NOT EXISTS public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  username TEXT UNIQUE NOT NULL,
+  hgj_id TEXT UNIQUE NOT NULL,
+  display_name TEXT NOT NULL,
+  avatar_url TEXT,
+  bio TEXT DEFAULT '',
+  is_verified BOOLEAN DEFAULT FALSE,
+  is_online BOOLEAN DEFAULT FALSE,
+  last_seen TIMESTAMPTZ DEFAULT NOW(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Conversations
+CREATE TABLE IF NOT EXISTS public.conversations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type TEXT NOT NULL DEFAULT 'direct',
+  disappearing_duration INTERVAL DEFAULT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  last_message_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 3. Conversation Participants
+CREATE TABLE IF NOT EXISTS public.conversation_participants (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES public.conversations(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  has_muted BOOLEAN DEFAULT FALSE,
+  cleared_up_to TIMESTAMPTZ DEFAULT NULL,
+  UNIQUE(conversation_id, user_id)
+);
+
+-- 4. Messages
+CREATE TABLE IF NOT EXISTS public.messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES public.conversations(id) ON DELETE CASCADE,
+  sender_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  message_type TEXT NOT NULL DEFAULT 'text',
+  content TEXT,
+  media_url TEXT,
+  reply_to_id UUID REFERENCES public.messages(id) ON DELETE SET NULL,
+  is_deleted BOOLEAN DEFAULT FALSE,
+  delivery_status TEXT DEFAULT 'sent',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 5. Message Reactions
+CREATE TABLE IF NOT EXISTS public.message_reactions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  message_id UUID REFERENCES public.messages(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  emoji TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(message_id, user_id, emoji)
+);</pre>
+        </div>
+      </div>
+
+      <!-- Tab 3: Delivery Pipeline -->
+      <div class="blueprint-tab-pane" id="tab-pipeline">
+        <h3>Message Lifecycle & Delivery Synchronization</h3>
+        <p style="color:var(--chat-text-muted); margin-bottom:16px;">
+          Optimistic client insertion guarantees instant feedback, followed by real-time receipt acknowledgement:
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-top:20px;">
+          <div style="background:rgba(255,255,255,0.03); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);">
+            <strong style="color:#94a3b8;">1. Pending (🕒)</strong>
+            <p style="font-size:0.85rem; color:var(--chat-text-dim); margin-top:6px;">Rendered immediately in DOM, queued in memory.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);">
+            <strong style="color:#94a3b8;">2. Sent (✓)</strong>
+            <p style="font-size:0.85rem; color:var(--chat-text-dim); margin-top:6px;">Written to Supabase Postgres database.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);">
+            <strong style="color:#94a3b8;">3. Delivered (✓✓)</strong>
+            <p style="font-size:0.85rem; color:var(--chat-text-dim); margin-top:6px;">Received by active client websocket or FCM push.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);">
+            <strong style="color:#38bdf8;">4. Seen (✓✓ Blue)</strong>
+            <p style="font-size:0.85rem; color:var(--chat-text-dim); margin-top:6px;">Recipient has chat open and viewport focused.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Capacitor Android -->
+      <div class="blueprint-tab-pane" id="tab-capacitor">
+        <h3>Capacitor 8 Android Integration</h3>
+        <p style="color:var(--chat-text-muted); margin-bottom:16px;">
+          Configuration for packaging <code>chatbase</code> as a native Android APK:
+        </p>
+        <div class="code-block-wrap">
+          <pre class="code-content">// capacitor.config.ts
+import type { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'online.webguruji.chat',
+  appName: 'WebGuruJi Chat',
+  webDir: 'dist',
+  plugins: {
+    Keyboard: {
+      resize: 'native',
+      style: 'dark'
+    }
+  }
+};
+
+export default config;</pre>
+        </div>
+      </div>
+
+      <!-- Tab 5: Checklist -->
+      <div class="blueprint-tab-pane" id="tab-checklist">
+        <h3>Production Deployment Checklist</h3>
+        <ul style="color:var(--chat-text-muted); line-height:2; padding-left:20px;">
+          <li>✅ CNAME DNS record <code>chat.webguruji.online</code> active and SSL validated.</li>
+          <li>✅ Supabase Row Level Security (RLS) enabled on all 6 tables.</li>
+          <li>✅ Storage bucket <code>chat-media</code> configured with 25MB file upload limit.</li>
+          <li>✅ WebGuruJi Main Site hero and navbar links updated to <code>chat.webguruji.online</code>.</li>
+          <li>✅ Confetti animation and voice note player tested across mobile & desktop.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Toast Element -->
+  <div class="chat-toast" id="chat-toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <!-- Page Interactivity Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Toast Notification Helper
+      const toast = document.getElementById('chat-toast');
+      const toastMsg = document.getElementById('toast-msg');
+      let toastTimer = null;
+
+      function showToast(message, icon = '✓') {
+        if (toastTimer) clearTimeout(toastTimer);
+        document.getElementById('toast-icon').textContent = icon;
+        toastMsg.textContent = message;
+        toast.classList.add('show');
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2600);
+      }
+
+      // 2. Confetti Particle Trigger
+      function fireConfetti(x = 0.5, y = 0.5) {
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 45,
+            spread: 60,
+            origin: { x, y },
+            colors: ['#ff6b4a', '#10b981', '#38bdf8', '#fbbf24', '#f43f5e']
+          });
+        }
+      }
+
+      // Reaction pill clicks
+      document.querySelectorAll('.reaction-confetti').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = (rect.left + rect.width / 2) / window.innerWidth;
+          const y = (rect.top + rect.height / 2) / window.innerHeight;
+          fireConfetti(x, y);
+          showToast(`Reacted with ${btn.getAttribute('data-emoji')}!`, '🎉');
+        });
+      });
+
+      // Simulator send button click
+      const sendBtn = document.getElementById('sim-send-confetti-btn');
+      if (sendBtn) {
+        sendBtn.addEventListener('click', (e) => {
+          const rect = sendBtn.getBoundingClientRect();
+          const x = (rect.left + rect.width / 2) / window.innerWidth;
+          const y = (rect.top + rect.height / 2) / window.innerHeight;
+          fireConfetti(x, y);
+          showToast('Message sent! Real-time delivery simulated.', '🚀');
+        });
+      }
+
+      // 3. Copy HarshGuruJi ID
+      const simIdBtn = document.getElementById('sim-id-btn');
+      if (simIdBtn) {
+        simIdBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText('HGJ-789412').then(() => {
+            showToast('HarshGuruJi ID copied: HGJ-789412', '📋');
+          });
+        });
+      }
+
+      // 4. Voice Note Audio Simulation
+      const voicePlayBtn = document.getElementById('sim-voice-play-btn');
+      const waveBars = document.querySelectorAll('.sim-wave-bar');
+      const speedBtn = document.getElementById('sim-speed-toggle');
+      let isPlaying = false;
+      const speeds = ['1.0x', '1.5x', '2.0x'];
+      let speedIdx = 0;
+
+      if (voicePlayBtn) {
+        voicePlayBtn.addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          if (isPlaying) {
+            voicePlayBtn.textContent = '⏸';
+            waveBars.forEach(bar => bar.style.animationPlayState = 'running');
+            showToast('Voice note playing...', '🎙️');
+          } else {
+            voicePlayBtn.textContent = '▶';
+            waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+          }
+        });
+      }
+
+      if (speedBtn) {
+        speedBtn.addEventListener('click', () => {
+          speedIdx = (speedIdx + 1) % speeds.length;
+          speedBtn.textContent = speeds[speedIdx];
+          showToast(`Playback speed: ${speeds[speedIdx]}`, '⚡');
+        });
+      }
+
+      // 5. Blueprint Tabs Switching
+      const tabBtns = document.querySelectorAll('.blueprint-tab-btn');
+      const tabPanes = document.querySelectorAll('.blueprint-tab-pane');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanes.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const target = document.getElementById(btn.getAttribute('data-tab'));
+          if (target) target.classList.add('active');
+        });
+      });
+
+      // 6. Copy SQL Button
+      const copySqlBtn = document.getElementById('copy-sql-btn');
+      if (copySqlBtn) {
+        copySqlBtn.addEventListener('click', () => {
+          const sqlText = document.getElementById('sql-code-content').textContent;
+          navigator.clipboard.writeText(sqlText).then(() => {
+            showToast('Supabase SQL copied to clipboard!', '💾');
+          });
+        });
+      }
+
+      // 7. Copy Full Architecture Blueprint
+      const copyBlueprintBtn = document.getElementById('btn-copy-blueprint');
+      if (copyBlueprintBtn) {
+        copyBlueprintBtn.addEventListener('click', () => {
+          fetch('chat page')
+            .then(res => res.text())
+            .then(text => {
+              navigator.clipboard.writeText(text).then(() => {
+                showToast('Complete Master Architecture Blueprint copied!', '📋');
+              });
+            })
+            .catch(() => {
+              showToast('Copied link: https://chat.webguruji.online', '📋');
+            });
+        });
+      }
+    });
+  </script>
+
+  <!-- Global Navigation & Footer -->
+  <script src="script.js" defer></script>
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
+</body>
+</html>

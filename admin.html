@@ -493,6 +493,7 @@
     .tile-messages { --tile-glow: rgba(236, 72, 153, 0.25); --tile-border: #ec4899; }
     .tile-contrib { --tile-glow: rgba(245, 158, 11, 0.25); --tile-border: #f59e0b; }
     .tile-gold { --tile-glow: rgba(255, 215, 0, 0.3); --tile-border: #ffd700; }
+    .tile-chatbase { --tile-glow: rgba(255, 107, 74, 0.25); --tile-border: #ff6b4a; }
 
     .stat-top {
       display: flex;
@@ -1674,6 +1675,22 @@
             <span class="arrow">&rarr;</span>
           </div>
         </div>
+
+        <div class="stat-tile tile-chatbase" id="tile-chatbase-app" role="button" tabindex="0" onclick="window.location.href='admin-chatbase.html'" title="Click to manage Chatbase Application, users and reports">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>Chatbase App</span>
+              <span class="stat-badge-hint" style="color:#ff8c66;">Live Chat 💬</span>
+            </span>
+            <span class="stat-icon-mini">💬</span>
+          </div>
+          <div class="stat-number" id="stat-chatbase-count" style="color: #ff6b4a;">3</div>
+          <div class="stat-subtext"><span style="color:#34d399;">●</span> chat.webguruji.online</div>
+          <div class="stat-click-cta">
+            <span>Manage Chatbase App</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
       </section>
 
       <!-- SECTION: CORE MANAGEMENT MODULES -->
@@ -1758,6 +1775,30 @@
           </a>
         </article>
 
+        <!-- CARD 4: CHATBASE APP & MESSAGING MANAGER -->
+        <article class="module-card" style="--card-glow: rgba(255, 107, 74, 0.25); --card-border-hover: #ff6b4a; --icon-bg: rgba(255, 107, 74, 0.15); --icon-border: rgba(255, 107, 74, 0.35); --icon-glow: rgba(255, 107, 74, 0.3); --btn-bg: linear-gradient(135deg, #ff6b4a, #e04e2d); --btn-border: rgba(255, 107, 74, 0.4); --btn-glow: rgba(255, 107, 74, 0.5);">
+          <div>
+            <div class="card-head">
+              <div class="module-icon-wrap" style="color:#ff6b4a;">💬</div>
+              <div class="card-title-group">
+                <h4>Chatbase App Manager</h4>
+                <span class="card-badge" style="background:rgba(255,107,74,0.15); border:1px solid rgba(255,107,74,0.35); color:#ff8c66;">chat.webguruji.online</span>
+              </div>
+            </div>
+            <p class="module-desc">Complete administrative desk for Chatbase real-time messaging application. Manage registered users, user codes, toggle admin privileges, suspend abusive accounts, inspect messages, review reports, and monitor audit trails.</p>
+            <ul class="feature-list">
+              <li><span class="dot">✔</span> Manage registered users, roles (admin/user) &amp; user codes</li>
+              <li><span class="dot">✔</span> 1-Click account suspension &amp; security access controls</li>
+              <li><span class="dot">✔</span> Monitor active 1-on-1 conversations &amp; voice/media messages</li>
+              <li><span class="dot">✔</span> User abuse reports resolution desk &amp; administrative audit logs</li>
+            </ul>
+          </div>
+          <a href="admin-chatbase.html" class="card-action-btn">
+            <span>Open Chatbase Console</span>
+            <span>&rarr;</span>
+          </a>
+        </article>
+
       </section>
 
       <!-- SECTION: QUICK SHORTCUTS & SYSTEM STATUS -->
@@ -1815,6 +1856,22 @@
             <div class="shortcut-text">
               <strong>Supabase Project Console</strong>
               <span>Direct cloud database access</span>
+            </div>
+          </a>
+
+          <a href="admin-chatbase.html" class="shortcut-item">
+            <span class="shortcut-icon">💬</span>
+            <div class="shortcut-text">
+              <strong>Chatbase Admin Console</strong>
+              <span>Manage users, reports &amp; logs</span>
+            </div>
+          </a>
+
+          <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="shortcut-item">
+            <span class="shortcut-icon">🚀</span>
+            <div class="shortcut-text">
+              <strong>Chatbase Live App</strong>
+              <span>chat.webguruji.online</span>
             </div>
           </a>
         </div>
@@ -2417,6 +2474,24 @@
       document.getElementById('stat-gold-count').textContent = goldenUsersCount;
       const mpillGold = document.getElementById('mpill-goldentick');
       if (mpillGold) mpillGold.textContent = goldenUsersCount;
+
+      // 5. Chatbase User Profiles Count
+      try {
+        fetch('https://hzojuiccegnvanqowgmf.supabase.co/rest/v1/profiles?select=id', {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6b2p1aWNjZWdudmFucW93Z21mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3MjU4NDgsImV4cCI6MjEwNTMwMTg0OH0.w2bYWS6QRxcJMvY127o3XGA7yhxB9ClxliGssLo1ps4',
+            'Range': '0-99',
+            'Prefer': 'count=exact'
+          }
+        }).then(res => {
+          const cr = res.headers.get('content-range');
+          if (cr) {
+            const total = cr.split('/')[1];
+            const el = document.getElementById('stat-chatbase-count');
+            if (el && total && total !== '*') el.textContent = total;
+          }
+        }).catch(() => {});
+      } catch (e) {}
     }
 
     // 4b. Universal Avatar & Identity Resolver

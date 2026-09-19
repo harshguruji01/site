@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="same-origin">
+  <title>Chatbase Admin Command Console — HarshGuruJi</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+  <style>
+    :root {
+      --primary: #ff6b4a;
+      --primary-hover: #ff522b;
+      --primary-glow: rgba(255, 107, 74, 0.35);
+      --accent: #6366f1;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --bg-dark: #070913;
+      --bg-surface: rgba(15, 20, 32, 0.85);
+      --bg-card: rgba(22, 29, 46, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(255, 107, 74, 0.5);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glow */
+    .glow-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-1 {
+      position: absolute;
+      top: -100px;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 107, 74, 0.12) 0%, transparent 70%);
+      filter: blur(80px);
+    }
+    .glow-2 {
+      position: absolute;
+      bottom: -100px;
+      right: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+      filter: blur(90px);
+    }
+
+    /* Navigation Bar */
+    .chatbase-admin-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 13, 22, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff6b4a 0%, #e04e2d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .brand-title h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-title span {
+      font-size: 0.72rem;
+      color: #ff8c66;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #ff6b4a 0%, #e04e2d 100%);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .nav-btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(255, 107, 74, 0.45);
+    }
+
+    /* Main Container */
+    .admin-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Hero Banner */
+    .admin-hero-banner {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-title-group h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .hero-title-group p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 650px;
+    }
+
+    .db-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      color: #34d399;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+    }
+
+    /* Stat Tiles Bar */
+    .stat-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 107, 74, 0.3);
+      box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-card.active-tab {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 8px 20px var(--primary-glow);
+    }
+
+    .stat-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card-icon {
+      font-size: 1.3rem;
+    }
+
+    .stat-card-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0.4rem 0 0.2rem;
+      line-height: 1;
+    }
+
+    .stat-card-sub {
+      font-size: 0.78rem;
+      color: var(--emerald);
+    }
+
+    /* Content Area & Tabs */
+    .admin-main-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .panel-tabs-bar {
+      display: flex;
+      overflow-x: auto;
+      background: rgba(10, 13, 22, 0.6);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      gap: 8px;
+    }
+
+    .tab-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .tab-trigger:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-trigger.active {
+      color: #ff8c66;
+      background: rgba(255, 107, 74, 0.12);
+      border: 1px solid rgba(255, 107, 74, 0.25);
+    }
+
+    .tab-content-area {
+      padding: 1.8rem;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: tabFadeIn 0.25s ease;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Search & Filter Controls */
+    .filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      width: 100%;
+      max-width: 360px;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-input-box:focus-within {
+      border-color: var(--border-focus);
+    }
+
+    .search-input-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill:hover, .filter-pill.active {
+      background: rgba(255, 107, 74, 0.15);
+      border-color: rgba(255, 107, 74, 0.35);
+      color: #ff8c66;
+    }
+
+    /* Data Tables */
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: rgba(13, 17, 27, 0.85);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+    }
+
+    table.data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* User Profile Chip inside Table */
+    .table-user-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar-mini {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .user-names strong {
+      display: block;
+      color: #fff;
+      font-size: 0.92rem;
+    }
+
+    .user-names span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+    }
+
+    .badge-admin {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+    }
+
+    .badge-user {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .badge-active {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .badge-suspended {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }
+
+    .badge-code {
+      background: rgba(255, 107, 74, 0.1);
+      border: 1px solid rgba(255, 107, 74, 0.25);
+      color: #ff8c66;
+    }
+
+    /* Table Actions */
+    .action-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .act-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .act-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .act-btn.danger {
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .act-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .act-btn.success {
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .act-btn.success:hover {
+      background: rgba(16, 185, 129, 0.2);
+    }
+
+    /* Loading Spinner */
+    .loading-box {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255, 107, 74, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Toast Notification */
+    .admin-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      border: 1px solid rgba(255, 107, 74, 0.3);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 9999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .admin-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal Dialog */
+    .edit-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .edit-modal-overlay.active {
+      display: flex;
+    }
+
+    .edit-modal-card {
+      background: #111827;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-head h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--border-focus);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Glows -->
+  <div class="glow-bg">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="chatbase-admin-nav">
+    <a href="admin.html" class="brand-wrap">
+      <div class="brand-icon">💬</div>
+      <div class="brand-title">
+        <h1>Chatbase Command Console</h1>
+        <span>HZ-OJUICCEGNVANQOWGMF · CHAT.WEBGURUJI.ONLINE</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="nav-btn primary">
+        <span>🚀 Open Live Chat App</span>
+      </a>
+      <a href="admin.html" class="nav-btn">
+        <span>🔙 Return to Master Admin</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+    
+    <!-- Hero Banner -->
+    <div class="admin-hero-banner">
+      <div class="hero-title-group">
+        <h2>Chatbase Application Management Desk</h2>
+        <p>Full-spectrum administration console for <code>chat.webguruji.online</code>. Manage registered user profiles, roles, user suspensions, active conversations, user abuse reports, and system audit logs.</p>
+      </div>
+
+      <div class="db-status-pill">
+        <span class="status-dot"></span>
+        <span id="db-status-label">Supabase Connected (3 Profiles)</span>
+      </div>
+    </div>
+
+    <!-- Stat Cards Bar -->
+    <section class="stat-cards-grid" aria-label="Quick metrics">
+      <!-- Stat 1: Profiles -->
+      <div class="stat-card active-tab" data-tab="tab-profiles">
+        <div class="stat-card-head">
+          <span>Registered Profiles</span>
+          <span class="stat-card-icon">👥</span>
+        </div>
+        <div class="stat-card-val" id="stat-profiles-count">3</div>
+        <div class="stat-card-sub"><span>✓</span> Public &amp; Private Users</div>
+      </div>
+
+      <!-- Stat 2: Conversations -->
+      <div class="stat-card" data-tab="tab-conversations">
+        <div class="stat-card-head">
+          <span>Active Conversations</span>
+          <span class="stat-card-icon">💬</span>
+        </div>
+        <div class="stat-card-val" id="stat-convs-count">0</div>
+        <div class="stat-card-sub"><span>⚡</span> 1-on-1 Realtime Channels</div>
+      </div>
+
+      <!-- Stat 3: Messages -->
+      <div class="stat-card" data-tab="tab-messages">
+        <div class="stat-card-head">
+          <span>Messages Exchanged</span>
+          <span class="stat-card-icon">📨</span>
+        </div>
+        <div class="stat-card-val" id="stat-msgs-count">0</div>
+        <div class="stat-card-sub"><span>🎙️</span> Text, Voice &amp; Media</div>
+      </div>
+
+      <!-- Stat 4: Reports -->
+      <div class="stat-card" data-tab="tab-reports">
+        <div class="stat-card-head">
+          <span>Abuse Reports</span>
+          <span class="stat-card-icon">⚠️</span>
+        </div>
+        <div class="stat-card-val" id="stat-reports-count">0</div>
+        <div class="stat-card-sub" id="stat-reports-sub" style="color:#f59e0b;"><span>⏳</span> Moderation Desk</div>
+      </div>
+
+      <!-- Stat 5: Audit Logs -->
+      <div class="stat-card" data-tab="tab-audit">
+        <div class="stat-card-head">
+          <span>Admin Audit Logs</span>
+          <span class="stat-card-icon">📜</span>
+        </div>
+        <div class="stat-card-val" id="stat-audit-count">1</div>
+        <div class="stat-card-sub"><span>🛡️</span> Security Trace Log</div>
+      </div>
+    </section>
+
+    <!-- Main Panel -->
+    <div class="admin-main-panel">
+      <!-- Tabs Bar -->
+      <div class="panel-tabs-bar" role="tablist">
+        <button type="button" class="tab-trigger active" data-tab="tab-profiles">
+          <span>👥 User Profiles</span>
+        </button>
+        <button type="button" class="tab-trigger" data-tab="tab-conversations">
+          <span>💬 Conversations</span>
+        </button>
+        <button type="button" class="tab-trigger" data-tab="tab-messages">
+          <span>📨 Message Inspector</span>
+        </button>
+        <button type="button" class="tab-trigger" data-tab="tab-reports">
+          <span>⚠️ Abuse Reports (<span id="tab-reports-badge">0</span>)</span>
+        </button>
+        <button type="button" class="tab-trigger" data-tab="tab-audit">
+          <span>📜 Audit Logs</span>
+        </button>
+      </div>
+
+      <div class="tab-content-area">
+        
+        <!-- PANE 1: PROFILES -->
+        <div class="tab-pane active" id="tab-profiles">
+          <div class="filter-toolbar">
+            <div class="search-input-box">
+              <span>🔍</span>
+              <input type="text" id="search-profiles" placeholder="Search by name, @username, user code, or email...">
+            </div>
+
+            <div class="filter-pills">
+              <button type="button" class="filter-pill active" data-filter="all">All</button>
+              <button type="button" class="filter-pill" data-filter="admins">Admins</button>
+              <button type="button" class="filter-pill" data-filter="active">Active</button>
+              <button type="button" class="filter-pill" data-filter="suspended">Suspended</button>
+              <button type="button" class="nav-btn" id="btn-refresh-profiles" style="padding:6px 12px; font-size:0.78rem;">🔄 Refresh</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>User Profile</th>
+                  <th>User Code</th>
+                  <th>Contact Info</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Last Seen</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="profiles-tbody">
+                <tr>
+                  <td colspan="7">
+                    <div class="loading-box">
+                      <div class="spinner"></div>
+                      <span>Loading user profiles from Chatbase Supabase...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 2: CONVERSATIONS -->
+        <div class="tab-pane" id="tab-conversations">
+          <div class="filter-toolbar">
+            <h3 style="font-size:1.1rem; font-weight:700;">Active 1-on-1 Conversations</h3>
+            <button type="button" class="nav-btn" id="btn-refresh-convs" style="padding:6px 12px; font-size:0.78rem;">🔄 Refresh</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Conversation ID</th>
+                  <th>Last Message</th>
+                  <th>Last Activity</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="convs-tbody">
+                <tr>
+                  <td colspan="5" style="text-align:center; padding:2rem; color:var(--text-muted);">
+                    No active conversations recorded yet in Chatbase database.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 3: MESSAGES -->
+        <div class="tab-pane" id="tab-messages">
+          <div class="filter-toolbar">
+            <div class="search-input-box">
+              <span>🔍</span>
+              <input type="text" id="search-messages" placeholder="Search message content...">
+            </div>
+            <button type="button" class="nav-btn" id="btn-refresh-messages" style="padding:6px 12px; font-size:0.78rem;">🔄 Refresh</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Sender ID</th>
+                  <th>Type</th>
+                  <th>Message Content</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="messages-tbody">
+                <tr>
+                  <td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">
+                    No messages found in Chatbase database.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 4: ABUSE REPORTS -->
+        <div class="tab-pane" id="tab-reports">
+          <div class="filter-toolbar">
+            <h3 style="font-size:1.1rem; font-weight:700;">User Abuse &amp; Violation Reports</h3>
+            <button type="button" class="nav-btn" id="btn-refresh-reports" style="padding:6px 12px; font-size:0.78rem;">🔄 Refresh</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Reporter</th>
+                  <th>Reported User</th>
+                  <th>Reason</th>
+                  <th>Details</th>
+                  <th>Status</th>
+                  <th>Reported Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reports-tbody">
+                <tr>
+                  <td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">
+                    No abuse reports pending. All clear! ✨
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE 5: AUDIT LOGS -->
+        <div class="tab-pane" id="tab-audit">
+          <div class="filter-toolbar">
+            <h3 style="font-size:1.1rem; font-weight:700;">Administrative Action Log</h3>
+            <button type="button" class="nav-btn" id="btn-refresh-audit" style="padding:6px 12px; font-size:0.78rem;">🔄 Refresh</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Target Type</th>
+                  <th>Target ID</th>
+                  <th>Admin ID</th>
+                  <th>Reason / Details</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="audit-tbody">
+                <tr>
+                  <td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">
+                    Loading audit trail...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Edit User Modal -->
+  <div class="edit-modal-overlay" id="edit-user-modal">
+    <div class="edit-modal-card">
+      <div class="modal-head">
+        <h3 id="modal-user-title">Edit User Profile</h3>
+        <button type="button" class="close-btn" id="btn-close-modal">✕</button>
+      </div>
+
+      <form id="edit-user-form">
+        <input type="hidden" id="edit-user-id">
+
+        <div class="form-group">
+          <label>Display Name</label>
+          <input type="text" class="form-input" id="edit-display-name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Username (@handle)</label>
+          <input type="text" class="form-input" id="edit-username" required>
+        </div>
+
+        <div class="form-group">
+          <label>User Code (Permanent Identifier)</label>
+          <input type="text" class="form-input" id="edit-user-code" readonly style="opacity:0.7;">
+        </div>
+
+        <div class="form-group">
+          <label>Bio / Status</label>
+          <textarea class="form-input" id="edit-bio" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Role</label>
+          <select class="form-input" id="edit-role">
+            <option value="user">User</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+          <input type="checkbox" id="edit-suspended" style="width:18px; height:18px;">
+          <label for="edit-suspended" style="margin:0; cursor:pointer; color:#f87171;">Account Suspended (Restricts chat access)</label>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" class="nav-btn" id="btn-cancel-edit">Cancel</button>
+          <button type="submit" class="nav-btn primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div class="admin-toast" id="admin-toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Operation completed successfully.</span>
+  </div>
+
+  <!-- Interactive Logic Script with Chatbase Supabase Client -->
+  <script>
+    // Chatbase Supabase Project Credentials
+    const CHATBASE_URL = 'https://hzojuiccegnvanqowgmf.supabase.co';
+    const CHATBASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6b2p1aWNjZWdudmFucW93Z21mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3MjU4NDgsImV4cCI6MjEwNTMwMTg0OH0.w2bYWS6QRxcJMvY127o3XGA7yhxB9ClxliGssLo1ps4';
+
+    const supabase = window.supabase.createClient(CHATBASE_URL, CHATBASE_ANON_KEY);
+
+    // State
+    let profilesData = [];
+    let conversationsData = [];
+    let messagesData = [];
+    let reportsData = [];
+    let auditData = [];
+    let currentProfileFilter = 'all';
+
+    // Toast Utility
+    const toast = document.getElementById('admin-toast');
+    const toastMsg = document.getElementById('toast-msg');
+    const toastIcon = document.getElementById('toast-icon');
+    let toastTimeout = null;
+
+    function showToast(message, icon = '✓') {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastIcon.textContent = icon;
+      toastMsg.textContent = message;
+      toast.classList.add('show');
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Format Relative Time
+    function formatTime(timestamp) {
+      if (!timestamp) return 'Never';
+      const d = new Date(timestamp);
+      return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // 1. Fetch Profiles
+    async function loadProfiles() {
+      const tbody = document.getElementById('profiles-tbody');
+      tbody.innerHTML = `<tr><td colspan="7"><div class="loading-box"><div class="spinner"></div><span>Fetching profiles...</span></div></td></tr>`;
+
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        profilesData = data || [];
+        document.getElementById('stat-profiles-count').textContent = profilesData.length;
+        document.getElementById('db-status-label').textContent = `Supabase Connected (${profilesData.length} Profiles)`;
+        renderProfiles();
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="color:#f87171; text-align:center; padding:2rem;">Failed to load profiles: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Render Profiles Table
+    function renderProfiles() {
+      const tbody = document.getElementById('profiles-tbody');
+      const search = (document.getElementById('search-profiles').value || '').toLowerCase().trim();
+
+      const filtered = profilesData.filter(p => {
+        if (currentProfileFilter === 'admins' && p.role !== 'admin') return false;
+        if (currentProfileFilter === 'active' && p.is_suspended) return false;
+        if (currentProfileFilter === 'suspended' && !p.is_suspended) return false;
+
+        if (search) {
+          const matchName = (p.display_name || '').toLowerCase().includes(search);
+          const matchUser = (p.username || '').toLowerCase().includes(search);
+          const matchCode = (p.user_code || '').toLowerCase().includes(search);
+          const matchEmail = (p.email || '').toLowerCase().includes(search);
+          if (!matchName && !matchUser && !matchCode && !matchEmail) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2.5rem; color:var(--text-muted);">No profiles matching the criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => {
+        const avatar = p.avatar_url || 'harshlogo.png';
+        const roleBadge = p.role === 'admin' 
+          ? `<span class="badge badge-admin">Admin</span>` 
+          : `<span class="badge badge-user">User</span>`;
+        const statusBadge = p.is_suspended 
+          ? `<span class="badge badge-suspended">Suspended</span>` 
+          : `<span class="badge badge-active">Active</span>`;
+        const userCode = p.user_code || 'N/A';
+
+        return `
+          <tr>
+            <td>
+              <div class="table-user-cell">
+                <img src="${avatar}" alt="" class="user-avatar-mini" onerror="this.src='logo.png'">
+                <div class="user-names">
+                  <strong>${p.display_name || 'Anonymous'}</strong>
+                  <span>@${p.username || 'unknown'}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="badge badge-code">${userCode}</span>
+            </td>
+            <td>
+              <div style="font-size:0.8rem; color:var(--text-muted);">
+                <div>${p.email || 'No Email'}</div>
+                <div>${p.phone || ''}</div>
+              </div>
+            </td>
+            <td>${roleBadge}</td>
+            <td>${statusBadge}</td>
+            <td style="font-size:0.8rem; color:var(--text-dim);">${formatTime(p.last_seen)}</td>
+            <td>
+              <div class="action-btn-group">
+                <button type="button" class="act-btn" onclick="openEditModal('${p.id}')" title="Edit Profile Details">✏️ Edit</button>
+                <button type="button" class="act-btn ${p.is_suspended ? 'success' : 'danger'}" onclick="toggleSuspend('${p.id}', ${!p.is_suspended})" title="${p.is_suspended ? 'Lift Suspension' : 'Suspend Account'}">
+                  ${p.is_suspended ? '✓ Unsuspend' : '🚫 Suspend'}
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Toggle User Suspension
+    window.toggleSuspend = async function(userId, suspendState) {
+      if (!confirm(`Are you sure you want to ${suspendState ? 'SUSPEND' : 'UNSUSPEND'} this user?`)) return;
+
+      try {
+        const { error } = await supabase
+          .from('profiles')
+          .update({ is_suspended: suspendState, updated_at: new Date().toISOString() })
+          .eq('id', userId);
+
+        if (error) throw error;
+        
+        // Log action in audit table
+        await supabase.from('admin_audit_logs').insert({
+          action: suspendState ? 'USER_SUSPEND' : 'USER_UNSUSPEND',
+          target_type: 'profile',
+          target_id: userId,
+          reason: `Admin toggle suspension via Chatbase Console`
+        });
+
+        showToast(`User ${suspendState ? 'suspended' : 'unsuspended'} successfully!`);
+        loadProfiles();
+        loadAuditLogs();
+      } catch (err) {
+        showToast(`Error: ${err.message}`, '⚠️');
+      }
+    };
+
+    // Open Edit Modal
+    window.openEditModal = function(userId) {
+      const p = profilesData.find(u => u.id === userId);
+      if (!p) return;
+
+      document.getElementById('edit-user-id').value = p.id;
+      document.getElementById('edit-display-name').value = p.display_name || '';
+      document.getElementById('edit-username').value = p.username || '';
+      document.getElementById('edit-user-code').value = p.user_code || '';
+      document.getElementById('edit-bio').value = p.bio || '';
+      document.getElementById('edit-role').value = p.role || 'user';
+      document.getElementById('edit-suspended').checked = !!p.is_suspended;
+
+      document.getElementById('edit-user-modal').classList.add('active');
+    };
+
+    // Close Modal
+    document.getElementById('btn-close-modal').addEventListener('click', () => {
+      document.getElementById('edit-user-modal').classList.remove('active');
+    });
+    document.getElementById('btn-cancel-edit').addEventListener('click', () => {
+      document.getElementById('edit-user-modal').classList.remove('active');
+    });
+
+    // Save Edit Form
+    document.getElementById('edit-user-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userId = document.getElementById('edit-user-id').value;
+      const displayName = document.getElementById('edit-display-name').value.trim();
+      const username = document.getElementById('edit-username').value.trim();
+      const bio = document.getElementById('edit-bio').value.trim();
+      const role = document.getElementById('edit-role').value;
+      const isSuspended = document.getElementById('edit-suspended').checked;
+
+      try {
+        const { error } = await supabase
+          .from('profiles')
+          .update({
+            display_name: displayName,
+            username: username,
+            bio: bio,
+            role: role,
+            is_suspended: isSuspended,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', userId);
+
+        if (error) throw error;
+
+        // Log audit
+        await supabase.from('admin_audit_logs').insert({
+          action: 'PROFILE_UPDATE',
+          target_type: 'profile',
+          target_id: userId,
+          reason: `Admin updated profile info (Role: ${role}, Suspended: ${isSuspended})`
+        });
+
+        showToast('Profile updated successfully!');
+        document.getElementById('edit-user-modal').classList.remove('active');
+        loadProfiles();
+        loadAuditLogs();
+      } catch (err) {
+        showToast(`Save failed: ${err.message}`, '⚠️');
+      }
+    });
+
+    // 2. Fetch Conversations
+    async function loadConversations() {
+      try {
+        const { data, error } = await supabase
+          .from('conversations')
+          .select('*')
+          .order('last_message_at', { ascending: false });
+
+        if (error) throw error;
+        conversationsData = data || [];
+        document.getElementById('stat-convs-count').textContent = conversationsData.length;
+        renderConversations();
+      } catch (err) {
+        console.error('Error loading conversations:', err);
+      }
+    }
+
+    function renderConversations() {
+      const tbody = document.getElementById('convs-tbody');
+      if (conversationsData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:2.5rem; color:var(--text-muted);">No active conversations recorded yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = conversationsData.map(c => `
+        <tr>
+          <td><code style="color:#ff8c66;">${c.id.substring(0, 13)}...</code></td>
+          <td style="color:#fff;">${c.last_message_text || '<em>No messages yet</em>'}</td>
+          <td style="color:var(--text-dim);">${formatTime(c.last_message_at)}</td>
+          <td style="color:var(--text-dim);">${formatTime(c.created_at)}</td>
+          <td>
+            <button type="button" class="act-btn danger" onclick="deleteConversation('${c.id}')">🗑️ Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.deleteConversation = async function(convId) {
+      if (!confirm('Are you sure you want to delete this conversation and all its messages?')) return;
+      try {
+        const { error } = await supabase.from('conversations').delete().eq('id', convId);
+        if (error) throw error;
+        showToast('Conversation deleted.');
+        loadConversations();
+      } catch (err) {
+        showToast(err.message, '⚠️');
+      }
+    };
+
+    // 3. Fetch Messages
+    async function loadMessages() {
+      try {
+        const { data, error } = await supabase
+          .from('messages')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(100);
+
+        if (error) throw error;
+        messagesData = data || [];
+        document.getElementById('stat-msgs-count').textContent = messagesData.length;
+        renderMessages();
+      } catch (err) {
+        console.error('Error loading messages:', err);
+      }
+    }
+
+    function renderMessages() {
+      const tbody = document.getElementById('messages-tbody');
+      const search = (document.getElementById('search-messages').value || '').toLowerCase().trim();
+
+      const filtered = messagesData.filter(m => {
+        if (!search) return true;
+        return (m.content || '').toLowerCase().includes(search);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2.5rem; color:var(--text-muted);">No messages found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(m => `
+        <tr>
+          <td><code style="color:#a5b4fc;">${(m.sender_id || '').substring(0, 8)}...</code></td>
+          <td><span class="badge badge-code">${m.type || 'text'}</span></td>
+          <td style="color:#fff; max-width:300px; word-break:break-word;">
+            ${m.deleted_for_everyone ? '<em style="color:#94a3b8;">This message was deleted</em>' : (m.content || m.media_url || 'N/A')}
+          </td>
+          <td><span class="badge badge-active">${m.status || 'sent'}</span></td>
+          <td style="color:var(--text-dim);">${formatTime(m.created_at)}</td>
+          <td>
+            <button type="button" class="act-btn danger" onclick="purgeMessage('${m.id}')">🗑️ Purge</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.purgeMessage = async function(msgId) {
+      if (!confirm('Purge this message permanently from database?')) return;
+      try {
+        const { error } = await supabase.from('messages').delete().eq('id', msgId);
+        if (error) throw error;
+        showToast('Message purged successfully.');
+        loadMessages();
+      } catch (err) {
+        showToast(err.message, '⚠️');
+      }
+    };
+
+    // 4. Fetch Abuse Reports
+    async function loadReports() {
+      try {
+        const { data, error } = await supabase
+          .from('reports')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        reportsData = data || [];
+        const pendingCount = reportsData.filter(r => r.status === 'pending').length;
+        document.getElementById('stat-reports-count').textContent = reportsData.length;
+        document.getElementById('tab-reports-badge').textContent = pendingCount;
+        renderReports();
+      } catch (err) {
+        console.error('Error loading reports:', err);
+      }
+    }
+
+    function renderReports() {
+      const tbody = document.getElementById('reports-tbody');
+      if (reportsData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2.5rem; color:var(--text-muted);">No reports found. All clear! ✨</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = reportsData.map(r => `
+        <tr>
+          <td><code>${(r.reporter_id || '').substring(0, 8)}...</code></td>
+          <td><strong style="color:#f87171;">${(r.reported_id || '').substring(0, 8)}...</strong></td>
+          <td><span class="badge badge-suspended">${r.reason || 'General'}</span></td>
+          <td style="color:#fff; max-width:260px;">${r.details || 'No additional details'}</td>
+          <td><span class="badge ${r.status === 'pending' ? 'badge-code' : 'badge-active'}">${r.status || 'pending'}</span></td>
+          <td style="color:var(--text-dim);">${formatTime(r.created_at)}</td>
+          <td>
+            <div class="action-btn-group">
+              <button type="button" class="act-btn success" onclick="resolveReport('${r.id}', 'resolved')">✓ Resolve</button>
+              <button type="button" class="act-btn danger" onclick="resolveReport('${r.id}', 'dismissed')">✕ Dismiss</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.resolveReport = async function(reportId, newStatus) {
+      try {
+        const { error } = await supabase
+          .from('reports')
+          .update({ status: newStatus })
+          .eq('id', reportId);
+
+        if (error) throw error;
+        showToast(`Report marked as ${newStatus}!`);
+        loadReports();
+      } catch (err) {
+        showToast(err.message, '⚠️');
+      }
+    };
+
+    // 5. Fetch Audit Logs
+    async function loadAuditLogs() {
+      try {
+        const { data, error } = await supabase
+          .from('admin_audit_logs')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(100);
+
+        if (error) throw error;
+        auditData = data || [];
+        document.getElementById('stat-audit-count').textContent = auditData.length;
+        renderAuditLogs();
+      } catch (err) {
+        console.error('Error loading audit logs:', err);
+      }
+    }
+
+    function renderAuditLogs() {
+      const tbody = document.getElementById('audit-tbody');
+      if (auditData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No audit events recorded yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = auditData.map(a => `
+        <tr>
+          <td><span class="badge badge-admin">${a.action || 'ACTION'}</span></td>
+          <td>${a.target_type || 'system'}</td>
+          <td><code>${(a.target_id || '').substring(0, 13)}</code></td>
+          <td style="color:var(--text-dim);">${a.admin_id || 'master-console'}</td>
+          <td style="color:#fff;">${a.reason || 'No description'}</td>
+          <td style="color:var(--text-dim);">${formatTime(a.created_at)}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Tab Navigation Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-trigger').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+      });
+      document.querySelectorAll('.stat-card').forEach(card => {
+        card.classList.toggle('active-tab', card.dataset.tab === tabId);
+      });
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.toggle('active', pane.id === tabId);
+      });
+    }
+
+    // Attach Listeners
+    document.querySelectorAll('.tab-trigger').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    document.querySelectorAll('.stat-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const target = card.dataset.tab;
+        if (target) switchTab(target);
+      });
+    });
+
+    // Profile Filters
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentProfileFilter = pill.dataset.filter;
+        renderProfiles();
+      });
+    });
+
+    document.getElementById('search-profiles').addEventListener('input', renderProfiles);
+    document.getElementById('search-messages').addEventListener('input', renderMessages);
+
+    // Refresh Buttons
+    document.getElementById('btn-refresh-profiles').addEventListener('click', loadProfiles);
+    document.getElementById('btn-refresh-convs').addEventListener('click', loadConversations);
+    document.getElementById('btn-refresh-messages').addEventListener('click', loadMessages);
+    document.getElementById('btn-refresh-reports').addEventListener('click', loadReports);
+    document.getElementById('btn-refresh-audit').addEventListener('click', loadAuditLogs);
+
+    // Initialize all data on load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProfiles();
+      loadConversations();
+      loadMessages();
+      loadReports();
+      loadAuditLogs();
+    });
+  </script>
+</body>
+</html>
