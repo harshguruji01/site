@@ -20,6 +20,7 @@
       sessionStorage.setItem('admin_contacts_auth', 'true');
       sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
       sessionStorage.setItem('admin_apk_email', HG_ADMIN_EMAIL);
+      sessionStorage.setItem('admin_chatbase_auth', 'true');
     } catch (e) {
       console.warn('sessionStorage error:', e);
     }
@@ -38,6 +39,7 @@
       const isSubAdmin = href.includes('adminapkupload') ||
                          href.includes('admin-contacts') ||
                          href.includes('admincontributors') ||
+                         href.includes('admin-chatbase') ||
                          href.includes('admin-requests');
 
       if (isSubAdmin) {
@@ -83,6 +85,7 @@
     if (sessionStorage.getItem('hg_master_admin_authenticated') === 'true' ||
         sessionStorage.getItem('admin_contacts_auth') === 'true' ||
         sessionStorage.getItem('hg_contributor_admin_unlocked') === 'true' ||
+        sessionStorage.getItem('admin_chatbase_auth') === 'true' ||
         sessionStorage.getItem('admin_apk_email') === HG_ADMIN_EMAIL) {
       setAllAdminSessions();
       return true;
@@ -152,6 +155,7 @@
       sessionStorage.removeItem('hg_master_admin_authenticated');
       sessionStorage.removeItem('admin_contacts_auth');
       sessionStorage.removeItem('hg_contributor_admin_unlocked');
+      sessionStorage.removeItem('admin_chatbase_auth');
       sessionStorage.removeItem('admin_apk_email');
       localStorage.removeItem(HG_BRIDGE_STORAGE_KEY);
     } catch (e) {}

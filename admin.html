@@ -1676,7 +1676,7 @@
           </div>
         </div>
 
-        <div class="stat-tile tile-chatbase" id="tile-chatbase-app" role="button" tabindex="0" onclick="window.location.href='admin-chatbase.html'" title="Click to manage Chatbase Application, users and reports">
+        <div class="stat-tile tile-chatbase" id="tile-chatbase-app" role="button" tabindex="0" title="Click to manage Chatbase Application, users and reports">
           <div class="stat-top">
             <span class="stat-title">
               <span>Chatbase App</span>
@@ -2231,6 +2231,20 @@
       if (tileGold) {
         tileGold.addEventListener('click', () => openMasterModal('goldentick'));
         tileGold.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('goldentick'); } });
+      }
+      const tileChatbase = document.getElementById('tile-chatbase-app');
+      if (tileChatbase) {
+        tileChatbase.addEventListener('click', () => {
+          if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
+          window.location.href = 'admin-chatbase.html';
+        });
+        tileChatbase.addEventListener('keydown', (e) => { 
+          if (e.key === 'Enter' || e.key === ' ') { 
+            e.preventDefault(); 
+            if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
+            window.location.href = 'admin-chatbase.html'; 
+          } 
+        });
       }
 
       // Close button and Backdrop
