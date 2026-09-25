@@ -670,6 +670,7 @@ function applyFilters() {
     if (elements.resultsCount) {
       elements.resultsCount.textContent = `Showing all releases (${allApps.length} ${allApps.length === 1 ? 'application' : 'applications'} available)`;
     }
+    renderActiveFilterChips();
     renderSections();
     return;
   }
@@ -678,6 +679,7 @@ function applyFilters() {
   if (elements.sectionsView) elements.sectionsView.style.display = 'none';
   if (elements.filteredView) elements.filteredView.style.display = 'block';
   if (elements.btnResetFilter) elements.btnResetFilter.style.display = 'inline-block';
+  renderActiveFilterChips();
 
   filteredApps = allApps.filter(app => {
     // Search Filter
@@ -849,7 +851,20 @@ function renderFilteredGrid(append = false) {
   if (!elements.grid) return;
   
   if (filteredApps.length === 0) {
-    elements.grid.innerHTML = '<div class="store-message">No applications found matching your selected filters.<br>Try adjusting keywords or selecting "All Items".</div>';
+    elements.grid.innerHTML = `
+      <div class="store-empty-premium animate-fade-in">
+        <div class="empty-icon-bubble">🔎</div>
+        <h3>No products found</h3>
+        <p>Try another search or remove some filters to explore our full repository.</p>
+        <button type="button" class="btn-clear-empty-filter" id="btn-empty-clear">Clear Filters</button>
+      </div>
+    `;
+    const clearBtn = document.getElementById('btn-empty-clear');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (elements.btnResetFilter) elements.btnResetFilter.click();
+      });
+    }
     if (elements.loadMoreBtn) elements.loadMoreBtn.style.display = 'none';
     return;
   }
@@ -874,6 +889,111 @@ function renderFilteredGrid(append = false) {
   }
 }
 
+// --- ACTIVE FILTER CHIPS SYSTEM ---
+function renderActiveFilterChips() {
+  const container = document.getElementById('active-filter-chips');
+  if (!container) return;
+
+  const chips = [];
+  if (currentFilters.search) {
+    chips.push({ label: `"${currentFilters.search}"`, type: 'search' });
+  }
+  if (currentFilters.category !== 'All') {
+    chips.push({ label: currentFilters.category, type: 'category' });
+  }
+  if (currentFilters.platform !== 'All') {
+    chips.push({ label: currentFilters.platform, type: 'platform' });
+  }
+  if (currentFilters.license !== 'All') {
+    chips.push({ label: currentFilters.license, type: 'license' });
+  }
+
+  if (chips.length === 0) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  container.style.display = 'flex';
+  container.innerHTML = `
+    <span class="active-chips-label">Showing:</span>
+    ${chips.map(c => `
+      <button type="button" class="filter-tag-chip" data-type="${c.type}" title="Remove filter">
+        <span>${c.label}</span>
+        <span class="tag-close">✕</span>
+      </button>
+    `).join('')}
+    <button type="button" class="clear-all-chips-btn" id="btn-clear-all-chips">Clear All</button>
+  `;
+
+  container.querySelectorAll('.filter-tag-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type;
+      if (type === 'search') {
+        currentFilters.search = '';
+        if (elements.searchInput) elements.searchInput.value = '';
+        if (elements.searchClearBtn) elements.searchClearBtn.style.display = 'none';
+      } else if (type === 'category') {
+        currentFilters.category = 'All';
+        const radio = document.querySelector('input[name="category"][value="All"]');
+        if (radio) radio.checked = true;
+        syncQuickCategories('All');
+      } else if (type === 'platform') {
+        currentFilters.platform = 'All';
+        const radio = document.querySelector('input[name="platform"][value="All"]');
+        if (radio) radio.checked = true;
+      } else if (type === 'license') {
+        currentFilters.license = 'All';
+        const radio = document.querySelector('input[name="license"][value="All"]');
+        if (radio) radio.checked = true;
+      }
+      applyFilters();
+      showStoreToast("Filter removed");
+    });
+  });
+
+  const clearAllBtn = document.getElementById('btn-clear-all-chips');
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener('click', () => {
+      currentFilters.search = '';
+      currentFilters.category = 'All';
+      currentFilters.platform = 'All';
+      currentFilters.license = 'All';
+      if (elements.searchInput) elements.searchInput.value = '';
+      if (elements.searchClearBtn) elements.searchClearBtn.style.display = 'none';
+      const cAll = document.querySelector('input[name="category"][value="All"]');
+      if (cAll) cAll.checked = true;
+      const pAll = document.querySelector('input[name="platform"][value="All"]');
+      if (pAll) pAll.checked = true;
+      const lAll = document.querySelector('input[name="license"][value="All"]');
+      if (lAll) lAll.checked = true;
+      syncQuickCategories('All');
+      applyFilters();
+      showStoreToast("Filters cleared");
+    });
+  }
+}
+
+// --- TOAST NOTIFICATION UTILITY ---
+let storeToastTimer = null;
+function showStoreToast(msg, icon = '✓') {
+  const toast = document.getElementById('store-toast');
+  const toastMsg = document.getElementById('store-toast-msg');
+  const toastIcon = document.getElementById('store-toast-icon');
+  if (!toast || !toastMsg) return;
+
+  if (storeToastTimer) clearTimeout(storeToastTimer);
+  if (toastIcon) toastIcon.textContent = icon;
+  toastMsg.textContent = msg;
+  toast.classList.add('show');
+  toast.style.display = 'flex';
+
+  storeToastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => { toast.style.display = 'none'; }, 300);
+  }, 2800);
+}
+
 // --- AN1 APP CARD COMPONENT ---
 function createAppCard(app, index) {
   const card = document.createElement('a');
@@ -883,23 +1003,25 @@ function createAppCard(app, index) {
   card.style.textDecoration = 'none';
   card.style.color = 'inherit';
   
-  const isMod = app.is_mod || app.name.toLowerCase().includes('mod');
+  const isMod = app.is_mod || (app.name || '').toLowerCase().includes('mod');
   let badgeHtml = isMod 
-    ? `<div class="verified-badge" style="background: rgba(255, 119, 0, 0.15); color: #ff7700;">MOD</div>` 
+    ? `<div class="verified-badge badge-mod-label">⚡ MOD</div>` 
     : (app.verified ? `<div class="verified-badge">✓ Verified</div>` : '');
 
   const platIcon = getPlatformIcon(app.platform);
   const appFormat = app.app_type || (app.platform === 'Android' ? 'APK' : (app.platform === 'Windows' ? 'EXE' : 'APP'));
+  const versionText = app.version ? `v${app.version}` : 'v1.0';
+  const sizeText = app.size && app.size !== 'Varies' && app.size !== 'Unknown' ? app.size : '';
 
   card.innerHTML = `
     ${badgeHtml}
     <div class="app-card-top">
       <img src="${app.icon}" alt="${app.name}" class="app-card-icon" loading="lazy" onerror="this.src='logo.png'">
       <div class="app-card-info">
-        <h3 class="app-card-title">${app.name}</h3>
+        <h3 class="app-card-title" title="${app.name}">${app.name}</h3>
         <div class="app-card-dev">${app.developer}</div>
         <div class="app-card-rating">
-          ★ ${(app.rating || 4.8).toFixed(1)} &bull; <span style="color: var(--an1-text-muted); font-size: 0.75rem;">v${app.version || '1.0'}</span>
+          ★ ${(app.rating || 4.8).toFixed(1)} &bull; <span class="app-card-ver">${versionText}</span>
         </div>
       </div>
     </div>
@@ -907,19 +1029,33 @@ function createAppCard(app, index) {
       ${app.description || 'Verified fast download package available on HarshGuruJi Store.'}
     </div>
     <div class="app-card-meta">
-      <div style="display:flex; align-items:center; gap: 5px; flex-wrap: wrap;">
+      <div class="app-card-pills">
         <span class="app-platform-pill">
-          ${platIcon} ${app.platform}
+          ${platIcon} ${app.platform} &bull; ${appFormat}
         </span>
-        <span class="app-type-badge">${appFormat}</span>
-        ${app.license && app.license !== 'Free' ? `<span class="app-type-badge" style="background: rgba(59,130,246,0.15); color: #60a5fa;">${app.license}</span>` : ''}
+        ${sizeText ? `<span class="app-size-pill">💾 ${sizeText}</span>` : ''}
+        ${app.license && app.license !== 'Free' ? `<span class="app-license-pill">${app.license}</span>` : ''}
       </div>
-      <span class="app-btn-download-tag">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Download
+      <span class="app-btn-download-tag" role="button" aria-label="Download ${app.name}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Download</span>
       </span>
     </div>
   `;
+
+  // Visual download click feedback
+  const dlBtn = card.querySelector('.app-btn-download-tag');
+  if (dlBtn) {
+    dlBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const span = dlBtn.querySelector('span');
+      if (span) span.textContent = 'Opening...';
+      dlBtn.classList.add('loading');
+      setTimeout(() => {
+        window.location.href = `store-detail.html?slug=${encodeURIComponent(app.slug || app.id)}`;
+      }, 150);
+    });
+  }
 
   return card;
 }

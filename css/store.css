@@ -1383,3 +1383,326 @@ body {
 .footer .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #54b247, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .footer-bottom { flex-direction: column; gap: 1.5rem; padding-top: 2.5rem; text-align: center; }
 .footer-bottom p { color: var(--an1-text-muted); font-size: 0.85rem; }
+
+/* ═══════════════ MODERN STORE HERO & AMBIENT GLOW ═══════════════ */
+.store-ambient-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 600px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.store-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.store-glow-1 {
+  width: 550px;
+  height: 380px;
+  background: #54b247;
+  top: -80px;
+  left: 15%;
+  animation: glowFloat1 8s infinite alternate ease-in-out;
+}
+
+.store-glow-2 {
+  width: 480px;
+  height: 340px;
+  background: #38bdf8;
+  top: 20px;
+  right: 15%;
+  animation: glowFloat2 10s infinite alternate ease-in-out;
+}
+
+@keyframes glowFloat1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.22; }
+  100% { transform: translate(30px, 20px) scale(1.1); opacity: 0.3; }
+}
+
+@keyframes glowFloat2 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.18; }
+  100% { transform: translate(-30px, 25px) scale(1.08); opacity: 0.26; }
+}
+
+.store-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
+}
+
+.store-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(84, 178, 71, 0.12);
+  border: 1px solid rgba(84, 178, 71, 0.35);
+  color: #68cb5b;
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+  backdrop-filter: blur(8px);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #54b247;
+  box-shadow: 0 0 10px #54b247;
+  animation: pulseDotAnim 2s infinite ease-in-out;
+}
+
+@keyframes pulseDotAnim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.store-hero-tagline {
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  font-weight: 600;
+  color: #e2e8f0;
+  margin: 0.35rem auto 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.store-hero-sub {
+  color: var(--an1-text-muted);
+  font-size: 0.95rem;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* ═══════════════ ACTIVE FILTER CHIPS ═══════════════ */
+.active-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.active-chips-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--an1-text-muted);
+  margin-right: 0.25rem;
+}
+
+.filter-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(84, 178, 71, 0.12);
+  border: 1px solid rgba(84, 178, 71, 0.35);
+  color: #86efac;
+  padding: 0.28rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--an1-transition);
+}
+
+.filter-tag-chip:hover {
+  background: rgba(84, 178, 71, 0.22);
+  border-color: var(--an1-green);
+  transform: translateY(-1px);
+}
+
+.tag-close {
+  font-size: 0.72rem;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+
+.filter-tag-chip:hover .tag-close {
+  opacity: 1;
+  color: #f87171;
+}
+
+.clear-all-chips-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--an1-text-muted);
+  padding: 0.28rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-all-chips-btn:hover {
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ═══════════════ PREMIUM EMPTY STATE ═══════════════ */
+.store-empty-premium {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  background: rgba(24, 34, 45, 0.6);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  margin: 1.5rem 0;
+  backdrop-filter: blur(10px);
+}
+
+.empty-icon-bubble {
+  font-size: 2.75rem;
+  margin-bottom: 0.85rem;
+  display: inline-block;
+  animation: floatEmpty 3s infinite alternate ease-in-out;
+}
+
+@keyframes floatEmpty {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.store-empty-premium h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+}
+
+.store-empty-premium p {
+  color: var(--an1-text-muted);
+  font-size: 0.92rem;
+  max-width: 480px;
+  margin: 0 auto 1.25rem;
+  line-height: 1.5;
+}
+
+.btn-clear-empty-filter {
+  background: rgba(84, 178, 71, 0.15);
+  border: 1px solid var(--an1-green);
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--an1-transition);
+  box-shadow: 0 4px 14px var(--an1-green-glow);
+}
+
+.btn-clear-empty-filter:hover {
+  background: var(--an1-green);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--an1-green-glow);
+}
+
+/* ═══════════════ APP CARD ENHANCEMENTS ═══════════════ */
+.app-card-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.app-card-ver {
+  color: var(--an1-text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.app-size-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.app-license-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-mod-label {
+  background: rgba(255, 119, 0, 0.15) !important;
+  color: #ff7700 !important;
+  border: 1px solid rgba(255, 119, 0, 0.4) !important;
+}
+
+.app-btn-download-tag.loading {
+  opacity: 0.8;
+  pointer-events: none;
+  background: var(--an1-green-hover);
+}
+
+/* ═══════════════ TOAST NOTIFICATION ═══════════════ */
+.store-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(20, 29, 39, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(84, 178, 71, 0.4);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  display: none;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  z-index: 99999;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.store-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#store-toast-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(84, 178, 71, 0.2);
+  color: #54b247;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+#store-toast-msg {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+

@@ -613,16 +613,12 @@ export default config;</pre>
       const copyBlueprintBtn = document.getElementById('btn-copy-blueprint');
       if (copyBlueprintBtn) {
         copyBlueprintBtn.addEventListener('click', () => {
-          fetch('chat page')
-            .then(res => res.text())
-            .then(text => {
-              navigator.clipboard.writeText(text).then(() => {
-                showToast('Complete Master Architecture Blueprint copied!', '📋');
-              });
-            })
-            .catch(() => {
-              showToast('Copied link: https://chat.webguruji.online', '📋');
-            });
+          const blueprintText = `HarshGuruJi Private Chat Architecture Blueprint\nLive URL: https://chat.webguruji.online\nTechnology: WebSockets, End-to-End Encryption, Voice Notes, Instant Delivery Receipts.`;
+          navigator.clipboard.writeText(blueprintText).then(() => {
+            showToast('Complete Master Architecture Blueprint copied!', '📋');
+          }).catch(() => {
+            showToast('Copied link: https://chat.webguruji.online', '📋');
+          });
         });
       }
     });

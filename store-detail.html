@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Details & Download | HarshGuruJi Store</title>
-  <meta name="description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
+  <meta name="description" id="meta-description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
   <meta name="keywords" content="app download, apk download, software download, verified apk, harshguruji store">
   <meta name="author" content="HarshGuruJi">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -16,17 +16,17 @@
   <meta property="og:site_name" content="HarshGuruJi">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.webguruji.online/store-detail.html">
-  <meta property="og:title" content="App Details & Download | HarshGuruJi Store">
-  <meta property="og:description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
-  <meta property="og:image" content="https://www.webguruji.online/logo-512.png">
+  <meta property="og:title" id="og-title" content="App Details & Download | HarshGuruJi Store">
+  <meta property="og:description" id="og-description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
+  <meta property="og:image" id="og-image" content="https://www.webguruji.online/logo-512.png">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@harshguruji1">
-  <meta name="twitter:title" content="App Details & Download | HarshGuruJi Store">
-  <meta name="twitter:description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
-  <meta name="twitter:image" content="https://www.webguruji.online/logo-512.png">
+  <meta name="twitter:title" id="tw-title" content="App Details & Download | HarshGuruJi Store">
+  <meta name="twitter:description" id="tw-description" content="Download verified, virus-scanned applications, APKs, and desktop software with complete changelogs, specs, and safe direct download links.">
+  <meta name="twitter:image" id="tw-image" content="https://www.webguruji.online/logo-512.png">
 
   <script type="application/ld+json">
   {
@@ -946,8 +946,8 @@
 
     async function initStoreDetailPage() {
       const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-      const slug = params.get('slug') || params.get('app');
+      const id = (params.get('id') || '').trim();
+      const slug = (params.get('slug') || params.get('app') || '').trim();
 
       if (!id && !slug) {
         showNotFound();
@@ -955,24 +955,63 @@
       }
 
       try {
-        let query = supabase.from('store_apps').select('*');
+        let appData = null;
+
+        // 1. If explicit ID provided, look up by ID
         if (id) {
-          query = query.eq('id', id);
-        } else {
-          query = query.eq('slug', slug);
+          const { data, error } = await supabase.from('store_apps').select('*').eq('id', id).maybeSingle();
+          if (data && !error) {
+            appData = data;
+          }
         }
 
-        const { data, error } = await query.single();
+        // 2. Query by slug with multi-strategy matching
+        if (!appData && slug) {
+          // A: Exact slug
+          const resExact = await supabase.from('store_apps').select('*').eq('slug', slug).maybeSingle();
+          if (resExact.data && !resExact.error) {
+            appData = resExact.data;
+          }
 
-        if (error || !data) {
-          // Fallback to local data/apps.json
+          // B: Case-insensitive slug
+          if (!appData) {
+            const resIlike = await supabase.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
+            if (resIlike.data && !resIlike.error) {
+              appData = resIlike.data;
+            }
+          }
+
+          // C: Check if slug is actually a UUID ID
+          if (!appData && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
+            const resUuid = await supabase.from('store_apps').select('*').eq('id', slug).maybeSingle();
+            if (resUuid.data && !resUuid.error) {
+              appData = resUuid.data;
+            }
+          }
+
+          // D: Fallback: match by app name (replace dashes with spaces)
+          if (!appData) {
+            const nameCandidate = slug.replace(/-/g, ' ');
+            const resName = await supabase.from('store_apps').select('*').ilike('name', nameCandidate).maybeSingle();
+            if (resName.data && !resName.error) {
+              appData = resName.data;
+            }
+          }
+        }
+
+        // 3. Fallback to local static apps.json if not found in Supabase
+        if (!appData) {
           try {
             const resp = await fetch('data/apps.json');
             if (resp.ok) {
               const staticApps = await resp.json();
-              const found = staticApps.find(a => a.id === id || (a.name && a.name.toLowerCase() === (slug || id).toLowerCase()));
+              const found = staticApps.find(a => 
+                (id && a.id === id) || 
+                (slug && a.slug && a.slug.toLowerCase() === slug.toLowerCase()) ||
+                (a.name && (a.name.toLowerCase() === slug.toLowerCase() || a.name.toLowerCase() === (slug || id).replace(/-/g, ' ').toLowerCase()))
+              );
               if (found) {
-                const appObj = {
+                appData = {
                   id: found.id,
                   name: found.name,
                   title: found.name,
@@ -997,21 +1036,22 @@
                   pros: found.pros || [],
                   cons: found.cons || []
                 };
-                currentApp = appObj;
-                renderAppDetails(appObj);
-                return;
               }
             }
-          } catch(errFallback) {}
+          } catch(errFallback) {
+            console.warn("Local static apps fallback error:", errFallback);
+          }
+        }
 
-          console.warn("App record not found in Supabase or local apps:", error);
+        if (!appData) {
+          console.warn("App record not found in Supabase or local apps for query:", { id, slug });
           showNotFound();
           return;
         }
 
-        currentApp = data;
-        renderAppDetails(data);
-        loadRelatedApps(data);
+        currentApp = appData;
+        renderAppDetails(appData);
+        loadRelatedApps(appData);
 
       } catch (err) {
         console.error("Store detail fetch error:", err);
@@ -1048,121 +1088,169 @@
         }
       })();
 
-      // Dynamic Title & Meta Tags
+      // Dynamic Title & Meta Tags safely
       document.title = `${appName} (${platform} · ${appType}) Download — HarshGuruJi Store`;
       const descSnippet = app.short_description || app.description || `Download ${appName} for ${platform} safely from HarshGuruJi Store.`;
-      document.getElementById('meta-description').setAttribute('content', descSnippet);
-      document.getElementById('og-title').setAttribute('content', `${appName} Download`);
-      document.getElementById('og-description').setAttribute('content', descSnippet);
-      document.getElementById('og-image').setAttribute('content', iconUrl);
-      document.getElementById('tw-title').setAttribute('content', `${appName} Download`);
-      document.getElementById('tw-description').setAttribute('content', descSnippet);
-      document.getElementById('tw-image').setAttribute('content', iconUrl);
+
+      const setMetaContent = (elemId, val) => {
+        if (!val) return;
+        const el = document.getElementById(elemId);
+        if (el) el.setAttribute('content', val);
+      };
+
+      setMetaContent('meta-description', descSnippet);
+      setMetaContent('og-title', `${appName} Download`);
+      setMetaContent('og-description', descSnippet);
+      setMetaContent('og-image', iconUrl);
+      setMetaContent('tw-title', `${appName} Download`);
+      setMetaContent('tw-description', descSnippet);
+      setMetaContent('tw-image', iconUrl);
 
       // Breadcrumbs
-      document.getElementById('bc-category').textContent = category;
-      document.getElementById('bc-app-title').textContent = appName;
+      const bcCat = document.getElementById('bc-category');
+      if (bcCat) bcCat.textContent = category;
+      const bcTitle = document.getElementById('bc-app-title');
+      if (bcTitle) bcTitle.textContent = appName;
 
       // Hero Elements
-      document.getElementById('app-icon').src = iconUrl;
-      document.getElementById('app-title').textContent = appName;
-      document.getElementById('app-dev').textContent = devName;
-      if (app.package_name) {
-        document.getElementById('app-package-name').textContent = `(${app.package_name})`;
+      const appIconEl = document.getElementById('app-icon');
+      if (appIconEl) appIconEl.src = iconUrl;
+      const appTitleEl = document.getElementById('app-title');
+      if (appTitleEl) appTitleEl.textContent = appName;
+      const appDevEl = document.getElementById('app-dev');
+      if (appDevEl) appDevEl.textContent = devName;
+      const appPkgEl = document.getElementById('app-package-name');
+      if (appPkgEl) {
+        appPkgEl.textContent = app.package_name ? `(${app.package_name})` : '';
       }
 
       // Badges
-      if (app.is_mod) {
-        document.getElementById('badge-mod').style.display = 'inline-flex';
+      const badgeMod = document.getElementById('badge-mod');
+      if (badgeMod) {
+        badgeMod.style.display = app.is_mod ? 'inline-flex' : 'none';
       }
-      if (app.featured) {
-        document.getElementById('badge-featured').style.display = 'inline-flex';
+      const badgeFeatured = document.getElementById('badge-featured');
+      if (badgeFeatured) {
+        badgeFeatured.style.display = app.featured ? 'inline-flex' : 'none';
       }
 
       // Chips
-      document.getElementById('val-platform').textContent = `${platIcon} ${platform}`;
-      document.getElementById('val-format').textContent = appType;
-      document.getElementById('val-category').textContent = category;
-      document.getElementById('val-version').textContent = `v${version}`;
-      document.getElementById('val-size').textContent = fileSize;
-      document.getElementById('val-license').textContent = license;
-      document.getElementById('val-rating').textContent = rating.toFixed(1);
-      document.getElementById('val-downloads').textContent = downloads.toLocaleString();
+      const setChip = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      setChip('val-platform', `${platIcon} ${platform}`);
+      setChip('val-format', appType);
+      setChip('val-category', category);
+      setChip('val-version', `v${version}`);
+      setChip('val-size', fileSize);
+      setChip('val-license', license);
+      setChip('val-rating', rating.toFixed(1));
+      setChip('val-downloads', downloads.toLocaleString());
 
       // Download Button Label
       const downloadBtn = document.getElementById('btn-primary-download');
       const downloadLabel = document.getElementById('btn-download-label');
-      if (platform.toLowerCase() === 'web') {
-        downloadLabel.textContent = 'Launch Web App 🚀';
-      } else {
-        downloadLabel.textContent = `Download ${appType} (${fileSize})`;
+      if (downloadLabel) {
+        if (platform.toLowerCase() === 'web') {
+          downloadLabel.textContent = 'Launch Web App 🚀';
+        } else {
+          downloadLabel.textContent = `Download ${appType} (${fileSize})`;
+        }
       }
 
-      downloadBtn.addEventListener('click', () => handleDownload(app));
+      if (downloadBtn) {
+        // Clone button to remove previous event listeners cleanly
+        const newDownloadBtn = downloadBtn.cloneNode(true);
+        downloadBtn.parentNode.replaceChild(newDownloadBtn, downloadBtn);
+        newDownloadBtn.addEventListener('click', () => handleDownload(app));
+      }
 
       // Official URL Button
-      if (app.official_url) {
-        const offBtn = document.getElementById('btn-official-link');
-        offBtn.href = app.official_url;
-        offBtn.style.display = 'inline-flex';
+      const offBtn = document.getElementById('btn-official-link');
+      if (offBtn) {
+        if (app.official_url) {
+          offBtn.href = app.official_url;
+          offBtn.style.display = 'inline-flex';
+        } else {
+          offBtn.style.display = 'none';
+        }
       }
 
       // Share Button
-      document.getElementById('btn-share-app').addEventListener('click', () => {
-        const shareData = {
-          title: `${appName} Download`,
-          text: `Download ${appName} verified from HarshGuruJi Store:`,
-          url: window.location.href
+      const shareBtn = document.getElementById('btn-share-app');
+      if (shareBtn) {
+        shareBtn.onclick = () => {
+          const shareData = {
+            title: `${appName} Download`,
+            text: `Download ${appName} verified from HarshGuruJi Store:`,
+            url: window.location.href
+          };
+          if (navigator.share) {
+            navigator.share(shareData).catch(() => {});
+          } else {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+              showToast("Application link copied to clipboard!");
+            });
+          }
         };
-        if (navigator.share) {
-          navigator.share(shareData).catch(() => {});
-        } else {
-          navigator.clipboard.writeText(window.location.href).then(() => {
-            showToast("Application link copied to clipboard!");
-          });
-        }
-      });
+      }
 
       // MOD Banner
-      if (app.is_mod && app.mod_info) {
-        const modBanner = document.getElementById('mod-banner');
-        const modText = document.getElementById('mod-details-text');
-        modText.textContent = app.mod_info;
-        modBanner.style.display = 'block';
+      const modBanner = document.getElementById('mod-banner');
+      const modText = document.getElementById('mod-details-text');
+      if (modBanner && modText) {
+        if (app.is_mod && app.mod_info) {
+          modText.textContent = app.mod_info;
+          modBanner.style.display = 'block';
+        } else {
+          modBanner.style.display = 'none';
+        }
       }
 
       // What's New
-      if (app.whats_new && app.whats_new.trim()) {
-        const wnPanel = document.getElementById('whats-new-panel');
-        const wnText = document.getElementById('whats-new-text');
-        wnText.textContent = app.whats_new;
-        wnPanel.style.display = 'block';
+      const wnPanel = document.getElementById('whats-new-panel');
+      const wnText = document.getElementById('whats-new-text');
+      if (wnPanel && wnText) {
+        if (app.whats_new && app.whats_new.trim()) {
+          wnText.textContent = app.whats_new;
+          wnPanel.style.display = 'block';
+        } else {
+          wnPanel.style.display = 'none';
+        }
       }
 
       // Screenshots
-      if (Array.isArray(app.screenshots) && app.screenshots.length > 0) {
-        const scSection = document.getElementById('screenshots-section');
-        const scContainer = document.getElementById('screenshots-container');
-        scContainer.innerHTML = app.screenshots.map((sc, i) => `
-          <img src="${sc}" alt="${appName} Screenshot ${i+1}" class="screenshot-thumb-item" onclick="openLightbox('${sc}')" loading="lazy">
-        `).join('');
-        scSection.style.display = 'block';
+      const scSection = document.getElementById('screenshots-section');
+      const scContainer = document.getElementById('screenshots-container');
+      if (scSection && scContainer) {
+        if (Array.isArray(app.screenshots) && app.screenshots.length > 0) {
+          scContainer.innerHTML = app.screenshots.map((sc, i) => `
+            <img src="${sc}" alt="${appName} Screenshot ${i+1}" class="screenshot-thumb-item" onclick="openLightbox('${sc}')" loading="lazy">
+          `).join('');
+          scSection.style.display = 'block';
+        } else {
+          scSection.style.display = 'none';
+        }
       }
 
       // Description
-      document.getElementById('app-description').textContent = app.description || app.short_description || "No full description provided.";
+      const descEl = document.getElementById('app-description');
+      if (descEl) {
+        descEl.textContent = app.description || app.short_description || "No full description provided.";
+      }
 
       // Specs Table
-      document.getElementById('spec-package').textContent = app.package_name || 'N/A';
-      document.getElementById('spec-platform').textContent = `${platIcon} ${platform}`;
-      document.getElementById('spec-format').textContent = appType;
-      document.getElementById('spec-version').textContent = version;
-      document.getElementById('spec-size').textContent = fileSize;
-      document.getElementById('spec-category').textContent = category;
-      document.getElementById('spec-subcategory').textContent = app.subcategory || 'Standard';
-      document.getElementById('spec-license').textContent = license;
-      document.getElementById('spec-developer').textContent = devName;
-      document.getElementById('spec-updated').textContent = app.updated_at ? new Date(app.updated_at).toLocaleDateString() : 'Recent';
+      setChip('spec-package', app.package_name || 'N/A');
+      setChip('spec-platform', `${platIcon} ${platform}`);
+      setChip('spec-format', appType);
+      setChip('spec-version', version);
+      setChip('spec-size', fileSize);
+      setChip('spec-category', category);
+      setChip('spec-subcategory', app.subcategory || 'Standard');
+      setChip('spec-license', license);
+      setChip('spec-developer', devName);
+      setChip('spec-updated', app.updated_at ? new Date(app.updated_at).toLocaleDateString() : 'Recent');
     }
 
     async function handleDownload(app) {
@@ -1171,14 +1259,19 @@
         return;
       }
 
-      // Initiate download
-      const link = document.createElement('a');
-      link.href = app.download_url;
-      link.target = '_blank';
-      link.download = '';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Initiate download with reliable trigger
+      try {
+        const link = document.createElement('a');
+        link.href = app.download_url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => link.remove(), 200);
+      } catch (e) {
+        window.open(app.download_url, '_blank');
+      }
 
       showToast("Download started! Thank you for using HarshGuruJi Store.");
 
@@ -1186,8 +1279,11 @@
       try {
         const currentCount = Number(app.downloads || app.downloads_count) || 0;
         const newCount = currentCount + 1;
-        document.getElementById('val-downloads').textContent = newCount.toLocaleString();
-        await supabase.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+        const dlEl = document.getElementById('val-downloads');
+        if (dlEl) dlEl.textContent = newCount.toLocaleString();
+        if (app.id) {
+          await supabase.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+        }
       } catch (e) {
         console.warn("Could not increment downloads:", e);
       }

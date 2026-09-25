@@ -94,12 +94,24 @@
 </head>
 <body>
 
+<!-- Ambient Modern Glow Background -->
+<div class="store-ambient-bg">
+  <div class="store-glow store-glow-1"></div>
+  <div class="store-glow store-glow-2"></div>
+  <div class="store-grid-overlay"></div>
+</div>
+
 <!-- AN1-Style Top Hero & Catalog Section -->
 <section class="an1-hero-section">
   <div class="an1-hero-container">
     <div class="an1-header-title">
-      <h1>HarshGuruJi <span>App & Game Store</span></h1>
-      <p>Download free, verified games, programs, PC software, AI tools and mobile applications.</p>
+      <div class="store-hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Official Verified Software Repository</span>
+      </div>
+      <h1>HARSHGURUJI <span>STORE</span></h1>
+      <p class="store-hero-tagline">Apps, Games, Software, AI Tools &amp; More</p>
+      <p class="store-hero-sub">Download free, verified games, programs, PC software, AI tools and mobile applications.</p>
     </div>
 
     <!-- Live Search Input -->
@@ -257,7 +269,10 @@
   <!-- Main Content Area -->
   <div class="store-main">
     <div class="grid-top-bar" id="grid-top-bar">
-      <div class="results-count" id="results-count">Showing recently updated releases</div>
+      <div>
+        <div class="results-count" id="results-count">Showing recently updated releases</div>
+        <div id="active-filter-chips" class="active-filter-chips" style="display: none;"></div>
+      </div>
       <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
         <button type="button" class="btn-reset-filter" id="btn-reset-filter" style="display:none;">&larr; Back to Full Catalog</button>
         <select class="sort-select" id="sort-select" aria-label="Sort apps">
@@ -331,7 +346,11 @@
     </div>
   </div>
 
-  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <!-- Toast Notification Hub -->
+  <div class="store-toast" id="store-toast">
+    <span id="store-toast-icon">✓</span>
+    <span id="store-toast-msg">Action completed</span>
+  </div>
 
   <script src="script.js" defer=""></script>
   <script src="navbar-premium.js" defer=""></script>
