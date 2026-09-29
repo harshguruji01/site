@@ -2,7 +2,7 @@ import os
 import re
 import glob
 
-workspace = r"c:\Users\harsh\OneDrive\Desktop\webguruji"
+workspace = r"c:\Users\harsh\OneDrive\Desktop\site"
 
 html_files = glob.glob(os.path.join(workspace, "*.html"))
 

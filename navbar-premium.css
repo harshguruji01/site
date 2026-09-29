@@ -630,7 +630,7 @@
 
   /* Add bottom padding to body on mobile & tablet so content is never blocked */
   body {
-    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
   /* Show Bottom Navigation Bar on Mobile & Tablet devices */
@@ -641,7 +641,7 @@
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
     padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     background: rgba(10, 14, 26, 0.94) !important;
     backdrop-filter: blur(24px) !important;
