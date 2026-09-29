@@ -205,40 +205,43 @@
     
     .contributors-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.5rem;
     }
     
+    /* Contributor Small Box Card */
     .contributor-card {
       background: var(--card-bg, #131b2e);
       border: 1px solid var(--card-border, #1e293b);
-      border-radius: 18px;
-      padding: 2rem 1.25rem;
+      border-radius: 20px;
+      padding: 1.6rem 1.35rem 1.35rem;
       text-align: center;
-      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
     .contributor-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 30px rgba(0,0,0,.5);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.5), 0 0 25px rgba(99, 102, 241, 0.2);
       border-color: #6366f1;
     }
     
     .card-avatar-wrap {
       position: relative;
-      width: 90px;
-      height: 90px;
-      margin-bottom: 1.1rem;
+      width: 84px;
+      height: 84px;
+      margin-bottom: 0.9rem;
     }
     .contributor-card img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(255, 255, 255, 0.1);
+      border: 2.5px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
     }
     
     /* Contributor Avatar Corner Golden Tick */
@@ -264,50 +267,184 @@
     .contributor-card h3 {
       font-family: 'Space Grotesk',sans-serif;
       color: var(--text-primary, #fff);
-      font-size: 1.25rem;
-      margin-bottom: .3rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.35rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
     }
-    .contributor-card .role {
-      color: #818cf8;
-      font-size: .92rem;
+    .contributor-card .role-pill {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      font-size: 0.82rem;
       font-weight: 600;
-      margin-bottom: .5rem;
+      padding: 3px 12px;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
     }
     .contributor-card .bio-snippet {
       color: #94a3b8;
-      font-size: 0.85rem;
-      line-height: 1.4;
+      font-size: 0.84rem;
+      line-height: 1.45;
       margin-bottom: 0.85rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 100%;
     }
+
+    /* Dedicated Work & Development Sub-box */
+    .contrib-work-box {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin: 0.25rem 0 0.85rem;
+      text-align: left;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+    .contrib-work-box:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .work-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.45rem;
+    }
+    .work-box-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #818cf8;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .work-box-desc {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin: 0 0 0.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .work-skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.55rem;
+    }
+    .work-skill-pill {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #c7d2fe;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .work-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #a5b4fc;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .work-link-btn:hover {
+      background: #6366f1;
+      color: #fff;
+      border-color: #6366f1;
+    }
+
     .contributor-card .social-links {
       display: flex;
       gap: 0.6rem;
       margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .contributor-card .social-links a {
       color: #94a3b8;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       text-decoration: none;
-      transition: color 0.2s;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 6px;
+      transition: all 0.2s;
     }
     .contributor-card .social-links a:hover {
       color: #60a5fa;
+      background: rgba(255, 255, 255, 0.09);
+    }
+    .contributor-card .card-footer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: auto;
     }
     .contributor-card .joined {
       color: #64748b;
       font-size: .75rem;
       font-weight: 500;
-      margin-top: auto;
       letter-spacing: .02em;
+    }
+    .contributor-card .verified-pill {
+      font-size: 0.72rem;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 2px 7px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* 24-Hour Auto-Approved Preview Badge */
+    .pending-preview-container {
+      grid-column: 1 / -1;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1.5px dashed rgba(99, 102, 241, 0.35);
+      border-radius: 20px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .pending-preview-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #ffd700;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
     }
   </style>
 
@@ -425,104 +562,103 @@
     }
 
     try {
-      // Query all ACTIVE contributors
+      // Fetch all contributors from Supabase
       const { data, error } = await supabase
         .from('contributors')
-        .select('display_name, full_name, role, bio, profile_image_path, instagram, youtube, approved_at, created_at')
-        .eq('status', 'ACTIVE')
-        .order('created_at', { ascending: true });
+        .select('*')
+        .order('created_at', { ascending: false });
         
       if (!error && data && data.length > 0) {
         const grid = document.getElementById('dynamic-contributors');
         const countSpan = document.getElementById('active-contributors-count');
         
-        // Filter out Harsh if duplicate in contributors table since he is already pinned at the top
-        const list = data.filter(c => !((c.display_name || '').toLowerCase().includes('harsh patel')));
+        // Filter out Harsh Patel since he is already pinned at the top as Founder
+        const rawList = data.filter(c => !((c.display_name || c.full_name || c.name || '').toLowerCase().includes('harsh patel')));
+
+        const now = Date.now();
+        const verifiedList = [];
+        let userPendingApp = null;
+
+        // Current user session ID if logged in
+        let currentUserId = null;
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session && session.user) currentUserId = session.user.id;
+        } catch (_) {}
+
+        rawList.forEach(c => {
+          const status = (c.status || '').toUpperCase();
+          const isExplicitlyActive = status === 'ACTIVE' || status === 'APPROVED' || c.verified === true;
+          
+          const createdTime = c.created_at ? new Date(c.created_at).getTime() : 0;
+          const hoursElapsed = (now - createdTime) / (1000 * 60 * 60);
+
+          // 24 Hours Auto-Activation Rule:
+          // User filled form ke 24 hours me unki information contributor page par apne aap show karne lage!
+          const is24hPassed = hoursElapsed >= 24;
+
+          if (isExplicitlyActive || is24hPassed) {
+            verifiedList.push({ ...c, autoApproved: is24hPassed && !isExplicitlyActive });
+            
+            // Asynchronously sync status in database so it is marked permanently ACTIVE
+            if (is24hPassed && !isExplicitlyActive) {
+              supabase
+                .from('contributors')
+                .update({ status: 'ACTIVE', verified: true, approved_at: new Date().toISOString() })
+                .eq('id', c.id)
+                .then(() => {})
+                .catch(e => console.warn('Auto-approval sync notice:', e));
+            }
+          } else if (currentUserId && c.user_id === currentUserId) {
+            userPendingApp = { ...c, hoursLeft: Math.max(1, Math.ceil(24 - hoursElapsed)) };
+          }
+        });
 
         if (countSpan) {
-          countSpan.textContent = `${list.length} Verified Member${list.length === 1 ? '' : 's'}`;
+          countSpan.textContent = `${verifiedList.length} Verified Member${verifiedList.length === 1 ? '' : 's'}`;
         }
 
-        if (list.length > 0) {
-          grid.innerHTML = ''; // Clear fallback
-          
-          list.forEach(c => {
-            const card = document.createElement('div');
-            card.className = 'contributor-card';
-            
-            const avatarWrap = document.createElement('div');
-            avatarWrap.className = 'card-avatar-wrap';
+        grid.innerHTML = ''; // Clear fallback
 
-            const img = document.createElement('img');
-            img.src = c.profile_image_path || 'logo.png';
-            img.alt = c.display_name || 'Contributor';
-            img.loading = 'lazy';
-            img.onerror = () => { img.src = 'logo.png'; };
+        // If current user submitted within 24 hours, show personal pending live preview card
+        if (userPendingApp) {
+          const previewWrap = document.createElement('div');
+          previewWrap.className = 'pending-preview-container';
+          previewWrap.innerHTML = `
+            <div class="pending-preview-badge">⏳ Application Under 24h Review</div>
+            <h4 style="color:#f8fafc; font-size:1.2rem; margin-bottom:0.4rem; font-family:'Space Grotesk',sans-serif;">
+              Your Contributor Profile is Scheduled to Go Live!
+            </h4>
+            <p style="color:#94a3b8; font-size:0.9rem; max-width:540px; margin:0 auto 1.5rem; line-height:1.5;">
+              Your application was received. Within <strong>${userPendingApp.hoursLeft} hours</strong> (24 hours from form submission), your small box profile below will automatically be visible to all visitors on this page.
+            </p>
+            <div style="max-width:320px; margin:0 auto; text-align:left;">
+              <span style="display:block; font-size:0.75rem; color:#ffd700; font-weight:700; text-transform:uppercase; margin-bottom:0.5rem; text-align:center;">✨ Your Live Box Preview</span>
+            </div>
+          `;
+          const previewCard = createContributorCard(userPendingApp, true);
+          previewWrap.querySelector('div[style*="max-width:320px"]').appendChild(previewCard);
+          grid.parentNode.insertBefore(previewWrap, grid);
+        }
 
-            const tick = document.createElement('span');
-            tick.className = 'golden-tick-badge-card';
-            tick.title = 'Golden Verified Contributor';
-            tick.textContent = '✓';
-
-            avatarWrap.appendChild(img);
-            avatarWrap.appendChild(tick);
-            
-            const h3 = document.createElement('h3');
-            h3.textContent = c.display_name || 'Contributor';
-            
-            const role = document.createElement('p');
-            role.className = 'role';
-            role.textContent = c.role || 'Contributor';
-            
-            card.appendChild(avatarWrap);
-            card.appendChild(h3);
-            card.appendChild(role);
-
-            if (c.bio) {
-              const bio = document.createElement('p');
-              bio.className = 'bio-snippet';
-              bio.textContent = c.bio;
-              card.appendChild(bio);
-            }
-
-            // Social links
-            if (c.instagram || c.youtube) {
-              const socials = document.createElement('div');
-              socials.className = 'social-links';
-              if (c.instagram) {
-                const ig = document.createElement('a');
-                ig.href = c.instagram;
-                ig.target = '_blank';
-                ig.rel = 'noopener noreferrer';
-                ig.textContent = '📸 Instagram';
-                socials.appendChild(ig);
-              }
-              if (c.youtube) {
-                const yt = document.createElement('a');
-                yt.href = c.youtube;
-                yt.target = '_blank';
-                yt.rel = 'noopener noreferrer';
-                yt.textContent = '▶ YouTube';
-                socials.appendChild(yt);
-              }
-              card.appendChild(socials);
-            }
-            
-            const joined = document.createElement('div');
-            joined.className = 'joined';
-            const joinDate = c.approved_at || c.created_at;
-            if (joinDate) {
-              joined.textContent = '🗓 Joined ' + new Date(joinDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-            } else {
-              joined.textContent = '⭐ Verified Contributor';
-            }
-            card.appendChild(joined);
-            
+        if (verifiedList.length > 0) {
+          verifiedList.forEach(c => {
+            const card = createContributorCard(c, false);
             grid.appendChild(card);
           });
-        }
-        if (countSpan) {
-          countSpan.textContent = `${list.length} Verified Member${list.length === 1 ? '' : 's'}`;
+        } else if (!userPendingApp) {
+          // Restore empty state if no active contributors yet
+          grid.innerHTML = `
+            <div id="no-contributors-state" style="grid-column: 1 / -1; text-align: center; padding: 3.5rem 1.5rem; background: var(--card-bg, #131b2e); border: 1px dashed rgba(255, 255, 255, 0.12); border-radius: 20px;">
+              <div style="font-size: 2.8rem; margin-bottom: 0.75rem;">👥</div>
+              <h4 style="color: #f8fafc; font-size: 1.3rem; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">New Contributors Joining Soon</h4>
+              <p style="color: #94a3b8; font-size: 0.92rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">Applications are reviewed and auto-approved within 24 hours. Submit your application to join the verified HarshGuruJi team!</p>
+              <a href="apply-contributor.html" class="btn-become" style="padding: 0.7rem 1.6rem; font-size: 0.95rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Join As Contributor
+              </a>
+            </div>
+          `;
         }
       } else {
         const countSpan = document.getElementById('active-contributors-count');
@@ -532,6 +668,182 @@
       console.error('Failed to load dynamic contributors:', err);
       const countSpan = document.getElementById('active-contributors-count');
       if (countSpan) countSpan.textContent = '0 Verified Members';
+    }
+
+    // Helper: Parse Rich Contributor Fields (Bio, Work & Dev, Skills, Portfolio)
+    function parseContributorBio(c) {
+      const bio = c.bio || '';
+      const cleanBio = bio.split('---')[0].trim();
+      let workAndDev = c.contribution_areas || '';
+      let skills = [];
+      let portfolio = c.website_url || c.github_url || '';
+      let linkedin = '';
+
+      if (Array.isArray(c.skills)) {
+        skills = c.skills;
+      } else if (typeof c.skills === 'string') {
+        skills = c.skills.split(',').map(s => s.trim()).filter(Boolean);
+      }
+
+      // Extract skills from formatted bio if present
+      const skillsMatch = bio.match(/🛠️ Core Skills:\s*([^\n\r]+)/);
+      if (skillsMatch && skills.length === 0) {
+        skills = skillsMatch[1].split(',').map(s => s.trim()).filter(Boolean);
+      }
+
+      // Extract past work & development proof from bio
+      const workMatch = bio.match(/📂 Past Work \/ Proof:\s*([\s\S]+?)(?=$|\n---|\n🎯)/);
+      if (workMatch) {
+        workAndDev = workMatch[1].trim();
+      }
+
+      // Extract portfolio link from bio
+      const portfolioMatch = bio.match(/🌐 Portfolio:\s*([^\n\r]+)/);
+      if (portfolioMatch && !portfolio) {
+        portfolio = portfolioMatch[1].trim();
+      }
+
+      // Extract LinkedIn from bio
+      const linkedinMatch = bio.match(/💼 LinkedIn:\s*([^\n\r]+)/);
+      if (linkedinMatch) {
+        linkedin = linkedinMatch[1].trim();
+      }
+
+      return { cleanBio, workAndDev, skills, portfolio, linkedin };
+    }
+
+    // Helper: Build the Contributor "Small Box" Card
+    function createContributorCard(c, isPreview) {
+      const parsed = parseContributorBio(c);
+      const card = document.createElement('div');
+      card.className = 'contributor-card animate-fade-in';
+      if (isPreview) {
+        card.style.border = '1.5px solid rgba(245, 158, 11, 0.5)';
+        card.style.boxShadow = '0 0 25px rgba(245, 158, 11, 0.15)';
+      }
+      
+      const avatarSrc = c.profile_image_path || c.avatar_url || 'logo.png';
+      const displayName = c.display_name || c.full_name || c.name || 'Verified Contributor';
+      const role = c.role || 'Contributor';
+
+      // 1. Avatar with Golden Tick Badge
+      const avatarWrap = document.createElement('div');
+      avatarWrap.className = 'card-avatar-wrap';
+      avatarWrap.innerHTML = `
+        <img src="${escapeHtml(avatarSrc)}" alt="${escapeHtml(displayName)}" loading="lazy" onerror="this.src='logo.png'">
+        <span class="golden-tick-badge-card" title="Golden Verified Contributor">✓</span>
+      `;
+      card.appendChild(avatarWrap);
+
+      // 2. Name & Role Pill
+      const h3 = document.createElement('h3');
+      h3.textContent = displayName;
+      card.appendChild(h3);
+
+      const roleBadge = document.createElement('div');
+      roleBadge.className = 'role-pill';
+      roleBadge.textContent = role;
+      card.appendChild(roleBadge);
+
+      // 3. Short Bio / Snippet
+      if (parsed.cleanBio) {
+        const bio = document.createElement('p');
+        bio.className = 'bio-snippet';
+        bio.textContent = parsed.cleanBio;
+        card.appendChild(bio);
+      }
+
+      // 4. Dedicated Work & Development Sub-box (Requested Feature)
+      const workBox = document.createElement('div');
+      workBox.className = 'contrib-work-box';
+
+      const workText = parsed.workAndDev || `Active ${role} developing technical guides, verified software, and educational resources on HarshGuruJi.`;
+
+      let skillsHtml = '';
+      if (parsed.skills && parsed.skills.length > 0) {
+        skillsHtml = `
+          <div class="work-skills-list">
+            ${parsed.skills.slice(0, 4).map(s => `<span class="work-skill-pill">${escapeHtml(s)}</span>`).join('')}
+          </div>
+        `;
+      }
+
+      let workLinkHtml = '';
+      if (parsed.portfolio) {
+        workLinkHtml = `
+          <a href="${escapeHtml(parsed.portfolio)}" target="_blank" rel="noopener noreferrer" class="work-link-btn" title="View Portfolio / Work">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>View Development / Work</span>
+          </a>
+        `;
+      }
+
+      workBox.innerHTML = `
+        <div class="work-box-header">
+          <span class="work-box-label">🛠️ Work & Development</span>
+        </div>
+        <p class="work-box-desc">${escapeHtml(workText)}</p>
+        ${skillsHtml}
+        ${workLinkHtml}
+      `;
+      card.appendChild(workBox);
+
+      // 5. Social Links
+      const socials = document.createElement('div');
+      socials.className = 'social-links';
+      if (c.instagram) {
+        const ig = document.createElement('a');
+        ig.href = c.instagram.startsWith('http') ? c.instagram : `https://instagram.com/${c.instagram.replace('@','')}`;
+        ig.target = '_blank';
+        ig.rel = 'noopener noreferrer';
+        ig.textContent = '📸 Instagram';
+        socials.appendChild(ig);
+      }
+      if (c.youtube) {
+        const yt = document.createElement('a');
+        yt.href = c.youtube.startsWith('http') ? c.youtube : `https://youtube.com/${c.youtube}`;
+        yt.target = '_blank';
+        yt.rel = 'noopener noreferrer';
+        yt.textContent = '▶ YouTube';
+        socials.appendChild(yt);
+      }
+      if (parsed.linkedin) {
+        const li = document.createElement('a');
+        li.href = parsed.linkedin.startsWith('http') ? parsed.linkedin : `https://${parsed.linkedin}`;
+        li.target = '_blank';
+        li.rel = 'noopener noreferrer';
+        li.textContent = '💼 LinkedIn';
+        socials.appendChild(li);
+      }
+      if (socials.children.length > 0) {
+        card.appendChild(socials);
+      }
+
+      // 6. Card Footer Meta
+      const footerMeta = document.createElement('div');
+      footerMeta.className = 'card-footer-meta';
+      const joinDate = c.approved_at || c.created_at;
+      const dateStr = joinDate
+        ? '🗓 Joined ' + new Date(joinDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+        : '⭐ Verified Member';
+
+      footerMeta.innerHTML = `
+        <span class="joined">${dateStr}</span>
+        <span class="verified-pill">${isPreview ? '⏳ In 24h Queue' : '✓ Verified'}</span>
+      `;
+      card.appendChild(footerMeta);
+
+      return card;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
   });
 </script>

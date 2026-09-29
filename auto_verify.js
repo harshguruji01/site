@@ -31,7 +31,7 @@ async function verifyContributors() {
   }
   const toVerify = data.filter((c) => {
     const mins = minutesSince(c.created_at);
-    return mins >= 30 && mins <= 24 * 60;
+    return mins >= 24 * 60; // Auto-verify 24 hours after form submission
   });
   if (toVerify.length === 0) return;
   const ids = toVerify.map((c) => c.id);
