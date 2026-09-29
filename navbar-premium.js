@@ -206,28 +206,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Mobile & Tablet Bottom Navigation Bar (Low-Ratio Devices Only) -->
     <nav class="hg-bottom-bar" id="hg-bottom-bar" aria-label="Mobile Navigation">
-      <a href="${prefix}index.html" class="hg-bottom-item" id="bottom-nav-home">
+      <a href="${prefix}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial" title="Daily Special">
         <span class="hg-bottom-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-        </span>
-        <span class="hg-bottom-label">Home</span>
-      </a>
-
-      <a href="${prefix}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial">
-        <span class="hg-bottom-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
           </svg>
         </span>
         <span class="hg-bottom-label">Daily Special</span>
       </a>
 
-      <a href="${prefix}store.html" class="hg-bottom-item" id="bottom-nav-store">
+      <a href="${prefix}store.html" class="hg-bottom-item" id="bottom-nav-store" title="Store Catalog">
         <span class="hg-bottom-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -236,9 +226,41 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Store</span>
       </a>
 
-      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth">
+      <a href="${prefix}index.html" class="hg-bottom-item hg-bottom-item-home" id="bottom-nav-home" title="Home">
+        <span class="hg-bottom-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Home</span>
+      </a>
+
+      <a href="https://chat.webguruji.online" class="hg-bottom-item" id="bottom-nav-chat" target="_blank" rel="noopener noreferrer" title="Chat App">
+        <span class="hg-bottom-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          <span class="hg-bottom-chat-dot" id="bottom-chat-unread-dot" style="display:none;"></span>
+        </span>
+        <span class="hg-bottom-label">Chat</span>
+      </a>
+
+      <a href="${prefix}contributor.html" class="hg-bottom-item" id="bottom-nav-contributor" title="Contributors">
+        <span class="hg-bottom-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Contributor</span>
+      </a>
+
+      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
         <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
-          <svg id="bottom-auth-default-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="bottom-auth-default-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
@@ -1130,21 +1152,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 5. Active Page Highlighting (Accurate for Home, Daily Special, Store, Contributor, More)
+  // 5. Active Page Highlighting (Accurate for Home, Daily Special, Store, Contributor, Chat, Profile, More)
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
   
   if (currentPath === 'index.html' || currentPath === '') {
     document.getElementById('nav-link-home')?.classList.add('active');
     document.getElementById('mob-link-home')?.classList.add('active');
+    document.getElementById('bottom-nav-home')?.classList.add('active');
   } else if (currentPath === 'daily-special.html') {
     document.getElementById('nav-link-dailyspecial')?.classList.add('active');
     document.getElementById('mob-link-dailyspecial')?.classList.add('active');
+    document.getElementById('bottom-nav-dailyspecial')?.classList.add('active');
   } else if (currentPath === 'store.html' || currentPath === 'store-detail.html' || currentPath === 'app.html') {
     document.getElementById('nav-link-store')?.classList.add('active');
     document.getElementById('mob-link-store')?.classList.add('active');
+    document.getElementById('bottom-nav-store')?.classList.add('active');
   } else if (currentPath === 'contributor.html' || currentPath === 'apply-contributor.html' || currentPath === 'join-contributor.html' || currentPath === 'admincontributors.html') {
     document.getElementById('nav-link-contributor')?.classList.add('active');
     document.getElementById('mob-link-contributor')?.classList.add('active');
+    document.getElementById('bottom-nav-contributor')?.classList.add('active');
+  } else if (currentPath === 'chat.html') {
+    document.getElementById('bottom-nav-chat')?.classList.add('active');
+  } else if (currentPath === 'dashboard.html' || currentPath === 'profile.html' || currentPath === 'settings.html' || currentPath === 'login.html') {
+    document.getElementById('bottom-nav-auth')?.classList.add('active');
   } else {
     // Check if current page is inside More dropdown
     const allLinks = document.querySelectorAll('.hg-dropdown-link, .hg-mobile-sublink');
@@ -1372,6 +1402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .neq('status', 'seen');
 
       const badge = document.getElementById('hg-chat-unread-badge');
+      const bottomChatDot = document.getElementById('bottom-chat-unread-dot');
       if (badge) {
         if (!error && count && count > 0) {
           badge.textContent = count > 9 ? '9+' : count;
@@ -1379,6 +1410,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           badge.style.display = 'none';
         }
+      }
+      if (bottomChatDot) {
+        bottomChatDot.style.display = (!error && count && count > 0) ? 'block' : 'none';
       }
     } catch (e) {
       console.warn("Chat badge sync notice:", e);
@@ -1508,7 +1542,9 @@ document.addEventListener('DOMContentLoaded', () => {
       window._currentNavUserId = null;
 
       const chatBadge = document.getElementById('hg-chat-unread-badge');
+      const bottomChatDot = document.getElementById('bottom-chat-unread-dot');
       if (chatBadge) chatBadge.style.display = 'none';
+      if (bottomChatDot) bottomChatDot.style.display = 'none';
 
       const overlay = document.getElementById('hg-bottom-profile-overlay');
       if (overlay) {

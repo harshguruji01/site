@@ -661,6 +661,7 @@
 
   .hg-bottom-item {
     flex: 1;
+    min-width: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -671,7 +672,7 @@
     color: #94a3b8;
     position: relative;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 6px 4px 4px 4px;
+    padding: 5px 2px 3px 2px;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
@@ -685,26 +686,87 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     transition: all 0.2s ease;
   }
 
   .hg-bottom-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     stroke: #94a3b8;
     transition: all 0.2s ease;
   }
 
   .hg-bottom-label {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.64rem;
     font-weight: 500;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.08px;
     color: #94a3b8;
     transition: all 0.2s ease;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: center;
+    padding: 0 1px;
+  }
+
+  /* Center Home Item Highlight */
+  .hg-bottom-item-home {
+    position: relative;
+  }
+
+  .hg-bottom-item-home .hg-bottom-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 107, 74, 0.18), rgba(236, 72, 153, 0.18));
+    border: 1.5px solid rgba(255, 107, 74, 0.45);
+    margin-top: -8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hg-bottom-item-home .hg-bottom-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ff7e5f;
+    transition: all 0.25s ease;
+  }
+
+  .hg-bottom-item-home:hover .hg-bottom-icon,
+  .hg-bottom-item-home.active .hg-bottom-icon {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ec4899 100%);
+    border-color: #ff6b4a;
+    box-shadow: 0 4px 16px rgba(255, 107, 74, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .hg-bottom-item-home:hover .hg-bottom-icon svg,
+  .hg-bottom-item-home.active .hg-bottom-icon svg {
+    stroke: #ffffff !important;
+    filter: none;
+    transform: none;
+  }
+
+  .hg-bottom-item-home.active .hg-bottom-label {
+    color: #ff6b4a;
+    font-weight: 700;
+  }
+
+  /* Chat Unread Dot Indicator */
+  .hg-bottom-chat-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 7px;
+    height: 7px;
+    background: #ff3b30;
+    border-radius: 50%;
+    border: 1.5px solid #0a0e1a;
+    box-shadow: 0 0 6px rgba(255, 59, 48, 0.85);
   }
 
   /* Active Navigation Tab */
@@ -730,8 +792,8 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 28px;
-    height: 3px;
+    width: 20px;
+    height: 2.5px;
     border-radius: 0 0 4px 4px;
     background: linear-gradient(90deg, #ff6b4a, #ec4899);
     box-shadow: 0 2px 10px rgba(255, 107, 74, 0.8);
@@ -763,6 +825,23 @@
     justify-content: center;
     border: 1.5px solid #0b0f19;
     box-shadow: 0 0 6px rgba(245, 158, 11, 0.85);
+  }
+
+  /* Small screen adjustments for 6-item bottom bar */
+  @media (max-width: 380px) {
+    .hg-bottom-label {
+      font-size: 0.58rem !important;
+      letter-spacing: -0.25px !important;
+    }
+    .hg-bottom-icon svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+    .hg-bottom-item-home .hg-bottom-icon {
+      width: 34px !important;
+      height: 34px !important;
+      margin-top: -6px !important;
+    }
   }
 
   /* On mobile/tablet screens, hide top header login button so it's clean and centered in bottom bar */
