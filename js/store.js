@@ -236,7 +236,10 @@ const elements = {
   // Mobile Filter
   mobileFilterBtn: document.getElementById('mobile-filter-btn'),
   sidebar: document.getElementById('store-sidebar'),
-  sidebarClose: document.getElementById('sidebar-close')
+  sidebarClose: document.getElementById('sidebar-close'),
+  sidebarOverlay: document.getElementById('store-sidebar-overlay'),
+  sidebarResetBtn: document.getElementById('sidebar-reset-btn'),
+  sidebarApplyBtn: document.getElementById('sidebar-apply-btn')
 };
 
 // --- INITIALIZATION ---
@@ -662,17 +665,39 @@ function setupEventListeners() {
     });
   }
   
-  // Mobile Sidebar Toggle
-  if (elements.mobileFilterBtn && elements.sidebar) {
-    elements.mobileFilterBtn.addEventListener('click', () => {
-      elements.sidebar.classList.add('active');
-      document.body.style.overflow = 'hidden';
+  // Mobile Sidebar Toggle & Drawer Controls
+  const openSidebar = () => {
+    if (elements.sidebar) elements.sidebar.classList.add('active');
+    if (elements.sidebarOverlay) elements.sidebarOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeSidebar = () => {
+    if (elements.sidebar) elements.sidebar.classList.remove('active');
+    if (elements.sidebarOverlay) elements.sidebarOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  if (elements.mobileFilterBtn) {
+    elements.mobileFilterBtn.addEventListener('click', openSidebar);
+  }
+  if (elements.sidebarClose) {
+    elements.sidebarClose.addEventListener('click', closeSidebar);
+  }
+  if (elements.sidebarOverlay) {
+    elements.sidebarOverlay.addEventListener('click', closeSidebar);
+  }
+  if (elements.sidebarResetBtn) {
+    elements.sidebarResetBtn.addEventListener('click', () => {
+      if (elements.btnResetFilter) elements.btnResetFilter.click();
+      closeSidebar();
     });
   }
-  if (elements.sidebarClose && elements.sidebar) {
-    elements.sidebarClose.addEventListener('click', () => {
-      elements.sidebar.classList.remove('active');
-      document.body.style.overflow = '';
+  if (elements.sidebarApplyBtn) {
+    elements.sidebarApplyBtn.addEventListener('click', () => {
+      closeSidebar();
+      scrollToStoreLayout();
+      showStoreToast("Filters applied");
     });
   }
   
@@ -683,7 +708,10 @@ function setupEventListeners() {
       if (e.target === elements.modalOverlay) closeModal();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') {
+        closeModal();
+        closeSidebar();
+      }
     });
   }
   
