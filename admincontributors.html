@@ -521,11 +521,57 @@
       opacity: 1;
     }
     
+    /* Cross-Admin Navigation Bar */
+    .cross-admin-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 0 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .cross-admin-pills::-webkit-scrollbar { height: 4px; }
+    .cross-admin-pills::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pill-link:hover, .pill-link.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.25);
+      border-color: var(--primary);
+    }
+    
     @media (max-width: 768px) {
-      .admin-header { padding: 1rem; }
-      .table-card { overflow-x: auto; }
-      .toolbar { flex-direction: column; align-items: stretch; }
-      .filter-pills { overflow-x: auto; padding-bottom: 0.5rem; }
+      .admin-header {
+        padding: 0.85rem 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+      .admin-brand { justify-content: flex-start; }
+      .container { padding: 1rem 0.75rem 4rem; }
+      .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .toolbar { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+      .filter-pills { overflow-x: auto; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
+      .admin-tabs { overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+      .tab-btn { white-space: nowrap; }
+    }
+    @media (max-width: 480px) {
+      .admin-brand h1 { font-size: 1.1rem; }
+      .admin-header-actions { flex-wrap: wrap; }
     }
   </style>
   <!-- Google AdSense -->
@@ -555,19 +601,30 @@
   <!-- Admin Main Interface -->
   <div id="admin-app" style="display: none;">
     <header class="admin-header">
-      <div class="admin-brand">
-        <img src="logo.png" alt="HarshGuruJi Logo">
-        <div>
-          <h1>HarshGuruJi Admin</h1>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 0.75rem;">
+        <div class="admin-brand">
+          <img src="logo.png" alt="HarshGuruJi Logo">
+          <div>
+            <h1>HarshGuruJi Admin</h1>
+          </div>
+          <span>Contributor &amp; Verified Hub</span>
         </div>
-        <span>Contributor &amp; Verified Hub</span>
+        <div class="admin-header-actions">
+          <a href="contributor.html" target="_blank" class="btn btn-outline btn-sm">
+            <span>View Public Contributor Page &rarr;</span>
+          </a>
+          <button class="btn btn-outline btn-sm" id="btn-lock">Lock &amp; Exit</button>
+        </div>
       </div>
-      <div class="admin-header-actions">
-        <a href="contributor.html" target="_blank" class="btn btn-outline btn-sm">
-          <span>View Public Contributor Page &rarr;</span>
-        </a>
-        <button class="btn btn-outline btn-sm" id="btn-lock">Lock &amp; Exit</button>
-      </div>
+      <!-- Cross-Admin Hub Navigation Pills -->
+      <nav class="cross-admin-pills" aria-label="Admin Sections">
+        <a href="admin.html" class="pill-link">⚡ Master Admin</a>
+        <a href="adminapkupload.html" class="pill-link">📦 Store Admin</a>
+        <a href="admin-chatbase.html" class="pill-link">💬 ChatBase AI</a>
+        <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
+        <a href="admincontributors.html" class="pill-link active">👥 Contributors</a>
+        <a href="index.html" class="pill-link">🌐 Live Site</a>
+      </nav>
     </header>
 
     <main class="container">

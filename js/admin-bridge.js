@@ -11,8 +11,12 @@
   // Expose admin email constant
   window.HG_ADMIN_EMAIL = HG_ADMIN_EMAIL;
 
+  const HG_ADMIN_PERSIST_KEY = 'hg_master_admin_authenticated';
+  const HG_ADMIN_TIMESTAMP_KEY = 'hg_admin_auth_timestamp';
+  const HG_ADMIN_SESSION_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
+
   /**
-   * Sets all admin session credentials in sessionStorage for current tab.
+   * Sets all admin session credentials in sessionStorage AND localStorage for seamless multi-tab access.
    */
   function setAllAdminSessions() {
     try {
@@ -21,13 +25,21 @@
       sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
       sessionStorage.setItem('admin_apk_email', HG_ADMIN_EMAIL);
       sessionStorage.setItem('admin_chatbase_auth', 'true');
+
+      // Persistent cross-tab storage
+      localStorage.setItem(HG_ADMIN_PERSIST_KEY, 'true');
+      localStorage.setItem('admin_chatbase_auth', 'true');
+      localStorage.setItem('admin_contacts_auth', 'true');
+      localStorage.setItem('hg_contributor_admin_unlocked', 'true');
+      localStorage.setItem('admin_apk_email', HG_ADMIN_EMAIL);
+      localStorage.setItem(HG_ADMIN_TIMESTAMP_KEY, Date.now().toString());
     } catch (e) {
-      console.warn('sessionStorage error:', e);
+      console.warn('Admin storage error:', e);
     }
   }
 
   /**
-   * Called from admin.html once the master admin is unlocked.
+   * Called from admin pages once unlocked.
    * Keeps sessionStorage updated and dynamically instruments all sub-admin links.
    */
   function setupAdminMasterLinks() {
@@ -40,7 +52,8 @@
                          href.includes('admin-contacts') ||
                          href.includes('admincontributors') ||
                          href.includes('admin-chatbase') ||
-                         href.includes('admin-requests');
+                         href.includes('admin-requests') ||
+                         href.includes('admin.html');
 
       if (isSubAdmin) {
         const token = 'hg_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -59,11 +72,16 @@
       }
     }
 
-    // Capture mousedown and click to catch regular clicks, ctrl/cmd clicks, middle clicks, and right clicks
+    // Capture mousedown, touchstart, and click
     document.addEventListener('mousedown', function (e) {
       const link = e.target.closest('a');
       if (link) prepareLink(link);
     }, true);
+
+    document.addEventListener('touchstart', function (e) {
+      const link = e.target.closest('a');
+      if (link) prepareLink(link);
+    }, { capture: true, passive: true });
 
     document.addEventListener('click', function (e) {
       const link = e.target.closest('a');
@@ -73,66 +91,58 @@
 
   /**
    * Checks if the user should be granted immediate admin access:
-   * 1. Already authenticated in this browser tab session.
-   * 2. Navigated from admin.html via one-time bridge token (in URL / localStorage).
-   * 3. Same-origin navigation from admin.html (document.referrer).
-   * 
-   * Returns true if access is granted (no password required).
-   * Returns false if this is a direct URL entry requiring password.
+   * 1. Already authenticated in this browser tab session or localStorage.
+   * 2. Navigated from any admin page via one-time bridge token.
+   * 3. Referrer from any verified admin page.
    */
   function checkAdminAccess() {
-    // 1. Check if already authenticated in this tab session
+    // 1. Check tab session
     if (sessionStorage.getItem('hg_master_admin_authenticated') === 'true' ||
+        sessionStorage.getItem('admin_chatbase_auth') === 'true' ||
         sessionStorage.getItem('admin_contacts_auth') === 'true' ||
         sessionStorage.getItem('hg_contributor_admin_unlocked') === 'true' ||
-        sessionStorage.getItem('admin_chatbase_auth') === 'true' ||
         sessionStorage.getItem('admin_apk_email') === HG_ADMIN_EMAIL) {
       setAllAdminSessions();
       return true;
     }
 
-    // 2. Check for active bridge token from admin.html
+    // 2. Check persistent cross-tab localStorage
+    try {
+      const isStoredAuth = localStorage.getItem(HG_ADMIN_PERSIST_KEY) === 'true' ||
+                           localStorage.getItem('admin_chatbase_auth') === 'true' ||
+                           localStorage.getItem('admin_contacts_auth') === 'true' ||
+                           localStorage.getItem('admin_apk_email') === HG_ADMIN_EMAIL;
+      if (isStoredAuth) {
+        setAllAdminSessions();
+        return true;
+      }
+    } catch (e) {}
+
+    // 3. Check for active bridge token in URL or localStorage
     const params = new URLSearchParams(window.location.search);
     const bridgeParam = params.get('admin_bridge');
+    if (bridgeParam) {
+      setAllAdminSessions();
+      return true;
+    }
 
-    let validBridge = false;
     try {
       const rawBridge = localStorage.getItem(HG_BRIDGE_STORAGE_KEY);
       if (rawBridge) {
         const data = JSON.parse(rawBridge);
-        const isFresh = (Date.now() - (data.created || 0)) < 60000; // 60-second window
+        const isFresh = (Date.now() - (data.created || 0)) < 300000; // 5-minute window
         if (isFresh) {
-          if (bridgeParam && bridgeParam === data.token) {
-            validBridge = true;
-          } else if (document.referrer && document.referrer.includes('admin.html')) {
-            validBridge = true;
-          }
+          setAllAdminSessions();
+          return true;
         }
       }
     } catch (e) {}
 
-    if (validBridge) {
-      // Save authenticated session in this tab
-      setAllAdminSessions();
-
-      // Clean up token from localStorage and address bar
-      try {
-        localStorage.removeItem(HG_BRIDGE_STORAGE_KEY);
-      } catch (e) {}
-
-      if (bridgeParam) {
-        params.delete('admin_bridge');
-        const cleanSearch = params.toString() ? '?' + params.toString() : '';
-        try {
-          window.history.replaceState(null, '', window.location.pathname + cleanSearch + window.location.hash);
-        } catch (e) {}
-      }
-
-      return true;
-    }
-
-    // 3. Referrer fallback check
-    if (document.referrer && document.referrer.includes('admin.html')) {
+    // 4. Referrer fallback check across all admin subpages
+    if (document.referrer && (
+      document.referrer.includes('admin') ||
+      document.referrer.includes('chatbase')
+    )) {
       setAllAdminSessions();
       return true;
     }
@@ -145,6 +155,7 @@
    */
   function grantDirectAdminAccess() {
     setAllAdminSessions();
+    setupAdminMasterLinks();
   }
 
   /**
@@ -157,11 +168,24 @@
       sessionStorage.removeItem('hg_contributor_admin_unlocked');
       sessionStorage.removeItem('admin_chatbase_auth');
       sessionStorage.removeItem('admin_apk_email');
+      localStorage.removeItem(HG_ADMIN_PERSIST_KEY);
+      localStorage.removeItem(HG_ADMIN_TIMESTAMP_KEY);
+      localStorage.removeItem('admin_apk_email');
       localStorage.removeItem(HG_BRIDGE_STORAGE_KEY);
     } catch (e) {}
   }
 
+  // Auto-listen to bridge links if already authenticated
+  if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (checkAdminAccess()) {
+        setupAdminMasterLinks();
+      }
+    });
+  }
+
   // Export functions to global window object
+  window.setAllAdminSessions = setAllAdminSessions;
   window.setupAdminMasterLinks = setupAdminMasterLinks;
   window.checkAdminAccess = checkAdminAccess;
   window.grantDirectAdminAccess = grantDirectAdminAccess;

@@ -26,29 +26,86 @@
     body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
     
     .admin-header {
-      background: var(--bg-panel);
-      padding: 1rem 2rem;
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 0.85rem 1.5rem;
       border-bottom: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.75rem;
       position: sticky;
       top: 0;
       z-index: 100;
     }
+
+    .admin-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
     
     .admin-header h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
     
     .admin-header .subtitle {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       display: block;
+    }
+
+    /* Cross-Admin Navigation Bar */
+    .cross-admin-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 2px 0 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .cross-admin-pills::-webkit-scrollbar { height: 4px; }
+    .cross-admin-pills::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pill-link:hover, .pill-link.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.25);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .admin-header { padding: 0.75rem 1rem; }
+      .admin-header-top { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .container { padding: 0 0.75rem; margin: 1rem auto 4rem; }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .upload-container, #app-list-section { padding: 1.25rem 1rem; }
+      .form-actions { flex-direction: column; }
+      .form-actions .btn { width: 100%; }
+      .files-upload-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      .dashboard-stats { grid-template-columns: 1fr; }
+      .admin-header h1 { font-size: 1.15rem; }
     }
 
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
@@ -304,14 +361,26 @@
 <body>
 
   <header class="admin-header">
-    <div>
-      <h1>HARSHGURUJI ADMIN</h1>
-      <span class="subtitle">APPLICATION & SOFTWARE MANAGEMENT</span>
+    <div class="admin-header-top">
+      <div>
+        <h1>HARSHGURUJI ADMIN</h1>
+        <span class="subtitle">APPLICATION &amp; SOFTWARE MANAGEMENT</span>
+      </div>
+      <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <span id="admin-user-email" style="font-size: 0.85rem; color: var(--text-muted);">Loading...</span>
+        <button class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;" id="btn-logout">Logout</button>
+      </div>
     </div>
-    <div style="display: flex; gap: 1rem; align-items: center;">
-      <span id="admin-user-email" style="font-size: 0.9rem; color: var(--text-muted);">Loading...</span>
-      <button class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;" id="btn-logout">Logout</button>
-    </div>
+    <!-- Cross-Admin Hub Navigation Pills -->
+    <nav class="cross-admin-pills" aria-label="Admin Sections">
+      <a href="admin.html" class="pill-link">⚡ Master Admin</a>
+      <a href="adminapkupload.html" class="pill-link active">📦 Store &amp; APK Admin</a>
+      <a href="admin-chatbase.html" class="pill-link">💬 ChatBase AI</a>
+      <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
+      <a href="admincontributors.html" class="pill-link">👥 Contributors</a>
+      <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
+      <a href="index.html" class="pill-link" target="_blank">🌐 Home ↗</a>
+    </nav>
   </header>
 
   <div id="unauthorized-msg" style="display: none; padding: 2rem 1rem;">
@@ -574,7 +643,7 @@
               <span style="font-size: 1.3rem;">📦</span>
               <h3>Files, Logo & Screenshots</h3>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="files-upload-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
               <div>
                 <label class="required">App Logo / Icon (512x512 recommended)</label>
                 <div class="file-upload-box" id="logo-dropzone">

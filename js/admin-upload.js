@@ -57,6 +57,10 @@ function grantAdminAccess(email) {
     document.getElementById('unauthorized-msg').style.display = 'none';
     document.getElementById('admin-content').style.display = 'block';
 
+    if (window.setupAdminMasterLinks) {
+        window.setupAdminMasterLinks();
+    }
+
     let checkInterval = setInterval(() => {
         if (window.supabaseClient) {
             clearInterval(checkInterval);

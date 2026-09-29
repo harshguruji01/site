@@ -34,14 +34,14 @@ export const learningRegistry = {
           id: "math",
           name: "Mathematics",
           icon: "📐",
-          url: "learning/class-10-math.html",
+          url: "learning/subject.html?class=10&subject=math",
           chapters: []
         },
         {
           id: "english",
           name: "English",
           icon: "📖",
-          url: "learning/class-10-english.html",
+          url: "learning/subject.html?class=10&subject=english",
           chapters: []
         }
       ]
@@ -54,7 +54,7 @@ export const learningRegistry = {
           id: "math",
           name: "Mathematics",
           icon: "📐",
-          url: "learning/class-9-math.html",
+          url: "learning/subject.html?class=9&subject=math",
           chapters: []
         }
       ]

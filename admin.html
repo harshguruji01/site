@@ -1453,6 +1453,40 @@
       margin-top: 4rem;
     }
 
+    /* Cross-Admin Navigation Bar */
+    .cross-admin-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 0 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      width: 100%;
+    }
+    .cross-admin-pills::-webkit-scrollbar { height: 4px; }
+    .cross-admin-pills::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pill-link:hover, .pill-link.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.25);
+      border-color: var(--primary);
+    }
+
     @media (max-width: 768px) {
       .top-navbar { padding: 1rem 1.25rem; flex-direction: column; gap: 1rem; align-items: flex-start; }
       .top-controls { width: 100%; justify-content: space-between; }
@@ -1460,6 +1494,14 @@
       .modules-grid { grid-template-columns: 1fr; }
       .admin-hero { padding: 1.75rem; }
       .hero-content h2 { font-size: 1.7rem; }
+    }
+    @media (max-width: 560px) {
+      .gate-card { padding: 2rem 1.25rem; border-radius: 18px; }
+      .brand-info h1 { font-size: 1.1rem; }
+      .admin-hero { padding: 1.25rem 1rem; }
+      .hero-content h2 { font-size: 1.4rem; }
+      .shortcuts-grid { grid-template-columns: 1fr; }
+      .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
   </style>
   <!-- Google AdSense -->
@@ -1581,6 +1623,17 @@
           <span>Lock &amp; Exit</span>
         </button>
       </div>
+
+      <!-- Cross-Admin Hub Navigation Pills -->
+      <nav class="cross-admin-pills" aria-label="Admin Sections">
+        <a href="admin.html" class="pill-link active">⚡ Master Admin</a>
+        <a href="adminapkupload.html" class="pill-link">📦 Store Admin</a>
+        <a href="admin-chatbase.html" class="pill-link">💬 ChatBase AI</a>
+        <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
+        <a href="admincontributors.html" class="pill-link">👥 Contributors</a>
+        <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
+        <a href="index.html" class="pill-link" target="_blank">🌐 Live Site ↗</a>
+      </nav>
     </header>
 
     <main class="dashboard-wrapper">
@@ -1879,9 +1932,165 @@
         </div>
       </section>
 
-      <footer class="admin-footer">
-        <p>HarshGuruJi Master Admin Console &bull; Secured with Multi-Factor 2-Step Authentication &bull; &copy; 2026 HarshGuruJi</p>
-      </footer>
+      <footer class="footer" style="background: var(--bg-color, #0f0f11); border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 4rem 1rem 2rem; margin-top: auto; position: relative;">
+  <style>
+    /* Global Footer Specific Styles */
+    .hg-footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; max-width: 1280px; margin: 0 auto; }
+    .hg-footer-brand p { color: var(--text-secondary, #a1a1aa); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; max-width: 350px; }
+    .hg-footer-navs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    
+    @media (min-width: 768px) {
+      .hg-footer-navs { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    @media (min-width: 1024px) {
+      .hg-footer-grid { grid-template-columns: 350px 1fr; }
+      .hg-footer-navs { grid-template-columns: repeat(5, 1fr); }
+    }
+    
+    .hg-footer-col h5 { color: var(--text-primary, #ffffff); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .hg-footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+    .hg-footer-col a { color: var(--text-secondary, #a1a1aa); text-decoration: none; font-size: 0.9rem; transition: all 0.2s; display: inline-flex; align-items: center; }
+    .hg-footer-col a:hover { color: var(--accent-primary, #3b82f6); transform: translateX(4px); }
+    
+    .hg-footer-search { display: flex; align-items: center; background: var(--surface-color, #1a1a1a); border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-radius: 8px; padding: 0.5rem; margin-bottom: 2rem; max-width: 100%; transition: 0.2s; }
+    .hg-footer-search:focus-within { border-color: var(--accent-primary, #3b82f6); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
+    .hg-footer-search input { background: transparent; border: none; color: var(--text-primary, #fff); padding: 0.5rem; flex-grow: 1; outline: none; font-size: 0.95rem; }
+    .hg-footer-search button { background: var(--accent-primary, #3b82f6); color: white; border: none; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    .hg-footer-search button:hover { opacity: 0.9; }
+
+    .hg-footer-bottom { max-width: 1280px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); display: flex; flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+    
+    @media (min-width: 768px) {
+      .hg-footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+
+    .hg-footer-socials { display: flex; gap: 1rem; }
+    .hg-footer-socials a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-color, #1a1a1a); color: var(--text-secondary, #a1a1aa); transition: all 0.3s; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); }
+    .hg-footer-socials a:hover { background: var(--accent-primary, #3b82f6); color: white; border-color: var(--accent-primary, #3b82f6); transform: translateY(-3px); }
+
+
+  </style>
+
+  <div class="hg-footer-grid">
+    <div class="hg-footer-brand">
+      <a href="index.html" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; margin-bottom: 1.5rem;">
+        <img src="logo.png" alt="HarshGuruJi Logo" style="height: 48px; width: auto; border-radius: 8px;" />
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.5rem; background:linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
+      </a>
+      <p>HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.</p>
+      
+      <div class="hg-footer-search">
+        <input type="text" id="footer-search-input" placeholder="Search HarshGuruJi..." aria-label="Search the website">
+        <button type="button" id="footer-search-btn" aria-label="Search">Search</button>
+      </div>
+
+      <div class="hg-footer-socials">
+        <a href="https://www.youtube.com/@TESVLOG1" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" /></svg>
+        </a>
+        <a href="https://www.instagram.com/harshguruji1/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z" /></svg>
+        </a>
+        <a href="https://t.me/webgurujiofficial" id="footer-social-telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram Channel">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="hg-footer-navs" aria-label="Footer Navigation">
+      <div class="hg-footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="ai-hub.html">AI Hub</a></li>
+          <li><a href="daily-special.html">Daily Special</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="explore.html">Explore</a></li>
+        </ul>
+      </div>
+      <div class="hg-footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="free-tools.html">All Tools</a></li>
+          <li><a href="free-tools.html?search=Text">Text Tools</a></li>
+          <li><a href="free-tools.html?search=Calculator">Calculators</a></li>
+          <li><a href="free-tools.html?search=Converter">Converters</a></li>
+          <li><a href="free-tools.html?search=Developer">Dev Tools</a></li>
+        </ul>
+      </div>
+      <div class="hg-footer-col">
+        <h5>Learning</h5>
+        <ul>
+          <li><a href="learning-hub.html">Learning Hub</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="learning/class-10-science.html">Class 10</a></li>
+          <li><a href="learning/class.html?class=9">Class 9</a></li>
+          <li><a href="learning/gk-quiz.html">Quizzes</a></li>
+        </ul>
+      </div>
+      <div class="hg-footer-col">
+        <h5>Games & Store</h5>
+        <ul>
+          <li><a href="gaming-hub.html">Gaming Hub</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="games/tic-tac-toe.html">Tic Tac Toe</a></li>
+          <li><a href="games/snake.html">Snake</a></li>
+        </ul>
+      </div>
+      <div class="hg-footer-col">
+        <h5>Company & Legal</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contributor.html">Contributors</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms</a></li>
+          <li><a href="cookie.html">Cookies</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="hg-footer-bottom">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Founder" style="height: 60px; width: auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" />
+      <div>
+        <strong style="color: var(--text-primary, #fff); font-size: 1.1rem; display: block; margin-bottom: 0.2rem;">Harsh Patel</strong>
+        <span style="color: var(--accent-primary, #3b82f6); font-size: 0.85rem; font-weight: 600; display: block;">Founder & Owner</span>
+      </div>
+    </div>
+    
+    <p style="color: var(--text-secondary, #a1a1aa); font-size: 0.85rem; margin: 0;">
+      &copy; <span id="footer-year">2026</span> HarshGuruJi. All Rights Reserved. <br>
+      Made with ❤️ by HarshGuruJi.
+    </p>
+  </div>
+
+  <script>
+    // Set dynamic year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Footer Search logic
+    document.getElementById('footer-search-btn').addEventListener('click', function() {
+      const val = document.getElementById('footer-search-input').value.trim();
+      if(val) {
+        window.location.href = `explore.html?search=${encodeURIComponent(val)}`;
+      }
+    });
+    
+    document.getElementById('footer-search-input').addEventListener('keypress', function(e) {
+      if(e.key === 'Enter') {
+        const val = this.value.trim();
+        if(val) {
+          window.location.href = `explore.html?search=${encodeURIComponent(val)}`;
+        }
+      }
+    });
+  </script>
+</footer>
+
+
 
     </main>
   </div>
@@ -2129,8 +2338,9 @@
       const btnBack = document.getElementById('btn-back-step-1');
       const btnLock = document.getElementById('btn-lock-session');
 
-      // Check if already authenticated in this browser session
-      if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+      // Check if already authenticated in this browser session or persistent storage
+      if (sessionStorage.getItem(SESSION_KEY) === 'true' || localStorage.getItem(SESSION_KEY) === 'true' || (window.checkAdminAccess && window.checkAdminAccess())) {
+        if (window.setAllAdminSessions) window.setAllAdminSessions();
         unlockDashboard();
         return;
       }
@@ -2167,8 +2377,22 @@
         const enteredID = idInput.value.trim();
 
         if (enteredID === REQUIRED_ID) {
-          // Success! Save session and unlock
+          // Success! Save session and unlock across all admin subpages
           sessionStorage.setItem(SESSION_KEY, 'true');
+          sessionStorage.setItem('admin_chatbase_auth', 'true');
+          sessionStorage.setItem('admin_contacts_auth', 'true');
+          sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
+          sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
+
+          localStorage.setItem(SESSION_KEY, 'true');
+          localStorage.setItem('admin_chatbase_auth', 'true');
+          localStorage.setItem('admin_contacts_auth', 'true');
+          localStorage.setItem('hg_contributor_admin_unlocked', 'true');
+          localStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
+          localStorage.setItem('hg_admin_auth_timestamp', Date.now().toString());
+
+          if (window.setAllAdminSessions) window.setAllAdminSessions();
+          if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
           unlockDashboard();
         } else {
           error2.textContent = '❌ Invalid Security ID key! Access rejected.';
@@ -2236,15 +2460,21 @@
       }
       const tileChatbase = document.getElementById('tile-chatbase-app');
       if (tileChatbase) {
-        tileChatbase.addEventListener('click', () => {
-          if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
-          window.location.href = 'admin-chatbase.html';
-        });
+        const navigateToChatbase = () => {
+          if (window.setAllAdminSessions) window.setAllAdminSessions();
+          const token = 'hg_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+          try {
+            localStorage.setItem('hg_admin_bridge_token', JSON.stringify({ token: token, created: Date.now() }));
+            localStorage.setItem('admin_chatbase_auth', 'true');
+            sessionStorage.setItem('admin_chatbase_auth', 'true');
+          } catch (e) {}
+          window.location.href = 'admin-chatbase.html?admin_bridge=' + encodeURIComponent(token);
+        };
+        tileChatbase.addEventListener('click', navigateToChatbase);
         tileChatbase.addEventListener('keydown', (e) => { 
           if (e.key === 'Enter' || e.key === ' ') { 
             e.preventDefault(); 
-            if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
-            window.location.href = 'admin-chatbase.html'; 
+            navigateToChatbase();
           } 
         });
       }

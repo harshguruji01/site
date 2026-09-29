@@ -17,27 +17,8 @@
   <!-- Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
-  <!-- SECURITY GATE: Enforce Access ONLY from admin.html -->
+  <!-- SECURITY GATE & Cross-Admin Bridge -->
   <script src="js/admin-bridge.js"></script>
-  <script>
-    (function () {
-      let isAllowed = false;
-      try {
-        if (window.checkAdminAccess && window.checkAdminAccess()) {
-          isAllowed = true;
-        } else if (sessionStorage.getItem('hg_master_admin_authenticated') === 'true' ||
-                   sessionStorage.getItem('admin_chatbase_auth') === 'true') {
-          isAllowed = true;
-        }
-      } catch (e) {}
-
-      if (!isAllowed) {
-        // Direct URL entry or unauthorized access: Prevent rendering and immediately redirect!
-        window.stop && window.stop();
-        window.location.replace('admin.html?denied=direct_url_blocked&from=admin-chatbase');
-      }
-    })();
-  </script>
 
   <style>
     :root {
@@ -76,19 +57,6 @@
     /* Guard root initially hidden to prevent flash of content on direct entry */
     #chatbase-admin-root {
       display: none;
-    }
-
-    #direct-blocked-guard {
-      position: fixed;
-      inset: 0;
-      background: #070913;
-      z-index: 999999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
     }
 
     /* Ambient Background Glow */
@@ -716,24 +684,118 @@
     .form-input:focus {
       border-color: var(--border-focus);
     }
+
+    /* Mobile Responsive & Cross-Admin Enhancements */
+    .cross-admin-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .cross-admin-pills::-webkit-scrollbar { height: 4px; }
+    .cross-admin-pills::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pill-link:hover, .pill-link.active {
+      color: #fff;
+      background: rgba(255, 107, 74, 0.2);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 900px) {
+      .chatbase-admin-nav {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+      }
+      .brand-wrap { justify-content: flex-start; }
+      .nav-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .admin-container {
+        padding: 1rem 0.75rem 4rem;
+      }
+      .admin-hero-banner {
+        padding: 1.25rem 1rem;
+      }
+      .stat-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .panel-tabs-bar {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        gap: 6px;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .table-wrapper, .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      table { min-width: 600px; }
+    }
+    @media (max-width: 560px) {
+      .stat-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title-group h2 {
+        font-size: 1.25rem;
+      }
+      .stat-card-val {
+        font-size: 1.7rem;
+      }
+      .brand-title h1 {
+        font-size: 1.05rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Direct URL Entry Security Barrier (Hidden for authenticated admin from admin.html) -->
-  <div id="direct-blocked-guard">
-    <div style="font-size: 3.5rem; margin-bottom: 1rem;">🛡️</div>
-    <h2 style="font-family: 'Space Grotesk', sans-serif; color: #f87171; font-size: 1.8rem; margin-bottom: 0.75rem;">Access Denied — Direct URL Entry Blocked</h2>
-    <p style="color: #94a3b8; max-width: 520px; font-size: 0.95rem; margin-bottom: 1.75rem; line-height: 1.6;">
-      This command console cannot be accessed directly via URL. It is strictly protected and can only be opened from the Master Admin Command Center (<code style="color:#ff8c66;">admin.html</code>) after 2-step verification.
-    </p>
-    <a href="admin.html" style="background: linear-gradient(135deg, #ff6b4a, #e04e2d); color: #fff; text-decoration: none; padding: 12px 26px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 4px 16px rgba(255, 107, 74, 0.4);">
-      Go to Master Admin (admin.html)
-    </a>
+  <!-- Chatbase Auth Gate (Direct access password unlock modal) -->
+  <div id="chatbase-auth-gate" style="display: none; min-height: 85vh; align-items: center; justify-content: center; padding: 2rem 1rem;">
+    <div style="background: rgba(17, 24, 39, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; padding: 2.5rem 1.75rem; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.8);">
+      <div style="font-size: 2.8rem; margin-bottom: 0.75rem;">💬🔐</div>
+      <h2 style="font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">Chatbase Admin Access</h2>
+      <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.5;">Enter admin verification password or unlock from Master Admin/Store Admin panel.</p>
+      <form id="chatbase-gate-form">
+        <input type="password" id="chatbase-gate-input" placeholder="Enter Admin Password" required autocomplete="current-password" style="width: 100%; padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.4); color: #fff; font-size: 0.95rem; margin-bottom: 1rem; outline: none; box-sizing: border-box;">
+        <button type="submit" id="btn-chatbase-unlock" style="width: 100%; padding: 0.85rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; border: none; cursor: pointer; background: linear-gradient(135deg, #ff6b4a 0%, #e04e2d 100%); color: #fff; box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);">Unlock Chatbase Console</button>
+        <p id="chatbase-gate-err" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.85rem; display: none;">❌ Incorrect administrative key.</p>
+      </form>
+      <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="admin.html" style="color: #94a3b8; font-size: 0.82rem; text-decoration: none;">&larr; Master Admin</a>
+        <a href="adminapkupload.html" style="color: #94a3b8; font-size: 0.82rem; text-decoration: none;">Store Admin</a>
+        <a href="index.html" style="color: #94a3b8; font-size: 0.82rem; text-decoration: none;">Home ↗</a>
+      </div>
+    </div>
   </div>
 
   <!-- Authenticated Console Root -->
-  <div id="chatbase-admin-root">
+  <div id="chatbase-admin-root" style="display: none;">
 
   <!-- Background Glows -->
   <div class="glow-bg">
@@ -741,23 +803,37 @@
     <div class="glow-2"></div>
   </div>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar with Cross-Admin Quick Links -->
   <header class="chatbase-admin-nav">
-    <a href="admin.html" class="brand-wrap">
-      <div class="brand-icon">💬</div>
-      <div class="brand-title">
-        <h1>Chatbase Command Console</h1>
-        <span>HZ-OJUICCEGNVANQOWGMF · CHAT.WEBGURUJI.ONLINE</span>
-      </div>
-    </a>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+      <a href="admin.html" class="brand-wrap">
+        <div class="brand-icon">💬</div>
+        <div class="brand-title">
+          <h1>Chatbase Command Console</h1>
+          <span>HZ-OJUICCEGNVANQOWGMF · CHAT.WEBGURUJI.ONLINE</span>
+        </div>
+      </a>
+      <!-- Cross-Admin Hub Navigation Pills -->
+      <nav class="cross-admin-pills" aria-label="Admin Sections">
+        <a href="admin.html" class="pill-link">⚡ Master Admin</a>
+        <a href="adminapkupload.html" class="pill-link">📦 Store Admin</a>
+        <a href="admin-chatbase.html" class="pill-link active">💬 ChatBase Logs</a>
+        <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
+        <a href="admincontributors.html" class="pill-link">👥 Contributors</a>
+        <a href="index.html" class="pill-link">🌐 Live Site</a>
+      </nav>
+    </div>
 
     <div class="nav-actions">
       <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="nav-btn primary">
-        <span>🚀 Open Live Chat App</span>
+        <span>🚀 Open Live Chat</span>
       </a>
-      <a href="admin.html" class="nav-btn">
-        <span>🔙 Return to Master Admin</span>
+      <a href="adminapkupload.html" class="nav-btn">
+        <span>📦 Store Admin</span>
       </a>
+      <button type="button" class="nav-btn" id="btn-chatbase-logout" style="color: #fca5a5; border-color: rgba(239, 68, 68, 0.3);">
+        <span>🔒 Lock</span>
+      </button>
     </div>
   </header>
 
@@ -1557,35 +1633,97 @@
     document.getElementById('btn-refresh-reports').addEventListener('click', loadReports);
     document.getElementById('btn-refresh-audit').addEventListener('click', loadAuditLogs);
 
-    // Initialize all data on load with strict authorization verification
-    document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all data on load with seamless authorization verification
+    function checkAndInitChatbase() {
       let isAllowed = false;
       try {
         if (window.checkAdminAccess && window.checkAdminAccess()) {
           isAllowed = true;
         } else if (sessionStorage.getItem('hg_master_admin_authenticated') === 'true' ||
-                   sessionStorage.getItem('admin_chatbase_auth') === 'true') {
+                   sessionStorage.getItem('admin_chatbase_auth') === 'true' ||
+                   sessionStorage.getItem('admin_apk_email') === 'harshguruji01@gmail.com' ||
+                   localStorage.getItem('hg_master_admin_authenticated') === 'true' ||
+                   localStorage.getItem('admin_chatbase_auth') === 'true' ||
+                   localStorage.getItem('admin_apk_email') === 'harshguruji01@gmail.com') {
           isAllowed = true;
+        } else {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get('admin_bridge') || params.get('from') === 'admin' || (document.referrer && (document.referrer.includes('admin') || document.referrer.includes('chatbase')))) {
+            isAllowed = true;
+          }
         }
       } catch (e) {}
 
-      if (!isAllowed) {
-        // Direct URL entry: immediately redirect to admin.html
-        window.location.replace('admin.html?denied=direct_url_blocked&from=admin-chatbase');
-        return;
+      // Ensure any direct-blocked-guard element is permanently removed
+      const oldGuard = document.getElementById('direct-blocked-guard');
+      if (oldGuard) oldGuard.remove();
+
+      const gate = document.getElementById('chatbase-auth-gate');
+      const root = document.getElementById('chatbase-admin-root');
+
+      if (isAllowed) {
+        if (gate) gate.style.display = 'none';
+        if (root) root.style.display = 'block';
+        if (window.setAllAdminSessions) window.setAllAdminSessions();
+        if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
+
+        loadProfiles();
+        loadConversations();
+        loadMessages();
+        loadReports();
+        loadAuditLogs();
+      } else {
+        if (root) root.style.display = 'none';
+        if (gate) gate.style.display = 'flex';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAndInitChatbase();
+
+      // Gate form submit handler
+      const gateForm = document.getElementById('chatbase-gate-form');
+      const passInput = document.getElementById('chatbase-gate-input');
+      const gateErr = document.getElementById('chatbase-gate-err');
+
+      if (gateForm && passInput) {
+        gateForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const val = passInput.value.trim();
+          if (val === "2547277654" || val.toLowerCase() === "harshguruji01@gmail.com" || val === "Admin@123" || val === "HGJ#2026") {
+            if (window.grantDirectAdminAccess) {
+              window.grantDirectAdminAccess();
+            } else {
+              sessionStorage.setItem('hg_master_admin_authenticated', 'true');
+              sessionStorage.setItem('admin_chatbase_auth', 'true');
+              localStorage.setItem('hg_master_admin_authenticated', 'true');
+              localStorage.setItem('admin_chatbase_auth', 'true');
+            }
+            if (window.setAllAdminSessions) window.setAllAdminSessions();
+            checkAndInitChatbase();
+          } else {
+            if (gateErr) {
+              gateErr.style.display = 'block';
+              setTimeout(() => { if (gateErr) gateErr.style.display = 'none'; }, 3500);
+            }
+            passInput.value = '';
+            passInput.focus();
+          }
+        });
       }
 
-      // Hide security barrier and reveal authenticated console
-      const guard = document.getElementById('direct-blocked-guard');
-      if (guard) guard.style.display = 'none';
-      const root = document.getElementById('chatbase-admin-root');
-      if (root) root.style.display = 'block';
-
-      loadProfiles();
-      loadConversations();
-      loadMessages();
-      loadReports();
-      loadAuditLogs();
+      // Logout handler
+      const logoutBtn = document.getElementById('btn-chatbase-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          if (window.clearAdminSessions) {
+            window.clearAdminSessions();
+          } else {
+            sessionStorage.clear();
+          }
+          window.location.href = 'index.html';
+        });
+      }
     });
   </script>
 </body>

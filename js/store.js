@@ -195,6 +195,9 @@ const elements = {
   btnResetFilter: document.getElementById('btn-reset-filter'),
   searchInput: document.getElementById('store-search'),
   searchClearBtn: document.getElementById('search-clear-btn'),
+  instantResults: document.getElementById('store-instant-results'),
+  instantGrid: document.getElementById('instant-results-grid'),
+  instantCount: document.getElementById('instant-results-count'),
   resultsCount: document.getElementById('results-count'),
   loadMoreBtn: document.getElementById('load-more-btn'),
   sortSelect: document.getElementById('sort-select'),
@@ -244,8 +247,6 @@ async function initStore() {
   
   try {
     allApps = await fetchStoreApps();
-    renderAn1Showcase();
-    renderCategoryClusters();
     applyFilters();
     setupEventListeners();
   } catch (error) {
@@ -405,21 +406,126 @@ function renderCategoryClusters() {
   });
 }
 
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// --- INSTANT LIVE SEARCH (Directly in front of user) ---
+function renderInstantSearch(query) {
+  if (!elements.instantResults || !elements.instantGrid) return;
+  const q = (query || '').toLowerCase().trim();
+  if (!q) {
+    elements.instantResults.style.display = 'none';
+    elements.instantGrid.innerHTML = '';
+    return;
+  }
+
+  const terms = q.split(/\s+/).filter(Boolean);
+  const matches = allApps.filter(app => {
+    // Shield: Never show any admin panel or tool in store search
+    if (app.slug && /admin/i.test(app.slug)) return false;
+    if (app.name && /\badmin\b/i.test(app.name)) return false;
+
+    const searchable = [
+      app.name || '',
+      app.shortDesc || '',
+      app.desc || '',
+      app.category || '',
+      app.platform || '',
+      app.subcategory || '',
+      app.developer || '',
+      app.type || '',
+      app.modInfo || '',
+      app.slug || '',
+      Array.isArray(app.tags) ? app.tags.join(' ') : ''
+    ].join(' ').toLowerCase();
+
+    return terms.every(term => searchable.includes(term));
+  });
+
+  if (elements.instantCount) {
+    elements.instantCount.textContent = `${matches.length} ${matches.length === 1 ? 'app found' : 'apps found'}`;
+  }
+
+  if (matches.length === 0) {
+    elements.instantGrid.innerHTML = `
+      <div class="instant-empty-state">
+        <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">🔍</span>
+        <p style="color: #fff; font-size: 1rem; margin-bottom: 0.25rem;">No apps found matching "<strong>${escapeHtml(q)}</strong>"</p>
+        <span style="font-size: 0.82rem; color: var(--an1-text-muted);">Try searching by application name, category (Games, Android, Windows, AI) or developer.</span>
+      </div>
+    `;
+    elements.instantResults.style.display = 'block';
+    return;
+  }
+
+  elements.instantGrid.innerHTML = matches.map(app => {
+    const detailUrl = `store-detail.html?slug=${encodeURIComponent(app.slug || app.id)}`;
+    const isMod = app.isMod || (app.modInfo && app.modInfo.trim().length > 0);
+    const modBadge = isMod ? `<span class="an1-badge-mod">MOD</span>` : '';
+    const rating = app.rating ? Number(app.rating).toFixed(1) : '4.8';
+    const platIcon = app.platform === 'Android' ? '🤖' : (app.platform === 'Windows' ? '🪟' : (app.platform === 'Web' ? '🌐' : '📱'));
+
+    return `
+      <div class="instant-app-card" data-slug="${escapeHtml(app.slug || app.id)}">
+        <a href="${detailUrl}" class="instant-app-link">
+          <div class="instant-app-icon-wrap">
+            <img src="${escapeHtml(app.icon || 'logo.png')}" alt="${escapeHtml(app.name)}" class="instant-app-icon" loading="lazy" onerror="this.src='logo.png'">
+            ${modBadge}
+          </div>
+          <div class="instant-app-info">
+            <div class="instant-app-title-row">
+              <h4 class="instant-app-title">${escapeHtml(app.name)}</h4>
+              <span class="instant-app-rating">★ ${rating}</span>
+            </div>
+            <div class="instant-app-badges">
+              <span class="instant-pill platform">${platIcon} ${escapeHtml(app.platform || 'Cross-Platform')}</span>
+              <span class="instant-pill category">${escapeHtml(app.category || 'App')}</span>
+              <span class="instant-pill size">${escapeHtml(app.size || 'Free')}</span>
+            </div>
+            <p class="instant-app-desc">${escapeHtml(app.shortDesc || app.desc || 'Verified safe download.')}</p>
+          </div>
+        </a>
+        <div class="instant-app-actions">
+          <a href="${detailUrl}" class="instant-btn-dl">
+            <span>⚡ Open / Download</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  elements.instantResults.style.display = 'block';
+}
+
 // --- EVENT LISTENERS ---
 function setupEventListeners() {
-  // Search (Debounced)
+  // Real-time Instant Search
   let searchTimeout;
   if (elements.searchInput) {
     elements.searchInput.addEventListener('input', (e) => {
-      const val = e.target.value.toLowerCase().trim();
+      const val = e.target.value;
+      const cleanVal = val.toLowerCase().trim();
+      
       if (elements.searchClearBtn) {
-        elements.searchClearBtn.style.display = val ? 'grid' : 'none';
+        elements.searchClearBtn.style.display = cleanVal ? 'grid' : 'none';
       }
+
+      // 1. Immediately render instant matching cards directly under search bar
+      renderInstantSearch(cleanVal);
+
+      // 2. Debounce full store grid filter
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
-        currentFilters.search = val;
+        currentFilters.search = cleanVal;
         applyFilters();
-      }, 300);
+      }, 150);
     });
   }
 
@@ -429,73 +535,44 @@ function setupEventListeners() {
       elements.searchInput.value = '';
       elements.searchClearBtn.style.display = 'none';
       currentFilters.search = '';
+      renderInstantSearch('');
       applyFilters();
     });
   }
 
-  // Dual Catalog Banners
-  if (elements.bannerBtnGames) {
-    elements.bannerBtnGames.addEventListener('click', () => {
-      currentFilters.category = "Game";
-      currentFilters.platform = "All";
-      const catRadio = document.querySelector('input[name="category"][value="Game"]');
+  // Category Only Panel Buttons
+  const catPills = document.querySelectorAll('.cat-pill-btn');
+  catPills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      catPills.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilters.category = cat;
+
+      const catRadio = document.querySelector(`input[name="category"][value="${cat}"]`);
       if (catRadio) catRadio.checked = true;
-      syncQuickCategories("Game");
+
       applyFilters();
       scrollToStoreLayout();
     });
-  }
+  });
 
-  if (elements.bannerBtnPrograms) {
-    elements.bannerBtnPrograms.addEventListener('click', () => {
-      currentFilters.category = "Software";
-      currentFilters.platform = "All";
-      const catRadio = document.querySelector('input[name="category"][value="Software"]');
-      if (catRadio) catRadio.checked = true;
-      syncQuickCategories("Software");
+  // Platform Quick Strip Pills
+  const platPills = document.querySelectorAll('.plat-pill-btn');
+  platPills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const plat = btn.dataset.plat;
+      platPills.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilters.platform = plat;
+
+      const platRadio = document.querySelector(`input[name="platform"][value="${plat}"]`);
+      if (platRadio) platRadio.checked = true;
+
       applyFilters();
       scrollToStoreLayout();
     });
-  }
-
-  // "All Games →" and "All Programs →" links
-  if (elements.linkAllGames) {
-    elements.linkAllGames.addEventListener('click', () => {
-      currentFilters.category = "Game";
-      applyFilters();
-      scrollToStoreLayout();
-    });
-  }
-
-  if (elements.linkAllPrograms) {
-    elements.linkAllPrograms.addEventListener('click', () => {
-      currentFilters.category = "Apps";
-      applyFilters();
-      scrollToStoreLayout();
-    });
-  }
-
-  // Carousel Scroll Navigation Buttons
-  if (elements.gamesPrevBtn && elements.gamesCarouselTrack) {
-    elements.gamesPrevBtn.addEventListener('click', () => {
-      elements.gamesCarouselTrack.scrollBy({ left: -360, behavior: 'smooth' });
-    });
-  }
-  if (elements.gamesNextBtn && elements.gamesCarouselTrack) {
-    elements.gamesNextBtn.addEventListener('click', () => {
-      elements.gamesCarouselTrack.scrollBy({ left: 360, behavior: 'smooth' });
-    });
-  }
-  if (elements.programsPrevBtn && elements.programsCarouselTrack) {
-    elements.programsPrevBtn.addEventListener('click', () => {
-      elements.programsCarouselTrack.scrollBy({ left: -360, behavior: 'smooth' });
-    });
-  }
-  if (elements.programsNextBtn && elements.programsCarouselTrack) {
-    elements.programsNextBtn.addEventListener('click', () => {
-      elements.programsCarouselTrack.scrollBy({ left: 360, behavior: 'smooth' });
-    });
-  }
+  });
 
   // Reset Filter button
   if (elements.btnResetFilter) {
@@ -515,6 +592,7 @@ function setupEventListeners() {
       if (licAllRadio) licAllRadio.checked = true;
       
       syncQuickCategories("All");
+      syncPlatformPills("All");
       applyFilters();
     });
   }
@@ -640,8 +718,18 @@ function scrollToStoreLayout() {
 }
 
 function syncQuickCategories(val) {
-  elements.quickCatBtns.forEach(btn => {
+  document.querySelectorAll('.cat-pill-btn').forEach(btn => {
     if (btn.dataset.cat === val) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+function syncPlatformPills(val) {
+  document.querySelectorAll('.plat-pill-btn').forEach(btn => {
+    if (btn.dataset.plat === val) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
@@ -757,8 +845,8 @@ function renderSections() {
       <div class="store-empty-state animate-fade-in">
         <div class="empty-icon">📦</div>
         <h2>No Applications Published Yet</h2>
-        <p>Apps uploaded through the Admin Panel will appear here instantly. Log in to the Admin Dashboard to publish your first application or software.</p>
-        <a href="adminapkupload.html" class="btn-admin-link">Open Admin Upload Panel &rarr;</a>
+        <p>New verified applications, games, and software are updated daily. Check back soon or browse the HarshGuruJi explore catalog.</p>
+        <a href="explore.html" class="btn-admin-link">Explore HarshGuruJi Catalog &rarr;</a>
       </div>
     `;
     return;
@@ -968,6 +1056,7 @@ function renderActiveFilterChips() {
       const lAll = document.querySelector('input[name="license"][value="All"]');
       if (lAll) lAll.checked = true;
       syncQuickCategories('All');
+      syncPlatformPills('All');
       applyFilters();
       showStoreToast("Filters cleared");
     });
@@ -994,51 +1083,50 @@ function showStoreToast(msg, icon = '✓') {
   }, 2800);
 }
 
-// --- AN1 APP CARD COMPONENT ---
+// --- AN1 APP CARD COMPONENT (PREMIUM SMALL BOX UI) ---
 function createAppCard(app, index) {
   const card = document.createElement('a');
   card.href = `store-detail.html?slug=${encodeURIComponent(app.slug || app.id)}`;
-  card.className = 'app-card animate-fade-in';
+  card.className = 'app-card app-small-box animate-fade-in';
   card.style.animationDelay = `${index * 0.03}s`;
   card.style.textDecoration = 'none';
   card.style.color = 'inherit';
   
-  const isMod = app.is_mod || (app.name || '').toLowerCase().includes('mod');
+  const isMod = app.is_mod || (app.name || '').toLowerCase().includes('mod') || (app.mod_info && app.mod_info.trim().length > 0);
   let badgeHtml = isMod 
-    ? `<div class="verified-badge badge-mod-label">⚡ MOD</div>` 
-    : (app.verified ? `<div class="verified-badge">✓ Verified</div>` : '');
+    ? `<span class="box-badge box-badge-mod">⚡ MOD</span>` 
+    : (app.verified ? `<span class="box-badge box-badge-verified">✓ Verified</span>` : '');
 
   const platIcon = getPlatformIcon(app.platform);
-  const appFormat = app.app_type || (app.platform === 'Android' ? 'APK' : (app.platform === 'Windows' ? 'EXE' : 'APP'));
-  const versionText = app.version ? `v${app.version}` : 'v1.0';
-  const sizeText = app.size && app.size !== 'Varies' && app.size !== 'Unknown' ? app.size : '';
+  const appFormat = app.app_type || (app.platform === 'Android' ? 'APK' : (app.platform === 'Windows' ? 'EXE' : (app.platform === 'Web' ? 'WEB' : 'APP')));
+  const versionText = app.version ? `v${app.version}` : '';
+  const sizeText = app.size && app.size !== 'Varies' && app.size !== 'Unknown' ? app.size : (versionText || 'Free');
+  const ratingText = (app.rating || 4.8).toFixed(1);
 
   card.innerHTML = `
     ${badgeHtml}
-    <div class="app-card-top">
-      <img src="${app.icon}" alt="${app.name}" class="app-card-icon" loading="lazy" onerror="this.src='logo.png'">
-      <div class="app-card-info">
-        <h3 class="app-card-title" title="${app.name}">${app.name}</h3>
-        <div class="app-card-dev">${app.developer}</div>
-        <div class="app-card-rating">
-          ★ ${(app.rating || 4.8).toFixed(1)} &bull; <span class="app-card-ver">${versionText}</span>
-        </div>
+    <div class="box-top-row">
+      <div class="box-icon-wrap">
+        <img src="${escapeHtml(app.icon || 'logo.png')}" alt="${escapeHtml(app.name)}" class="box-app-icon" loading="lazy" onerror="this.src='logo.png'">
+      </div>
+      <div class="box-platform-pill">
+        ${platIcon} ${escapeHtml(appFormat)}
       </div>
     </div>
-    <div class="app-card-desc">
-      ${app.description || 'Verified fast download package available on HarshGuruJi Store.'}
-    </div>
-    <div class="app-card-meta">
-      <div class="app-card-pills">
-        <span class="app-platform-pill">
-          ${platIcon} ${app.platform} &bull; ${appFormat}
-        </span>
-        ${sizeText ? `<span class="app-size-pill">💾 ${sizeText}</span>` : ''}
-        ${app.license && app.license !== 'Free' ? `<span class="app-license-pill">${app.license}</span>` : ''}
+
+    <div class="box-info">
+      <h3 class="box-title" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</h3>
+      <div class="box-dev" title="${escapeHtml(app.developer || 'HarshGuruJi')}">${escapeHtml(app.developer || 'HarshGuruJi')}</div>
+      <div class="box-meta-strip">
+        <span class="box-star-rating">★ ${ratingText}</span>
+        <span class="box-size-tag">💾 ${escapeHtml(sizeText)}</span>
       </div>
-      <span class="app-btn-download-tag" role="button" aria-label="Download ${app.name}">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        <span>Download</span>
+    </div>
+
+    <div class="box-action-wrap">
+      <span class="app-btn-download-tag box-download-btn" role="button" aria-label="Download ${escapeHtml(app.name)}">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Get</span>
       </span>
     </div>
   `;

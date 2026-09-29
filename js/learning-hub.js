@@ -16,7 +16,7 @@ const learningData = [
     subject: "Mathematics",
     type: "Practice",
     difficulty: "Intermediate",
-    route: "learning/class-9-math.html",
+    route: "learning/class.html?class=9",
     featured: true
   },
   {
@@ -46,7 +46,7 @@ const learningData = [
     subject: "Mathematics",
     type: "Guide",
     difficulty: "Advanced",
-    route: "learning/calculus.html",
+    route: "learning/class.html?class=12",
     featured: false
   },
   {

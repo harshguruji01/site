@@ -821,40 +821,6 @@ document.addEventListener('DOMContentLoaded', () => {
       type: 'page', 
       icon: '🍪', 
       keywords: 'cookie cookies policy tracking consent preferences storage' 
-    },
-
-    // --- ADMIN PORTAL ---
-    { 
-      title: 'Admin Dashboard', 
-      desc: 'System management center, analytics, content controls and app publishing', 
-      url: 'admin.html', 
-      type: 'admin', 
-      icon: '🛡️', 
-      keywords: 'admin administrator panel control center dashboard management system' 
-    },
-    { 
-      title: 'Admin APK Upload', 
-      desc: 'Upload, manage and publish Android APK packages and software to the Store', 
-      url: 'adminapkupload.html', 
-      type: 'admin', 
-      icon: '📤', 
-      keywords: 'upload apk admin app upload publish store admin software installer' 
-    },
-    { 
-      title: 'Admin Contributors', 
-      desc: 'Review contributor requests, manage verification statuses and assign badges', 
-      url: 'admincontributors.html', 
-      type: 'admin', 
-      icon: '👥', 
-      keywords: 'admin contributors manage creators approval verify badge admin' 
-    },
-    { 
-      title: 'Admin Contacts & Inquiries', 
-      desc: 'Manage incoming user inquiries, support feedback and message submissions', 
-      url: 'admin-contacts.html', 
-      type: 'admin', 
-      icon: '📬', 
-      keywords: 'admin contacts messages feedback inquiries support tickets' 
     }
   ];
 
@@ -945,6 +911,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const uniqueKey = (item.url || item.title).toLowerCase();
       if (seenUrls.has(uniqueKey)) continue;
       seenUrls.add(uniqueKey);
+
+      // Strict Admin Shield: Block ANY admin page URL, admin title, or admin item type from all search results
+      if (item.type === 'admin') continue;
+      if (item.url && /admin/i.test(item.url)) continue;
+      if (item.title && /\badmin\b/i.test(item.title)) continue;
 
       const titleLower = (item.title || '').toLowerCase();
       const descLower = (item.desc || '').toLowerCase();
