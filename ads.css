@@ -598,6 +598,22 @@ body.ads-page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 250px;
+}
+
+.ad-grid-wide {
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+}
+
+.ad-grid-vertical {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .ad-grid-wide {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ad-container-wrapper:hover {

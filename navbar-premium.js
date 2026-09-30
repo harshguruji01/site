@@ -638,6 +638,14 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: '🧠', 
       keywords: 'memory game card match brain training puzzle cards concentration' 
     },
+    { 
+      title: 'Quiz India Game', 
+      desc: 'Interactive General Knowledge quiz & trivia game testing your Indian history, geography, science & GK', 
+      url: 'Quiz India/index.html', 
+      type: 'game', 
+      icon: '🇮🇳', 
+      keywords: 'quiz india gk general knowledge trivia questions test indian history geography learning game' 
+    },
 
     // --- LEARNING & EDUCATION ---
     { 

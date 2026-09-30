@@ -1503,6 +1503,347 @@
       .shortcuts-grid { grid-template-columns: 1fr; }
       .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
+
+    /* --- ULTRA-PREMIUM MODERN ADMIN UPGRADES --- */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Ambient Tech Grid Overlay */
+    .dashboard-wrapper {
+      position: relative;
+    }
+    .dashboard-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 600px;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 32px 32px, 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Controls Suite Button */
+    .btn-launch-suite {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.25));
+      border: 1px solid rgba(99, 102, 241, 0.45);
+      color: #e0e7ff;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    }
+    .btn-launch-suite:hover {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.45), rgba(236, 72, 153, 0.45));
+      border-color: #6366f1;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Hero Live Badge */
+    .hero-badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseLive 2s infinite;
+    }
+    @keyframes pulseLive {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    /* Hero Quick Actions Bar */
+    .hero-quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .hero-quick-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-quick-btn:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: #6366f1;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.25);
+    }
+    .hero-quick-btn.primary {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+    }
+    .hero-quick-btn.primary:hover {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Module Card Button Group */
+    .card-btn-group {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .card-btn-group .card-action-btn {
+      flex: 1;
+      margin-top: 0;
+    }
+    .card-action-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0.85rem 1.15rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .card-action-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Floating Navigation Action Hub */
+    .admin-floating-bar {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1200;
+    }
+    .floating-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.65rem 1rem;
+      border-radius: 50px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f1f5f9;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 102, 241, 0.2);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-btn:hover {
+      background: rgba(30, 41, 59, 0.98);
+      border-color: #6366f1;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.4);
+      color: #fff;
+    }
+    .floating-suite {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.85), rgba(236, 72, 153, 0.85));
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .floating-suite:hover {
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+    }
+    .floating-top {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-top.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .floating-btn.rotating .floating-icon {
+      animation: spinIcon 0.8s linear infinite;
+    }
+    @keyframes spinIcon {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Dedicated Admin Console Footer */
+    .admin-console-footer {
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 14, 26, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 20px 20px 0 0;
+      padding: 3rem 2rem 2rem;
+    }
+    .admin-footer-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    @media (min-width: 900px) {
+      .admin-footer-inner {
+        grid-template-columns: 360px 1fr;
+      }
+    }
+    .admin-footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .admin-footer-brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .admin-footer-brand strong {
+      display: block;
+      color: #fff;
+      font-size: 1.05rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .admin-footer-brand span {
+      display: block;
+      color: #94a3b8;
+      font-size: 0.78rem;
+    }
+    .admin-footer-desc {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .admin-footer-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+    }
+    .admin-footer-col h5 {
+      color: #f1f5f9;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+    .admin-footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .admin-footer-col a, .admin-footer-col span {
+      color: #94a3b8;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .admin-footer-col a:hover {
+      color: #60a5fa;
+      transform: translateX(3px);
+    }
+    .admin-footer-bottom {
+      max-width: 1240px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .admin-footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-footer-tag {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .btn-footer-top {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-footer-top:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: #6366f1;
+      color: #fff;
+    }
   </style>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
@@ -1615,6 +1956,10 @@
           <span class="status-dot"></span>
           <span>System Online</span>
         </div>
+        <button type="button" class="btn-launch-suite" id="btn-top-open-suite" title="Launch Live Database Command Suite">
+          <span>⚡</span>
+          <span>Data Suite</span>
+        </button>
         <a href="index.html" target="_blank" class="shortcut-item" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px;">
           <span>Live Site &nearr;</span>
         </a>
@@ -1641,12 +1986,16 @@
       <!-- Hero Header -->
       <section class="admin-hero">
         <div class="hero-content">
+          <div class="hero-badge-live">
+            <span class="pulse-dot"></span>
+            <span>Live Command &amp; Operations Mode</span>
+          </div>
           <h2>Central Administrator Hub</h2>
           <p>Complete control panel for HarshGuruJi platform operations: upload &amp; update Store APKs/Games, respond to user inquiries, review contributor applications, and manage Universal Golden Tick verifications.</p>
           
           <div class="admin-meta-tags">
             <div class="meta-chip">
-              <span>👤 Admin:</span>
+              <span>👤 Master Admin:</span>
               <strong style="color:#60a5fa;">Harsh Patel</strong>
             </div>
             <div class="meta-chip">
@@ -1654,13 +2003,37 @@
               <span style="color:#34d399;">2-Step Protected</span>
             </div>
             <div class="meta-chip">
-              <span>⚡ Supabase:</span>
+              <span>⚡ Supabase DB:</span>
               <span style="color:#a78bfa;">Connected</span>
             </div>
             <div class="meta-chip">
-              <span>🕒 Local Time:</span>
+              <span>🕒 Realtime Clock:</span>
               <span id="live-clock">--:--:--</span>
             </div>
+          </div>
+
+          <!-- Hero Quick Launch Action Strip -->
+          <div class="hero-quick-actions" aria-label="Quick Action Buttons">
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
+              <span>🎮</span>
+              <span>Store Apps Suite</span>
+            </button>
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('messages')">
+              <span>💬</span>
+              <span>Inquiries Desk</span>
+            </button>
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('contributors')">
+              <span>📋</span>
+              <span>Contributor Review</span>
+            </button>
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('goldentick')">
+              <span>⭐</span>
+              <span>Golden Ticks</span>
+            </button>
+            <a href="adminapkupload.html" class="hero-quick-btn primary">
+              <span>➕</span>
+              <span>Upload New APK</span>
+            </a>
           </div>
         </div>
       </section>
@@ -1776,10 +2149,15 @@
               <li><span class="dot">✔</span> Synchronized with live store.html &amp; store-detail.html</li>
             </ul>
           </div>
-          <a href="adminapkupload.html" class="card-action-btn">
-            <span>Launch Store APK Manager</span>
-            <span>&rarr;</span>
-          </a>
+          <div class="card-btn-group">
+            <a href="adminapkupload.html" class="card-action-btn">
+              <span>Launch Store APK Manager</span>
+              <span>&rarr;</span>
+            </a>
+            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('store')" title="Quick View Store Table">
+              <span>Quick Table ⚡</span>
+            </button>
+          </div>
         </article>
 
         <!-- CARD 2: CONTACT & FEEDBACK MESSAGES HUB -->
@@ -1800,10 +2178,15 @@
               <li><span class="dot">✔</span> 1-2 week auto-cleanup scheduler support</li>
             </ul>
           </div>
-          <a href="admin-contacts.html" class="card-action-btn">
-            <span>Open Messages &amp; Reply Desk</span>
-            <span>&rarr;</span>
-          </a>
+          <div class="card-btn-group">
+            <a href="admin-contacts.html" class="card-action-btn">
+              <span>Open Messages &amp; Reply Desk</span>
+              <span>&rarr;</span>
+            </a>
+            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('messages')" title="Quick View Inquiries Table">
+              <span>Quick Table ⚡</span>
+            </button>
+          </div>
         </article>
 
         <!-- CARD 3: CONTRIBUTOR & UNIVERSAL GOLDEN TICK MANAGER -->
@@ -1824,10 +2207,15 @@
               <li><span class="dot">✔</span> Dynamic badge on avatar's top-left corner across site</li>
             </ul>
           </div>
-          <a href="admincontributors.html" class="card-action-btn">
-            <span>Manage Contributors &amp; Ticks</span>
-            <span>&rarr;</span>
-          </a>
+          <div class="card-btn-group">
+            <a href="admincontributors.html" class="card-action-btn">
+              <span>Manage Contributors &amp; Ticks</span>
+              <span>&rarr;</span>
+            </a>
+            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('contributors')" title="Quick View Contributors Table">
+              <span>Quick Table ⚡</span>
+            </button>
+          </div>
         </article>
 
         <!-- CARD 4: CHATBASE APP & MESSAGING MANAGER -->
@@ -1848,10 +2236,15 @@
               <li><span class="dot">✔</span> User abuse reports resolution desk &amp; administrative audit logs</li>
             </ul>
           </div>
-          <a href="admin-chatbase.html" class="card-action-btn">
-            <span>Open Chatbase Console</span>
-            <span>&rarr;</span>
-          </a>
+          <div class="card-btn-group">
+            <a href="admin-chatbase.html" class="card-action-btn">
+              <span>Open Chatbase Console</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="card-action-btn-secondary" title="Open Live Chat App">
+              <span>Live App ↗</span>
+            </a>
+          </div>
         </article>
 
       </section>
@@ -1932,167 +2325,81 @@
         </div>
       </section>
 
-      <footer class="footer" style="background: var(--bg-color, #0f0f11); border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 4rem 1rem 2rem; margin-top: auto; position: relative;">
-  <style>
-    /* Global Footer Specific Styles */
-    .hg-footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; max-width: 1280px; margin: 0 auto; }
-    .hg-footer-brand p { color: var(--text-secondary, #a1a1aa); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; max-width: 350px; }
-    .hg-footer-navs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    
-    @media (min-width: 768px) {
-      .hg-footer-navs { grid-template-columns: repeat(3, 1fr); }
-    }
-    
-    @media (min-width: 1024px) {
-      .hg-footer-grid { grid-template-columns: 350px 1fr; }
-      .hg-footer-navs { grid-template-columns: repeat(5, 1fr); }
-    }
-    
-    .hg-footer-col h5 { color: var(--text-primary, #ffffff); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; }
-    .hg-footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.8rem; }
-    .hg-footer-col a { color: var(--text-secondary, #a1a1aa); text-decoration: none; font-size: 0.9rem; transition: all 0.2s; display: inline-flex; align-items: center; }
-    .hg-footer-col a:hover { color: var(--accent-primary, #3b82f6); transform: translateX(4px); }
-    
-    .hg-footer-search { display: flex; align-items: center; background: var(--surface-color, #1a1a1a); border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-radius: 8px; padding: 0.5rem; margin-bottom: 2rem; max-width: 100%; transition: 0.2s; }
-    .hg-footer-search:focus-within { border-color: var(--accent-primary, #3b82f6); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
-    .hg-footer-search input { background: transparent; border: none; color: var(--text-primary, #fff); padding: 0.5rem; flex-grow: 1; outline: none; font-size: 0.95rem; }
-    .hg-footer-search button { background: var(--accent-primary, #3b82f6); color: white; border: none; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; font-weight: 600; transition: 0.2s; }
-    .hg-footer-search button:hover { opacity: 0.9; }
+      <!-- Dedicated Master Admin Dashboard Footer -->
+      <footer class="admin-console-footer">
+        <div class="admin-footer-inner">
+          <div class="admin-footer-left">
+            <div class="admin-footer-brand">
+              <img src="logo.png" alt="HarshGuruJi Logo">
+              <div>
+                <strong>HarshGuruJi Platform Operations Console</strong>
+                <span>Master Admin Suite &bull; Authenticated Access</span>
+              </div>
+            </div>
+            <p class="admin-footer-desc">
+              Centralized platform operations for Store APK catalog, user feedback desk, contributor verifications, and realtime communications.
+            </p>
+          </div>
 
-    .hg-footer-bottom { max-width: 1280px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); display: flex; flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
-    
-    @media (min-width: 768px) {
-      .hg-footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
-    }
+          <div class="admin-footer-links">
+            <div class="admin-footer-col">
+              <h5>Quick Jump</h5>
+              <ul>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('store')">🎮 Store Catalog</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('messages')">💬 Inquiries Desk</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('contributors')">📋 Contributor Queue</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('goldentick')">⭐ Universal Golden Ticks</a></li>
+              </ul>
+            </div>
+            <div class="admin-footer-col">
+              <h5>Sub-Consoles</h5>
+              <ul>
+                <li><a href="adminapkupload.html">📦 APK Store Manager</a></li>
+                <li><a href="admin-contacts.html">📬 User Contacts Hub</a></li>
+                <li><a href="admincontributors.html">👥 Contributors Management</a></li>
+                <li><a href="admin-chatbase.html">🤖 Chatbase Admin Logs</a></li>
+              </ul>
+            </div>
+            <div class="admin-footer-col">
+              <h5>System Health</h5>
+              <ul>
+                <li><span style="color:#34d399;">● Supabase Cloud Active</span></li>
+                <li><span style="color:#60a5fa;">● 2-Step Key Protected</span></li>
+                <li><a href="store.html" target="_blank">🛍️ Live Store Catalog ↗</a></li>
+                <li><a href="index.html" target="_blank">🌐 Public Website ↗</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-    .hg-footer-socials { display: flex; gap: 1rem; }
-    .hg-footer-socials a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-color, #1a1a1a); color: var(--text-secondary, #a1a1aa); transition: all 0.3s; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); }
-    .hg-footer-socials a:hover { background: var(--accent-primary, #3b82f6); color: white; border-color: var(--accent-primary, #3b82f6); transform: translateY(-3px); }
-
-
-  </style>
-
-  <div class="hg-footer-grid">
-    <div class="hg-footer-brand">
-      <a href="index.html" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; margin-bottom: 1.5rem;">
-        <img src="logo.png" alt="HarshGuruJi Logo" style="height: 48px; width: auto; border-radius: 8px;" />
-        <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.5rem; background:linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
-      </a>
-      <p>HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.</p>
-      
-      <div class="hg-footer-search">
-        <input type="text" id="footer-search-input" placeholder="Search HarshGuruJi..." aria-label="Search the website">
-        <button type="button" id="footer-search-btn" aria-label="Search">Search</button>
-      </div>
-
-      <div class="hg-footer-socials">
-        <a href="https://www.youtube.com/@TESVLOG1" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" /></svg>
-        </a>
-        <a href="https://www.instagram.com/harshguruji1/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.3-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z" /></svg>
-        </a>
-        <a href="https://t.me/webgurujiofficial" id="footer-social-telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram Channel">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <nav class="hg-footer-navs" aria-label="Footer Navigation">
-      <div class="hg-footer-col">
-        <h5>Platform</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="ai-hub.html">AI Hub</a></li>
-          <li><a href="daily-special.html">Daily Special</a></li>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="explore.html">Explore</a></li>
-        </ul>
-      </div>
-      <div class="hg-footer-col">
-        <h5>Tools</h5>
-        <ul>
-          <li><a href="free-tools.html">All Tools</a></li>
-          <li><a href="free-tools.html?search=Text">Text Tools</a></li>
-          <li><a href="free-tools.html?search=Calculator">Calculators</a></li>
-          <li><a href="free-tools.html?search=Converter">Converters</a></li>
-          <li><a href="free-tools.html?search=Developer">Dev Tools</a></li>
-        </ul>
-      </div>
-      <div class="hg-footer-col">
-        <h5>Learning</h5>
-        <ul>
-          <li><a href="learning-hub.html">Learning Hub</a></li>
-          <li><a href="education.html">Education</a></li>
-          <li><a href="learning/class-10-science.html">Class 10</a></li>
-          <li><a href="learning/class.html?class=9">Class 9</a></li>
-          <li><a href="learning/gk-quiz.html">Quizzes</a></li>
-        </ul>
-      </div>
-      <div class="hg-footer-col">
-        <h5>Games & Store</h5>
-        <ul>
-          <li><a href="gaming-hub.html">Gaming Hub</a></li>
-          <li><a href="store.html">Store</a></li>
-          <li><a href="games/tic-tac-toe.html">Tic Tac Toe</a></li>
-          <li><a href="games/snake.html">Snake</a></li>
-        </ul>
-      </div>
-      <div class="hg-footer-col">
-        <h5>Company & Legal</h5>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="contributor.html">Contributors</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms</a></li>
-          <li><a href="cookie.html">Cookies</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
-  <div class="hg-footer-bottom">
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-      <img src="harshlogo.png" loading="lazy" alt="Harsh Patel – Founder" style="height: 60px; width: auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" />
-      <div>
-        <strong style="color: var(--text-primary, #fff); font-size: 1.1rem; display: block; margin-bottom: 0.2rem;">Harsh Patel</strong>
-        <span style="color: var(--accent-primary, #3b82f6); font-size: 0.85rem; font-weight: 600; display: block;">Founder & Owner</span>
-      </div>
-    </div>
-    
-    <p style="color: var(--text-secondary, #a1a1aa); font-size: 0.85rem; margin: 0;">
-      &copy; <span id="footer-year">2026</span> HarshGuruJi. All Rights Reserved. <br>
-      Made with ❤️ by HarshGuruJi.
-    </p>
-  </div>
-
-  <script>
-    // Set dynamic year
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-    // Footer Search logic
-    document.getElementById('footer-search-btn').addEventListener('click', function() {
-      const val = document.getElementById('footer-search-input').value.trim();
-      if(val) {
-        window.location.href = `explore.html?search=${encodeURIComponent(val)}`;
-      }
-    });
-    
-    document.getElementById('footer-search-input').addEventListener('keypress', function(e) {
-      if(e.key === 'Enter') {
-        const val = this.value.trim();
-        if(val) {
-          window.location.href = `explore.html?search=${encodeURIComponent(val)}`;
-        }
-      }
-    });
-  </script>
-</footer>
-
-
-
+        <div class="admin-footer-bottom">
+          <div class="admin-footer-meta">
+            <span>&copy; <span id="admin-footer-year">2026</span> HarshGuruJi Platform. All rights reserved.</span>
+            <span class="admin-footer-tag">Owner: Harsh Patel</span>
+          </div>
+          <button type="button" class="btn-footer-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <span>Back to Top</span>
+            <span>▲</span>
+          </button>
+        </div>
+      </footer>
     </main>
+  </div>
+
+  <!-- FLOATING QUICK NAVIGATION & ACTION BAR -->
+  <div class="admin-floating-bar" id="admin-floating-bar" aria-label="Quick Actions">
+    <button type="button" class="floating-btn floating-refresh" id="btn-floating-refresh" title="Sync live data & reload counters">
+      <span class="floating-icon">🔄</span>
+      <span class="floating-label">Sync</span>
+    </button>
+    <button type="button" class="floating-btn floating-suite" id="btn-floating-suite" title="Launch live database suite">
+      <span class="floating-icon">⚡</span>
+      <span class="floating-label">Data Suite</span>
+    </button>
+    <button type="button" class="floating-btn floating-top" id="btn-back-to-top" title="Smooth scroll to top">
+      <span class="floating-icon">▲</span>
+      <span class="floating-label">Top</span>
+    </button>
   </div>
 
   <!-- MASTER LIVE CONTROL & DETAIL SUITE MODAL -->
@@ -2296,7 +2603,9 @@
     // CREDENTIALS REQUIRED BY MASTER SECURITY GATE
     const REQUIRED_EMAIL = "harshguruji01@gmail.com";
     const REQUIRED_ID = "2547277654";
-    const SESSION_KEY = "hg_master_admin_authenticated";
+    const AUTH_STATE_KEY = "hg_2step_verified";
+    const AUTH_TOKEN_KEY = "hg_2step_token";
+    const EXPECTED_HASH = btoa(REQUIRED_EMAIL + ":" + REQUIRED_ID + ":HGJ_MASTER_ADMIN_2026");
 
     // Application Master State
     let storeAppsData = [];
@@ -2338,8 +2647,18 @@
       const btnBack = document.getElementById('btn-back-step-1');
       const btnLock = document.getElementById('btn-lock-session');
 
-      // Check if already authenticated in this browser session or persistent storage
-      if (sessionStorage.getItem(SESSION_KEY) === 'true' || localStorage.getItem(SESSION_KEY) === 'true' || (window.checkAdminAccess && window.checkAdminAccess())) {
+      function isVerified() {
+        try {
+          const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true';
+          const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
+          const email = sessionStorage.getItem('admin_apk_email');
+          return (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === REQUIRED_EMAIL);
+        } catch (e) {}
+        return false;
+      }
+
+      // Check if already authenticated in this browser session
+      if (isVerified()) {
         if (window.setAllAdminSessions) window.setAllAdminSessions();
         unlockDashboard();
         return;
@@ -2378,21 +2697,28 @@
 
         if (enteredID === REQUIRED_ID) {
           // Success! Save session and unlock across all admin subpages
-          sessionStorage.setItem(SESSION_KEY, 'true');
+          sessionStorage.setItem(AUTH_STATE_KEY, 'true');
+          sessionStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
+          sessionStorage.setItem('hg_master_admin_authenticated', 'true');
           sessionStorage.setItem('admin_chatbase_auth', 'true');
           sessionStorage.setItem('admin_contacts_auth', 'true');
           sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
           sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
 
-          localStorage.setItem(SESSION_KEY, 'true');
-          localStorage.setItem('admin_chatbase_auth', 'true');
-          localStorage.setItem('admin_contacts_auth', 'true');
-          localStorage.setItem('hg_contributor_admin_unlocked', 'true');
-          localStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
-          localStorage.setItem('hg_admin_auth_timestamp', Date.now().toString());
-
           if (window.setAllAdminSessions) window.setAllAdminSessions();
           if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
+
+          // If navigated to reach a specific sub-admin console, proceed there smoothly
+          const fromParam = new URLSearchParams(window.location.search).get('from');
+          const validSubAdmins = ['admin-contacts.html', 'adminapkupload.html', 'admincontributors.html', 'admin-chatbase.html'];
+          if (fromParam && validSubAdmins.includes(fromParam)) {
+            showMasterToast("2-Step Verification Completed! Opening " + fromParam + "...", "✓");
+            setTimeout(() => {
+              window.location.replace(fromParam);
+            }, 800);
+            return;
+          }
+
           unlockDashboard();
         } else {
           error2.textContent = '❌ Invalid Security ID key! Access rejected.';
@@ -2418,10 +2744,11 @@
       btnLock.addEventListener('click', () => {
         if (window.clearAdminSessions) {
           window.clearAdminSessions();
-        } else {
-          sessionStorage.removeItem(SESSION_KEY);
         }
-        window.location.reload();
+        sessionStorage.clear();
+        localStorage.removeItem(AUTH_STATE_KEY);
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+        window.location.replace('admin.html');
       });
 
       function unlockDashboard() {
@@ -3403,6 +3730,56 @@
       update();
       setInterval(update, 1000);
     }
+
+    // Floating Quick Navigation and Sync Logic
+    const backToTopBtn = document.getElementById('btn-back-to-top');
+    const floatingRefreshBtn = document.getElementById('btn-floating-refresh');
+    const floatingSuiteBtn = document.getElementById('btn-floating-suite');
+    const topSuiteBtn = document.getElementById('btn-top-open-suite');
+
+    if (topSuiteBtn) {
+      topSuiteBtn.addEventListener('click', () => {
+        openMasterModal('store');
+      });
+    }
+
+    if (floatingSuiteBtn) {
+      floatingSuiteBtn.addEventListener('click', () => {
+        openMasterModal('store');
+      });
+    }
+
+    if (floatingRefreshBtn) {
+      floatingRefreshBtn.addEventListener('click', () => {
+        floatingRefreshBtn.classList.add('rotating');
+        loadAllMasterData();
+        showMasterToast('Telemetry refreshed from cloud database!', 'success');
+        setTimeout(() => {
+          floatingRefreshBtn.classList.remove('rotating');
+        }, 800);
+      });
+    }
+
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 250) {
+        if (backToTopBtn) backToTopBtn.classList.add('visible');
+      } else {
+        if (backToTopBtn) backToTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    // Dynamic Admin Footer Year
+    const adminYearEl = document.getElementById('admin-footer-year');
+    if (adminYearEl) {
+      adminYearEl.textContent = new Date().getFullYear();
+    }
+
   </script>
 </body>
 </html>

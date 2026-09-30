@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <script src="js/admin-guard.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="same-origin">
@@ -42,6 +42,7 @@
       --radius-lg: 20px;
     }
 
+    html { scroll-behavior: smooth; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -52,6 +53,41 @@
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
+    }
+
+    .floating-back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.9);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.4);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-back-to-top.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .floating-back-to-top:hover {
+      background: #4f46e5;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
     }
 
     /* Guard root initially hidden to prevent flash of content on direct entry */
@@ -1639,24 +1675,8 @@
       try {
         if (window.checkAdminAccess && window.checkAdminAccess()) {
           isAllowed = true;
-        } else if (sessionStorage.getItem('hg_master_admin_authenticated') === 'true' ||
-                   sessionStorage.getItem('admin_chatbase_auth') === 'true' ||
-                   sessionStorage.getItem('admin_apk_email') === 'harshguruji01@gmail.com' ||
-                   localStorage.getItem('hg_master_admin_authenticated') === 'true' ||
-                   localStorage.getItem('admin_chatbase_auth') === 'true' ||
-                   localStorage.getItem('admin_apk_email') === 'harshguruji01@gmail.com') {
-          isAllowed = true;
-        } else {
-          const params = new URLSearchParams(window.location.search);
-          if (params.get('admin_bridge') || params.get('from') === 'admin' || (document.referrer && (document.referrer.includes('admin') || document.referrer.includes('chatbase')))) {
-            isAllowed = true;
-          }
         }
       } catch (e) {}
-
-      // Ensure any direct-blocked-guard element is permanently removed
-      const oldGuard = document.getElementById('direct-blocked-guard');
-      if (oldGuard) oldGuard.remove();
 
       const gate = document.getElementById('chatbase-auth-gate');
       const root = document.getElementById('chatbase-admin-root');
@@ -1674,57 +1694,36 @@
         loadAuditLogs();
       } else {
         if (root) root.style.display = 'none';
-        if (gate) gate.style.display = 'flex';
+        window.location.replace('admin.html?from=admin-chatbase.html');
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       checkAndInitChatbase();
 
-      // Gate form submit handler
-      const gateForm = document.getElementById('chatbase-gate-form');
-      const passInput = document.getElementById('chatbase-gate-input');
-      const gateErr = document.getElementById('chatbase-gate-err');
-
-      if (gateForm && passInput) {
-        gateForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const val = passInput.value.trim();
-          if (val === "2547277654" || val.toLowerCase() === "harshguruji01@gmail.com" || val === "Admin@123" || val === "HGJ#2026") {
-            if (window.grantDirectAdminAccess) {
-              window.grantDirectAdminAccess();
-            } else {
-              sessionStorage.setItem('hg_master_admin_authenticated', 'true');
-              sessionStorage.setItem('admin_chatbase_auth', 'true');
-              localStorage.setItem('hg_master_admin_authenticated', 'true');
-              localStorage.setItem('admin_chatbase_auth', 'true');
-            }
-            if (window.setAllAdminSessions) window.setAllAdminSessions();
-            checkAndInitChatbase();
-          } else {
-            if (gateErr) {
-              gateErr.style.display = 'block';
-              setTimeout(() => { if (gateErr) gateErr.style.display = 'none'; }, 3500);
-            }
-            passInput.value = '';
-            passInput.focus();
-          }
+      // Logout handler
+      const logoutBtn = document.getElementById('btn-admin-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          if (window.clearAdminSessions) window.clearAdminSessions();
+          sessionStorage.clear();
+          localStorage.removeItem('hg_2step_verified');
+          localStorage.removeItem('hg_2step_token');
+          window.location.replace('admin.html');
         });
       }
 
-      // Logout handler
-      const logoutBtn = document.getElementById('btn-chatbase-logout');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-          if (window.clearAdminSessions) {
-            window.clearAdminSessions();
-          } else {
-            sessionStorage.clear();
-          }
-          window.location.href = 'index.html';
-        });
+      // Smooth Scroll Floating Button Logic
+      const bttBtn = document.getElementById('btn-back-to-top');
+      if (bttBtn) {
+        bttBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 200) bttBtn.classList.add('visible');
+          else bttBtn.classList.remove('visible');
+        }, { passive: true });
       }
     });
   </script>
+  <button type="button" id="btn-back-to-top" class="floating-back-to-top" title="Smooth Scroll to Top" aria-label="Back to Top">▲</button>
 </body>
 </html>

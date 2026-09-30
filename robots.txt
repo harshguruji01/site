@@ -22,6 +22,7 @@ Allow: /logo-512.png
 Allow: /favicon.ico
 
 # Disallow private user dashboard and administration panels
+Disallow: /admin*
 Disallow: /admin/
 Disallow: /admin.html
 Disallow: /admin-*.html

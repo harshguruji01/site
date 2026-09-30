@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 'edu1', title: 'MIT OpenCourseWare', desc: 'Free access to thousands of MIT course materials for self-learners and educators worldwide.', category: 'Education', icon: '🎓', source: 'MIT', url: 'https://ocw.mit.edu/' },
       { id: 'edu2', title: 'Khan Academy', desc: 'Free world-class online courses, interactive practice lessons, and personalized learning dashboard.', category: 'Education', icon: '🏫', source: 'Khan Academy', url: 'https://www.khanacademy.org/' },
       { id: 'edu3', title: 'Coursera', desc: 'Build job-relevant skills with courses, certificates, and degree programs from leading universities.', category: 'Education', icon: '💻', source: 'Coursera', url: 'https://www.coursera.org/' },
-      { id: 'edu4', title: 'edX', desc: 'Access 2,000+ free online courses from over 140 premier global institutions including Harvard and MIT.', category: 'Education', icon: '📚', source: 'edX', url: 'https://www.edx.org/' }
+      { id: 'edu4', title: 'edX', desc: 'Access 2,000+ free online courses from over 140 premier global institutions including Harvard and MIT.', category: 'Education', icon: '📚', source: 'edX', url: 'https://www.edx.org/' },
+      { id: 'edu-quiz-india', title: 'Quiz India Game', desc: 'Interactive General Knowledge quiz & trivia game testing your Indian history, geography, science, polity, and world GK.', category: 'Education', icon: '🇮🇳', source: 'HarshGuruJi', url: 'Quiz India/index.html' }
     ],
     ai: [
       { id: 'ai1', title: 'ChatGPT', desc: 'OpenAI\'s flagship conversational generative AI model for coding, brainstorming, and productivity.', category: 'AI', icon: '🤖', source: 'OpenAI', url: 'https://chat.openai.com/' },

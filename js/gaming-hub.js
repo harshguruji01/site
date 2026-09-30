@@ -1,5 +1,16 @@
 const gameData = [
   {
+    id: "gm-quiz-india",
+    name: "Quiz India",
+    description: "Interactive General Knowledge & Trivia game testing your mastery of Indian history, geography, science, polity, arts, and world GK.",
+    genre: "Trivia",
+    categories: ["All", "PC", "Mobile", "Puzzle", "Casual", "Educational"],
+    tags: ["Quiz", "Trivia", "General Knowledge", "Singleplayer"],
+    route: "Quiz India/index.html",
+    platform: "Browser",
+    featured: true
+  },
+  {
     id: "gm-001",
     name: "Snake Classic",
     description: "The classic retro arcade snake game. Eat food to grow and don't hit the walls!",
@@ -152,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getGenreIcon(genre) {
+      if(genre === 'Trivia') return '🇮🇳';
       if(genre === 'Arcade') return '🕹️';
       if(genre === 'Puzzle') return '🧩';
       if(genre === 'Board') return '🎲';

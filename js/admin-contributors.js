@@ -73,12 +73,11 @@ function initAuthGate() {
 
     if (lockBtn) {
         lockBtn.addEventListener('click', () => {
-            if (window.clearAdminSessions) {
-                window.clearAdminSessions();
-            } else {
-                sessionStorage.removeItem('hg_contributor_admin_unlocked');
-            }
-            window.location.href = 'index.html';
+            if (window.clearAdminSessions) window.clearAdminSessions();
+            sessionStorage.clear();
+            localStorage.removeItem('hg_2step_verified');
+            localStorage.removeItem('hg_2step_token');
+            window.location.replace('admin.html');
         });
     }
 }

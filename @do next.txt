@@ -1,0 +1,11 @@
+do next
+
+
+
+explore ya kisi ek page me game wale page me quiz india game ko bhi add karo.
+admin.html ka UI aur premium looking banao jisse mujhe accha lage.
+best UI overall parts of admin page.
+scan all files and all folder carefully search for any bugs or error if any please fix it then
+admin ke all pages ke sabhi buttons ki position best place per rakho jisse aasani se smooth scroll,smooth click and best UI with best location of button.
+commit and push.
+@ad.txt 400 se 500 ads paste kar do ads wale page per.
