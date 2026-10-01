@@ -1649,12 +1649,23 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
       import('./js/supabase.js').then(async ({ supabase }) => {
           const { data: { session } } = await supabase.auth.getSession();
-          if (session) {
+          if (session && session.user) {
               import('./js/profile.js').then(async ({ getProfile }) => {
                   const profile = await getProfile(session.user.id);
                   updateNavUI(session.user, profile);
               }).catch(()=>updateNavUI(session.user, null));
           }
+
+          supabase.auth.onAuthStateChange(async (event, newSession) => {
+              if (newSession && newSession.user) {
+                  import('./js/profile.js').then(async ({ getProfile }) => {
+                      const profile = await getProfile(newSession.user.id);
+                      updateNavUI(newSession.user, profile);
+                  }).catch(()=>updateNavUI(newSession.user, null));
+              } else if (event === 'SIGNED_OUT') {
+                  updateNavUI(null, null);
+              }
+          });
       }).catch(err => {
          // Supabase not present on page, ignore
       });

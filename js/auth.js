@@ -202,7 +202,7 @@ export async function signOut() {
     console.error("Supabase sign out error:", error);
     throw error;
   }
-  window.location.href = '/index.html';
+  window.location.href = 'index.html';
 }
 
 /**

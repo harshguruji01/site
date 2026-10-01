@@ -79,6 +79,16 @@
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
 
+  <!-- Supabase CDN Client -->
+  
+  <script>
+    window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+    window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+      window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+  </script>
+
   <style>
     :root {
       --detail-bg: #090d16;
@@ -669,6 +679,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body>
 
@@ -948,10 +960,15 @@
 
     let currentApp = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initStoreDetailPage();
+        setupLightbox();
+      });
+    } else {
       initStoreDetailPage();
       setupLightbox();
-    });
+    }
 
     async function initStoreDetailPage() {
       const params = new URLSearchParams(window.location.search);
@@ -964,11 +981,18 @@
       }
 
       try {
+        const client = supabase || window.supabaseClient;
+        if (!client) {
+          console.warn("Supabase client not yet available");
+          showNotFound();
+          return;
+        }
+
         let appData = null;
 
         // 1. If explicit ID provided, look up by ID
         if (id) {
-          const { data, error } = await supabase.from('store_apps').select('*').eq('id', id).maybeSingle();
+          const { data, error } = await client.from('store_apps').select('*').eq('id', id).maybeSingle();
           if (data && !error) {
             appData = data;
           }
@@ -977,14 +1001,14 @@
         // 2. Query by slug with multi-strategy matching
         if (!appData && slug) {
           // A: Exact slug
-          const resExact = await supabase.from('store_apps').select('*').eq('slug', slug).maybeSingle();
+          const resExact = await client.from('store_apps').select('*').eq('slug', slug).maybeSingle();
           if (resExact.data && !resExact.error) {
             appData = resExact.data;
           }
 
           // B: Case-insensitive slug
           if (!appData) {
-            const resIlike = await supabase.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
+            const resIlike = await client.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
             if (resIlike.data && !resIlike.error) {
               appData = resIlike.data;
             }
@@ -992,7 +1016,7 @@
 
           // C: Check if slug is actually a UUID ID
           if (!appData && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
-            const resUuid = await supabase.from('store_apps').select('*').eq('id', slug).maybeSingle();
+            const resUuid = await client.from('store_apps').select('*').eq('id', slug).maybeSingle();
             if (resUuid.data && !resUuid.error) {
               appData = resUuid.data;
             }
@@ -1001,7 +1025,7 @@
           // D: Fallback: match by app name (replace dashes with spaces)
           if (!appData) {
             const nameCandidate = slug.replace(/-/g, ' ');
-            const resName = await supabase.from('store_apps').select('*').ilike('name', nameCandidate).maybeSingle();
+            const resName = await client.from('store_apps').select('*').ilike('name', nameCandidate).maybeSingle();
             if (resName.data && !resName.error) {
               appData = resName.data;
             }
@@ -1061,6 +1085,25 @@
         currentApp = appData;
         renderAppDetails(appData);
         loadRelatedApps(appData);
+
+        // Realtime subscription: live updates when admin edits app in adminapkupload.html
+        try {
+          if (client && typeof client.channel === 'function') {
+            client
+              .channel('app-detail-live-' + appData.id)
+              .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'store_apps', filter: 'id=eq.' + appData.id }, (payload) => {
+                if (payload && payload.new) {
+                  console.log('Realtime live app update:', payload.new.name);
+                  currentApp = payload.new;
+                  renderAppDetails(payload.new);
+                  showToast("Application specs updated in real-time!");
+                }
+              })
+              .subscribe();
+          }
+        } catch (e) {
+          console.warn("Realtime app update error:", e);
+        }
 
       } catch (err) {
         console.error("Store detail fetch error:", err);
@@ -1299,8 +1342,9 @@
         const newCount = currentCount + 1;
         const dlEl = document.getElementById('val-downloads');
         if (dlEl) dlEl.textContent = newCount.toLocaleString();
-        if (app.id) {
-          await supabase.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+        const client = supabase || window.supabaseClient;
+        if (app.id && client) {
+          await client.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
         }
       } catch (e) {
         console.warn("Could not increment downloads:", e);
@@ -1313,7 +1357,9 @@
       if (!relatedSection || !relatedContainer) return;
 
       try {
-        const { data: list, error } = await supabase
+        const client = supabase || window.supabaseClient;
+        if (!client) return;
+        const { data: list, error } = await client
           .from('store_apps')
           .select('id, name, slug, logo_url, platform, app_type, version, rating, downloads')
           .eq('status', 'Published')

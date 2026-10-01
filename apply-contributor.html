@@ -789,6 +789,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body>
 
@@ -1437,6 +1439,7 @@ ${pastWork ? `\n📂 Past Work / Proof:\n${pastWork}` : ''}`;
         bio: formattedBio,
         profile_image_path: finalAvatarUrl || null,
         status: 'PENDING',
+        verified: false,
         created_at: new Date().toISOString()
       };
       if (fullName) {

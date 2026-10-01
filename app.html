@@ -615,6 +615,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body>
 
@@ -827,6 +829,16 @@
   <script src="navbar-premium.js" defer></script>
   <script src="footer-premium.js" defer></script>
 
+  <!-- Supabase CDN Client -->
+  
+  <script>
+    window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+    window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+      window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+  </script>
+
   <!-- Supabase & App Logic -->
   <script type="module">
     import { supabase } from './js/supabase.js';
@@ -834,9 +846,13 @@
 
     let currentApp = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initAppPage();
+      });
+    } else {
       initAppPage();
-    });
+    }
 
     async function initAppPage() {
       const params = new URLSearchParams(window.location.search);

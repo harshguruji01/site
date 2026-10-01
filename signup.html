@@ -75,6 +75,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body class="auth-page">
 
@@ -182,7 +184,7 @@
       try {
         const session = await getSession();
         if (session) {
-          window.location.href = '/index.html';
+          window.location.href = 'index.html';
         }
       } catch (error) {
         console.error("Error checking session:", error);

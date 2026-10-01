@@ -52,6 +52,17 @@ function initCustomAuth() {
     }
 }
 
+function ensureSupabase() {
+    if (window.supabaseClient) return window.supabaseClient;
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+        const url = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+        const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+        window.supabaseClient = window.supabase.createClient(url, key);
+        return window.supabaseClient;
+    }
+    return null;
+}
+
 function grantAdminAccess(email) {
     document.getElementById('admin-user-email').textContent = email;
     document.getElementById('unauthorized-msg').style.display = 'none';
@@ -61,12 +72,18 @@ function grantAdminAccess(email) {
         window.setupAdminMasterLinks();
     }
 
-    let checkInterval = setInterval(() => {
-        if (window.supabaseClient) {
-            clearInterval(checkInterval);
-            initAdmin();
-        }
-    }, 100);
+    if (ensureSupabase()) {
+        initAdmin();
+    } else {
+        let attempts = 0;
+        let checkInterval = setInterval(() => {
+            attempts++;
+            if (ensureSupabase() || attempts >= 50) {
+                clearInterval(checkInterval);
+                initAdmin();
+            }
+        }, 100);
+    }
 }
 
 function initAdmin() {
@@ -132,7 +149,7 @@ function initAdmin() {
 }
 
 async function loadStats() {
-    const supabase = window.supabaseClient;
+    const supabase = ensureSupabase() || window.supabaseClient;
     if (!supabase) return;
 
     try {
@@ -403,7 +420,7 @@ window.editApp = function(id) {
 window.deleteApp = async function(id, name) {
     if (!confirm(`Are you sure you want to completely delete "${name}"? This action cannot be undone.`)) return;
 
-    const supabase = window.supabaseClient;
+    const supabase = ensureSupabase() || window.supabaseClient;
     const overlay = document.getElementById('progress-overlay');
 
     try {
@@ -532,7 +549,7 @@ function resetFileBoxes() {
 async function handleUpload(e) {
     e.preventDefault();
 
-    const supabase = window.supabaseClient;
+    const supabase = ensureSupabase() || window.supabaseClient;
     if (!supabase) {
         showToast("Database client not initialized. Please refresh.", "error");
         return;

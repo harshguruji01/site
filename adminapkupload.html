@@ -394,6 +394,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body>
 
@@ -767,13 +769,22 @@
   <div id="toast-container"></div>
 
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <script>
+    window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+    window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+      window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+  </script>
   <!-- Load the main supabase client -->
   <script src="js/admin-bridge.js"></script>
   <script type="module">
     import { supabase } from './js/supabase.js';
     import { getProfile } from './js/profile.js';
-    window.supabaseClient = supabase;
+    if (!window.supabaseClient) {
+      window.supabaseClient = supabase;
+    }
     window.getProfile = getProfile;
   </script>
   <button type="button" id="btn-back-to-top" class="floating-back-to-top" title="Smooth Scroll to Top" aria-label="Back to Top">▲</button>

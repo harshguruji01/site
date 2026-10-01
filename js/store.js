@@ -95,7 +95,12 @@ const AN1_CATEGORY_CLUSTERS = [
 // --- DATABASE FETCHING (ONLY REAL APPS FROM SUPABASE) ---
 async function fetchStoreApps() {
   try {
-    const { data, error } = await supabase
+    const client = supabase || window.supabaseClient;
+    if (!client) {
+      console.warn("Supabase client not available yet");
+      return [];
+    }
+    const { data, error } = await client
       .from('store_apps')
       .select('*')
       .eq('status', 'Published')
@@ -252,9 +257,30 @@ async function initStore() {
     allApps = await fetchStoreApps();
     applyFilters();
     setupEventListeners();
+    setupRealtimeSubscription();
   } catch (error) {
     showError("Failed to load store data. Please try again later.");
     console.error("Store init error:", error);
+  }
+}
+
+function setupRealtimeSubscription() {
+  try {
+    const client = supabase || window.supabaseClient;
+    if (!client || typeof client.channel !== 'function') return;
+    client
+      .channel('store-apps-realtime-feed')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'store_apps' }, async (payload) => {
+        console.log('Realtime APK / Store change detected:', payload.eventType);
+        const refreshed = await fetchStoreApps();
+        if (refreshed) {
+          allApps = refreshed;
+          applyFilters();
+        }
+      })
+      .subscribe();
+  } catch (e) {
+    console.warn('Realtime subscription not active:', e);
   }
 }
 
@@ -1350,5 +1376,9 @@ function getPlatformIcon(platform) {
   }
 }
 
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', initStore);
+// Initialize on DOM load or immediately if already ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStore);
+} else {
+  initStore();
+}

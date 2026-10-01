@@ -75,6 +75,8 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
 </head>
 <body class="auth-page">
 
@@ -216,7 +218,9 @@
       try {
         const session = await getSession();
         if (session) {
-          window.location.href = '/dashboard.html'; // Redirect to dashboard
+          const params = new URLSearchParams(window.location.search);
+          const redirectUrl = params.get('redirect') || params.get('return_to') || 'dashboard.html';
+          window.location.href = redirectUrl;
         } else {
             loadingOverlay.remove();
         }
@@ -301,7 +305,9 @@
           if(!email || !password) throw new Error("Email and password required.");
           
           await signIn(email, password);
-          window.location.href = '/dashboard.html';
+          const params = new URLSearchParams(window.location.search);
+          const redirectUrl = params.get('redirect') || params.get('return_to') || 'dashboard.html';
+          window.location.href = redirectUrl;
           
         } else if (loginMethod === 'phone') {
           // Send Phone OTP
@@ -330,7 +336,9 @@
           if(!otp) throw new Error("OTP required.");
           
           await verifyPhoneOtp(pendingPhone, otp);
-          window.location.href = '/dashboard.html';
+          const params = new URLSearchParams(window.location.search);
+          const redirectUrl = params.get('redirect') || params.get('return_to') || 'dashboard.html';
+          window.location.href = redirectUrl;
         }
       } catch (err) {
         // Reset Error styles to default red

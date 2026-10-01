@@ -14,6 +14,43 @@
   const DISPLAY_DELAY_MS = 3500;
   const DISMISS_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours cooldown after dismissal
 
+  // Detect if current page load is an explicit page refresh / reload
+  function isPageReload() {
+    try {
+      const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+      if (navEntries && navEntries.length > 0) {
+        return navEntries[0].type === 'reload';
+      }
+      if (window.performance && window.performance.navigation) {
+        return window.performance.navigation.type === 1; // TYPE_RELOAD
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  // If user refreshed the page, clear dismissal session state so it can show on reload
+  if (isPageReload()) {
+    try {
+      sessionStorage.removeItem('hg_pwa_dismissed_session');
+    } catch (e) {}
+  }
+
+  // State management: once user dismisses the banner, it stays hidden for this entire session
+  // and will ONLY appear again if the user explicitly refreshes the page.
+  let isDismissedInCurrentPage = false;
+  let quickBannerTimer = null;
+  let initBannerTimer = null;
+
+  function isDismissed() {
+    if (isDismissedInCurrentPage) return true;
+    try {
+      if (sessionStorage.getItem('hg_pwa_dismissed_session') === 'true') {
+        return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   // Global prompt holder (preserve from early capture in head or navbar-premium.js)
   window.deferredPwaPrompt = window.deferredPwaPrompt || window.__hgDeferredPrompt || null;
 
@@ -22,7 +59,9 @@
     window.deferredPwaPrompt = e;
     window.__hgDeferredPrompt = e;
     window.dispatchEvent(new CustomEvent('hg-pwa-ready'));
-    scheduleQuickBanner();
+    if (!isDismissed()) {
+      scheduleQuickBanner();
+    }
   });
 
   // Listen for successful install
@@ -242,6 +281,7 @@
     if (modal) {
       modal.classList.remove('hg-pwa-modal-open');
     }
+    handleDismissClick();
   }
 
   // Toast notification helper
@@ -262,14 +302,16 @@
 
   // Show Banner smoothly sliding from top
   function showBanner() {
-    if (isRunningStandalone() || localStorage.getItem('hg_pwa_installed') === 'true') {
+    if (isDismissed() || isRunningStandalone() || localStorage.getItem('hg_pwa_installed') === 'true') {
       return;
     }
     createBannerDOM();
     const banner = document.getElementById('hg-pwa-banner');
     if (banner) {
       requestAnimationFrame(() => {
-        banner.classList.add('hg-pwa-visible');
+        if (!isDismissed()) {
+          banner.classList.add('hg-pwa-visible');
+        }
       });
     }
   }
@@ -282,14 +324,32 @@
     }
   }
 
-  // Dismiss button clicked
+  // Dismiss button clicked - completely removes the disturbance for this session
+  // Will ONLY reappear if the user explicitly refreshes/reloads the page
   function handleDismissClick(e) {
-    if (e) {
+    if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
     }
-    localStorage.setItem('hg_pwa_dismissed', Date.now().toString());
+    isDismissedInCurrentPage = true;
+    try {
+      sessionStorage.setItem('hg_pwa_dismissed_session', 'true');
+    } catch (err) {}
+    if (quickBannerTimer) {
+      clearTimeout(quickBannerTimer);
+      quickBannerTimer = null;
+    }
+    if (initBannerTimer) {
+      clearTimeout(initBannerTimer);
+      initBannerTimer = null;
+    }
     hideBanner();
+    setTimeout(() => {
+      const banner = document.getElementById('hg-pwa-banner');
+      if (banner) {
+        banner.remove();
+      }
+    }, 450);
   }
 
   // Install button clicked - opens native browser shortcut/install prompt directly
@@ -348,7 +408,6 @@
           showToast('HarshGuruJi Shortcut created on your home screen! 🎉');
         } else {
           hideBanner();
-          localStorage.setItem('hg_pwa_dismissed', Date.now().toString());
         }
         window.deferredPwaPrompt = null;
         window.__hgDeferredPrompt = null;
@@ -364,17 +423,22 @@
 
   // Fast trigger when prompt is ready
   function scheduleQuickBanner() {
-    if (isRunningStandalone() || localStorage.getItem('hg_pwa_installed') === 'true' || isDismissedRecently()) {
+    if (isDismissed() || isRunningStandalone() || localStorage.getItem('hg_pwa_installed') === 'true') {
       return;
     }
-    setTimeout(() => {
-      showBanner();
+    if (quickBannerTimer) clearTimeout(quickBannerTimer);
+    quickBannerTimer = setTimeout(() => {
+      if (!isDismissed()) {
+        showBanner();
+      }
     }, 1500);
   }
 
   // Public debug/test trigger
   window.showHarshGuruJiInstallBanner = function () {
-    showBanner();
+    if (!isDismissed()) {
+      showBanner();
+    }
   };
 
   // Main init routine
@@ -382,16 +446,8 @@
     ensureManifest();
     registerServiceWorker();
 
-    // If already installed or running as standalone app, don't show banner
-    if (isRunningStandalone()) {
-      return;
-    }
-
-    if (localStorage.getItem('hg_pwa_installed') === 'true') {
-      return;
-    }
-
-    if (isDismissedRecently()) {
+    // If already installed, running as standalone app, or dismissed, don't show banner
+    if (isRunningStandalone() || localStorage.getItem('hg_pwa_installed') === 'true' || isDismissed()) {
       return;
     }
 
@@ -399,9 +455,10 @@
     const isTestMode = new URLSearchParams(window.location.search).has('test_install');
     const delay = isTestMode ? 500 : DISPLAY_DELAY_MS;
 
-    setTimeout(() => {
+    if (initBannerTimer) clearTimeout(initBannerTimer);
+    initBannerTimer = setTimeout(() => {
       // Double check before showing
-      if (!isRunningStandalone() && localStorage.getItem('hg_pwa_installed') !== 'true') {
+      if (!isDismissed() && !isRunningStandalone() && localStorage.getItem('hg_pwa_installed') !== 'true') {
         showBanner();
       }
     }, delay);
