@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <ul class="hg-nav-list">
             <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
-            <li class="hg-nav-item"><a href="${prefix}store.html" class="hg-nav-link" id="nav-link-store">Store</a></li>
+            <li class="hg-nav-item"><a href="https://store.webguruji.online" class="hg-nav-link" id="nav-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
             <li class="hg-nav-item"><a href="https://chat.webguruji.online" class="hg-nav-link" id="nav-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
             <li class="hg-nav-item"><a href="${prefix}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
             
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <ul class="hg-mobile-list">
           <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
-          <li><a href="${prefix}store.html" class="hg-mobile-link" id="mob-link-store">Store</a></li>
+          <li><a href="https://store.webguruji.online" class="hg-mobile-link" id="mob-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
           <li><a href="https://chat.webguruji.online" class="hg-mobile-link" id="mob-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
           <li><a href="${prefix}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
           
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Daily Special</span>
       </a>
 
-      <a href="${prefix}store.html" class="hg-bottom-item" id="bottom-nav-store" title="Store Catalog">
+      <a href="https://store.webguruji.online" class="hg-bottom-item" id="bottom-nav-store" target="_blank" rel="noopener noreferrer" title="HarshGuruJi Store">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
