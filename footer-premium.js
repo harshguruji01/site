@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h5>Learning</h5>
             <ul>
               <li><a href="${prefix}learning-hub.html">Learning Hub</a></li>
+              <li><a href="https://books.webguruji.online" target="_blank" rel="noopener noreferrer">NCERT Books Library</a></li>
               <li><a href="${prefix}education.html">Education</a></li>
               <li><a href="${prefix}learning/class-10-science.html">Class 10</a></li>
               <li><a href="${prefix}learning/class.html?class=9">Class 9</a></li>

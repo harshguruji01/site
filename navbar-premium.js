@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="hg-brand-text">HarshGuruJi</span>
         </a>
 
-        <!-- Desktop Navigation: Home | Daily Special | Store | Contributor | More -->
+        <!-- Desktop Navigation: Home | Books | Daily Special | Store | Chat | Contributor | More -->
         <nav class="hg-desktop-nav">
           <ul class="hg-nav-list">
             <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
-            <li class="hg-nav-item"><a href="${prefix}books.html" class="hg-nav-link" id="nav-link-books">Books</a></li>
+            <li class="hg-nav-item"><a href="https://books.webguruji.online" class="hg-nav-link" id="nav-link-books" target="_blank" rel="noopener noreferrer">Books</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
             <li class="hg-nav-item"><a href="https://store.webguruji.online" class="hg-nav-link" id="nav-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
             <li class="hg-nav-item"><a href="https://chat.webguruji.online" class="hg-nav-link" id="nav-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <ul class="hg-mobile-list">
           <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
-          <li><a href="${prefix}books.html" class="hg-mobile-link" id="mob-link-books">Books</a></li>
+          <li><a href="https://books.webguruji.online" class="hg-mobile-link" id="mob-link-books" target="_blank" rel="noopener noreferrer">Books</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
           <li><a href="https://store.webguruji.online" class="hg-mobile-link" id="mob-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
           <li><a href="https://chat.webguruji.online" class="hg-mobile-link" id="mob-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Mobile & Tablet Bottom Navigation Bar (Low-Ratio Devices Only) -->
     <nav class="hg-bottom-bar" id="hg-bottom-bar" aria-label="Mobile Navigation">
-      <a href="${prefix}books.html" class="hg-bottom-item" id="bottom-nav-books" title="NCERT Books">
+      <a href="https://books.webguruji.online" class="hg-bottom-item" id="bottom-nav-books" title="NCERT Books" target="_blank" rel="noopener noreferrer">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>

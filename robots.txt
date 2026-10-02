@@ -99,3 +99,4 @@ Sitemap: https://www.webguruji.online/sitemap_index.xml
 # ── Cross-domain Sitemaps (for unified Google indexing) ──
 Sitemap: https://chat.webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
+Sitemap: https://books.webguruji.online/sitemap.xml
