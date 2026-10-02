@@ -10,7 +10,10 @@
   <meta name="author" content="HarshGuruJi">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://www.webguruji.online/">
+  <link rel="icon" type="image/png" sizes="192x192" href="logo-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="logo-512.png">
   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="shortcut icon" href="logo-192.png">
   <link rel="apple-touch-icon" href="logo-192.png">
 
   <!-- Open Graph / Facebook -->
@@ -29,34 +32,58 @@
   <meta name="twitter:description" content="HarshGuruJi is your all-in-one platform for free online developer tools, NCERT study resources, AI directories, browser games, and verified application downloads.">
   <meta name="twitter:image" content="https://www.webguruji.online/logo-512.png">
 
+  <!-- Google Official Site Name Schema (WebSite Structured Data) -->
   <script type="application/ld+json">
   {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "HarshGuruJi - Free Online Tools, Learning Hub, AI & Store",
-  "url": "https://www.webguruji.online/",
-  "description": "HarshGuruJi is your all-in-one platform for free online developer tools, NCERT study resources, AI directories, browser games, and verified application downloads.",
-  "inLanguage": "en",
-  "isPartOf": {
+    "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.webguruji.online/#website",
     "name": "HarshGuruJi",
-    "url": "https://www.webguruji.online/"
+    "alternateName": [
+      "WebGuruJi",
+      "Harsh Guru Ji",
+      "HarshGuruJi Platform"
+    ],
+    "url": "https://www.webguruji.online/",
+    "description": "HarshGuruJi is your all-in-one platform for free online developer tools, NCERT study resources, AI directories, browser games, and verified application downloads.",
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://www.webguruji.online/#organization",
+      "name": "HarshGuruJi",
+      "url": "https://www.webguruji.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.webguruji.online/logo-512.png",
+        "width": 512,
+        "height": 512
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.webguruji.online/explore.html?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
-}
   </script>
+
+  <!-- WebPage Schema -->
   <script type="application/ld+json">
   {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "HarshGuruJi",
-  "url": "https://www.webguruji.online/",
-  "description": "HarshGuruJi is your all-in-one platform for free online developer tools, NCERT study resources, AI directories, browser games, and verified application downloads.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://www.webguruji.online/explore.html?q={search_term_string}",
-    "query-input": "required name=search_term_string"
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "HarshGuruJi - Free Online Tools, Learning Hub, AI & Store",
+    "url": "https://www.webguruji.online/",
+    "description": "HarshGuruJi is your all-in-one platform for free online developer tools, NCERT study resources, AI directories, browser games, and verified application downloads.",
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.webguruji.online/#website",
+      "name": "HarshGuruJi"
+    }
   }
-}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

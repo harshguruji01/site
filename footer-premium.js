@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h5>Games & Store</h5>
             <ul>
               <li><a href="https://store.webguruji.online" target="_blank" rel="noopener noreferrer">HarshGuruJi Store</a></li>
-              <li><a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer">Chat WebGuruJi</a></li>
+              <li><a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer">Chat HarshGuruJi</a></li>
               <li><a href="${prefix}gaming-hub.html">Gaming Hub</a></li>
               <li><a href="${prefix}Quiz India/index.html">Quiz India</a></li>
               <li><a href="${prefix}games/tic-tac-toe.html">Tic Tac Toe</a></li>
