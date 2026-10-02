@@ -19,6 +19,7 @@ Allow: /free-tools.html
 Allow: /tools.html
 Allow: /learning-hub.html
 Allow: /learning.html
+Allow: /books.html
 Allow: /education.html
 Allow: /technology.html
 Allow: /ai-hub.html

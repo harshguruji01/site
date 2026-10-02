@@ -1976,10 +1976,12 @@
       <!-- Cross-Admin Hub Navigation Pills -->
       <nav class="cross-admin-pills" aria-label="Admin Sections">
         <a href="admin.html" class="pill-link active">⚡ Master Admin</a>
+        <a href="adminbooks.html" class="pill-link">📚 Books Studio</a>
         <a href="adminapkupload.html" class="pill-link">📦 Store Admin</a>
         <a href="admin-chatbase.html" class="pill-link">💬 ChatBase AI</a>
         <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
         <a href="admincontributors.html" class="pill-link">👥 Contributors</a>
+        <a href="books.html" class="pill-link" target="_blank">📖 Live Books ↗</a>
         <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
         <a href="index.html" class="pill-link" target="_blank">🌐 Live Site ↗</a>
       </nav>
@@ -2018,6 +2020,10 @@
 
           <!-- Hero Quick Launch Action Strip -->
           <div class="hero-quick-actions" aria-label="Quick Action Buttons">
+            <a href="adminbooks.html" class="hero-quick-btn" style="text-decoration:none;">
+              <span>📚</span>
+              <span>Books Studio</span>
+            </a>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
               <span>🎮</span>
               <span>Store Apps Suite</span>
@@ -2123,6 +2129,23 @@
             <span class="arrow">&rarr;</span>
           </div>
         </div>
+
+        <!-- TILE: NCERT BOOKS STUDIO -->
+        <div class="stat-tile tile-books" id="tile-books-studio" role="button" tabindex="0" title="Click to open Books Management Studio" onclick="window.location.href='adminbooks.html'">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>NCERT Library</span>
+              <span class="stat-badge-hint" style="color:#818cf8;">Books 📚</span>
+            </span>
+            <span class="stat-icon-mini">📚</span>
+          </div>
+          <div class="stat-number" id="stat-books-count" style="color: #818cf8;">Classes 1-12</div>
+          <div class="stat-subtext"><span style="color:#10b981;">●</span> Textbooks, PDFs &amp; Chapters</div>
+          <div class="stat-click-cta">
+            <span>Open Books Studio</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
       </section>
 
       <!-- SECTION: CORE MANAGEMENT MODULES -->
@@ -2135,6 +2158,35 @@
 
       <section class="modules-grid">
         
+        <!-- CARD: NCERT BOOKS & STUDY MATERIAL STUDIO -->
+        <article class="module-card" style="--card-glow: rgba(99, 102, 241, 0.28); --card-border-hover: #6366f1; --icon-bg: rgba(99, 102, 241, 0.15); --icon-border: rgba(99, 102, 241, 0.35); --icon-glow: rgba(99, 102, 241, 0.3); --btn-bg: linear-gradient(135deg, #6366f1, #4f46e5); --btn-border: rgba(99, 102, 241, 0.4); --btn-glow: rgba(99, 102, 241, 0.5);">
+          <div>
+            <div class="card-head">
+              <div class="module-icon-wrap">📚</div>
+              <div class="card-title-group">
+                <h4>NCERT Books &amp; Study Material Studio</h4>
+                <span class="card-badge badge-blue">Class 1-12 Library</span>
+              </div>
+            </div>
+            <p class="module-desc">Central management studio for official NCERT textbooks, subjects, and chapters. Direct upload PDF files, cover PNGs, assign classes and chapters with real-time sync to books.html.</p>
+            <ul class="feature-list">
+              <li><span class="dot">✔</span> 4-Step Guided Filtering (Class &rarr; Subject &rarr; Book &rarr; Chapter)</li>
+              <li><span class="dot">✔</span> Direct PDF file uploads &amp; Google Drive mirror support</li>
+              <li><span class="dot">✔</span> Built-in Fullscreen interactive PDF Reader &amp; Download</li>
+              <li><span class="dot">✔</span> Real-time sync with Supabase &amp; Live books.html</li>
+            </ul>
+          </div>
+          <div class="card-btn-group">
+            <a href="adminbooks.html" class="card-action-btn">
+              <span>Launch Books Studio</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="books.html" target="_blank" class="card-action-btn-secondary" title="View Public Books Hub">
+              <span>Live Books ↗</span>
+            </a>
+          </div>
+        </article>
+
         <!-- CARD 1: STORE APK & GAMES MANAGER -->
         <article class="module-card" style="--card-glow: rgba(59, 130, 246, 0.25); --card-border-hover: #3b82f6; --icon-bg: rgba(59, 130, 246, 0.15); --icon-border: rgba(59, 130, 246, 0.35); --icon-glow: rgba(59, 130, 246, 0.3); --btn-bg: linear-gradient(135deg, #3b82f6, #2563eb); --btn-border: rgba(59, 130, 246, 0.4); --btn-glow: rgba(59, 130, 246, 0.5);">
           <div>
@@ -2709,12 +2761,18 @@
           sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
           sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
 
+          try {
+            localStorage.setItem(AUTH_STATE_KEY, 'true');
+            localStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
+            localStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
+          } catch(e) {}
+
           if (window.setAllAdminSessions) window.setAllAdminSessions();
           if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
 
           // If navigated to reach a specific sub-admin console, proceed there smoothly
           const fromParam = new URLSearchParams(window.location.search).get('from');
-          const validSubAdmins = ['admin-contacts.html', 'adminapkupload.html', 'admincontributors.html', 'admin-chatbase.html'];
+          const validSubAdmins = ['adminbooks.html', 'admin-contacts.html', 'adminapkupload.html', 'admincontributors.html', 'admin-chatbase.html'];
           if (fromParam && validSubAdmins.includes(fromParam)) {
             showMasterToast("2-Step Verification Completed! Opening " + fromParam + "...", "✓");
             setTimeout(() => {

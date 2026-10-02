@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <nav class="hg-desktop-nav">
           <ul class="hg-nav-list">
             <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
+            <li class="hg-nav-item"><a href="${prefix}books.html" class="hg-nav-link" id="nav-link-books">Books</a></li>
             <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
             <li class="hg-nav-item"><a href="https://store.webguruji.online" class="hg-nav-link" id="nav-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
             <li class="hg-nav-item"><a href="https://chat.webguruji.online" class="hg-nav-link" id="nav-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
@@ -178,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <ul class="hg-mobile-list">
           <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
+          <li><a href="${prefix}books.html" class="hg-mobile-link" id="mob-link-books">Books</a></li>
           <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
           <li><a href="https://store.webguruji.online" class="hg-mobile-link" id="mob-link-store" target="_blank" rel="noopener noreferrer">Store</a></li>
           <li><a href="https://chat.webguruji.online" class="hg-mobile-link" id="mob-link-chat" target="_blank" rel="noopener noreferrer">Chat</a></li>
@@ -206,6 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Mobile & Tablet Bottom Navigation Bar (Low-Ratio Devices Only) -->
     <nav class="hg-bottom-bar" id="hg-bottom-bar" aria-label="Mobile Navigation">
+      <a href="${prefix}books.html" class="hg-bottom-item" id="bottom-nav-books" title="NCERT Books">
+        <span class="hg-bottom-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </span>
+        <span class="hg-bottom-label">Books</span>
+      </a>
+
       <a href="${prefix}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial" title="Daily Special">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -365,13 +377,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Highlight active bottom navigation tab based on URL path
   const currentNavPath = (window.location.pathname || '').toLowerCase();
+  const isBooksPath = currentNavPath.includes('books') || currentNavPath.includes('book.html');
   const isHomePath = currentNavPath.endsWith('/') || currentNavPath.endsWith('/index.html') || currentNavPath.endsWith('site/') || currentNavPath === '';
   const isDailySpecialPath = currentNavPath.includes('daily-special');
   const isStorePath = currentNavPath.includes('store') || currentNavPath.includes('app.html');
   const isAuthPath = currentNavPath.includes('login') || currentNavPath.includes('signup') || currentNavPath.includes('dashboard') || currentNavPath.includes('settings');
   const isChatPath = currentNavPath.includes('chat');
 
-  if (isHomePath) {
+  if (isBooksPath) {
+    document.getElementById('bottom-nav-books')?.classList.add('active');
+    document.getElementById('nav-link-books')?.classList.add('active');
+    document.getElementById('mob-link-books')?.classList.add('active');
+  } else if (isHomePath) {
     document.getElementById('bottom-nav-home')?.classList.add('active');
   } else if (isDailySpecialPath) {
     document.getElementById('bottom-nav-dailyspecial')?.classList.add('active');
@@ -413,6 +430,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
 
   const SITE_SEARCH_INDEX = [
+    // --- NCERT BOOKS LIBRARY ---
+    { 
+      title: 'NCERT Books Library', 
+      desc: 'All Classes 1 to 12 NCERT textbooks, subjects, and chapters with direct PDF reader & download', 
+      url: 'books.html', 
+      type: 'page', 
+      icon: '📚', 
+      keywords: 'books ncert ncert books textbook cbse class 1 2 3 4 5 6 7 8 9 10 11 12 science maths english hindi physics chemistry biology pdf download read online notes' 
+    },
     // --- AUTH & ACCOUNT ---
     { 
       title: 'Login / Sign In', 

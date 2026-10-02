@@ -17,9 +17,9 @@
 
   function isVerified() {
     try {
-      var isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true';
-      var token = sessionStorage.getItem(AUTH_TOKEN_KEY);
-      var email = sessionStorage.getItem('admin_apk_email');
+      var isAuth = (sessionStorage.getItem(AUTH_STATE_KEY) === 'true') || (localStorage.getItem(AUTH_STATE_KEY) === 'true');
+      var token = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
+      var email = sessionStorage.getItem('admin_apk_email') || localStorage.getItem('admin_apk_email');
 
       if (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === REQUIRED_EMAIL) {
         return true;
@@ -29,7 +29,7 @@
   }
 
   if (!isVerified()) {
-    // 1. Immediately hide the entire page DOM before browser renders any administrative elements
+    // 1. Immediately hide the entire page DOM so no admin content is visible or leaked
     if (document.documentElement) {
       document.documentElement.style.display = 'none';
     }
@@ -45,11 +45,8 @@
       sessionStorage.removeItem('hg_master_admin_authenticated');
     } catch (e) {}
 
-    // 3. Block direct entry and redirect immediately to admin.html 2-Step Gate
-    var currentFile = window.location.pathname.split('/').pop() || 'admin-dashboard';
-    alert("⛔ Access Denied — Direct URL Entry Blocked\n\nThis command console cannot be accessed directly via URL.\nIt is strictly protected and can only be opened from the Master Admin Command Center (admin.html) after completing 2-Step Verification.\n\nRedirecting to Master Admin (admin.html)...");
-    
-    window.location.replace('admin.html?from=' + encodeURIComponent(currentFile));
+    // 3. Block direct URL access and redirect immediately to public site (index.html)
+    window.location.replace('index.html');
   } else {
     // Authorized: Ensure all sub-page specific keys are populated for seamless operation
     try {
