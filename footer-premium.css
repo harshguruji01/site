@@ -160,3 +160,122 @@
 }
 
 
+
+/* ==========================================================================
+   ANIMATED FOUNDER & OWNER LINK STYLES
+   ========================================================================== */
+@keyframes hg-rainbow-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes hg-avatar-ring {
+  0% { filter: hue-rotate(0deg) drop-shadow(0 0 6px rgba(99, 102, 241, 0.4)); }
+  50% { filter: hue-rotate(180deg) drop-shadow(0 0 14px rgba(236, 72, 153, 0.6)); }
+  100% { filter: hue-rotate(360deg) drop-shadow(0 0 6px rgba(99, 102, 241, 0.4)); }
+}
+
+.hg-founder-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hg-founder-link:hover {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -5px rgba(99, 102, 241, 0.3);
+}
+
+.hg-founder-avatar-wrap {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hg-founder-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  animation: hg-avatar-ring 8s linear infinite;
+  transition: transform 0.3s ease;
+}
+
+.hg-founder-link:hover .hg-founder-avatar {
+  transform: scale(1.08);
+}
+
+.hg-founder-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hg-founder-name-animated {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7, #ec4899, #f59e0b, #10b981, #60a5fa);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hg-rainbow-flow 4s ease infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hg-golden-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #ffd700, #f59e0b);
+  color: #000;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  flex-shrink: 0;
+}
+
+.hg-founder-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hg-founder-badge::after {
+  content: '↗';
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+.hg-founder-link:hover .hg-founder-badge::after {
+  transform: translate(2px, -2px);
+}
