@@ -2915,6 +2915,11 @@
               <button type="button" class="filter-chip" data-class="8">Class 8</button>
               <button type="button" class="filter-chip" data-class="7">Class 7</button>
               <button type="button" class="filter-chip" data-class="6">Class 6</button>
+              <button type="button" class="filter-chip" data-class="5">Class 5</button>
+              <button type="button" class="filter-chip" data-class="4">Class 4</button>
+              <button type="button" class="filter-chip" data-class="3">Class 3</button>
+              <button type="button" class="filter-chip" data-class="2">Class 2</button>
+              <button type="button" class="filter-chip" data-class="1">Class 1</button>
             </div>
             <button type="button" class="btn-action-primary" onclick="openAddBookModal()">
               <span>➕ Add New Book</span>
@@ -3211,6 +3216,7 @@
     window.supabaseClient = supabase;
   </script>
   <script src="js/admin-bridge.js"></script>
+  <script src="js/ncert-master-catalog.js"></script>
 
   <!-- Master Control Center Controller -->
   <script>
@@ -3477,13 +3483,17 @@
           document.querySelectorAll('#filters-books-class .filter-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
           booksClassFilter = chip.dataset.class || 'ALL';
+          masterBooksLimit = 60;
           renderMasterBooks();
         });
       });
 
       // Search - NCERT Books
       const searchBooks = document.getElementById('search-master-books');
-      if (searchBooks) searchBooks.addEventListener('input', renderMasterBooks);
+      if (searchBooks) searchBooks.addEventListener('input', () => {
+        masterBooksLimit = 60;
+        renderMasterBooks();
+      });
 
       // Filter Chips - Messages
       document.querySelectorAll('#filters-messages-status .filter-chip').forEach(chip => {
@@ -3737,9 +3747,39 @@
         if (appsRes.status === 'fulfilled' && appsRes.value.data) {
           storeAppsData = appsRes.value.data;
         }
-        if (booksRes.status === 'fulfilled' && booksRes.value.data) {
-          booksData = booksRes.value.data;
+        let mergedBooks = [];
+        const seenBookIds = new Set();
+        if (booksRes.status === 'fulfilled' && Array.isArray(booksRes.value.data)) {
+          booksRes.value.data.forEach(b => {
+            if (b && b.id) {
+              seenBookIds.add(String(b.id));
+              mergedBooks.push(b);
+            }
+          });
         }
+        try {
+          const raw = localStorage.getItem('wg_admin_books');
+          if (raw) {
+            const local = JSON.parse(raw);
+            if (Array.isArray(local)) {
+              local.forEach(b => {
+                if (b && b.id && !seenBookIds.has(String(b.id))) {
+                  seenBookIds.add(String(b.id));
+                  mergedBooks.push(b);
+                }
+              });
+            }
+          }
+        } catch(e) {}
+        if (Array.isArray(window.NCERT_MASTER_CATALOG)) {
+          window.NCERT_MASTER_CATALOG.forEach(b => {
+            if (b && b.id && !seenBookIds.has(String(b.id))) {
+              seenBookIds.add(String(b.id));
+              mergedBooks.push(b);
+            }
+          });
+        }
+        booksData = mergedBooks;
         if (msgRes.status === 'fulfilled' && msgRes.value.data) {
           messagesData = msgRes.value.data;
         }
@@ -3975,6 +4015,12 @@
       }
     };
 
+    let masterBooksLimit = 60;
+    window.loadMoreMasterBooks = function() {
+      masterBooksLimit += 60;
+      renderMasterBooks();
+    };
+
     // 6b. Render NCERT Books in Master Control
     function renderMasterBooks() {
       const tbody = document.getElementById('master-books-tbody');
@@ -3992,7 +4038,8 @@
           const subject = (b.subject || '').toLowerCase();
           const subbook = (b.chapter_name || b.subbook || '').toLowerCase();
           const bClass = String(b.class || '').toLowerCase();
-          return title.includes(searchTerm) || subject.includes(searchTerm) || subbook.includes(searchTerm) || bClass.includes(searchTerm);
+          const code = String(b.code || '').toLowerCase();
+          return title.includes(searchTerm) || subject.includes(searchTerm) || subbook.includes(searchTerm) || bClass.includes(searchTerm) || code.includes(searchTerm);
         }
         return true;
       });
@@ -4002,15 +4049,18 @@
         return;
       }
 
-      tbody.innerHTML = list.map(b => {
+      const visibleList = list.slice(0, masterBooksLimit);
+
+      let rowsHtml = visibleList.map(b => {
         const title = b.book_title || b.book || 'NCERT Textbook';
         const chapter = b.chapter_name || b.subbook || 'Full Book';
         const cover = b.cover_url || b.cover_image || 'logo.png';
         const bClass = b.class || '10';
         const subject = b.subject || 'General';
-        const edition = b.edition || 'Latest Edition';
+        const edition = b.edition || 'NCERT 2024-25';
         const lang = b.language || 'English';
         const pdf = b.pdf_url || b.direct_url || '';
+        const zip = b.zip_url || (b.code ? `https://ncert.nic.in/textbook/pdf/${b.code}dd.zip` : '');
 
         return `
           <tr>
@@ -4032,12 +4082,20 @@
               <div class="entity-sub" style="font-size: 0.78rem;">${escapeHtml(lang)}</div>
             </td>
             <td>
-              ${pdf ? `
-                <a href="${escapeHtml(pdf)}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 4px; font-weight: 500;">
-                  <span>📄 Open PDF</span>
-                  <span style="font-size: 0.75rem;">↗</span>
-                </a>
-              ` : `<span style="color: var(--text-muted); font-size: 0.8rem;">No PDF</span>`}
+              <div style="display:flex; flex-direction:column; gap:4px;">
+                ${pdf ? `
+                  <a href="${escapeHtml(pdf)}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 4px; font-weight: 500;">
+                    <span>📄 Chapter PDF</span>
+                    <span style="font-size: 0.75rem;">↗</span>
+                  </a>
+                ` : `<span style="color: var(--text-muted); font-size: 0.8rem;">No PDF</span>`}
+                ${zip ? `
+                  <a href="${escapeHtml(zip)}" target="_blank" rel="noopener noreferrer" download style="color: #fbbf24; text-decoration: none; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">
+                    <span>📦 Full ZIP</span>
+                    <span style="font-size: 0.7rem;">⬇</span>
+                  </a>
+                ` : ''}
+              </div>
             </td>
             <td style="text-align: right;">
               <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center;">
@@ -4052,6 +4110,20 @@
           </tr>
         `;
       }).join('');
+
+      if (list.length > masterBooksLimit) {
+        rowsHtml += `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 1.5rem; background: rgba(15, 23, 42, 0.4);">
+              <button type="button" class="btn-action-primary" style="margin: 0 auto; padding: 0.65rem 1.6rem; font-size: 0.9rem;" onclick="window.loadMoreMasterBooks()">
+                <span>📚 Load More Books (Showing ${masterBooksLimit} of ${list.length} Books)</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }
+
+      tbody.innerHTML = rowsHtml;
     }
 
     // 6c. Delete Master Book Controller
