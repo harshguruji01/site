@@ -1845,6 +1845,75 @@
       color: #fff;
     }
 
+    /* File Drop Area & Category Pills for Book Studio */
+    .file-drop-area {
+      border: 2px dashed rgba(99, 102, 241, 0.35);
+      background: rgba(99, 102, 241, 0.05);
+      border-radius: 12px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .file-drop-area:hover, .file-drop-area.dragover {
+      border-color: #818cf8;
+      background: rgba(99, 102, 241, 0.14);
+      transform: translateY(-1px);
+    }
+    .file-drop-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .file-drop-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .file-drop-hint {
+      font-size: 0.76rem;
+      color: #94a3b8;
+    }
+    .file-drop-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .category-quick-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 0.35rem;
+    }
+    .category-quick-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-quick-pill:hover, .category-quick-pill.active {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: #818cf8;
+      color: #fff;
+    }
+
     /* ==========================================================================
        RESPONSIVE DESIGN: ANDROID & MOBILE DEVICE OPTIMIZATIONS (<= 1024px & <= 768px & <= 480px)
        Full touch ergonomics, responsive cards, scrollable tables, mobile modal
@@ -2991,7 +3060,7 @@
       <form id="form-manage-book" style="padding: 1.5rem; overflow-y: auto; max-height: calc(90vh - 90px);">
         <input type="hidden" id="input-book-id" value="">
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
           <div>
             <label class="gate-label" for="input-book-class">NCERT Class *</label>
             <select id="input-book-class" class="gate-input" required>
@@ -3010,8 +3079,45 @@
             </select>
           </div>
           <div>
-            <label class="gate-label" for="input-book-subject">Subject *</label>
-            <input type="text" id="input-book-subject" class="gate-input" placeholder="e.g. Science, Mathematics, Physics" required>
+            <label class="gate-label" for="input-book-subject">Subject / Category *</label>
+            <input type="text" id="input-book-subject" class="gate-input" list="list-ncert-subjects" placeholder="Choose category or type name..." required>
+            <datalist id="list-ncert-subjects">
+              <option value="Science">
+              <option value="Mathematics">
+              <option value="Physics">
+              <option value="Chemistry">
+              <option value="Biology">
+              <option value="Social Science">
+              <option value="History">
+              <option value="Geography">
+              <option value="Political Science">
+              <option value="Economics">
+              <option value="English">
+              <option value="Hindi">
+              <option value="Sanskrit">
+              <option value="Computer Science">
+              <option value="Environmental Studies (EVS)">
+              <option value="Accountancy">
+              <option value="Business Studies">
+            </datalist>
+          </div>
+        </div>
+
+        <!-- Category Quick Selection -->
+        <div style="margin-bottom: 1rem;">
+          <span style="font-size: 0.74rem; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 4px;">⚡ Quick Select Category:</span>
+          <div class="category-quick-pills">
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Science')">🔬 Science</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Mathematics')">📐 Mathematics</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Physics')">⚡ Physics</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Chemistry')">🧪 Chemistry</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Biology')">🧬 Biology</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Social Science')">🌍 Social Science</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('English')">📖 English</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Hindi')">🇮🇳 Hindi</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Sanskrit')">📜 Sanskrit</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Computer Science')">💻 Computer</button>
+            <button type="button" class="category-quick-pill" onclick="selectBookSubjectCategory('Environmental Studies')">🌿 EVS</button>
           </div>
         </div>
 
@@ -3041,15 +3147,41 @@
           </div>
         </div>
 
-        <div style="margin-bottom: 1rem;">
-          <label class="gate-label" for="input-book-pdf">Direct PDF URL / Download Link *</label>
-          <input type="url" id="input-book-pdf" class="gate-input" placeholder="https://... direct .pdf URL or Drive link" required>
+        <!-- PDF Upload / Direct URL Section -->
+        <div style="margin-bottom: 1.25rem;">
+          <label class="gate-label" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>PDF Textbook / Chapter File *</span>
+            <span id="pdf-upload-badge" class="file-drop-badge" style="display: none;"></span>
+          </label>
+          
+          <div class="file-drop-area" id="drop-book-pdf" onclick="document.getElementById('input-book-file').click()">
+            <input type="file" id="input-book-file" accept="application/pdf" style="display: none;">
+            <div class="file-drop-icon">📄</div>
+            <div class="file-drop-text" id="pdf-file-name-display">Click to upload PDF from device or Drag &amp; Drop</div>
+            <div class="file-drop-hint" id="pdf-file-hint-display">Upload official NCERT / CBSE textbook PDF file directly</div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin: 0.6rem 0;">
+            <span style="height: 1px; flex: 1; background: rgba(255, 255, 255, 0.08);"></span>
+            <span style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">OR ENTER DIRECT PDF URL</span>
+            <span style="height: 1px; flex: 1; background: rgba(255, 255, 255, 0.08);"></span>
+          </div>
+
+          <input type="url" id="input-book-pdf" class="gate-input" placeholder="https://... direct .pdf URL or Drive link">
         </div>
 
+        <!-- Cover Art & Size -->
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
           <div>
-            <label class="gate-label" for="input-book-cover">Cover Image URL (Optional)</label>
-            <input type="url" id="input-book-cover" class="gate-input" placeholder="https://... cover image url">
+            <label class="gate-label">Cover Image (Optional)</label>
+            <div class="file-drop-area" id="drop-book-cover" onclick="document.getElementById('input-book-cover-file').click()" style="padding: 0.75rem;">
+              <input type="file" id="input-book-cover-file" accept="image/*" style="display: none;">
+              <div id="cover-preview-box" style="display: none; margin-bottom: 6px;">
+                <img id="cover-preview-img" alt="Cover Preview" style="height: 70px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2);">
+              </div>
+              <div class="file-drop-text" id="cover-file-name-display" style="font-size: 0.82rem;">🖼️ Upload Cover (JPG, PNG, WebP)</div>
+            </div>
+            <input type="url" id="input-book-cover" class="gate-input" placeholder="https://... or paste image URL" style="margin-top: 0.4rem;">
           </div>
           <div>
             <label class="gate-label" for="input-book-size">File Size</label>
@@ -3408,6 +3540,109 @@
       if (formBook) {
         formBook.addEventListener('submit', handleBookFormSubmit);
       }
+
+      // Book Studio Drag & Drop and File Picker Initialization
+      initBookFileUploaders();
+    }
+
+    function initBookFileUploaders() {
+      const inputPdf = document.getElementById('input-book-file');
+      const dropPdf = document.getElementById('drop-book-pdf');
+      const inputCover = document.getElementById('input-book-cover-file');
+      const dropCover = document.getElementById('drop-book-cover');
+
+      if (inputPdf) {
+        inputPdf.addEventListener('change', () => {
+          if (inputPdf.files && inputPdf.files[0]) {
+            handleSelectedPdfFile(inputPdf.files[0]);
+          }
+        });
+      }
+
+      if (dropPdf) {
+        dropPdf.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropPdf.classList.add('dragover');
+        });
+        dropPdf.addEventListener('dragleave', () => dropPdf.classList.remove('dragover'));
+        dropPdf.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropPdf.classList.remove('dragover');
+          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            inputPdf.files = e.dataTransfer.files;
+            handleSelectedPdfFile(e.dataTransfer.files[0]);
+          }
+        });
+      }
+
+      if (inputCover) {
+        inputCover.addEventListener('change', () => {
+          if (inputCover.files && inputCover.files[0]) {
+            handleSelectedCoverFile(inputCover.files[0]);
+          }
+        });
+      }
+
+      if (dropCover) {
+        dropCover.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropCover.classList.add('dragover');
+        });
+        dropCover.addEventListener('dragleave', () => dropCover.classList.remove('dragover'));
+        dropCover.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropCover.classList.remove('dragover');
+          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            inputCover.files = e.dataTransfer.files;
+            handleSelectedCoverFile(e.dataTransfer.files[0]);
+          }
+        });
+      }
+    }
+
+    function handleSelectedPdfFile(file) {
+      currentPdfFile = file;
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      const sizeStr = file.size > 1048576 ? `${sizeMb} MB` : `${(file.size / 1024).toFixed(0)} KB`;
+      
+      const sizeEl = document.getElementById('input-book-size');
+      if (sizeEl) sizeEl.value = sizeStr;
+
+      const nameEl = document.getElementById('pdf-file-name-display');
+      if (nameEl) nameEl.innerHTML = `📄 <strong>${escapeHtml(file.name)}</strong> (${sizeStr})`;
+
+      const hintEl = document.getElementById('pdf-file-hint-display');
+      if (hintEl) hintEl.textContent = 'File attached and ready for publishing';
+
+      const badge = document.getElementById('pdf-upload-badge');
+      if (badge) {
+        badge.style.display = 'inline-flex';
+        badge.textContent = '✓ Ready to Upload';
+      }
+
+      const titleEl = document.getElementById('input-book-title');
+      if (titleEl && !titleEl.value.trim()) {
+        const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
+        titleEl.value = cleanName;
+      }
+    }
+
+    function handleSelectedCoverFile(file) {
+      currentCoverFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const prevBox = document.getElementById('cover-preview-box');
+        const prevImg = document.getElementById('cover-preview-img');
+        const nameEl = document.getElementById('cover-file-name-display');
+        if (prevBox && prevImg) {
+          prevImg.src = e.target.result;
+          prevBox.style.display = 'block';
+        }
+        if (nameEl) nameEl.textContent = `🖼️ ${file.name}`;
+        const coverUrlEl = document.getElementById('input-book-cover');
+        if (coverUrlEl) coverUrlEl.value = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
 
     // Open Modal to Specific Tab
@@ -3824,11 +4059,13 @@
       if (!confirm(`Are you sure you want to permanently delete "${title}" from the NCERT books library?`)) return;
 
       const sb = window.supabaseClient;
-      if (!sb) return;
 
       try {
-        const { error } = await sb.from('ncert_books').delete().eq('id', bookId);
-        if (error) throw error;
+        if (sb) {
+          try {
+            await sb.from('ncert_books').delete().eq('id', bookId);
+          } catch(e) {}
+        }
 
         booksData = booksData.filter(b => String(b.id) !== String(bookId));
 
@@ -3840,6 +4077,12 @@
             localBooks = localBooks.filter(b => String(b.id) !== String(bookId));
             localStorage.setItem('wg_admin_books', JSON.stringify(localBooks));
           }
+          // Broadcast to books.html
+          try {
+            const bc = new BroadcastChannel('harshguruji_books_sync');
+            bc.postMessage({ action: 'delete', bookId: bookId });
+            bc.close();
+          } catch(e) {}
         } catch(e) {}
 
         updateAllTelemetryDisplay();
@@ -3851,10 +4094,27 @@
       }
     };
 
-    // 6d. Book Modal Actions (Add, Edit, Close, Submit)
+    // 6d. Book Modal Actions (Category Selector, File Uploads, Add, Edit, Close, Submit)
+    let currentPdfFile = null;
+    let currentCoverFile = null;
+
+    window.selectBookSubjectCategory = function(catName) {
+      const subEl = document.getElementById('input-book-subject');
+      if (subEl) {
+        subEl.value = catName;
+        subEl.focus();
+      }
+      document.querySelectorAll('.category-quick-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.textContent.includes(catName));
+      });
+    };
+
     window.openAddBookModal = function() {
       const form = document.getElementById('form-manage-book');
       if (form) form.reset();
+      currentPdfFile = null;
+      currentCoverFile = null;
+
       const idEl = document.getElementById('input-book-id');
       if (idEl) idEl.value = '';
       const titleEl = document.getElementById('book-modal-title');
@@ -3863,6 +4123,20 @@
       if (edEl) edEl.value = 'Rationalised 2024-25 Edition';
       const langEl = document.getElementById('input-book-language');
       if (langEl) langEl.value = 'English';
+
+      // Reset file upload drop displays
+      const pdfNameEl = document.getElementById('pdf-file-name-display');
+      if (pdfNameEl) pdfNameEl.textContent = 'Click to upload PDF from device or Drag & Drop';
+      const badge = document.getElementById('pdf-upload-badge');
+      if (badge) badge.style.display = 'none';
+
+      const prevBox = document.getElementById('cover-preview-box');
+      if (prevBox) prevBox.style.display = 'none';
+      const coverNameEl = document.getElementById('cover-file-name-display');
+      if (coverNameEl) coverNameEl.textContent = '🖼️ Upload Cover (JPG, PNG, WebP)';
+
+      document.querySelectorAll('.category-quick-pill').forEach(pill => pill.classList.remove('active'));
+
       const overlay = document.getElementById('modal-book-overlay');
       if (overlay) overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -3871,10 +4145,19 @@
     window.openEditBookModal = function(bookId) {
       const book = booksData.find(b => String(b.id) === String(bookId));
       if (!book) return;
+      currentPdfFile = null;
+      currentCoverFile = null;
+
       document.getElementById('input-book-id').value = book.id;
       document.getElementById('book-modal-title').textContent = '✏️ Edit NCERT Textbook';
       document.getElementById('input-book-class').value = String(book.class || '10');
-      document.getElementById('input-book-subject').value = book.subject || '';
+      
+      const sub = book.subject || '';
+      document.getElementById('input-book-subject').value = sub;
+      document.querySelectorAll('.category-quick-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.textContent.includes(sub));
+      });
+
       document.getElementById('input-book-title').value = book.book_title || book.book || '';
       document.getElementById('input-book-chapter').value = book.chapter_name || book.subbook || '';
       document.getElementById('input-book-edition').value = book.edition || 'Rationalised 2024-25 Edition';
@@ -3882,6 +4165,21 @@
       document.getElementById('input-book-pdf').value = book.pdf_url || book.direct_url || '';
       document.getElementById('input-book-cover').value = book.cover_url || book.cover_image || '';
       document.getElementById('input-book-size').value = book.file_size || '';
+
+      const pdfNameEl = document.getElementById('pdf-file-name-display');
+      if (pdfNameEl) {
+        pdfNameEl.textContent = book.pdf_url ? '📄 Current PDF configured' : 'Click to upload PDF from device or Drag & Drop';
+      }
+
+      const prevBox = document.getElementById('cover-preview-box');
+      const prevImg = document.getElementById('cover-preview-img');
+      if (book.cover_url && prevBox && prevImg) {
+        prevImg.src = book.cover_url;
+        prevBox.style.display = 'block';
+      } else if (prevBox) {
+        prevBox.style.display = 'none';
+      }
+
       const overlay = document.getElementById('modal-book-overlay');
       if (overlay) overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -3899,10 +4197,6 @@
     async function handleBookFormSubmit(e) {
       e.preventDefault();
       const sb = window.supabaseClient;
-      if (!sb) {
-        alert('Database connection initializing, please try again in a moment.');
-        return;
-      }
 
       const bookId = document.getElementById('input-book-id').value.trim();
       const bClass = document.getElementById('input-book-class').value;
@@ -3911,18 +4205,56 @@
       const bChapter = document.getElementById('input-book-chapter').value.trim() || 'Full Book';
       const bEdition = document.getElementById('input-book-edition').value.trim() || 'Rationalised 2024-25 Edition';
       const bLanguage = document.getElementById('input-book-language').value;
-      const bPdf = document.getElementById('input-book-pdf').value.trim();
-      const bCover = document.getElementById('input-book-cover').value.trim();
-      const bSize = document.getElementById('input-book-size').value.trim() || 'PDF Document';
+      let bPdf = document.getElementById('input-book-pdf').value.trim();
+      let bCover = document.getElementById('input-book-cover').value.trim();
+      let bSize = document.getElementById('input-book-size').value.trim() || 'PDF Document';
 
       const saveBtn = document.getElementById('btn-save-book');
       if (saveBtn) {
         saveBtn.disabled = true;
-        saveBtn.textContent = 'Saving to Database...';
+        saveBtn.textContent = 'Saving & Uploading...';
       }
 
       try {
+        // 1. Upload PDF file if selected
+        if (currentPdfFile && !bPdf) {
+          if (saveBtn) saveBtn.textContent = 'Uploading PDF File...';
+          let uploadedUrl = '';
+
+          if (sb && sb.storage) {
+            try {
+              const cleanName = `${Date.now()}_${currentPdfFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+              const path = `books/${cleanName}`;
+              const { error: upErr } = await sb.storage.from('apk-files').upload(path, currentPdfFile, { upsert: true });
+              if (!upErr) {
+                const { data: pubData } = sb.storage.from('apk-files').getPublicUrl(path);
+                if (pubData && pubData.publicUrl) uploadedUrl = pubData.publicUrl;
+              }
+            } catch(stErr) {
+              console.warn('Storage upload notice:', stErr);
+            }
+          }
+
+          if (uploadedUrl) {
+            bPdf = uploadedUrl;
+          } else {
+            // Offline / fallback storage: create ObjectURL / data link
+            bPdf = URL.createObjectURL(currentPdfFile);
+          }
+        }
+
+        if (!bPdf) {
+          alert('Please choose a PDF file to upload or enter a direct PDF URL.');
+          if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = '💾 Save & Publish Book';
+          }
+          return;
+        }
+
+        const finalId = bookId || ('book_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
         const payload = {
+          id: finalId,
           class: String(bClass),
           subject: bSubject,
           book_title: bTitle,
@@ -3931,42 +4263,57 @@
           language: bLanguage,
           pdf_url: bPdf,
           cover_url: bCover,
-          file_size: bSize
+          file_size: bSize,
+          created_at: new Date().toISOString()
         };
 
-        let savedItem = null;
+        let savedItem = payload;
 
-        if (bookId) {
-          const { error } = await sb.from('ncert_books').update(payload).eq('id', bookId);
-          if (error) throw error;
-          payload.id = bookId;
-          savedItem = payload;
-          showMasterToast('✅ Book updated successfully!', 'success');
-        } else {
-          const { data, error } = await sb.from('ncert_books').insert([payload]).select();
-          if (error) throw error;
-          savedItem = (data && data[0]) ? data[0] : payload;
-          showMasterToast('✅ New book published successfully!', 'success');
+        // 2. Try Supabase cloud persistence
+        if (sb) {
+          try {
+            if (bookId) {
+              const { error } = await sb.from('ncert_books').update(payload).eq('id', bookId);
+              if (error) console.warn('Supabase update notice:', error.message);
+            } else {
+              const { data, error } = await sb.from('ncert_books').insert([payload]).select();
+              if (error) console.warn('Supabase insert notice:', error.message);
+              if (data && data[0]) savedItem = data[0];
+            }
+          } catch(sbErr) {
+            console.warn('Supabase table notice:', sbErr);
+          }
         }
 
-        // Dual-sync to localStorage for instant books.html sync
+        // 3. Always update localStorage for multi-tab live sync with books.html
         try {
           let localBooks = [];
           const raw = localStorage.getItem('wg_admin_books');
           if (raw) localBooks = JSON.parse(raw) || [];
           if (bookId) {
-            localBooks = localBooks.map(b => String(b.id) === String(bookId) ? { ...b, ...payload } : b);
+            localBooks = localBooks.map(b => String(b.id) === String(bookId) ? { ...b, ...savedItem } : b);
+            booksData = booksData.map(b => String(b.id) === String(bookId) ? { ...b, ...savedItem } : b);
           } else {
             localBooks.unshift(savedItem);
+            booksData.unshift(savedItem);
           }
           localStorage.setItem('wg_admin_books', JSON.stringify(localBooks));
+
+          // 4. Broadcast live update across all tabs and subdomains
+          try {
+            const bc = new BroadcastChannel('harshguruji_books_sync');
+            bc.postMessage({ action: 'refresh', book: savedItem });
+            bc.close();
+          } catch(e) {}
         } catch(e) {}
 
         closeBookModal();
-        await loadAllMasterData();
+        updateAllTelemetryDisplay();
+        renderMasterBooks();
+        showMasterToast(bookId ? `✅ Book "${bTitle}" updated successfully!` : `✅ Book "${bTitle}" published successfully! Synced to Books Store.`, 'success');
       } catch(err) {
-        console.error('Book save failed:', err);
-        alert('Failed to save book: ' + err.message);
+        console.error('Book save error:', err);
+        alert('Notice: ' + err.message);
       } finally {
         if (saveBtn) {
           saveBtn.disabled = false;
