@@ -16,6 +16,19 @@
   overflow-x: hidden;
 }
 
+/* Footer brand logo - responsive size */
+.hg-footer-brand a img {
+  height: 36px !important;
+  width: auto !important;
+}
+.hg-footer-brand a span {
+  font-size: 1.25rem !important;
+}
+@media (max-width: 480px) {
+  .hg-footer-brand a img { height: 30px !important; }
+  .hg-footer-brand a span { font-size: 1.1rem !important; }
+}
+
 .hg-footer-grid { 
   display: grid; 
   grid-template-columns: 1fr; 

@@ -1,0 +1,20 @@
+jo footer me logo hai last me sab se niche HARSHGURUJI BOOKS ke pahele wala nahi lest footer ke niche oo auto big size me hai size small karo aur ye se jitni bhi problem hai sab ko solve karo 
+ye se koi bhi bugs nahi aani chhaiye sab kuch ek baar check kar lo 
+aur phir agar kuch mila problem toh fix karo otherwise ek aur kaam karo 
+
+
+
+
+jitne bhi pdf hai mobile responsive nahi hai unko mobile responsive  bhi banao 
+aur sabhi pdf me bas ek hi chatper mention hai puri book ko download karke published karo 
+koi bhi chaper chutna na chahiye
+
+sab books read online support nahi kar rahi sab solve karo
+user books ke full chaper ko online dekh sakta hai download kar sakta hai .
+
+
+
+
+
+jo footer me admin wala page add kiye ho usko sabhi folders ke file me kar dena
+store,chatbase(if),books,site(main folder)
