@@ -2131,7 +2131,7 @@
         </div>
 
         <!-- TILE: NCERT BOOKS STUDIO -->
-        <div class="stat-tile tile-books" id="tile-books-studio" role="button" tabindex="0" title="Click to open Books Management Studio" onclick="window.location.href='adminbooks.html'">
+        <div class="stat-tile tile-books" id="tile-books-studio" role="button" tabindex="0" title="Click to open Books Management Studio" onclick="openMasterModal('books')">
           <div class="stat-top">
             <span class="stat-title">
               <span>NCERT Library</span>
@@ -2177,11 +2177,11 @@
             </ul>
           </div>
           <div class="card-btn-group">
-            <a href="adminbooks.html" class="card-action-btn">
+            <button type="button" class="card-action-btn" onclick="openMasterModal('books')">
               <span>Launch Books Studio</span>
               <span>&rarr;</span>
-            </a>
-            <a href="books.html" target="_blank" class="card-action-btn-secondary" title="View Public Books Hub">
+            </button>
+            <a href="https://books.webguruji.online" target="_blank" class="card-action-btn-secondary" title="View Public Books Hub">
               <span>Live Books ↗</span>
             </a>
           </div>
@@ -2486,6 +2486,11 @@
           <span>Store Applications</span>
           <span class="tab-pill" id="mpill-store">0</span>
         </button>
+        <button type="button" class="master-tab-btn" data-tab="books" id="mtab-books">
+          <span>📚</span>
+          <span>NCERT Books</span>
+          <span class="tab-pill" id="mpill-books" style="background:rgba(99,102,241,0.25); color:#a5b4fc; border:1px solid rgba(99,102,241,0.4);">0</span>
+        </button>
         <button type="button" class="master-tab-btn" data-tab="messages" id="mtab-messages">
           <span>💬</span>
           <span>User Inquiries</span>
@@ -2539,6 +2544,51 @@
               </thead>
               <tbody id="store-apps-tbody">
                 <tr><td colspan="6" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading live store applications...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE: NCERT BOOKS & CHAPTERS -->
+        <div class="tab-pane" id="pane-books">
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-master-books" placeholder="Search NCERT books by title, chapter, subject, class...">
+            </div>
+            <div class="pane-filters" id="filters-books-class">
+              <button type="button" class="filter-chip active" data-class="ALL">All Classes</button>
+              <button type="button" class="filter-chip" data-class="12">Class 12</button>
+              <button type="button" class="filter-chip" data-class="11">Class 11</button>
+              <button type="button" class="filter-chip" data-class="10">Class 10</button>
+              <button type="button" class="filter-chip" data-class="9">Class 9</button>
+              <button type="button" class="filter-chip" data-class="8">Class 8</button>
+              <button type="button" class="filter-chip" data-class="7">Class 7</button>
+              <button type="button" class="filter-chip" data-class="6">Class 6</button>
+            </div>
+            <a href="adminbooks.html" target="_blank" class="btn-action-primary">
+              <span>➕ Launch Books Studio</span>
+            </a>
+            <a href="https://books.webguruji.online" target="_blank" rel="noopener noreferrer" class="btn-action-outline">
+              <span>Live Books ↗</span>
+            </a>
+          </div>
+
+          <div class="master-table-card">
+            <table class="master-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">Cover</th>
+                  <th>Book Title &amp; Chapter</th>
+                  <th>Class</th>
+                  <th>Subject</th>
+                  <th>Edition &amp; Language</th>
+                  <th>PDF Preview</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="master-books-tbody">
+                <tr><td colspan="7" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading live NCERT textbooks...</td></tr>
               </tbody>
             </table>
           </div>
@@ -2665,6 +2715,7 @@
 
     // Application Master State
     let storeAppsData = [];
+    let booksData = [];
     let messagesData = [];
     let contributorsData = [];
     let usersData = [];
@@ -2672,6 +2723,7 @@
     // Filter states
     let currentMasterTab = 'store';
     let storeCatFilter = 'ALL';
+    let booksClassFilter = 'ALL';
     let messagesFilter = 'ALL';
     let contribFilter = 'ALL';
     let userFilter = 'ALL';
@@ -2911,6 +2963,20 @@
       const searchApps = document.getElementById('search-store-apps');
       if (searchApps) searchApps.addEventListener('input', renderStoreApps);
 
+      // Filter Chips - NCERT Books Class
+      document.querySelectorAll('#filters-books-class .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#filters-books-class .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          booksClassFilter = chip.dataset.class || 'ALL';
+          renderMasterBooks();
+        });
+      });
+
+      // Search - NCERT Books
+      const searchBooks = document.getElementById('search-master-books');
+      if (searchBooks) searchBooks.addEventListener('input', renderMasterBooks);
+
       // Filter Chips - Messages
       document.querySelectorAll('#filters-messages-status .filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {
@@ -2964,7 +3030,7 @@
       document.body.style.overflow = 'hidden';
 
       // If data is empty, trigger fetch
-      if (storeAppsData.length === 0 && messagesData.length === 0 && usersData.length === 0) {
+      if (storeAppsData.length === 0 && booksData.length === 0 && messagesData.length === 0 && usersData.length === 0) {
         loadAllMasterData();
       }
     };
@@ -3001,6 +3067,10 @@
         if (iconEl) iconEl.textContent = '🎮';
         if (titleEl) titleEl.textContent = 'Store Applications Catalog';
         if (subEl) subEl.textContent = 'Manage live APKs, games & software, inspect store pages, edit or delete.';
+      } else if (tabName === 'books') {
+        if (iconEl) iconEl.textContent = '📚';
+        if (titleEl) titleEl.textContent = 'NCERT Books & Material Studio';
+        if (subEl) subEl.textContent = 'Manage textbooks, chapters, PDFs & covers synced with books.webguruji.online';
       } else if (tabName === 'messages') {
         if (iconEl) iconEl.textContent = '💬';
         if (titleEl) titleEl.textContent = 'User Inquiries & Messages Desk';
@@ -3031,8 +3101,9 @@
       const sb = await waitForSupabase();
 
       try {
-        const [appsRes, msgRes, contribRes, usersRes] = await Promise.allSettled([
+        const [appsRes, booksRes, msgRes, contribRes, usersRes] = await Promise.allSettled([
           sb.from('store_apps').select('*').order('created_at', { ascending: false }),
+          sb.from('ncert_books').select('*').order('created_at', { ascending: false }),
           sb.from('contact_messages').select('*').order('created_at', { ascending: false }),
           sb.from('contributors').select('*').order('created_at', { ascending: false }),
           sb.from('profiles').select('*').order('created_at', { ascending: false })
@@ -3040,6 +3111,9 @@
 
         if (appsRes.status === 'fulfilled' && appsRes.value.data) {
           storeAppsData = appsRes.value.data;
+        }
+        if (booksRes.status === 'fulfilled' && booksRes.value.data) {
+          booksData = booksRes.value.data;
         }
         if (msgRes.status === 'fulfilled' && msgRes.value.data) {
           messagesData = msgRes.value.data;
@@ -3053,6 +3127,7 @@
 
         updateAllTelemetryDisplay();
         renderStoreApps();
+        renderMasterBooks();
         renderMessages();
         renderContributors();
         renderUsers();
@@ -3075,6 +3150,13 @@
       document.getElementById('stat-apps-count').textContent = totalApps;
       const mpillStore = document.getElementById('mpill-store');
       if (mpillStore) mpillStore.textContent = totalApps;
+
+      // 1b. NCERT Books Counts
+      const totalBooks = booksData.length;
+      const statBooks = document.getElementById('stat-books-count');
+      if (statBooks) statBooks.textContent = `${totalBooks} Books`;
+      const mpillBooks = document.getElementById('mpill-books');
+      if (mpillBooks) mpillBooks.textContent = totalBooks;
 
       // 2. User Inquiries Counts
       const totalMessages = messagesData.length;
@@ -3265,6 +3347,106 @@
       } catch (err) {
         console.error("Delete store app failed:", err);
         alert("Failed to delete application: " + err.message);
+      }
+    };
+
+    // 6b. Render NCERT Books in Master Control
+    function renderMasterBooks() {
+      const tbody = document.getElementById('master-books-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-master-books')?.value || '').toLowerCase().trim();
+
+      let list = booksData.filter(b => {
+        if (booksClassFilter !== 'ALL') {
+          if (String(b.class) !== String(booksClassFilter)) return false;
+        }
+
+        if (searchTerm) {
+          const title = (b.book_title || b.book || '').toLowerCase();
+          const subject = (b.subject || '').toLowerCase();
+          const subbook = (b.chapter_name || b.subbook || '').toLowerCase();
+          const bClass = String(b.class || '').toLowerCase();
+          return title.includes(searchTerm) || subject.includes(searchTerm) || subbook.includes(searchTerm) || bClass.includes(searchTerm);
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">No NCERT textbooks found matching filter criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(b => {
+        const title = b.book_title || b.book || 'NCERT Textbook';
+        const chapter = b.chapter_name || b.subbook || 'Full Book';
+        const cover = b.cover_url || b.cover_image || 'logo.png';
+        const bClass = b.class || '10';
+        const subject = b.subject || 'General';
+        const edition = b.edition || 'Latest Edition';
+        const lang = b.language || 'English';
+        const pdf = b.pdf_url || b.direct_url || '';
+
+        return `
+          <tr>
+            <td>
+              <img src="${escapeHtml(cover)}" alt="Cover" style="width: 38px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border);" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='logo.png';">
+            </td>
+            <td>
+              <div style="font-weight: 600; color: #fff; font-size: 0.95rem;">${escapeHtml(title)}</div>
+              <div class="entity-sub" style="color: #94a3b8; font-size: 0.8rem;">${escapeHtml(chapter)}</div>
+            </td>
+            <td>
+              <span class="status-pill active" style="font-weight: 700; background: rgba(99,102,241,0.18); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.35);">Class ${escapeHtml(bClass)}</span>
+            </td>
+            <td>
+              <span style="font-weight: 600; color: #f3f4f6;">${escapeHtml(subject)}</span>
+            </td>
+            <td>
+              <div style="font-size: 0.85rem; color: #d1d5db;">${escapeHtml(edition)}</div>
+              <div class="entity-sub" style="font-size: 0.78rem;">${escapeHtml(lang)}</div>
+            </td>
+            <td>
+              ${pdf ? `
+                <a href="${escapeHtml(pdf)}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 4px; font-weight: 500;">
+                  <span>📄 Open PDF</span>
+                  <span style="font-size: 0.75rem;">↗</span>
+                </a>
+              ` : `<span style="color: var(--text-muted); font-size: 0.8rem;">No PDF</span>`}
+            </td>
+            <td style="text-align: right;">
+              <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center;">
+                <a href="adminbooks.html" target="_blank" class="btn-action-primary" title="Edit or Manage in Books Studio" style="text-decoration: none; font-size: 0.8rem; padding: 4px 10px;">
+                  <span>Studio ↗</span>
+                </a>
+                <button type="button" class="btn-action-danger" onclick="deleteMasterBook('${b.id}', '${escapeJs(title)}')" title="Permanently delete textbook from library" style="padding: 4px 8px;">
+                  <span>🗑</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 6c. Delete Master Book Controller
+    window.deleteMasterBook = async function(bookId, title) {
+      if (!confirm(`Are you sure you want to permanently delete "${title}" from the NCERT books library?`)) return;
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb.from('ncert_books').delete().eq('id', bookId);
+        if (error) throw error;
+
+        booksData = booksData.filter(b => String(b.id) !== String(bookId));
+        updateAllTelemetryDisplay();
+        renderMasterBooks();
+        showMasterToast(`Book "${title}" deleted successfully.`, "info");
+      } catch (err) {
+        console.error("Delete book failed:", err);
+        alert("Failed to delete book: " + err.message);
       }
     };
 
