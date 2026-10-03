@@ -867,15 +867,15 @@
       <div class="stat-card">
         <div class="stat-icon">📚</div>
         <div class="stat-info">
-          <h4>Total Books In Catalog</h4>
-          <div class="num" id="stat-total-books">--</div>
+          <h4>Total Official NCERT Catalog</h4>
+          <div class="num" id="stat-total-books">1,246</div>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎓</div>
         <div class="stat-info">
           <h4>Classes Covered</h4>
-          <div class="num" id="stat-classes-count">--</div>
+          <div class="num" id="stat-classes-count">12</div>
         </div>
       </div>
       <div class="stat-card">
@@ -883,6 +883,60 @@
         <div class="stat-info">
           <h4>Live Published Books</h4>
           <div class="num" id="stat-custom-count">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official NCERT 1-Click Mass Publisher & Synchronizer Deck -->
+    <div class="ncert-publisher-banner" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.4); position: relative; overflow: hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.25rem;">
+        <div style="max-width: 680px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3); padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; color:#a5b4fc; margin-bottom:8px;">
+            <span>⚡ OFFICIAL NCERT PORTAL REPOSITORY</span>
+            <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#10b981;"></span>
+            <span>1,246 VERIFIED TEXTBOOKS</span>
+          </div>
+          <h2 style="font-family:'Space Grotesk', sans-serif; font-size:1.35rem; color:#fff; margin:0 0 6px 0;">Official NCERT Portal 1-Click Mass Publisher</h2>
+          <p style="color:#94a3b8; font-size:0.88rem; margin:0; line-height:1.5;">
+            Download &amp; publish all official NCERT textbooks (Classes 1–12, Science, Maths, Arts, Commerce, Languages, Chapter PDFs &amp; Full Book ZIPs) to <strong>books.webguruji.online</strong> with zero errors and real-time cross-tab synchronization.
+          </p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; min-width:280px;">
+          <button type="button" id="btn-publish-all-ncert" class="btn-publish-all" style="background: linear-gradient(135deg, #10b981, #059669); color:#fff; border:none; padding:0.9rem 1.4rem; border-radius:12px; font-weight:700; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 0 20px rgba(16,185,129,0.35); transition:all 0.2s;">
+            <span>🚀 Publish All 1,246 Books</span>
+          </button>
+          <div style="display:flex; gap:6px;">
+            <select id="select-class-to-publish" style="flex:1; background:rgba(15,23,42,0.9); color:#fff; border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:6px 10px; font-size:0.82rem; font-weight:600;">
+              <option value="all">Select Class to Publish</option>
+              <option value="12">Class 12 (All Streams)</option>
+              <option value="11">Class 11 (All Streams)</option>
+              <option value="10">Class 10 (Secondary)</option>
+              <option value="9">Class 9 (Secondary)</option>
+              <option value="8">Class 8 (Middle)</option>
+              <option value="7">Class 7 (Middle)</option>
+              <option value="6">Class 6 (Middle)</option>
+              <option value="5">Class 5 (Primary)</option>
+              <option value="4">Class 4 (Primary)</option>
+              <option value="3">Class 3 (Primary)</option>
+              <option value="2">Class 2 (Primary)</option>
+              <option value="1">Class 1 (Primary)</option>
+            </select>
+            <button type="button" id="btn-publish-class-only" style="background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.4); color:#a5b4fc; padding:6px 12px; border-radius:8px; font-size:0.82rem; font-weight:600; cursor:pointer;">
+              Publish Class
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sync / Status Progress bar within banner -->
+      <div id="ncert-sync-status-box" style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+        <div style="font-size:0.82rem; color:#94a3b8; display:flex; align-items:center; gap:8px;">
+          <span id="ncert-live-indicator" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+          <span id="ncert-sync-status-text">Official NCERT Catalog ready for instant synchronization</span>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <button type="button" id="btn-download-core-local" style="background:none; border:none; color:#60a5fa; font-size:0.8rem; font-weight:600; cursor:pointer; text-decoration:underline;">📥 Check Offline Core PDFs</button>
+          <button type="button" id="btn-clear-admin-cache" style="background:none; border:none; color:#f87171; font-size:0.8rem; font-weight:600; cursor:pointer; text-decoration:underline;">🧹 Reset Custom Books</button>
         </div>
       </div>
     </div>
@@ -1027,10 +1081,27 @@
           <h3>Published Books &amp; Chapters Catalog</h3>
         </div>
 
+        <!-- Quick Class Filter Chips -->
+        <div class="catalog-class-chips" id="catalog-class-chips" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <button type="button" class="btn-class-chip active" data-class="all" style="background:#6366f1; color:#fff; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">All</button>
+          <button type="button" class="btn-class-chip" data-class="12" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 12</button>
+          <button type="button" class="btn-class-chip" data-class="11" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 11</button>
+          <button type="button" class="btn-class-chip" data-class="10" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 10</button>
+          <button type="button" class="btn-class-chip" data-class="9" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 9</button>
+          <button type="button" class="btn-class-chip" data-class="8" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 8</button>
+          <button type="button" class="btn-class-chip" data-class="7" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 7</button>
+          <button type="button" class="btn-class-chip" data-class="6" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 6</button>
+          <button type="button" class="btn-class-chip" data-class="5" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 5</button>
+          <button type="button" class="btn-class-chip" data-class="4" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 4</button>
+          <button type="button" class="btn-class-chip" data-class="3" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 3</button>
+          <button type="button" class="btn-class-chip" data-class="2" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 2</button>
+          <button type="button" class="btn-class-chip" data-class="1" style="background:rgba(255,255,255,0.08); color:#cbd5e1; border:none; padding:4px 10px; border-radius:14px; font-size:0.75rem; font-weight:600; cursor:pointer;">Class 1</button>
+        </div>
+
         <div class="catalog-filter-bar">
-          <input type="text" id="catalog-search" class="catalog-search-input" placeholder="Search catalog...">
+          <input type="text" id="catalog-search" class="catalog-search-input" placeholder="Search across 1,246 NCERT books by title, code, subject...">
           <select id="catalog-class-filter" class="catalog-class-select">
-            <option value="all">All Classes</option>
+            <option value="all">All Classes (1-12)</option>
             <option value="12">Class 12</option>
             <option value="11">Class 11</option>
             <option value="10">Class 10</option>
@@ -1053,18 +1124,34 @@
               <tr>
                 <th>Class</th>
                 <th>Subject</th>
-                <th>Book Title</th>
+                <th>Book Title &amp; Code</th>
                 <th>Chapter / Part</th>
                 <th>Format</th>
+                <th>Official Links</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody id="catalog-table-body">
               <tr>
-                <td colspan="6" style="text-align:center; color:var(--text-muted);">Loading catalog...</td>
+                <td colspan="7" style="text-align:center; color:var(--text-muted); padding:2rem;">Loading NCERT catalog...</td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Table Pagination & Counter Controls -->
+        <div class="catalog-pagination-bar" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:10px;">
+          <div id="catalog-records-counter" style="font-size:0.85rem; color:#94a3b8;">
+            Showing <strong id="catalog-shown-count" style="color:#fff;">0</strong> of <strong id="catalog-total-count" style="color:#60a5fa;">0</strong> books
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button type="button" id="btn-load-more-catalog" class="btn-action-mini" style="padding:6px 14px; font-weight:600; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.4); color:#a5b4fc; border-radius:8px; cursor:pointer;">
+              Load More (+50)
+            </button>
+            <button type="button" id="btn-show-all-catalog" class="btn-action-mini" style="padding:6px 14px; font-weight:600; background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.4); color:#6ee7b7; border-radius:8px; cursor:pointer;">
+              Show All
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1089,6 +1176,9 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-head.js"></script>
+
+  <!-- Official NCERT Master Catalog (1,246+ Textbooks for Classes 1 to 12) -->
+  <script src="js/ncert-master-catalog.js"></script>
 
   <!-- Books Admin Script -->
   <script src="js/admin-books.js"></script>

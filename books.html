@@ -983,17 +983,42 @@
           <span id="pdf-modal-book-title">Reading NCERT Book</span>
         </div>
         <div class="pdf-modal-ctrls">
-          <a href="#" id="pdf-modal-newtab" target="_blank" rel="noopener noreferrer" class="pdf-modal-btn" title="Open in New Tab">
-            ↗ Open Tab
+          <div class="pdf-modal-chapter-wrap" style="display:flex; align-items:center; gap:6px;">
+            <label for="pdf-modal-chapter-select" style="font-size:0.78rem; color:#94a3b8; font-weight:600;">Chapter:</label>
+            <select id="pdf-modal-chapter-select" class="pdf-modal-select" style="background:#0f172a; color:#fff; border:1px solid rgba(255,255,255,0.18); border-radius:8px; padding:4px 8px; font-size:0.8rem; font-weight:600; cursor:pointer; outline:none;">
+              <option value="1">Chapter 1</option>
+            </select>
+          </div>
+          <a href="#" id="pdf-modal-newtab" target="_blank" rel="noopener noreferrer" class="pdf-modal-btn" title="Open Full HD Reader in New Tab">
+            🚀 Fullscreen Stream
           </a>
-          <a href="#" id="pdf-modal-download" download class="pdf-modal-btn" title="Direct Download PDF">
-            ⬇ Download
+          <a href="#" id="pdf-modal-download" download class="pdf-modal-btn" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #6ee7b7;" title="Direct Download Chapter PDF">
+            ⬇ Chapter PDF
+          </a>
+          <a href="#" id="pdf-modal-zip" download class="pdf-modal-btn" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;" title="Download Complete Official Book ZIP">
+            📦 Full Book (.ZIP)
           </a>
           <button type="button" class="pdf-modal-close" id="pdf-modal-close" aria-label="Close Reader">&times;</button>
         </div>
       </div>
-      <div class="pdf-frame-wrap">
-        <iframe id="pdf-viewer-frame" src="about:blank" title="NCERT Book PDF Reader" allowfullscreen></iframe>
+      <div class="pdf-frame-wrap" id="pdf-frame-wrap">
+        <iframe id="pdf-viewer-frame" src="about:blank" title="NCERT Book PDF Reader" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        <div id="pdf-fallback-banner" style="display:none; position:absolute; inset:0; background:#0b0f19; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; gap:1.2rem; z-index:10;">
+          <div style="font-size:3.2rem;">📚</div>
+          <h3 id="fallback-book-heading" style="color:#fff; font-size:1.3rem; margin:0;">Official NCERT Digital Stream</h3>
+          <p id="fallback-book-desc" style="color:#94a3b8; max-width:550px; font-size:0.92rem; margin:0; line-height:1.5;">This official NCERT textbook chapter is ready for live reading and instant offline download.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:0.5rem;">
+            <a href="#" id="fallback-btn-read" target="_blank" rel="noopener noreferrer" class="btn-book-read" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none;">
+              🚀 Open Fullscreen Live Reader
+            </a>
+            <a href="#" id="fallback-btn-download" download class="btn-book-download" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none; background:rgba(16,185,129,0.2); border-color:rgba(16,185,129,0.5); color:#6ee7b7;">
+              ⬇ Download Chapter PDF
+            </a>
+            <a href="#" id="fallback-btn-zip" download class="btn-book-download" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none; background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a;">
+              📦 Download Full Book (.ZIP)
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1008,6 +1033,9 @@
   <script src="navbar-premium.js"></script>
   <script src="footer-premium.js"></script>
   <script src="cookie.js" defer></script>
+
+  <!-- Official NCERT Master Catalog (1,246+ Textbooks for Classes 1 to 12) -->
+  <script src="js/ncert-master-catalog.js"></script>
 
   <!-- Books Logic Engine -->
   <script src="js/books-engine.js"></script>
