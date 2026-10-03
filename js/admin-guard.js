@@ -1,10 +1,11 @@
 /**
  * HarshGuruJi Master Admin Security Guard
- * Enforces strict 2-Step Verification from admin.html
+ * Enforces strict 2-Step Verification from admin.html of site
  * 1. Step 1: harshguruji01@gmail.com
  * 2. Step 2: 2547277654
  * 
- * Direct URL access to this page without completing 2-Step Verification on admin.html is strictly forbidden.
+ * Direct URL access to ANY admin page without completing 2-Step Verification on admin.html is strictly denied permission.
+ * ONLY admin.html of the main site can grant permission.
  */
 (function () {
   'use strict';
@@ -29,7 +30,7 @@
   }
 
   if (!isVerified()) {
-    // 1. Immediately hide the entire page DOM so no admin content is visible or leaked
+    // 1. Immediately hide the entire page DOM before any element renders
     if (document.documentElement) {
       document.documentElement.style.display = 'none';
     }
@@ -45,10 +46,14 @@
       sessionStorage.removeItem('hg_master_admin_authenticated');
     } catch (e) {}
 
-    // 3. Block direct URL access and redirect immediately to public site (index.html)
-    window.location.replace('index.html');
+    // 3. Deny permission and redirect immediately to Master admin.html
+    try {
+      alert("⛔ Access Denied — Permission Denied\n\nAdministrative controls can ONLY be accessed through the Master Admin Command Center (admin.html) after completing 2-Step Identity Verification.\n\nRedirecting to Master Admin (admin.html)...");
+    } catch (e) {}
+
+    window.location.replace('admin.html');
   } else {
-    // Authorized: Ensure all sub-page specific keys are populated for seamless operation
+    // Authorized: Populate sub-page specific keys for seamless operation
     try {
       sessionStorage.setItem('admin_chatbase_auth', 'true');
       sessionStorage.setItem('admin_contacts_auth', 'true');
