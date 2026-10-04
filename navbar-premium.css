@@ -172,6 +172,75 @@
   margin: 0.5rem 0;
 }
 
+/* --- DEDICATED BOOKS & STORE NAVIGATION ENHANCEMENTS --- */
+.hg-dropdown-classes {
+  min-width: 290px;
+  padding: 0.75rem;
+}
+.hg-classes-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #a5b4fc;
+  margin: 4px 4px 6px;
+}
+.hg-classes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+.hg-classes-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.hg-classes-grid .hg-dropdown-link,
+.hg-classes-grid-4 .hg-dropdown-link {
+  padding: 0.45rem 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.hg-classes-grid .hg-dropdown-link:hover,
+.hg-classes-grid-4 .hg-dropdown-link:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Mobile Classes pills grid in mobile drawer */
+.hg-mobile-classes-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0.75rem 0.25rem;
+}
+.hg-mobile-class-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.hg-mobile-class-btn:hover, .hg-mobile-class-btn:active {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.5);
+  color: #ffffff;
+}
+
 /* Bridge for hover */
 .hg-has-dropdown::after, .hg-user-menu::after {
   content: '';
@@ -621,7 +690,7 @@
 /* --- RESPONSIVE BREAKPOINTS (Mobile & Tablet: <= 1024px) --- */
 @media (max-width: 1024px) {
   .hg-desktop-nav { display: none; }
-  .hg-hamburger { display: none !important; }
+  .hg-hamburger { display: flex !important; }
 
   /* Hide top navbar user profile dropdown on mobile/tablet (<= 1024px) */
   .hg-user-menu, #hg-user-profile {
