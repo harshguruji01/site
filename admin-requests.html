@@ -1,19 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-  <script src="js/admin-guard.js"></script>
-  
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=admincontributors.html">
-  <title>Redirecting to Contributor Management...</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>403 Access Restricted — HarshGuruJi</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #070913;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .denied-card {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(239, 68, 68, 0.2);
+    }
+    .icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: #f87171;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      transform: translateY(-2px);
+    }
+  </style>
   <script>
-    window.location.replace("admincontributors.html" + window.location.search);
+    // Immediate Secure Redirect to Master Admin Panel
+    (function() {
+      try {
+        sessionStorage.clear();
+      } catch(e) {}
+      setTimeout(function() {
+        window.location.replace('admin.html?from=messages');
+      }, 1000);
+    })();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
 </head>
-<body style="background:#090d16; color:#9ca3af; font-family:sans-serif; text-align:center; padding-top:4rem;">
-  <p>Redirecting to <a href="admincontributors.html" style="color:#6366f1;">Admin Contributor Management Panel</a>...</p>
+<body>
+  <div class="denied-card">
+    <div class="icon">🔒</div>
+    <h1>403 — Access Restricted</h1>
+    <p>Individual administration sub-pages are locked down for security. User feature suggestions and app requests are exclusively managed inside the Master Admin Panel at <strong>admin.html</strong>.<br><br>Redirecting to Master Admin Panel...</p>
+    <a href="admin.html?from=messages" class="btn">Proceed to Master Admin Panel &rarr;</a>
+  </div>
 </body>
 </html>

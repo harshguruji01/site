@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="same-origin">
-  <title>Master Admin Command Center | HarshGuruJi</title>
+  <title> Admin Panel - HarshGuruJi</title>
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2323,14 +2323,13 @@
         </button>
       </div>
 
-      <!-- Cross-Admin Hub Navigation Pills -->
+      <!-- Cross-Admin Hub Navigation Pills (Centralized Control) -->
       <nav class="cross-admin-pills" aria-label="Admin Sections">
-        <a href="admin.html" class="pill-link active">⚡ Master Admin</a>
-        <a href="adminbooks.html" class="pill-link">📚 Books Studio</a>
-        <a href="adminapkupload.html" class="pill-link">📦 Store Admin</a>
-        <a href="admin-chatbase.html" class="pill-link">💬 ChatBase AI</a>
-        <a href="admin-contacts.html" class="pill-link">📬 Contacts</a>
-        <a href="admincontributors.html" class="pill-link">👥 Contributors</a>
+        <button type="button" class="pill-link active" onclick="switchMasterTab('store'); openMasterModal('store');">🎮 Store Studio</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('books'); openMasterModal('books');">📚 Books Studio</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('messages'); openMasterModal('messages');">📬 User Inquiries</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('contributors'); openMasterModal('contributors');">👥 Contributors</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('goldentick'); openMasterModal('goldentick');">⭐ Golden Tick Users</button>
         <a href="books.html" class="pill-link" target="_blank">📖 Live Books ↗</a>
         <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
         <a href="index.html" class="pill-link" target="_blank">🌐 Live Site ↗</a>
@@ -2370,10 +2369,10 @@
 
           <!-- Hero Quick Launch Action Strip -->
           <div class="hero-quick-actions" aria-label="Quick Action Buttons">
-            <a href="adminbooks.html" class="hero-quick-btn" style="text-decoration:none;">
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('books')">
               <span>📚</span>
               <span>Books Studio</span>
-            </a>
+            </button>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
               <span>🎮</span>
               <span>Store Apps Suite</span>
@@ -2390,10 +2389,10 @@
               <span>⭐</span>
               <span>Golden Ticks</span>
             </button>
-            <a href="adminapkupload.html" class="hero-quick-btn primary">
+            <button type="button" class="hero-quick-btn primary" onclick="openAppPublishModal()">
               <span>➕</span>
-              <span>Upload New APK</span>
-            </a>
+              <span>Publish APK</span>
+            </button>
           </div>
         </div>
       </section>
@@ -2556,12 +2555,12 @@
             </ul>
           </div>
           <div class="card-btn-group">
-            <a href="adminapkupload.html" class="card-action-btn">
-              <span>Launch Store APK Manager</span>
+            <button type="button" class="card-action-btn" onclick="openMasterModal('store')">
+              <span>Open Store APK Manager</span>
               <span>&rarr;</span>
-            </a>
-            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('store')" title="Quick View Store Table">
-              <span>Quick Table ⚡</span>
+            </button>
+            <button type="button" class="card-action-btn-secondary" onclick="openAppPublishModal()" title="Publish New APK / App">
+              <span>➕ Publish APK</span>
             </button>
           </div>
         </article>
@@ -2585,10 +2584,10 @@
             </ul>
           </div>
           <div class="card-btn-group">
-            <a href="admin-contacts.html" class="card-action-btn">
+            <button type="button" class="card-action-btn" onclick="openMasterModal('messages')">
               <span>Open Messages &amp; Reply Desk</span>
               <span>&rarr;</span>
-            </a>
+            </button>
             <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('messages')" title="Quick View Inquiries Table">
               <span>Quick Table ⚡</span>
             </button>
@@ -2614,12 +2613,12 @@
             </ul>
           </div>
           <div class="card-btn-group">
-            <a href="admincontributors.html" class="card-action-btn">
-              <span>Manage Contributors &amp; Ticks</span>
+            <button type="button" class="card-action-btn" onclick="openMasterModal('contributors')">
+              <span>Manage Contributors</span>
               <span>&rarr;</span>
-            </a>
-            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('contributors')" title="Quick View Contributors Table">
-              <span>Quick Table ⚡</span>
+            </button>
+            <button type="button" class="card-action-btn-secondary" onclick="openMasterModal('goldentick')" title="Quick View Golden Ticks">
+              <span>Golden Ticks ⭐</span>
             </button>
           </div>
         </article>
@@ -2643,10 +2642,10 @@
             </ul>
           </div>
           <div class="card-btn-group">
-            <a href="admin-chatbase.html" class="card-action-btn">
-              <span>Open Chatbase Console</span>
+            <button type="button" class="card-action-btn" onclick="openMasterModal('goldentick')">
+              <span>Manage User Access &amp; Ticks</span>
               <span>&rarr;</span>
-            </a>
+            </button>
             <a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer" class="card-action-btn-secondary" title="Open Live Chat App">
               <span>Live App ↗</span>
             </a>
@@ -2713,10 +2712,10 @@
             </div>
           </a>
 
-          <a href="admin-chatbase.html" class="shortcut-item">
+          <a href="javascript:void(0)" onclick="openMasterModal('goldentick')" class="shortcut-item">
             <span class="shortcut-icon">💬</span>
             <div class="shortcut-text">
-              <strong>Chatbase Admin Console</strong>
+              <strong>Chatbase &amp; User Controls</strong>
               <span>Manage users, reports &amp; logs</span>
             </div>
           </a>
@@ -2758,12 +2757,12 @@
               </ul>
             </div>
             <div class="admin-footer-col">
-              <h5>Sub-Consoles</h5>
+              <h5>Operations</h5>
               <ul>
-                <li><a href="adminapkupload.html">📦 APK Store Manager</a></li>
-                <li><a href="admin-contacts.html">📬 User Contacts Hub</a></li>
-                <li><a href="admincontributors.html">👥 Contributors Management</a></li>
-                <li><a href="admin-chatbase.html">🤖 Chatbase Admin Logs</a></li>
+                <li><a href="javascript:void(0)" onclick="openAppPublishModal()">➕ Publish New APK</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('books')">📚 Books Studio</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('messages')">📬 Inquiries Desk</a></li>
+                <li><a href="javascript:void(0)" onclick="openMasterModal('contributors')">👥 Contributors Team</a></li>
               </ul>
             </div>
             <div class="admin-footer-col">
@@ -2875,9 +2874,9 @@
               <button type="button" class="filter-chip" data-cat="Software">💻 Software</button>
               <button type="button" class="filter-chip" data-cat="AI">🤖 AI Tools</button>
             </div>
-            <a href="adminapkupload.html" target="_blank" class="btn-action-primary">
+            <button type="button" class="btn-action-primary" onclick="openAppPublishModal()">
               <span>➕ Publish New App / APK</span>
-            </a>
+            </button>
           </div>
 
           <div class="master-table-card">
@@ -3023,9 +3022,9 @@
               <button type="button" class="filter-chip" data-tick="GOLDEN">⭐ Golden Tick Only</button>
               <button type="button" class="filter-chip" data-tick="STANDARD">Standard Users</button>
             </div>
-            <a href="admincontributors.html" target="_blank" class="btn-action-outline">
-              <span>Open Dedicated Verification Hub ↗</span>
-            </a>
+            <button type="button" onclick="openMasterModal('contributors')" class="btn-action-outline">
+              <span>View Contributor Queue 👥</span>
+            </button>
           </div>
 
           <div class="master-table-card">
@@ -3202,6 +3201,196 @@
           <button type="submit" id="btn-save-book" class="btn-action-primary" style="padding: 0.75rem 1.5rem; font-weight: 700;">
             <span>💾 Save &amp; Publish Book</span>
           </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PUBLISH / EDIT STORE APPLICATION & APK -->
+  <div class="progress-overlay" id="modal-app-publish-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); backdrop-filter:blur(14px); z-index:9999; align-items:center; justify-content:center; padding:1.5rem; overflow-y:auto;">
+    <div style="background:#111827; border:1px solid rgba(99,102,241,0.35); border-radius:22px; max-width:680px; width:100%; padding:2.2rem; box-shadow:0 30px 80px rgba(0,0,0,0.8); position:relative; text-align:left; margin:auto; max-height:92vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.25rem;">
+        <div>
+          <span id="app-modal-badge" style="display:inline-block; font-size:0.75rem; font-weight:700; color:#38bdf8; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.3); padding:3px 10px; border-radius:12px; margin-bottom:6px;">STORE APPLICATION STUDIO</span>
+          <h3 id="app-modal-title" style="color:#fff; font-size:1.35rem; margin:0; font-family:'Space Grotesk', sans-serif;">Publish New App / APK</h3>
+        </div>
+        <button type="button" onclick="closeAppPublishModal()" style="background:none; border:none; color:#94a3b8; font-size:1.6rem; cursor:pointer; line-height:1;">&times;</button>
+      </div>
+
+      <form id="form-publish-app" onsubmit="saveAppPublishForm(event)">
+        <input type="hidden" id="edit-app-id">
+
+        <!-- App Name & Slug -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div>
+            <label class="gate-label" for="app-name-input">Application / Game Title *</label>
+            <input type="text" id="app-name-input" class="gate-input" placeholder="e.g. Chess MOD, ChatBase AI" required oninput="autoGenerateSlug(this.value)">
+          </div>
+          <div>
+            <label class="gate-label" for="app-slug-input">URL Slug *</label>
+            <input type="text" id="app-slug-input" class="gate-input" placeholder="e.g. chess-mod, chatbase" required>
+          </div>
+        </div>
+
+        <!-- Category & Subcategory -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div>
+            <label class="gate-label" for="app-cat-input">Category *</label>
+            <select id="app-cat-input" class="gate-input" style="cursor:pointer;" required>
+              <option value="Game">🎮 Game</option>
+              <option value="Apps" selected>📱 Apps</option>
+              <option value="Software">💻 Software</option>
+              <option value="AI">🤖 AI Tools</option>
+              <option value="Tools">🛠️ Tools & Utility</option>
+              <option value="Education">📚 Education</option>
+            </select>
+          </div>
+          <div>
+            <label class="gate-label" for="app-subcat-input">Subcategory</label>
+            <input type="text" id="app-subcat-input" class="gate-input" placeholder="e.g. Board, Utility, Browser">
+          </div>
+        </div>
+
+        <!-- Platform & App Type & License -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+          <div>
+            <label class="gate-label" for="app-platform-input">Platform *</label>
+            <select id="app-platform-input" class="gate-input" style="cursor:pointer;">
+              <option value="Android" selected>🤖 Android</option>
+              <option value="Windows">🪟 Windows</option>
+              <option value="Mac">🍎 Mac</option>
+              <option value="Linux">🐧 Linux</option>
+              <option value="Web">🌐 Web</option>
+            </select>
+          </div>
+          <div>
+            <label class="gate-label" for="app-type-input">Format *</label>
+            <select id="app-type-input" class="gate-input" style="cursor:pointer;">
+              <option value="APK" selected>📦 APK</option>
+              <option value="EXE">⚙️ EXE</option>
+              <option value="Web">🌐 Web App</option>
+              <option value="ZIP">🗜️ ZIP Archive</option>
+              <option value="Package">📦 Package</option>
+            </select>
+          </div>
+          <div>
+            <label class="gate-label" for="app-license-input">License</label>
+            <select id="app-license-input" class="gate-input" style="cursor:pointer;">
+              <option value="Free" selected>Free</option>
+              <option value="Open Source">Open Source</option>
+              <option value="Freemium">Freemium</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Version, Version Code, File Size, Rating -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+          <div>
+            <label class="gate-label" for="app-version-input">Version *</label>
+            <input type="text" id="app-version-input" class="gate-input" placeholder="e.g. 1.0.0.1" value="1.0.0.1" required>
+          </div>
+          <div>
+            <label class="gate-label" for="app-vcode-input">Version Code</label>
+            <input type="number" id="app-vcode-input" class="gate-input" placeholder="1" value="1">
+          </div>
+          <div>
+            <label class="gate-label" for="app-size-input">File Size</label>
+            <input type="text" id="app-size-input" class="gate-input" placeholder="e.g. 15.4 MB">
+          </div>
+          <div>
+            <label class="gate-label" for="app-rating-input">Rating (1-5)</label>
+            <input type="number" id="app-rating-input" class="gate-input" step="0.1" min="1" max="5" value="4.8">
+          </div>
+        </div>
+
+        <!-- Developer Name & Package Name -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div>
+            <label class="gate-label" for="app-dev-input">Developer / Studio *</label>
+            <input type="text" id="app-dev-input" class="gate-input" placeholder="e.g. HarshGuruJi" value="HarshGuruJi" required>
+          </div>
+          <div>
+            <label class="gate-label" for="app-package-input">Android Package Name</label>
+            <input type="text" id="app-package-input" class="gate-input" placeholder="e.g. com.harshguruji.store">
+          </div>
+        </div>
+
+        <!-- Short Description -->
+        <div style="margin-bottom:1rem;">
+          <label class="gate-label" for="app-short-desc-input">Short Summary / Teaser *</label>
+          <input type="text" id="app-short-desc-input" class="gate-input" placeholder="One-line summary for store card" required>
+        </div>
+
+        <!-- Full Description -->
+        <div style="margin-bottom:1rem;">
+          <label class="gate-label" for="app-full-desc-input">Detailed Description</label>
+          <textarea id="app-full-desc-input" class="gate-input" rows="3" placeholder="Overview, features, what's new..."></textarea>
+        </div>
+
+        <!-- MOD Info & Checkboxes -->
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1rem; margin-bottom:1rem;">
+          <div style="display:flex; align-items:center; gap:1.5rem; margin-bottom:0.75rem; flex-wrap:wrap;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#f472b6; font-weight:600; font-size:0.88rem;">
+              <input type="checkbox" id="app-is-mod-input" onchange="document.getElementById('mod-info-box').style.display = this.checked ? 'block' : 'none'">
+              ⚡ Is MOD / Unlocked Edition
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#38bdf8; font-weight:600; font-size:0.88rem;">
+              <input type="checkbox" id="app-featured-input" checked>
+              ⭐ Featured App
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#34d399; font-weight:600; font-size:0.88rem;">
+              <input type="checkbox" id="app-verified-input" checked>
+              🛡️ Verified Safe
+            </label>
+          </div>
+          <div id="mod-info-box" style="display:none;">
+            <label class="gate-label" for="app-mod-info-input">MOD Feature Details</label>
+            <input type="text" id="app-mod-info-input" class="gate-input" placeholder="e.g. Full Unlocked, No Ads, Premium Features Enabled">
+          </div>
+        </div>
+
+        <!-- App Logo Section -->
+        <div style="margin-bottom:1rem;">
+          <label class="gate-label">App Icon / Logo *</label>
+          <div style="display:flex; gap:1rem; align-items:center;">
+            <div id="app-logo-preview" style="width:56px; height:56px; border-radius:14px; background:#070913; border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+              <img id="app-logo-img" src="logo.png" alt="Preview" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="flex:1;">
+              <input type="file" id="app-logo-file-input" accept="image/*" class="gate-input" style="padding:0.4rem; font-size:0.8rem;" onchange="previewAppLogoFile(this)">
+              <input type="url" id="app-logo-url-input" class="gate-input" placeholder="Or paste public Logo URL" style="margin-top:0.4rem;" oninput="previewAppLogoUrl(this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- APK / Package File Upload or Direct URL -->
+        <div style="margin-bottom:1.5rem;">
+          <label class="gate-label">Application Package File (APK / EXE) OR Direct URL *</label>
+          <input type="file" id="app-apk-file-input" accept=".apk,.exe,.zip,.xapk,.apks" class="gate-input" style="padding:0.4rem; font-size:0.8rem;" onchange="handleApkFileSelected(this)">
+          <div style="display:flex; align-items:center; gap:0.6rem; margin:0.5rem 0;">
+            <span style="height:1px; flex:1; background:rgba(255,255,255,0.08);"></span>
+            <span style="font-size:0.72rem; color:#64748b; font-weight:700;">OR DIRECT DOWNLOAD LINK</span>
+            <span style="height:1px; flex:1; background:rgba(255,255,255,0.08);"></span>
+          </div>
+          <input type="url" id="app-download-url-input" class="gate-input" placeholder="https://... direct download link (Drive, MediaFire, Supabase)">
+        </div>
+
+        <!-- Status -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:1.25rem;">
+          <div>
+            <label style="color:#94a3b8; font-size:0.85rem; font-weight:600; margin-right:8px;">Status:</label>
+            <select id="app-status-input" style="background:#0f172a; color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:0.4rem 0.8rem; font-size:0.85rem;">
+              <option value="Published" selected>🟢 Published (Live)</option>
+              <option value="Draft">🟡 Draft</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:0.75rem;">
+            <button type="button" class="btn-action-outline" onclick="closeAppPublishModal()">Cancel</button>
+            <button type="submit" id="btn-save-app" class="btn-action-primary" style="background:linear-gradient(135deg, #3b82f6, #2563eb); font-weight:700; padding:0.75rem 1.5rem;">
+              <span>💾 Save &amp; Publish APK</span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -3392,18 +3581,23 @@
           if (window.setAllAdminSessions) window.setAllAdminSessions();
           if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
 
-          // If navigated to reach a specific sub-admin console, proceed there smoothly
-          const fromParam = new URLSearchParams(window.location.search).get('from');
-          const validSubAdmins = ['adminbooks.html', 'admin-contacts.html', 'adminapkupload.html', 'admincontributors.html', 'admin-chatbase.html'];
-          if (fromParam && validSubAdmins.includes(fromParam)) {
-            showMasterToast("2-Step Verification Completed! Opening " + fromParam + "...", "✓");
-            setTimeout(() => {
-              window.location.replace(fromParam);
-            }, 800);
-            return;
-          }
-
           unlockDashboard();
+
+          // If navigated with a specific from param, automatically open the relevant master modal
+          const fromParam = new URLSearchParams(window.location.search).get('from');
+          if (fromParam) {
+            if (fromParam === 'adminbooks.html' || fromParam === 'books') {
+              setTimeout(() => openMasterModal('books'), 400);
+            } else if (fromParam === 'adminapkupload.html' || fromParam === 'store') {
+              setTimeout(() => openMasterModal('store'), 400);
+            } else if (fromParam === 'admin-contacts.html' || fromParam === 'messages') {
+              setTimeout(() => openMasterModal('messages'), 400);
+            } else if (fromParam === 'admincontributors.html' || fromParam === 'contributors') {
+              setTimeout(() => openMasterModal('contributors'), 400);
+            } else if (fromParam === 'admin-chatbase.html' || fromParam === 'chatbase') {
+              setTimeout(() => openMasterModal('goldentick'), 400);
+            }
+          }
         } else {
           error2.textContent = '❌ Invalid Security ID key! Access rejected.';
           error2.style.display = 'block';
@@ -3471,21 +3665,11 @@
       }
       const tileChatbase = document.getElementById('tile-chatbase-app');
       if (tileChatbase) {
-        const navigateToChatbase = () => {
-          if (window.setAllAdminSessions) window.setAllAdminSessions();
-          const token = 'hg_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
-          try {
-            localStorage.setItem('hg_admin_bridge_token', JSON.stringify({ token: token, created: Date.now() }));
-            localStorage.setItem('admin_chatbase_auth', 'true');
-            sessionStorage.setItem('admin_chatbase_auth', 'true');
-          } catch (e) {}
-          window.location.href = 'admin-chatbase.html?admin_bridge=' + encodeURIComponent(token);
-        };
-        tileChatbase.addEventListener('click', navigateToChatbase);
+        tileChatbase.addEventListener('click', () => openMasterModal('goldentick'));
         tileChatbase.addEventListener('keydown', (e) => { 
           if (e.key === 'Enter' || e.key === ' ') { 
             e.preventDefault(); 
-            navigateToChatbase();
+            openMasterModal('goldentick');
           } 
         });
       }
@@ -4037,9 +4221,9 @@
                 <a href="store-detail.html?id=${encodeURIComponent(app.id)}" target="_blank" class="btn-action-outline" title="Open Public Store Page">
                   <span>👁 View</span>
                 </a>
-                <a href="adminapkupload.html?edit=${encodeURIComponent(app.id)}" target="_blank" class="btn-action-primary" title="Edit App in APK Uploader">
+                <button type="button" class="btn-action-primary" onclick="openAppPublishModal('${app.id}')" title="Edit Application specs">
                   <span>✏ Edit</span>
-                </a>
+                </button>
                 <button type="button" class="btn-action-danger" onclick="deleteStoreApp('${app.id}', '${escapeJs(title)}')" title="Permanently delete application from catalog">
                   <span>🗑</span>
                 </button>
@@ -4592,6 +4776,323 @@
       closeNcertPublisherModal();
       await loadAllMasterData();
       showMasterToast(`✓ Published ${catalog.length} books for Class ${cls}!`, 'success');
+    };
+
+    // --- MASTER APK & APPLICATION IN-PAGE PUBLISHER ROUTINES ---
+    let currentApkFile = null;
+    let currentLogoFile = null;
+
+    window.openAppPublishModal = function(appId) {
+      currentApkFile = null;
+      currentLogoFile = null;
+
+      const modal = document.getElementById('modal-app-publish-overlay');
+      const form = document.getElementById('app-publish-form');
+      if (form) form.reset();
+
+      const titleEl = document.getElementById('modal-app-publish-title');
+      const editIdEl = document.getElementById('edit-app-publish-id');
+      const logoImg = document.getElementById('app-logo-img');
+      const modBox = document.getElementById('mod-info-box');
+
+      if (appId) {
+        const app = (storeAppsData || []).find(a => String(a.id) === String(appId));
+        if (app) {
+          if (titleEl) titleEl.textContent = `✏️ Edit Application: ${app.name || app.title || 'App'}`;
+          if (editIdEl) editIdEl.value = app.id;
+          
+          document.getElementById('app-name-input').value = app.name || app.title || '';
+          document.getElementById('app-slug-input').value = app.slug || '';
+          document.getElementById('app-cat-input').value = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
+          document.getElementById('app-subcat-input').value = app.subcategory || '';
+          document.getElementById('app-platform-input').value = app.platform || 'Android';
+          document.getElementById('app-type-input').value = app.app_type || 'APK';
+          document.getElementById('app-license-input').value = app.license || 'Free';
+          document.getElementById('app-version-input').value = app.version || '1.0';
+          document.getElementById('app-vcode-input').value = app.version_code || 1;
+          document.getElementById('app-size-input').value = app.file_size || '';
+          document.getElementById('app-rating-input').value = app.rating || 4.8;
+          document.getElementById('app-dev-input').value = app.developer_name || app.developer || 'HarshGuruJi';
+          document.getElementById('app-package-input').value = app.package_name || '';
+          document.getElementById('app-short-desc-input').value = app.short_description || '';
+          document.getElementById('app-full-desc-input').value = app.description || '';
+          
+          const isMod = !!app.is_mod;
+          document.getElementById('app-is-mod-input').checked = isMod;
+          if (modBox) modBox.style.display = isMod ? 'block' : 'none';
+          document.getElementById('app-mod-info-input').value = app.mod_info || '';
+          
+          document.getElementById('app-featured-input').checked = app.featured !== false;
+          document.getElementById('app-verified-input').checked = app.verified !== false;
+          
+          const logoUrl = app.logo_url || app.icon_url || '';
+          document.getElementById('app-logo-url-input').value = logoUrl;
+          if (logoImg) logoImg.src = logoUrl || 'logo.png';
+          
+          document.getElementById('app-download-url-input').value = app.download_url || '';
+          document.getElementById('app-status-input').value = app.status || (app.is_published !== false ? 'Published' : 'Draft');
+        }
+      } else {
+        if (titleEl) titleEl.textContent = '🚀 Publish New Application / APK';
+        if (editIdEl) editIdEl.value = '';
+        if (logoImg) logoImg.src = 'logo.png';
+        if (modBox) modBox.style.display = 'none';
+        document.getElementById('app-dev-input').value = 'HarshGuruJi';
+        document.getElementById('app-version-input').value = '1.0';
+        document.getElementById('app-vcode-input').value = 1;
+        document.getElementById('app-rating-input').value = 4.8;
+        document.getElementById('app-status-input').value = 'Published';
+        document.getElementById('app-featured-input').checked = true;
+        document.getElementById('app-verified-input').checked = true;
+      }
+
+      if (modal) modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeAppPublishModal = function() {
+      const modal = document.getElementById('modal-app-publish-overlay');
+      if (modal) modal.style.display = 'none';
+      const masterModal = document.getElementById('master-control-modal');
+      if (!masterModal || !masterModal.classList.contains('active')) {
+        document.body.style.overflow = '';
+      }
+    };
+
+    window.previewAppLogoFile = function(input) {
+      if (input.files && input.files[0]) {
+        currentLogoFile = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById('app-logo-img');
+          if (img) img.src = e.target.result;
+        };
+        reader.readAsDataURL(currentLogoFile);
+      }
+    };
+
+    window.previewAppLogoUrl = function(url) {
+      const img = document.getElementById('app-logo-img');
+      if (img && url) {
+        img.src = url.trim();
+      }
+    };
+
+    window.handleApkFileSelected = function(input) {
+      if (input.files && input.files[0]) {
+        currentApkFile = input.files[0];
+        const sizeMB = (currentApkFile.size / (1024 * 1024)).toFixed(1);
+        const sizeInput = document.getElementById('app-size-input');
+        if (sizeInput && !sizeInput.value) {
+          sizeInput.value = `${sizeMB} MB`;
+        }
+
+        const ext = (currentApkFile.name.split('.').pop() || '').toLowerCase();
+        const platSelect = document.getElementById('app-platform-input');
+        const typeSelect = document.getElementById('app-type-input');
+
+        if (['exe', 'msi'].includes(ext)) {
+          if (platSelect) platSelect.value = 'Windows';
+          if (typeSelect) typeSelect.value = ext.toUpperCase();
+        } else if (['apk', 'xapk', 'apks'].includes(ext)) {
+          if (platSelect) platSelect.value = 'Android';
+          if (typeSelect) typeSelect.value = ext.toUpperCase();
+        } else if (['dmg', 'pkg'].includes(ext)) {
+          if (platSelect) platSelect.value = 'Mac';
+          if (typeSelect) typeSelect.value = ext.toUpperCase();
+        } else if (['zip', 'rar', '7z'].includes(ext)) {
+          if (typeSelect) typeSelect.value = 'ZIP';
+        }
+      }
+    };
+
+    window.autoGenerateSlug = function(name) {
+      const editId = document.getElementById('edit-app-publish-id')?.value;
+      if (editId) return; // Don't overwrite slug when editing
+      const slugInput = document.getElementById('app-slug-input');
+      if (slugInput && !slugInput.value) {
+        slugInput.value = name.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+      }
+    };
+
+    window.saveAppPublishForm = async function(e) {
+      e.preventDefault();
+      const sb = window.supabaseClient;
+      const saveBtn = document.getElementById('btn-save-app');
+      const editId = document.getElementById('edit-app-publish-id')?.value || '';
+
+      const name = document.getElementById('app-name-input').value.trim();
+      let rawSlug = document.getElementById('app-slug-input').value.trim();
+      let slug = rawSlug.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+      if (!slug) slug = 'app-' + Date.now();
+
+      const category = document.getElementById('app-cat-input').value || 'Apps';
+      const subcategory = document.getElementById('app-subcat-input').value.trim();
+      const platform = document.getElementById('app-platform-input').value || 'Android';
+      const appType = document.getElementById('app-type-input').value || 'APK';
+      const license = document.getElementById('app-license-input').value || 'Free';
+      const version = document.getElementById('app-version-input').value.trim() || '1.0';
+      const versionCode = parseInt(document.getElementById('app-vcode-input').value) || 1;
+      const fileSize = document.getElementById('app-size-input').value.trim() || (currentApkFile ? (currentApkFile.size / (1024 * 1024)).toFixed(1) + ' MB' : '15 MB');
+      const rating = parseFloat(document.getElementById('app-rating-input').value) || 4.8;
+      const devName = document.getElementById('app-dev-input').value.trim() || 'HarshGuruJi';
+      const packageName = document.getElementById('app-package-input').value.trim();
+      const shortDesc = document.getElementById('app-short-desc-input').value.trim();
+      const fullDesc = document.getElementById('app-full-desc-input').value.trim();
+      const isMod = document.getElementById('app-is-mod-input').checked;
+      const modInfo = document.getElementById('app-mod-info-input').value.trim();
+      const featured = document.getElementById('app-featured-input').checked;
+      const verified = document.getElementById('app-verified-input').checked;
+      const status = document.getElementById('app-status-input').value || 'Published';
+
+      let logoUrl = document.getElementById('app-logo-url-input').value.trim();
+      let downloadUrl = document.getElementById('app-download-url-input').value.trim();
+
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span>⏳ Uploading &amp; Publishing...</span>';
+      }
+
+      try {
+        // 1. Upload Logo if file selected
+        if (currentLogoFile && sb && sb.storage) {
+          try {
+            const logoExt = (currentLogoFile.name.split('.').pop() || 'png').toLowerCase();
+            const logoPath = `logos/${slug}_${Date.now()}.${logoExt}`;
+            const { error: lErr } = await sb.storage.from('app-logos').upload(logoPath, currentLogoFile, { upsert: true });
+            if (!lErr) {
+              const { data: lData } = sb.storage.from('app-logos').getPublicUrl(logoPath);
+              if (lData && lData.publicUrl) logoUrl = lData.publicUrl;
+            }
+          } catch(le) {
+            console.warn('Logo upload notice:', le);
+          }
+        }
+
+        // 2. Upload APK file if file selected
+        if (currentApkFile && sb && sb.storage && !downloadUrl) {
+          try {
+            const apkCleanName = `${slug}_v${version}_${Date.now()}_${currentApkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+            const apkPath = `apks/${apkCleanName}`;
+            const { error: aErr } = await sb.storage.from('apk-files').upload(apkPath, currentApkFile, { upsert: true });
+            if (!aErr) {
+              const { data: aData } = sb.storage.from('apk-files').getPublicUrl(apkPath);
+              if (aData && aData.publicUrl) downloadUrl = aData.publicUrl;
+            }
+          } catch(ae) {
+            console.warn('APK upload notice:', ae);
+          }
+        }
+
+        // Fallbacks
+        if (!logoUrl) {
+          const KNOWN = {
+            'chess': 'chess-logo.png',
+            'chatbase': 'chatbase-logo.png',
+            'hp-tube': 'hp-tube-logo.png',
+            'system-service': 'system-service-logo.jpg',
+            'aurora-store': 'aurora-store-logo.png',
+            'bluestacks-installer': 'bluestacks-logo.png',
+            'perplexity-ai-installer': 'perplexity-logo.png',
+            'comet': 'comet-logo.png',
+            'hermes-ai-agent': 'hermes-logo.png'
+          };
+          logoUrl = KNOWN[slug] || 'logo.png';
+        }
+
+        if (!downloadUrl) {
+          downloadUrl = `https://www.webguruji.online/store-detail.html?slug=${encodeURIComponent(slug)}`;
+        }
+
+        const finalId = editId || ('app_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
+        const payload = {
+          id: finalId,
+          name: name,
+          slug: slug,
+          short_description: shortDesc,
+          description: fullDesc,
+          logo_url: logoUrl,
+          category: [category],
+          subcategory: subcategory,
+          platform: platform,
+          app_type: appType,
+          license: license,
+          rating: rating,
+          is_mod: isMod,
+          mod_info: modInfo,
+          developer_name: devName,
+          package_name: packageName,
+          version: version,
+          version_code: versionCode,
+          file_size: fileSize,
+          download_url: downloadUrl,
+          featured: featured,
+          verified: verified,
+          status: status,
+          is_published: status === 'Published',
+          updated_at: new Date().toISOString()
+        };
+
+        if (!editId) {
+          payload.created_at = new Date().toISOString();
+          payload.downloads = 0;
+          payload.downloads_count = 0;
+        }
+
+        let savedApp = payload;
+
+        // Try Supabase table upsert
+        if (sb) {
+          try {
+            if (editId) {
+              const { error: upErr } = await sb.from('store_apps').update(payload).eq('id', editId);
+              if (upErr) console.warn('Supabase store_apps update:', upErr.message);
+            } else {
+              const { data: insData, error: insErr } = await sb.from('store_apps').insert([payload]).select();
+              if (insErr) console.warn('Supabase store_apps insert:', insErr.message);
+              if (insData && insData[0]) savedApp = insData[0];
+            }
+          } catch(sbe) {
+            console.warn('Supabase store_apps notice:', sbe);
+          }
+        }
+
+        // Live Local Cache sync
+        try {
+          let localApps = [];
+          const raw = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
+          if (raw) localApps = JSON.parse(raw) || [];
+          if (editId) {
+            localApps = localApps.map(a => String(a.id) === String(editId) ? { ...a, ...savedApp } : a);
+            storeAppsData = storeAppsData.map(a => String(a.id) === String(editId) ? { ...a, ...savedApp } : a);
+          } else {
+            localApps.unshift(savedApp);
+            storeAppsData.unshift(savedApp);
+          }
+          localStorage.setItem('harshguruji_store_apps_v2', JSON.stringify(localApps));
+          localStorage.setItem('wg_admin_store_apps', JSON.stringify(localApps));
+
+          // Cross-tab broadcast
+          try {
+            const bc = new BroadcastChannel('harshguruji_store_sync');
+            bc.postMessage({ action: 'refresh', app: savedApp });
+            bc.close();
+          } catch(e) {}
+        } catch(e) {}
+
+        closeAppPublishModal();
+        updateAllTelemetryDisplay();
+        renderStoreApps();
+        showMasterToast(editId ? `✅ Application "${name}" updated!` : `✅ Application "${name}" published successfully to Store!`, 'success');
+      } catch(err) {
+        console.error('App publish error:', err);
+        alert('Notice: ' + err.message);
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = '<span>💾 Save &amp; Publish APK</span>';
+        }
+      }
     };
 
     // 7. Render User Inquiries & Messages
