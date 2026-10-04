@@ -1341,4 +1341,105 @@ body.is-chat-page .hg-floating-chat-btn,
   color: #f87171;
 }
 
+/* ==========================================================================
+   UNIVERSAL ZERO-OVERFLOW & ALL-DEVICE RESPONSIVE SHIELD
+   Ensures text, grids, cards, modals & media stay completely within bounds
+   on all devices (Mobile 320px - 768px, Tablets 768px - 1024px, Desktop)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  width: 100%;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Bulletproof text wrap: never allow long words, URLs or titles to break screens */
+body, p, h1, h2, h3, h4, h5, h6, span, a, label, li, blockquote, dt, dd, figcaption, input, textarea, select, button {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Fluid media containment */
+img, video, iframe, embed, object, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Safe preformatted code and tables */
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  max-width: 100%;
+}
+
+.table-responsive, .table-container, .table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Universal container boundary enforcement */
+.container, .main-container, .wrapper, .page-wrapper, .dashboard-container, .hero-section, .content-wrapper, .section-wrapper {
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Ultra-compact screen adjustments (below 480px / 360px) */
+@media (max-width: 480px) {
+  .hg-brand-text {
+    font-size: 1.15rem;
+  }
+  .hg-brand-badge {
+    font-size: 0.55rem;
+    padding: 1px 4px;
+  }
+  .hg-nav-container {
+    padding: 0 0.85rem;
+  }
+  .hg-bottom-bar-inner {
+    padding: 0 4px;
+    gap: 2px;
+  }
+  .hg-bottom-bar-btn {
+    padding: 4px 1px 2px;
+    min-width: 0;
+  }
+  .hg-bottom-bar-label {
+    font-size: 0.58rem;
+    letter-spacing: -0.2px;
+  }
+  .hg-bottom-bar-icon {
+    font-size: 1.15rem;
+  }
+  .hg-bottom-bar-btn-center {
+    width: 44px;
+    height: 44px;
+    top: -14px;
+  }
+  .hg-bottom-bar-btn-center .hg-bottom-bar-icon {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hg-bottom-bar-label {
+    font-size: 0.52rem;
+  }
+  .hg-brand-text {
+    font-size: 1.05rem;
+  }
+}
+
+
 
