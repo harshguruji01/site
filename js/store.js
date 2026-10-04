@@ -22,21 +22,28 @@ export const LOCAL_APP_LOGOS = {
 
 export function resolveAppLogo(app) {
   if (!app) return 'logo.png';
-  if (app.logo_url && !app.logo_url.endsWith('logo.png') && !app.logo_url.includes('undefined')) {
-    return app.logo_url;
+  
+  // 1. HIGHEST PRIORITY: The exact logo identity configured in Admin Panel
+  const adminIdentity = (app.logo_url || app.icon_url || app.icon || app.logo || '').toString().trim();
+  if (adminIdentity && adminIdentity !== 'undefined' && adminIdentity !== 'null' && adminIdentity !== '') {
+    // If admin filled a specific path/URL/data URI, always honor the admin's identity directly
+    if (adminIdentity !== 'logo.png' && adminIdentity !== './logo.png' && adminIdentity !== '/logo.png') {
+      return adminIdentity;
+    }
   }
-  if (app.icon && !app.icon.endsWith('logo.png') && !app.icon.includes('undefined')) {
-    return app.icon;
-  }
+
+  // 2. Only if admin left it completely blank or generic 'logo.png', fallback to slug preset
   const slugKey = (app.slug || '').toLowerCase();
   if (LOCAL_APP_LOGOS[slugKey]) {
     return LOCAL_APP_LOGOS[slugKey];
   }
+
   const nameKey = (app.name || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
   for (const [k, v] of Object.entries(LOCAL_APP_LOGOS)) {
-    if (nameKey.includes(k) || k.includes(nameKey)) return v;
+    if (nameKey && (nameKey.includes(k) || k.includes(nameKey))) return v;
   }
-  return 'logo.png';
+
+  return adminIdentity || 'logo.png';
 }
 
 // Built-in verified database records to guarantee instant rendering & zero logo loss
@@ -328,6 +335,25 @@ async function fetchStoreApps() {
       }
     }
     
+    // Merge any locally saved / updated apps from Admin Panel so instant edits reflect immediately
+    try {
+      const rawAdmin = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
+      if (rawAdmin) {
+        const localApps = JSON.parse(rawAdmin);
+        if (Array.isArray(localApps) && localApps.length > 0) {
+          if (!data) data = [];
+          localApps.forEach(loc => {
+            const idx = data.findIndex(d => String(d.id) === String(loc.id) || (d.slug && loc.slug && d.slug.toLowerCase() === loc.slug.toLowerCase()));
+            if (idx >= 0) {
+              data[idx] = { ...data[idx], ...loc };
+            } else if (loc.status === 'Published' || loc.is_published !== false) {
+              data.unshift(loc);
+            }
+          });
+        }
+      }
+    } catch(e) {}
+
     // Fallback to verified records if offline or query returned no items
     if (!data || data.length === 0) {
       data = FALLBACK_PUBLISHED_APPS;
@@ -509,6 +535,18 @@ function setupRealtimeSubscription() {
   } catch (e) {
     console.warn('Realtime subscription not active:', e);
   }
+
+  // Cross-tab real-time sync with Admin Panel
+  try {
+    const bc = new BroadcastChannel('harshguruji_store_sync');
+    bc.onmessage = async (event) => {
+      if (event.data && (event.data.action === 'refresh' || event.data.app)) {
+        console.log('Realtime store update received from Admin Panel.');
+        allApps = await fetchStoreApps();
+        applyFilters();
+      }
+    };
+  } catch(e) {}
 }
 
 // --- RENDER AN1 CAROUSELS (Games & Programs from real apps only) ---

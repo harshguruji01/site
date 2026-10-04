@@ -4955,17 +4955,30 @@
 
       try {
         // 1. Upload Logo if file selected
-        if (currentLogoFile && sb && sb.storage) {
-          try {
-            const logoExt = (currentLogoFile.name.split('.').pop() || 'png').toLowerCase();
-            const logoPath = `logos/${slug}_${Date.now()}.${logoExt}`;
-            const { error: lErr } = await sb.storage.from('app-logos').upload(logoPath, currentLogoFile, { upsert: true });
-            if (!lErr) {
-              const { data: lData } = sb.storage.from('app-logos').getPublicUrl(logoPath);
-              if (lData && lData.publicUrl) logoUrl = lData.publicUrl;
+        if (currentLogoFile) {
+          if (sb && sb.storage) {
+            try {
+              const logoExt = (currentLogoFile.name.split('.').pop() || 'png').toLowerCase();
+              const logoPath = `logos/${slug}_${Date.now()}.${logoExt}`;
+              const { error: lErr } = await sb.storage.from('app-logos').upload(logoPath, currentLogoFile, { upsert: true });
+              if (!lErr) {
+                const { data: lData } = sb.storage.from('app-logos').getPublicUrl(logoPath);
+                if (lData && lData.publicUrl) logoUrl = lData.publicUrl;
+              }
+            } catch(le) {
+              console.warn('Logo upload notice:', le);
             }
-          } catch(le) {
-            console.warn('Logo upload notice:', le);
+          }
+          // If cloud storage upload did not produce a URL, preserve the admin's exact file as a local DataURL
+          if (!logoUrl) {
+            try {
+              logoUrl = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => resolve('');
+                reader.readAsDataURL(currentLogoFile);
+              });
+            } catch(e) {}
           }
         }
 

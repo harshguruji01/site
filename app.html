@@ -1028,12 +1028,18 @@
 
     function resolveAppLogo(app) {
       if (!app) return 'logo.png';
-      const slugKey = (app.slug || app.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      const localFile = LOCAL_APP_LOGOS[slugKey] || LOCAL_APP_LOGOS[app.slug];
-      if (app.logo_url && !app.logo_url.endsWith('logo.png') && !app.logo_url.includes('undefined')) {
-        return app.logo_url;
+      
+      // 1. HIGHEST PRIORITY: The exact logo identity configured in Admin Panel
+      const adminIdentity = (app.logo_url || app.icon_url || app.icon || app.logo || '').toString().trim();
+      if (adminIdentity && adminIdentity !== 'undefined' && adminIdentity !== 'null' && adminIdentity !== '') {
+        if (adminIdentity !== 'logo.png' && adminIdentity !== './logo.png' && adminIdentity !== '/logo.png') {
+          return adminIdentity;
+        }
       }
-      return localFile || 'logo.png';
+
+      // 2. Only if admin left it completely blank, fallback to slug preset
+      const slugKey = (app.slug || app.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      return LOCAL_APP_LOGOS[slugKey] || LOCAL_APP_LOGOS[app.slug] || adminIdentity || 'logo.png';
     }
 
     if (document.readyState === 'loading') {

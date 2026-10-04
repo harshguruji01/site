@@ -1222,6 +1222,25 @@
           }
         }
 
+        // 2b. Check local admin cache for freshly published apps / edits
+        try {
+          const rawAdmin = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
+          if (rawAdmin) {
+            const localApps = JSON.parse(rawAdmin);
+            if (Array.isArray(localApps)) {
+              const slugKey = (slug || '').toLowerCase();
+              const foundLocal = localApps.find(a => 
+                (id && String(a.id) === String(id)) || 
+                (slugKey && a.slug && a.slug.toLowerCase() === slugKey) ||
+                (slugKey && a.name && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
+              );
+              if (foundLocal) {
+                appData = appData ? { ...appData, ...foundLocal } : foundLocal;
+              }
+            }
+          }
+        } catch(e) {}
+
         // 3. Fallback to local verified apps if not found in Supabase
         if (!appData) {
           const slugKey = (slug || '').toLowerCase();
@@ -1324,8 +1343,9 @@
       const devName = app.developer_name || app.developer || 'HarshGuruJi';
       const appSlug = (app.slug || slug || '').toLowerCase();
       const localLogoFallback = LOCAL_APP_LOGOS[appSlug] || 'logo.png';
-      const iconUrl = (app.logo_url && !app.logo_url.endsWith('logo.png') && !app.logo_url.includes('undefined')) 
-        ? app.logo_url 
+      const adminIdentity = (app.logo_url || app.icon_url || app.icon || '').toString().trim();
+      const iconUrl = (adminIdentity && adminIdentity !== 'undefined' && adminIdentity !== 'null' && adminIdentity !== 'logo.png' && adminIdentity !== './logo.png' && adminIdentity !== '/logo.png')
+        ? adminIdentity
         : localLogoFallback;
       const category = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
       const version = app.version || '1.0';
@@ -1586,7 +1606,10 @@
 
         relatedContainer.innerHTML = list.map(item => {
           const itemSlug = (item.slug || '').toLowerCase();
-          const itemLogo = (item.logo_url && !item.logo_url.endsWith('logo.png')) ? item.logo_url : (LOCAL_APP_LOGOS[itemSlug] || 'logo.png');
+          const itemAdminIdentity = (item.logo_url || item.icon_url || item.icon || '').toString().trim();
+          const itemLogo = (itemAdminIdentity && itemAdminIdentity !== 'undefined' && itemAdminIdentity !== 'null' && itemAdminIdentity !== 'logo.png' && itemAdminIdentity !== './logo.png' && itemAdminIdentity !== '/logo.png')
+            ? itemAdminIdentity
+            : (LOCAL_APP_LOGOS[itemSlug] || 'logo.png');
           return `
             <a href="store-detail.html?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
               <img src="${itemLogo}" alt="${item.name}" class="related-app-icon" onerror="this.onerror=null; this.src='${LOCAL_APP_LOGOS[itemSlug] || 'logo.png'}';">
