@@ -375,34 +375,128 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Highlight active bottom navigation tab based on URL path
-  const currentNavPath = (window.location.pathname || '').toLowerCase();
-  const isBooksPath = currentNavPath.includes('books') || currentNavPath.includes('book.html');
-  const isHomePath = currentNavPath.endsWith('/') || currentNavPath.endsWith('/index.html') || currentNavPath.endsWith('site/') || currentNavPath === '';
-  const isDailySpecialPath = currentNavPath.includes('daily-special');
-  const isStorePath = currentNavPath.includes('store') || currentNavPath.includes('app.html');
-  const isAuthPath = currentNavPath.includes('login') || currentNavPath.includes('signup') || currentNavPath.includes('dashboard') || currentNavPath.includes('settings');
-  const isChatPath = currentNavPath.includes('chat');
+  // Dynamic Ecosystem Adaptation & High-Precision Navigation State Highlighting
+  function setupNavigationState() {
+    const navHost = window.location.hostname.toLowerCase();
+    const navPath = (window.location.pathname || '').toLowerCase();
+    const navFile = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
-  if (isBooksPath) {
-    document.getElementById('bottom-nav-books')?.classList.add('active');
-    document.getElementById('nav-link-books')?.classList.add('active');
-    document.getElementById('mob-link-books')?.classList.add('active');
-  } else if (isHomePath) {
-    document.getElementById('bottom-nav-home')?.classList.add('active');
-  } else if (isDailySpecialPath) {
-    document.getElementById('bottom-nav-dailyspecial')?.classList.add('active');
-  } else if (isStorePath) {
-    document.getElementById('bottom-nav-store')?.classList.add('active');
-  } else if (isAuthPath) {
-    document.getElementById('bottom-nav-auth')?.classList.add('active');
+    const isStoreContext = navHost.startsWith('store.') || 
+                           navHost.includes('store') || 
+                           navPath.includes('/store') || 
+                           navFile.includes('store') || 
+                           navFile === 'app.html';
+
+    const isBooksContext = navHost.startsWith('books.') || 
+                           navHost.includes('books') || 
+                           navPath.includes('/books') || 
+                           navFile.includes('book');
+
+    const bHome = document.getElementById('bottom-nav-home');
+    const bStore = document.getElementById('bottom-nav-store');
+    const bBooks = document.getElementById('bottom-nav-books');
+    const bDaily = document.getElementById('bottom-nav-dailyspecial');
+    const bContrib = document.getElementById('bottom-nav-contributor');
+    const bChat = document.getElementById('bottom-nav-chat');
+    const bAuth = document.getElementById('bottom-nav-auth');
+
+    const dHome = document.getElementById('nav-link-home');
+    const dStore = document.getElementById('nav-link-store');
+    const dBooks = document.getElementById('nav-link-books');
+    const dDaily = document.getElementById('nav-link-dailyspecial');
+    const dContrib = document.getElementById('nav-link-contributor');
+    const dChat = document.getElementById('nav-link-chat');
+
+    const mHome = document.getElementById('mob-link-home');
+    const mStore = document.getElementById('mob-link-store');
+    const mBooks = document.getElementById('mob-link-books');
+    const mDaily = document.getElementById('mob-link-dailyspecial');
+    const mContrib = document.getElementById('mob-link-contributor');
+    const mChat = document.getElementById('mob-link-chat');
+
+    // Remove any stale active classes
+    document.querySelectorAll('.hg-bottom-item.active, .hg-nav-link.active, .hg-mobile-link.active').forEach(el => el.classList.remove('active'));
+
+    if (isStoreContext) {
+      // Configure links for Store Context
+      if (bStore) {
+        bStore.href = (navFile === 'store.html' || navFile === 'index.html') ? '#top' : `${prefix}store.html`;
+        bStore.removeAttribute('target');
+        bStore.removeAttribute('rel');
+      }
+      if (bHome) {
+        bHome.href = 'https://www.webguruji.online/';
+        bHome.title = 'Main Portal Home';
+      }
+      if (bBooks) {
+        bBooks.href = 'https://books.webguruji.online/';
+      }
+      if (dHome) dHome.href = 'https://www.webguruji.online/';
+      if (dStore) {
+        dStore.href = `${prefix}store.html`;
+        dStore.removeAttribute('target');
+      }
+
+      bStore?.classList.add('active');
+      dStore?.classList.add('active');
+      mStore?.classList.add('active');
+    } else if (isBooksContext) {
+      // Configure links for Books Context
+      if (bBooks) {
+        bBooks.href = (navFile === 'books.html' || navFile === 'index.html') ? '#top' : `${prefix}books.html`;
+        bBooks.removeAttribute('target');
+        bBooks.removeAttribute('rel');
+      }
+      if (bHome) {
+        bHome.href = 'https://www.webguruji.online/';
+        bHome.title = 'Main Portal Home';
+      }
+      if (bStore) {
+        bStore.href = 'https://store.webguruji.online/';
+      }
+      if (dHome) dHome.href = 'https://www.webguruji.online/';
+      if (dBooks) {
+        dBooks.href = `${prefix}books.html`;
+        dBooks.removeAttribute('target');
+      }
+
+      bBooks?.classList.add('active');
+      dBooks?.classList.add('active');
+      mBooks?.classList.add('active');
+    } else if (navFile.includes('daily-special')) {
+      bDaily?.classList.add('active');
+      dDaily?.classList.add('active');
+      mDaily?.classList.add('active');
+    } else if (navFile.includes('contributor') || navFile.includes('apply-contributor') || navFile.includes('join-contributor')) {
+      bContrib?.classList.add('active');
+      dContrib?.classList.add('active');
+      mContrib?.classList.add('active');
+    } else if (navFile.includes('chat')) {
+      bChat?.classList.add('active');
+      dChat?.classList.add('active');
+      mChat?.classList.add('active');
+      document.body.classList.add('is-chat-page');
+    } else if (navFile.includes('login') || navFile.includes('signup') || navFile.includes('dashboard') || navFile.includes('profile') || navFile.includes('settings')) {
+      bAuth?.classList.add('active');
+    } else if (navFile === 'index.html' || navFile === '' || navPath.endsWith('/')) {
+      bHome?.classList.add('active');
+      dHome?.classList.add('active');
+      mHome?.classList.add('active');
+    } else {
+      // Check More dropdown items
+      const allLinks = document.querySelectorAll('.hg-dropdown-link, .hg-mobile-sublink');
+      allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith(navFile)) {
+          link.classList.add('active');
+          document.getElementById('nav-link-more')?.classList.add('active');
+          document.getElementById('mob-item-more')?.classList.add('open');
+        }
+      });
+    }
   }
 
-  if (isChatPath) {
-    document.getElementById('nav-link-chat')?.classList.add('active');
-    document.getElementById('mob-link-chat')?.classList.add('active');
-    document.body.classList.add('is-chat-page');
-  }
+  setupNavigationState();
 
   // 3. Mobile Accordions (for More section)
   const accordions = document.querySelectorAll('.hg-mobile-accordion-toggle');
@@ -1200,49 +1294,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 5. Active Page Highlighting (Accurate for Home, Daily Special, Store, Contributor, Chat, Profile, More)
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  
-  if (currentPath === 'index.html' || currentPath === '') {
-    document.getElementById('nav-link-home')?.classList.add('active');
-    document.getElementById('mob-link-home')?.classList.add('active');
-    document.getElementById('bottom-nav-home')?.classList.add('active');
-  } else if (currentPath === 'daily-special.html') {
-    document.getElementById('nav-link-dailyspecial')?.classList.add('active');
-    document.getElementById('mob-link-dailyspecial')?.classList.add('active');
-    document.getElementById('bottom-nav-dailyspecial')?.classList.add('active');
-  } else if (currentPath === 'store.html' || currentPath === 'store-detail.html' || currentPath === 'app.html') {
-    document.getElementById('nav-link-store')?.classList.add('active');
-    document.getElementById('mob-link-store')?.classList.add('active');
-    document.getElementById('bottom-nav-store')?.classList.add('active');
-  } else if (currentPath === 'contributor.html' || currentPath === 'apply-contributor.html' || currentPath === 'join-contributor.html' || currentPath === 'admincontributors.html') {
-    document.getElementById('nav-link-contributor')?.classList.add('active');
-    document.getElementById('mob-link-contributor')?.classList.add('active');
-    document.getElementById('bottom-nav-contributor')?.classList.add('active');
-  } else if (currentPath === 'chat.html') {
-    document.getElementById('bottom-nav-chat')?.classList.add('active');
-  } else if (currentPath === 'dashboard.html' || currentPath === 'profile.html' || currentPath === 'settings.html' || currentPath === 'login.html') {
-    document.getElementById('bottom-nav-auth')?.classList.add('active');
-  } else {
-    // Check if current page is inside More dropdown
-    const allLinks = document.querySelectorAll('.hg-dropdown-link, .hg-mobile-sublink');
-    let matchedMore = false;
-    allLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && href.endsWith(currentPath)) {
-        link.classList.add('active');
-        matchedMore = true;
-      }
-    });
-    if (matchedMore) {
-      document.getElementById('nav-link-more')?.classList.add('active');
-      const mobMoreItem = document.getElementById('mob-item-more');
-      if (mobMoreItem) {
-        mobMoreItem.classList.add('open');
-        mobMoreItem.querySelector('.hg-mobile-accordion-toggle')?.classList.add('active');
-      }
-    }
-  }
+  // 5. Active Page Highlighting (Re-synchronize with setupNavigationState)
+  setupNavigationState();
 
   // --- NOTIFICATION CENTER & USER FEEDBACK LOGIC ---
   let userMessagesCache = [];
