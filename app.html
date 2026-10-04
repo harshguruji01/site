@@ -827,12 +827,11 @@
   <div id="toast-root"></div>
 
   <!-- Scripts -->
-  <script src="script.js" defer></script>
   <script src="navbar-premium.js" defer></script>
   <script src="footer-premium.js" defer></script>
 
   <!-- Supabase CDN Client -->
-  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
     window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
@@ -848,6 +847,195 @@
 
     let currentApp = null;
 
+    const LOCAL_APP_LOGOS = {
+      'chess': 'chess-logo.png',
+      'chatbase': 'chatbase-logo.png',
+      'hp-tube': 'hp-tube-logo.png',
+      'system-service': 'system-service-logo.jpg',
+      'aurora-store': 'aurora-store-logo.png',
+      'bluestacks-installer': 'bluestacks-logo.png',
+      'perplexity-ai-installer': 'perplexity-logo.png',
+      'comet': 'comet-logo.png',
+      'hermes-ai-agent': 'hermes-logo.png'
+    };
+
+    const FALLBACK_PUBLISHED_APPS = [
+      {
+        id: "fa14aae8-cd63-4880-b8cd-dc991835d93f",
+        name: "Chess",
+        slug: "chess",
+        logo_url: "chess-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chess/%202.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Game",
+        developer_name: "Chess Prince",
+        short_description: "Play and download Chess by Chess Prince with full MOD features unlocked.",
+        version: "2.9.4",
+        file_size: "15.4 MB",
+        rating: 4.8,
+        is_mod: true,
+        mod_info: "Full Unlocked, No Ads, Premium Boards",
+        featured: true,
+        verified: true
+      },
+      {
+        id: "e3307fef-7ef9-4660-a9a8-b44f3aae8b89",
+        name: "ChatBase",
+        slug: "chatbase",
+        logo_url: "chatbase-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "HarshGuruJi ChatBase AI intelligent assistant application for Android.",
+        version: "1.0.0.4",
+        file_size: "24.2 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "173a06f8-0360-4eec-b3c8-abd0503b610b",
+        name: "HP Tube",
+        slug: "hp-tube",
+        logo_url: "hp-tube-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "HP Tube media streaming application with high-speed video playback.",
+        version: "1.0.0.2",
+        file_size: "18.6 MB",
+        rating: 4.8,
+        is_mod: true,
+        mod_info: "Ad-free Background Play",
+        featured: true,
+        verified: true
+      },
+      {
+        id: "8f6a7742-1e29-43e3-9b0a-0713563871ff",
+        name: "System Service",
+        slug: "system-service",
+        logo_url: "system-service-logo.jpg",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/system-service/1.0.0.1/1790346716890_app-signed.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "Android system maintenance and background optimization utility.",
+        version: "1.0.0.1",
+        file_size: "8.1 MB",
+        rating: 4.7,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "96bb0ad3-5cbb-46c3-9ecf-68439bd11ffc",
+        name: "Aurora Store",
+        slug: "aurora-store",
+        logo_url: "aurora-store-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "Aurora OSS",
+        short_description: "Open-source privacy-focused Google Play Store alternative client.",
+        version: "4.8.3",
+        file_size: "12.8 MB",
+        rating: 4.8,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "5de47488-5adf-4e6c-9f47-9a56073a5038",
+        name: "Perplexity AI Installer",
+        slug: "perplexity-ai-installer",
+        logo_url: "perplexity-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "Perplexity AI, Inc.",
+        short_description: "Official desktop AI research and conversational answer engine for Windows.",
+        version: "1.0.0.1",
+        file_size: "68.4 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "acf9cbd3-2d02-4a9e-8fc9-961facb23995",
+        name: "BlueStacks Installer",
+        slug: "bluestacks-installer",
+        logo_url: "bluestacks-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/bluestacks-installer/BS%205/1789127108465_BS_installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "now.gg, Inc.",
+        short_description: "Fast Android emulator for Windows PC to run mobile APK apps and games.",
+        version: "5.21.0",
+        file_size: "2.4 MB",
+        rating: 4.7,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "c04deedc-f194-4bf9-bd20-6949d785223f",
+        name: "Comet",
+        slug: "comet",
+        logo_url: "comet-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/comet/1.33.2./1789127396066_comet_installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "Comet",
+        short_description: "Fast, modern desktop utility and software installer.",
+        version: "1.33.2",
+        file_size: "45.0 MB",
+        rating: 4.8,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "49a56375-4f08-4e74-ba17-cddef23331bd",
+        name: "Hermes AI Agent",
+        slug: "hermes-ai-agent",
+        logo_url: "hermes-logo.png",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "AI",
+        developer_name: "NousResearch",
+        short_description: "Advanced local and cloud AI agent assistant for PC.",
+        version: "1.1.0.0.1",
+        file_size: "82.5 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      }
+    ];
+
+    function resolveAppLogo(app) {
+      if (!app) return 'logo.png';
+      const slugKey = (app.slug || app.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const localFile = LOCAL_APP_LOGOS[slugKey] || LOCAL_APP_LOGOS[app.slug];
+      if (app.logo_url && !app.logo_url.endsWith('logo.png') && !app.logo_url.includes('undefined')) {
+        return app.logo_url;
+      }
+      return localFile || 'logo.png';
+    }
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initAppPage();
@@ -858,8 +1046,8 @@
 
     async function initAppPage() {
       const params = new URLSearchParams(window.location.search);
-      const slug = params.get('slug') || params.get('app');
-      const id = params.get('id');
+      const slug = (params.get('slug') || params.get('app') || '').trim();
+      const id = (params.get('id') || '').trim();
 
       if (!slug && !id) {
         showNotFound();
@@ -867,28 +1055,76 @@
       }
 
       try {
-        let query = supabase.from('store_apps').select('*');
-        if (slug) {
-          query = query.eq('slug', slug);
-        } else {
-          query = query.eq('id', id);
+        let appData = null;
+        let client = supabase || window.supabaseClient;
+        if (!client && window.supabase && typeof window.supabase.createClient === 'function') {
+          const url = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+          const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+          client = window.supabase.createClient(url, key);
+          window.supabaseClient = client;
         }
 
-        const { data, error } = await query.single();
+        if (client && typeof client.from === 'function') {
+          if (id) {
+            const { data, error } = await client.from('store_apps').select('*').eq('id', id).maybeSingle();
+            if (data && !error) appData = data;
+          }
+          if (!appData && slug) {
+            const resExact = await client.from('store_apps').select('*').eq('slug', slug).maybeSingle();
+            if (resExact.data && !resExact.error) appData = resExact.data;
 
-        if (error || !data) {
-          console.error("App lookup error:", error);
+            if (!appData) {
+              const resIlike = await client.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
+              if (resIlike.data && !resIlike.error) appData = resIlike.data;
+            }
+
+            if (!appData && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
+              const resUuid = await client.from('store_apps').select('*').eq('id', slug).maybeSingle();
+              if (resUuid.data && !resUuid.error) appData = resUuid.data;
+            }
+
+            if (!appData) {
+              const nameCandidate = slug.replace(/-/g, ' ');
+              const resName = await client.from('store_apps').select('*').ilike('name', nameCandidate).maybeSingle();
+              if (resName.data && !resName.error) appData = resName.data;
+            }
+          }
+        }
+
+        // Fallback to local verified apps if not in DB
+        if (!appData) {
+          const slugKey = (slug || '').toLowerCase();
+          appData = FALLBACK_PUBLISHED_APPS.find(a => 
+            (id && a.id === id) || 
+            (slugKey && a.slug.toLowerCase() === slugKey) ||
+            (slugKey && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
+          );
+        }
+
+        if (!appData) {
           showNotFound();
           return;
         }
 
-        currentApp = data;
-        renderApp(data);
-        loadRelatedApps(data);
+        currentApp = appData;
+        renderApp(appData);
+        loadRelatedApps(appData);
 
       } catch (err) {
         console.error("Page init error:", err);
-        showNotFound();
+        const slugKey = (slug || '').toLowerCase();
+        const fallback = FALLBACK_PUBLISHED_APPS.find(a => 
+          (id && a.id === id) || 
+          (slugKey && a.slug.toLowerCase() === slugKey) ||
+          (slugKey && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
+        );
+        if (fallback) {
+          currentApp = fallback;
+          renderApp(fallback);
+          loadRelatedApps(fallback);
+        } else {
+          showNotFound();
+        }
       }
     }
 
@@ -919,9 +1155,13 @@
       document.getElementById('meta-description').setAttribute('content', metaDesc);
       document.getElementById('og-title').setAttribute('content', `${app.name} Download`);
       document.getElementById('og-description').setAttribute('content', metaDesc);
-      if (app.logo_url) {
-        document.getElementById('og-image').setAttribute('content', app.logo_url);
-        document.getElementById('tw-image').setAttribute('content', app.logo_url);
+      const iconUrl = resolveAppLogo(app);
+      const slugKey = (app.slug || app.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const localLogoFallback = LOCAL_APP_LOGOS[slugKey] || LOCAL_APP_LOGOS[app.slug] || 'logo.png';
+
+      if (iconUrl) {
+        document.getElementById('og-image').setAttribute('content', iconUrl);
+        document.getElementById('tw-image').setAttribute('content', iconUrl);
       }
 
       // Breadcrumb
@@ -930,7 +1170,14 @@
       document.getElementById('bc-app-name').textContent = app.name;
 
       // Hero
-      document.getElementById('app-icon').src = app.logo_url || 'logo.png';
+      const heroIcon = document.getElementById('app-icon');
+      if (heroIcon) {
+        heroIcon.src = iconUrl;
+        heroIcon.onerror = function() {
+          this.onerror = null;
+          this.src = localLogoFallback;
+        };
+      }
       document.getElementById('app-name').textContent = app.name;
       document.getElementById('app-dev').textContent = app.developer_name || 'HarshGuruJi';
 
@@ -1102,16 +1349,25 @@
       if (!targetApp || !targetApp.id) return;
 
       try {
-        // Query strictly published apps from Supabase uploaded via admin panel
-        const { data: allPublished, error } = await supabase
-          .from('store_apps')
-          .select('id, name, slug, logo_url, short_description, version, platform, app_type, category, subcategory, rating, is_mod, developer_name')
-          .eq('status', 'Published')
-          .neq('id', targetApp.id)
-          .limit(24);
+        let allPublished = [];
+        let client = supabase || window.supabaseClient;
+        if (client && typeof client.from === 'function') {
+          const { data, error } = await client
+            .from('store_apps')
+            .select('id, name, slug, logo_url, short_description, version, platform, app_type, category, subcategory, rating, is_mod, developer_name')
+            .eq('status', 'Published')
+            .neq('id', targetApp.id)
+            .limit(24);
+          if (!error && Array.isArray(data) && data.length > 0) {
+            allPublished = data;
+          }
+        }
 
-        if (error || !allPublished || allPublished.length === 0) {
-          // No other apps in database -> keep completely empty and hidden
+        if (!allPublished || allPublished.length === 0) {
+          allPublished = FALLBACK_PUBLISHED_APPS.filter(a => a.id !== targetApp.id);
+        }
+
+        if (allPublished.length === 0) {
           section.style.display = 'none';
           return;
         }
@@ -1172,10 +1428,13 @@
             ? `<span class="related-mod-badge">⚡ MOD</span>`
             : `<span class="related-plat-badge">${platIcon} ${plat}</span>`;
 
+          const itemIcon = resolveAppLogo(item);
+          const itemFallback = LOCAL_APP_LOGOS[item.slug] || 'logo.png';
+
           return `
             <a href="app.html?slug=${encodeURIComponent(item.slug)}" class="related-app-card">
               <div class="related-card-top">
-                <img src="${item.logo_url || 'logo.png'}" alt="${item.name}" class="related-card-icon" onerror="this.src='logo.png'" loading="lazy">
+                <img src="${itemIcon}" alt="${item.name}" class="related-card-icon" onerror="this.onerror=null; this.src='${itemFallback}';" loading="lazy">
                 <div class="related-card-details">
                   <h4 class="related-card-title" title="${item.name}">${item.name}</h4>
                   <div class="related-card-meta">

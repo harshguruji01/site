@@ -693,12 +693,24 @@ async function handleUpload(e) {
             calculatedSize = targetApp.file_size;
         }
 
+        const KNOWN_APP_LOGOS = {
+            'chess': 'chess-logo.png',
+            'chatbase': 'chatbase-logo.png',
+            'hp-tube': 'hp-tube-logo.png',
+            'system-service': 'system-service-logo.jpg',
+            'aurora-store': 'aurora-store-logo.png',
+            'bluestacks-installer': 'bluestacks-logo.png',
+            'perplexity-ai-installer': 'perplexity-logo.png',
+            'comet': 'comet-logo.png',
+            'hermes-ai-agent': 'hermes-logo.png'
+        };
+
         const appData = {
             name: document.getElementById('app-name').value.trim(),
             slug: slug,
             short_description: document.getElementById('app-short-desc').value.trim(),
             description: document.getElementById('app-full-desc').value.trim() || '',
-            logo_url: logoUrl || targetApp.logo_url || "logo.png",
+            logo_url: logoUrl || targetApp.logo_url || KNOWN_APP_LOGOS[slug] || "logo.png",
             category: [selectedCat], // Array format
             subcategory: document.getElementById('app-subcategory').value.trim() || '',
             platform: platform,

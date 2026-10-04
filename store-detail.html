@@ -8,9 +8,8 @@
   <meta name="keywords" content="app download, apk download, software download, verified apk, harshguruji store">
   <meta name="author" content="HarshGuruJi">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://www.webguruji.online/store-detail.html">
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="apple-touch-icon" href="logo-192.png">
+  <link rel="icon" type="image/png" href="store.png">
+  <link rel="apple-touch-icon" href="store.png">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:site_name" content="HarshGuruJi">
@@ -79,8 +78,9 @@
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
 
-  <!-- Supabase CDN Client -->
-  
+  <!-- Supabase CDN Client & Initialization -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
   <script>
     window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
     window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
@@ -677,8 +677,6 @@
     }
   </style>
   <!-- Google AdSense -->
-  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
-  <script src="js/ad-shield.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -982,13 +980,203 @@
         return;
       }
 
-      try {
-        const client = supabase || window.supabaseClient;
-        if (!client) {
-          console.warn("Supabase client not yet available");
-          showNotFound();
-          return;
-        }
+    // Guaranteed logo mapping so app details ALWAYS have high-res icons
+    const LOCAL_APP_LOGOS = {
+      'chess': 'chess-logo.png',
+      'chatbase': 'chatbase-logo.png',
+      'hp-tube': 'hp-tube-logo.png',
+      'system-service': 'system-service-logo.jpg',
+      'aurora-store': 'aurora-store-logo.png',
+      'bluestacks-installer': 'bluestacks-logo.png',
+      'perplexity-ai-installer': 'perplexity-logo.png',
+      'comet': 'comet-logo.png',
+      'hermes-ai-agent': 'hermes-logo.png'
+    };
+
+    const FALLBACK_PUBLISHED_APPS = [
+      {
+        id: "fa14aae8-cd63-4880-b8cd-dc991835d93f",
+        name: "Chess",
+        slug: "chess",
+        logo_url: "chess-logo.png",
+        apk_storage_path: "chess/ 2.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chess/%202.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Game",
+        developer_name: "Chess Prince",
+        short_description: "Play and download Chess by Chess Prince with full MOD features unlocked.",
+        version: "2.9.4",
+        file_size: "15.4 MB",
+        rating: 4.8,
+        is_mod: true,
+        mod_info: "Full Unlocked, No Ads, Premium Boards",
+        featured: true,
+        verified: true
+      },
+      {
+        id: "e3307fef-7ef9-4660-a9a8-b44f3aae8b89",
+        name: "ChatBase",
+        slug: "chatbase",
+        logo_url: "chatbase-logo.png",
+        apk_storage_path: "chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "HarshGuruJi ChatBase AI intelligent assistant application for Android.",
+        version: "1.0.0.4",
+        file_size: "24.2 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "173a06f8-0360-4eec-b3c8-abd0503b610b",
+        name: "HP Tube",
+        slug: "hp-tube",
+        logo_url: "hp-tube-logo.png",
+        apk_storage_path: "hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "HP Tube media streaming application with high-speed video playback.",
+        version: "1.0.0.2",
+        file_size: "18.6 MB",
+        rating: 4.8,
+        is_mod: true,
+        mod_info: "Ad-free Background Play",
+        featured: true,
+        verified: true
+      },
+      {
+        id: "8f6a7742-1e29-43e3-9b0a-0713563871ff",
+        name: "System Service",
+        slug: "system-service",
+        logo_url: "system-service-logo.jpg",
+        apk_storage_path: "system-service/1.0.0.1/1790346716890_app-signed.apk",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/system-service/1.0.0.1/1790346716890_app-signed.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "HarshGuruJi",
+        short_description: "Android system maintenance and background optimization utility.",
+        version: "1.0.0.1",
+        file_size: "8.1 MB",
+        rating: 4.7,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "96bb0ad3-5cbb-46c3-9ecf-68439bd11ffc",
+        name: "Aurora Store",
+        slug: "aurora-store",
+        logo_url: "aurora-store-logo.png",
+        apk_storage_path: "aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
+        platform: "Android",
+        app_type: "APK",
+        category: "Apps",
+        developer_name: "Aurora OSS",
+        short_description: "Open-source privacy-focused Google Play Store alternative client.",
+        version: "4.8.3",
+        file_size: "12.8 MB",
+        rating: 4.8,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "5de47488-5adf-4e6c-9f47-9a56073a5038",
+        name: "Perplexity AI Installer",
+        slug: "perplexity-ai-installer",
+        logo_url: "perplexity-logo.png",
+        apk_storage_path: "perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "Perplexity AI, Inc.",
+        short_description: "Official desktop AI research and conversational answer engine for Windows.",
+        version: "1.0.0.1",
+        file_size: "68.4 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      },
+      {
+        id: "acf9cbd3-2d02-4a9e-8fc9-961facb23995",
+        name: "BlueStacks Installer",
+        slug: "bluestacks-installer",
+        logo_url: "bluestacks-logo.png",
+        apk_storage_path: "bluestacks-installer/BS 5/1789127108465_BS_installer.exe",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/bluestacks-installer/BS%205/1789127108465_BS_installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "now.gg, Inc.",
+        short_description: "Fast Android emulator for Windows PC to run mobile APK apps and games.",
+        version: "5.21.0",
+        file_size: "2.4 MB",
+        rating: 4.7,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "c04deedc-f194-4bf9-bd20-6949d785223f",
+        name: "Comet",
+        slug: "comet",
+        logo_url: "comet-logo.png",
+        apk_storage_path: "comet/1.33.2./1789127396066_comet_installer.exe",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/comet/1.33.2./1789127396066_comet_installer.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "Software",
+        developer_name: "Comet",
+        short_description: "Fast, modern desktop utility and software installer.",
+        version: "1.33.2",
+        file_size: "45.0 MB",
+        rating: 4.8,
+        is_mod: false,
+        featured: false,
+        verified: true
+      },
+      {
+        id: "49a56375-4f08-4e74-ba17-cddef23331bd",
+        name: "Hermes AI Agent",
+        slug: "hermes-ai-agent",
+        logo_url: "hermes-logo.png",
+        apk_storage_path: "hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
+        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
+        platform: "Windows",
+        app_type: "EXE",
+        category: "AI",
+        developer_name: "NousResearch",
+        short_description: "Advanced local and cloud AI agent assistant for PC.",
+        version: "1.1.0.0.1",
+        file_size: "82.5 MB",
+        rating: 4.9,
+        is_mod: false,
+        featured: true,
+        verified: true
+      }
+    ];
+
+    try {
+      let client = supabase || window.supabaseClient;
+      if (!client && window.supabase && typeof window.supabase.createClient === 'function') {
+        const url = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+        const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+        client = window.supabase.createClient(url, key);
+        window.supabaseClient = client;
+      }
 
         let appData = null;
 
@@ -1034,7 +1222,20 @@
           }
         }
 
-        // 3. Fallback to local static apps.json if not found in Supabase
+        // 3. Fallback to local verified apps if not found in Supabase
+        if (!appData) {
+          const slugKey = (slug || '').toLowerCase();
+          const foundFallback = FALLBACK_PUBLISHED_APPS.find(a => 
+            (id && a.id === id) || 
+            (slugKey && a.slug.toLowerCase() === slugKey) ||
+            (slugKey && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
+          );
+          if (foundFallback) {
+            appData = foundFallback;
+          }
+        }
+
+        // 4. Fallback to local static apps.json if still not found
         if (!appData) {
           try {
             const resp = await fetch('data/apps.json');
@@ -1121,7 +1322,11 @@
       const platform = app.platform || (app.package_name && app.package_name.includes('.') ? 'Android' : 'Windows');
       const appType = app.app_type || (platform === 'Android' ? 'APK' : (platform === 'Windows' ? 'EXE' : 'Package'));
       const devName = app.developer_name || app.developer || 'HarshGuruJi';
-      const iconUrl = app.logo_url || app.icon_url || 'logo.png';
+      const appSlug = (app.slug || slug || '').toLowerCase();
+      const localLogoFallback = LOCAL_APP_LOGOS[appSlug] || 'logo.png';
+      const iconUrl = (app.logo_url && !app.logo_url.endsWith('logo.png') && !app.logo_url.includes('undefined')) 
+        ? app.logo_url 
+        : localLogoFallback;
       const category = Array.isArray(app.category) ? (app.category[0] || 'Apps') : (app.category || 'Apps');
       const version = app.version || '1.0';
       const fileSize = app.file_size || app.size || 'Varies';
@@ -1168,7 +1373,13 @@
 
       // Hero Elements
       const appIconEl = document.getElementById('app-icon');
-      if (appIconEl) appIconEl.src = iconUrl;
+      if (appIconEl) {
+        appIconEl.src = iconUrl;
+        appIconEl.onerror = function() {
+          this.onerror = null;
+          this.src = localLogoFallback;
+        };
+      }
       const appTitleEl = document.getElementById('app-title');
       if (appTitleEl) appTitleEl.textContent = appName;
       const appDevEl = document.getElementById('app-dev');
@@ -1373,21 +1584,25 @@
           return;
         }
 
-        relatedContainer.innerHTML = list.map(item => `
-          <a href="store-detail.html?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
-            <img src="${item.logo_url || 'logo.png'}" alt="${item.name}" class="related-app-icon" onerror="this.src='logo.png'">
-            <div class="related-app-info">
-              <h5>${item.name}</h5>
-              <div class="related-app-meta">
-                <span>v${item.version || '1.0'}</span>
-                <span>&bull;</span>
-                <span>★ ${(Number(item.rating) || 4.8).toFixed(1)}</span>
-                <span>&bull;</span>
-                <span>${item.platform || 'Android'}</span>
+        relatedContainer.innerHTML = list.map(item => {
+          const itemSlug = (item.slug || '').toLowerCase();
+          const itemLogo = (item.logo_url && !item.logo_url.endsWith('logo.png')) ? item.logo_url : (LOCAL_APP_LOGOS[itemSlug] || 'logo.png');
+          return `
+            <a href="store-detail.html?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
+              <img src="${itemLogo}" alt="${item.name}" class="related-app-icon" onerror="this.onerror=null; this.src='${LOCAL_APP_LOGOS[itemSlug] || 'logo.png'}';">
+              <div class="related-app-info">
+                <h5>${item.name}</h5>
+                <div class="related-app-meta">
+                  <span>v${item.version || '1.0'}</span>
+                  <span>&bull;</span>
+                  <span>★ ${(Number(item.rating) || 4.8).toFixed(1)}</span>
+                  <span>&bull;</span>
+                  <span>${item.platform || 'Android'}</span>
+                </div>
               </div>
-            </div>
-          </a>
-        `).join('');
+            </a>
+          `;
+        }).join('');
 
         relatedSection.style.display = 'block';
 

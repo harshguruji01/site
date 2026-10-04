@@ -915,25 +915,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Fetch live store_apps table from Supabase
     try {
+      const LOCAL_NAV_LOGOS = {
+        'chess': `${prefix}chess-logo.png`,
+        'chatbase': `${prefix}chatbase-logo.png`,
+        'hp-tube': `${prefix}hp-tube-logo.png`,
+        'system-service': `${prefix}system-service-logo.jpg`,
+        'aurora-store': `${prefix}aurora-store-logo.png`,
+        'bluestacks-installer': `${prefix}bluestacks-logo.png`,
+        'perplexity-ai-installer': `${prefix}perplexity-logo.png`,
+        'comet': `${prefix}comet-logo.png`,
+        'hermes-ai-agent': `${prefix}hermes-logo.png`
+      };
+
       const { supabase } = await import(`${prefix}js/supabase.js`);
       if (supabase && typeof supabase.from === 'function') {
         const { data, error } = await supabase
           .from('store_apps')
-          .select('id, name, title, short_description, description, icon_url, logo_url, category, platform, app_type')
+          .select('id, name, slug, title, short_description, description, icon_url, logo_url, category, platform, app_type')
           .limit(100);
         if (!error && Array.isArray(data)) {
           data.forEach(app => {
             const appTitle = app.title || app.name || 'Store App';
-            const iconImg = app.icon_url || app.logo_url;
-            const hasImg = iconImg && (iconImg.startsWith('http') || iconImg.endsWith('.png') || iconImg.endsWith('.svg'));
+            const slugKey = (app.slug || appTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+            const localFallback = LOCAL_NAV_LOGOS[slugKey] || LOCAL_NAV_LOGOS[app.slug] || `${prefix}logo.png`;
+            let iconImg = app.logo_url || app.icon_url || localFallback;
+            const hasImg = !!iconImg;
             const appObj = {
               id: app.id,
               title: appTitle,
               desc: app.short_description || (app.description ? app.description.slice(0, 110) + '...' : (app.category ? `Category: ${app.category}` : 'Verified Store Application')),
               url: `store-detail.html?id=${encodeURIComponent(app.id)}`,
               type: 'app',
-              keywords: `${appTitle} ${app.category || ''} ${app.platform || ''} ${app.app_type || ''} store app application software download`.toLowerCase(),
-              icon: hasImg ? `<img src="${iconImg}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.parentElement.innerHTML='📱';">` : '📱'
+              keywords: `${appTitle} ${slugKey} ${app.category || ''} ${app.platform || ''} ${app.app_type || ''} apk store app application software download`.toLowerCase(),
+              icon: hasImg ? `<img src="${iconImg}" alt="${escapeNavHtml(appTitle)}" onerror="this.onerror=null;this.src='${localFallback}';">` : '📱'
             };
             const existingIdx = dynamicStoreApps.findIndex(a => a.id === app.id || a.title.toLowerCase() === appTitle.toLowerCase());
             if (existingIdx >= 0) {
