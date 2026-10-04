@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="hg-footer-grid">
         <div class="hg-footer-brand">
           <a href="${prefix}index.html" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; margin-bottom: 1.5rem;">
-            <img src="${prefix}logo.png" alt="HarshGuruJi Logo" style="height: 48px; width: auto; border-radius: 8px;" />
+            <img src="${prefix}logo.png" alt="HarshGuruJi Logo" style="height: 36px; width: auto; max-width: 44px; border-radius: 8px; object-fit: contain;" />
             <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.5rem; background:linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
           </a>
           <p>HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.</p>

@@ -10,21 +10,46 @@
   <link rel="icon" type="image/png" href="books.png">
   <link rel="apple-touch-icon" href="books.png">
 
-  <!-- Open Graph -->
+  <meta property="og:site_name" content="HarshGuruJi">
   <meta property="og:title" content="NCERT Books Library — Class 1 to 12 Textbooks Free PDF | HarshGuruJi">
   <meta property="og:description" content="Interactive NCERT Book Finder. Select Class, Subject, Book and Chapter to read online or download full textbook PDFs.">
-  <meta property="og:image" content="https://www.webguruji.online/books.png">
-  <meta property="og:url" content="https://www.webguruji.online/books.html">
+  <meta property="og:image" content="https://books.webguruji.online/books.png">
+  <meta property="og:url" content="https://books.webguruji.online/">
   <meta property="og:type" content="website">
 
-  <!-- Structured Data: WebPage & Breadcrumb -->
+  <!-- Structured Data: WebSite & WebPage Schema for Google Search Console -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://books.webguruji.online/#website",
+    "name": "HarshGuruJi",
+    "alternateName": ["HarshGuruJi Books", "WebGuruJi Books"],
+    "url": "https://books.webguruji.online/",
+    "description": "Read and download verified NCERT textbooks for Classes 1 through 12 across all subjects.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "HarshGuruJi",
+      "url": "https://www.webguruji.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.webguruji.online/logo-512.png"
+      }
+    }
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "NCERT Books Library - Class 1 to 12",
-    "url": "https://www.webguruji.online/books.html",
-    "description": "Read and download verified NCERT textbooks for Classes 1 through 12 across all subjects."
+    "name": "NCERT Books Library - Class 1 to 12 | HarshGuruJi",
+    "url": "https://books.webguruji.online/",
+    "description": "Read and download verified NCERT textbooks for Classes 1 through 12 across all subjects.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://books.webguruji.online/#website",
+      "name": "HarshGuruJi"
+    }
   }
   </script>
 
@@ -205,6 +230,46 @@
     .book-search-clear:hover {
       background: rgba(239, 68, 68, 0.25);
       color: #fca5a5;
+    }
+
+    .book-search-action-btn {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 0.55rem 1.15rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      margin-left: 0.5rem;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+      flex-shrink: 0;
+    }
+
+    .book-search-action-btn:hover {
+      background: linear-gradient(135deg, #4f46e5, #3730a3);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+    }
+
+    .book-search-action-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 540px) {
+      .book-search-input-wrap {
+        padding: 0.5rem 0.65rem 0.5rem 0.85rem;
+      }
+      .book-search-action-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.82rem;
+        margin-left: 0.35rem;
+      }
     }
 
     .search-tags-hint {
@@ -715,7 +780,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 0.5rem;
     }
 
     .pdf-modal-overlay.active {
@@ -728,7 +793,7 @@
       border-radius: 20px;
       width: 100%;
       max-width: 1050px;
-      height: 90vh;
+      height: 95vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -736,47 +801,53 @@
     }
 
     .pdf-modal-header {
-      padding: 0.85rem 1.5rem;
+      padding: 0.75rem 1rem;
       background: #1e293b;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
+      flex-shrink: 0;
     }
 
     .pdf-modal-title {
       font-weight: 700;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 10px;
-      white-space: nowrap;
+      gap: 8px;
+      min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
     }
 
     .pdf-modal-ctrls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .pdf-modal-btn {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 8px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.2s;
+      white-space: nowrap;
     }
 
     .pdf-modal-btn:hover {
@@ -793,6 +864,7 @@
       padding: 2px 6px;
       border-radius: 6px;
       transition: color 0.2s;
+      flex-shrink: 0;
     }
 
     .pdf-modal-close:hover {
@@ -803,12 +875,32 @@
       flex: 1;
       background: #090d16;
       position: relative;
+      overflow: hidden;
     }
 
     .pdf-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* Mobile responsive: stack modal header */
+    @media (max-width: 600px) {
+      .pdf-modal-overlay { padding: 0; }
+      .pdf-modal-box {
+        border-radius: 0;
+        height: 100dvh;
+        height: 100vh;
+        max-width: 100vw;
+      }
+      .pdf-modal-header {
+        padding: 0.6rem 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pdf-modal-title { max-width: 100%; font-size: 0.82rem; }
+      .pdf-modal-ctrls { width: 100%; justify-content: flex-start; }
+      .pdf-modal-btn { font-size: 0.73rem; padding: 5px 8px; }
     }
 
     /* Toast */
@@ -863,6 +955,10 @@
         </svg>
         <input type="text" id="book-search-input" class="book-search-input" placeholder="Search entire store by Class (e.g. 10, Class 12), Book Name, Subject, Chapter..." autocomplete="off" aria-label="Search all books">
         <button type="button" id="book-search-clear" class="book-search-clear" title="Clear Search" aria-label="Clear Search">&times;</button>
+        <button type="button" id="btn-book-search" class="book-search-action-btn" title="Search all books in library">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+          <span>Search Books</span>
+        </button>
       </div>
 
       <!-- Quick Search Suggestions -->
@@ -1003,21 +1099,22 @@
       </div>
       <div class="pdf-frame-wrap" id="pdf-frame-wrap">
         <iframe id="pdf-viewer-frame" src="about:blank" title="NCERT Book PDF Reader" allowfullscreen referrerpolicy="no-referrer"></iframe>
-        <div id="pdf-fallback-banner" style="display:none; position:absolute; inset:0; background:#0b0f19; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; gap:1.2rem; z-index:10;">
-          <div style="font-size:3.2rem;">📚</div>
-          <h3 id="fallback-book-heading" style="color:#fff; font-size:1.3rem; margin:0;">Official NCERT Digital Stream</h3>
-          <p id="fallback-book-desc" style="color:#94a3b8; max-width:550px; font-size:0.92rem; margin:0; line-height:1.5;">This official NCERT textbook chapter is ready for live reading and instant offline download.</p>
-          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:0.5rem;">
-            <a href="#" id="fallback-btn-read" target="_blank" rel="noopener noreferrer" class="btn-book-read" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none;">
-              🚀 Open Fullscreen Live Reader
+        <div id="pdf-fallback-banner" style="display:none; position:absolute; inset:0; background:#0b0f19; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem; text-align:center; gap:1rem; z-index:10; overflow-y:auto;">
+          <div style="font-size:3rem;">📚</div>
+          <h3 id="fallback-book-heading" style="color:#fff; font-size:1.2rem; margin:0; line-height:1.4;">Official NCERT Digital Stream</h3>
+          <p id="fallback-book-desc" style="color:#94a3b8; max-width:500px; font-size:0.88rem; margin:0; line-height:1.6;">NCERT official PDFs open in a new tab for best reading experience. Use <strong style="color:#a5b4fc;">🚀 Open Fullscreen</strong> to read the full chapter or <strong style="color:#6ee7b7;">⬇ Download</strong> for offline access.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:0.5rem; width:100%;">
+            <a href="#" id="fallback-btn-read" target="_blank" rel="noopener noreferrer" class="btn-book-read" style="padding:0.75rem 1.4rem; font-size:0.9rem; text-decoration:none; border-radius:12px;">
+              🚀 Open Full Chapter (New Tab)
             </a>
-            <a href="#" id="fallback-btn-download" download class="btn-book-download" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none; background:rgba(16,185,129,0.2); border-color:rgba(16,185,129,0.5); color:#6ee7b7;">
+            <a href="#" id="fallback-btn-download" download class="btn-book-download" style="padding:0.75rem 1.4rem; font-size:0.9rem; text-decoration:none; background:rgba(16,185,129,0.2); border-color:rgba(16,185,129,0.5); color:#6ee7b7; border-radius:12px;">
               ⬇ Download Chapter PDF
             </a>
-            <a href="#" id="fallback-btn-zip" download class="btn-book-download" style="padding:0.75rem 1.6rem; font-size:0.95rem; text-decoration:none; background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a;">
+            <a href="#" id="fallback-btn-zip" download class="btn-book-download" style="padding:0.75rem 1.4rem; font-size:0.9rem; text-decoration:none; background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a; border-radius:12px;">
               📦 Download Full Book (.ZIP)
             </a>
           </div>
+          <p style="font-size:0.75rem; color:#475569; margin-top:0.5rem;">💡 Use the Chapter selector above to switch between chapters</p>
         </div>
       </div>
     </div>

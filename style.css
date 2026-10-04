@@ -17,6 +17,11 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 html, body {
   background-color: #000000 !important;
   background-image: none !important;
@@ -1255,7 +1260,8 @@ body::before {
 
 /* Extracted extra inline styles */
 .orb-inner-clear { background: transparent; box-shadow: none; }
-.hero-logo-img { width: 90px; height: 90px; object-fit: contain; border-radius: 50%; }
+.hero-logo-img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; }
+.hg-ov-logo { width: 44px; height: 44px; object-fit: contain; border-radius: 10px; }
 .hidden { display: none !important; }
 
 /* --- Algolia InstantSearch Navbar Overrides --- */
