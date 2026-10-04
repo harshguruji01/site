@@ -5,6 +5,27 @@
 (function () {
   'use strict';
 
+  // Strict page guard: ONLY display Download HarshGuruJi install banner on the main Home Page
+  function isMainWebsiteHome() {
+    try {
+      const host = window.location.hostname.toLowerCase();
+      if (host.includes('store.') || host.includes('books.')) return false;
+      const path = (window.location.pathname || '').toLowerCase();
+      const file = (path.split('/').pop() || 'index.html').toLowerCase();
+      return path === '/' || path === '' || file === 'index.html' || file === '';
+    } catch(e) {
+      return false;
+    }
+  }
+
+  if (!isMainWebsiteHome()) {
+    const strayBanner = document.getElementById('hg-pwa-banner');
+    if (strayBanner) strayBanner.remove();
+    const strayModal = document.getElementById('hg-pwa-modal');
+    if (strayModal) strayModal.remove();
+    return;
+  }
+
   // Prevent multiple initializations
   if (window.__HG_PWA_INITIALIZED__) return;
   window.__HG_PWA_INITIALIZED__ = true;

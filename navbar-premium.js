@@ -34,22 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Legacy cleanup
   document.querySelectorAll('.premium-navbar, .premium-mobile-nav').forEach(el => el.remove());
 
-  // Ensure PWA Install & Shortcut resources are loaded across all pages
-  if (!document.getElementById('hg-pwa-css')) {
-    const pwaLink = document.createElement('link');
-    pwaLink.id = 'hg-pwa-css';
-    pwaLink.rel = 'stylesheet';
-    pwaLink.href = `${prefix}css/pwa-install.css`;
-    document.head.appendChild(pwaLink);
-  }
-  if (!window.__HG_PWA_INITIALIZED__ && !document.getElementById('hg-pwa-js')) {
-    const pwaScript = document.createElement('script');
-    pwaScript.id = 'hg-pwa-js';
-    pwaScript.src = `${prefix}js/pwa-install.js`;
-    pwaScript.defer = true;
-    document.body.appendChild(pwaScript);
-  }
-
   // Context-Aware Host and Route Detection
   const navHost = window.location.hostname.toLowerCase();
   const navPath = (window.location.pathname || '').toLowerCase();
@@ -65,6 +49,33 @@ document.addEventListener('DOMContentLoaded', () => {
                       navHost.includes('books') || 
                       navPath.includes('/books') || 
                       navFile.includes('book');
+
+  // ONLY Home Page (index.html / root /) on the main website domain should have the Download HarshGuruJi banner
+  const isMainHomePage = !isStorePage && !isBooksPage && (navFile === 'index.html' || navFile === '' || navPath === '/' || navPath === '');
+
+  if (isMainHomePage) {
+    // Ensure PWA Install & Shortcut resources are loaded ONLY on home page
+    if (!document.getElementById('hg-pwa-css')) {
+      const pwaLink = document.createElement('link');
+      pwaLink.id = 'hg-pwa-css';
+      pwaLink.rel = 'stylesheet';
+      pwaLink.href = `${prefix}css/pwa-install.css`;
+      document.head.appendChild(pwaLink);
+    }
+    if (!window.__HG_PWA_INITIALIZED__ && !document.getElementById('hg-pwa-js')) {
+      const pwaScript = document.createElement('script');
+      pwaScript.id = 'hg-pwa-js';
+      pwaScript.src = `${prefix}js/pwa-install.js`;
+      pwaScript.defer = true;
+      document.body.appendChild(pwaScript);
+    }
+  } else {
+    // On every other page, strictly remove any Download / Install banner or modal from the screen
+    const strayBanner = document.getElementById('hg-pwa-banner');
+    if (strayBanner) strayBanner.remove();
+    const strayModal = document.getElementById('hg-pwa-modal');
+    if (strayModal) strayModal.remove();
+  }
 
   const isLocal = window.location.protocol === 'file:' || 
                   window.location.hostname === 'localhost' || 
