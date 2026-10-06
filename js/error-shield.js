@@ -9,6 +9,12 @@
  *   3. Private browsing & QuotaExceeded storage exceptions (localStorage/sessionStorage)
  *   4. Viewport horizontal overflow & mobile layout breakage
  *   5. Null DOM pointer exceptions in dynamic scripts
+ * Functional Enhancements:
+ *   6. Universal Toast Notification: window.showToast(message, type, duration)
+ *   7. Universal Modal & Lightbox dismissal on Escape key and backdrop clicks
+ *   8. Universal Copy-To-Clipboard handler for [data-copy] and .copy-btn
+ *   9. Universal Share handler for [data-share] and .share-btn
+ *  10. Tactile Download feedback for .btn-download and download links
  * ============================================================================
  */
 (function(window, document) {
@@ -46,7 +52,6 @@
     if (window.__WG_DEBUG__) {
       console.warn('[ErrorShield Caught]', event.message, 'at', event.filename + ':' + event.lineno);
     }
-    // Prevent unhandled error popups in older/strict browsers
   }, true);
 
   window.addEventListener('unhandledrejection', function(event) {
@@ -158,7 +163,6 @@
       };
     }
 
-    // Verify localStorage
     var lsAvailable = false;
     try {
       var testKey = '__wg_shield_test__';
@@ -181,13 +185,11 @@
         window._safeLocalStorage = createMemoryStorage();
       }
     } else {
-      // Patch setItem to never throw QuotaExceeded
       var originalSetItem = window.localStorage.setItem;
       window.localStorage.setItem = function(k, v) {
         try {
           originalSetItem.call(window.localStorage, k, v);
         } catch (quotaErr) {
-          // If storage full, remove old tracker data or warn gracefully
           try {
             originalSetItem.call(window.localStorage, k, v);
           } catch (e) {
@@ -206,7 +208,6 @@
     var clientW = document.documentElement.clientWidth || window.innerWidth;
     if (!clientW || clientW <= 0) return;
 
-    // Detect if page has horizontal scrollbar
     if (document.body.scrollWidth > clientW + 1) {
       var allElements = document.body.querySelectorAll('*');
       for (var i = 0; i < allElements.length; i++) {
@@ -234,7 +235,6 @@
     }
   }
 
-  // Run on DOM ready, window load, and debounced resize
   var resizeTimer = null;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
@@ -249,7 +249,169 @@
   window.addEventListener('load', clampHorizontalOverflow);
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // 6. SAFE DOM UTILITIES (window.safeEl, window.safeListen)
+  // 6. UNIVERSAL TOAST NOTIFICATION ENGINE
+  // ═══════════════════════════════════════════════════════════════════════════
+  var toastContainer = null;
+
+  function ensureToastContainer() {
+    if (!toastContainer || !document.body.contains(toastContainer)) {
+      toastContainer = document.createElement('div');
+      toastContainer.className = 'wg-toast-container';
+      document.body.appendChild(toastContainer);
+    }
+    return toastContainer;
+  }
+
+  window.showToast = function(message, type, duration) {
+    if (!message) return;
+    type = type || 'info';
+    duration = duration || 3500;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        window.showToast(message, type, duration);
+      }, { once: true });
+      return;
+    }
+
+    var container = ensureToastContainer();
+    var toast = document.createElement('div');
+    toast.className = 'wg-toast wg-toast-' + type;
+
+    var iconSvg = '';
+    if (type === 'success') {
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    } else if (type === 'error') {
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+    } else {
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+    }
+
+    toast.innerHTML = iconSvg + '<span style="flex:1;">' + message + '</span>';
+
+    container.appendChild(toast);
+
+    function removeToast() {
+      if (toast.classList.contains('wg-toast-hiding')) return;
+      toast.classList.add('wg-toast-hiding');
+      setTimeout(function() {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }
+
+    toast.addEventListener('click', removeToast);
+    setTimeout(removeToast, duration);
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // 7. UNIVERSAL MODAL & LIGHTBOX DISMISSAL (Escape Key & Backdrop Clicks)
+  // ═══════════════════════════════════════════════════════════════════════════
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      // Find open modals and close them
+      var openModals = document.querySelectorAll(
+        '.modal.active, .modal.show, .app-modal.active, #lightbox-modal.active, ' +
+        '.lightbox-overlay.active, .modal-overlay.active, [data-modal].active, dialog[open]'
+      );
+      for (var i = 0; i < openModals.length; i++) {
+        var m = openModals[i];
+        if (m.tagName === 'DIALOG' && m.close) {
+          m.close();
+        } else {
+          m.classList.remove('active', 'show');
+        }
+      }
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Global click delegate for overlay backdrop clicks
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    if (!target) return;
+
+    // 1. Close modal if clicking directly on overlay
+    if (target.classList && (
+      target.classList.contains('modal-overlay') ||
+      target.classList.contains('app-modal-overlay') ||
+      target.classList.contains('lightbox-overlay')
+    )) {
+      target.classList.remove('active', 'show');
+      document.body.classList.remove('modal-open');
+      return;
+    }
+
+    // 2. Universal Copy to Clipboard handler
+    var copyBtn = target.closest('[data-copy], .copy-btn, .btn-copy');
+    if (copyBtn) {
+      e.preventDefault();
+      var copyText = copyBtn.getAttribute('data-copy') ||
+                     copyBtn.getAttribute('data-text') ||
+                     window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(copyText).then(function() {
+          window.showToast('Copied to clipboard!', 'success');
+        }).catch(function() {
+          fallbackCopy(copyText);
+        });
+      } else {
+        fallbackCopy(copyText);
+      }
+      return;
+    }
+
+    // 3. Universal Share handler
+    var shareBtn = target.closest('[data-share], .share-btn');
+    if (shareBtn) {
+      e.preventDefault();
+      var shareTitle = document.title || 'HarshGuruJi';
+      var shareUrl = window.location.href;
+      if (navigator.share) {
+        navigator.share({
+          title: shareTitle,
+          url: shareUrl
+        }).catch(function() { /* User cancelled */ });
+      } else {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareUrl).then(function() {
+            window.showToast('Link copied to clipboard!', 'success');
+          });
+        } else {
+          fallbackCopy(shareUrl);
+        }
+      }
+      return;
+    }
+
+    // 4. Download Feedback
+    var dlBtn = target.closest('.btn-download, .box-download-btn, .app-btn-download-tag, [data-download]');
+    if (dlBtn && !dlBtn.dataset.downloadNotified) {
+      dlBtn.dataset.downloadNotified = '1';
+      window.showToast('Preparing verified download...', 'info', 2500);
+      setTimeout(function() {
+        delete dlBtn.dataset.downloadNotified;
+      }, 4000);
+    }
+  });
+
+  function fallbackCopy(text) {
+    var textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      window.showToast('Copied to clipboard!', 'success');
+    } catch (err) {
+      window.showToast('Copy failed, please select and copy manually.', 'error');
+    }
+    document.body.removeChild(textArea);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // 8. SAFE DOM UTILITIES (window.safeEl, window.safeListen)
   // ═══════════════════════════════════════════════════════════════════════════
   window.safeEl = function(selector, context) {
     try {
