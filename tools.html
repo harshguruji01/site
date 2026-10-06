@@ -100,21 +100,34 @@
       <button id="hub-search-clear" class="hub-clear-btn" aria-label="Clear Search">✕</button>
     </div>
     <div class="hub-filters">
-      <button class="hub-filter-btn active" data-filter="All">All</button>
-      <!-- Categories injected dynamically or statically based on page -->
+      <button class="hub-filter-btn active" data-filter="All">All Tools</button>
+      <button class="hub-filter-btn" data-filter="Text Tools">Text Tools</button>
+      <button class="hub-filter-btn" data-filter="Generators">Generators</button>
+      <button class="hub-filter-btn" data-filter="Developer Tools">Developer</button>
+      <button class="hub-filter-btn" data-filter="Calculators">Calculators</button>
+      <button class="hub-filter-btn" data-filter="Converters">Converters</button>
     </div>
   </section>
 
   <!-- Main Grid -->
   <section class="hub-section">
-    <h2 class="hub-section-title">Explore</h2>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 class="hub-section-title" style="margin-bottom: 0;">Explore Tools</h2>
+        <span id="tool-result-count" style="color: var(--hub-text-secondary); font-size: 0.9rem;">Loading...</span>
+    </div>
+
+    <div id="tool-empty-state" class="hub-empty-state" style="display: none;">
+        <div class="hub-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+        <h3>No tools found</h3>
+        <p>Try another search term or choose a different category.</p>
+    </div>
     <div id="hub-grid" class="hub-grid">
       <!-- Cards rendered via JS -->
     </div>
   </section>
 </main>
 
-<script src="js/hub-core.js"></script>
 <script src="js/tool-hub.js"></script>
 <script src="navbar-premium.js" defer></script>
 <script type="module" src="js/auth.js" defer></script>
