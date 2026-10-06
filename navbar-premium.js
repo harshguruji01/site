@@ -90,9 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://www.webguruji.online/' : prefix;
   const currentFullUrl = typeof window !== 'undefined' ? window.location.href : '';
   const currentPathWithSearch = typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() + window.location.search) : '';
-  const loginUrl = (isStorePage || isBooksPage) && !isLocal
-    ? `https://webguruji.online/login.html?redirect=${encodeURIComponent(currentFullUrl)}`
-    : `${prefix}login.html${navFile && navFile !== 'index.html' && navFile !== 'login.html' && !navFile.includes('signup') ? '?redirect=' + encodeURIComponent(currentPathWithSearch) : ''}`;
+  // Central Login Target: ALWAYS points to the main 'site' folder / https://www.webguruji.online/login.html
+  let centralLoginBase;
+  if (!isStorePage && !isBooksPage) {
+    centralLoginBase = `${prefix}login.html`;
+  } else if (window.location.protocol === 'file:') {
+    centralLoginBase = '../../site/login.html';
+  } else {
+    centralLoginBase = 'https://www.webguruji.online/login.html';
+  }
+
+  const loginUrl = (isStorePage || isBooksPage)
+    ? `${centralLoginBase}?redirect=${encodeURIComponent(currentFullUrl)}`
+    : `${centralLoginBase}${navFile && navFile !== 'index.html' && navFile !== 'login.html' && !navFile.includes('signup') ? '?redirect=' + encodeURIComponent(currentPathWithSearch) : ''}`;
   const dashUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/dashboard.html' : `${prefix}dashboard.html`;
   const settingsUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/settings.html' : `${prefix}settings.html`;
 
@@ -1727,7 +1737,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemsHtml = results.map(item => {
       const isImgIcon = typeof item.icon === 'string' && item.icon.startsWith('<img');
       const iconHtml = isImgIcon ? item.icon : `<span>${item.icon || '🔗'}</span>`;
-      const linkUrl = item.url.startsWith('http') ? item.url : `${prefix}${item.url}`;
+      let linkUrl = item.url.startsWith('http') ? item.url : `${prefix}${item.url}`;
+      if ((isStorePage || isBooksPage) && (item.url === 'login.html' || item.url.includes('login.html'))) {
+        linkUrl = loginUrl;
+      } else if ((isStorePage || isBooksPage) && (item.url === 'signup.html' || item.url.includes('signup.html'))) {
+        linkUrl = (window.location.protocol === 'file:') ? '../../site/signup.html' : 'https://www.webguruji.online/signup.html';
+      }
 
       return `
         <a href="${linkUrl}" class="hg-search-item">
