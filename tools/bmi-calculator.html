@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator - Free Body Mass Index Calculator | HarshGuruJi</title>
+  <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Fast, accurate, and private health utility by HarshGuruJi.">
+  <meta name="keywords" content="bmi calculator, body mass index, health calculator, weight calculator, harshguruji tools">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://www.webguruji.online/tools/bmi-calculator.html">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.webguruji.online/tools/bmi-calculator.html">
+  <meta property="og:title" content="BMI Calculator - Free Body Mass Index Calculator | HarshGuruJi">
+  <meta property="og:description" content="Calculate your Body Mass Index (BMI) instantly. Fast, accurate, and private health utility by HarshGuruJi.">
+  <meta property="og:image" content="https://www.webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="BMI Calculator - Free Body Mass Index Calculator | HarshGuruJi">
+  <meta name="twitter:description" content="Calculate your Body Mass Index (BMI) instantly. Fast, accurate, and private health utility by HarshGuruJi.">
+  <meta name="twitter:image" content="https://www.webguruji.online/logo-512.png">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  
+  <style>
+    .tool-container { max-width: 700px; margin: 4rem auto; padding: 2.5rem; background: var(--hub-surface, #1e2230); border-radius: var(--hub-radius, 16px); border: 1px solid var(--hub-border, rgba(255,255,255,0.1)); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .tool-header { margin-bottom: 2rem; text-align: center; }
+    .tool-header h1 { margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; color: var(--hub-text-primary, #f1f5f9); }
+    .tool-header p { color: var(--hub-text-secondary, #94a3b8); font-size: 1rem; }
+    .calc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    @media (max-width: 600px) { .calc-form { grid-template-columns: 1fr; } }
+    .input-group { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
+    .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--hub-text-primary, #e2e8f0); }
+    .input-group input { width: 100%; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--hub-border, rgba(255,255,255,0.15)); background: rgba(0,0,0,0.25); color: #fff; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .input-group input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+    .calc-actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+    .calc-btn { background: #2563eb; color: #fff; border: none; padding: 0.85rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .calc-btn:hover { background: #1d4ed8; }
+    .calc-btn:active { transform: scale(0.98); }
+    .reset-btn { background: rgba(255,255,255,0.08); color: var(--hub-text-primary, #e2e8f0); border: 1px solid var(--hub-border, rgba(255,255,255,0.15)); padding: 0.85rem 1.5rem; border-radius: 10px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .reset-btn:hover { background: rgba(255,255,255,0.15); }
+    .result-card { background: rgba(0,0,0,0.3); border: 1px solid var(--hub-border, rgba(255,255,255,0.1)); border-radius: 12px; padding: 2rem; text-align: center; }
+    .bmi-number { font-size: 3rem; font-weight: 800; color: #38bdf8; margin: 0.5rem 0; }
+    .bmi-category { font-size: 1.25rem; font-weight: 600; padding: 4px 16px; border-radius: 50px; display: inline-block; margin-bottom: 1rem; }
+    .bmi-scale { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 1.5rem 0 0.5rem; }
+    .bmi-seg { flex: 1; }
+    .bmi-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--hub-text-secondary, #94a3b8); }
+  </style>
+
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+</head>
+<body class="hub-page dark-mode">
+
+<main class="tool-container">
+  <div class="tool-header">
+    <h1>Body Mass Index (BMI) Calculator</h1>
+    <p>Check your BMI category according to standard World Health Organization criteria.</p>
+  </div>
+
+  <div class="calc-form">
+    <div class="input-group">
+      <label for="bmi-weight">Weight (kg)</label>
+      <input type="number" id="bmi-weight" placeholder="e.g. 70" min="1" max="400" step="0.1">
+    </div>
+    <div class="input-group">
+      <label for="bmi-height">Height (cm)</label>
+      <input type="number" id="bmi-height" placeholder="e.g. 175" min="30" max="300" step="0.5">
+    </div>
+  </div>
+
+  <div class="calc-actions">
+    <button id="calc-btn" class="calc-btn">Calculate BMI</button>
+    <button id="reset-btn" class="reset-btn">Reset</button>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <div style="color: var(--hub-text-secondary, #94a3b8); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Your BMI Score</div>
+    <div class="bmi-number" id="bmi-score">--</div>
+    <div class="bmi-category" id="bmi-category" style="background: rgba(255,255,255,0.08); color: var(--hub-text-secondary, #94a3b8);">Enter values above</div>
+    <div class="bmi-scale">
+      <div class="bmi-seg" style="background: #38bdf8;" title="Underweight (&lt; 18.5)"></div>
+      <div class="bmi-seg" style="background: #22c55e;" title="Normal (18.5 - 24.9)"></div>
+      <div class="bmi-seg" style="background: #f59e0b;" title="Overweight (25 - 29.9)"></div>
+      <div class="bmi-seg" style="background: #ef4444;" title="Obese (30+)"></div>
+    </div>
+    <div class="bmi-labels">
+      <span>Underweight (&lt;18.5)</span>
+      <span>Normal (18.5-24.9)</span>
+      <span>Overweight (25-29.9)</span>
+      <span>Obese (30+)</span>
+    </div>
+  </div>
+</main>
+
+<script>
+  const weightInput = document.getElementById('bmi-weight');
+  const heightInput = document.getElementById('bmi-height');
+  const calcBtn = document.getElementById('calc-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const scoreEl = document.getElementById('bmi-score');
+  const catEl = document.getElementById('bmi-category');
+
+  function calculate() {
+    const w = parseFloat(weightInput.value);
+    const h = parseFloat(heightInput.value);
+    if (!w || !h || w <= 0 || h <= 0) {
+      scoreEl.textContent = '--';
+      catEl.textContent = 'Please enter valid positive numbers';
+      catEl.style.background = 'rgba(239, 68, 68, 0.15)';
+      catEl.style.color = '#ef4444';
+      return;
+    }
+    const hM = h / 100;
+    const bmi = (w / (hM * hM)).toFixed(1);
+    scoreEl.textContent = bmi;
+    
+    if (bmi < 18.5) {
+      catEl.textContent = 'Underweight';
+      catEl.style.background = 'rgba(56, 189, 248, 0.15)';
+      catEl.style.color = '#38bdf8';
+    } else if (bmi <= 24.9) {
+      catEl.textContent = 'Normal Weight';
+      catEl.style.background = 'rgba(34, 197, 94, 0.15)';
+      catEl.style.color = '#22c55e';
+    } else if (bmi <= 29.9) {
+      catEl.textContent = 'Overweight';
+      catEl.style.background = 'rgba(245, 158, 11, 0.15)';
+      catEl.style.color = '#f59e0b';
+    } else {
+      catEl.textContent = 'Obese';
+      catEl.style.background = 'rgba(239, 68, 68, 0.15)';
+      catEl.style.color = '#ef4444';
+    }
+  }
+
+  calcBtn.addEventListener('click', calculate);
+  weightInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') calculate(); });
+  heightInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') calculate(); });
+  resetBtn.addEventListener('click', () => {
+    weightInput.value = '';
+    heightInput.value = '';
+    scoreEl.textContent = '--';
+    catEl.textContent = 'Enter values above';
+    catEl.style.background = 'rgba(255,255,255,0.08)';
+    catEl.style.color = 'var(--hub-text-secondary, #94a3b8)';
+  });
+</script>
+
+<script src="../navbar-premium.js"></script>
+<script type="module" src="../js/auth.js" defer></script>
+<script src="../footer-premium.js"></script>
+</body>
+</html>

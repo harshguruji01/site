@@ -86,6 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const storeUrl = isStorePage ? (navFile === 'store.html' ? '#top' : `${prefix}store.html`) : (isLocal ? `${prefix}store.html` : 'https://store.webguruji.online/');
   const chatUrl = isLocal ? `${prefix}chat.html` : 'https://chat.webguruji.online/';
 
+  // Universal Navigation & Cross-Subdomain Central Authentication Targets
+  const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://www.webguruji.online/' : prefix;
+  const currentFullUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const currentPathWithSearch = typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() + window.location.search) : '';
+  const loginUrl = (isStorePage || isBooksPage) && !isLocal
+    ? `https://webguruji.online/login.html?redirect=${encodeURIComponent(currentFullUrl)}`
+    : `${prefix}login.html${navFile && navFile !== 'index.html' && navFile !== 'login.html' && !navFile.includes('signup') ? '?redirect=' + encodeURIComponent(currentPathWithSearch) : ''}`;
+  const dashUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/dashboard.html' : `${prefix}dashboard.html`;
+  const settingsUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/settings.html' : `${prefix}settings.html`;
+
   // Build Desktop Nav Items
   let desktopNavListHTML = '';
   let mobileNavListHTML = '';
@@ -142,16 +152,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="hg-dropdown">
           <a href="${chatUrl}" class="hg-dropdown-link" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${prefix}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
-          <a href="${prefix}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
-          <a href="${prefix}contributor.html" class="hg-dropdown-link">🤝 Contributor</a>
+          <a href="${portalUrl}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
+          <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
+          <a href="${portalUrl}contributor.html" class="hg-dropdown-link">🤝 Contributor</a>
           <div class="hg-dropdown-divider"></div>
-          <a href="${prefix}about.html" class="hg-dropdown-link">About Us</a>
-          <a href="${prefix}contact.html" class="hg-dropdown-link">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
+          <a href="${portalUrl}about.html" class="hg-dropdown-link">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-dropdown-link">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -195,15 +205,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <button type="button" class="hg-mobile-accordion-toggle">More Portal Services <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
         <div class="hg-mobile-accordion-content">
           <a href="${chatUrl}" class="hg-mobile-sublink" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${prefix}daily-special.html" class="hg-mobile-sublink">🌟 Daily Special</a>
-          <a href="${prefix}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
-          <a href="${prefix}contributor.html" class="hg-mobile-sublink">🤝 Contributor</a>
-          <a href="${prefix}about.html" class="hg-mobile-sublink">About Us</a>
-          <a href="${prefix}contact.html" class="hg-mobile-sublink">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
+          <a href="${portalUrl}daily-special.html" class="hg-mobile-sublink">🌟 Daily Special</a>
+          <a href="${portalUrl}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
+          <a href="${portalUrl}contributor.html" class="hg-mobile-sublink">🤝 Contributor</a>
+          <a href="${portalUrl}about.html" class="hg-mobile-sublink">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-mobile-sublink">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -261,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Store</span>
       </a>
 
-      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
+      <a href="${loginUrl}" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
         <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
           <svg id="bottom-auth-default-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -299,16 +309,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="hg-dropdown">
           <a href="${chatUrl}" class="hg-dropdown-link" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${prefix}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
-          <a href="${prefix}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
-          <a href="${prefix}contributor.html" class="hg-dropdown-link">🤝 Contributor</a>
+          <a href="${portalUrl}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
+          <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
+          <a href="${portalUrl}contributor.html" class="hg-dropdown-link">🤝 Contributor</a>
           <div class="hg-dropdown-divider"></div>
-          <a href="${prefix}about.html" class="hg-dropdown-link">About Us</a>
-          <a href="${prefix}contact.html" class="hg-dropdown-link">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
+          <a href="${portalUrl}about.html" class="hg-dropdown-link">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-dropdown-link">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -337,15 +347,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <button type="button" class="hg-mobile-accordion-toggle">More Portal Services <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
         <div class="hg-mobile-accordion-content">
           <a href="${chatUrl}" class="hg-mobile-sublink" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${prefix}daily-special.html" class="hg-mobile-sublink">🌟 Daily Special</a>
-          <a href="${prefix}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
-          <a href="${prefix}contributor.html" class="hg-mobile-sublink">🤝 Contributor</a>
-          <a href="${prefix}about.html" class="hg-mobile-sublink">About Us</a>
-          <a href="${prefix}contact.html" class="hg-mobile-sublink">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
+          <a href="${portalUrl}daily-special.html" class="hg-mobile-sublink">🌟 Daily Special</a>
+          <a href="${portalUrl}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
+          <a href="${portalUrl}contributor.html" class="hg-mobile-sublink">🤝 Contributor</a>
+          <a href="${portalUrl}about.html" class="hg-mobile-sublink">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-mobile-sublink">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -403,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Books</span>
       </a>
 
-      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
+      <a href="${loginUrl}" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
         <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
           <svg id="bottom-auth-default-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -420,22 +430,22 @@ document.addEventListener('DOMContentLoaded', () => {
     desktopNavListHTML = `
       <li class="hg-nav-item"><a href="${prefix}index.html" class="hg-nav-link" id="nav-link-home">Home</a></li>
       <li class="hg-nav-item"><a href="${booksUrl}" class="hg-nav-link" id="nav-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Books</a></li>
-      <li class="hg-nav-item"><a href="${prefix}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
+      <li class="hg-nav-item"><a href="${portalUrl}daily-special.html" class="hg-nav-link" id="nav-link-dailyspecial">Daily Special</a></li>
       <li class="hg-nav-item"><a href="${storeUrl}" class="hg-nav-link" id="nav-link-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Store</a></li>
       <li class="hg-nav-item"><a href="${chatUrl}" class="hg-nav-link" id="nav-link-chat" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Chat</a></li>
-      <li class="hg-nav-item"><a href="${prefix}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
+      <li class="hg-nav-item"><a href="${portalUrl}contributor.html" class="hg-nav-link" id="nav-link-contributor">Contributor</a></li>
       <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
         <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="hg-dropdown">
-          <a href="${prefix}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
-          <a href="${prefix}learning-hub.html" class="hg-dropdown-link">📚 Learning Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
+          <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
+          <a href="${portalUrl}learning-hub.html" class="hg-dropdown-link">📚 Learning Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
           <div class="hg-dropdown-divider"></div>
-          <a href="${prefix}about.html" class="hg-dropdown-link">About Us</a>
-          <a href="${prefix}contact.html" class="hg-dropdown-link">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
+          <a href="${portalUrl}about.html" class="hg-dropdown-link">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-dropdown-link">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -443,21 +453,21 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileNavListHTML = `
       <li><a href="${prefix}index.html" class="hg-mobile-link" id="mob-link-home">Home</a></li>
       <li><a href="${booksUrl}" class="hg-mobile-link" id="mob-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Books</a></li>
-      <li><a href="${prefix}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
+      <li><a href="${portalUrl}daily-special.html" class="hg-mobile-link" id="mob-link-dailyspecial">Daily Special</a></li>
       <li><a href="${storeUrl}" class="hg-mobile-link" id="mob-link-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Store</a></li>
       <li><a href="${chatUrl}" class="hg-mobile-link" id="mob-link-chat" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Chat</a></li>
-      <li><a href="${prefix}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
+      <li><a href="${portalUrl}contributor.html" class="hg-mobile-link" id="mob-link-contributor">Contributor</a></li>
       <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
         <button type="button" class="hg-mobile-accordion-toggle">More <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
         <div class="hg-mobile-accordion-content">
-          <a href="${prefix}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
-          <a href="${prefix}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
-          <a href="${prefix}learning-hub.html" class="hg-mobile-sublink">📚 Learning Hub</a>
-          <a href="${prefix}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
-          <a href="${prefix}about.html" class="hg-mobile-sublink">About Us</a>
-          <a href="${prefix}contact.html" class="hg-mobile-sublink">Contact</a>
-          <a href="${prefix}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
-          <a href="${prefix}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
+          <a href="${portalUrl}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
+          <a href="${portalUrl}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
+          <a href="${portalUrl}learning-hub.html" class="hg-mobile-sublink">📚 Learning Hub</a>
+          <a href="${portalUrl}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
+          <a href="${portalUrl}about.html" class="hg-mobile-sublink">About Us</a>
+          <a href="${portalUrl}contact.html" class="hg-mobile-sublink">Contact</a>
+          <a href="${portalUrl}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
+          <a href="${portalUrl}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
         </div>
       </li>
     `;
@@ -473,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Books</span>
       </a>
 
-      <a href="${prefix}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial" title="Daily Special">
+      <a href="${portalUrl}daily-special.html" class="hg-bottom-item" id="bottom-nav-dailyspecial" title="Daily Special">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -513,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Chat</span>
       </a>
 
-      <a href="${prefix}contributor.html" class="hg-bottom-item" id="bottom-nav-contributor" title="Contributors">
+      <a href="${portalUrl}contributor.html" class="hg-bottom-item" id="bottom-nav-contributor" title="Contributors">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -525,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Contributor</span>
       </a>
 
-      <a href="${prefix}login.html" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
+      <a href="${loginUrl}" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
         <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
           <svg id="bottom-auth-default-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -597,7 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </button>
           
           <!-- Auth (Dynamic via JS) -->
-          <a href="${prefix}login.html" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>
+          <a href="${loginUrl}" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>
 
           <!-- Notifications Bell & Feedback Dropdown (For Logged In Users) -->
           <div class="hg-notif-container" id="hg-notif-container" style="display:none;">
@@ -621,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="hg-notif-empty">Loading messages...</div>
               </div>
               <div class="hg-notif-footer">
-                <a href="${prefix}contact.html">Send New Feedback / Message &rarr;</a>
+                <a href="${portalUrl}contact.html">Send New Feedback / Message &rarr;</a>
                 <div style="font-size:0.72rem; color:#71717a; margin-top:4px;">⏱️ Messages auto-clear after 1 to 2 weeks</div>
               </div>
             </div>
@@ -635,8 +645,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
             </div>
             <div class="hg-dropdown hg-dropdown-right">
-              <a href="${prefix}dashboard.html" class="hg-dropdown-link">Dashboard</a>
-              <a href="${prefix}settings.html" class="hg-dropdown-link">Settings</a>
+              <a href="${dashUrl}" class="hg-dropdown-link">Dashboard</a>
+              <a href="${settingsUrl}" class="hg-dropdown-link">Settings</a>
               <div class="hg-dropdown-divider"></div>
               <button id="hg-logout-btn" class="hg-dropdown-link" style="width:100%; text-align:left; border:none; background:none; cursor:pointer; font-family:inherit;">Logout</button>
             </div>
@@ -680,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
         
         <div class="hg-mobile-footer-actions">
-           <a href="${prefix}login.html" id="hg-mobile-drawer-auth" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
+           <a href="${loginUrl}" id="hg-mobile-drawer-auth" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
         </div>
       </div>
     </div>
@@ -705,11 +715,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="hg-bottom-sheet-close" id="hg-bottom-sheet-close" aria-label="Close Profile Menu">&times;</button>
         </div>
         <div class="hg-bottom-profile-links">
-          <a href="${prefix}dashboard.html" class="hg-bottom-sheet-link">
+          <a href="${dashUrl}" class="hg-bottom-sheet-link">
             <span class="hg-sheet-icon">📊</span>
             <span>Dashboard</span>
           </a>
-          <a href="${prefix}settings.html" class="hg-bottom-sheet-link">
+          <a href="${settingsUrl}" class="hg-bottom-sheet-link">
             <span class="hg-sheet-icon">⚙️</span>
             <span>Settings</span>
           </a>
@@ -1707,7 +1717,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="hg-search-dropdown-footer">
           <span>Search entire catalog</span>
-          <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">Search on Explore &rarr;</a>
+          <a href="${portalUrl}explore.html?search=${encodeURIComponent(query)}">Search on Explore &rarr;</a>
         </div>
       `;
       container.classList.add('show');
@@ -1739,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="hg-search-dropdown-footer">
         <span>${results.length} results matching "${escapeNavHtml(query)}"</span>
-        <a href="${prefix}explore.html?search=${encodeURIComponent(query)}">View on Explore &rarr;</a>
+        <a href="${portalUrl}explore.html?search=${encodeURIComponent(query)}">View on Explore &rarr;</a>
       </div>
     `;
     container.classList.add('show');
@@ -1779,7 +1789,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const dest = first.url.startsWith('http') ? first.url : `${prefix}${first.url}`;
           window.location.href = dest;
         } else {
-          window.location.href = `${prefix}explore.html?search=${encodeURIComponent(query)}`;
+          window.location.href = `${portalUrl}explore.html?search=${encodeURIComponent(query)}`;
         }
       } else if (e.key === 'Escape') {
         dropdown.classList.remove('show');
@@ -1806,7 +1816,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dest = first.url.startsWith('http') ? first.url : `${prefix}${first.url}`;
         window.location.href = dest;
       } else {
-        window.location.href = `${prefix}explore.html?search=${encodeURIComponent(query)}`;
+        window.location.href = `${portalUrl}explore.html?search=${encodeURIComponent(query)}`;
       }
     });
   }
@@ -2125,7 +2135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sheetEmail) sheetEmail.textContent = user.email || '';
 
       if (bottomAuthItem) {
-        bottomAuthItem.href = prefix + 'dashboard.html';
+        bottomAuthItem.href = dashUrl;
         const p = (window.location.pathname || '').toLowerCase();
         if (p.includes('dashboard') || p.includes('settings')) {
           bottomAuthItem.classList.add('active');
@@ -2161,7 +2171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomGoldenTick.style.display = (profile && profile.golden_tick === true) ? 'flex' : 'none';
       }
       if (mobileDrawerAuth) {
-        mobileDrawerAuth.href = prefix + 'dashboard.html';
+        mobileDrawerAuth.href = dashUrl;
         mobileDrawerAuth.textContent = 'My Profile & Dashboard';
       }
 
@@ -2187,7 +2197,7 @@ document.addEventListener('DOMContentLoaded', () => {
       syncChatUnreadBadge(user.id);
       subscribeToChatRealtimeBadge(user.id);
     } else {
-      if (loginBtn) loginBtn.style.display = 'inline-flex';
+      if (loginBtn) { loginBtn.href = loginUrl; loginBtn.style.display = 'inline-flex'; }
       if (userMenu) userMenu.style.display = 'none';
       if (notifBox) notifBox.style.display = 'none';
       toggleNotifDropdown(false);
@@ -2207,7 +2217,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update Bottom Bar Auth Tab to Login
       if (bottomAuthItem) {
         bottomAuthItem.onclick = null;
-        bottomAuthItem.href = prefix + 'login.html';
+        bottomAuthItem.href = loginUrl;
         const p = (window.location.pathname || '').toLowerCase();
         if (p.includes('login') || p.includes('signup')) {
           bottomAuthItem.classList.add('active');
@@ -2226,7 +2236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomGoldenTick.style.display = 'none';
       }
       if (mobileDrawerAuth) {
-        mobileDrawerAuth.href = prefix + 'login.html';
+        mobileDrawerAuth.href = loginUrl;
         mobileDrawerAuth.textContent = 'Sign In to HarshGuruJi';
       }
     }

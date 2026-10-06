@@ -1476,3 +1476,120 @@ body::before {
     font-size: 0.82rem;
   }
 }
+
+
+/* ========================================================================= */
+/* UNIVERSAL RESPONSIVE ENGINE (HarshGuruJi Multi-Device Optimization)       */
+/* Mobile (320px - 480px), Tablet (481px - 1024px), Laptop & Desktop (1025px+) */
+/* ========================================================================= */
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, picture, video, canvas, svg, iframe {
+  max-width: 100%;
+}
+
+/* Text Wrapping & Overflow Prevention */
+h1, h2, h3, h4, h5, h6, .page-title, .hero-title, .section-title, p, span {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Prevent container blowouts */
+.section-container, .hero-content, .hero-visual, .nav-container, .auth-container, 
+.store-container, .books-container, .dashboard-container, .catalog-container {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive Adaptive Grids */
+.categories-grid, .contact-grid, .daily-grid, .features-grid, .tools-grid, 
+.store-grid, .apps-grid, .books-grid {
+  box-sizing: border-box;
+}
+
+/* Breakpoint: Laptop & Large Tablets (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
+  .section { padding-top: 2rem; padding-bottom: 2rem; }
+  .store-container, .books-container, .dashboard-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Breakpoint: Tablets & Phablets (<= 768px) */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column !important;
+    text-align: center;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .page-header {
+    padding-top: 2rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem !important;
+  }
+  .btn { width: auto; }
+  .stat-divider { display: none !important; }
+  .profile-header {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 1rem !important;
+    padding: 1.5rem 1rem !important;
+  }
+}
+
+/* Breakpoint: Standard Mobile (<= 480px) */
+@media (max-width: 480px) {
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .hero-buttons .btn, .hero-buttons a {
+    width: 100% !important;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .section, .hero, .auth-wrapper, .dashboard-container { 
+    padding-left: 0.75rem !important; 
+    padding-right: 0.75rem !important; 
+  }
+  .book-actions, .store-actions {
+    grid-template-columns: 1fr !important;
+  }
+  .auth-card, .login-card, .signup-card {
+    padding: 1.5rem 1.1rem !important;
+    width: 100% !important;
+  }
+}
+
+/* Breakpoint: Compact Mobile (<= 390px - iPhone 12/13/14 Mini, etc.) */
+@media (max-width: 390px) {
+  .hero-title, .page-title { font-size: clamp(1.6rem, 7vw, 2.1rem) !important; }
+  .section-title { font-size: clamp(1.25rem, 5.5vw, 1.6rem) !important; }
+  .hg-bottom-label { font-size: 0.6rem !important; }
+  .hg-bottom-icon { width: 22px !important; height: 22px !important; }
+  .hg-bottom-icon svg { width: 18px !important; height: 18px !important; }
+}
+
+/* Breakpoint: Ultra-compact Mobile (<= 360px - Android compact, 320px iPhone SE 1st gen) */
+@media (max-width: 360px) {
+  body { font-size: 13.5px; }
+  .feature-card, .app-card, .book-card { padding: 1rem 0.75rem !important; }
+  .hg-bottom-bar { height: calc(58px + env(safe-area-inset-bottom, 0px)) !important; }
+  .hg-bottom-label { display: none !important; }
+  .hg-bottom-icon { width: 28px !important; height: 28px !important; }
+  .hg-bottom-icon svg { width: 20px !important; height: 20px !important; }
+}

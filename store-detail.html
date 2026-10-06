@@ -973,7 +973,16 @@
     async function initStoreDetailPage() {
       const params = new URLSearchParams(window.location.search);
       const id = (params.get('id') || '').trim();
-      const slug = (params.get('slug') || params.get('app') || '').trim();
+      let slug = (params.get('slug') || params.get('app') || params.get('name') || '').trim();
+
+      if (!id && !slug && window.location.hash) {
+        slug = window.location.hash.replace(/^#/, '').trim();
+      }
+
+      if (slug) {
+        try { slug = decodeURIComponent(slug); } catch(e) {}
+        slug = slug.toLowerCase().trim().replace(/\.html$/i, '');
+      }
 
       if (!id && !slug) {
         showNotFound();
@@ -1280,13 +1289,18 @@
                   logo_url: found.icon,
                   icon_url: found.icon,
                   description: found.description,
-                  short_description: found.description ? found.description.slice(0, 150) + '...' : '',
-                  official_url: found.website,
-                  download_url: found.platforms?.windows || found.platforms?.android || found.platforms?.web || found.website,
+                  short_description: found.short_description || (found.description ? found.description.slice(0, 150) + '...' : ''),
+                  official_url: found.website || found.official_url,
+                  download_url: found.download_url || found.platforms?.windows || found.platforms?.android || found.platforms?.web || found.website,
+                  apk_storage_path: found.apk_storage_path,
+                  is_mod: !!found.is_mod,
+                  mod_info: found.mod_info || '',
+                  verified: found.verified !== false,
+                  featured: !!found.featured,
                   screenshots: found.screenshots || [],
-                  platform: (found.requirements?.OS?.includes('Windows') ? 'Windows' : 'Android'),
-                  app_type: (found.requirements?.OS?.includes('Windows') ? 'EXE' : 'APK'),
-                  updated_at: found.updatedDate,
+                  platform: found.platform || (found.requirements?.OS?.includes('Windows') ? 'Windows' : 'Android'),
+                  app_type: found.app_type || (found.requirements?.OS?.includes('Windows') ? 'EXE' : 'APK'),
+                  updated_at: found.updated_at || found.updatedDate,
                   features: found.features || [],
                   pros: found.pros || [],
                   cons: found.cons || []

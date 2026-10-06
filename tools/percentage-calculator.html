@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator - Free Online Math Calculator | HarshGuruJi</title>
+  <meta name="description" content="Calculate percentages, percentage increases, discounts, and fractions instantly online with HarshGuruJi's free calculator.">
+  <meta name="keywords" content="percentage calculator, percent change, discount calculator, math calculator, online tools">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://www.webguruji.online/tools/percentage-calculator.html">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.webguruji.online/tools/percentage-calculator.html">
+  <meta property="og:title" content="Percentage Calculator - Free Online Math Calculator | HarshGuruJi">
+  <meta property="og:description" content="Calculate percentages, percentage increases, discounts, and fractions instantly online with HarshGuruJi's free calculator.">
+  <meta property="og:image" content="https://www.webguruji.online/logo-512.png">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  
+  <style>
+    .tool-container { max-width: 750px; margin: 4rem auto; padding: 2.5rem; background: var(--hub-surface, #1e2230); border-radius: var(--hub-radius, 16px); border: 1px solid var(--hub-border, rgba(255,255,255,0.1)); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .tool-header { margin-bottom: 2rem; text-align: center; }
+    .tool-header h1 { margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; color: var(--hub-text-primary, #f1f5f9); }
+    .tool-header p { color: var(--hub-text-secondary, #94a3b8); font-size: 1rem; }
+    .calc-row { background: rgba(0,0,0,0.25); border: 1px solid var(--hub-border, rgba(255,255,255,0.1)); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .calc-row-inputs { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; font-size: 1rem; color: #e2e8f0; }
+    .calc-input { width: 100px; padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; }
+    .calc-input:focus { outline: none; border-color: #3b82f6; }
+    .calc-btn-sm { background: #2563eb; color: #fff; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .calc-btn-sm:hover { background: #1d4ed8; }
+    .calc-res-badge { min-width: 90px; text-align: center; padding: 0.6rem 1rem; border-radius: 8px; background: rgba(59,130,246,0.15); color: #60a5fa; font-weight: 700; font-size: 1.1rem; border: 1px solid rgba(59,130,246,0.3); }
+  </style>
+
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+</head>
+<body class="hub-page dark-mode">
+
+<main class="tool-container">
+  <div class="tool-header">
+    <h1>Percentage Calculator</h1>
+    <p>Fast calculations for common percentage, discount, and proportion problems.</p>
+  </div>
+
+  <!-- Row 1: What is X% of Y? -->
+  <div class="calc-row">
+    <div class="calc-row-inputs">
+      <span>What is</span>
+      <input type="number" id="p1-x" class="calc-input" placeholder="e.g. 15">
+      <span>% of</span>
+      <input type="number" id="p1-y" class="calc-input" placeholder="e.g. 200">
+      <span>?</span>
+    </div>
+    <div style="display:flex; align-items:center; gap: 0.75rem;">
+      <button class="calc-btn-sm" onclick="calc1()">Calculate</button>
+      <div id="p1-res" class="calc-res-badge">--</div>
+    </div>
+  </div>
+
+  <!-- Row 2: X is what percent of Y? -->
+  <div class="calc-row">
+    <div class="calc-row-inputs">
+      <input type="number" id="p2-x" class="calc-input" placeholder="e.g. 30">
+      <span>is what percent of</span>
+      <input type="number" id="p2-y" class="calc-input" placeholder="e.g. 150">
+      <span>?</span>
+    </div>
+    <div style="display:flex; align-items:center; gap: 0.75rem;">
+      <button class="calc-btn-sm" onclick="calc2()">Calculate</button>
+      <div id="p2-res" class="calc-res-badge">--</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Percentage increase/decrease from X to Y -->
+  <div class="calc-row">
+    <div class="calc-row-inputs">
+      <span>Change from</span>
+      <input type="number" id="p3-x" class="calc-input" placeholder="e.g. 80">
+      <span>to</span>
+      <input type="number" id="p3-y" class="calc-input" placeholder="e.g. 100">
+      <span>?</span>
+    </div>
+    <div style="display:flex; align-items:center; gap: 0.75rem;">
+      <button class="calc-btn-sm" onclick="calc3()">Calculate</button>
+      <div id="p3-res" class="calc-res-badge">--</div>
+    </div>
+  </div>
+</main>
+
+<script>
+  function calc1() {
+    const x = parseFloat(document.getElementById('p1-x').value);
+    const y = parseFloat(document.getElementById('p1-y').value);
+    const res = document.getElementById('p1-res');
+    if (isNaN(x) || isNaN(y)) { res.textContent = '--'; return; }
+    res.textContent = ((x / 100) * y).toLocaleString(undefined, { maximumFractionDigits: 2 });
+  }
+
+  function calc2() {
+    const x = parseFloat(document.getElementById('p2-x').value);
+    const y = parseFloat(document.getElementById('p2-y').value);
+    const res = document.getElementById('p2-res');
+    if (isNaN(x) || isNaN(y) || y === 0) { res.textContent = '--'; return; }
+    res.textContent = ((x / y) * 100).toFixed(2) + '%';
+  }
+
+  function calc3() {
+    const x = parseFloat(document.getElementById('p3-x').value);
+    const y = parseFloat(document.getElementById('p3-y').value);
+    const res = document.getElementById('p3-res');
+    if (isNaN(x) || isNaN(y) || x === 0) { res.textContent = '--'; return; }
+    const diff = ((y - x) / x) * 100;
+    const sign = diff > 0 ? '+' : '';
+    res.textContent = sign + diff.toFixed(2) + '%';
+  }
+</script>
+
+<script src="../navbar-premium.js"></script>
+<script type="module" src="../js/auth.js" defer></script>
+<script src="../footer-premium.js"></script>
+</body>
+</html>

@@ -76,13 +76,13 @@ Disallow: /backend_legacy/
 Disallow: /user/
 Disallow: /account/
 Disallow: /oauth/
-Disallow: /node_modules/
-Disallow: /scripts/
+Allow: /data/apps.json
 Disallow: /data/
 Disallow: /*.py$
 Disallow: /*.sql$
 Disallow: /*.md$
-Disallow: /*.json$
+Disallow: /package.json
+Disallow: /package-lock.json
 Disallow: /*.groovy$
 
 # ── Crawl-delay (be polite to bots) ─────────────────────

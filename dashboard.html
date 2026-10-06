@@ -362,12 +362,33 @@
 </main>
 
 <script>
+  function checkPendingRedirect() {
+    try {
+      const getCookie = (name) => {
+        const v = `; ${document.cookie}`;
+        const parts = v.split(`; ${name}=`);
+        return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
+      };
+      const pending = sessionStorage.getItem('hg_auth_redirect') || getCookie('hg_auth_redirect');
+      if (pending && pending !== 'dashboard.html' && !pending.endsWith('/dashboard.html')) {
+        sessionStorage.removeItem('hg_auth_redirect');
+        const hostname = window.location.hostname;
+        let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+        document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+        window.location.replace(pending);
+        return true;
+      }
+    } catch(e) {}
+    return false;
+  }
+
   // Expose function for Auth state changes
   function renderUser(user, profile) {
     if (!user) {
       window.location.href = 'login.html';
       return;
     }
+    if (checkPendingRedirect()) return;
     const displayName = (profile && profile.display_name) || user.email.split('@')[0];
     document.getElementById('user-name-display').textContent = displayName;
     document.getElementById('user-email-display').textContent = user.email;
