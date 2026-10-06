@@ -356,7 +356,20 @@ async function fetchStoreApps() {
 
     // Fallback to verified records if offline or query returned no items
     if (!data || data.length === 0) {
-      data = FALLBACK_PUBLISHED_APPS;
+      try {
+        const resp = await fetch('data/apps.json');
+        if (resp.ok) {
+          const jsonApps = await resp.json();
+          if (Array.isArray(jsonApps) && jsonApps.length > 0) {
+            data = jsonApps;
+          }
+        }
+      } catch(errJson) {
+        console.warn("Local static apps.json fallback warning:", errJson);
+      }
+      if (!data || data.length === 0) {
+        data = FALLBACK_PUBLISHED_APPS;
+      }
     }
 
     // Map Supabase rows to our frontend format

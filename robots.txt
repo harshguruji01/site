@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════
 # robots.txt — www.webguruji.online (Main Site)
 # HarshGuruJi — All-in-One Platform
-# Last Updated: 2026-10-02
+# Last Updated: 2026-10-06
 # ═══════════════════════════════════════════════════════════
 
 User-agent: *
