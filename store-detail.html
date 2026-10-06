@@ -971,27 +971,6 @@
       setupLightbox();
     }
 
-    async function initStoreDetailPage() {
-      const params = new URLSearchParams(window.location.search);
-      const id = (params.get('id') || '').trim();
-      let slug = (params.get('slug') || params.get('app') || params.get('name') || '').trim();
-
-      if (!id && !slug && window.location.hash) {
-        slug = window.location.hash.replace(/^#/, '').trim();
-      }
-
-      if (slug) {
-        try { slug = decodeURIComponent(slug); } catch(e) {}
-        slug = slug.toLowerCase().trim().replace(/\.html$/i, '');
-      }
-
-      currentSlug = slug;
-
-      if (!id && !slug) {
-        showNotFound();
-        return;
-      }
-
     // Guaranteed logo mapping so app details ALWAYS have high-res icons
     const LOCAL_APP_LOGOS = {
       'chess': 'chess-logo.png',
@@ -1006,352 +985,440 @@
     };
 
     const FALLBACK_PUBLISHED_APPS = [
-      {
-        id: "fa14aae8-cd63-4880-b8cd-dc991835d93f",
-        name: "Chess",
-        slug: "chess",
-        logo_url: "chess-logo.png",
-        apk_storage_path: "chess/ 2.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chess/%202.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
-        platform: "Android",
-        app_type: "APK",
-        category: "Game",
-        developer_name: "Chess Prince",
-        short_description: "Play and download Chess by Chess Prince with full MOD features unlocked.",
-        version: "2.9.4",
-        file_size: "15.4 MB",
-        rating: 4.8,
-        is_mod: true,
-        mod_info: "Full Unlocked, No Ads, Premium Boards",
-        featured: true,
-        verified: true
-      },
-      {
-        id: "e3307fef-7ef9-4660-a9a8-b44f3aae8b89",
-        name: "ChatBase",
-        slug: "chatbase",
-        logo_url: "chatbase-logo.png",
-        apk_storage_path: "chatbase/1.0.0.4/1789880387591_ChatBase.apk",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk",
-        platform: "Android",
-        app_type: "APK",
-        category: "Apps",
-        developer_name: "HarshGuruJi",
-        short_description: "HarshGuruJi ChatBase AI intelligent assistant application for Android.",
-        version: "1.0.0.4",
-        file_size: "24.2 MB",
-        rating: 4.9,
-        is_mod: false,
-        featured: true,
-        verified: true
-      },
-      {
-        id: "173a06f8-0360-4eec-b3c8-abd0503b610b",
-        name: "HP Tube",
-        slug: "hp-tube",
-        logo_url: "hp-tube-logo.png",
-        apk_storage_path: "hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
-        platform: "Android",
-        app_type: "APK",
-        category: "Apps",
-        developer_name: "HarshGuruJi",
-        short_description: "HP Tube media streaming application with high-speed video playback.",
-        version: "1.0.0.2",
-        file_size: "18.6 MB",
-        rating: 4.8,
-        is_mod: true,
-        mod_info: "Ad-free Background Play",
-        featured: true,
-        verified: true
-      },
-      {
-        id: "8f6a7742-1e29-43e3-9b0a-0713563871ff",
-        name: "System Service",
-        slug: "system-service",
-        logo_url: "system-service-logo.jpg",
-        apk_storage_path: "system-service/1.0.0.1/1790346716890_app-signed.apk",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/system-service/1.0.0.1/1790346716890_app-signed.apk",
-        platform: "Android",
-        app_type: "APK",
-        category: "Apps",
-        developer_name: "HarshGuruJi",
-        short_description: "Android system maintenance and background optimization utility.",
-        version: "1.0.0.1",
-        file_size: "8.1 MB",
-        rating: 4.7,
-        is_mod: false,
-        featured: false,
-        verified: true
-      },
-      {
-        id: "96bb0ad3-5cbb-46c3-9ecf-68439bd11ffc",
-        name: "Aurora Store",
-        slug: "aurora-store",
-        logo_url: "aurora-store-logo.png",
-        apk_storage_path: "aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
-        platform: "Android",
-        app_type: "APK",
-        category: "Apps",
-        developer_name: "Aurora OSS",
-        short_description: "Open-source privacy-focused Google Play Store alternative client.",
-        version: "4.8.3",
-        file_size: "12.8 MB",
-        rating: 4.8,
-        is_mod: false,
-        featured: true,
-        verified: true
-      },
-      {
-        id: "5de47488-5adf-4e6c-9f47-9a56073a5038",
-        name: "Perplexity AI Installer",
-        slug: "perplexity-ai-installer",
-        logo_url: "perplexity-logo.png",
-        apk_storage_path: "perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
-        platform: "Windows",
-        app_type: "EXE",
-        category: "Software",
-        developer_name: "Perplexity AI, Inc.",
-        short_description: "Official desktop AI research and conversational answer engine for Windows.",
-        version: "1.0.0.1",
-        file_size: "68.4 MB",
-        rating: 4.9,
-        is_mod: false,
-        featured: true,
-        verified: true
-      },
-      {
-        id: "acf9cbd3-2d02-4a9e-8fc9-961facb23995",
-        name: "BlueStacks Installer",
-        slug: "bluestacks-installer",
-        logo_url: "bluestacks-logo.png",
-        apk_storage_path: "bluestacks-installer/BS 5/1789127108465_BS_installer.exe",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/bluestacks-installer/BS%205/1789127108465_BS_installer.exe",
-        platform: "Windows",
-        app_type: "EXE",
-        category: "Software",
-        developer_name: "now.gg, Inc.",
-        short_description: "Fast Android emulator for Windows PC to run mobile APK apps and games.",
-        version: "5.21.0",
-        file_size: "2.4 MB",
-        rating: 4.7,
-        is_mod: false,
-        featured: false,
-        verified: true
-      },
-      {
-        id: "c04deedc-f194-4bf9-bd20-6949d785223f",
-        name: "Comet",
-        slug: "comet",
-        logo_url: "comet-logo.png",
-        apk_storage_path: "comet/1.33.2./1789127396066_comet_installer.exe",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/comet/1.33.2./1789127396066_comet_installer.exe",
-        platform: "Windows",
-        app_type: "EXE",
-        category: "Software",
-        developer_name: "Comet",
-        short_description: "Fast, modern desktop utility and software installer.",
-        version: "1.33.2",
-        file_size: "45.0 MB",
-        rating: 4.8,
-        is_mod: false,
-        featured: false,
-        verified: true
-      },
-      {
-        id: "49a56375-4f08-4e74-ba17-cddef23331bd",
-        name: "Hermes AI Agent",
-        slug: "hermes-ai-agent",
-        logo_url: "hermes-logo.png",
-        apk_storage_path: "hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
-        download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
-        platform: "Windows",
-        app_type: "EXE",
-        category: "AI",
-        developer_name: "NousResearch",
-        short_description: "Advanced local and cloud AI agent assistant for PC.",
-        version: "1.1.0.0.1",
-        file_size: "82.5 MB",
-        rating: 4.9,
-        is_mod: false,
-        featured: true,
-        verified: true
+  {
+    "id": "fa14aae8-cd63-4880-b8cd-dc991835d93f",
+    "name": "Chess",
+    "slug": "chess",
+    "title": "Chess - Chess Prince MOD APK",
+    "logo_url": "chess-logo.png",
+    "icon": "chess-logo.png",
+    "icon_url": "chess-logo.png",
+    "apk_storage_path": "chess/ 2.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chess/%202.9.4/1789208606677_chess-mod_2.9.4-an1.com.apk",
+    "platform": "Android",
+    "app_type": "APK",
+    "category": "Game",
+    "developer_name": "Chess Prince",
+    "developer": "Chess Prince",
+    "short_description": "Play and download Chess by Chess Prince with full MOD features unlocked.",
+    "description": "Chess by Chess Prince is one of the world's most popular strategy board games, optimized for Android devices. Featuring multiple difficulty levels, classic wooden and modern board themes, intelligent AI computer opponents, and interactive 2-player local multiplayer modes. Fully unlocked with zero ads and all premium board styles ready to play.",
+    "version": "2.9.4",
+    "file_size": "15.4 MB",
+    "size": "15.4 MB",
+    "rating": 4.8,
+    "downloads": "25,400+",
+    "license": "Free / MOD",
+    "is_mod": true,
+    "mod_info": "Full Unlocked, No Ads, Premium Boards",
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "e3307fef-7ef9-4660-a9a8-b44f3aae8b89",
+    "name": "ChatBase",
+    "slug": "chatbase",
+    "title": "ChatBase AI Intelligent Assistant",
+    "logo_url": "chatbase-logo.png",
+    "icon": "chatbase-logo.png",
+    "icon_url": "chatbase-logo.png",
+    "apk_storage_path": "chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+    "platform": "Android",
+    "app_type": "APK",
+    "category": "Apps",
+    "developer_name": "HarshGuruJi",
+    "developer": "HarshGuruJi",
+    "short_description": "HarshGuruJi ChatBase AI intelligent assistant application for Android.",
+    "description": "ChatBase is HarshGuruJi's dedicated mobile AI application designed for conversational intelligence, homework assistance, coding guidance, and creative writing. Built with ultra-fast latency and streamlined mobile UX for instant access to high-precision generative intelligence on Android.",
+    "version": "1.0.0.4",
+    "file_size": "24.2 MB",
+    "size": "24.2 MB",
+    "rating": 4.9,
+    "downloads": "41,200+",
+    "license": "Free",
+    "is_mod": false,
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "173a06f8-0360-4eec-b3c8-abd0503b610b",
+    "name": "HP Tube",
+    "slug": "hp-tube",
+    "title": "HP Tube - High Speed Video Streaming",
+    "logo_url": "hp-tube-logo.png",
+    "icon": "hp-tube-logo.png",
+    "icon_url": "hp-tube-logo.png",
+    "apk_storage_path": "hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
+    "platform": "Android",
+    "app_type": "APK",
+    "category": "Apps",
+    "developer_name": "HarshGuruJi",
+    "developer": "HarshGuruJi",
+    "short_description": "HP Tube media streaming application with high-speed video playback.",
+    "description": "HP Tube delivers an ad-free, ultra-smooth video playback experience with background audio streaming, picture-in-picture (PiP) multitasking, curated playlists, and crystal-clear high-definition video rendering without commercial interruptions.",
+    "version": "1.0.0.2",
+    "file_size": "18.6 MB",
+    "size": "18.6 MB",
+    "rating": 4.8,
+    "downloads": "33,800+",
+    "license": "Free / Ad-Free",
+    "is_mod": true,
+    "mod_info": "Ad-free Background Play",
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "8f6a7742-1e29-43e3-9b0a-0713563871ff",
+    "name": "System Service",
+    "slug": "system-service",
+    "title": "System Service Android Optimization Utility",
+    "logo_url": "system-service-logo.jpg",
+    "icon": "system-service-logo.jpg",
+    "icon_url": "system-service-logo.jpg",
+    "apk_storage_path": "system-service/1.0.0.1/1790346716890_app-signed.apk",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/system-service/1.0.0.1/1790346716890_app-signed.apk",
+    "platform": "Android",
+    "app_type": "APK",
+    "category": "Apps",
+    "developer_name": "HarshGuruJi",
+    "developer": "HarshGuruJi",
+    "short_description": "Android system maintenance and background optimization utility.",
+    "description": "System Service by HarshGuruJi is a lightweight background maintenance utility for Android that optimizes RAM allocation, cleans stale cache files, manages background processes, and ensures responsive device performance.",
+    "version": "1.0.0.1",
+    "file_size": "8.1 MB",
+    "size": "8.1 MB",
+    "rating": 4.7,
+    "downloads": "18,900+",
+    "license": "Free",
+    "is_mod": false,
+    "featured": false,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "96bb0ad3-5cbb-46c3-9ecf-68439bd11ffc",
+    "name": "Aurora Store",
+    "slug": "aurora-store",
+    "title": "Aurora Store - Open Source Google Play Alternative",
+    "logo_url": "aurora-store-logo.png",
+    "icon": "aurora-store-logo.png",
+    "icon_url": "aurora-store-logo.png",
+    "apk_storage_path": "aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/aurora-store/1.0.0.1/AuroraStore-4.8.3.apk",
+    "platform": "Android",
+    "app_type": "APK",
+    "category": "Apps",
+    "developer_name": "Aurora OSS",
+    "developer": "Aurora OSS",
+    "short_description": "Open-source privacy-focused Google Play Store alternative client.",
+    "description": "Aurora Store is an open-source, non-commercial client for the Google Play Store that allows users to download apps, check for updates, simulate device configurations, and preserve absolute privacy without requiring proprietary Google Play Services on Android.",
+    "version": "4.8.3",
+    "file_size": "12.8 MB",
+    "size": "12.8 MB",
+    "rating": 4.8,
+    "downloads": "52,100+",
+    "license": "Open Source (GPL v3)",
+    "is_mod": false,
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "5de47488-5adf-4e6c-9f47-9a56073a5038",
+    "name": "Perplexity AI Installer",
+    "slug": "perplexity-ai-installer",
+    "title": "Perplexity AI Desktop Installer for Windows",
+    "logo_url": "perplexity-logo.png",
+    "icon": "perplexity-logo.png",
+    "icon_url": "perplexity-logo.png",
+    "apk_storage_path": "perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/perplexity-ai-installer/1.0.0.1/1789127553298_Perplexity_Installer.exe",
+    "platform": "Windows",
+    "app_type": "EXE",
+    "category": "Software",
+    "developer_name": "Perplexity AI, Inc.",
+    "developer": "Perplexity AI, Inc.",
+    "short_description": "Official desktop AI research and conversational answer engine for Windows.",
+    "description": "The official desktop client for Perplexity AI on Windows PC. Provides instant citations, comprehensive web search syntheses, proactive workspace research modes, and interactive conversational knowledge exploration right from your desktop.",
+    "version": "1.0.0.1",
+    "file_size": "68.4 MB",
+    "size": "68.4 MB",
+    "rating": 4.9,
+    "downloads": "67,400+",
+    "license": "Freeware",
+    "is_mod": false,
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "acf9cbd3-2d02-4a9e-8fc9-961facb23995",
+    "name": "BlueStacks Installer",
+    "slug": "bluestacks-installer",
+    "title": "BlueStacks 5 - Fast Android Gaming Emulator for PC",
+    "logo_url": "bluestacks-logo.png",
+    "icon": "bluestacks-logo.png",
+    "icon_url": "bluestacks-logo.png",
+    "apk_storage_path": "bluestacks-installer/BS 5/1789127108465_BS_installer.exe",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/bluestacks-installer/BS%205/1789127108465_BS_installer.exe",
+    "platform": "Windows",
+    "app_type": "EXE",
+    "category": "Software",
+    "developer_name": "now.gg, Inc.",
+    "developer": "now.gg, Inc.",
+    "short_description": "Fast Android emulator for Windows PC to run mobile APK apps and games.",
+    "description": "BlueStacks 5 is the premier Android app emulator for Windows PC. Engineered for unmatched gaming speed, low RAM utilization, custom keymapping, multi-instance synchronizer, and high-FPS mobile game rendering directly on modern PCs and laptops.",
+    "version": "5.21.0",
+    "file_size": "2.4 MB",
+    "size": "2.4 MB",
+    "rating": 4.7,
+    "downloads": "89,300+",
+    "license": "Freeware",
+    "is_mod": false,
+    "featured": false,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "c04deedc-f194-4bf9-bd20-6949d785223f",
+    "name": "Comet",
+    "slug": "comet",
+    "title": "Comet Desktop Utility & Package Manager",
+    "logo_url": "comet-logo.png",
+    "icon": "comet-logo.png",
+    "icon_url": "comet-logo.png",
+    "apk_storage_path": "comet/1.33.2./1789127396066_comet_installer.exe",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/comet/1.33.2./1789127396066_comet_installer.exe",
+    "platform": "Windows",
+    "app_type": "EXE",
+    "category": "Software",
+    "developer_name": "Comet",
+    "developer": "Comet",
+    "short_description": "Fast, modern desktop utility and software installer.",
+    "description": "Comet is a streamlined Windows software assistant and package utility designed for fast, clean, one-click desktop app deployments, automated software updates, and hassle-free system toolkit integration.",
+    "version": "1.33.2",
+    "file_size": "45.0 MB",
+    "size": "45.0 MB",
+    "rating": 4.8,
+    "downloads": "14,700+",
+    "license": "Freeware",
+    "is_mod": false,
+    "featured": false,
+    "verified": true,
+    "status": "Published"
+  },
+  {
+    "id": "49a56375-4f08-4e74-ba17-cddef23331bd",
+    "name": "Hermes AI Agent",
+    "slug": "hermes-ai-agent",
+    "title": "Hermes AI Agent - Autonomous PC Assistant",
+    "logo_url": "hermes-logo.png",
+    "icon": "hermes-logo.png",
+    "icon_url": "hermes-logo.png",
+    "apk_storage_path": "hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
+    "download_url": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/hermes-ai-agent/1.1.0.0.1/1789127793597_Hermes-Setup.exe",
+    "platform": "Windows",
+    "app_type": "EXE",
+    "category": "AI",
+    "developer_name": "NousResearch",
+    "developer": "NousResearch",
+    "short_description": "Advanced local and cloud AI agent assistant for PC.",
+    "description": "Hermes AI Agent by NousResearch is a next-generation autonomous AI desktop application. Powered by advanced reasoning models, it executes local file analysis, complex code execution, research synthesis, and multi-step cognitive workflows directly from your Windows environment.",
+    "version": "1.1.0.0.1",
+    "file_size": "82.5 MB",
+    "size": "82.5 MB",
+    "rating": 4.9,
+    "downloads": "38,600+",
+    "license": "Open Access",
+    "is_mod": false,
+    "featured": true,
+    "verified": true,
+    "status": "Published"
+  }
+]
+;
+
+    function matchApp(app, qId, qSlug) {
+      if (!app) return false;
+      const targetId = (qId || '').toLowerCase().trim();
+      const targetSlug = (qSlug || '').toLowerCase().trim();
+
+      // 1. Match by ID
+      if (targetId && String(app.id || '').toLowerCase() === targetId) return true;
+
+      if (!targetSlug) return false;
+
+      const appSlug = String(app.slug || '').toLowerCase().trim();
+      const appName = String(app.name || app.title || '').toLowerCase().trim();
+      const appPkg = String(app.package_name || '').toLowerCase().trim();
+
+      // 2. Exact match on slug
+      if (appSlug === targetSlug) return true;
+
+      // 3. Exact match on name
+      if (appName === targetSlug) return true;
+
+      // 4. Match name with hyphens converted to spaces
+      if (appName === targetSlug.replace(/-/g, ' ')) return true;
+
+      // 5. Match slug without hyphens
+      if (appSlug.replace(/-/g, '') === targetSlug.replace(/-/g, '')) return true;
+
+      // 6. Name without spaces/hyphens
+      if (appName.replace(/[\s-_]+/g, '') === targetSlug.replace(/[\s-_]+/g, '')) return true;
+
+      // 7. Prefix / fuzzy keyword matching (e.g. 'perplexity' -> 'perplexity-ai-installer')
+      if (appSlug.startsWith(targetSlug) || targetSlug.startsWith(appSlug)) return true;
+      if (appName.startsWith(targetSlug.replace(/-/g, ' '))) return true;
+
+      // 8. Package name match
+      if (appPkg && (appPkg === targetSlug || appPkg.includes(targetSlug))) return true;
+
+      return false;
+    }
+
+    async function initStoreDetailPage() {
+      const params = new URLSearchParams(window.location.search);
+      const id = (params.get('id') || '').trim();
+      let rawQuery = (params.get('slug') || params.get('app') || params.get('name') || params.get('title') || '').trim();
+
+      if (!id && !rawQuery && window.location.hash) {
+        rawQuery = window.location.hash.replace(/^[#?\/]+/, '').trim();
       }
-    ];
 
-    try {
-      let client = supabase || window.supabaseClient;
-      if (!client && window.supabase && typeof window.supabase.createClient === 'function') {
-        const url = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
-        const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
-        client = window.supabase.createClient(url, key);
-        window.supabaseClient = client;
+      // If page is accessed directly without specific app, default gracefully to featured app (chess)
+      if (!id && !rawQuery) {
+        rawQuery = 'chess';
       }
 
-        let appData = null;
+      let slug = '';
+      if (rawQuery) {
+        try { slug = decodeURIComponent(rawQuery); } catch(e) { slug = rawQuery; }
+        slug = slug.toLowerCase().trim()
+          .replace(/\/+$/, '')
+          .replace(/\.(html|apk|exe|zip)$/i, '');
+      }
 
-        // 1. If explicit ID provided, look up by ID
-        if (id) {
-          const { data, error } = await client.from('store_apps').select('*').eq('id', id).maybeSingle();
-          if (data && !error) {
-            appData = data;
-          }
-        }
+      currentSlug = slug;
 
-        // 2. Query by slug with multi-strategy matching
-        if (!appData && slug) {
-          // A: Exact slug
-          const resExact = await client.from('store_apps').select('*').eq('slug', slug).maybeSingle();
-          if (resExact.data && !resExact.error) {
-            appData = resExact.data;
-          }
+      let appData = null;
 
-          // B: Case-insensitive slug
-          if (!appData) {
-            const resIlike = await client.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
-            if (resIlike.data && !resIlike.error) {
-              appData = resIlike.data;
-            }
-          }
+      // STEP 1: Instant Synchronous Lookup from verified catalog (0ms latency, eliminates any Not Found flash)
+      appData = FALLBACK_PUBLISHED_APPS.find(a => matchApp(a, id, slug));
 
-          // C: Check if slug is actually a UUID ID
-          if (!appData && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
-            const resUuid = await client.from('store_apps').select('*').eq('id', slug).maybeSingle();
-            if (resUuid.data && !resUuid.error) {
-              appData = resUuid.data;
-            }
-          }
-
-          // D: Fallback: match by app name (replace dashes with spaces)
-          if (!appData) {
-            const nameCandidate = slug.replace(/-/g, ' ');
-            const resName = await client.from('store_apps').select('*').ilike('name', nameCandidate).maybeSingle();
-            if (resName.data && !resName.error) {
-              appData = resName.data;
+      // STEP 2: Check localStorage for any newer edits / additions made via Admin Panel
+      try {
+        const rawAdmin = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
+        if (rawAdmin) {
+          const localApps = JSON.parse(rawAdmin);
+          if (Array.isArray(localApps)) {
+            const foundLocal = localApps.find(a => matchApp(a, id, slug));
+            if (foundLocal) {
+              appData = appData ? { ...appData, ...foundLocal } : foundLocal;
             }
           }
         }
+      } catch(e) {}
 
-        // 2b. Check local admin cache for freshly published apps / edits
-        try {
-          const rawAdmin = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
-          if (rawAdmin) {
-            const localApps = JSON.parse(rawAdmin);
-            if (Array.isArray(localApps)) {
-              const slugKey = (slug || '').toLowerCase();
-              const foundLocal = localApps.find(a => 
-                (id && String(a.id) === String(id)) || 
-                (slugKey && a.slug && a.slug.toLowerCase() === slugKey) ||
-                (slugKey && a.name && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
-              );
-              if (foundLocal) {
-                appData = appData ? { ...appData, ...foundLocal } : foundLocal;
-              }
-            }
-          }
-        } catch(e) {}
-
-        // 3. Fallback to local verified apps if not found in Supabase
-        if (!appData) {
-          const slugKey = (slug || '').toLowerCase();
-          const foundFallback = FALLBACK_PUBLISHED_APPS.find(a => 
-            (id && a.id === id) || 
-            (slugKey && a.slug.toLowerCase() === slugKey) ||
-            (slugKey && a.name.toLowerCase() === slugKey.replace(/-/g, ' '))
-          );
-          if (foundFallback) {
-            appData = foundFallback;
-          }
-        }
-
-        // 4. Fallback to local static apps.json if still not found
-        if (!appData) {
-          try {
-            const resp = await fetch('data/apps.json');
-            if (resp.ok) {
-              const staticApps = await resp.json();
-              const found = staticApps.find(a => 
-                (id && a.id === id) || 
-                (slug && a.slug && a.slug.toLowerCase() === slug.toLowerCase()) ||
-                (a.name && (a.name.toLowerCase() === slug.toLowerCase() || a.name.toLowerCase() === (slug || id).replace(/-/g, ' ').toLowerCase()))
-              );
-              if (found) {
-                appData = {
-                  id: found.id,
-                  name: found.name,
-                  title: found.name,
-                  developer_name: found.developer,
-                  category: found.category,
-                  version: found.version,
-                  file_size: found.size,
-                  license: found.license,
-                  rating: found.rating,
-                  downloads: found.downloads,
-                  logo_url: found.icon,
-                  icon_url: found.icon,
-                  description: found.description,
-                  short_description: found.short_description || (found.description ? found.description.slice(0, 150) + '...' : ''),
-                  official_url: found.website || found.official_url,
-                  download_url: found.download_url || found.platforms?.windows || found.platforms?.android || found.platforms?.web || found.website,
-                  apk_storage_path: found.apk_storage_path,
-                  is_mod: !!found.is_mod,
-                  mod_info: found.mod_info || '',
-                  verified: found.verified !== false,
-                  featured: !!found.featured,
-                  screenshots: found.screenshots || [],
-                  platform: found.platform || (found.requirements?.OS?.includes('Windows') ? 'Windows' : 'Android'),
-                  app_type: found.app_type || (found.requirements?.OS?.includes('Windows') ? 'EXE' : 'APK'),
-                  updated_at: found.updated_at || found.updatedDate,
-                  features: found.features || [],
-                  pros: found.pros || [],
-                  cons: found.cons || []
-                };
-              }
-            }
-          } catch(errFallback) {
-            console.warn("Local static apps fallback error:", errFallback);
-          }
-        }
-
-        if (!appData) {
-          console.warn("App record not found in Supabase or local apps for query:", { id, slug });
-          showNotFound();
-          return;
-        }
-
+      // Render immediately if matched from embedded verified catalog
+      if (appData) {
         currentApp = appData;
         renderAppDetails(appData);
         loadRelatedApps(appData);
+      }
 
-        // Realtime subscription: live updates when admin edits app in adminapkupload.html
-        try {
-          if (client && typeof client.channel === 'function') {
-            client
-              .channel('app-detail-live-' + appData.id)
-              .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'store_apps', filter: 'id=eq.' + appData.id }, (payload) => {
-                if (payload && payload.new) {
-                  console.log('Realtime live app update:', payload.new.name);
-                  currentApp = payload.new;
-                  renderAppDetails(payload.new);
-                  showToast("Application specs updated in real-time!");
-                }
-              })
-              .subscribe();
+      // STEP 3: Asynchronously load static data/apps.json to enrich details
+      try {
+        const resp = await fetch('data/apps.json');
+        if (resp.ok) {
+          const staticApps = await resp.json();
+          if (Array.isArray(staticApps)) {
+            const foundStatic = staticApps.find(a => matchApp(a, id, slug));
+            if (foundStatic) {
+              const enriched = {
+                ...(appData || {}),
+                ...foundStatic,
+                logo_url: foundStatic.icon || foundStatic.icon_url || foundStatic.logo_url || (appData && appData.logo_url),
+                download_url: foundStatic.download_url || (appData && appData.download_url)
+              };
+              appData = enriched;
+              currentApp = enriched;
+              renderAppDetails(enriched);
+              loadRelatedApps(enriched);
+            }
           }
-        } catch (e) {
-          console.warn("Realtime app update error:", e);
+        }
+      } catch (errJson) {
+        console.warn('Local static apps.json notice:', errJson);
+      }
+
+      // STEP 4: Query Supabase safely in background with non-blocking error handling
+      try {
+        let client = supabase || window.supabaseClient;
+        if (!client && window.supabase && typeof window.supabase.createClient === 'function') {
+          const url = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+          const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+          client = window.supabase.createClient(url, key);
+          window.supabaseClient = client;
         }
 
-      } catch (err) {
-        console.error("Store detail fetch error:", err);
+        if (client && typeof client.from === 'function') {
+          let supaQuery = null;
+          if (id) {
+            supaQuery = client.from('store_apps').select('*').eq('id', id).maybeSingle();
+          } else if (slug) {
+            supaQuery = client.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
+          }
+
+          if (supaQuery) {
+            const res = await Promise.race([
+              supaQuery,
+              new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3500))
+            ]).catch(() => null);
+
+            if (res && res.data && !res.error) {
+              const liveData = { ...(appData || {}), ...res.data };
+              appData = liveData;
+              currentApp = liveData;
+              renderAppDetails(liveData);
+              loadRelatedApps(liveData);
+            }
+          }
+
+          // Realtime live updates
+          if (appData && appData.id && typeof client.channel === 'function') {
+            try {
+              client
+                .channel('app-detail-live-' + appData.id)
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'store_apps', filter: 'id=eq.' + appData.id }, (payload) => {
+                  if (payload && payload.new) {
+                    currentApp = payload.new;
+                    renderAppDetails(payload.new);
+                    showToast('Application specs updated in real-time!');
+                  }
+                })
+                .subscribe();
+            } catch(e) {}
+          }
+        }
+      } catch (supaErr) {
+        console.warn('Supabase background fetch notice:', supaErr);
+      }
+
+      // If no application could be found anywhere, trigger Not Found
+      if (!appData) {
+        console.warn('App not found in catalog:', { id, slug, rawQuery });
         showNotFound();
       }
     }
 
     function renderAppDetails(app) {
       document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('not-found-state').style.display = 'none';
       document.getElementById('app-content-view').style.display = 'block';
 
       const appName = app.name || app.title || 'Untitled App';
@@ -1550,6 +1617,8 @@
       setChip('spec-size', fileSize);
       setChip('spec-category', category);
       setChip('spec-subcategory', app.subcategory || 'Standard');
+      setChip('spec-license', license);
+      setChip('spec-developer', devName);
       setChip('spec-updated', app.updated_at ? new Date(app.updated_at).toLocaleDateString() : 'Recent');
 
       // Dynamic SEO & Title Update for Search Engines (e.g. Chess HarshGuruJi)
@@ -1662,6 +1731,7 @@
 
     function showNotFound() {
       document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('not-found-state').style.display = 'none';
       document.getElementById('not-found-state').style.display = 'block';
     }
 
