@@ -31,7 +31,7 @@ Allow: /daily-life.html
 Allow: /insights.html
 Allow: /explore.html
 Allow: /chat.html
-Allow: /ads.html
+Disallow: /ads.html
 Allow: /about.html
 Allow: /contact.html
 Allow: /contributor.html

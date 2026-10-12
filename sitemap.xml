@@ -85,12 +85,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-  <url>
-    <loc>https://www.webguruji.online/data/apps.json</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
 
   <!-- ══════════════════════════════════════════════════════════ -->
   <!-- HUB PAGES (Category Landing Pages)                        -->
@@ -200,12 +194,6 @@
     <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.webguruji.online/ads.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 
   <!-- ══════════════════════════════════════════════════════════ -->

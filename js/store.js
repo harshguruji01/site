@@ -59,7 +59,7 @@ const FALLBACK_PUBLISHED_APPS = [
     app_type: "APK",
     category: "Game",
     developer_name: "Chess Prince",
-    short_description: "Play and download Chess by Chess Prince with full MOD features unlocked.",
+    short_description: "Play and download Chess by Chess Prince with verified performance and offline play.",
     version: "2.9.4",
     file_size: "15.4 MB",
     rating: 4.8,
@@ -1426,7 +1426,7 @@ function createAppCard(app, index) {
   
   const isMod = app.is_mod || (app.name || '').toLowerCase().includes('mod') || (app.mod_info && app.mod_info.trim().length > 0);
   let badgeHtml = isMod 
-    ? `<span class="box-badge box-badge-mod">⚡ MOD</span>` 
+    ? `<span class="box-badge box-badge-verified">⚡ Verified</span>` 
     : (app.verified ? `<span class="box-badge box-badge-verified">✓ Verified</span>` : '');
 
   const platIcon = getPlatformIcon(app.platform);
@@ -1514,7 +1514,7 @@ function openAppDetails(app) {
 
   let descContent = app.longDescription || app.description;
   if (app.is_mod && app.mod_info) {
-    descContent = `<div style="background: rgba(255, 119, 0, 0.12); border: 1px solid rgba(255, 119, 0, 0.35); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; color: #ff9933;"><strong>⚡ MOD Features:</strong> ${app.mod_info}</div>` + descContent;
+    descContent = `<div style="background: rgba(255, 119, 0, 0.12); border: 1px solid rgba(255, 119, 0, 0.35); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; color: #ff9933;"><strong>⚡ Key Features:</strong> ${app.mod_info}</div>` + descContent;
   }
   elements.mDesc.innerHTML = descContent;
   
@@ -1529,7 +1529,7 @@ function openAppDetails(app) {
     chipsHtml += `<span class="app-badge" style="background: rgba(84, 178, 71, 0.15); color: var(--an1-green);">${app.license}</span>`;
   }
   if (app.is_mod) {
-    chipsHtml += `<span class="app-badge" style="background: rgba(255, 119, 0, 0.2); color: #ff7700;">⚡ MOD Edition</span>`;
+    chipsHtml += `<span class="app-badge" style="background: rgba(255, 119, 0, 0.2); color: #ff7700;">⚡ Official Edition</span>`;
   }
   if (app.verified) {
     chipsHtml += `<span class="app-badge" style="background: rgba(84, 178, 71, 0.15); color: var(--an1-green);">✓ Verified</span>`;

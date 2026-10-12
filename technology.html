@@ -81,7 +81,115 @@
 </head><body>
 
 <!-- Mobile Full Screen Menu -->
-<div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header"><div class="badge">Topic</div><h1 class="page-title"><span class="gradient-text">Technology</span></h1><p class="page-desc">Technology powers the future. Discover facts, history, and the latest innovations curated from Wikipedia.</p></section><section class="section section-dark"><div class="section-container"><div id="wiki-container-technology" class="wiki-content"><div class="wiki-loading">Loading content from Wikipedia...</div></div></div></section><script src="script.js" defer="true"></script>
+<div id="scroll-progress"></div><canvas id="particleCanvas"></canvas><section class="section page-header">
+  <div class="badge">Knowledge Hub</div>
+  <h1 class="page-title">Modern <span class="gradient-text">Technology</span> &amp; Computing Hub</h1>
+  <p class="page-desc">Comprehensive guides, software engineering principles, AI developments, and computer science fundamentals curated by HarshGuruJi.</p>
+</section>
+
+<section class="section section-dark" style="padding-top:0">
+  <div class="section-container" style="max-width:960px;margin:0 auto;line-height:1.8;color:var(--text-secondary);font-size:1.05rem">
+
+    <!-- Pillar 1: Web Architecture & Full-Stack Computing -->
+    <article style="background:var(--card-bg);padding:3rem 2.5rem;border-radius:24px;border:1px solid var(--card-border);box-shadow:0 15px 40px rgba(0,0,0,.5);margin-bottom:2.5rem">
+      <span style="display:inline-block;padding:4px 12px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:20px;color:#a5b4fc;font-size:0.85rem;font-weight:700;margin-bottom:1rem;">Chapter 01 • Architecture</span>
+      <h2 style="color:var(--text-primary);font-size:1.85rem;margin-top:0;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">The Architecture of Modern Web &amp; Distributed Systems</h2>
+      <p style="margin-bottom:1.25rem">
+        Modern software development has fundamentally shifted from monolithic single-server deployments toward distributed, resilient cloud architectures. At its foundation, every web application balances three critical pillars: <strong>client rendering performance</strong>, <strong>API communication protocols</strong>, and <strong>database consistency</strong>.
+      </p>
+      
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.5rem;margin:1.5rem 0;">
+        <h4 style="color:#fff;margin-top:0;margin-bottom:0.75rem;font-size:1.1rem;">Core Components of the Modern Web Stack:</h4>
+        <ul style="padding-left:1.25rem;margin:0;list-style-type:disc">
+          <li style="margin-bottom:0.6rem"><strong>Jamstack &amp; Edge Compute:</strong> Pre-rendered static markup hydrated by client-side APIs, served directly from distributed Content Delivery Networks (CDNs) located closest to the user.</li>
+          <li style="margin-bottom:0.6rem"><strong>RESTful APIs vs. GraphQL:</strong> REST provides strict resource-centric endpoints over standard HTTP methods (GET, POST, PUT, DELETE), while GraphQL allows clients to request exact data shapes, eliminating over-fetching.</li>
+          <li style="margin-bottom:0.6rem"><strong>Microservices &amp; Containerization:</strong> Docker and orchestration tools like Kubernetes isolate application responsibilities into stateless micro-services, ensuring high availability and horizontal elasticity.</li>
+        </ul>
+      </div>
+
+      <p style="margin-bottom:0;">
+        Understanding these architectural paradigms allows engineers to build applications that scale gracefully from thousands to millions of concurrent requests while maintaining sub-second latency.
+      </p>
+    </article>
+
+    <!-- Pillar 2: Artificial Intelligence & Machine Learning -->
+    <article style="background:var(--card-bg);padding:3rem 2.5rem;border-radius:24px;border:1px solid var(--card-border);box-shadow:0 15px 40px rgba(0,0,0,.5);margin-bottom:2.5rem">
+      <span style="display:inline-block;padding:4px 12px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.3);border-radius:20px;color:#f472b6;font-size:0.85rem;font-weight:700;margin-bottom:1rem;">Chapter 02 • Machine Intelligence</span>
+      <h2 style="color:var(--text-primary);font-size:1.85rem;margin-top:0;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">Understanding Generative AI &amp; Large Language Models</h2>
+      <p style="margin-bottom:1.25rem">
+        Artificial Intelligence has transitioned from heuristic pattern matching to deep generative neural networks. The foundation of modern language models lies in the <strong>Transformer Architecture</strong> (introduced by Vaswani et al. in 2017), which utilizes self-attention mechanisms to understand contextual relationships across vast textual sequences.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin:1.75rem 0;">
+        <div style="padding:1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
+          <h4 style="color:var(--accent-primary);margin-top:0;margin-bottom:0.5rem;">Self-Attention</h4>
+          <p style="font-size:0.9rem;margin:0;color:var(--text-secondary);">Calculates mathematical affinity weights between all words in a sentence simultaneously, enabling nuanced semantic comprehension.</p>
+        </div>
+        <div style="padding:1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
+          <h4 style="color:var(--accent-secondary);margin-top:0;margin-bottom:0.5rem;">Tokenization &amp; Vectors</h4>
+          <p style="font-size:0.9rem;margin:0;color:var(--text-secondary);">Transforms raw human text into high-dimensional embedding vectors, preserving relational meaning in mathematical space.</p>
+        </div>
+        <div style="padding:1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
+          <h4 style="color:#10b981;margin-top:0;margin-bottom:0.5rem;">RLHF &amp; Alignment</h4>
+          <p style="font-size:0.9rem;margin:0;color:var(--text-secondary);">Reinforcement Learning from Human Feedback aligns foundation models to follow instructions safely, accurately, and politely.</p>
+        </div>
+      </div>
+
+      <p style="margin-bottom:0;">
+        For students and developers, leveraging AI responsibly requires foundational prompt engineering, understanding hallucination mitigation strategies, and maintaining strong data sovereignty.
+      </p>
+    </article>
+
+    <!-- Pillar 3: Practical Cybersecurity & Privacy -->
+    <article style="background:var(--card-bg);padding:3rem 2.5rem;border-radius:24px;border:1px solid var(--card-border);box-shadow:0 15px 40px rgba(0,0,0,.5);margin-bottom:2.5rem">
+      <span style="display:inline-block;padding:4px 12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);border-radius:20px;color:#34d399;font-size:0.85rem;font-weight:700;margin-bottom:1rem;">Chapter 03 • Digital Defense</span>
+      <h2 style="color:var(--text-primary);font-size:1.85rem;margin-top:0;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">Cybersecurity Essentials: Protecting Data in a Connected World</h2>
+      <p style="margin-bottom:1.25rem">
+        Information security is not an afterthought; it is an active discipline. In the current threat landscape, security operates on the principle of <strong>Zero Trust</strong>: never trust, always verify, regardless of whether a request originates inside or outside the network perimeter.
+      </p>
+      
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.5rem;margin:1.5rem 0;">
+        <h4 style="color:#fff;margin-top:0;margin-bottom:0.75rem;font-size:1.1rem;">Five Core Defensive Practices:</h4>
+        <ol style="padding-left:1.25rem;margin:0;line-height:1.9;">
+          <li><strong style="color:var(--text-primary);">End-to-End Cryptography:</strong> Enforcing TLS 1.3 with forward secrecy for data in transit and AES-256-GCM for sensitive data at rest.</li>
+          <li><strong style="color:var(--text-primary);">Multi-Factor Authentication (MFA):</strong> Replacing vulnerable SMS-based verification with hardware security keys (FIDO2/WebAuthn) or time-based one-time passwords (TOTP).</li>
+          <li><strong style="color:var(--text-primary);">Sanitization &amp; Input Validation:</strong> Preventing SQL Injection and Cross-Site Scripting (XSS) through strict parameterization and Content Security Policies (CSP).</li>
+          <li><strong style="color:var(--text-primary);">Principle of Least Privilege:</strong> Granting users, service accounts, and API tokens only the absolute minimum permissions needed to perform their tasks.</li>
+          <li><strong style="color:var(--text-primary);">Continuous Vulnerability Auditing:</strong> Regular dependency scans (npm audit, Snyk) to eliminate unpatched vulnerabilities in open-source libraries.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Pillar 4: Beginner Developer Roadmap -->
+    <article style="background:var(--card-bg);padding:3rem 2.5rem;border-radius:24px;border:1px solid var(--card-border);box-shadow:0 15px 40px rgba(0,0,0,.5);margin-bottom:2.5rem">
+      <span style="display:inline-block;padding:4px 12px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;color:#fbbf24;font-size:0.85rem;font-weight:700;margin-bottom:1rem;">Chapter 04 • Career &amp; Skills</span>
+      <h2 style="color:var(--text-primary);font-size:1.85rem;margin-top:0;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">The Modern Developer's Roadmap: From Basics to Production</h2>
+      <p style="margin-bottom:1.25rem">
+        Learning to code does not require memorizing thousands of syntax rules. It requires building strong mental models around algorithmic problem solving and understanding how systems interact.
+      </p>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin:1.5rem 0;">
+        <div style="padding:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;">
+          <h3 style="color:#fff;font-size:1.2rem;margin-top:0;margin-bottom:0.75rem;">Step 1: Core Fundamentals</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);margin:0;">Master Semantic HTML5, CSS layout systems (Flexbox, Grid), and vanilla modern JavaScript (ES6+, Async/Await, DOM manipulation, Fetch API).</p>
+        </div>
+        <div style="padding:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;">
+          <h3 style="color:#fff;font-size:1.2rem;margin-top:0;margin-bottom:0.75rem;">Step 2: Backend &amp; Databases</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);margin:0;">Learn server-side execution using Node.js, Python, or Go. Understand relational data modeling in PostgreSQL and schema design.</p>
+        </div>
+        <div style="padding:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;">
+          <h3 style="color:#fff;font-size:1.2rem;margin-top:0;margin-bottom:0.75rem;">Step 3: Version Control &amp; CI/CD</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);margin:0;">Adopt Git branch management, code review workflows on GitHub, automated testing pipelines, and static analysis tools.</p>
+        </div>
+      </div>
+      
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="free-tools.html" class="btn btn-primary" style="display:inline-block;padding:0.75rem 2rem;text-decoration:none;">Explore HarshGuruJi Dev Tools ↗</a>
+      </div>
+    </article>
+
+  </div>
+</section><script src="script.js" defer="true"></script>
 
   <script src="js/button_handlers.js" defer=""></script>
   <script src="cookie.js" defer=""></script>

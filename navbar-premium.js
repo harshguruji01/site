@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     desktopNavListHTML = `
       <li class="hg-nav-item"><a href="${homeUrl}" class="hg-nav-link" id="nav-link-home">Home</a></li>
       <li class="hg-nav-item"><a href="${storeUrl}" class="hg-nav-link active" id="nav-link-store">🛍️ Store Home</a></li>
-      <li class="hg-nav-item"><a href="#sec-games" class="hg-nav-link" id="nav-link-games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 MOD Games</a></li>
+      <li class="hg-nav-item"><a href="#sec-games" class="hg-nav-link" id="nav-link-games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Web Games</a></li>
       <li class="hg-nav-item"><a href="#sec-android" class="hg-nav-link" id="nav-link-apks" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">📱 Android APKs</a></li>
       <li class="hg-nav-item"><a href="#store-sections-view" class="hg-nav-link" id="nav-link-software" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">💻 Windows (PC)</a></li>
       <li class="hg-nav-item hg-has-dropdown" id="nav-item-categories">
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileNavListHTML = `
       <li><a href="${homeUrl}" class="hg-mobile-link" id="mob-link-home">🏠 Home</a></li>
       <li><a href="${storeUrl}" class="hg-mobile-link active" id="mob-link-store">🛍️ Store Catalog</a></li>
-      <li><a href="#sec-games" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 MOD Games</a></li>
+      <li><a href="#sec-games" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Web Games</a></li>
       <li><a href="#sec-android" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">📱 Android APKs</a></li>
       <li><a href="#store-sections-view" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">💻 Windows (PC)</a></li>
       <li class="hg-mobile-item hg-has-accordion" id="mob-item-store-cats">
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Home</span>
       </a>
 
-      <a href="#sec-games" class="hg-bottom-item" id="bottom-nav-games" title="MOD Games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">
+      <a href="#sec-games" class="hg-bottom-item" id="bottom-nav-games" title="Web Games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="6 12 10 8 14 12 10 16 6 12"></polygon>
@@ -1511,14 +1511,7 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: '💻', 
       keywords: 'technology tech computers software trends development innovation' 
     },
-    { 
-      title: 'Partner Ads & Sponsorships', 
-      desc: 'Official advertising and sponsorship partners of HarshGuruJi platform', 
-      url: 'ads.html', 
-      type: 'page', 
-      icon: '📢', 
-      keywords: 'ads partner advertising sponsor promotions partner ads' 
-    },
+    
     { 
       title: 'Privacy Policy', 
       desc: 'HarshGuruJi privacy policy, cookies, data safety and user security guidelines', 
