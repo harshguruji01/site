@@ -54,7 +54,9 @@ CREATE POLICY "Allow update for everyone (Temp Admin)" ON store_apps
 
 -- Create Storage Buckets
 INSERT INTO storage.buckets (id, name, public) VALUES ('app-logos', 'app-logos', true) ON CONFLICT DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('apk-files', 'apk-files', true) ON CONFLICT DO NOTHING;
+INSERT INTO storage.buckets (id, name, public, file_size_limit) VALUES ('apk-files', 'apk-files', true, 104857600) 
+  ON CONFLICT (id) DO UPDATE SET file_size_limit = 104857600, public = true;
+UPDATE storage.buckets SET file_size_limit = 104857600 WHERE id = 'apk-files';
 INSERT INTO storage.buckets (id, name, public) VALUES ('app-screenshots', 'app-screenshots', true) ON CONFLICT DO NOTHING;
 
 -- Storage Policies for app-logos

@@ -1278,6 +1278,33 @@
     });
   </script>
 
+  <!-- Live Supabase APK Sync Script -->
+  <script>
+    (async function syncLatestChatBaseApk() {
+      try {
+        const res = await fetch('https://wumdbpyhpblvgjttsbpv.supabase.co/rest/v1/store_apps?slug=eq.chatbase&select=version,file_size,download_url', {
+          headers: {
+            'apikey': 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l',
+            'Authorization': 'Bearer sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l'
+          }
+        });
+        if (!res.ok) return;
+        const [app] = await res.json();
+        if (app && app.download_url) {
+          let dl = app.download_url;
+          if (dl.includes('/storage/v1/object/public/') && !dl.includes('?download')) {
+            dl += (dl.includes('?') ? '&' : '?') + 'download=';
+          }
+          document.querySelectorAll('a[href*="ChatBase.apk"], a.btn-main-download, a.btn-pill-dl').forEach(a => {
+            if (a.getAttribute('href') && !a.getAttribute('href').startsWith('#')) {
+              a.href = dl;
+            }
+          });
+        }
+      } catch(e) {}
+    })();
+  </script>
+
   <!-- Global Premium Navigation System -->
   <script src="navbar-premium.js" defer></script>
 </body>

@@ -2337,6 +2337,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tus-js-client@3/dist/tus.min.js"></script>
   <script src="js/supabase-head.js"></script>
   <link rel="stylesheet" href="responsive-patch.css">
 
@@ -6028,8 +6029,26 @@
         currentApkFile = input.files[0];
         const sizeMB = (currentApkFile.size / (1024 * 1024)).toFixed(1);
         const sizeInput = document.getElementById('app-size-input');
-        if (sizeInput && !sizeInput.value) {
+        if (sizeInput) {
           sizeInput.value = `${sizeMB} MB`;
+        }
+        let sizeHint = document.getElementById('app-apk-size-hint');
+        if (!sizeHint) {
+          sizeHint = document.createElement('div');
+          sizeHint.id = 'app-apk-size-hint';
+          sizeHint.style.cssText = 'margin-top:6px; font-size:0.78rem; font-weight:600; padding:6px 10px; border-radius:8px;';
+          input.parentNode.appendChild(sizeHint);
+        }
+        if (currentApkFile.size > 50 * 1024 * 1024) {
+          sizeHint.style.background = 'rgba(234, 179, 8, 0.15)';
+          sizeHint.style.color = '#fde047';
+          sizeHint.style.border = '1px solid rgba(234, 179, 8, 0.3)';
+          sizeHint.innerHTML = '⚡ <strong>File Size: ' + sizeMB + ' MB</strong> — Resumable chunked upload enabled. (If your Supabase project is on Free tier 50MB cap, run SQL <code>UPDATE storage.buckets SET file_size_limit = 104857600 WHERE id = \'apk-files\';</code> or paste a direct link below).';
+        } else {
+          sizeHint.style.background = 'rgba(16, 185, 129, 0.12)';
+          sizeHint.style.color = '#34d399';
+          sizeHint.style.border = '1px solid rgba(16, 185, 129, 0.25)';
+          sizeHint.innerHTML = '✓ File Size: ' + sizeMB + ' MB — Ready to upload directly to Supabase.';
         }
 
         const ext = (currentApkFile.name.split('.').pop() || '').toLowerCase();
@@ -6127,18 +6146,90 @@
           }
         }
 
-        // 2. Upload APK file if file selected
-        if (currentApkFile && sb && sb.storage && !downloadUrl) {
-          try {
-            const apkCleanName = `${slug}_v${version}_${Date.now()}_${currentApkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-            const apkPath = `apks/${apkCleanName}`;
-            const { error: aErr } = await sb.storage.from('apk-files').upload(apkPath, currentApkFile, { upsert: true });
-            if (!aErr) {
-              const { data: aData } = sb.storage.from('apk-files').getPublicUrl(apkPath);
-              if (aData && aData.publicUrl) downloadUrl = aData.publicUrl;
+        // 2. Upload APK file if file selected (Supports up to 70MB+ via TUS Resumable Chunks & Standard upload)
+        let apkStoragePath = '';
+        if (currentApkFile) {
+          const apkCleanName = `${slug}_v${version}_${Date.now()}_${currentApkFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+          const apkPath = `apks/${apkCleanName}`;
+          const supabaseUrl = window.SUPABASE_URL || 'https://wumdbpyhpblvgjttsbpv.supabase.co';
+          const supabaseKey = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+          const sizeMB = (currentApkFile.size / (1024 * 1024)).toFixed(1);
+
+          if (saveBtn) saveBtn.innerHTML = '<span>⏳ Uploading APK (' + sizeMB + ' MB): 0%</span>';
+
+          let uploadedSuccessfully = false;
+
+          // Attempt 1: TUS Resumable Chunked Upload (bypasses single-request timeouts and streams in 6MB chunks)
+          if (typeof tus !== 'undefined' && tus.Upload) {
+            try {
+              const tusResult = await new Promise((resolve, reject) => {
+                const upload = new tus.Upload(currentApkFile, {
+                  endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
+                  retryDelays: [0, 2000, 5000, 10000],
+                  headers: {
+                    authorization: `Bearer ${supabaseKey}`,
+                    apikey: supabaseKey,
+                  },
+                  uploadDataDuringCreation: true,
+                  removeFingerprintOnSuccess: true,
+                  metadata: {
+                    bucketName: 'apk-files',
+                    objectName: apkPath,
+                    contentType: currentApkFile.type || 'application/vnd.android.package-archive',
+                    cacheControl: '3600',
+                  },
+                  chunkSize: 6 * 1024 * 1024,
+                  onError: function(err) {
+                    reject(err);
+                  },
+                  onProgress: function(bytesUploaded, bytesTotal) {
+                    const pct = Math.round((bytesUploaded / bytesTotal) * 100);
+                    if (saveBtn) saveBtn.innerHTML = '<span>⏳ Uploading APK (' + sizeMB + ' MB): ' + pct + '%</span>';
+                  },
+                  onSuccess: function() {
+                    const pubUrl = `${supabaseUrl}/storage/v1/object/public/apk-files/${apkPath}`;
+                    resolve({ publicUrl: pubUrl, apkPath: apkPath });
+                  }
+                });
+
+                upload.start();
+              });
+
+              if (tusResult && tusResult.publicUrl) {
+                downloadUrl = tusResult.publicUrl;
+                apkStoragePath = tusResult.apkPath;
+                uploadedSuccessfully = true;
+              }
+            } catch(tusErr) {
+              console.warn('TUS upload notice:', tusErr);
+              // If TUS 413 maximum size exceeded, fail with clear guidance
+              if (tusErr && (tusErr.message?.includes('Maximum size exceeded') || (tusErr.originalResponse && tusErr.originalResponse.getStatus() === 413))) {
+                throw new Error('Supabase Storage 413 (File size ' + sizeMB + ' MB exceeds bucket limit). Run this SQL query in your Supabase Dashboard SQL Editor to allow up to 100MB:\n\nUPDATE storage.buckets SET file_size_limit = 104857600 WHERE id = \'apk-files\';\n\nAlternatively, paste a direct link in the Direct Download Link field.');
+              }
             }
-          } catch(ae) {
-            console.warn('APK upload notice:', ae);
+          }
+
+          // Attempt 2: Standard Supabase Storage Upload (Fallback if TUS not initialized)
+          if (!uploadedSuccessfully) {
+            if (sb && sb.storage) {
+              if (saveBtn) saveBtn.innerHTML = '<span>⏳ Uploading APK (' + sizeMB + ' MB)...</span>';
+              const { error: aErr } = await sb.storage.from('apk-files').upload(apkPath, currentApkFile, { upsert: true });
+              if (aErr) {
+                console.error('Supabase standard APK upload error:', aErr);
+                if (aErr.statusCode === '413' || aErr.message?.includes('exceeded the maximum') || aErr.message?.includes('too large')) {
+                  throw new Error('Supabase Storage 413 (File size ' + sizeMB + ' MB exceeds bucket limit). Run this SQL in your Supabase SQL Editor to allow 100MB:\n\nUPDATE storage.buckets SET file_size_limit = 104857600 WHERE id = \'apk-files\';\n\nOr paste a direct download link.');
+                }
+                throw new Error('APK Storage upload failed: ' + aErr.message);
+              }
+              const { data: aData } = sb.storage.from('apk-files').getPublicUrl(apkPath);
+              if (aData && aData.publicUrl) {
+                downloadUrl = aData.publicUrl;
+                apkStoragePath = apkPath;
+                uploadedSuccessfully = true;
+              }
+            } else {
+              throw new Error('Supabase Storage service is not connected.');
+            }
           }
         }
 
@@ -6187,14 +6278,16 @@
           featured: featured,
           verified: verified,
           status: status,
-          is_published: status === 'Published',
           updated_at: new Date().toISOString()
         };
+
+        if (apkStoragePath) {
+          payload.apk_storage_path = apkStoragePath;
+        }
 
         if (!editId) {
           payload.created_at = new Date().toISOString();
           payload.downloads = 0;
-          payload.downloads_count = 0;
         }
 
         let savedApp = payload;
@@ -6204,14 +6297,21 @@
           try {
             if (editId) {
               const { error: upErr } = await sb.from('store_apps').update(payload).eq('id', editId);
-              if (upErr) console.warn('Supabase store_apps update:', upErr.message);
+              if (upErr) {
+                console.error('Supabase store_apps update error:', upErr);
+                throw new Error('Supabase database update failed: ' + upErr.message);
+              }
             } else {
               const { data: insData, error: insErr } = await sb.from('store_apps').insert([payload]).select();
-              if (insErr) console.warn('Supabase store_apps insert:', insErr.message);
+              if (insErr) {
+                console.error('Supabase store_apps insert error:', insErr);
+                throw new Error('Supabase database insert failed: ' + insErr.message);
+              }
               if (insData && insData[0]) savedApp = insData[0];
             }
           } catch(sbe) {
-            console.warn('Supabase store_apps notice:', sbe);
+            console.error('Supabase store_apps error:', sbe);
+            throw sbe;
           }
         }
 
@@ -6238,6 +6338,12 @@
           } catch(e) {}
         } catch(e) {}
 
+        currentApkFile = null;
+        currentLogoFile = null;
+        const apkIn = document.getElementById('app-apk-file-input');
+        if (apkIn) apkIn.value = '';
+        const logoIn = document.getElementById('app-logo-file-input');
+        if (logoIn) logoIn.value = '';
         closeAppPublishModal();
         updateAllTelemetryDisplay();
         renderStoreApps();

@@ -1590,8 +1590,12 @@ function openAppDetails(app) {
       localStorage.setItem('guest_downloads', JSON.stringify(guestData));
     }
 
+    let dlUrl = app.downloadUrl;
+    if (dlUrl && dlUrl.includes('/storage/v1/object/public/') && !dlUrl.includes('?download')) {
+      dlUrl += (dlUrl.includes('?') ? '&' : '?') + 'download=';
+    }
     const link = document.createElement('a');
-    link.href = app.downloadUrl;
+    link.href = dlUrl;
     link.target = '_blank';
     link.download = '';
     document.body.appendChild(link);

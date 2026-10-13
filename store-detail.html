@@ -1382,7 +1382,7 @@
 
           const [staticRes, supaRes] = await Promise.all([
             Promise.race([fetchStatic, new Promise(res => setTimeout(() => res(null), 1800))]),
-            Promise.race([supaPromise, new Promise(res => setTimeout(() => res(null), 2200))])
+            Promise.race([supaPromise, new Promise(res => setTimeout(() => res(null), 6000))])
           ]);
 
           let remoteData = null;
@@ -1547,7 +1547,11 @@
 
       if (downloadBtn) {
         if (app.download_url) {
-          downloadBtn.href = app.download_url;
+          let directHref = app.download_url;
+          if (directHref.includes('/storage/v1/object/public/') && !directHref.includes('?download')) {
+            directHref += (directHref.includes('?') ? '&' : '?') + 'download=';
+          }
+          downloadBtn.href = directHref;
           downloadBtn.setAttribute('download', '');
           downloadBtn.setAttribute('target', '_blank');
         }
@@ -1560,7 +1564,11 @@
 
       if (directDlBtn) {
         if (app.download_url) {
-          directDlBtn.href = app.download_url;
+          let directHref = app.download_url;
+          if (directHref.includes('/storage/v1/object/public/') && !directHref.includes('?download')) {
+            directHref += (directHref.includes('?') ? '&' : '?') + 'download=';
+          }
+          directDlBtn.href = directHref;
           directDlBtn.setAttribute('download', '');
           directDlBtn.style.display = 'inline-flex';
         } else {
@@ -1672,10 +1680,15 @@
         return;
       }
 
+      let downloadLink = app.download_url;
+      if (downloadLink.includes('/storage/v1/object/public/') && !downloadLink.includes('?download')) {
+        downloadLink += (downloadLink.includes('?') ? '&' : '?') + 'download=';
+      }
+
       // Initiate download with reliable trigger
       try {
         const link = document.createElement('a');
-        link.href = app.download_url;
+        link.href = downloadLink;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.download = '';
@@ -1683,7 +1696,7 @@
         link.click();
         setTimeout(() => link.remove(), 200);
       } catch (e) {
-        window.open(app.download_url, '_blank');
+        window.open(downloadLink, '_blank');
       }
 
       showToast("Download started! Thank you for using HarshGuruJi Store.");
