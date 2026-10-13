@@ -2331,6 +2331,608 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-head.js"></script>
   <link rel="stylesheet" href="responsive-patch.css">
+
+  <!-- WEBGURUJI MASTER ADMIN 100% RESPONSIVE & ANTI-OVERLAP SHIELD -->
+  <style id="admin-master-responsive-shield">
+    /* Universal Reset & Container Containment */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      width: 100% !important;
+      position: relative;
+    }
+
+    /* Override any damaging white-space: normal rules from generic patches */
+    #admin-dashboard .badge,
+    #admin-dashboard .chip,
+    #admin-dashboard .status-pill,
+    #admin-dashboard .tab-pill,
+    #admin-dashboard .filter-chip,
+    #admin-dashboard .pill-link,
+    #admin-dashboard .stat-badge-hint,
+    #admin-dashboard .meta-chip,
+    #admin-dashboard .hero-badge-live,
+    #admin-dashboard .master-badge,
+    .master-modal-overlay .status-pill,
+    .master-modal-overlay .tab-pill,
+    .master-modal-overlay .filter-chip,
+    .master-modal-overlay .badge,
+    .master-modal-overlay .chip,
+    .master-modal-overlay .file-drop-badge {
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: auto !important;
+      height: auto !important;
+    }
+
+    /* Prevent mobile inputs zooming */
+    @media (max-width: 768px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
+
+    /* 1. TOP NAVBAR: Clean Two-Level Layout */
+    .top-navbar {
+      background: rgba(11, 15, 27, 0.94) !important;
+      backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid var(--border) !important;
+      padding: 0.85rem 2rem 0.65rem !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+      width: 100% !important;
+    }
+
+    .top-navbar-main {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      width: 100% !important;
+      gap: 1rem !important;
+      flex-wrap: wrap !important;
+    }
+
+    .brand-section {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.85rem !important;
+      min-width: 0 !important;
+    }
+
+    .brand-section img {
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 12px !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4) !important;
+    }
+
+    .brand-info {
+      min-width: 0 !important;
+    }
+
+    .brand-info h1 {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem) !important;
+      color: #fff !important;
+      font-weight: 700 !important;
+      margin: 0 !important;
+      line-height: 1.25 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      flex-wrap: wrap !important;
+    }
+
+    .brand-meta-sub {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
+      font-size: 0.78rem !important;
+      color: var(--text-muted) !important;
+      margin-top: 3px !important;
+      flex-wrap: wrap !important;
+    }
+
+    .status-indicator-mini {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      font-size: 0.75rem !important;
+      color: #34d399 !important;
+      font-weight: 600 !important;
+    }
+
+    .top-controls {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.65rem !important;
+      flex-wrap: wrap !important;
+      margin-left: auto !important;
+    }
+
+    .realtime-clock-pill {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid var(--border) !important;
+      padding: 0.35rem 0.75rem !important;
+      border-radius: 20px !important;
+      font-size: 0.78rem !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      color: #cbd5e1 !important;
+      white-space: nowrap !important;
+    }
+
+    /* Row 2: Fluid Horizontal Navigation Scroller */
+    .cross-admin-pills {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      padding: 4px 0 2px !important;
+      scrollbar-width: thin !important;
+    }
+
+    .cross-admin-pills::-webkit-scrollbar {
+      height: 4px !important;
+    }
+
+    .cross-admin-pills::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-radius: 4px !important;
+    }
+
+    .pill-link {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 5px 12px !important;
+      border-radius: 20px !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text-muted) !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      text-decoration: none !important;
+    }
+
+    .pill-link:hover, .pill-link.active {
+      background: rgba(99, 102, 241, 0.25) !important;
+      border-color: var(--primary) !important;
+      color: #fff !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* 2. STATS BAR: Fluid Defensive Responsive Grid */
+    .stats-bar {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)) !important;
+      gap: 1.25rem !important;
+      margin-bottom: 2.5rem !important;
+      width: 100% !important;
+    }
+
+    .stat-tile {
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 16px !important;
+      padding: 1.35rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      min-height: 150px !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      cursor: pointer !important;
+      user-select: none !important;
+    }
+
+    .stat-top {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+
+    .stat-title {
+      font-size: 0.78rem !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: var(--text-muted) !important;
+      font-weight: 700 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .stat-badge-hint {
+      font-size: 0.65rem !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      padding: 2px 7px !important;
+      border-radius: 6px !important;
+      color: #cbd5e1 !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+
+    .stat-icon-mini {
+      font-size: 1.35rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: clamp(1.8rem, 3.5vw, 2.3rem) !important;
+      font-weight: 700 !important;
+      color: #fff !important;
+      line-height: 1.1 !important;
+      margin: 0.35rem 0 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .stat-subtext {
+      font-size: 0.78rem !important;
+      color: #34d399 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .stat-click-cta {
+      margin-top: 0.85rem !important;
+      padding-top: 0.65rem !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      color: #93c5fd !important;
+      white-space: nowrap !important;
+    }
+
+    /* 3. HERO BANNER DEFENSIVE RESPONSIVENESS */
+    .admin-hero {
+      padding: clamp(1.25rem, 3.5vw, 2.5rem) !important;
+      border-radius: var(--radius-lg) !important;
+      margin-bottom: 2.25rem !important;
+    }
+
+    .hero-content h2 {
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem) !important;
+      line-height: 1.25 !important;
+    }
+
+    .hero-content p {
+      font-size: clamp(0.88rem, 2vw, 1.05rem) !important;
+      line-height: 1.55 !important;
+    }
+
+    .admin-meta-tags {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.65rem !important;
+      margin-top: 1.25rem !important;
+    }
+
+    .meta-chip {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      font-size: 0.8rem !important;
+      padding: 0.35rem 0.8rem !important;
+    }
+
+    .hero-quick-actions {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.65rem !important;
+      margin-top: 1.35rem !important;
+      padding-top: 1.25rem !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .hero-quick-btn {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      padding: 0.5rem 1rem !important;
+      font-size: 0.82rem !important;
+      border-radius: 10px !important;
+    }
+
+    /* 4. MODULES GRID */
+    .modules-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)) !important;
+      gap: 1.5rem !important;
+      margin-bottom: 3rem !important;
+    }
+
+    .module-card {
+      padding: clamp(1.5rem, 3vw, 2.25rem) !important;
+      border-radius: var(--radius-lg) !important;
+    }
+
+    .card-btn-group {
+      display: flex !important;
+      gap: 0.65rem !important;
+      flex-wrap: wrap !important;
+      margin-top: 1.5rem !important;
+    }
+
+    .card-action-btn, .card-action-btn-secondary {
+      white-space: nowrap !important;
+      width: auto !important;
+      flex: 1 1 auto !important;
+      min-height: 42px !important;
+      text-align: center !important;
+      justify-content: center !important;
+      padding: 0.75rem 1.15rem !important;
+    }
+
+    /* 5. MASTER MODAL & TABS: Horizontal Touch Scroll, Zero Syllable Breaks */
+    .master-modal-dialog {
+      max-width: 1220px !important;
+      width: 96vw !important;
+      max-height: 92vh !important;
+      border-radius: 22px !important;
+    }
+
+    .master-modal-tabs {
+      display: flex !important;
+      gap: 6px !important;
+      padding: 0.65rem 1.5rem !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      flex-wrap: nowrap !important;
+      scrollbar-width: thin !important;
+    }
+
+    .master-tab-btn {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 0.55rem 1rem !important;
+      font-size: 0.84rem !important;
+      border-radius: 10px !important;
+      width: auto !important;
+    }
+
+    .tab-pill {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      font-size: 0.72rem !important;
+      padding: 2px 7px !important;
+      border-radius: 12px !important;
+    }
+
+    /* 6. TABLES: Strict Horizontal Scroll Protection */
+    .master-table-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      border-radius: 14px !important;
+      border: 1px solid var(--border) !important;
+    }
+
+    .master-table {
+      min-width: 720px !important;
+      width: 100% !important;
+      border-collapse: collapse !important;
+    }
+
+    .master-table th, .master-table td {
+      padding: 0.85rem 1.1rem !important;
+      vertical-align: middle !important;
+    }
+
+    .master-table th {
+      white-space: nowrap !important;
+      font-size: 0.76rem !important;
+      letter-spacing: 0.05em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* Action buttons in tables: Never squished */
+    .btn-action-primary,
+    .btn-action-danger,
+    .btn-action-gold,
+    .btn-action-outline,
+    .btn-action-success {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      width: auto !important;
+      height: auto !important;
+      min-height: 32px !important;
+      padding: 5px 11px !important;
+      font-size: 0.78rem !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+    }
+
+    .status-pill {
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      padding: 2px 8px !important;
+      border-radius: 20px !important;
+      letter-spacing: 0.03em !important;
+    }
+
+    /* Specific Breakpoint Tweaks */
+    @media (max-width: 1024px) {
+      .top-navbar {
+        padding: 0.75rem 1.25rem 0.6rem !important;
+      }
+      .dashboard-wrapper {
+        padding: 1.5rem 1rem 3.5rem !important;
+      }
+      .modules-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)) !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-navbar-main {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .top-controls {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        gap: 0.5rem !important;
+      }
+      .dashboard-wrapper {
+        padding: 1.25rem 0.75rem 3rem !important;
+      }
+      .master-modal-dialog {
+        width: 98vw !important;
+        max-width: 98vw !important;
+        height: 96vh !important;
+        max-height: 96vh !important;
+        border-radius: 16px !important;
+      }
+      .master-modal-header {
+        padding: 0.85rem 1rem !important;
+      }
+      .master-modal-body {
+        padding: 1rem 0.75rem !important;
+      }
+      .master-modal-tabs {
+        padding: 0.5rem 0.75rem !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .stats-bar {
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
+      }
+      .modules-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      .card-btn-group {
+        flex-direction: column !important;
+      }
+      .card-action-btn, .card-action-btn-secondary {
+        width: 100% !important;
+      }
+      .hero-quick-actions {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+        gap: 0.5rem !important;
+      }
+      .hero-quick-btn {
+        justify-content: center !important;
+        width: 100% !important;
+      }
+      .gate-card {
+        padding: 2rem 1.25rem !important;
+      }
+      .brand-info h1 {
+        font-size: 1.1rem !important;
+      }
+    }
+
+    /* Style for System & Capabilities Cards inside Studio Panes */
+    .studio-feature-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .studio-feature-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .studio-feature-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .switch-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      gap: 1rem;
+    }
+    .switch-toggle-row:last-child {
+      border-bottom: none;
+    }
+    .switch-toggle-label {
+      font-size: 0.86rem;
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+    .switch-toggle-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .site-page-status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+    .page-status-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -2423,44 +3025,52 @@
     
     <!-- Top Navbar -->
     <header class="top-navbar">
-      <div class="brand-section">
-        <img src="logo.png" alt="HarshGuruJi Logo">
-        <div class="brand-info">
-          <h1>
-            <span>HarshGuruJi Command Center</span>
-            <span class="master-badge">Master</span>
-          </h1>
-          <p id="admin-session-display">Authenticated: harshguruji01@gmail.com</p>
+      <div class="top-navbar-main">
+        <div class="brand-section">
+          <img src="logo.png" alt="HarshGuruJi Logo">
+          <div class="brand-info">
+            <h1>
+              <span>HarshGuruJi Command Center</span>
+              <span class="master-badge">Master</span>
+            </h1>
+            <div class="brand-meta-sub">
+              <span class="status-indicator-mini"><span class="status-dot"></span> Online</span>
+              <span id="admin-session-display">Authenticated: harshguruji01@gmail.com</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-controls">
+          <div class="realtime-clock-pill">
+            <span>🕒</span>
+            <span id="live-clock">--:--:--</span>
+          </div>
+          <button type="button" class="btn-launch-suite" id="btn-top-open-suite" title="Launch Live Database Command Suite">
+            <span>⚡</span>
+            <span>Data Suite</span>
+          </button>
+          <a href="index.html" target="_blank" class="shortcut-item top-nav-link" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px;">
+            <span>Live Site &nearr;</span>
+          </a>
+          <button class="btn-lock" id="btn-lock-session" title="End Session & Lock">
+            <span>🔒</span>
+            <span>Lock &amp; Exit</span>
+          </button>
         </div>
       </div>
 
-      <div class="top-controls">
-        <div class="status-indicator">
-          <span class="status-dot"></span>
-          <span>System Online</span>
-        </div>
-        <button type="button" class="btn-launch-suite" id="btn-top-open-suite" title="Launch Live Database Command Suite">
-          <span>⚡</span>
-          <span>Data Suite</span>
-        </button>
-        <a href="index.html" target="_blank" class="shortcut-item" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px;">
-          <span>Live Site &nearr;</span>
-        </a>
-        <button class="btn-lock" id="btn-lock-session" title="End Session & Lock">
-          <span>🔒</span>
-          <span>Lock &amp; Exit</span>
-        </button>
-      </div>
-
-      <!-- Cross-Admin Hub Navigation Pills (Centralized Control) -->
+      <!-- Cross-Admin Hub Navigation Pills (Row 2: Full-Width Fluid Scroller) -->
       <nav class="cross-admin-pills" aria-label="Admin Sections">
         <button type="button" class="pill-link active" onclick="switchMasterTab('store'); openMasterModal('store');">🎮 Store Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('books'); openMasterModal('books');">📚 Books Studio</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('chatbase'); openMasterModal('chatbase');">💬 ChatBase Studio</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('site'); openMasterModal('site');">🌐 Site Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('messages'); openMasterModal('messages');">📬 User Inquiries</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('contributors'); openMasterModal('contributors');">👥 Contributors</button>
-        <button type="button" class="pill-link" onclick="switchMasterTab('goldentick'); openMasterModal('goldentick');">⭐ Golden Tick Users</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('goldentick'); openMasterModal('goldentick');">⭐ Golden Ticks</button>
         <a href="books.html" class="pill-link" target="_blank">📖 Live Books ↗</a>
         <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
+        <a href="chat-app.html" class="pill-link" target="_blank">💬 Live Chat ↗</a>
         <a href="index.html" class="pill-link" target="_blank">🌐 Live Site ↗</a>
       </nav>
     </header>
@@ -2498,16 +3108,24 @@
 
           <!-- Hero Quick Launch Action Strip -->
           <div class="hero-quick-actions" aria-label="Quick Action Buttons">
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
+              <span>🎮</span>
+              <span>Store Studio</span>
+            </button>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('books')">
               <span>📚</span>
               <span>Books Studio</span>
             </button>
-            <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
-              <span>🎮</span>
-              <span>Store Apps Suite</span>
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('chatbase')">
+              <span>💬</span>
+              <span>ChatBase Studio</span>
+            </button>
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('site')">
+              <span>🌐</span>
+              <span>Site Studio</span>
             </button>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('messages')">
-              <span>💬</span>
+              <span>📬</span>
               <span>Inquiries Desk</span>
             </button>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('contributors')">
@@ -2528,6 +3146,7 @@
 
       <!-- Live Stat Tiles - Clickable Master Control Triggers -->
       <section class="stats-bar" aria-label="Command Center Quick Access">
+        <!-- 1. Store Applications -->
         <div class="stat-tile tile-apps" id="tile-store-apps" role="button" tabindex="0" title="Click to view full Store Catalog, edit apps or delete">
           <div class="stat-top">
             <span class="stat-title">
@@ -2544,7 +3163,59 @@
           </div>
         </div>
 
-        <div class="stat-tile tile-messages" id="tile-user-messages" role="button" tabindex="0" title="Click to view who messaged, read inquiry, and send direct reply">
+        <!-- 2. NCERT Library -->
+        <div class="stat-tile tile-books" id="tile-books-studio" role="button" tabindex="0" title="Click to open Books Management Studio" onclick="openMasterModal('books')">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>NCERT Library</span>
+              <span class="stat-badge-hint" style="color:#818cf8;">Books 📚</span>
+            </span>
+            <span class="stat-icon-mini">📚</span>
+          </div>
+          <div class="stat-number" id="stat-books-count" style="color: #818cf8;">Classes 1-12</div>
+          <div class="stat-subtext"><span style="color:#10b981;">●</span> Textbooks, PDFs &amp; Chapters</div>
+          <div class="stat-click-cta">
+            <span>Open Books Studio</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- 3. Chatbase Ecosystem -->
+        <div class="stat-tile tile-chatbase" id="tile-chatbase-app" role="button" tabindex="0" title="Click to manage ChatBase Ecosystem, users and policies">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>ChatBase Ecosystem</span>
+              <span class="stat-badge-hint" style="color:#ff8c66;">Live Chat 💬</span>
+            </span>
+            <span class="stat-icon-mini">💬</span>
+          </div>
+          <div class="stat-number" id="stat-chatbase-count" style="color: #ff6b4a;">...</div>
+          <div class="stat-subtext"><span style="color:#34d399;">●</span> chat.webguruji.online</div>
+          <div class="stat-click-cta">
+            <span>Manage ChatBase Studio</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- 4. Site & Platform Health -->
+        <div class="stat-tile tile-apps" id="tile-site-studio" role="button" tabindex="0" title="Click to open Site & Pages Studio" style="--tile-glow: rgba(16, 185, 129, 0.25); --tile-border: #10b981;">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>Site &amp; Announcements</span>
+              <span class="stat-badge-hint" style="color:#34d399;">Platform 🌐</span>
+            </span>
+            <span class="stat-icon-mini">🌐</span>
+          </div>
+          <div class="stat-number" id="stat-site-count" style="color: #34d399;">Active</div>
+          <div class="stat-subtext"><span style="color:#10b981;">●</span> webguruji.online &amp; Subdomains</div>
+          <div class="stat-click-cta">
+            <span>Site Studio &amp; Alerts</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- 5. User Inquiries -->
+        <div class="stat-tile tile-messages" id="tile-user-messages" role="button" tabindex="0" title="Click to view inquiries and send direct replies">
           <div class="stat-top">
             <span class="stat-title">
               <span>User Inquiries</span>
@@ -2560,7 +3231,8 @@
           </div>
         </div>
 
-        <div class="stat-tile tile-contrib" id="tile-contrib-apps" role="button" tabindex="0" title="Click to review contributor applications, activate or reject">
+        <!-- 6. Contributor Applications -->
+        <div class="stat-tile tile-contrib" id="tile-contrib-apps" role="button" tabindex="0" title="Click to review contributor applications">
           <div class="stat-top">
             <span class="stat-title">
               <span>Contributor Apps</span>
@@ -2576,7 +3248,8 @@
           </div>
         </div>
 
-        <div class="stat-tile tile-gold" id="tile-golden-users" role="button" tabindex="0" title="Click to view all site users and grant/revoke Golden Ticks">
+        <!-- 7. Universal Golden Ticks -->
+        <div class="stat-tile tile-gold" id="tile-golden-users" role="button" tabindex="0" title="Click to view all site users and grant Golden Ticks">
           <div class="stat-top">
             <span class="stat-title">
               <span>Golden Tick Users</span>
@@ -2588,39 +3261,6 @@
           <div class="stat-subtext"><span>✓</span> Verified Site Profiles</div>
           <div class="stat-click-cta">
             <span>Manage Golden Ticks</span>
-            <span class="arrow">&rarr;</span>
-          </div>
-        </div>
-
-        <div class="stat-tile tile-chatbase" id="tile-chatbase-app" role="button" tabindex="0" title="Click to manage Chatbase Application, users and reports">
-          <div class="stat-top">
-            <span class="stat-title">
-              <span>Chatbase App</span>
-              <span class="stat-badge-hint" style="color:#ff8c66;">Live Chat 💬</span>
-            </span>
-            <span class="stat-icon-mini">💬</span>
-          </div>
-          <div class="stat-number" id="stat-chatbase-count" style="color: #ff6b4a;">3</div>
-          <div class="stat-subtext"><span style="color:#34d399;">●</span> chat.webguruji.online</div>
-          <div class="stat-click-cta">
-            <span>Manage Chatbase App</span>
-            <span class="arrow">&rarr;</span>
-          </div>
-        </div>
-
-        <!-- TILE: NCERT BOOKS STUDIO -->
-        <div class="stat-tile tile-books" id="tile-books-studio" role="button" tabindex="0" title="Click to open Books Management Studio" onclick="openMasterModal('books')">
-          <div class="stat-top">
-            <span class="stat-title">
-              <span>NCERT Library</span>
-              <span class="stat-badge-hint" style="color:#818cf8;">Books 📚</span>
-            </span>
-            <span class="stat-icon-mini">📚</span>
-          </div>
-          <div class="stat-number" id="stat-books-count" style="color: #818cf8;">Classes 1-12</div>
-          <div class="stat-subtext"><span style="color:#10b981;">●</span> Textbooks, PDFs &amp; Chapters</div>
-          <div class="stat-click-cta">
-            <span>Open Books Studio</span>
             <span class="arrow">&rarr;</span>
           </div>
         </div>
@@ -2961,7 +3601,7 @@
       <div class="master-modal-tabs">
         <button type="button" class="master-tab-btn active" data-tab="store" id="mtab-store">
           <span>🎮</span>
-          <span>Store Applications</span>
+          <span>Store Studio</span>
           <span class="tab-pill" id="mpill-store">0</span>
         </button>
         <button type="button" class="master-tab-btn" data-tab="books" id="mtab-books">
@@ -2969,13 +3609,23 @@
           <span>NCERT Books</span>
           <span class="tab-pill" id="mpill-books" style="background:rgba(99,102,241,0.25); color:#a5b4fc; border:1px solid rgba(99,102,241,0.4);">0</span>
         </button>
-        <button type="button" class="master-tab-btn" data-tab="messages" id="mtab-messages">
+        <button type="button" class="master-tab-btn" data-tab="chatbase" id="mtab-chatbase">
           <span>💬</span>
+          <span>ChatBase Studio</span>
+          <span class="tab-pill" id="mpill-chatbase" style="background:rgba(255,107,74,0.25); color:#ff8c66; border:1px solid rgba(255,107,74,0.4);">0</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="site" id="mtab-site">
+          <span>🌐</span>
+          <span>Site &amp; Pages Studio</span>
+          <span class="tab-pill" id="mpill-site" style="background:rgba(16,185,129,0.2); color:#34d399; border:1px solid rgba(16,185,129,0.4);">Live</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="messages" id="mtab-messages">
+          <span>📬</span>
           <span>User Inquiries</span>
           <span class="tab-pill pill-pending" id="mpill-messages">0</span>
         </button>
         <button type="button" class="master-tab-btn" data-tab="contributors" id="mtab-contributors">
-          <span>📋</span>
+          <span>👥</span>
           <span>Contributor Apps</span>
           <span class="tab-pill pill-warning" id="mpill-contributors">0</span>
         </button>
@@ -3176,6 +3826,255 @@
       </div>
     </div>
   </div>
+
+  
+        <!-- PANE: CHATBASE 2.0 ECOSYSTEM & MODERATION STUDIO -->
+        <div class="tab-pane" id="pane-chatbase">
+          <!-- Chatbase Capabilities Switchboard -->
+          <div class="studio-feature-card">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title">
+                <span>🛡️</span>
+                <span>ChatBase 2.0 Capabilities &amp; Policy Matrix</span>
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <a href="chat-app.html" target="_blank" class="btn-action-outline">
+                  <span>Open Web App ↗</span>
+                </a>
+                <button type="button" class="btn-action-primary" onclick="saveChatbasePolicy()">
+                  <span>💾 Save &amp; Broadcast Policy</span>
+                </button>
+              </div>
+            </div>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1rem;">Manage active platform capabilities across Web (chat.webguruji.online) and Android clients with instantaneous real-time sync.</p>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:0.75rem;">
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">🎤 Voice Messaging</div>
+                  <div class="switch-toggle-sub">Audio clips up to 60s (Web) / 180s (App)</div>
+                </div>
+                <input type="checkbox" id="cb-policy-voice" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">😀 Emoji Reactions</div>
+                  <div class="switch-toggle-sub">6 instant reactions on chat bubbles</div>
+                </div>
+                <input type="checkbox" id="cb-policy-reactions" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">📎 Media &amp; File Attachments</div>
+                  <div class="switch-toggle-sub">Photos, videos &amp; PDF documents</div>
+                </div>
+                <input type="checkbox" id="cb-policy-media" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">✏️ Message Editing</div>
+                  <div class="switch-toggle-sub">15-minute edit grace period</div>
+                </div>
+                <input type="checkbox" id="cb-policy-editing" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">⭕ 24H Stories</div>
+                  <div class="switch-toggle-sub">Ephemeral status updates</div>
+                </div>
+                <input type="checkbox" id="cb-policy-stories" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+
+              <div class="switch-toggle-row">
+                <div>
+                  <div class="switch-toggle-label">🆔 HGJ-ID Discovery</div>
+                  <div class="switch-toggle-sub">Unique user search handle prefix</div>
+                </div>
+                <input type="checkbox" id="cb-policy-hgjid" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Broadcast Notice Box -->
+          <div class="studio-feature-card" style="border-color: rgba(255,107,74,0.3);">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title" style="color:#ff8c66;">
+                <span>📢</span>
+                <span>ChatBase System Alert Broadcast</span>
+              </div>
+              <button type="button" class="btn-action-primary" style="background:linear-gradient(135deg, #ff6b4a, #e04e2d);" onclick="sendChatbaseAlert()">
+                <span>🚀 Send Alert to Chat</span>
+              </button>
+            </div>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+              <input type="text" id="chatbase-broadcast-input" class="gate-input" placeholder="Type system notice e.g.: Scheduled maintenance tonight at 2 AM or New stickers available!" style="flex:1; min-width:260px;">
+            </div>
+          </div>
+
+          <!-- ChatBase Users Table -->
+          <div class="pane-toolbar">
+            <div class="pane-search-box">
+              <span class="pane-search-icon">🔍</span>
+              <input type="text" id="search-chatbase-users" placeholder="Search ChatBase users by HGJ-ID, name, email...">
+            </div>
+            <div class="pane-filters" id="filters-chatbase-status">
+              <button type="button" class="filter-chip active" data-chatfilter="ALL">All Users</button>
+              <button type="button" class="filter-chip" data-chatfilter="ACTIVE">✓ Active</button>
+              <button type="button" class="filter-chip" data-chatfilter="BANNED">🚫 Banned</button>
+              <button type="button" class="filter-chip" data-chatfilter="GOLDEN">⭐ Golden Ticks</button>
+              <button type="button" class="filter-chip" data-chatfilter="ADMIN">🛡️ Admins</button>
+            </div>
+          </div>
+
+          <div class="master-table-card">
+            <table class="master-table">
+              <thead>
+                <tr>
+                  <th>Chat Profile &amp; HGJ-ID</th>
+                  <th>Username / Email</th>
+                  <th>Status</th>
+                  <th>Verification</th>
+                  <th>Moderation Actions</th>
+                </tr>
+              </thead>
+              <tbody id="chatbase-users-tbody">
+                <tr><td colspan="5" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">Loading ChatBase registered users...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANE: SITE & PAGES CONFIGURATION STUDIO -->
+        <div class="tab-pane" id="pane-site">
+          <!-- Global Announcement Strip Studio -->
+          <div class="studio-feature-card" style="border-color: rgba(16,185,129,0.3);">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title" style="color:#34d399;">
+                <span>📢</span>
+                <span>Global Site Announcement Bar Control</span>
+              </div>
+              <button type="button" class="btn-action-primary" style="background:linear-gradient(135deg, #10b981, #059669);" onclick="saveSiteAnnouncement()">
+                <span>💾 Publish Announcement</span>
+              </button>
+            </div>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1rem;">Displays a prominent top banner across index.html, store.html, books.html, etc. for site-wide notices, discounts, or updates.</p>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem; margin-bottom:1rem;">
+              <div>
+                <label class="gate-label" for="site-announcement-text">Announcement Message</label>
+                <input type="text" id="site-announcement-text" class="gate-input" placeholder="e.g. 🎉 Welcome to HarshGuruJi! Free NCERT Books & Store APKs updated daily.">
+              </div>
+              <div>
+                <label class="gate-label" for="site-announcement-theme">Banner Theme Style</label>
+                <select id="site-announcement-theme" class="gate-input">
+                  <option value="info">🔵 Informational (Indigo)</option>
+                  <option value="promo" selected>⭐ Promotional (Gold)</option>
+                  <option value="success">🟢 System Normal (Emerald)</option>
+                  <option value="alert">🔴 Urgent Notice (Coral)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <input type="checkbox" id="site-announcement-active" checked style="width:18px; height:18px; accent-color:#10b981; cursor:pointer;">
+                <label for="site-announcement-active" style="font-size:0.88rem; color:#fff; cursor:pointer; font-weight:600;">Enable Announcement Banner On Public Site</label>
+              </div>
+              <button type="button" class="btn-action-outline" onclick="previewAnnouncementBanner()">
+                <span>👁️ Test Preview</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ecosystem Health Dashboard -->
+          <div class="studio-feature-card">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title">
+                <span>🌐</span>
+                <span>Ecosystem Live Page Directory &amp; Health Matrix</span>
+              </div>
+              <span class="status-pill active">✓ 100% Policy Clean</span>
+            </div>
+
+            <div class="site-page-status-grid">
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">Main Portal</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">index.html</div>
+                <a href="index.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Page ↗</a>
+              </div>
+
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">App Store</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">store.html &amp; Subdomain</div>
+                <a href="store.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Store ↗</a>
+              </div>
+
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">NCERT Books</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">books.html &amp; Subdomain</div>
+                <a href="books.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Books ↗</a>
+              </div>
+
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">ChatBase 2.0</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">chat-app.html &amp; Subdomain</div>
+                <a href="chat-app.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Chat ↗</a>
+              </div>
+
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">Contributors</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">contributor.html</div>
+                <a href="contributor.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Team ↗</a>
+              </div>
+
+              <div class="page-status-box">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#fff; font-size:0.9rem;">Contact Helpdesk</strong>
+                  <span class="status-pill active">Online</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.78rem;">contact.html</div>
+                <a href="contact.html" target="_blank" style="color:#60a5fa; font-size:0.75rem; text-decoration:none; margin-top:4px;">Visit Desk ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Database Tools & Cache Purge -->
+          <div class="studio-feature-card">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title">
+                <span>⚡</span>
+                <span>Database Diagnostics &amp; Cache Engine</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+              <button type="button" class="btn-action-primary" onclick="clearLocalTelemetryCache()">
+                <span>🔄 Purge Cache &amp; Force Cloud Sync</span>
+              </button>
+              <button type="button" class="btn-action-gold" onclick="exportPlatformBackup()">
+                <span>📦 Export Full System Snapshot (JSON)</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
   <!-- MODAL: ADD / EDIT NCERT BOOK OR CHAPTER -->
   <div class="master-modal-overlay" id="modal-book-overlay" role="dialog" aria-modal="true" style="z-index: 2500;">
@@ -3794,15 +4693,41 @@
         tileGold.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMasterModal('goldentick'); } });
       }
       const tileChatbase = document.getElementById('tile-chatbase-app');
-      if (tileChatbase) {
-        tileChatbase.addEventListener('click', () => openMasterModal('goldentick'));
-        tileChatbase.addEventListener('keydown', (e) => { 
-          if (e.key === 'Enter' || e.key === ' ') { 
-            e.preventDefault(); 
-            openMasterModal('goldentick');
-          } 
+        if (tileChatbase) {
+          tileChatbase.addEventListener('click', () => openMasterModal('chatbase'));
+          tileChatbase.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter' || e.key === ' ') { 
+              e.preventDefault(); 
+              openMasterModal('chatbase');
+            } 
+          });
+        }
+
+        const tileSite = document.getElementById('tile-site-studio');
+        if (tileSite) {
+          tileSite.addEventListener('click', () => openMasterModal('site'));
+          tileSite.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter' || e.key === ' ') { 
+              e.preventDefault(); 
+              openMasterModal('site');
+            } 
+          });
+        }
+
+        // Chatbase filters
+        document.querySelectorAll('#filters-chatbase-status .filter-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            document.querySelectorAll('#filters-chatbase-status .filter-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            chatbaseFilter = chip.dataset.chatfilter || 'ALL';
+            renderChatbaseUsers();
+          });
         });
-      }
+
+        const searchChatbase = document.getElementById('search-chatbase-users');
+        if (searchChatbase) {
+          searchChatbase.addEventListener('input', () => renderChatbaseUsers());
+        }
 
       // Close button and Backdrop
       const modalOverlay = document.getElementById('master-control-modal');
@@ -5753,6 +6678,280 @@
         toast.classList.remove('show');
       }, 4000);
     }
+
+    
+    // --- CHATBASE 2.0 & SITE STUDIO CONTROLLERS ---
+    let chatbaseFilter = 'ALL';
+
+    function renderChatbaseUsers() {
+      const tbody = document.getElementById('chatbase-users-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-chatbase-users')?.value || '').toLowerCase().trim();
+
+      let list = usersData.filter(u => {
+        const isBanned = u.is_banned === true || u.status === 'banned' || u.status === 'suspended';
+        const hasGolden = u.golden_tick === true;
+        const isAdmin = u.is_admin === true;
+
+        if (chatbaseFilter === 'ACTIVE' && isBanned) return false;
+        if (chatbaseFilter === 'BANNED' && !isBanned) return false;
+        if (chatbaseFilter === 'GOLDEN' && !hasGolden) return false;
+        if (chatbaseFilter === 'ADMIN' && !isAdmin) return false;
+
+        if (searchTerm) {
+          const name = (u.display_name || '').toLowerCase();
+          const uname = (u.username || '').toLowerCase();
+          const email = (u.email || '').toLowerCase();
+          const hgjId = (u.hgj_id || '').toLowerCase();
+          return name.includes(searchTerm) || uname.includes(searchTerm) || email.includes(searchTerm) || hgjId.includes(searchTerm);
+        }
+        return true;
+      });
+
+      // Update counter pill
+      const pill = document.getElementById('mpill-chatbase');
+      if (pill) pill.textContent = usersData.length;
+      const statCount = document.getElementById('stat-chatbase-count');
+      if (statCount) statCount.textContent = usersData.length;
+
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">No ChatBase accounts found matching search.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(u => {
+        const displayName = u.display_name || (u.email ? u.email.split('@')[0] : 'ChatBase User');
+        const img = resolveUserAvatar(u, displayName);
+        const emailOrUser = u.email || (u.username ? '@' + u.username : 'Chat Member');
+        const hgjId = u.hgj_id || ('HGJ-' + (u.id ? u.id.substring(0, 6).toUpperCase() : 'USER'));
+        const hasGolden = u.golden_tick === true;
+        const isAdmin = u.is_admin === true;
+        const isBanned = u.is_banned === true || u.status === 'banned' || u.status === 'suspended';
+
+        return `
+          <tr>
+            <td>
+              <div class="entity-cell">
+                <div class="avatar-wrapper">
+                  <img src="${escapeHtml(img)}" alt="${escapeHtml(displayName)}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=ff6b4a&color=fff';">
+                  ${hasGolden ? '<span class="golden-tick" title="Universal Golden Verified">✓</span>' : ''}
+                </div>
+                <div>
+                  <div class="entity-title">
+                    <span>${escapeHtml(displayName)}</span>
+                    ${isAdmin ? '<span style="font-size:0.65rem; background:rgba(99,102,241,0.25); color:#a5b4fc; padding:2px 6px; border-radius:4px; font-weight:700;">ADMIN</span>' : ''}
+                  </div>
+                  <div class="entity-sub" style="font-family:'JetBrains Mono',monospace; color:#f472b6;">${escapeHtml(hgjId)}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div style="font-size:0.86rem; color:#fff;">${escapeHtml(emailOrUser)}</div>
+              ${u.username ? `<div class="entity-sub">@${escapeHtml(u.username)}</div>` : ''}
+            </td>
+            <td>
+              ${isBanned ? '<span class="status-pill rejected">🚫 Suspended</span>' : '<span class="status-pill active">✓ Active</span>'}
+            </td>
+            <td>
+              ${hasGolden ? '<span class="status-pill gold">⭐ Golden Tick</span>' : '<span class="status-pill" style="background:rgba(255,255,255,0.05); color:var(--text-muted); border:1px solid var(--border);">Standard</span>'}
+            </td>
+            <td>
+              <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+                ${isBanned ? `
+                  <button type="button" class="btn-action-success" onclick="toggleUserBan('${u.id}', false)">
+                    <span>✓ Lift Ban</span>
+                  </button>
+                ` : `
+                  <button type="button" class="btn-action-danger" onclick="toggleUserBan('${u.id}', true)">
+                    <span>🚫 Ban</span>
+                  </button>
+                `}
+
+                ${hasGolden ? `
+                  <button type="button" class="btn-action-outline" onclick="toggleUserGoldenTick('${u.id}', false)" style="color:#f87171;">
+                    <span>Revoke ⭐</span>
+                  </button>
+                ` : `
+                  <button type="button" class="btn-action-gold" onclick="toggleUserGoldenTick('${u.id}', true)">
+                    <span>Award ⭐</span>
+                  </button>
+                `}
+
+                <button type="button" class="btn-action-outline" onclick="toggleUserAdmin('${u.id}', ${!isAdmin})">
+                  <span>${isAdmin ? 'Demote' : 'Promote Admin'}</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Toggle ChatBase User Ban
+    window.toggleUserBan = async function(userId, ban) {
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb
+          .from('profiles')
+          .update({ is_banned: ban, status: ban ? 'banned' : 'active' })
+          .eq('id', userId);
+
+        if (error) throw error;
+
+        // Broadcast to ChatBase
+        try {
+          const bc = new BroadcastChannel('chatbase_moderation_sync');
+          bc.postMessage({ action: ban ? 'ban' : 'unban', userId });
+          bc.close();
+        } catch(e) {}
+
+        showMasterToast(ban ? 'User suspended from ChatBase.' : 'User ban lifted successfully.', ban ? 'error' : 'success');
+        await loadAllMasterData();
+      } catch (err) {
+        console.error('Ban toggle failed:', err);
+        alert('Failed to update ban status: ' + err.message);
+      }
+    };
+
+    // Toggle User Admin
+    window.toggleUserAdmin = async function(userId, isAdmin) {
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { error } = await sb
+          .from('profiles')
+          .update({ is_admin: isAdmin })
+          .eq('id', userId);
+
+        if (error) throw error;
+
+        showMasterToast(isAdmin ? 'Granted Administrator status.' : 'Revoked Administrator status.', 'info');
+        await loadAllMasterData();
+      } catch(err) {
+        alert('Failed to toggle admin status: ' + err.message);
+      }
+    };
+
+    // Save Chatbase Policy
+    window.saveChatbasePolicy = function() {
+      const policy = {
+        voice: document.getElementById('cb-policy-voice')?.checked ?? true,
+        reactions: document.getElementById('cb-policy-reactions')?.checked ?? true,
+        media: document.getElementById('cb-policy-media')?.checked ?? true,
+        editing: document.getElementById('cb-policy-editing')?.checked ?? true,
+        stories: document.getElementById('cb-policy-stories')?.checked ?? true,
+        hgjid: document.getElementById('cb-policy-hgjid')?.checked ?? true,
+        updatedAt: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('wg_chatbase_policy', JSON.stringify(policy));
+        const bc = new BroadcastChannel('chatbase_policy_sync');
+        bc.postMessage({ action: 'policy_update', policy });
+        bc.close();
+        showMasterToast('✅ ChatBase Platform Capabilities policy saved & broadcasted!', 'success');
+      } catch(e) {
+        alert('Policy save note: ' + e.message);
+      }
+    };
+
+    // Send Broadcast Alert to Chatbase
+    window.sendChatbaseAlert = function() {
+      const input = document.getElementById('chatbase-broadcast-input');
+      const text = input ? input.value.trim() : '';
+      if (!text) {
+        alert('Please enter an alert message.');
+        return;
+      }
+
+      const alertPayload = {
+        text: text,
+        timestamp: new Date().toISOString(),
+        sender: 'HarshGuruJi Operations Command'
+      };
+
+      try {
+        localStorage.setItem('chatbase_system_alert', JSON.stringify(alertPayload));
+        const bc = new BroadcastChannel('chatbase_alert_sync');
+        bc.postMessage({ action: 'alert', alert: alertPayload });
+        bc.close();
+        input.value = '';
+        showMasterToast('📢 Alert broadcasted across all ChatBase web & mobile clients!', 'success');
+      } catch(e) {
+        alert('Alert notice: ' + e.message);
+      }
+    };
+
+    // Save Global Site Announcement
+    window.saveSiteAnnouncement = function() {
+      const text = document.getElementById('site-announcement-text')?.value.trim() || '';
+      const theme = document.getElementById('site-announcement-theme')?.value || 'promo';
+      const active = document.getElementById('site-announcement-active')?.checked ?? false;
+
+      const payload = {
+        text,
+        theme,
+        active,
+        updatedAt: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('wg_global_announcement', JSON.stringify(payload));
+        const bc = new BroadcastChannel('harshguruji_site_sync');
+        bc.postMessage({ action: 'announcement', payload });
+        bc.close();
+        showMasterToast('🌐 Global site announcement updated and published!', 'success');
+      } catch(e) {
+        alert('Notice: ' + e.message);
+      }
+    };
+
+    window.previewAnnouncementBanner = function() {
+      const text = document.getElementById('site-announcement-text')?.value.trim();
+      if (!text) {
+        alert('Please enter announcement text first.');
+        return;
+      }
+      showMasterToast('Preview: ' + text, 'info');
+    };
+
+    // Purge Local Telemetry Cache
+    window.clearLocalTelemetryCache = function() {
+      try {
+        localStorage.removeItem('harshguruji_store_apps_v2');
+        localStorage.removeItem('wg_admin_books');
+        localStorage.removeItem('wg_admin_store_apps');
+        loadAllMasterData(true);
+        showMasterToast('Cache purged! Fresh data fetched from Supabase.', 'success');
+      } catch(e) {
+        alert('Cache purge notice: ' + e.message);
+      }
+    };
+
+    // Export Platform JSON Backup
+    window.exportPlatformBackup = function() {
+      const snapshot = {
+        timestamp: new Date().toISOString(),
+        storeApps: storeAppsData,
+        ncertBooks: booksData,
+        messages: messagesData,
+        contributors: contributorsData,
+        users: usersData
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(snapshot, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "harshguruji_backup_" + Date.now() + ".json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showMasterToast('Platform data snapshot exported!', 'success');
+    };
 
     // 15. Helper Utilities
     function escapeHtml(str) {
