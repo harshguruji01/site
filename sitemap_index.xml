@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Platform Sitemap -->
+  <!-- Main Platform Master Sitemap -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap.xml</loc>
     <lastmod>2026-10-13</lastmod>
   </sitemap>
 
-  <!-- Cross-Domain Subdomain Sitemaps -->
+  <!-- Store Subdomain & Dedicated App Catalog Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_store.xml</loc>
+    <lastmod>2026-10-13</lastmod>
+  </sitemap>
   <sitemap>
     <loc>https://store.webguruji.online/sitemap.xml</loc>
     <lastmod>2026-10-13</lastmod>
   </sitemap>
+
+  <!-- Books Subdomain & Educational Catalog Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_books.xml</loc>
+    <lastmod>2026-10-13</lastmod>
+  </sitemap>
   <sitemap>
     <loc>https://books.webguruji.online/sitemap.xml</loc>
+    <lastmod>2026-10-13</lastmod>
+  </sitemap>
+
+  <!-- Chat Subdomain & ChatBase Messaging Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
     <lastmod>2026-10-13</lastmod>
   </sitemap>
   <sitemap>

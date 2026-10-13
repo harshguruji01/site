@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════════════════
 # robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
-# Clean, indexable directives for Googlebot, Bingbot & verified search crawlers
+# Full Google Search Console (GSC) & verified search bot crawl directives
 # Last Updated: 2026-10-13
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -43,23 +43,48 @@ Allow: /privacy-policy.html
 Allow: /terms-and-conditions.html
 Allow: /cookie.html
 
-# ── Interactive Subdirectories (Tools, Games, Quizzes) ────────────────────
+# ── Interactive Subdirectories & Individual Utility Pages ──────────────────
 Allow: /tools/
-Allow: /games/
-Allow: /learning/
-Allow: /Quiz%20India/
+Allow: /tools/password-generator.html
+Allow: /tools/word-counter.html
+Allow: /tools/json-formatter.html
+Allow: /tools/case-converter.html
+Allow: /tools/base64.html
+Allow: /tools/bmi-calculator.html
+Allow: /tools/percentage-calculator.html
 
-# ── Static Media & Asset Indexing (Googlebot-Image & Rich Snippets) ───────
+# ── Games ─────────────────────────────────────────────────────────────────
+Allow: /games/
+Allow: /games/snake.html
+Allow: /games/tic-tac-toe.html
+Allow: /games/memory.html
+
+# ── Educational & Learning Pages ──────────────────────────────────────────
+Allow: /learning/
+Allow: /learning/pdf-library.html
+Allow: /learning/class.html
+Allow: /learning/subject.html
+Allow: /learning/chapter.html
+Allow: /learning/class-10-science.html
+Allow: /learning/class-10/science/ncert/01-chemical-reactions-and-equations.html
+Allow: /learning/gk-quiz.html
+Allow: /Quiz India/
+Allow: /Quiz India/index.html
+Allow: /Quiz%20India/
+Allow: /Quiz%20India/index.html
+
+# ── Static Media, Stylesheets, Scripts & Fonts (Essential for GSC Rendering)
 Allow: /css/
 Allow: /js/
-Allow: /logo.png
-Allow: /logo-512.png
-Allow: /chatbase.png
-Allow: /chatbase-logo.png
-Allow: /favicon.ico
-Allow: /harshlogo.png
-Allow: /harshlogo.webp
-Allow: /ai.png
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.woff2$
 Allow: /data/apps.json
 
 # ── Disallow: Admin Operations, Private Portals & Internal Source Code ────
@@ -85,34 +110,90 @@ Disallow: /scripts/
 Disallow: /.agents/
 Disallow: /.git/
 Disallow: /.github/
-Disallow: /data/
 Disallow: /*.py$
 Disallow: /*.sql$
 Disallow: /*.md$
-Disallow: /*.json$
 Disallow: /*.groovy$
 
-# ── Googlebot Specific Allowances ─────────────────────────────────────────
+# ── Googlebot Dedicated Group (Web Crawling) ──────────────────────────────
 User-agent: Googlebot
 Allow: /
+Allow: /index.html
 Allow: /chat-app.html
 Allow: /store.html
+Allow: /store-detail.html
 Allow: /books.html
+Allow: /chat.html
+Allow: /app.html
+Allow: /free-tools.html
 Allow: /tools/
 Allow: /games/
+Allow: /learning/
+Allow: /Quiz India/
+Allow: /Quiz%20India/
+Allow: /css/
+Allow: /js/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /backend/
+Disallow: /oauth/
+
+# ── Google Search Console Live Inspection Tool ────────────────────────────
+User-agent: Google-InspectionTool
+Allow: /
+Allow: /index.html
+Allow: /chat-app.html
+Allow: /store.html
+Allow: /store-detail.html
+Allow: /books.html
+Allow: /chat.html
+Allow: /app.html
+Allow: /free-tools.html
+Allow: /tools/
+Allow: /games/
+Allow: /learning/
+Allow: /Quiz India/
+Allow: /Quiz%20India/
+Allow: /css/
+Allow: /js/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
 Disallow: /admin*
 Disallow: /dashboard.html
 Disallow: /settings.html
 
+# ── Google Images Crawler ─────────────────────────────────────────────────
 User-agent: Googlebot-Image
 Allow: /
 Allow: /logo.png
 Allow: /logo-512.png
 Allow: /chatbase.png
 Allow: /chatbase-logo.png
+Allow: /harshlogo.png
+Allow: /harshlogo.webp
 Allow: /ai.png
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
 
-# ── Polite Crawl-Delays for Aggressive SEO Scrapers ───────────────────────
+# ── Bingbot Group ─────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /backend/
+
+# ── Polite Crawl-Delays for Third-Party SEO Scrapers ──────────────────────
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -122,11 +203,12 @@ Crawl-delay: 10
 User-agent: DotBot
 Crawl-delay: 10
 
-# ── Official Production Sitemaps ──────────────────────────────────────────
+# ── Official Sitemaps for Google Search Console ───────────────────────────
 Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://www.webguruji.online/sitemap_index.xml
-
-# ── Cross-Domain Subdomain Sitemaps ───────────────────────────────────────
+Sitemap: https://www.webguruji.online/sitemap_store.xml
+Sitemap: https://www.webguruji.online/sitemap_books.xml
+Sitemap: https://www.webguruji.online/sitemap_chat.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml

@@ -398,8 +398,8 @@ const pages = [
     loc: `${baseUrl}/app.html`,
     lastmod: today,
     changefreq: 'weekly',
-    priority: '0.80',
-    title: 'HarshGuruJi Mobile Ecosystem & Web Progressive App'
+    priority: '0.85',
+    title: 'HarshGuruJi Mobile Ecosystem & APK Downloader'
   },
 
   // 7. Community, Creator & Contributor Pages
@@ -500,8 +500,8 @@ const pages = [
   }
 ];
 
-// Build XML document
-let xml = `<?xml version="1.0" encoding="UTF-8"?>
+function buildXml(urlList) {
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -511,46 +511,102 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
         http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
 `;
 
-pages.forEach(p => {
-  xml += `  <url>\n`;
-  xml += `    <loc>${p.loc}</loc>\n`;
-  xml += `    <lastmod>${p.lastmod}</lastmod>\n`;
-  xml += `    <changefreq>${p.changefreq}</changefreq>\n`;
-  xml += `    <priority>${p.priority}</priority>\n`;
-  if (p.image) {
-    xml += `    <image:image>\n`;
-    xml += `      <image:loc>${p.image}</image:loc>\n`;
-    if (p.title) {
-      const safeTitle = p.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      xml += `      <image:title>${safeTitle}</image:title>\n`;
+  urlList.forEach(p => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${p.loc}</loc>\n`;
+    xml += `    <lastmod>${p.lastmod}</lastmod>\n`;
+    xml += `    <changefreq>${p.changefreq}</changefreq>\n`;
+    xml += `    <priority>${p.priority}</priority>\n`;
+    if (p.image) {
+      xml += `    <image:image>\n`;
+      xml += `      <image:loc>${p.image}</image:loc>\n`;
+      if (p.title) {
+        const safeTitle = p.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        xml += `      <image:title>${safeTitle}</image:title>\n`;
+      }
+      xml += `    </image:image>\n`;
     }
-    xml += `    </image:image>\n`;
-  }
-  xml += `  </url>\n`;
-});
+    xml += `  </url>\n`;
+  });
 
-xml += `</urlset>\n`;
+  xml += `</urlset>\n`;
+  return xml;
+}
 
-const sitemapPath = path.join(__dirname, '..', 'sitemap.xml');
-fs.writeFileSync(sitemapPath, xml, 'utf8');
-console.log(`Generated sitemap.xml with ${pages.length} verified URLs! (${xml.length} bytes)`);
+// 1. Generate Main sitemap.xml
+const mainXml = buildXml(pages);
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), mainXml, 'utf8');
+console.log(`Generated sitemap.xml with ${pages.length} URLs!`);
 
-// Build sitemap_index.xml
+// 2. Generate Store Subdomain sitemap_store.xml
+const storePages = [
+  { loc: 'https://store.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://store.webguruji.online/store.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://store.webguruji.online/store-detail.html', lastmod: today, changefreq: 'daily', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/app.html', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=chess', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=chatbase', lastmod: today, changefreq: 'daily', priority: '0.95' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=hp-tube', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=system-service', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=aurora-store', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=perplexity-ai-installer', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=bluestacks-installer', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=comet', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=hermes-ai-agent', lastmod: today, changefreq: 'weekly', priority: '0.85' }
+];
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap_store.xml'), buildXml(storePages), 'utf8');
+
+// 3. Generate Books Subdomain sitemap_books.xml
+const booksPages = [
+  { loc: 'https://books.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://books.webguruji.online/books.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://books.webguruji.online/books.html?class=12', lastmod: today, changefreq: 'weekly', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/books.html?class=11', lastmod: today, changefreq: 'weekly', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/books.html?class=10', lastmod: today, changefreq: 'weekly', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/books.html?class=9', lastmod: today, changefreq: 'weekly', priority: '0.90' }
+];
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap_books.xml'), buildXml(booksPages), 'utf8');
+
+// 4. Generate Chat Subdomain sitemap_chat.xml
+const chatPages = [
+  { loc: 'https://chat.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://chat.webguruji.online/chat.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://chat.webguruji.online/chat-app.html', lastmod: today, changefreq: 'daily', priority: '0.95' }
+];
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap_chat.xml'), buildXml(chatPages), 'utf8');
+
+// 5. Build sitemap_index.xml linking all sitemaps
 const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Platform Sitemap -->
+  <!-- Main Platform Master Sitemap -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 
-  <!-- Cross-Domain Subdomain Sitemaps -->
+  <!-- Store Subdomain & Dedicated App Catalog Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_store.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
   <sitemap>
     <loc>https://store.webguruji.online/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
+
+  <!-- Books Subdomain & Educational Catalog Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_books.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
   <sitemap>
     <loc>https://books.webguruji.online/sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+
+  <!-- Chat Subdomain & ChatBase Messaging Sitemap -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
@@ -559,15 +615,13 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
   </sitemap>
 </sitemapindex>
 `;
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
+console.log(`Generated sitemap_index.xml linking all sub-sitemaps!`);
 
-const sitemapIndexPath = path.join(__dirname, '..', 'sitemap_index.xml');
-fs.writeFileSync(sitemapIndexPath, sitemapIndexContent, 'utf8');
-console.log(`Generated sitemap_index.xml (${sitemapIndexContent.length} bytes)`);
-
-// Build state-of-the-art robots.txt
+// 6. Build production-grade, Google Search Console compliant robots.txt
 const robotsContent = `# ═══════════════════════════════════════════════════════════════════════════
 # robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
-# Clean, indexable directives for Googlebot, Bingbot & verified search crawlers
+# Full Google Search Console (GSC) & verified search bot crawl directives
 # Last Updated: ${today}
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -610,23 +664,48 @@ Allow: /privacy-policy.html
 Allow: /terms-and-conditions.html
 Allow: /cookie.html
 
-# ── Interactive Subdirectories (Tools, Games, Quizzes) ────────────────────
+# ── Interactive Subdirectories & Individual Utility Pages ──────────────────
 Allow: /tools/
-Allow: /games/
-Allow: /learning/
-Allow: /Quiz%20India/
+Allow: /tools/password-generator.html
+Allow: /tools/word-counter.html
+Allow: /tools/json-formatter.html
+Allow: /tools/case-converter.html
+Allow: /tools/base64.html
+Allow: /tools/bmi-calculator.html
+Allow: /tools/percentage-calculator.html
 
-# ── Static Media & Asset Indexing (Googlebot-Image & Rich Snippets) ───────
+# ── Games ─────────────────────────────────────────────────────────────────
+Allow: /games/
+Allow: /games/snake.html
+Allow: /games/tic-tac-toe.html
+Allow: /games/memory.html
+
+# ── Educational & Learning Pages ──────────────────────────────────────────
+Allow: /learning/
+Allow: /learning/pdf-library.html
+Allow: /learning/class.html
+Allow: /learning/subject.html
+Allow: /learning/chapter.html
+Allow: /learning/class-10-science.html
+Allow: /learning/class-10/science/ncert/01-chemical-reactions-and-equations.html
+Allow: /learning/gk-quiz.html
+Allow: /Quiz India/
+Allow: /Quiz India/index.html
+Allow: /Quiz%20India/
+Allow: /Quiz%20India/index.html
+
+# ── Static Media, Stylesheets, Scripts & Fonts (Essential for GSC Rendering)
 Allow: /css/
 Allow: /js/
-Allow: /logo.png
-Allow: /logo-512.png
-Allow: /chatbase.png
-Allow: /chatbase-logo.png
-Allow: /favicon.ico
-Allow: /harshlogo.png
-Allow: /harshlogo.webp
-Allow: /ai.png
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.woff2$
 Allow: /data/apps.json
 
 # ── Disallow: Admin Operations, Private Portals & Internal Source Code ────
@@ -652,34 +731,90 @@ Disallow: /scripts/
 Disallow: /.agents/
 Disallow: /.git/
 Disallow: /.github/
-Disallow: /data/
 Disallow: /*.py$
 Disallow: /*.sql$
 Disallow: /*.md$
-Disallow: /*.json$
 Disallow: /*.groovy$
 
-# ── Googlebot Specific Allowances ─────────────────────────────────────────
+# ── Googlebot Dedicated Group (Web Crawling) ──────────────────────────────
 User-agent: Googlebot
 Allow: /
+Allow: /index.html
 Allow: /chat-app.html
 Allow: /store.html
+Allow: /store-detail.html
 Allow: /books.html
+Allow: /chat.html
+Allow: /app.html
+Allow: /free-tools.html
 Allow: /tools/
 Allow: /games/
+Allow: /learning/
+Allow: /Quiz India/
+Allow: /Quiz%20India/
+Allow: /css/
+Allow: /js/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /backend/
+Disallow: /oauth/
+
+# ── Google Search Console Live Inspection Tool ────────────────────────────
+User-agent: Google-InspectionTool
+Allow: /
+Allow: /index.html
+Allow: /chat-app.html
+Allow: /store.html
+Allow: /store-detail.html
+Allow: /books.html
+Allow: /chat.html
+Allow: /app.html
+Allow: /free-tools.html
+Allow: /tools/
+Allow: /games/
+Allow: /learning/
+Allow: /Quiz India/
+Allow: /Quiz%20India/
+Allow: /css/
+Allow: /js/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
 Disallow: /admin*
 Disallow: /dashboard.html
 Disallow: /settings.html
 
+# ── Google Images Crawler ─────────────────────────────────────────────────
 User-agent: Googlebot-Image
 Allow: /
 Allow: /logo.png
 Allow: /logo-512.png
 Allow: /chatbase.png
 Allow: /chatbase-logo.png
+Allow: /harshlogo.png
+Allow: /harshlogo.webp
 Allow: /ai.png
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
 
-# ── Polite Crawl-Delays for Aggressive SEO Scrapers ───────────────────────
+# ── Bingbot Group ─────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /backend/
+
+# ── Polite Crawl-Delays for Third-Party SEO Scrapers ──────────────────────
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -689,16 +824,16 @@ Crawl-delay: 10
 User-agent: DotBot
 Crawl-delay: 10
 
-# ── Official Production Sitemaps ──────────────────────────────────────────
+# ── Official Sitemaps for Google Search Console ───────────────────────────
 Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://www.webguruji.online/sitemap_index.xml
-
-# ── Cross-Domain Subdomain Sitemaps ───────────────────────────────────────
+Sitemap: https://www.webguruji.online/sitemap_store.xml
+Sitemap: https://www.webguruji.online/sitemap_books.xml
+Sitemap: https://www.webguruji.online/sitemap_chat.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
 `;
 
-const robotsPath = path.join(__dirname, '..', 'robots.txt');
-fs.writeFileSync(robotsPath, robotsContent, 'utf8');
-console.log(`Generated robots.txt (${robotsContent.length} bytes)`);
+fs.writeFileSync(path.join(__dirname, '..', 'robots.txt'), robotsContent, 'utf8');
+console.log(`Generated robots.txt (${robotsContent.length} bytes)!`);
