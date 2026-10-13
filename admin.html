@@ -4616,10 +4616,19 @@
 
       function isVerified() {
         try {
-          const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true';
-          const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
-          const email = sessionStorage.getItem('admin_apk_email');
-          return (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === REQUIRED_EMAIL);
+          const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true' || localStorage.getItem(AUTH_STATE_KEY) === 'true';
+          const token = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
+          const email = sessionStorage.getItem('admin_apk_email') || localStorage.getItem('admin_apk_email');
+          if (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === REQUIRED_EMAIL.toLowerCase()) {
+            sessionStorage.setItem(AUTH_STATE_KEY, 'true');
+            sessionStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
+            sessionStorage.setItem('hg_master_admin_authenticated', 'true');
+            sessionStorage.setItem('admin_chatbase_auth', 'true');
+            sessionStorage.setItem('admin_contacts_auth', 'true');
+            sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
+            sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
+            return true;
+          }
         } catch (e) {}
         return false;
       }

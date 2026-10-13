@@ -177,10 +177,18 @@ export async function signUp(email, password, name) {
  * Sign In with Supabase Google OAuth
  */
 export async function signInWithGoogle() {
+  let returnTarget = window.location.origin + '/dashboard.html';
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('redirect') || sessionStorage.getItem('hg_auth_redirect');
+    if (p && !p.includes('login.html')) {
+      returnTarget = p.startsWith('http') ? p : (window.location.origin + '/' + p);
+    }
+  } catch(e) {}
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: window.location.origin + '/dashboard.html'
+      redirectTo: returnTarget
     }
   });
   if (error) {

@@ -1279,7 +1279,7 @@ function showLoginRequiredModal() {
         <p style="color:#94a3b8; font-size:0.9rem; line-height:1.5; margin-bottom:1.5rem;">
           Private one-to-one messaging is available only for registered HarshGuruJi members. Please sign in or create an account to start chatting!
         </p>
-        <a href="login.html?redirect=chat.html" class="start-chat-btn" style="width:100%; justify-content:center; text-decoration:none;">
+        <a href="https://www.webguruji.online/login.html?redirect=https%3A%2F%2Fchat.webguruji.online" class="start-chat-btn" style="width:100%; justify-content:center; text-decoration:none;">
           Log In to HarshGuruJi
         </a>
       </div>

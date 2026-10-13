@@ -64,9 +64,7 @@
   <script>
     // Immediate Secure Redirect to Master Admin Panel
     (function() {
-      try {
-        sessionStorage.clear();
-      } catch(e) {}
+      // session preserved
       setTimeout(function() {
         window.location.replace('admin.html?from=messages');
       }, 1000);
