@@ -401,6 +401,14 @@ const pages = [
     priority: '0.85',
     title: 'HarshGuruJi Mobile Ecosystem & APK Downloader'
   },
+  {
+    loc: `${baseUrl}/ads.html`,
+    lastmod: today,
+    changefreq: 'weekly',
+    priority: '0.80',
+    title: 'Partner Network & Advertisements — HarshGuruJi Curated Directory',
+    image: `${baseUrl}/logo-512.png`
+  },
 
   // 7. Community, Creator & Contributor Pages
   {
@@ -636,6 +644,7 @@ Allow: /books.html
 Allow: /chat.html
 Allow: /chat-app.html
 Allow: /app.html
+Allow: /ads.html
 Allow: /free-tools.html
 Allow: /tools.html
 Allow: /ai-hub.html

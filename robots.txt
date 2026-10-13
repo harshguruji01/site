@@ -15,6 +15,7 @@ Allow: /books.html
 Allow: /chat.html
 Allow: /chat-app.html
 Allow: /app.html
+Allow: /ads.html
 Allow: /free-tools.html
 Allow: /tools.html
 Allow: /ai-hub.html
