@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="error-shield.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ChatBase by HarshGuruJi — Real-Time Social Messaging</title>
+  <meta name="description" content="ChatBase by HarshGuruJi: Modern, fast, and privacy-first real-time social messaging. Connect via unique HGJ-ID, voice notes, and live presence.">
+  <meta name="keywords" content="ChatBase, HarshGuruJi, chat.webguruji.online, private messaging, realtime chat, social messenger">
+  <meta name="author" content="HarshGuruJi">
+  
+  <link rel="canonical" href="https://chat.webguruji.online/">
+  <link rel="icon" type="image/png" href="chatbase.png">
+  <link rel="apple-touch-icon" href="chatbase.png">
+  
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/chat-app.css">
+  <link rel="stylesheet" href="css/chat.css">
+  
+  <!-- Supabase CDN Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
+  <link rel="stylesheet" href="responsive-patch.css">
+</head>
+<body class="chatbase-app is-chat-page">
+
+  <div class="cb-shell">
+    
+    <!-- ═══════════════════ DESKTOP SIDEBAR NAVIGATION ═══════════════════ -->
+    <aside class="cb-desktop-sidebar" aria-label="Main Application Navigation">
+      <a href="https://www.webguruji.online" class="cb-brand" title="HarshGuruJi Official Portal">
+        <img src="chatbase.png" alt="ChatBase Logo" class="cb-brand-logo">
+        <div class="cb-brand-text">
+          <span class="cb-brand-name">ChatBase</span>
+          <span class="cb-brand-author">by HarshGuruJi</span>
+        </div>
+      </a>
+
+      <ul class="cb-nav-list">
+        <li class="cb-nav-item">
+          <button type="button" class="cb-nav-btn" data-tab="home" id="nav-btn-home">
+            <span class="cb-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </span>
+            <span>Home</span>
+          </button>
+        </li>
+        <li class="cb-nav-item">
+          <button type="button" class="cb-nav-btn" data-tab="search" id="nav-btn-search">
+            <span class="cb-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <span>Search</span>
+          </button>
+        </li>
+        <li class="cb-nav-item">
+          <button type="button" class="cb-nav-btn" data-action="create" id="nav-btn-create">
+            <span class="cb-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </span>
+            <span>Create</span>
+          </button>
+        </li>
+        <li class="cb-nav-item">
+          <button type="button" class="cb-nav-btn active" data-tab="chat" id="nav-btn-chat">
+            <span class="cb-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </span>
+            <span>Messages</span>
+            <span class="cb-nav-badge" id="sidebar-unread-badge" style="display: none;">0</span>
+          </button>
+        </li>
+        <li class="cb-nav-item">
+          <button type="button" class="cb-nav-btn" data-tab="profile" id="nav-btn-profile">
+            <span class="cb-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
+            <span>Profile</span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Settings & Current User Mini-Card -->
+      <div class="cb-sidebar-footer">
+        <button type="button" class="cb-nav-btn" id="btn-open-settings" style="padding: 0.6rem 0.8rem;">
+          <span class="cb-nav-icon">⚙️</span>
+          <span>Settings</span>
+        </button>
+
+        <div class="cb-user-pill" id="desktop-user-pill" title="Click to view profile">
+          <img src="harshlogo.png" alt="User Avatar" class="cb-user-avatar" id="desktop-avatar">
+          <div class="cb-user-meta">
+            <span class="cb-user-name" id="desktop-name">ChatBase User</span>
+            <span class="cb-user-hgj" id="desktop-hgj-id">HGJ-ID</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════ MAIN VIEWPORT (5 TABS) ═══════════════════ -->
+    <main class="cb-content-viewport" id="cb-content-viewport">
+      
+      <!-- ── TAB 1: HOME ── -->
+      <section class="cb-tab-panel" id="tab-home" aria-label="Home Feed">
+        <div class="cb-home-container">
+          
+          <!-- Stories / Moments Reel -->
+          <div class="cb-stories-wrap" aria-label="Stories & Moments">
+            <div class="cb-story-card" id="btn-add-story">
+              <div class="cb-story-avatar-wrap add-story">
+                <img src="harshlogo.png" alt="Your Story" class="cb-story-avatar" id="home-my-story-avatar">
+                <span class="cb-story-add-icon">+</span>
+              </div>
+              <span class="cb-story-name">Your Story</span>
+            </div>
+            
+            <div class="cb-story-card">
+              <div class="cb-story-avatar-wrap">
+                <img src="chatbase.png" alt="ChatBase Official" class="cb-story-avatar">
+              </div>
+              <span class="cb-story-name">ChatBase</span>
+            </div>
+            
+            <div class="cb-story-card">
+              <div class="cb-story-avatar-wrap">
+                <img src="harshlogo.png" alt="HarshGuruJi" class="cb-story-avatar">
+              </div>
+              <span class="cb-story-name">HarshGuruJi</span>
+            </div>
+          </div>
+
+          <!-- Welcome Banner -->
+          <div class="cb-home-banner">
+            <div class="cb-home-banner-text">
+              <h2>Welcome to ChatBase 2.0</h2>
+              <p>Experience ultra-fast, private real-time 1-on-1 messaging. Search contacts by <strong>HGJ-ID</strong>, send voice messages, and share media securely.</p>
+            </div>
+            <button type="button" class="cb-btn-primary" id="btn-home-start-chat">
+              <span>Start Chatting</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <!-- Quick Discovery Strip -->
+          <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); padding:1.5rem;">
+            <h3 style="font-size:1.15rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+              <span>⚡ Fast People Discovery</span>
+            </h3>
+            <p style="color:var(--cb-text-secondary); font-size:0.9rem; margin-bottom:1rem;">
+              You can instantly connect with any user across the HarshGuruJi ecosystem by typing their 6-digit identifier (e.g. <code>HGJ-789412</code>) in the Search tab.
+            </p>
+            <button type="button" class="cb-btn-primary" id="btn-home-goto-search" style="padding:0.6rem 1.2rem; font-size:0.85rem;">
+              <span>Open Discovery Search</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 2: SEARCH ── -->
+      <section class="cb-tab-panel" id="tab-search" aria-label="People Search & Discovery">
+        <div class="cb-search-container">
+          <h2 style="font-family:var(--cb-font-display); font-size:1.6rem;">Discover People</h2>
+          <div class="cb-search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="tab-search-input" placeholder="Search by @username or HGJ-ID (e.g. HGJ-789412)..." autocomplete="off">
+          </div>
+
+          <div class="cb-search-results" id="tab-search-results">
+            <div style="text-align:center; padding:3rem 1rem; color:var(--cb-text-muted);">
+              <span style="font-size:2.5rem; display:block; margin-bottom:0.75rem;">🔍</span>
+              Type a username or unique HGJ-ID to find members and start a conversation.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 4: CHAT (Realtime Messaging Engine) ── -->
+      <section class="cb-tab-panel cb-chat-panel active" id="tab-chat" aria-label="Active Messages">
+        
+        <!-- Live Chat Container Wired to js/chat.js -->
+        <div class="chat-app-container" id="chat-app-container" style="margin-top:0; height:100%;">
+          
+          <!-- Conversations Sidebar -->
+          <aside class="chat-sidebar" id="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <div class="chat-brand-title">
+                <h2>💬 <span>ChatBase</span></h2>
+                <div class="chat-live-status-pill">
+                  <span class="pulse-dot"></span>
+                  <span>Realtime</span>
+                </div>
+              </div>
+
+              <!-- Current User Profile Card -->
+              <div class="chat-my-profile-card">
+                <div class="my-avatar-wrap">
+                  <img src="harshlogo.png" alt="My Avatar" id="my-avatar">
+                  <span class="online-status-dot"></span>
+                </div>
+                <div class="my-profile-info">
+                  <div class="my-display-name-row">
+                    <span class="my-name" id="my-display-name">Loading...</span>
+                    <span class="golden-tick-badge" id="my-golden-tick" style="display:none;" title="Verified">✓</span>
+                  </div>
+                  <div class="my-ids-row">
+                    <span class="my-username" id="my-username">@user</span>
+                    <span class="id-separator">•</span>
+                    <button type="button" class="copy-id-chip" id="copy-my-id-btn" title="Copy HGJ-ID">
+                      <span id="my-hgj-id">HGJ-ID</span>
+                      <span>📋</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search Bar in Chat Sidebar -->
+            <div class="chat-search-section">
+              <div class="chat-search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="chat-search-input" placeholder="Search by @username or HGJ-ID..." autocomplete="off">
+                <button type="button" class="search-clear-btn" id="search-clear-btn" style="display:none;">✕</button>
+                <div class="search-spinner" id="search-spinner" style="display:none;"></div>
+              </div>
+
+              <!-- Live Dropdown -->
+              <div class="chat-search-dropdown" id="chat-search-dropdown" style="display:none;">
+                <div class="search-dropdown-header">Members Found</div>
+                <div id="search-dropdown-list"></div>
+              </div>
+            </div>
+
+            <!-- Conversations List Header -->
+            <div style="padding:0.75rem 1.25rem 0.25rem; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:flex; justify-content:space-between;">
+              <span>Recent Chats</span>
+              <span id="conversations-count">0</span>
+            </div>
+
+            <!-- Conversations List -->
+            <div class="conversations-list" id="conversations-list" style="flex:1; overflow-y:auto;">
+              <div id="conversations-skeleton" style="display:none;"></div>
+              <div id="conversations-empty" style="text-align:center; padding:3rem 1.5rem; color:var(--text-muted);">
+                <span style="font-size:2rem; display:block; margin-bottom:0.5rem;">💬</span>
+                <p style="font-size:0.88rem;">No conversations yet.</p>
+                <button type="button" class="copy-id-chip" id="empty-search-focus-btn" style="margin-top:0.75rem; padding:6px 12px; font-size:0.8rem;">
+                  Find People to Chat
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main Active Chat Screen -->
+          <main class="chat-main" id="chat-main" style="flex:1; display:flex; flex-direction:column; background:var(--chat-bg);">
+            
+            <!-- No Active Chat Placeholder -->
+            <div id="chat-no-active" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; color:var(--text-muted);">
+              <img src="chatbase.png" alt="ChatBase" style="width:72px; height:72px; border-radius:18px; margin-bottom:1.25rem; opacity:0.8;">
+              <h3 style="color:#f8fafc; font-size:1.35rem; margin-bottom:0.5rem;">ChatBase Realtime Messaging</h3>
+              <p style="max-width:380px; font-size:0.9rem; line-height:1.5;">Select a chat from the sidebar or search a user's HGJ-ID to start a private conversation.</p>
+            </div>
+
+            <!-- Active Conversation View -->
+            <div id="chat-active-screen" style="display:none; flex:1; flex-direction:column; height:100%; position:relative;">
+              
+              <!-- Chat Header -->
+              <div class="chat-active-header" style="display:flex; align-items:center; justify-content:space-between; padding:0.85rem 1.25rem; background:var(--chat-header-bg); border-bottom:1px solid var(--chat-border); z-index:10;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <button type="button" class="chat-back-btn" id="chat-back-btn" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" aria-label="Back to conversations">←</button>
+                  <div style="position:relative; width:40px; height:40px;">
+                    <img src="harshlogo.png" alt="User" id="active-user-avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                    <span id="active-online-dot" class="active-online-dot"></span>
+                  </div>
+                  <div style="display:flex; flex-direction:column;">
+                    <div style="display:flex; align-items:center; gap:5px;">
+                      <span id="active-user-name" style="font-weight:700; color:#fff; font-size:0.95rem;">Contact Name</span>
+                      <span class="golden-tick-badge" id="active-golden-tick" style="display:none;">✓</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--text-muted);">
+                      <span id="active-user-handle">@user</span>
+                      <span>•</span>
+                      <span id="active-user-status" class="active-status">Offline</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="position:relative;">
+                  <button type="button" id="header-menu-btn" style="background:none; border:none; color:#94a3b8; font-size:1.25rem; cursor:pointer; padding:4px 8px;">⋮</button>
+                  <div id="header-dropdown-menu" style="display:none; position:absolute; right:0; top:100%; background:var(--chat-sidebar-bg); border:1px solid var(--chat-border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.5); min-width:160px; z-index:50; overflow:hidden;">
+                    <button type="button" id="menu-view-profile" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#fff; font-size:0.85rem; cursor:pointer;">View Profile</button>
+                    <button type="button" id="menu-delete-conv" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#f87171; font-size:0.85rem; cursor:pointer;">Delete Conversation</button>
+                    <button type="button" id="menu-block-user" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#f87171; font-size:0.85rem; cursor:pointer;">Block User</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Messages Container -->
+              <div id="chat-messages-container" style="flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:10px;">
+                <div id="messages-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+              </div>
+
+              <!-- Blocked User Warning Banner -->
+              <div id="chat-blocked-banner" style="display:none; padding:12px; background:rgba(239, 68, 68, 0.15); border-top:1px solid rgba(239, 68, 68, 0.3); text-align:center;">
+                <span id="blocked-banner-text" style="color:#fca5a5; font-size:0.85rem;">You have blocked this contact.</span>
+                <button type="button" id="unblock-banner-btn" class="copy-id-chip" style="margin-left:8px;">Unblock</button>
+              </div>
+
+              <!-- Message Composer -->
+              <div id="chat-composer-wrap" style="padding:0.85rem 1.25rem; background:var(--chat-header-bg); border-top:1px solid var(--chat-border);">
+                <form id="chat-composer-form" style="display:flex; align-items:flex-end; gap:8px;">
+                  <textarea id="chat-message-input" rows="1" placeholder="Type a message..." style="flex:1; background:rgba(255,255,255,0.06); border:1px solid var(--chat-border); border-radius:18px; padding:10px 14px; color:#fff; outline:none; resize:none; font-family:inherit; font-size:0.92rem; max-height:120px;"></textarea>
+                  <button type="submit" id="composer-send-btn" disabled style="background:var(--cb-blue); border:none; border-radius:50%; width:40px; height:40px; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+          </main>
+        </div>
+
+      </section>
+
+      <!-- ── TAB 5: PROFILE ── -->
+      <section class="cb-tab-panel" id="tab-profile" aria-label="User Profile">
+        <div class="cb-profile-container">
+          <div class="cb-profile-header-card">
+            <img src="harshlogo.png" alt="Profile Avatar" class="cb-profile-large-avatar" id="profile-card-avatar">
+            <h2 class="cb-profile-display-name" id="profile-card-name">User Name</h2>
+            <span style="color:var(--cb-text-secondary); font-size:0.92rem; margin-bottom:8px;" id="profile-card-username">@username</span>
+            
+            <div class="cb-profile-hgj-badge" id="profile-card-hgj" title="Click to copy your unique identifier">
+              <span>HGJ-ID:</span>
+              <strong id="profile-card-hgj-code">HGJ-000000</strong>
+              <span>📋</span>
+            </div>
+
+            <p style="color:var(--cb-text-secondary); font-size:0.92rem; max-width:420px; line-height:1.5;" id="profile-card-bio">
+              Welcome to my official ChatBase profile on HarshGuruJi.
+            </p>
+
+            <div class="cb-profile-stats">
+              <div class="cb-stat-box">
+                <span class="cb-stat-val" id="profile-stat-chats">0</span>
+                <span class="cb-stat-lbl">Conversations</span>
+              </div>
+              <div class="cb-stat-box">
+                <span class="cb-stat-val" id="profile-stat-status">Active</span>
+                <span class="cb-stat-lbl">Account</span>
+              </div>
+              <div class="cb-stat-box">
+                <span class="cb-stat-val">100%</span>
+                <span class="cb-stat-lbl">Encrypted</span>
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem; display:flex; gap:10px;">
+              <button type="button" class="cb-btn-primary" id="btn-edit-profile-open">Edit Profile</button>
+              <button type="button" class="cb-btn-primary" id="btn-profile-settings-open" style="background:rgba(255,255,255,0.08); border:1px solid var(--cb-divider);">Settings</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ═══════════════════ MOBILE 5-ITEM BOTTOM BAR (Section 4) ═══════════════════ -->
+    <nav class="cb-mobile-bottom-bar" aria-label="Mobile Navigation">
+      <button type="button" class="cb-mobile-nav-item" data-tab="home" id="mob-nav-home">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </button>
+
+      <button type="button" class="cb-mobile-nav-item" data-tab="search" id="mob-nav-search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Search</span>
+      </button>
+
+      <button type="button" class="cb-mobile-nav-item create-btn-special" data-action="create" id="mob-nav-create" aria-label="Create Action">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
+
+      <button type="button" class="cb-mobile-nav-item active" data-tab="chat" id="mob-nav-chat">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <span>Chat</span>
+      </button>
+
+      <button type="button" class="cb-mobile-nav-item" data-tab="profile" id="mob-nav-profile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="chat-toast-container" class="chat-toast-container"></div>
+
+  <!-- Settings Modal Drawer -->
+  <div id="cb-settings-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;">
+    <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); width:90%; max-width:500px; padding:2rem; max-height:85vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h3 style="font-size:1.3rem;">⚙️ ChatBase Settings</h3>
+        <button type="button" id="btn-close-settings" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div>
+          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Theme</label>
+          <div style="display:flex; gap:10px; margin-top:6px;">
+            <button type="button" class="copy-id-chip" id="btn-theme-dark" style="padding:8px 14px;">🌙 Dark</button>
+            <button type="button" class="copy-id-chip" id="btn-theme-light" style="padding:8px 14px;">☀️ Light</button>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Privacy & Presence</label>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; cursor:pointer;">
+              <input type="checkbox" id="setting-online-status" checked> Show Online Status
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; cursor:pointer;">
+              <input type="checkbox" id="setting-read-receipts" checked> Send Read Receipts (✓✓)
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Platform Info</label>
+          <p style="font-size:0.85rem; color:var(--cb-text-secondary); margin-top:4px;">
+            ChatBase 2.0 Web Client · Official Domain: <a href="https://www.webguruji.online" style="color:var(--cb-cyan);">webguruji.online</a>
+          </p>
+        </div>
+
+        <button type="button" id="btn-logout-chatbase" style="background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.35); color:#f87171; padding:0.75rem; border-radius:var(--cb-radius-md); font-weight:700; cursor:pointer; margin-top:1rem;">
+          Log Out from ChatBase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Action Sheet Modal -->
+  <div id="cb-create-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;">
+    <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); width:90%; max-width:400px; padding:1.75rem; text-align:center;">
+      <h3 style="font-size:1.2rem; margin-bottom:1rem;">✨ Create & Connect</h3>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button type="button" class="cb-btn-primary" id="btn-create-new-chat" style="justify-content:center;">
+          <span>💬 Start New Conversation</span>
+        </button>
+        <button type="button" class="cb-btn-primary" id="btn-create-new-story" style="justify-content:center; background:rgba(255,255,255,0.06); border:1px solid var(--cb-divider);">
+          <span>📸 Share Story / Moment</span>
+        </button>
+        <button type="button" id="btn-close-create" style="background:none; border:none; color:var(--cb-text-muted); padding:8px; cursor:pointer;">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/chatbase-capabilities.js"></script>
+  <script type="module" src="js/chat.js"></script>
+  <script type="module">
+    // Navigation & Tab Switching Controller
+    document.addEventListener('DOMContentLoaded', () => {
+      const navButtons = document.querySelectorAll('[data-tab]');
+      const tabPanels = document.querySelectorAll('.cb-tab-panel');
+
+      function switchTab(tabId) {
+        // Toggle active panels
+        tabPanels.forEach(panel => {
+          if (panel.id === `tab-${tabId}`) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+
+        // Toggle active navigation buttons
+        navButtons.forEach(btn => {
+          if (btn.getAttribute('data-tab') === tabId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.getAttribute('data-tab');
+          if (tab) switchTab(tab);
+        });
+      });
+
+      // Quick links from Home tab
+      document.getElementById('btn-home-start-chat')?.addEventListener('click', () => switchTab('chat'));
+      document.getElementById('btn-home-goto-search')?.addEventListener('click', () => switchTab('search'));
+
+      // Create modal handlers
+      const createBtns = document.querySelectorAll('[data-action="create"]');
+      const createOverlay = document.getElementById('cb-create-overlay');
+      const closeCreateBtn = document.getElementById('btn-close-create');
+
+      createBtns.forEach(b => b.addEventListener('click', () => {
+        createOverlay.style.display = 'flex';
+      }));
+      closeCreateBtn?.addEventListener('click', () => {
+        createOverlay.style.display = 'none';
+      });
+
+      document.getElementById('btn-create-new-chat')?.addEventListener('click', () => {
+        createOverlay.style.display = 'none';
+        switchTab('chat');
+        document.getElementById('chat-search-input')?.focus();
+      });
+
+      // Settings modal handlers
+      const settingsOverlay = document.getElementById('cb-settings-overlay');
+      document.getElementById('btn-open-settings')?.addEventListener('click', () => {
+        settingsOverlay.style.display = 'flex';
+      });
+      document.getElementById('btn-profile-settings-open')?.addEventListener('click', () => {
+        settingsOverlay.style.display = 'flex';
+      });
+      document.getElementById('btn-close-settings')?.addEventListener('click', () => {
+        settingsOverlay.style.display = 'none';
+      });
+
+      // Theme toggle handlers
+      document.getElementById('btn-theme-dark')?.addEventListener('click', () => {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('cb_theme', 'dark');
+      });
+      document.getElementById('btn-theme-light')?.addEventListener('click', () => {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('cb_theme', 'light');
+      });
+
+      // Restore saved theme
+      if (localStorage.getItem('cb_theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+      }
+
+      // Logout handler
+      document.getElementById('btn-logout-chatbase')?.addEventListener('click', async () => {
+        if (window.supabaseClient) {
+          await window.supabaseClient.auth.signOut();
+        }
+        window.location.href = 'login.html?redirect=chat-app.html';
+      });
+    });
+  </script>
+</body>
+</html>

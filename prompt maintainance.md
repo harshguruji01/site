@@ -6,6 +6,7 @@ continue solve the problem and search for any bug if any thenfix it aur chatbase
 Target page:
 
 https://webguruji.online/store.html
+https://store.webguruji.online
 
 The existing Store page is already functional. DO NOT rebuild the Store from scratch.
 
