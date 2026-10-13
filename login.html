@@ -203,21 +203,34 @@
   <script type="module">
     import { signIn, signInWithGoogle, getSession, signInWithPhone, verifyPhoneOtp } from './js/auth.js';
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      const params = new URLSearchParams(window.location.search);
-      const redirectUrl = params.get('redirect') || params.get('return_to') || sessionStorage.getItem('hg_auth_redirect') || 'dashboard.html';
-
-      // Store redirect target across subdomains and sessions
-      if (params.get('redirect') || params.get('return_to')) {
-        try {
-          sessionStorage.setItem('hg_auth_redirect', redirectUrl);
-          const hostname = window.location.hostname;
-          let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
-          const secureStr = window.location.protocol === 'https:' ? '; secure' : '';
-          document.cookie = `hg_auth_redirect=${encodeURIComponent(redirectUrl)}; path=/; max-age=3600${domainStr}; SameSite=Lax${secureStr}`;
-        } catch (e) {}
+    function getAuthRedirectTarget() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        let target = params.get('redirect') || params.get('return_to') || sessionStorage.getItem('hg_auth_redirect') || '';
+        if (target) {
+          try { target = decodeURIComponent(target); } catch(e){}
+        }
+        if (!target || target === 'login.html' || target.includes('login.html') || target.includes('signup.html')) {
+          target = 'dashboard.html';
+        }
+        return target;
+      } catch(e) {
+        return 'dashboard.html';
       }
+    }
 
+    let redirectUrl = getAuthRedirectTarget();
+
+    // Persist redirect target in session and domain cookie for seamless post-login redirect
+    try {
+      sessionStorage.setItem('hg_auth_redirect', redirectUrl);
+      const hostname = window.location.hostname;
+      let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+      const secureStr = window.location.protocol === 'https:' ? '; secure' : '';
+      document.cookie = `hg_auth_redirect=${encodeURIComponent(redirectUrl)}; path=/; max-age=3600${domainStr}; SameSite=Lax${secureStr}`;
+    } catch (e) {}
+
+    document.addEventListener('DOMContentLoaded', async () => {
       // Forward redirect parameter to signup and forgot password links
       const signupLink = document.querySelector('.auth-footer-text a[href*="signup.html"]');
       if (signupLink && redirectUrl && redirectUrl !== 'dashboard.html') {
@@ -227,29 +240,32 @@
       if (forgotLink && redirectUrl && redirectUrl !== 'dashboard.html') {
         forgotLink.href = `forgot-password.html?redirect=${encodeURIComponent(redirectUrl)}`;
       }
-      // Check if already logged in
+
+      // Check if already logged in - if so, redirect immediately without asking again!
       const loadingOverlay = document.createElement('div');
+      loadingOverlay.id = 'auth-check-overlay';
       loadingOverlay.style.position = 'fixed';
       loadingOverlay.style.top = '0';
       loadingOverlay.style.left = '0';
       loadingOverlay.style.width = '100vw';
       loadingOverlay.style.height = '100vh';
-      loadingOverlay.style.background = 'var(--bg-main)';
+      loadingOverlay.style.background = 'var(--bg-main, #0b0f19)';
       loadingOverlay.style.zIndex = '9999';
       loadingOverlay.style.display = 'flex';
       loadingOverlay.style.justifyContent = 'center';
       loadingOverlay.style.alignItems = 'center';
-      loadingOverlay.style.color = 'var(--text-primary)';
-      loadingOverlay.innerHTML = '<h2>Checking session...</h2>';
+      loadingOverlay.style.color = 'var(--text-primary, #fff)';
+      loadingOverlay.innerHTML = '<div style="text-align:center;"><div style="width:36px;height:36px;border:3px solid rgba(255,255,255,0.1);border-top:3px solid #3b82f6;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px;"></div><h3 style="font-size:1.1rem;font-weight:600;">Checking session...</h3></div>';
       document.body.appendChild(loadingOverlay);
 
       try {
         const session = await getSession();
-        if (session) {
+        if (session && session.user) {
           try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
-          window.location.href = redirectUrl;
+          window.location.replace(redirectUrl);
+          return;
         } else {
-            loadingOverlay.remove();
+          loadingOverlay.remove();
         }
       } catch (error) {
         console.error("Error checking session:", error);
@@ -308,6 +324,7 @@
         errorDiv.style.display = 'none';
         googleBtn.disabled = true;
         googleBtn.style.opacity = '0.7';
+        redirectUrl = getAuthRedirectTarget();
         if (redirectUrl) {
           try {
             sessionStorage.setItem('hg_auth_redirect', redirectUrl);
@@ -332,21 +349,22 @@
       loginBtn.disabled = true;
       spinner.style.display = 'block';
       loginBtn.querySelector('span').style.display = 'none';
+      redirectUrl = getAuthRedirectTarget();
       
       try {
         if (loginMethod === 'email') {
           // Normal Email Login
-          const email = emailInput.value;
+          const email = (emailInput.value || '').trim();
           const password = passwordInput.value;
           if(!email || !password) throw new Error("Email and password required.");
           
           await signIn(email, password);
           try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
-          window.location.href = redirectUrl;
+          window.location.replace(redirectUrl);
           
         } else if (loginMethod === 'phone') {
           // Send Phone OTP
-          const phone = phoneInput.value;
+          const phone = (phoneInput.value || '').trim();
           if(!phone) throw new Error("Phone number required.");
           
           await signInWithPhone(phone);
@@ -367,17 +385,17 @@
           
         } else if (loginMethod === 'verify') {
           // Verify Phone OTP
-          const otp = otpInput.value;
+          const otp = (otpInput.value || '').trim();
           if(!otp) throw new Error("OTP required.");
           
           await verifyPhoneOtp(pendingPhone, otp);
           try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
-          window.location.href = redirectUrl;
+          window.location.replace(redirectUrl);
         }
       } catch (err) {
         // Reset Error styles to default red
-        errorDiv.style.color = 'var(--error-color)';
-        errorDiv.style.borderColor = 'var(--error-color)';
+        errorDiv.style.color = 'var(--error-color, #ef4444)';
+        errorDiv.style.borderColor = 'var(--error-color, #ef4444)';
         errorDiv.style.backgroundColor = 'rgba(255, 71, 87, 0.1)';
         errorDiv.textContent = err.message || 'Authentication failed. Please try again.';
         errorDiv.style.display = 'block';

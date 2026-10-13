@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnLogout = document.getElementById('btn-logout');
   const mobileAuthItem = document.getElementById('mobile-auth-item');
 
-  let isLoggedIn = true; // Set to true to show avatar, false to show Login button
+  let isLoggedIn = false; // Set to true to show avatar, false to show Login button
 
   const updateAuthState = () => {
     if (isLoggedIn) {

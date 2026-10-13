@@ -90,19 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://www.webguruji.online/' : prefix;
   const currentFullUrl = typeof window !== 'undefined' ? window.location.href : '';
   const currentPathWithSearch = typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() + window.location.search) : '';
-  // Central Login Target: ALWAYS points to the main 'site' folder / https://www.webguruji.online/login.html
+  // Central Login Target: ALWAYS points to https://www.webguruji.online/login.html with current page redirect
   let centralLoginBase;
-  if (!isStorePage && !isBooksPage) {
-    centralLoginBase = `${prefix}login.html`;
-  } else if (window.location.protocol === 'file:') {
-    centralLoginBase = '../../site/login.html';
+  if (isLocal || window.location.protocol === 'file:') {
+    centralLoginBase = (window.location.protocol === 'file:' && (isStorePage || isBooksPage)) ? '../../site/login.html' : `${prefix}login.html`;
   } else {
     centralLoginBase = 'https://www.webguruji.online/login.html';
   }
 
-  const loginUrl = (isStorePage || isBooksPage)
-    ? `${centralLoginBase}?redirect=${encodeURIComponent(currentFullUrl)}`
-    : `${centralLoginBase}${navFile && navFile !== 'index.html' && navFile !== 'login.html' && !navFile.includes('signup') ? '?redirect=' + encodeURIComponent(currentPathWithSearch) : ''}`;
+  const safeReturnUrl = currentFullUrl || (typeof window !== 'undefined' ? (window.location.origin + window.location.pathname + window.location.search) : '');
+  const loginUrl = `${centralLoginBase}?redirect=${encodeURIComponent(safeReturnUrl)}`;
   const dashUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/dashboard.html' : `${prefix}dashboard.html`;
   const settingsUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/settings.html' : `${prefix}settings.html`;
 
@@ -2286,11 +2283,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Logout listener
   const logoutBtn = document.getElementById('hg-logout-btn');
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      import('./js/supabase.js').then(async ({ supabase }) => {
-        await supabase.auth.signOut();
-        window.location.href = prefix + "index.html";
-      }).catch(err => console.log('Supabase signout not available on this page.'));
+    logoutBtn.addEventListener('click', async () => {
+      const client = window.supabaseClient || (window.AuthManager && window.AuthManager.supabase);
+      if (client && client.auth) {
+        await client.auth.signOut().catch(() => {});
+      } else {
+        try {
+          const { supabase } = await import(`${prefix}js/supabase.js`);
+          await supabase.auth.signOut().catch(() => {});
+        } catch(e) {}
+      }
+      window.location.href = (isLocal || window.location.protocol === 'file:') ? (prefix + "index.html") : 'https://www.webguruji.online/index.html';
     });
   }
 
@@ -2299,31 +2302,51 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavUI(e.detail.user, e.detail.profile);
   });
 
-  // Check auth state immediately
-  if (window.AuthManager && window.AuthManager.currentUser) {
+  // Check auth state immediately across all pages and subdirectories
+  function checkNavAuth() {
+    if (window.AuthManager && window.AuthManager.currentUser) {
       updateNavUI(window.AuthManager.currentUser, window.AuthManager.currentProfile);
-  } else {
-      import('./js/supabase.js').then(async ({ supabase }) => {
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session && session.user) {
-              import('./js/profile.js').then(async ({ getProfile }) => {
-                  const profile = await getProfile(session.user.id);
-                  updateNavUI(session.user, profile);
-              }).catch(()=>updateNavUI(session.user, null));
-          }
+      return;
+    }
+    const client = window.supabaseClient || (window.AuthManager && window.AuthManager.supabase);
+    if (client && client.auth) {
+      client.auth.getSession().then(({ data }) => {
+        const session = data && data.session;
+        if (session && session.user) {
+          import(`${prefix}js/profile.js`).then(({ getProfile }) => {
+            getProfile(session.user.id).then(profile => updateNavUI(session.user, profile));
+          }).catch(() => updateNavUI(session.user, null));
+        } else {
+          updateNavUI(null, null);
+        }
+      }).catch(() => {});
 
-          supabase.auth.onAuthStateChange(async (event, newSession) => {
-              if (newSession && newSession.user) {
-                  import('./js/profile.js').then(async ({ getProfile }) => {
-                      const profile = await getProfile(newSession.user.id);
-                      updateNavUI(newSession.user, profile);
-                  }).catch(()=>updateNavUI(newSession.user, null));
-              } else if (event === 'SIGNED_OUT') {
-                  updateNavUI(null, null);
-              }
-          });
-      }).catch(err => {
-         // Supabase not present on page, ignore
-      });
+      if (typeof client.auth.onAuthStateChange === 'function') {
+        client.auth.onAuthStateChange((event, newSession) => {
+          if (newSession && newSession.user) {
+            import(`${prefix}js/profile.js`).then(({ getProfile }) => {
+              getProfile(newSession.user.id).then(profile => updateNavUI(newSession.user, profile));
+            }).catch(() => updateNavUI(newSession.user, null));
+          } else if (event === 'SIGNED_OUT') {
+            updateNavUI(null, null);
+          }
+        });
+      }
+      return;
+    }
+    // Fallback dynamic import with prefix
+    import(`${prefix}js/supabase.js`).then(({ supabase }) => {
+      supabase.auth.getSession().then(({ data }) => {
+        const session = data && data.session;
+        if (session && session.user) {
+          import(`${prefix}js/profile.js`).then(({ getProfile }) => {
+            getProfile(session.user.id).then(profile => updateNavUI(session.user, profile));
+          }).catch(() => updateNavUI(session.user, null));
+        } else {
+          updateNavUI(null, null);
+        }
+      }).catch(() => {});
+    }).catch(() => {});
   }
+  checkNavAuth();
 });
