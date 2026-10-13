@@ -751,16 +751,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hg-hamburger');
   const mobileNav = document.getElementById('hg-mobile-nav');
   
-  // 1. Scroll Effect (Sticky Header shadow)
-  if (header) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        header.classList.add('hg-scrolled');
-      } else {
-        header.classList.remove('hg-scrolled');
-      }
-    }, { passive: true });
-  }
+  // 1. Static Clean Header (No scroll animation)
+  // Header background is permanently styled in navbar-premium.css
 
   // 2. Mobile Menu Toggle
   function closeMobileMenu() {

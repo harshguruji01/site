@@ -49,7 +49,7 @@ body {
 /* ═══════════════ AN1 TOP HERO & CATALOG SECTION ═══════════════ */
 /* ═══════════════ TOP CENTER HERO & UNIVERSAL SEARCH ═══════════════ */
 .store-page-body {
-  padding-top: 75px;
+  padding-top: 0;
 }
 
 .store-top-center-hero {

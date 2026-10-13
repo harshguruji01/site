@@ -26,9 +26,13 @@
   max-width: 100%;
   box-sizing: border-box;
   height: var(--hg-nav-height);
-  background: transparent;
+  background: var(--hg-nav-bg);
+  backdrop-filter: var(--hg-nav-blur);
+  -webkit-backdrop-filter: var(--hg-nav-blur);
+  border-bottom: 1px solid var(--hg-nav-border);
+  box-shadow: var(--hg-nav-shadow);
   z-index: 1000;
-  transition: all var(--hg-trans);
+  transition: none !important;
 }
 
 .hg-header.hg-scrolled {

@@ -4,32 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* --- 1. SCROLL BEHAVIOR --- */
-  const navbar = document.getElementById('main-navbar');
-  let lastScrollY = window.scrollY;
-  const SCROLL_THRESHOLD = 50;
-
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    
-    // Add shadow and reduce height when scrolled
-    if (currentScrollY > 10) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-
-    // Hide navbar on scroll down, show on scroll up
-    if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
-      // Scrolling down
-      navbar.classList.add('hidden');
-    } else {
-      // Scrolling up
-      navbar.classList.remove('hidden');
-    }
-    
-    lastScrollY = currentScrollY;
-  }, { passive: true });
+  /* --- 1. CLEAN STATIC NAVBAR (No scroll animation) --- */
+  // Main navbar remains stable without hide-on-scroll or height shrink
 
   /* --- 2. MOBILE DRAWER --- */
   const hamburgerMenu = document.getElementById('hamburger-menu');

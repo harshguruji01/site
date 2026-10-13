@@ -166,14 +166,19 @@ button {
   width: 100%;
   height: var(--nav-height);
   z-index: 1000;
-  transition: all var(--transition-normal);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-glass);
+  transition: none !important;
   display: flex;
   align-items: center;
 }
 
 .navbar.scrolled {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-glass);
 }
 

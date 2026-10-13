@@ -80,19 +80,19 @@ button, input {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   z-index: 1000;
-  transition: height var(--trans-smooth), transform var(--trans-smooth), background var(--trans-smooth), box-shadow var(--trans-smooth);
-  will-change: transform, height;
+  transition: none !important;
 }
 
 .premium-navbar.scrolled {
-  height: var(--nav-scrolled-height);
+  height: var(--nav-height);
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  background: rgba(13, 17, 23, 0.9);
+  background: var(--glass-bg);
 }
 
 .premium-navbar.hidden {
-  transform: translateY(-100%);
+  transform: none !important;
 }
 
 .nav-container {

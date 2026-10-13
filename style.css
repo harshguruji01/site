@@ -261,7 +261,7 @@ body::before {
 #navbar {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
   background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
+  transition: none !important;
 }
 
 .nav-container {
@@ -307,7 +307,7 @@ body::before {
 .cal-date { font-size: 4rem; font-weight: 900; color: white; padding: 1rem 0; line-height: 1; font-family: 'Space Grotesk', sans-serif; }
 .cal-day { background: rgba(255,255,255,0.05); padding: 0.5rem; color: var(--text-secondary); font-weight: 600; }
 
-.page-header { text-align: center; padding: 10rem 5% 4rem; position: relative; }
+.page-header { text-align: center; padding: 3rem 5% 2rem; position: relative; }
 .page-title { font-size: 3.5rem; margin-bottom: 1rem; }
 .page-desc { color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
 
@@ -329,8 +329,8 @@ body::before {
 
 /* Hero */
 .hero {
-  min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
-  padding: 8rem 5% 4rem; position: relative; overflow: hidden;
+  min-height: calc(100vh - 70px); display: flex; align-items: center; justify-content: space-between;
+  padding: 2.5rem 5% 2.5rem; position: relative; overflow: hidden;
 }
 .hero-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.5; z-index: -1; }
 .glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--glow-primary); }
@@ -565,7 +565,7 @@ body::before {
 .btn-google { width: 100%; background: white; color: #333; border: none; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
 .btn-google:hover { background: #f1f1f1; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); }
 /* ── Scroll Progress Bar ── */
-#scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); z-index: 9999; transition: width 0.1s linear; }
+#scroll-progress { display: none !important; }
 
 
 
@@ -1029,7 +1029,7 @@ body::before {
 
 
 @media (max-width: 992px) {
-  .hero { flex-direction: column; text-align: center; padding-top: 10rem; }
+  .hero { flex-direction: column; text-align: center; padding-top: 2rem; }
   .hero-content { margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
   .hero-title { font-size: 3.5rem; }
   .hero-stats { justify-content: center; flex-wrap: wrap; }

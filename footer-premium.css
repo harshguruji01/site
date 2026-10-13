@@ -26,12 +26,12 @@
 }
 @media (max-width: 768px) {
   .hg-global-footer {
-    padding: 3rem 1.25rem calc(65px + 2.5rem);
+    padding: 3rem 1.25rem 2rem;
   }
 }
 @media (max-width: 480px) {
   .hg-global-footer {
-    padding: 2.5rem 1rem calc(65px + 2.5rem);
+    padding: 2.5rem 1rem 1.75rem;
   }
   .hg-footer-navs { gap: 1.25rem; }
   .hg-footer-brand a img { height: 30px !important; }

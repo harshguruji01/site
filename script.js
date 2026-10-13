@@ -156,15 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.style.background = 'rgba(5, 5, 5, 0.9)';
-      navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
-    } else {
-      navbar.style.background = 'rgba(5, 5, 5, 0.7)';
-      navbar.style.boxShadow = 'none';
-    }
     if (sections.length > 0) scrollSpy();
-  });
+  }, { passive: true });
   if (sections.length > 0) scrollSpy();
 
   // Number Counter Animation
@@ -1213,15 +1206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── SCROLL PROGRESS BAR ──
-  const progressBar = document.getElementById('scroll-progress');
-  if (progressBar) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      progressBar.style.width = progress + '%';
-    });
-  }
+  // scroll-progress animation disabled to prevent navbar scroll effects
 
 
 

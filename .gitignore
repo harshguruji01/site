@@ -26,4 +26,7 @@ Thumbs.db
 npm-debug.log*
 
 # SDKs / Binaries
-flutter/
+flutter/
+
+# Local Prompt Drafts
+@*
