@@ -4,557 +4,1323 @@
   <script src="error-shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>ChatBase by HarshGuruJi — Real-Time Social Messaging</title>
-  <meta name="description" content="ChatBase by HarshGuruJi: Modern, fast, and privacy-first real-time social messaging. Connect via unique HGJ-ID, voice notes, and live presence.">
-  <meta name="keywords" content="ChatBase, HarshGuruJi, chat.webguruji.online, private messaging, realtime chat, social messenger">
-  <meta name="author" content="HarshGuruJi">
   
-  <link rel="canonical" href="https://chat.webguruji.online/">
+  <!-- Primary Meta Tags -->
+  <title>Download ChatBase App (Android APK) — Features, Advantages & Limitations | HarshGuruJi</title>
+  <meta name="title" content="Download ChatBase App (Android APK) — Features, Advantages & Limitations | HarshGuruJi">
+  <meta name="description" content="Download the official ChatBase Android App APK by HarshGuruJi. Discover features, advantages, disadvantages, and technical specifications of this privacy-first, ad-free real-time messenger.">
+  <meta name="keywords" content="Download ChatBase App, ChatBase APK, HarshGuruJi Chat, private messaging app, ad-free chat android, HGJ-ID messenger, chat.webguruji.online">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://www.webguruji.online/chat-app.html">
   <link rel="icon" type="image/png" href="chatbase.png">
   <link rel="apple-touch-icon" href="chatbase.png">
-  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.webguruji.online/chat-app.html">
+  <meta property="og:title" content="Download ChatBase App (Android APK) — Features, Advantages & Limitations">
+  <meta property="og:description" content="Official ChatBase Android App APK download hub. Explore real-time voice notes, HGJ-ID privacy, zero ads, features, advantages & limitations.">
+  <meta property="og:image" content="https://www.webguruji.online/chatbase.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="Download ChatBase App (Android APK) — HarshGuruJi">
+  <meta name="twitter:description" content="Official ChatBase Android App APK download hub. Privacy-first, ad-free messaging with voice notes and HGJ-ID discovery.">
+  <meta name="twitter:image" content="https://www.webguruji.online/chatbase.png">
+
   <!-- Google Fonts: Inter & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/chat-app.css">
-  <link rel="stylesheet" href="css/chat.css">
-  
-  <!-- Supabase CDN Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
-  <link rel="stylesheet" href="responsive-patch.css">
-</head>
-<body class="chatbase-app is-chat-page">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
-  <div class="cb-shell">
-    
-    <!-- ═══════════════════ DESKTOP SIDEBAR NAVIGATION ═══════════════════ -->
-    <aside class="cb-desktop-sidebar" aria-label="Main Application Navigation">
-      <a href="https://www.webguruji.online" class="cb-brand" title="HarshGuruJi Official Portal">
-        <img src="chatbase.png" alt="ChatBase Logo" class="cb-brand-logo">
-        <div class="cb-brand-text">
-          <span class="cb-brand-name">ChatBase</span>
-          <span class="cb-brand-author">by HarshGuruJi</span>
+  <!-- Schema.org SoftwareApplication Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ChatBase",
+    "operatingSystem": "Android 8.0+",
+    "applicationCategory": "CommunicationApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "HarshGuruJi"
+    },
+    "downloadUrl": "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk",
+    "fileSize": "18.4MB",
+    "softwareVersion": "2.0.4",
+    "description": "Privacy-first real-time messaging application with voice notes, HGJ-ID unique discovery, and zero ads."
+  }
+  </script>
+
+  <!-- Google AdSense Protection -->
+  <script src="js/ad-shield.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(16, 20, 38, 0.75);
+      --bg-card-hover: rgba(25, 32, 58, 0.9);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-hover: rgba(99, 102, 241, 0.4);
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --accent-coral: #ff6b4a;
+      --accent-pink: #ec4899;
+      --accent-emerald: #10b981;
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-sans);
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      min-height: 100vh;
+      line-height: 1.6;
+      background-color: var(--bg-dark);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Glow Blobs */
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+      animation: floatGlow 20s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 500px; height: 500px; background: #6366f1; top: -100px; left: -100px; }
+    .blob-2 { width: 450px; height: 450px; background: #ff6b4a; top: 40%; right: -100px; animation-delay: -6s; }
+    .blob-3 { width: 400px; height: 400px; background: #06b6d4; bottom: 0; left: 25%; opacity: 0.12; animation-delay: -12s; }
+
+    @keyframes floatGlow {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.15) translate(30px, -20px); }
+      100% { transform: scale(0.95) translate(-25px, 25px); }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header & Navigation */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 9, 19, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 0;
+      transition: background 0.2s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .nav-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(255, 107, 74, 0.4);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-header-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #ff6b4a, #ec4899);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(255, 107, 74, 0.35);
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .btn-header-dl:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(255, 107, 74, 0.55);
+    }
+
+    /* Hero Section: App Download Hub */
+    .hero-section {
+      padding: 4rem 0 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .app-badge-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 107, 74, 0.12);
+      border: 1px solid rgba(255, 107, 74, 0.35);
+      color: #ff8c66;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff6b4a;
+      box-shadow: 0 0 10px #ff6b4a;
+      animation: pulseLive 2s infinite;
+    }
+
+    @keyframes pulseLive {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    .hero-app-icon-wrap {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1.75rem;
+    }
+
+    .hero-app-icon {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      object-fit: cover;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 107, 74, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .hero-verified-tick {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      color: #070913;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      border: 2px solid #070913;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .title-gradient {
+      background: linear-gradient(135deg, #ff6b4a, #ec4899, #8957ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.6;
+    }
+
+    /* CTA Download Buttons */
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-main-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #ff6b4a, #e04e2d);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1rem 2.25rem;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(255, 107, 74, 0.45);
+      transition: all 0.25s var(--ease-spring);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-main-download:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 45px rgba(255, 107, 74, 0.65);
+    }
+
+    .btn-main-download:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-main-web {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 1rem 1.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .btn-main-web:hover {
+      background: rgba(99, 102, 241, 0.18);
+      border-color: #6366f1;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* App Specifications Strip */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+      gap: 0.85rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .spec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 0.85rem;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .spec-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-hover);
+    }
+
+    .spec-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .spec-value {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* SECTION HEADERS */
+    .section-head {
+      text-align: center;
+      margin-bottom: 2.75rem;
+      position: relative;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.65rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .section-tag.coral {
+      color: var(--accent-coral);
+      background: rgba(255, 107, 74, 0.1);
+      border-color: rgba(255, 107, 74, 0.25);
+    }
+
+    .section-tag.emerald {
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .section-tag.warning {
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0.5rem auto 0;
+      line-height: 1.6;
+    }
+
+    /* FEATURE CARDS GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+      backdrop-filter: blur(16px);
+      transition: all 0.3s var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, var(--card-glow, rgba(99, 102, 241, 0.12)), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--card-border, rgba(99, 102, 241, 0.4));
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ADVANTAGES & DISADVANTAGES COMPARISON SECTION */
+    .compare-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .compare-box {
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      position: relative;
+    }
+
+    .compare-box.advantages {
+      border-color: rgba(16, 185, 129, 0.35);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), rgba(16, 20, 38, 0.85));
+    }
+
+    .compare-box.disadvantages {
+      border-color: rgba(245, 158, 11, 0.35);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.06), rgba(16, 20, 38, 0.85));
+    }
+
+    .compare-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .compare-title-row h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .compare-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .compare-box.advantages .compare-icon-circle {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .compare-box.disadvantages .compare-icon-circle {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .compare-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .compare-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+
+    .compare-bullet {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .compare-box.advantages .compare-bullet {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    .compare-box.disadvantages .compare-bullet {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+
+    .compare-item-content strong {
+      display: block;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+
+    .compare-item-content p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    /* HOW TO INSTALL GUIDE */
+    .install-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.75rem;
+      backdrop-filter: blur(14px);
+      position: relative;
+    }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: rgba(255, 107, 74, 0.4);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .step-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    /* FAQ ACCORDION */
+    .faq-container {
+      max-width: 840px;
+      margin: 0 auto 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .faq-question {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .faq-arrow {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item.active .faq-arrow {
+      transform: rotate(180deg);
+      color: var(--accent-coral);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 0.25rem;
+      padding-top: 0.85rem;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FINAL DOWNLOAD BANNER */
+    .final-cta-card {
+      background: radial-gradient(circle at top right, rgba(255, 107, 74, 0.25), transparent 70%),
+                  radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.2), transparent 70%),
+                  var(--bg-card);
+      border: 1px solid rgba(255, 107, 74, 0.35);
+      border-radius: 24px;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .final-cta-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .final-cta-card p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0 3rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-section { padding: 3rem 0 2.5rem; }
+      .compare-container { grid-template-columns: 1fr; }
+      .btn-main-download, .btn-main-web { width: 100%; }
+      .hero-cta-group { flex-direction: column; width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1rem; }
+      .hero-title { font-size: 1.95rem; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .compare-box { padding: 1.5rem 1.25rem; }
+      .final-cta-card { padding: 2.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+  <div class="glow-blob blob-3"></div>
+
+  <!-- Top Sticky Navigation -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand" title="HarshGuruJi Platform">
+        <img src="chatbase.png" alt="ChatBase Logo">
+        <div class="brand-text">
+          <h1>ChatBase <span style="font-size:0.65rem; background:rgba(255,107,74,0.2); color:#ff8c66; padding:2px 6px; border-radius:4px; font-weight:700;">APK</span></h1>
+          <span>by HarshGuruJi</span>
         </div>
       </a>
 
-      <ul class="cb-nav-list">
-        <li class="cb-nav-item">
-          <button type="button" class="cb-nav-btn" data-tab="home" id="nav-btn-home">
-            <span class="cb-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            </span>
-            <span>Home</span>
-          </button>
-        </li>
-        <li class="cb-nav-item">
-          <button type="button" class="cb-nav-btn" data-tab="search" id="nav-btn-search">
-            <span class="cb-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </span>
-            <span>Search</span>
-          </button>
-        </li>
-        <li class="cb-nav-item">
-          <button type="button" class="cb-nav-btn" data-action="create" id="nav-btn-create">
-            <span class="cb-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-            </span>
-            <span>Create</span>
-          </button>
-        </li>
-        <li class="cb-nav-item">
-          <button type="button" class="cb-nav-btn active" data-tab="chat" id="nav-btn-chat">
-            <span class="cb-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            </span>
-            <span>Messages</span>
-            <span class="cb-nav-badge" id="sidebar-unread-badge" style="display: none;">0</span>
-          </button>
-        </li>
-        <li class="cb-nav-item">
-          <button type="button" class="cb-nav-btn" data-tab="profile" id="nav-btn-profile">
-            <span class="cb-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            </span>
-            <span>Profile</span>
-          </button>
-        </li>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#advantages">Advantages</a></li>
+        <li><a href="#limitations">Limitations</a></li>
+        <li><a href="#install">How to Install</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
 
-      <!-- Settings & Current User Mini-Card -->
-      <div class="cb-sidebar-footer">
-        <button type="button" class="cb-nav-btn" id="btn-open-settings" style="padding: 0.6rem 0.8rem;">
-          <span class="cb-nav-icon">⚙️</span>
-          <span>Settings</span>
-        </button>
-
-        <div class="cb-user-pill" id="desktop-user-pill" title="Click to view profile">
-          <img src="harshlogo.png" alt="User Avatar" class="cb-user-avatar" id="desktop-avatar">
-          <div class="cb-user-meta">
-            <span class="cb-user-name" id="desktop-name">ChatBase User</span>
-            <span class="cb-user-hgj" id="desktop-hgj-id">HGJ-ID</span>
-          </div>
-        </div>
+      <div class="nav-actions">
+        <a href="https://chat.webguruji.online" target="_blank" class="nav-links a" style="color:#60a5fa; font-size:0.85rem; font-weight:600; text-decoration:none; display:none;" id="nav-web-link">Web App ↗</a>
+        <a href="https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk" download class="btn-header-dl" id="btn-header-download">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Download APK</span>
+        </a>
       </div>
-    </aside>
+    </div>
+  </header>
 
-    <!-- ═══════════════════ MAIN VIEWPORT (5 TABS) ═══════════════════ -->
-    <main class="cb-content-viewport" id="cb-content-viewport">
-      
-      <!-- ── TAB 1: HOME ── -->
-      <section class="cb-tab-panel" id="tab-home" aria-label="Home Feed">
-        <div class="cb-home-container">
-          
-          <!-- Stories / Moments Reel -->
-          <div class="cb-stories-wrap" aria-label="Stories & Moments">
-            <div class="cb-story-card" id="btn-add-story">
-              <div class="cb-story-avatar-wrap add-story">
-                <img src="harshlogo.png" alt="Your Story" class="cb-story-avatar" id="home-my-story-avatar">
-                <span class="cb-story-add-icon">+</span>
-              </div>
-              <span class="cb-story-name">Your Story</span>
-            </div>
-            
-            <div class="cb-story-card">
-              <div class="cb-story-avatar-wrap">
-                <img src="chatbase.png" alt="ChatBase Official" class="cb-story-avatar">
-              </div>
-              <span class="cb-story-name">ChatBase</span>
-            </div>
-            
-            <div class="cb-story-card">
-              <div class="cb-story-avatar-wrap">
-                <img src="harshlogo.png" alt="HarshGuruJi" class="cb-story-avatar">
-              </div>
-              <span class="cb-story-name">HarshGuruJi</span>
-            </div>
-          </div>
-
-          <!-- Welcome Banner -->
-          <div class="cb-home-banner">
-            <div class="cb-home-banner-text">
-              <h2>Welcome to ChatBase 2.0</h2>
-              <p>Experience ultra-fast, private real-time 1-on-1 messaging. Search contacts by <strong>HGJ-ID</strong>, send voice messages, and share media securely.</p>
-            </div>
-            <button type="button" class="cb-btn-primary" id="btn-home-start-chat">
-              <span>Start Chatting</span>
-              <span>→</span>
-            </button>
-          </div>
-
-          <!-- Quick Discovery Strip -->
-          <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); padding:1.5rem;">
-            <h3 style="font-size:1.15rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
-              <span>⚡ Fast People Discovery</span>
-            </h3>
-            <p style="color:var(--cb-text-secondary); font-size:0.9rem; margin-bottom:1rem;">
-              You can instantly connect with any user across the HarshGuruJi ecosystem by typing their 6-digit identifier (e.g. <code>HGJ-789412</code>) in the Search tab.
-            </p>
-            <button type="button" class="cb-btn-primary" id="btn-home-goto-search" style="padding:0.6rem 1.2rem; font-size:0.85rem;">
-              <span>Open Discovery Search</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── TAB 2: SEARCH ── -->
-      <section class="cb-tab-panel" id="tab-search" aria-label="People Search & Discovery">
-        <div class="cb-search-container">
-          <h2 style="font-family:var(--cb-font-display); font-size:1.6rem;">Discover People</h2>
-          <div class="cb-search-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" id="tab-search-input" placeholder="Search by @username or HGJ-ID (e.g. HGJ-789412)..." autocomplete="off">
-          </div>
-
-          <div class="cb-search-results" id="tab-search-results">
-            <div style="text-align:center; padding:3rem 1rem; color:var(--cb-text-muted);">
-              <span style="font-size:2.5rem; display:block; margin-bottom:0.75rem;">🔍</span>
-              Type a username or unique HGJ-ID to find members and start a conversation.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── TAB 4: CHAT (Realtime Messaging Engine) ── -->
-      <section class="cb-tab-panel cb-chat-panel active" id="tab-chat" aria-label="Active Messages">
+  <main>
+    <!-- HERO SECTION: APP DOWNLOAD SHOWCASE -->
+    <section class="hero-section">
+      <div class="container">
         
-        <!-- Live Chat Container Wired to js/chat.js -->
-        <div class="chat-app-container" id="chat-app-container" style="margin-top:0; height:100%;">
+        <div class="app-badge-strip">
+          <span class="pulse-dot"></span>
+          <span>Official Android Release · Version 2.0.4 Stable</span>
+        </div>
+
+        <div class="hero-app-icon-wrap">
+          <img src="chatbase.png" alt="ChatBase Official App Icon" class="hero-app-icon">
+          <div class="hero-verified-tick" title="100% Virus & Malware Clean">✓</div>
+        </div>
+
+        <h1 class="hero-title">
+          Download <span class="title-gradient">ChatBase</span> for Android
+        </h1>
+
+        <p class="hero-subtitle">
+          Next-generation privacy-first real-time messaging application with high-definition voice notes, 
+          unique HGJ-ID identity, 24-hour ephemeral stories, and zero advertising interruptions.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-cta-group">
+          <a href="https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk" download class="btn-main-download" id="hero-btn-download">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download ChatBase APK (18.4 MB)</span>
+          </a>
+
+          <a href="https://chat.webguruji.online" target="_blank" class="btn-main-web" id="hero-btn-web">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span>Launch Web App (chat.webguruji.online)</span>
+          </a>
+        </div>
+
+        <!-- Technical Specifications Grid -->
+        <div class="specs-grid">
+          <div class="spec-card">
+            <div class="spec-label">Version</div>
+            <div class="spec-value">v2.0.4 Stable</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">File Size</div>
+            <div class="spec-value" style="color:#34d399;">18.4 MB</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Required OS</div>
+            <div class="spec-value">Android 8.0+</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">License</div>
+            <div class="spec-value">100% Free</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Safety Status</div>
+            <div class="spec-value" style="color:#60a5fa;">Verified Clean</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 1: FEATURES OF CHATBASE APP -->
+    <section id="features" style="padding: 2rem 0 4rem;">
+      <div class="container">
+        
+        <div class="section-head">
+          <span class="section-tag coral">Official Capabilities</span>
+          <h2 class="section-title">Key Features of ChatBase App</h2>
+          <p class="section-desc">Engineered from the ground up for modern private communication with real-time speed and intuitive simplicity.</p>
+        </div>
+
+        <div class="features-grid">
           
-          <!-- Conversations Sidebar -->
-          <aside class="chat-sidebar" id="chat-sidebar">
-            <div class="chat-sidebar-header">
-              <div class="chat-brand-title">
-                <h2>💬 <span>ChatBase</span></h2>
-                <div class="chat-live-status-pill">
-                  <span class="pulse-dot"></span>
-                  <span>Realtime</span>
-                </div>
-              </div>
+          <div class="feature-card" style="--card-glow: rgba(99, 102, 241, 0.2); --card-border: #6366f1;">
+            <div class="feature-icon-wrap" style="color: #818cf8;">⚡</div>
+            <h3>Real-Time Instant 1-on-1 Chat</h3>
+            <p>Sub-50ms message delivery powered by Supabase Realtime WebSocket engine with live typing indicators and instant delivery receipts.</p>
+          </div>
 
-              <!-- Current User Profile Card -->
-              <div class="chat-my-profile-card">
-                <div class="my-avatar-wrap">
-                  <img src="harshlogo.png" alt="My Avatar" id="my-avatar">
-                  <span class="online-status-dot"></span>
-                </div>
-                <div class="my-profile-info">
-                  <div class="my-display-name-row">
-                    <span class="my-name" id="my-display-name">Loading...</span>
-                    <span class="golden-tick-badge" id="my-golden-tick" style="display:none;" title="Verified">✓</span>
-                  </div>
-                  <div class="my-ids-row">
-                    <span class="my-username" id="my-username">@user</span>
-                    <span class="id-separator">•</span>
-                    <button type="button" class="copy-id-chip" id="copy-my-id-btn" title="Copy HGJ-ID">
-                      <span id="my-hgj-id">HGJ-ID</span>
-                      <span>📋</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="feature-card" style="--card-glow: rgba(255, 107, 74, 0.2); --card-border: #ff6b4a;">
+            <div class="feature-icon-wrap" style="color: #ff8c66;">🎤</div>
+            <h3>HD Voice Notes &amp; Waveforms</h3>
+            <p>Record crystal-clear voice messages up to 3 minutes on Android with interactive waveform visualization, pause/resume, and fast playback.</p>
+          </div>
 
-            <!-- Search Bar in Chat Sidebar -->
-            <div class="chat-search-section">
-              <div class="chat-search-input-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="chat-search-input" placeholder="Search by @username or HGJ-ID..." autocomplete="off">
-                <button type="button" class="search-clear-btn" id="search-clear-btn" style="display:none;">✕</button>
-                <div class="search-spinner" id="search-spinner" style="display:none;"></div>
-              </div>
+          <div class="feature-card" style="--card-glow: rgba(236, 72, 153, 0.2); --card-border: #ec4899;">
+            <div class="feature-icon-wrap" style="color: #f472b6;">🆔</div>
+            <h3>Unique HGJ-ID Identity</h3>
+            <p>Find friends and connect securely using clean identifier handles (e.g. <code>HGJ-HARSH01</code>). Never expose your personal phone number to strangers.</p>
+          </div>
 
-              <!-- Live Dropdown -->
-              <div class="chat-search-dropdown" id="chat-search-dropdown" style="display:none;">
-                <div class="search-dropdown-header">Members Found</div>
-                <div id="search-dropdown-list"></div>
-              </div>
-            </div>
+          <div class="feature-card" style="--card-glow: rgba(6, 182, 212, 0.2); --card-border: #06b6d4;">
+            <div class="feature-icon-wrap" style="color: #38bdf8;">⭕</div>
+            <h3>24-Hour Ephemeral Stories</h3>
+            <p>Share status photos, updates, and daily moments with your contacts. Stories automatically expire and delete cleanly after 24 hours.</p>
+          </div>
 
-            <!-- Conversations List Header -->
-            <div style="padding:0.75rem 1.25rem 0.25rem; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:flex; justify-content:space-between;">
-              <span>Recent Chats</span>
-              <span id="conversations-count">0</span>
-            </div>
+          <div class="feature-card" style="--card-glow: rgba(16, 185, 129, 0.2); --card-border: #10b981;">
+            <div class="feature-icon-wrap" style="color: #34d399;">📎</div>
+            <h3>Media &amp; Document Sharing</h3>
+            <p>Exchange high-resolution photos, documents, PDF textbooks, audio files, and video clips up to 50 MB with hardware acceleration.</p>
+          </div>
 
-            <!-- Conversations List -->
-            <div class="conversations-list" id="conversations-list" style="flex:1; overflow-y:auto;">
-              <div id="conversations-skeleton" style="display:none;"></div>
-              <div id="conversations-empty" style="text-align:center; padding:3rem 1.5rem; color:var(--text-muted);">
-                <span style="font-size:2rem; display:block; margin-bottom:0.5rem;">💬</span>
-                <p style="font-size:0.88rem;">No conversations yet.</p>
-                <button type="button" class="copy-id-chip" id="empty-search-focus-btn" style="margin-top:0.75rem; padding:6px 12px; font-size:0.8rem;">
-                  Find People to Chat
-                </button>
-              </div>
-            </div>
-          </aside>
+          <div class="feature-card" style="--card-glow: rgba(245, 158, 11, 0.2); --card-border: #f59e0b;">
+            <div class="feature-icon-wrap" style="color: #fbbf24;">😀</div>
+            <h3>Instant Reactions &amp; Editing</h3>
+            <p>Tap and hold any message bubble to send emoji reactions. Edit your sent messages within a 15-minute grace window to correct typos.</p>
+          </div>
 
-          <!-- Main Active Chat Screen -->
-          <main class="chat-main" id="chat-main" style="flex:1; display:flex; flex-direction:column; background:var(--chat-bg);">
-            
-            <!-- No Active Chat Placeholder -->
-            <div id="chat-no-active" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; color:var(--text-muted);">
-              <img src="chatbase.png" alt="ChatBase" style="width:72px; height:72px; border-radius:18px; margin-bottom:1.25rem; opacity:0.8;">
-              <h3 style="color:#f8fafc; font-size:1.35rem; margin-bottom:0.5rem;">ChatBase Realtime Messaging</h3>
-              <p style="max-width:380px; font-size:0.9rem; line-height:1.5;">Select a chat from the sidebar or search a user's HGJ-ID to start a private conversation.</p>
-            </div>
+          <div class="feature-card" style="--card-glow: rgba(255, 215, 0, 0.2); --card-border: #ffd700;">
+            <div class="feature-icon-wrap" style="color: #ffd700;">⭐</div>
+            <h3>Universal Golden Tick Badge</h3>
+            <p>Verified profile ticks for community contributors and recognized creators, displayed seamlessly across the app and live website.</p>
+          </div>
 
-            <!-- Active Conversation View -->
-            <div id="chat-active-screen" style="display:none; flex:1; flex-direction:column; height:100%; position:relative;">
-              
-              <!-- Chat Header -->
-              <div class="chat-active-header" style="display:flex; align-items:center; justify-content:space-between; padding:0.85rem 1.25rem; background:var(--chat-header-bg); border-bottom:1px solid var(--chat-border); z-index:10;">
-                <div style="display:flex; align-items:center; gap:12px;">
-                  <button type="button" class="chat-back-btn" id="chat-back-btn" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" aria-label="Back to conversations">←</button>
-                  <div style="position:relative; width:40px; height:40px;">
-                    <img src="harshlogo.png" alt="User" id="active-user-avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
-                    <span id="active-online-dot" class="active-online-dot"></span>
-                  </div>
-                  <div style="display:flex; flex-direction:column;">
-                    <div style="display:flex; align-items:center; gap:5px;">
-                      <span id="active-user-name" style="font-weight:700; color:#fff; font-size:0.95rem;">Contact Name</span>
-                      <span class="golden-tick-badge" id="active-golden-tick" style="display:none;">✓</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--text-muted);">
-                      <span id="active-user-handle">@user</span>
-                      <span>•</span>
-                      <span id="active-user-status" class="active-status">Offline</span>
-                    </div>
-                  </div>
-                </div>
+          <div class="feature-card" style="--card-glow: rgba(99, 102, 241, 0.2); --card-border: #6366f1;">
+            <div class="feature-icon-wrap" style="color: #a5b4fc;">🛡️</div>
+            <h3>Strict Privacy &amp; User Blocking</h3>
+            <p>1-tap user blocking, instant report abuse desk, and end-to-end transport encryption with Supabase Row-Level Security (RLS).</p>
+          </div>
 
-                <div style="position:relative;">
-                  <button type="button" id="header-menu-btn" style="background:none; border:none; color:#94a3b8; font-size:1.25rem; cursor:pointer; padding:4px 8px;">⋮</button>
-                  <div id="header-dropdown-menu" style="display:none; position:absolute; right:0; top:100%; background:var(--chat-sidebar-bg); border:1px solid var(--chat-border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.5); min-width:160px; z-index:50; overflow:hidden;">
-                    <button type="button" id="menu-view-profile" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#fff; font-size:0.85rem; cursor:pointer;">View Profile</button>
-                    <button type="button" id="menu-delete-conv" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#f87171; font-size:0.85rem; cursor:pointer;">Delete Conversation</button>
-                    <button type="button" id="menu-block-user" style="width:100%; padding:10px 14px; text-align:left; background:none; border:none; color:#f87171; font-size:0.85rem; cursor:pointer;">Block User</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Messages Container -->
-              <div id="chat-messages-container" style="flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:10px;">
-                <div id="messages-list" style="display:flex; flex-direction:column; gap:10px;"></div>
-              </div>
-
-              <!-- Blocked User Warning Banner -->
-              <div id="chat-blocked-banner" style="display:none; padding:12px; background:rgba(239, 68, 68, 0.15); border-top:1px solid rgba(239, 68, 68, 0.3); text-align:center;">
-                <span id="blocked-banner-text" style="color:#fca5a5; font-size:0.85rem;">You have blocked this contact.</span>
-                <button type="button" id="unblock-banner-btn" class="copy-id-chip" style="margin-left:8px;">Unblock</button>
-              </div>
-
-              <!-- Message Composer -->
-              <div id="chat-composer-wrap" style="padding:0.85rem 1.25rem; background:var(--chat-header-bg); border-top:1px solid var(--chat-border);">
-                <form id="chat-composer-form" style="display:flex; align-items:flex-end; gap:8px;">
-                  <textarea id="chat-message-input" rows="1" placeholder="Type a message..." style="flex:1; background:rgba(255,255,255,0.06); border:1px solid var(--chat-border); border-radius:18px; padding:10px 14px; color:#fff; outline:none; resize:none; font-family:inherit; font-size:0.92rem; max-height:120px;"></textarea>
-                  <button type="submit" id="composer-send-btn" disabled style="background:var(--cb-blue); border:none; border-radius:50%; width:40px; height:40px; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                  </button>
-                </form>
-              </div>
-
-            </div>
-
-          </main>
         </div>
 
-      </section>
+      </div>
+    </section>
 
-      <!-- ── TAB 5: PROFILE ── -->
-      <section class="cb-tab-panel" id="tab-profile" aria-label="User Profile">
-        <div class="cb-profile-container">
-          <div class="cb-profile-header-card">
-            <img src="harshlogo.png" alt="Profile Avatar" class="cb-profile-large-avatar" id="profile-card-avatar">
-            <h2 class="cb-profile-display-name" id="profile-card-name">User Name</h2>
-            <span style="color:var(--cb-text-secondary); font-size:0.92rem; margin-bottom:8px;" id="profile-card-username">@username</span>
-            
-            <div class="cb-profile-hgj-badge" id="profile-card-hgj" title="Click to copy your unique identifier">
-              <span>HGJ-ID:</span>
-              <strong id="profile-card-hgj-code">HGJ-000000</strong>
-              <span>📋</span>
-            </div>
+    <!-- SECTION 2 & 3: ADVANTAGES & DISADVANTAGES COMPARISON -->
+    <section id="advantages" style="padding: 2rem 0 4rem;">
+      <div class="container">
+        
+        <div class="section-head">
+          <span class="section-tag emerald">Honest &amp; Transparent Comparison</span>
+          <h2 class="section-title">Advantages &amp; Limitations of ChatBase</h2>
+          <p class="section-desc">We believe in complete transparency. Here is everything you gain by using ChatBase, alongside current technical limitations.</p>
+        </div>
 
-            <p style="color:var(--cb-text-secondary); font-size:0.92rem; max-width:420px; line-height:1.5;" id="profile-card-bio">
-              Welcome to my official ChatBase profile on HarshGuruJi.
-            </p>
-
-            <div class="cb-profile-stats">
-              <div class="cb-stat-box">
-                <span class="cb-stat-val" id="profile-stat-chats">0</span>
-                <span class="cb-stat-lbl">Conversations</span>
-              </div>
-              <div class="cb-stat-box">
-                <span class="cb-stat-val" id="profile-stat-status">Active</span>
-                <span class="cb-stat-lbl">Account</span>
-              </div>
-              <div class="cb-stat-box">
-                <span class="cb-stat-val">100%</span>
-                <span class="cb-stat-lbl">Encrypted</span>
+        <div class="compare-container">
+          
+          <!-- BOX 1: ADVANTAGES -->
+          <div class="compare-box advantages">
+            <div class="compare-title-row">
+              <div class="compare-icon-circle">✓</div>
+              <div>
+                <h3>Advantages of ChatBase App</h3>
+                <span style="font-size:0.8rem; color:#34d399; font-weight:600;">Why Switch to ChatBase</span>
               </div>
             </div>
 
-            <div style="margin-top:1.5rem; display:flex; gap:10px;">
-              <button type="button" class="cb-btn-primary" id="btn-edit-profile-open">Edit Profile</button>
-              <button type="button" class="cb-btn-primary" id="btn-profile-settings-open" style="background:rgba(255,255,255,0.08); border:1px solid var(--cb-divider);">Settings</button>
+            <ul class="compare-list">
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>Zero Phone Number Required (100% Private)</strong>
+                  <p>Unlike WhatsApp or Telegram that force you to share mobile numbers, ChatBase connects via HGJ-ID handles. Your personal phone number stays 100% confidential.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>100% Ad-Free Experience</strong>
+                  <p>Zero banner ads, zero video interstitials, and zero sponsored commercial feeds. Enjoy a pristine, uninterrupted messaging workflow.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>Ultra-Lightweight &amp; Battery Saver (18.4 MB)</strong>
+                  <p>Uses up to 80% less background RAM and battery compared to bloated 150MB+ enterprise messengers. Runs smoothly on budget Android devices.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>Live Cross-Device Cloud Sync</strong>
+                  <p>Seamlessly switch between your Android smartphone and any desktop browser via <code>chat.webguruji.online</code> with instant real-time message reflection.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>Zero User Data Selling</strong>
+                  <p>Your chat database is hosted on enterprise-grade Supabase infrastructure with Row-Level Security. We never sell profile metadata to advertising brokers.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">✓</span>
+                <div class="compare-item-content">
+                  <strong>Obsidian Dark Mode Design</strong>
+                  <p>Modern obsidian glassmorphic interface designed specifically to protect night vision and maximize AMOLED battery efficiency.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- BOX 2: DISADVANTAGES & LIMITATIONS -->
+          <div class="compare-box disadvantages" id="limitations">
+            <div class="compare-title-row">
+              <div class="compare-icon-circle">!</div>
+              <div>
+                <h3>Disadvantages &amp; Current Limitations</h3>
+                <span style="font-size:0.8rem; color:#fbbf24; font-weight:600;">Honest Technical Disclosures</span>
+              </div>
+            </div>
+
+            <ul class="compare-list">
+              <li class="compare-item">
+                <span class="compare-bullet">!</span>
+                <div class="compare-item-content">
+                  <strong>Android 8.0+ OS Requirement</strong>
+                  <p>Older legacy devices running Android 7.0 (Nougat) or below cannot install the modern APK due to modern audio recording and security API constraints.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">!</span>
+                <div class="compare-item-content">
+                  <strong>Active Internet Connection Mandatory</strong>
+                  <p>ChatBase relies on real-time cloud WebSocket connections. It does not provide offline SMS or carrier cellular fallback when disconnected from data.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">!</span>
+                <div class="compare-item-content">
+                  <strong>Video Attachments Capped at 50 MB</strong>
+                  <p>To prevent server congestion and ensure rapid packet delivery, single video uploads are limited to 50 MB. Larger 4K footage should be shared via cloud links.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">!</span>
+                <div class="compare-item-content">
+                  <strong>Group Video Calling In Roadmap (Coming in v2.1)</strong>
+                  <p>ChatBase 2.0 is currently hyper-optimized for private 1-on-1 messaging, voice notes, and media sharing. Multi-user group video conferencing is scheduled for v2.1.</p>
+                </div>
+              </li>
+
+              <li class="compare-item">
+                <span class="compare-bullet">!</span>
+                <div class="compare-item-content">
+                  <strong>Manual APK Updates (Outside Play Store)</strong>
+                  <p>Since the official APK is hosted on our verified secure cloud storage, major app updates are downloaded directly from this page rather than the Google Play auto-updater.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: HOW TO INSTALL CHATBASE APK -->
+    <section id="install" style="padding: 2rem 0 4rem;">
+      <div class="container">
+        
+        <div class="section-head">
+          <span class="section-tag warning">Installation Guide</span>
+          <h2 class="section-title">How to Install ChatBase APK in 3 Steps</h2>
+          <p class="section-desc">Quick, safe, and straightforward setup for any modern Android smartphone.</p>
+        </div>
+
+        <div class="install-steps-grid">
+          
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h4>Download ChatBase APK</h4>
+            <p>Click the download button above or below to save the official <code>1789880387591_ChatBase.apk</code> file (18.4 MB) directly to your device storage.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h4>Allow Installation</h4>
+            <p>Open your notification bar or Downloads folder and tap the APK. If prompted by Android, toggle "Allow from this source" in system settings.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h4>Launch &amp; Claim HGJ-ID</h4>
+            <p>Open ChatBase, log in with your email or claim your unique HGJ-ID handle, and start exchanging instant messages and voice notes with friends!</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: FREQUENTLY ASKED QUESTIONS -->
+    <section id="faq" style="padding: 2rem 0 4rem;">
+      <div class="container">
+        
+        <div class="section-head">
+          <span class="section-tag coral">Common Questions</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Everything you need to know about ChatBase privacy, safety, and compatibility.</p>
+        </div>
+
+        <div class="faq-container">
+          
+          <div class="faq-item active">
+            <div class="faq-question">
+              <span>Is ChatBase completely free to use?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              Yes, 100% free with zero hidden in-app purchases, zero subscription tiers, and zero advertising interruptions.
             </div>
           </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Do I need a SIM card or phone number to register?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              No. ChatBase uses unique HGJ-ID handles (e.g. <code>HGJ-USER123</code>) or email authentication. You never have to share or expose your personal phone number.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Can I use ChatBase on my computer or laptop?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              Yes! You can open <strong>chat.webguruji.online</strong> in Google Chrome, Microsoft Edge, Safari, or Firefox to access your chats with full real-time synchronization.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Is the APK safe and verified?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              Yes. The ChatBase APK is compiled directly by HarshGuruJi with zero 3rd-party tracking SDKs and is hosted on our verified cloud bucket. It is 100% free of viruses, malware, and adware.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do I receive the Universal Golden Tick verification?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              Golden verification ticks are granted to verified community contributors, creators, and platform partners by the HarshGuruJi Operations Command in the Admin Panel.
+            </div>
+          </div>
+
         </div>
-      </section>
 
-    </main>
+      </div>
+    </section>
 
-    <!-- ═══════════════════ MOBILE 5-ITEM BOTTOM BAR (Section 4) ═══════════════════ -->
-    <nav class="cb-mobile-bottom-bar" aria-label="Mobile Navigation">
-      <button type="button" class="cb-mobile-nav-item" data-tab="home" id="mob-nav-home">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <span>Home</span>
-      </button>
+    <!-- SECTION 6: FINAL DOWNLOAD CTA -->
+    <section style="padding: 1rem 0 3rem;">
+      <div class="container">
+        
+        <div class="final-cta-card">
+          <h2>Ready for Modern Private Messaging?</h2>
+          <p>Get the official ChatBase Android APK today. Experience ad-free 1-on-1 communication with voice notes and HGJ-ID discovery.</p>
+          
+          <div class="hero-cta-group" style="margin-bottom: 1.5rem;">
+            <a href="https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk" download class="btn-main-download">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download ChatBase APK (18.4 MB)</span>
+            </a>
 
-      <button type="button" class="cb-mobile-nav-item" data-tab="search" id="mob-nav-search">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span>Search</span>
-      </button>
+            <a href="https://chat.webguruji.online" target="_blank" class="btn-main-web">
+              <span>Launch Web Version ↗</span>
+            </a>
+          </div>
 
-      <button type="button" class="cb-mobile-nav-item create-btn-special" data-action="create" id="mob-nav-create" aria-label="Create Action">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-      </button>
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
+            SHA-256 Verified · Version 2.0.4 · HarshGuruJi Ecosystem
+          </div>
+        </div>
 
-      <button type="button" class="cb-mobile-nav-item active" data-tab="chat" id="mob-nav-chat">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        <span>Chat</span>
-      </button>
+      </div>
+    </section>
+  </main>
 
-      <button type="button" class="cb-mobile-nav-item" data-tab="profile" id="mob-nav-profile">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <span>Profile</span>
-      </button>
-    </nav>
-
-  </div>
-
-  <!-- Toast Notification Container -->
-  <div id="chat-toast-container" class="chat-toast-container"></div>
-
-  <!-- Settings Modal Drawer -->
-  <div id="cb-settings-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;">
-    <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); width:90%; max-width:500px; padding:2rem; max-height:85vh; overflow-y:auto;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-        <h3 style="font-size:1.3rem;">⚙️ ChatBase Settings</h3>
-        <button type="button" id="btn-close-settings" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;">✕</button>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-brand">
+        <img src="chatbase.png" alt="ChatBase" style="width:24px; height:24px; border-radius:6px;">
+        <span>ChatBase by HarshGuruJi</span>
       </div>
 
-      <div style="display:flex; flex-direction:column; gap:1.25rem;">
-        <div>
-          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Theme</label>
-          <div style="display:flex; gap:10px; margin-top:6px;">
-            <button type="button" class="copy-id-chip" id="btn-theme-dark" style="padding:8px 14px;">🌙 Dark</button>
-            <button type="button" class="copy-id-chip" id="btn-theme-light" style="padding:8px 14px;">☀️ Light</button>
-          </div>
-        </div>
-
-        <div>
-          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Privacy & Presence</label>
-          <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
-            <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; cursor:pointer;">
-              <input type="checkbox" id="setting-online-status" checked> Show Online Status
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; cursor:pointer;">
-              <input type="checkbox" id="setting-read-receipts" checked> Send Read Receipts (✓✓)
-            </label>
-          </div>
-        </div>
-
-        <div>
-          <label style="font-size:0.8rem; font-weight:700; color:var(--cb-text-muted); text-transform:uppercase;">Platform Info</label>
-          <p style="font-size:0.85rem; color:var(--cb-text-secondary); margin-top:4px;">
-            ChatBase 2.0 Web Client · Official Domain: <a href="https://www.webguruji.online" style="color:var(--cb-cyan);">webguruji.online</a>
-          </p>
-        </div>
-
-        <button type="button" id="btn-logout-chatbase" style="background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.35); color:#f87171; padding:0.75rem; border-radius:var(--cb-radius-md); font-weight:700; cursor:pointer; margin-top:1rem;">
-          Log Out from ChatBase
-        </button>
+      <div class="footer-links">
+        <a href="index.html">Home Portal</a>
+        <a href="store.html">App Store</a>
+        <a href="https://chat.webguruji.online" target="_blank">Web Messenger</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Support &amp; Feedback</a>
       </div>
+
+      <p>© 2026 HarshGuruJi. All rights reserved. ChatBase is an official HarshGuruJi product.</p>
     </div>
-  </div>
+  </footer>
 
-  <!-- Create Action Sheet Modal -->
-  <div id="cb-create-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;">
-    <div style="background:var(--cb-surface); border:1px solid var(--cb-divider); border-radius:var(--cb-radius-lg); width:90%; max-width:400px; padding:1.75rem; text-align:center;">
-      <h3 style="font-size:1.2rem; margin-bottom:1rem;">✨ Create & Connect</h3>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <button type="button" class="cb-btn-primary" id="btn-create-new-chat" style="justify-content:center;">
-          <span>💬 Start New Conversation</span>
-        </button>
-        <button type="button" class="cb-btn-primary" id="btn-create-new-story" style="justify-content:center; background:rgba(255,255,255,0.06); border:1px solid var(--cb-divider);">
-          <span>📸 Share Story / Moment</span>
-        </button>
-        <button type="button" id="btn-close-create" style="background:none; border:none; color:var(--cb-text-muted); padding:8px; cursor:pointer;">
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script type="module" src="js/chatbase-capabilities.js"></script>
-  <script type="module" src="js/chat.js"></script>
-  <script type="module">
-    // Navigation & Tab Switching Controller
-    document.addEventListener('DOMContentLoaded', () => {
-      const navButtons = document.querySelectorAll('[data-tab]');
-      const tabPanels = document.querySelectorAll('.cb-tab-panel');
-
-      function switchTab(tabId) {
-        // Toggle active panels
-        tabPanels.forEach(panel => {
-          if (panel.id === `tab-${tabId}`) {
-            panel.classList.add('active');
-          } else {
-            panel.classList.remove('active');
-          }
-        });
-
-        // Toggle active navigation buttons
-        navButtons.forEach(btn => {
-          if (btn.getAttribute('data-tab') === tabId) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
-      }
-
-      navButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const tab = btn.getAttribute('data-tab');
-          if (tab) switchTab(tab);
-        });
-      });
-
-      // Quick links from Home tab
-      document.getElementById('btn-home-start-chat')?.addEventListener('click', () => switchTab('chat'));
-      document.getElementById('btn-home-goto-search')?.addEventListener('click', () => switchTab('search'));
-
-      // Create modal handlers
-      const createBtns = document.querySelectorAll('[data-action="create"]');
-      const createOverlay = document.getElementById('cb-create-overlay');
-      const closeCreateBtn = document.getElementById('btn-close-create');
-
-      createBtns.forEach(b => b.addEventListener('click', () => {
-        createOverlay.style.display = 'flex';
-      }));
-      closeCreateBtn?.addEventListener('click', () => {
-        createOverlay.style.display = 'none';
-      });
-
-      document.getElementById('btn-create-new-chat')?.addEventListener('click', () => {
-        createOverlay.style.display = 'none';
-        switchTab('chat');
-        document.getElementById('chat-search-input')?.focus();
-      });
-
-      // Settings modal handlers
-      const settingsOverlay = document.getElementById('cb-settings-overlay');
-      document.getElementById('btn-open-settings')?.addEventListener('click', () => {
-        settingsOverlay.style.display = 'flex';
-      });
-      document.getElementById('btn-profile-settings-open')?.addEventListener('click', () => {
-        settingsOverlay.style.display = 'flex';
-      });
-      document.getElementById('btn-close-settings')?.addEventListener('click', () => {
-        settingsOverlay.style.display = 'none';
-      });
-
-      // Theme toggle handlers
-      document.getElementById('btn-theme-dark')?.addEventListener('click', () => {
-        document.body.removeAttribute('data-theme');
-        localStorage.setItem('cb_theme', 'dark');
-      });
-      document.getElementById('btn-theme-light')?.addEventListener('click', () => {
-        document.body.setAttribute('data-theme', 'light');
-        localStorage.setItem('cb_theme', 'light');
-      });
-
-      // Restore saved theme
-      if (localStorage.getItem('cb_theme') === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-      }
-
-      // Logout handler
-      document.getElementById('btn-logout-chatbase')?.addEventListener('click', async () => {
-        if (window.supabaseClient) {
-          await window.supabaseClient.auth.signOut();
-        }
-        window.location.href = 'login.html?redirect=chat-app.html';
+  <!-- Interactive FAQ Accordion Script -->
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
       });
     });
   </script>
+
 </body>
 </html>
