@@ -30,6 +30,9 @@
   <meta name="twitter:description" content="Official ChatBase Android App APK download hub. Privacy-first, ad-free messaging with voice notes and HGJ-ID discovery.">
   <meta name="twitter:image" content="https://www.webguruji.online/chatbase.png">
 
+  <!-- Global Premium Navbar Styles -->
+  <link rel="stylesheet" href="navbar-premium.css">
+  
   <!-- Google Fonts: Inter & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,102 +141,66 @@
       z-index: 2;
     }
 
-    /* Header & Navigation */
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(7, 9, 19, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    /* In-Page Quick Section Strip */
+    .chat-subnav-strip {
+      background: rgba(10, 14, 26, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0.85rem 0;
-      transition: background 0.2s ease;
+      padding: 0.6rem 0;
+      position: relative;
+      z-index: 50;
+      overflow: visible;
     }
 
-    .nav-inner {
+    .chat-subnav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .nav-brand {
+    .chat-subnav-title {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: #fff;
-    }
-
-    .nav-brand img {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 0 15px rgba(255, 107, 74, 0.4);
-    }
-
-    .brand-text h1 {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .brand-text span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
+      gap: 8px;
       font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
+      font-weight: 700;
       color: #fff;
     }
 
-    .nav-actions {
+    .chat-subnav-pills {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .btn-header-dl {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, #ff6b4a, #ec4899);
-      color: #fff;
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 0.5rem 1.1rem;
-      border-radius: 50px;
+    .chat-subnav-pill {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(255, 107, 74, 0.35);
-      transition: all 0.25s var(--ease-spring);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.2s ease;
     }
 
-    .btn-header-dl:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(255, 107, 74, 0.55);
+    .chat-subnav-pill:hover {
+      color: #fff;
+      border-color: rgba(255, 107, 74, 0.4);
+      background: rgba(255, 107, 74, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .chat-subnav-pill.btn-pill-dl {
+      color: #fff;
+      background: linear-gradient(135deg, #ff6b4a, #ec4899);
+      border-color: transparent;
+      box-shadow: 0 2px 10px rgba(255, 107, 74, 0.3);
     }
 
     /* Hero Section: App Download Hub */
@@ -870,34 +837,23 @@
   <div class="glow-blob blob-2"></div>
   <div class="glow-blob blob-3"></div>
 
-  <!-- Top Sticky Navigation -->
-  <header class="site-nav">
-    <div class="container nav-inner">
-      <a href="index.html" class="nav-brand" title="HarshGuruJi Platform">
-        <img src="chatbase.png" alt="ChatBase Logo">
-        <div class="brand-text">
-          <h1>ChatBase <span style="font-size:0.65rem; background:rgba(255,107,74,0.2); color:#ff8c66; padding:2px 6px; border-radius:4px; font-weight:700;">APK</span></h1>
-          <span>by HarshGuruJi</span>
-        </div>
-      </a>
-
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#advantages">Advantages</a></li>
-        <li><a href="#limitations">Limitations</a></li>
-        <li><a href="#install">How to Install</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a href="https://chat.webguruji.online" target="_blank" class="nav-links a" style="color:#60a5fa; font-size:0.85rem; font-weight:600; text-decoration:none; display:none;" id="nav-web-link">Web App ↗</a>
-        <a href="https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk" download class="btn-header-dl" id="btn-header-download">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>Download APK</span>
-        </a>
+  <!-- In-Page Quick Section Navigation -->
+  <nav class="chat-subnav-strip" aria-label="Page Sections">
+    <div class="container chat-subnav-inner">
+      <div class="chat-subnav-title">
+        <img src="chatbase.png" alt="ChatBase" width="22" height="22" style="border-radius:6px; vertical-align:middle;">
+        <span>ChatBase App Hub</span>
+      </div>
+      <div class="chat-subnav-pills">
+        <a href="#features" class="chat-subnav-pill">Features</a>
+        <a href="#advantages" class="chat-subnav-pill">Advantages</a>
+        <a href="#limitations" class="chat-subnav-pill">Limitations</a>
+        <a href="#install" class="chat-subnav-pill">How to Install</a>
+        <a href="#faq" class="chat-subnav-pill">FAQ</a>
+        <a href="https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/chatbase/1.0.0.4/1789880387591_ChatBase.apk" download class="chat-subnav-pill btn-pill-dl">Download APK ↓</a>
       </div>
     </div>
-  </header>
+  </nav>
 
   <main>
     <!-- HERO SECTION: APP DOWNLOAD SHOWCASE -->
@@ -1322,5 +1278,7 @@
     });
   </script>
 
+  <!-- Global Premium Navigation System -->
+  <script src="navbar-premium.js" defer></script>
 </body>
 </html>

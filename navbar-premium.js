@@ -894,7 +894,9 @@ document.addEventListener('DOMContentLoaded', () => {
       bChat?.classList.add('active');
       dChat?.classList.add('active');
       mChat?.classList.add('active');
-      document.body.classList.add('is-chat-page');
+      if (navFile === 'chat.html') {
+        document.body.classList.add('is-chat-page');
+      }
     } else if (navFile.includes('login') || navFile.includes('signup') || navFile.includes('dashboard') || navFile.includes('profile') || navFile.includes('settings')) {
       bAuth?.classList.add('active');
     } else if (navFile === 'index.html' || navFile === '' || navPath.endsWith('/')) {
