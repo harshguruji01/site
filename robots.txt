@@ -1,69 +1,74 @@
-# ═══════════════════════════════════════════════════════════
-# robots.txt — www.webguruji.online (Main Site)
-# HarshGuruJi — All-in-One Platform
-# Last Updated: 2026-10-06
-# ═══════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════
+# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# Clean, indexable directives for Googlebot, Bingbot & verified search crawlers
+# Last Updated: 2026-10-13
+# ═══════════════════════════════════════════════════════════════════════════
 
 User-agent: *
 Allow: /
 
-# ── Public Pages ──────────────────────────────────────────
+# ── Primary Public Portals & Hubs ─────────────────────────────────────────
 Allow: /index.html
-Allow: /login.html
-Allow: /signup.html
-Allow: /forgot-password.html
-Allow: /reset-password.html
 Allow: /store.html
 Allow: /store-detail.html
+Allow: /books.html
+Allow: /chat.html
+Allow: /chat-app.html
+Allow: /app.html
 Allow: /free-tools.html
 Allow: /tools.html
-Allow: /learning-hub.html
-Allow: /learning.html
-Allow: /books.html
-Allow: /education.html
-Allow: /technology.html
 Allow: /ai-hub.html
 Allow: /ai.html
 Allow: /gaming-hub.html
 Allow: /gaming.html
+Allow: /learning-hub.html
+Allow: /learning.html
+Allow: /education.html
+Allow: /technology.html
 Allow: /daily-special.html
 Allow: /daily-life.html
 Allow: /insights.html
 Allow: /explore.html
-Allow: /chat.html
-Allow: /chat-app.html
-Disallow: /ads.html
+Allow: /owner.html
 Allow: /about.html
 Allow: /contact.html
 Allow: /contributor.html
 Allow: /join-contributor.html
 Allow: /apply-contributor.html
-Allow: /cookie.html
+Allow: /login.html
+Allow: /signup.html
+Allow: /forgot-password.html
+Allow: /reset-password.html
 Allow: /privacy-policy.html
 Allow: /terms-and-conditions.html
+Allow: /cookie.html
 
-# ── Tools, Games & Learning Sections ─────────────────────
+# ── Interactive Subdirectories (Tools, Games, Quizzes) ────────────────────
 Allow: /tools/
 Allow: /games/
 Allow: /learning/
 Allow: /Quiz%20India/
 
-# ── Static Assets (for image/rich snippet indexing) ──────
+# ── Static Media & Asset Indexing (Googlebot-Image & Rich Snippets) ───────
 Allow: /css/
 Allow: /js/
 Allow: /logo.png
 Allow: /logo-512.png
+Allow: /chatbase.png
+Allow: /chatbase-logo.png
 Allow: /favicon.ico
 Allow: /harshlogo.png
 Allow: /harshlogo.webp
 Allow: /ai.png
+Allow: /data/apps.json
 
-# ── Disallow: Admin, Dashboard & Private Areas ───────────
+# ── Disallow: Admin Operations, Private Portals & Internal Source Code ────
 Disallow: /admin*
-Disallow: /admin/
 Disallow: /admin.html
+Disallow: /admin/
 Disallow: /admin-*.html
 Disallow: /adminapkupload.html
+Disallow: /adminbooks.html
 Disallow: /admincontributors.html
 Disallow: /admin-chatbase.html
 Disallow: /admin-contacts.html
@@ -72,32 +77,56 @@ Disallow: /dashboard.html
 Disallow: /settings.html
 Disallow: /appearance.html
 Disallow: /verify-contributor.html
+Disallow: /ads.html
 Disallow: /backend/
 Disallow: /backend_legacy/
-Disallow: /user/
-Disallow: /account/
 Disallow: /oauth/
-Allow: /data/apps.json
+Disallow: /scripts/
+Disallow: /.agents/
+Disallow: /.git/
+Disallow: /.github/
 Disallow: /data/
 Disallow: /*.py$
 Disallow: /*.sql$
 Disallow: /*.md$
-Disallow: /package.json
-Disallow: /package-lock.json
+Disallow: /*.json$
 Disallow: /*.groovy$
 
-# ── Crawl-delay (be polite to bots) ─────────────────────
+# ── Googlebot Specific Allowances ─────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Allow: /chat-app.html
+Allow: /store.html
+Allow: /books.html
+Allow: /tools/
+Allow: /games/
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /logo.png
+Allow: /logo-512.png
+Allow: /chatbase.png
+Allow: /chatbase-logo.png
+Allow: /ai.png
+
+# ── Polite Crawl-Delays for Aggressive SEO Scrapers ───────────────────────
 User-agent: AhrefsBot
 Crawl-delay: 10
 
 User-agent: SemrushBot
 Crawl-delay: 10
 
-# ── Sitemaps ─────────────────────────────────────────────
+User-agent: DotBot
+Crawl-delay: 10
+
+# ── Official Production Sitemaps ──────────────────────────────────────────
 Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://www.webguruji.online/sitemap_index.xml
 
-# ── Cross-domain Sitemaps (for unified Google indexing) ──
-Sitemap: https://chat.webguruji.online/sitemap.xml
+# ── Cross-Domain Subdomain Sitemaps ───────────────────────────────────────
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
+Sitemap: https://chat.webguruji.online/sitemap.xml

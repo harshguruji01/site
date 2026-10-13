@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main Platform Sitemap -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </sitemap>
-  <sitemap>
-    <loc>https://chat.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-02</lastmod>
-  </sitemap>
+
+  <!-- Cross-Domain Subdomain Sitemaps -->
   <sitemap>
     <loc>https://store.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://books.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-13</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chat.webguruji.online/sitemap.xml</loc>
+    <lastmod>2026-10-13</lastmod>
   </sitemap>
 </sitemapindex>
