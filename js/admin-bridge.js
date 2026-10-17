@@ -1,5 +1,5 @@
 /**
- * WebGuruJi / HarshGuruJi Master Admin Security Bridge & Verification Controller
+ * HarshGuruJi Master Admin Security Bridge & Verification Controller
  * Enforces 1-Hour Session Security & Gate Pass Authorization across all admin consoles.
  * 
  * Gate Pass Credentials:

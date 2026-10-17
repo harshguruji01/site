@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * WebGuruJi AdShield — Safe Ad Compliance & Protection Helper
+ * HarshGuruJi AdShield — Safe Ad Compliance & Protection Helper
  * ============================================================================
  * Clean, policy-compliant helper that ensures ad scripts load safely
  * without tampering with window.adsbygoogle or DOM containers.

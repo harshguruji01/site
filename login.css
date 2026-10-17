@@ -234,7 +234,7 @@ body.auth-page {
   }
 }
 
-/* Authentication Tab Navigation (WebGuruJi Login-Tab & Sign Up Tab) */
+/* Authentication Tab Navigation (HarshGuruJi Login-Tab & Sign Up Tab) */
 .auth-tabs-nav {
   display: flex;
   background: rgba(255, 255, 255, 0.04);

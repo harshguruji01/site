@@ -1273,7 +1273,7 @@ function scheduleDailyNewsletter() {
     
     console.log(`%c[SYSTEM MESSAGE SENDER] Sending morning newsletter (6:00 AM) to ${subscriptions.length} subscribers:`, 'color: #10b981; font-weight: bold;');
     subscriptions.forEach(email => {
-      console.log(`%cTo: ${email}\nSubject: Webguruji Daily Insights & News - ${dateStr}\n\nGood Morning!\nHere is your daily update for 6:00 AM:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on Webguruji:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nKeep learning and growing!\nWebguruji Team`, 'color: #3b82f6;');
+      console.log(`%cTo: ${email}\nSubject: HarshGuruJi Daily Insights & News - ${dateStr}\n\nGood Morning!\nHere is your daily update for 6:00 AM:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on HarshGuruJi:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nKeep learning and growing!\nHarshGuruJi Team`, 'color: #3b82f6;');
     });
 
     // Toast Alert
@@ -1311,7 +1311,7 @@ window.simulateWelcomeNewsletter = function(email) {
   const randomQuote = DAILY_THOUGHTS[Math.floor(Math.random() * DAILY_THOUGHTS.length)];
   
   console.log(`%c[SYSTEM MESSAGE SENDER] Sending Welcome email to: ${email}`, 'color: #10b981; font-weight: bold;');
-  console.log(`%cTo: ${email}\nSubject: Welcome to Webguruji Newsletter!\n\nHi there!\nThank you for subscribing to Webguruji. You will receive updates daily at 6:00 AM.\n\nHere is a preview of today's insights:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on Webguruji:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nHave a great day!\nWebguruji Team`, 'color: #3b82f6;');
+  console.log(`%cTo: ${email}\nSubject: Welcome to HarshGuruJi Newsletter!\n\nHi there!\nThank you for subscribing to HarshGuruJi. You will receive updates daily at 6:00 AM.\n\nHere is a preview of today's insights:\n\nThought of the day:\n"${randomQuote.quote}" — ${randomQuote.author}\n\nWhat's New on HarshGuruJi:\n- Games and Apps page now online!\n- Enhanced unified user profile and 7-day cooldown safety updates.\n\nHave a great day!\nHarshGuruJi Team`, 'color: #3b82f6;');
   
   const toast = document.createElement('div');
   toast.style.cssText = `

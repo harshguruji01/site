@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * WebGuruJi Universal Error & Stability Shield (error-shield.js)
+ * HarshGuruJi Universal Error & Stability Shield (error-shield.js)
  * ============================================================================
  * Zero-crash runtime protection and responsive safety engine.
  * Protects against:
@@ -21,8 +21,8 @@
   'use strict';
 
   if (!window || !document) return;
-  if (window.__WEBGURUJI_ERROR_SHIELD_ACTIVE__) return;
-  window.__WEBGURUJI_ERROR_SHIELD_ACTIVE__ = true;
+  if (window.__HARSHGURUJI_ERROR_SHIELD_ACTIVE__) return;
+  window.__HARSHGURUJI_ERROR_SHIELD_ACTIVE__ = true;
 
   // ═══════════════════════════════════════════════════════════════════════════
   // 1. DEFAULT BEAUTIFUL FALLBACK SVG ICONS (Inline Base64 / URI)

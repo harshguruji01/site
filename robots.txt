@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — WebGuruJi / HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
 # Full Google Search Console (GSC) & search crawler indexing directives
 # All public pages, login, store, tools, learning, and hubs fully indexable
 # Last Updated: 2026-10-16

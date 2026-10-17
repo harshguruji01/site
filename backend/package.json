@@ -1,5 +1,5 @@
 {
-  "name": "webguruji-backend",
+  "name": "harshguruji-backend",
   "version": "1.0.0",
   "description": "Backend API for WebGuruJi.online",
   "main": "dist/server.js",

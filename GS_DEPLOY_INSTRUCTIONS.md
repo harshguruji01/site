@@ -6,7 +6,7 @@ Quick steps:
 
 1. Open script.google.com and create a new project.
 2. Copy the contents of `gs-sync.gs` into the Code.gs file.
-3. Save the project and give it a name (e.g., WebGuruJi Sync).
+3. Save the project and give it a name (e.g., HarshGuruJi Sync).
 4. From the left menu choose "Deploy" → "New deployment".
    - Select "Web app".
    - Execute as: "Me"

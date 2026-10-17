@@ -14,9 +14,9 @@ assert 'triggerSessionLogout' in c, "Missing auto-logout function"
 with open('login.html', 'r', encoding='utf-8') as f:
     lc = f.read()
 
-assert 'WebGuruJi Login Tab' in lc, "Missing Login Tab text"
-assert 'id="webguruji-login-tab"' in lc, "Missing webguruji-login-tab id"
-assert 'webguruji login-tab login page' in lc, "Missing exact user keywords"
-assert 'WebGuruJi Login Page' in lc, "Missing WebGuruJi Login Page heading"
+assert 'HarshGuruJi Login Tab' in lc, "Missing Login Tab text"
+assert 'id="harshguruji-login-tab"' in lc, "Missing harshguruji-login-tab id"
+assert 'harshguruji login-tab login page' in lc, "Missing exact user keywords"
+assert 'HarshGuruJi Login Page' in lc, "Missing HarshGuruJi Login Page heading"
 
 print("ALL ADMIN AND LOGIN VALIDATION TESTS PASSED 100%!")

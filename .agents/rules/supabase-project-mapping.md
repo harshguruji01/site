@@ -1,6 +1,6 @@
 # Supabase MCP Project Mapping Rule
 
-When working in the **site** workspace (`c:\Users\harsh\OneDrive\Desktop\site`), always use the **HarshGuruJi / WebGuruJi** Supabase project for all MCP tool calls:
+When working in the **site** workspace (`c:\Users\harsh\OneDrive\Desktop\site`), always use the **HarshGuruJi** Supabase project for all MCP tool calls:
 
 - **Project ID (ref):** `wumdbpyhpblvgjttsbpv`
 - **Supabase URL:** `https://wumdbpyhpblvgjttsbpv.supabase.co`
@@ -10,7 +10,7 @@ When working in the **site** workspace (`c:\Users\harsh\OneDrive\Desktop\site`),
 - **NEVER** use the chatbase project ID (`hzojuiccegnvanqowgmf`) when working in this folder
 
 ## Project Context
-- This is the **WebGuruJi / HarshGuruJi** main website
+- This is the **HarshGuruJi** main website
 - Domain: `www.webguruji.online`
 - Built with: Vanilla HTML/CSS/JS + Supabase
 - Tables include: site data, contacts, store products, contributors, user accounts, etc.

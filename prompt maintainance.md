@@ -1,7 +1,7 @@
 continue solve the problem and search for any bug if any thenfix it aur chatbase wale me bhi koi error nahi aana chahiye
 
 
-# UPDATE THE EXISTING WEBGURUJI STORE UI
+# UPDATE THE EXISTING HARSHGURUJI STORE UI
 
 Target page:
 
@@ -14,7 +14,7 @@ Your task is to perform a complete **UI/UX modernization of the existing Store p
 
 ## PRIMARY GOAL
 
-Make the current WebGuruJi Store look like a modern, premium application/software marketplace.
+Make the current HarshGuruJi Store look like a modern, premium application/software marketplace.
 
 The page should feel:
 
@@ -763,11 +763,11 @@ The UI must be based on actual Store data.
 
 # 28. BRANDING
 
-Maintain WebGuruJi / HarshGuruJi branding.
+Maintain HarshGuruJi branding.
 
 The Store should feel like an official part of:
 
-WebGuruJi
+HarshGuruJi
 
 Do not make it look like an unrelated template purchased from another website.
 
@@ -830,11 +830,11 @@ The final page should look like a professionally designed modern app/software ma
 
 
 
-# WEBGURUJI ADMIN PAGE — UI ONLY REDESIGN
+# HARSHGURUJI ADMIN PAGE — UI ONLY REDESIGN
 
 Target:
 
-WebGuruJi Admin Page
+HarshGuruJi Admin Page
 
 ## CRITICAL REQUIREMENT
 
@@ -1465,7 +1465,7 @@ Prefer a safe visual CSS improvement instead.
 
 # FINAL OBJECTIVE
 
-Make the existing WebGuruJi Admin page look like a polished, premium, modern SaaS/Admin dashboard while keeping **100% of the existing functionality and important linked items intact**.
+Make the existing HarshGuruJi Admin page look like a polished, premium, modern SaaS/Admin dashboard while keeping **100% of the existing functionality and important linked items intact**.
 
 
 if all satisfy,

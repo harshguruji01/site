@@ -1,5 +1,5 @@
 /**
- * explore.js - Global Discovery Hub Logic for HarshGuruJi / WebGuruJi
+ * explore.js - Global Discovery Hub Logic for HarshGuruJi
  * Preserves all existing IDs, APIs, caching, and functionality while providing
  * premium UI/UX, featured spotlight rendering, keyboard shortcuts, and responsive interactions.
  */
