@@ -4718,22 +4718,6 @@
             if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
 
             unlockDashboard();
-
-            // Handle query redirect if present
-            const fromParam = new URLSearchParams(window.location.search).get('from');
-            if (fromParam) {
-              if (fromParam === 'adminbooks.html' || fromParam === 'books') {
-                setTimeout(() => openMasterModal('books'), 400);
-              } else if (fromParam === 'adminapkupload.html' || fromParam === 'store') {
-                setTimeout(() => openMasterModal('store'), 400);
-              } else if (fromParam === 'admin-contacts.html' || fromParam === 'messages') {
-                setTimeout(() => openMasterModal('messages'), 400);
-              } else if (fromParam === 'admincontributors.html' || fromParam === 'contributors') {
-                setTimeout(() => openMasterModal('contributors'), 400);
-              } else if (fromParam === 'admin-chatbase.html' || fromParam === 'chatbase') {
-                setTimeout(() => openMasterModal('goldentick'), 400);
-              }
-            }
           } else {
             if (errorEl) {
               errorEl.textContent = '❌ Access Denied: Invalid Email or Gate Pass Code No.';
@@ -4760,6 +4744,24 @@
         startLiveSessionCountdown();
         if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
         loadAllMasterData();
+
+        // Handle query redirect if present
+        const fromParam = new URLSearchParams(window.location.search).get('from');
+        if (fromParam) {
+          if (fromParam === 'adminbooks.html' || fromParam === 'books') {
+            setTimeout(() => openMasterModal('books'), 400);
+          } else if (fromParam === 'adminapkupload.html' || fromParam === 'store') {
+            setTimeout(() => openMasterModal('store'), 400);
+          } else if (fromParam === 'admin-contacts.html' || fromParam === 'messages') {
+            setTimeout(() => openMasterModal('messages'), 400);
+          } else if (fromParam === 'admincontributors.html' || fromParam === 'contributors') {
+            setTimeout(() => openMasterModal('contributors'), 400);
+          } else if (fromParam === 'admin-chatbase.html' || fromParam === 'chatbase') {
+            setTimeout(() => openMasterModal('chatbase'), 400);
+          } else if (fromParam === 'goldentick') {
+            setTimeout(() => openMasterModal('goldentick'), 400);
+          }
+        }
       }
 
       function startLiveSessionCountdown() {
