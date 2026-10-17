@@ -1,10 +1,11 @@
 /**
- * HarshGuruJi Master Admin Security Bridge & Verification Controller
- * Coordinates seamless single sign-on when navigating between admin consoles
- * and strictly prevents unauthorized URL entry without 2-Step Verification.
+ * WebGuruJi / HarshGuruJi Master Admin Security Bridge & Verification Controller
+ * Enforces 1-Hour Session Security & Gate Pass Authorization across all admin consoles.
  * 
- * Step 1: harshguruji01@gmail.com
- * Step 2: 2547277654
+ * Gate Pass Credentials:
+ * Email: harshguruji01@gmail.com
+ * Code No.: 2547277654
+ * Auto-Logout: 1 Hour (3,600,000 ms)
  */
 
 (function () {
@@ -14,19 +15,22 @@
   const HG_ADMIN_ID = '2547277654';
   const AUTH_STATE_KEY = 'hg_2step_verified';
   const AUTH_TOKEN_KEY = 'hg_2step_token';
+  const AUTH_TIME_KEY = 'hg_admin_login_time';
+  const SESSION_MAX_MS = 60 * 60 * 1000; // 1 hour (3,600,000 ms)
   const EXPECTED_HASH = btoa(HG_ADMIN_EMAIL + ':' + HG_ADMIN_ID + ':HGJ_MASTER_ADMIN_2026');
 
-  // Expose admin constants
   window.HG_ADMIN_EMAIL = HG_ADMIN_EMAIL;
   window.HG_EXPECTED_HASH = EXPECTED_HASH;
+  window.HG_SESSION_MAX_MS = SESSION_MAX_MS;
 
-  /**
-   * Sets all admin session credentials in sessionStorage once 2-step verification is complete.
-   */
   function setAllAdminSessions() {
     try {
+      const now = Date.now().toString();
       sessionStorage.setItem(AUTH_STATE_KEY, 'true');
       sessionStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
+      if (!sessionStorage.getItem(AUTH_TIME_KEY)) {
+        sessionStorage.setItem(AUTH_TIME_KEY, now);
+      }
       sessionStorage.setItem('hg_master_admin_authenticated', 'true');
       sessionStorage.setItem('admin_contacts_auth', 'true');
       sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
@@ -37,18 +41,25 @@
     }
   }
 
-  /**
-   * Checks if user has successfully completed 2-Step Verification.
-   * Strict validation: Only returns true if valid hash and credentials exist.
-   */
   function checkAdminAccess() {
     try {
       const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true';
       const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
       const email = sessionStorage.getItem('admin_apk_email');
+      const loginTimeStr = sessionStorage.getItem(AUTH_TIME_KEY);
 
-      if (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === HG_ADMIN_EMAIL) {
-        setAllAdminSessions();
+      if (!isAuth || !token || !email || !loginTimeStr) {
+        return false;
+      }
+
+      const loginTime = parseInt(loginTimeStr, 10);
+      const now = Date.now();
+      if (isNaN(loginTime) || (now - loginTime) >= SESSION_MAX_MS) {
+        clearAdminSessions();
+        return false;
+      }
+
+      if (token === EXPECTED_HASH && email.toLowerCase() === HG_ADMIN_EMAIL.toLowerCase()) {
         return true;
       }
     } catch (e) {}
@@ -56,21 +67,12 @@
     return false;
   }
 
-  /**
-   * Clears all admin sessions across tabs on explicit Lock/Logout.
-   */
   function clearAdminSessions() {
     try {
-      sessionStorage.removeItem(AUTH_STATE_KEY);
-      sessionStorage.removeItem(AUTH_TOKEN_KEY);
-      sessionStorage.removeItem('hg_master_admin_authenticated');
-      sessionStorage.removeItem('admin_contacts_auth');
-      sessionStorage.removeItem('hg_contributor_admin_unlocked');
-      sessionStorage.removeItem('admin_chatbase_auth');
-      sessionStorage.removeItem('admin_apk_email');
-
+      sessionStorage.clear();
       localStorage.removeItem(AUTH_STATE_KEY);
       localStorage.removeItem(AUTH_TOKEN_KEY);
+      localStorage.removeItem(AUTH_TIME_KEY);
       localStorage.removeItem('hg_master_admin_authenticated');
       localStorage.removeItem('admin_contacts_auth');
       localStorage.removeItem('hg_contributor_admin_unlocked');
@@ -79,15 +81,11 @@
     } catch (e) {}
   }
 
-  /**
-   * Instrument all sub-admin links to retain authentication context.
-   */
   function setupAdminMasterLinks() {
     if (!checkAdminAccess()) return;
     setAllAdminSessions();
   }
 
-  // Auto-listen to bridge links if already authenticated
   if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function () {
       if (checkAdminAccess()) {
@@ -96,7 +94,6 @@
     });
   }
 
-  // Export functions to global window object
   window.setAllAdminSessions = setAllAdminSessions;
   window.setupAdminMasterLinks = setupAdminMasterLinks;
   window.checkAdminAccess = checkAdminAccess;

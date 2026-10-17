@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="error-shield.js"></script>
-
-  <meta name="robots" content="noindex, nofollow">
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="same-origin">
-  <title> Admin Panel - HarshGuruJi</title>
+  <title>WebGuruJi Admin Panel - Master Command Center Gate Pass | HarshGuruJi</title>
+  <meta name="description" content="WebGuruJi Master Admin Command Center and administrative control portal with gate pass security.">
+  <meta name="keywords" content="webguruji admin, admin panel, master command center, webguruji gate pass, harshguruji admin">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://www.webguruji.online/admin.html">
   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="WebGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.webguruji.online/admin.html">
+  <meta property="og:title" content="WebGuruJi Admin Panel - Master Command Center Gate Pass | HarshGuruJi">
+  <meta property="og:description" content="WebGuruJi Master Admin Command Center and administrative control portal with gate pass security.">
+  <meta property="og:image" content="https://www.webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="WebGuruJi Admin Panel - Master Command Center Gate Pass | HarshGuruJi">
+  <meta name="twitter:description" content="WebGuruJi Master Admin Command Center and administrative control portal with gate pass security.">
+  <meta name="twitter:image" content="https://www.webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Admin Gate Pass",
+      "item": "https://www.webguruji.online/admin.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "WebGuruJi Admin Panel - Master Command Center Gate Pass | HarshGuruJi",
+  "url": "https://www.webguruji.online/admin.html",
+  "description": "WebGuruJi Master Admin Command Center and administrative control portal with gate pass security.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "WebGuruJi",
+    "alternateName": [
+      "HarshGuruJi",
+      "webguruji.online"
+    ],
+    "url": "https://www.webguruji.online/"
+  }
+}
+  </script>
+<script src="error-shield.js"></script>
+
+  
+  
+  <meta name="referrer" content="same-origin">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -3012,86 +3075,60 @@
   <div class="glow-blob blob-2"></div>
   <div class="glow-blob blob-3"></div>
 
-  <!-- 2-STEP SECURITY VERIFICATION GATE -->
+    <!-- MASTER ADMIN SECURITY GATE PASS -->
   <div class="gate-overlay" id="security-gate">
     <div class="gate-card">
       <div class="gate-icon">🛡️</div>
-      <h2 class="gate-title">HarshGuruJi Admin</h2>
-      <p class="gate-subtitle">Two-Step Identity Verification is required to access the Master Command Center.</p>
+      <h2 class="gate-title">Admin Gate Pass Verification</h2>
+      <p class="gate-subtitle">Please enter your Master Admin credentials to access the Command Center.<br><span style="color: #f59e0b; font-size: 0.82rem; font-weight: 600;">⏱️ 1-Hour Session (Auto-Logout Enforced)</span></p>
 
-      <!-- Step Indicator -->
-      <div class="step-indicator">
-        <div class="step-node active" id="node-step-1">
-          <div class="step-pill" id="pill-step-1">1</div>
-          <span>Email ID</span>
-        </div>
-        <div class="step-line" id="node-line"></div>
-        <div class="step-node" id="node-step-2">
-          <div class="step-pill" id="pill-step-2">2</div>
-          <span>Admin Key ID</span>
-        </div>
-      </div>
-
-      <!-- STEP 1 FORM: EMAIL VERIFICATION -->
-      <form id="step-1-form">
+      <!-- Gate Pass Form -->
+      <form id="admin-gate-pass-form">
         <div class="gate-form-group">
-          <label class="gate-label" for="input-admin-email">Master Admin Email</label>
+          <label class="gate-label" for="input-admin-email">Admin Email Address</label>
           <div class="gate-input-wrapper">
             <input 
               type="email" 
               id="input-admin-email" 
               class="gate-input" 
-              placeholder="Enter administrator email address" 
+              placeholder="harshguruji01@gmail.com" 
               required 
               autofocus 
               autocomplete="username"
             >
           </div>
-          <div class="gate-error" id="error-step-1"></div>
         </div>
-        <button type="submit" class="gate-btn">
-          <span>Proceed to Step 2</span>
-          <span>&rarr;</span>
-        </button>
-      </form>
 
-      <!-- STEP 2 FORM: ID VERIFICATION (HIDDEN INITIALLY) -->
-      <form id="step-2-form" style="display: none;">
         <div class="gate-form-group">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <label class="gate-label" for="input-admin-id" style="margin-bottom: 0;">Master Admin Security ID</label>
-            <span style="font-size: 0.75rem; color: #34d399;">✓ Email Verified</span>
-          </div>
+          <label class="gate-label" for="input-admin-id">Gate Pass Code No.</label>
           <div class="gate-input-wrapper">
             <input 
               type="password" 
               id="input-admin-id" 
               class="gate-input" 
-              placeholder="Enter 10-digit Master ID Key" 
+              placeholder="Enter Code No. (2547277654)" 
               required 
               autocomplete="current-password"
             >
           </div>
-          <div class="gate-error" id="error-step-2"></div>
+          <div class="gate-error" id="gate-error-msg" style="display: none;"></div>
         </div>
-        <button type="submit" class="gate-btn">
-          <span>Unlock Command Center</span>
+
+        <button type="submit" class="gate-btn" id="btn-submit-gate-pass">
+          <span>Verify Gate Pass &amp; Unlock</span>
           <span>🔓</span>
-        </button>
-        <button type="button" id="btn-back-step-1" style="background: none; border: none; color: var(--text-muted); font-size: 0.82rem; margin-top: 1rem; cursor: pointer; text-decoration: underline;">
-          &larr; Re-enter email address
         </button>
       </form>
 
-      <div style="margin-top: 1.75rem; border-top: 1px solid var(--border); padding-top: 1.25rem;">
+      <div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
         <a href="index.html" style="color: var(--text-muted); font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
           <span>&larr;</span> Back to Public Site
         </a>
+        <span style="font-size: 0.75rem; color: #94a3b8;">Policy: Auto-Logout every 1 Hour</span>
       </div>
     </div>
   </div>
 
-  <!-- MASTER COMMAND CENTER (SHOWN AFTER 2-STEP SUCCESS) -->
   <div id="admin-dashboard">
     
     <!-- Top Navbar -->
@@ -3112,6 +3149,11 @@
         </div>
 
         <div class="top-controls">
+                    <div class="realtime-clock-pill" id="session-countdown-pill" style="border: 1px solid rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.12); color: #fca5a5; display: inline-flex; align-items: center; gap: 6px; padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.82rem;">
+            <span>⏳</span>
+            <span>Auto-Logout:</span>
+            <span id="session-countdown" style="font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace;">60:00</span>
+          </div>
           <div class="realtime-clock-pill">
             <span>🕒</span>
             <span id="live-clock">--:--:--</span>
@@ -4565,12 +4607,52 @@
 
   <!-- Master Control Center Controller -->
   <script>
-    // CREDENTIALS REQUIRED BY MASTER SECURITY GATE
+        // Master Admin Security Gate & 1-Hour Auto-Logout Controller
     const REQUIRED_EMAIL = "harshguruji01@gmail.com";
     const REQUIRED_ID = "2547277654";
     const AUTH_STATE_KEY = "hg_2step_verified";
     const AUTH_TOKEN_KEY = "hg_2step_token";
+    const AUTH_TIME_KEY = "hg_admin_login_time";
+    const SESSION_MAX_MS = 60 * 60 * 1000; // 1 hour (3,600,000 ms)
     const EXPECTED_HASH = btoa(REQUIRED_EMAIL + ":" + REQUIRED_ID + ":HGJ_MASTER_ADMIN_2026");
+
+    let sessionCountdownInterval = null;
+
+    function clearAllAdminAuth() {
+      try {
+        sessionStorage.clear();
+        localStorage.removeItem(AUTH_STATE_KEY);
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+        localStorage.removeItem(AUTH_TIME_KEY);
+        localStorage.removeItem('admin_apk_email');
+        localStorage.removeItem('hg_master_admin_authenticated');
+      } catch(e) {}
+    }
+
+    function checkActiveSession() {
+      try {
+        const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true';
+        const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
+        const email = sessionStorage.getItem('admin_apk_email');
+        const loginTimeStr = sessionStorage.getItem(AUTH_TIME_KEY);
+
+        if (!isAuth || !token || !email || !loginTimeStr) {
+          return false;
+        }
+
+        const loginTime = parseInt(loginTimeStr, 10);
+        const now = Date.now();
+        if (isNaN(loginTime) || (now - loginTime) >= SESSION_MAX_MS) {
+          clearAllAdminAuth();
+          return false;
+        }
+
+        if (token === EXPECTED_HASH && email.toLowerCase() === REQUIRED_EMAIL.toLowerCase()) {
+          return true;
+        }
+      } catch(e) {}
+      return false;
+    }
 
     // Application Master State
     let storeAppsData = [];
@@ -4593,159 +4675,149 @@
       bindMasterModalEvents();
     });
 
-    // 1. Two-Step Verification Controller
     function initSecurityGate() {
       const securityGate = document.getElementById('security-gate');
       const adminDashboard = document.getElementById('admin-dashboard');
-
-      const step1Form = document.getElementById('step-1-form');
-      const step2Form = document.getElementById('step-2-form');
-
+      const gateForm = document.getElementById('admin-gate-pass-form');
       const emailInput = document.getElementById('input-admin-email');
       const idInput = document.getElementById('input-admin-id');
-
-      const error1 = document.getElementById('error-step-1');
-      const error2 = document.getElementById('error-step-2');
-
-      const node1 = document.getElementById('node-step-1');
-      const node2 = document.getElementById('node-step-2');
-      const nodeLine = document.getElementById('node-line');
-      const pill1 = document.getElementById('pill-step-1');
-      const btnBack = document.getElementById('btn-back-step-1');
+      const errorEl = document.getElementById('gate-error-msg');
       const btnLock = document.getElementById('btn-lock-session');
 
-      function isVerified() {
-        try {
-          const isAuth = sessionStorage.getItem(AUTH_STATE_KEY) === 'true' || localStorage.getItem(AUTH_STATE_KEY) === 'true';
-          const token = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
-          const email = sessionStorage.getItem('admin_apk_email') || localStorage.getItem('admin_apk_email');
-          if (isAuth && token === EXPECTED_HASH && email && email.toLowerCase() === REQUIRED_EMAIL.toLowerCase()) {
+      // Check if there is an active session under 1 hour
+      if (checkActiveSession()) {
+        unlockDashboard();
+      } else {
+        // Enforce Gate Pass on every fresh visit / expired session
+        clearAllAdminAuth();
+        securityGate.style.display = 'flex';
+        adminDashboard.style.display = 'none';
+      }
+
+      // Handle Gate Pass Submission
+      if (gateForm) {
+        gateForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (errorEl) errorEl.style.display = 'none';
+          const enteredEmail = (emailInput.value || '').trim().toLowerCase();
+          const enteredId = (idInput.value || '').trim();
+
+          if (enteredEmail === REQUIRED_EMAIL.toLowerCase() && enteredId === REQUIRED_ID) {
+            // Success! Store session with current timestamp
+            const now = Date.now();
             sessionStorage.setItem(AUTH_STATE_KEY, 'true');
             sessionStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
+            sessionStorage.setItem(AUTH_TIME_KEY, now.toString());
+            sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
             sessionStorage.setItem('hg_master_admin_authenticated', 'true');
             sessionStorage.setItem('admin_chatbase_auth', 'true');
             sessionStorage.setItem('admin_contacts_auth', 'true');
             sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
-            sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
-            return true;
-          }
-        } catch (e) {}
-        return false;
-      }
 
-      // Check if already authenticated in this browser session
-      if (isVerified()) {
-        if (window.setAllAdminSessions) window.setAllAdminSessions();
-        unlockDashboard();
-        return;
-      }
+            if (window.setAllAdminSessions) window.setAllAdminSessions();
+            if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
 
-      // Step 1: Validate Email
-      step1Form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        error1.style.display = 'none';
-        const enteredEmail = emailInput.value.trim().toLowerCase();
+            unlockDashboard();
 
-        if (enteredEmail === REQUIRED_EMAIL.toLowerCase()) {
-          // Advance to Step 2
-          node1.classList.remove('active');
-          node1.classList.add('completed');
-          pill1.textContent = '✓';
-          nodeLine.classList.add('active');
-          node2.classList.add('active');
-
-          step1Form.style.display = 'none';
-          step2Form.style.display = 'block';
-          idInput.value = '';
-          idInput.focus();
-        } else {
-          error1.textContent = '❌ Access Denied: Unauthorized administrator email address.';
-          error1.style.display = 'block';
-          emailInput.focus();
-        }
-      });
-
-      // Step 2: Validate ID
-      step2Form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        error2.style.display = 'none';
-        const enteredID = idInput.value.trim();
-
-        if (enteredID === REQUIRED_ID) {
-          // Success! Save session and unlock across all admin subpages
-          sessionStorage.setItem(AUTH_STATE_KEY, 'true');
-          sessionStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
-          sessionStorage.setItem('hg_master_admin_authenticated', 'true');
-          sessionStorage.setItem('admin_chatbase_auth', 'true');
-          sessionStorage.setItem('admin_contacts_auth', 'true');
-          sessionStorage.setItem('hg_contributor_admin_unlocked', 'true');
-          sessionStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
-
-          try {
-            localStorage.setItem(AUTH_STATE_KEY, 'true');
-            localStorage.setItem(AUTH_TOKEN_KEY, EXPECTED_HASH);
-            localStorage.setItem('admin_apk_email', REQUIRED_EMAIL);
-          } catch(e) {}
-
-          if (window.setAllAdminSessions) window.setAllAdminSessions();
-          if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
-
-          unlockDashboard();
-
-          // If navigated with a specific from param, automatically open the relevant master modal
-          const fromParam = new URLSearchParams(window.location.search).get('from');
-          if (fromParam) {
-            if (fromParam === 'adminbooks.html' || fromParam === 'books') {
-              setTimeout(() => openMasterModal('books'), 400);
-            } else if (fromParam === 'adminapkupload.html' || fromParam === 'store') {
-              setTimeout(() => openMasterModal('store'), 400);
-            } else if (fromParam === 'admin-contacts.html' || fromParam === 'messages') {
-              setTimeout(() => openMasterModal('messages'), 400);
-            } else if (fromParam === 'admincontributors.html' || fromParam === 'contributors') {
-              setTimeout(() => openMasterModal('contributors'), 400);
-            } else if (fromParam === 'admin-chatbase.html' || fromParam === 'chatbase') {
-              setTimeout(() => openMasterModal('goldentick'), 400);
+            // Handle query redirect if present
+            const fromParam = new URLSearchParams(window.location.search).get('from');
+            if (fromParam) {
+              if (fromParam === 'adminbooks.html' || fromParam === 'books') {
+                setTimeout(() => openMasterModal('books'), 400);
+              } else if (fromParam === 'adminapkupload.html' || fromParam === 'store') {
+                setTimeout(() => openMasterModal('store'), 400);
+              } else if (fromParam === 'admin-contacts.html' || fromParam === 'messages') {
+                setTimeout(() => openMasterModal('messages'), 400);
+              } else if (fromParam === 'admincontributors.html' || fromParam === 'contributors') {
+                setTimeout(() => openMasterModal('contributors'), 400);
+              } else if (fromParam === 'admin-chatbase.html' || fromParam === 'chatbase') {
+                setTimeout(() => openMasterModal('goldentick'), 400);
+              }
+            }
+          } else {
+            if (errorEl) {
+              errorEl.textContent = '❌ Access Denied: Invalid Email or Gate Pass Code No.';
+              errorEl.style.display = 'block';
+            }
+            if (idInput) {
+              idInput.value = '';
+              idInput.focus();
             }
           }
-        } else {
-          error2.textContent = '❌ Invalid Security ID key! Access rejected.';
-          error2.style.display = 'block';
-          idInput.value = '';
-          idInput.focus();
-        }
-      });
-
-      // Back to Step 1 button
-      btnBack.addEventListener('click', () => {
-        step2Form.style.display = 'none';
-        step1Form.style.display = 'block';
-        node2.classList.remove('active');
-        nodeLine.classList.remove('active');
-        node1.classList.remove('completed');
-        node1.classList.add('active');
-        pill1.textContent = '1';
-        emailInput.focus();
-      });
+        });
+      }
 
       // Lock / Logout button
-      btnLock.addEventListener('click', () => {
-        if (window.clearAdminSessions) {
-          window.clearAdminSessions();
-        }
-        sessionStorage.clear();
-        localStorage.removeItem(AUTH_STATE_KEY);
-        localStorage.removeItem(AUTH_TOKEN_KEY);
-        window.location.replace('admin.html');
-      });
+      if (btnLock) {
+        btnLock.addEventListener('click', () => {
+          triggerSessionLogout('Session manually locked. Enter Gate Pass to re-login.');
+        });
+      }
 
       function unlockDashboard() {
         securityGate.style.display = 'none';
         adminDashboard.style.display = 'block';
-        if (window.setupAdminMasterLinks) {
-          window.setupAdminMasterLinks();
-        }
+        startLiveSessionCountdown();
+        if (window.setupAdminMasterLinks) window.setupAdminMasterLinks();
         loadAllMasterData();
       }
+
+      function startLiveSessionCountdown() {
+        if (sessionCountdownInterval) clearInterval(sessionCountdownInterval);
+        const countdownEl = document.getElementById('session-countdown');
+
+        function update() {
+          const loginTime = parseInt(sessionStorage.getItem(AUTH_TIME_KEY) || '0', 10);
+          const now = Date.now();
+          const elapsed = now - loginTime;
+          const remaining = SESSION_MAX_MS - elapsed;
+
+          if (remaining <= 0) {
+            clearInterval(sessionCountdownInterval);
+            triggerSessionLogout('⚠️ 1 Hour Session Expired: Auto-logout triggered. Please enter Gate Pass to log in again.');
+            return;
+          }
+
+          const totalSeconds = Math.floor(remaining / 1000);
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+          if (countdownEl) {
+            countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+          }
+        }
+
+        update();
+        sessionCountdownInterval = setInterval(update, 1000);
+      }
+
+      function triggerSessionLogout(reason) {
+        if (sessionCountdownInterval) clearInterval(sessionCountdownInterval);
+        clearAllAdminAuth();
+        if (window.clearAdminSessions) window.clearAdminSessions();
+        adminDashboard.style.display = 'none';
+        securityGate.style.display = 'flex';
+        if (idInput) idInput.value = '';
+        if (errorEl) {
+          errorEl.textContent = reason || '1 hour auto-logout triggered. Enter Gate Pass to log in again.';
+          errorEl.style.display = 'block';
+        }
+      }
+
+      // Automatically verify remaining time on window focus and tab visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && adminDashboard.style.display === 'block') {
+          if (!checkActiveSession()) {
+            triggerSessionLogout('⚠️ 1 Hour Session Expired: Auto-logout triggered. Please re-enter your Gate Pass.');
+          }
+        }
+      });
+      window.addEventListener('focus', () => {
+        if (adminDashboard.style.display === 'block') {
+          if (!checkActiveSession()) {
+            triggerSessionLogout('⚠️ 1 Hour Session Expired: Auto-logout triggered. Please re-enter your Gate Pass.');
+          }
+        }
+      });
     }
 
     // 2. Bind Master Modal & Stat Tile Click Events

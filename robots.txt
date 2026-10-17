@@ -1,14 +1,17 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
-# Full Google Search Console (GSC) & verified search bot crawl directives
-# Last Updated: 2026-10-13
+# robots.txt — WebGuruJi / HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# Full Google Search Console (GSC) & search crawler indexing directives
+# All public pages, login, store, tools, learning, and hubs fully indexable
+# Last Updated: 2026-10-16
 # ═══════════════════════════════════════════════════════════════════════════
 
 User-agent: *
 Allow: /
-
-# ── Primary Public Portals & Hubs ─────────────────────────────────────────
 Allow: /index.html
+Allow: /login.html
+Allow: /signup.html
+Allow: /forgot-password.html
+Allow: /reset-password.html
 Allow: /store.html
 Allow: /store-detail.html
 Allow: /books.html
@@ -36,45 +39,19 @@ Allow: /contact.html
 Allow: /contributor.html
 Allow: /join-contributor.html
 Allow: /apply-contributor.html
-Allow: /login.html
-Allow: /signup.html
-Allow: /forgot-password.html
-Allow: /reset-password.html
+Allow: /verify-contributor.html
+Allow: /dashboard.html
+Allow: /settings.html
+Allow: /appearance.html
 Allow: /privacy-policy.html
 Allow: /terms-and-conditions.html
 Allow: /cookie.html
-
-# ── Interactive Subdirectories & Individual Utility Pages ──────────────────
-Allow: /tools/
-Allow: /tools/password-generator.html
-Allow: /tools/word-counter.html
-Allow: /tools/json-formatter.html
-Allow: /tools/case-converter.html
-Allow: /tools/base64.html
-Allow: /tools/bmi-calculator.html
-Allow: /tools/percentage-calculator.html
-
-# ── Games ─────────────────────────────────────────────────────────────────
-Allow: /games/
-Allow: /games/snake.html
-Allow: /games/tic-tac-toe.html
-Allow: /games/memory.html
-
-# ── Educational & Learning Pages ──────────────────────────────────────────
-Allow: /learning/
-Allow: /learning/pdf-library.html
-Allow: /learning/class.html
-Allow: /learning/subject.html
-Allow: /learning/chapter.html
-Allow: /learning/class-10-science.html
-Allow: /learning/class-10/science/ncert/01-chemical-reactions-and-equations.html
-Allow: /learning/gk-quiz.html
 Allow: /Quiz India/
-Allow: /Quiz India/index.html
 Allow: /Quiz%20India/
-Allow: /Quiz%20India/index.html
-
-# ── Static Media, Stylesheets, Scripts & Fonts (Essential for GSC Rendering)
+Allow: /tools/
+Allow: /games/
+Allow: /learning/
+Allow: /admin.html
 Allow: /css/
 Allow: /js/
 Allow: /*.css$
@@ -88,22 +65,7 @@ Allow: /*.ico$
 Allow: /*.woff2$
 Allow: /data/apps.json
 
-# ── Disallow: Admin Operations, Private Portals & Internal Source Code ────
-Disallow: /admin*
-Disallow: /admin.html
-Disallow: /admin/
-Disallow: /admin-*.html
-Disallow: /adminapkupload.html
-Disallow: /adminbooks.html
-Disallow: /admincontributors.html
-Disallow: /admin-chatbase.html
-Disallow: /admin-contacts.html
-Disallow: /admin-requests.html
-Disallow: /dashboard.html
-Disallow: /settings.html
-Disallow: /appearance.html
-Disallow: /verify-contributor.html
-Disallow: /ads.html
+# Disallow internal backend source code and raw configuration files
 Disallow: /backend/
 Disallow: /backend_legacy/
 Disallow: /oauth/
@@ -111,27 +73,39 @@ Disallow: /scripts/
 Disallow: /.agents/
 Disallow: /.git/
 Disallow: /.github/
+Disallow: /node_modules/
 Disallow: /*.py$
 Disallow: /*.sql$
 Disallow: /*.md$
 Disallow: /*.groovy$
 
-# ── Googlebot Dedicated Group (Web Crawling) ──────────────────────────────
+# ── Googlebot Dedicated Directives ─────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
 Allow: /index.html
-Allow: /chat-app.html
+Allow: /login.html
+Allow: /signup.html
 Allow: /store.html
 Allow: /store-detail.html
 Allow: /books.html
+Allow: /chat-app.html
 Allow: /chat.html
-Allow: /app.html
 Allow: /free-tools.html
+Allow: /tools.html
+Allow: /ai-hub.html
+Allow: /ai.html
+Allow: /gaming-hub.html
+Allow: /gaming.html
+Allow: /learning-hub.html
+Allow: /learning.html
+Allow: /Quiz India/
+Allow: /Quiz%20India/
 Allow: /tools/
 Allow: /games/
 Allow: /learning/
-Allow: /Quiz India/
-Allow: /Quiz%20India/
+Allow: /dashboard.html
+Allow: /settings.html
+Allow: /appearance.html
 Allow: /css/
 Allow: /js/
 Allow: /*.css$
@@ -139,17 +113,17 @@ Allow: /*.js$
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
-Disallow: /admin*
-Disallow: /dashboard.html
-Disallow: /settings.html
 Disallow: /backend/
 Disallow: /oauth/
+Disallow: /scripts/
+Disallow: /.git/
 
 # ── Google Search Console Live Inspection Tool ────────────────────────────
 User-agent: Google-InspectionTool
 Allow: /
 Allow: /index.html
-Allow: /chat-app.html
+Allow: /login.html
+Allow: /signup.html
 Allow: /store.html
 Allow: /store-detail.html
 Allow: /books.html
@@ -161,6 +135,9 @@ Allow: /games/
 Allow: /learning/
 Allow: /Quiz India/
 Allow: /Quiz%20India/
+Allow: /dashboard.html
+Allow: /settings.html
+Allow: /appearance.html
 Allow: /css/
 Allow: /js/
 Allow: /*.css$
@@ -168,20 +145,10 @@ Allow: /*.js$
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
-Disallow: /admin*
-Disallow: /dashboard.html
-Disallow: /settings.html
 
 # ── Google Images Crawler ─────────────────────────────────────────────────
 User-agent: Googlebot-Image
 Allow: /
-Allow: /logo.png
-Allow: /logo-512.png
-Allow: /chatbase.png
-Allow: /chatbase-logo.png
-Allow: /harshlogo.png
-Allow: /harshlogo.webp
-Allow: /ai.png
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
@@ -189,27 +156,13 @@ Allow: /*.webp$
 # ── Bingbot Group ─────────────────────────────────────────────────────────
 User-agent: Bingbot
 Allow: /
-Disallow: /admin*
-Disallow: /dashboard.html
-Disallow: /settings.html
 Disallow: /backend/
+Disallow: /scripts/
+Disallow: /.git/
 
-# ── Polite Crawl-Delays for Third-Party SEO Scrapers ──────────────────────
-User-agent: AhrefsBot
-Crawl-delay: 10
-
-User-agent: SemrushBot
-Crawl-delay: 10
-
-User-agent: DotBot
-Crawl-delay: 10
-
-# ── Official Sitemaps for Google Search Console ───────────────────────────
+# ── Sitemaps for Google Search Console ────────────────────────────────────
 Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://www.webguruji.online/sitemap_index.xml
 Sitemap: https://www.webguruji.online/sitemap_store.xml
 Sitemap: https://www.webguruji.online/sitemap_books.xml
 Sitemap: https://www.webguruji.online/sitemap_chat.xml
-Sitemap: https://store.webguruji.online/sitemap.xml
-Sitemap: https://books.webguruji.online/sitemap.xml
-Sitemap: https://chat.webguruji.online/sitemap.xml
