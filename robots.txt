@@ -1,13 +1,14 @@
-# ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
+﻿# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# robots.txt â€” HarshGuruJi Platform Ecosystem (www.webguruji.online)
 # Full Google Search Console (GSC) & search crawler indexing directives
 # All public pages, login, store, tools, learning, and hubs fully indexable
 # Last Updated: 2026-10-16
-# ═══════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 User-agent: *
 Allow: /
 Allow: /index.html
+Allow: /ads.txt
 Allow: /login.html
 Allow: /signup.html
 Allow: /forgot-password.html
@@ -79,10 +80,11 @@ Disallow: /*.sql$
 Disallow: /*.md$
 Disallow: /*.groovy$
 
-# ── Googlebot Dedicated Directives ─────────────────────────────────────────
+# â”€â”€ Googlebot Dedicated Directives â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 User-agent: Googlebot
 Allow: /
 Allow: /index.html
+Allow: /ads.txt
 Allow: /login.html
 Allow: /signup.html
 Allow: /store.html
@@ -118,10 +120,11 @@ Disallow: /oauth/
 Disallow: /scripts/
 Disallow: /.git/
 
-# ── Google Search Console Live Inspection Tool ────────────────────────────
+# â”€â”€ Google Search Console Live Inspection Tool â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 User-agent: Google-InspectionTool
 Allow: /
 Allow: /index.html
+Allow: /ads.txt
 Allow: /login.html
 Allow: /signup.html
 Allow: /store.html
@@ -146,23 +149,24 @@ Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
 
-# ── Google Images Crawler ─────────────────────────────────────────────────
+# â”€â”€ Google Images Crawler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 User-agent: Googlebot-Image
 Allow: /
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
 
-# ── Bingbot Group ─────────────────────────────────────────────────────────
+# â”€â”€ Bingbot Group â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 User-agent: Bingbot
 Allow: /
 Disallow: /backend/
 Disallow: /scripts/
 Disallow: /.git/
 
-# ── Sitemaps for Google Search Console ────────────────────────────────────
+# â”€â”€ Sitemaps for Google Search Console â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://www.webguruji.online/sitemap_index.xml
 Sitemap: https://www.webguruji.online/sitemap_store.xml
 Sitemap: https://www.webguruji.online/sitemap_books.xml
 Sitemap: https://www.webguruji.online/sitemap_chat.xml
+
