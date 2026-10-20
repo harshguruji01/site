@@ -3177,12 +3177,14 @@
       <!-- Cross-Admin Hub Navigation Pills (Row 2: Full-Width Fluid Scroller) -->
       <nav class="cross-admin-pills" aria-label="Admin Sections">
         <button type="button" class="pill-link active" onclick="switchMasterTab('store'); openMasterModal('store');">🎮 Store Studio</button>
+        <button type="button" class="pill-link" onclick="switchMasterTab('guruai'); openMasterModal('guruai');">🤖 GuruAI Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('books'); openMasterModal('books');">📚 Books Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('chatbase'); openMasterModal('chatbase');">💬 ChatBase Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('site'); openMasterModal('site');">🌐 Site Studio</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('messages'); openMasterModal('messages');">📬 User Inquiries</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('contributors'); openMasterModal('contributors');">👥 Contributors</button>
         <button type="button" class="pill-link" onclick="switchMasterTab('goldentick'); openMasterModal('goldentick');">⭐ Golden Ticks</button>
+        <a href="https://ai.webguruji.online/admin.html" class="pill-link" target="_blank">🤖 GuruAI Admin ↗</a>
         <a href="books.html" class="pill-link" target="_blank">📖 Live Books ↗</a>
         <a href="store.html" class="pill-link" target="_blank">🛍️ Live Store ↗</a>
         <a href="chat-app.html" class="pill-link" target="_blank">💬 Live Chat ↗</a>
@@ -3223,6 +3225,10 @@
 
           <!-- Hero Quick Launch Action Strip -->
           <div class="hero-quick-actions" aria-label="Quick Action Buttons">
+            <button type="button" class="hero-quick-btn" onclick="openMasterModal('guruai')" style="border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.1);">
+              <span>🤖</span>
+              <span>GuruAI Studio</span>
+            </button>
             <button type="button" class="hero-quick-btn" onclick="openMasterModal('store')">
               <span>🎮</span>
               <span>Store Studio</span>
@@ -3261,6 +3267,23 @@
 
       <!-- Live Stat Tiles - Clickable Master Control Triggers -->
       <section class="stats-bar" aria-label="Command Center Quick Access">
+        <!-- 0. GuruAI Studio (Intelligence & User Tracking) -->
+        <div class="stat-tile tile-apps" id="tile-guruai-app" role="button" tabindex="0" title="Click to manage GuruAI Studio, users, models and quotas" onclick="openMasterModal('guruai')" style="--tile-glow: rgba(99, 102, 241, 0.3); --tile-border: #6366f1;">
+          <div class="stat-top">
+            <span class="stat-title">
+              <span>GuruAI Studio</span>
+              <span class="stat-badge-hint" style="color:#818cf8;">AI 550B &amp; SDXL 🤖</span>
+            </span>
+            <span class="stat-icon-mini">🤖</span>
+          </div>
+          <div class="stat-number" id="stat-ai-count" style="color: #818cf8;">Active</div>
+          <div class="stat-subtext"><span style="color:#34d399;">●</span> ai.webguruji.online &amp; Governance</div>
+          <div class="stat-click-cta">
+            <span>Manage AI Studio</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
         <!-- 1. Store Applications -->
         <div class="stat-tile tile-apps" id="tile-store-apps" role="button" tabindex="0" title="Click to view full Store Catalog, edit apps or delete">
           <div class="stat-top">
@@ -3718,6 +3741,11 @@
           <span>🎮</span>
           <span>Store Studio</span>
           <span class="tab-pill" id="mpill-store">0</span>
+        </button>
+        <button type="button" class="master-tab-btn" data-tab="guruai" id="mtab-guruai">
+          <span>🤖</span>
+          <span>GuruAI Studio</span>
+          <span class="tab-pill" id="mpill-guruai" style="background:rgba(99,102,241,0.25); color:#a5b4fc; border:1px solid rgba(99,102,241,0.4);">Hub</span>
         </button>
         <button type="button" class="master-tab-btn" data-tab="books" id="mtab-books">
           <span>📚</span>
@@ -4187,6 +4215,77 @@
               <button type="button" class="btn-action-gold" onclick="exportPlatformBackup()">
                 <span>📦 Export Full System Snapshot (JSON)</span>
               </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: GURUAI ECOSYSTEM & USER GOVERNANCE STUDIO -->
+        <div class="tab-pane" id="pane-guruai">
+          <!-- GuruAI Hero Switchboard & Operations Hub -->
+          <div class="studio-feature-card" style="border-color: rgba(99, 102, 241, 0.4); background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 70%), rgba(15, 23, 42, 0.7);">
+            <div class="studio-feature-head">
+              <div class="studio-feature-title" style="color:#a5b4fc; display:flex; align-items:center; gap:0.6rem;">
+                <span style="font-size:1.4rem;">🤖</span>
+                <span>GuruAI Master Command Center &amp; User Governance</span>
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                <a href="https://ai.webguruji.online/admin.html" target="_blank" class="btn-action-primary" style="background:linear-gradient(135deg, #6366f1, #4f46e5); display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1rem; border-radius:10px; font-size:0.85rem; font-weight:700; color:#fff; text-decoration:none; box-shadow:0 0 15px rgba(99, 102, 241, 0.4);">
+                  <span>🛡️ Open Full AI Admin Console ↗</span>
+                </a>
+                <a href="https://ai.webguruji.online/" target="_blank" class="btn-action-outline" style="border:1px solid rgba(255,255,255,0.2); padding:0.45rem 0.85rem; border-radius:10px; font-size:0.82rem; color:#cbd5e1; text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;">
+                  <span>💬 Open Chatbot ↗</span>
+                </a>
+                <a href="https://ai.webguruji.online/dashboard.html" target="_blank" class="btn-action-outline" style="border:1px solid rgba(6,182,212,0.4); background:rgba(6,182,212,0.1); padding:0.45rem 0.85rem; border-radius:10px; font-size:0.82rem; color:#67e8f9; text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;">
+                  <span>📊 User AI Dashboard ↗</span>
+                </a>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.5;">Direct governance portal for GuruAI (ai.webguruji.online). Track registered accounts, enforce rolling quotas (10 req/12h member, 2 req/6h guest), monitor NVIDIA Nemotron 3 Ultra 550B inference and SDXL image generations.</p>
+
+            <!-- Key AI Metrics Strip -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.85rem; margin-bottom:1.25rem;">
+              <div style="background:rgba(10, 14, 26, 0.7); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.85rem 1rem;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; letter-spacing:0.04em;">Total Registered Users</div>
+                <div id="ai-hub-total-users" style="font-family:'Space Grotesk', sans-serif; font-size:1.7rem; font-weight:700; color:#fff; margin:0.2rem 0;">...</div>
+                <div style="font-size:0.72rem; color:#34d399;">● Tracked in Supabase</div>
+              </div>
+
+              <div style="background:rgba(10, 14, 26, 0.7); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.85rem 1rem;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; letter-spacing:0.04em;">Primary LLM Engine</div>
+                <div style="font-family:'Space Grotesk', sans-serif; font-size:1.15rem; font-weight:700; color:#818cf8; margin:0.4rem 0;">Nemotron 3 Ultra</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">NVIDIA 550B Full Context</div>
+              </div>
+
+              <div style="background:rgba(10, 14, 26, 0.7); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.85rem 1rem;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; letter-spacing:0.04em;">Image Synthesis Engine</div>
+                <div style="font-family:'Space Grotesk', sans-serif; font-size:1.15rem; font-weight:700; color:#c084fc; margin:0.4rem 0;">SDXL Lightning</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Hyper-realistic 1024x1024</div>
+              </div>
+
+              <div style="background:rgba(10, 14, 26, 0.7); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.85rem 1rem;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; letter-spacing:0.04em;">Quota Architecture</div>
+                <div style="font-family:'Space Grotesk', sans-serif; font-size:1.15rem; font-weight:700; color:#34d399; margin:0.4rem 0;">10 req / 12h</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Rolling window + Guest rate limiting</div>
+              </div>
+            </div>
+
+            <!-- Embedded Live Portal Frame -->
+            <div style="border:1px solid rgba(99, 102, 241, 0.3); border-radius:16px; overflow:hidden; background:#07090e; box-shadow:0 10px 30px rgba(0,0,0,0.6);">
+              <div style="padding:0.75rem 1rem; background:rgba(13, 18, 35, 0.95); border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.82rem; font-family:'JetBrains Mono', monospace; color:#cbd5e1;">
+                  <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#10b981;"></span>
+                  <span>Live Command Window: https://ai.webguruji.online/admin.html</span>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  <button type="button" class="btn-action-outline" style="padding:0.3rem 0.65rem; font-size:0.75rem;" onclick="document.getElementById('guruai-admin-iframe').src = 'https://ai.webguruji.online/admin.html'">
+                    <span>🔄 Reload Frame</span>
+                  </button>
+                  <a href="https://ai.webguruji.online/admin.html" target="_blank" class="btn-action-outline" style="padding:0.3rem 0.65rem; font-size:0.75rem; color:#60a5fa; text-decoration:none;">
+                    <span>Open in New Tab ↗</span>
+                  </a>
+                </div>
+              </div>
+              <iframe id="guruai-admin-iframe" src="https://ai.webguruji.online/admin.html" style="width:100%; height:580px; border:none; display:block;" title="GuruAI Admin Command Center"></iframe>
             </div>
           </div>
         </div>
@@ -5165,6 +5264,10 @@
         if (iconEl) iconEl.textContent = '📋';
         if (titleEl) titleEl.textContent = 'Contributor Applications Queue';
         if (subEl) subEl.textContent = 'Review candidate profiles, approve contributors & grant Golden Tick verifications.';
+      } else if (tabName === 'guruai') {
+        if (iconEl) iconEl.textContent = '🤖';
+        if (titleEl) titleEl.textContent = 'GuruAI Master Studio & Governance';
+        if (subEl) subEl.textContent = 'Track registered users, inspect NVIDIA Nemotron & SDXL usage, and govern platform policies.';
       } else if (tabName === 'goldentick') {
         if (iconEl) iconEl.textContent = '⭐';
         if (titleEl) titleEl.textContent = 'Universal Golden Tick & Site Users';
@@ -5304,9 +5407,19 @@
 
       // 4. Golden Tick Users Counts
       const goldenUsersCount = usersData.filter(u => u.golden_tick === true).length;
-      document.getElementById('stat-gold-count').textContent = goldenUsersCount;
+      const statGoldEl = document.getElementById('stat-gold-count');
+      if (statGoldEl) statGoldEl.textContent = goldenUsersCount;
       const mpillGold = document.getElementById('mpill-goldentick');
       if (mpillGold) mpillGold.textContent = goldenUsersCount;
+
+      // 4b. GuruAI Studio Users & Telemetry
+      const totalAiUsers = usersData.length;
+      const statAi = document.getElementById('stat-ai-count');
+      if (statAi) statAi.textContent = `${totalAiUsers} Users`;
+      const mpillGuruAi = document.getElementById('mpill-guruai');
+      if (mpillGuruAi) mpillGuruAi.textContent = `${totalAiUsers}`;
+      const aiHubTotal = document.getElementById('ai-hub-total-users');
+      if (aiHubTotal) aiHubTotal.textContent = totalAiUsers;
 
       // 5. Chatbase User Profiles Count
       try {
