@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const today = '2026-10-13';
+const today = '2026-10-20';
 const baseUrl = 'https://www.webguruji.online';
 
-// Comprehensive URL definitions with SEO weights, change frequencies, and metadata
+// ============================================================================
+// 1. COMPREHENSIVE URL DEFINITIONS FOR MAIN SITE (www.webguruji.online)
+// ============================================================================
 const pages = [
-  // 1. Homepage & Primary Flagship Portals
+  // A. Flagship Homepage & Direct Portals
   {
     loc: `${baseUrl}/`,
     lastmod: today,
@@ -24,7 +26,7 @@ const pages = [
     image: `${baseUrl}/logo.png`
   },
 
-  // 2. ChatBase Ecosystem (High Traffic Download & Showcase)
+  // B. ChatBase Ecosystem (Downloads & Messaging)
   {
     loc: `${baseUrl}/chat-app.html`,
     lastmod: today,
@@ -42,7 +44,7 @@ const pages = [
     image: `${baseUrl}/chatbase.png`
   },
 
-  // 3. HarshGuruJi App Store (High Priority)
+  // C. App Store & Software Catalog
   {
     loc: `${baseUrl}/store.html`,
     lastmod: today,
@@ -121,8 +123,15 @@ const pages = [
     priority: '0.85',
     title: 'Hermes AI Agent — HarshGuruJi Store'
   },
+  {
+    loc: `${baseUrl}/app.html`,
+    lastmod: today,
+    changefreq: 'weekly',
+    priority: '0.85',
+    title: 'HarshGuruJi Mobile Ecosystem & APK Downloader'
+  },
 
-  // 4. Books & Educational Library (NCERT Catalog)
+  // D. Books & Education Library (NCERT Digital Curriculum)
   {
     loc: `${baseUrl}/books.html`,
     lastmod: today,
@@ -229,13 +238,6 @@ const pages = [
     title: 'General Knowledge & Competitive Exam Quiz'
   },
   {
-    loc: `${baseUrl}/Quiz%20India/`,
-    lastmod: today,
-    changefreq: 'weekly',
-    priority: '0.85',
-    title: 'Quiz India — Interactive Knowledge & Trivia Challenge'
-  },
-  {
     loc: `${baseUrl}/Quiz%20India/index.html`,
     lastmod: today,
     changefreq: 'weekly',
@@ -243,7 +245,7 @@ const pages = [
     title: 'Quiz India National Trivia Portal'
   },
 
-  // 5. Free Tools & Productivity Hubs
+  // E. Free Tools & Online Productivity Utilities
   {
     loc: `${baseUrl}/free-tools.html`,
     lastmod: today,
@@ -308,7 +310,7 @@ const pages = [
     title: 'Comprehensive Percentage & Discount Calculator'
   },
 
-  // 6. AI, Technology, Gaming & Special Features
+  // F. AI & Emerging Technology Hubs
   {
     loc: `${baseUrl}/ai-hub.html`,
     lastmod: today,
@@ -331,6 +333,8 @@ const pages = [
     priority: '0.85',
     title: 'Technology Insights, Software & Computing Guides'
   },
+
+  // G. Gaming Arcade & Mini-Games
   {
     loc: `${baseUrl}/gaming-hub.html`,
     lastmod: today,
@@ -366,6 +370,8 @@ const pages = [
     priority: '0.80',
     title: 'Memory Card Flip Puzzle Challenge'
   },
+
+  // H. Editorial, Daily Specials, Insights & Showcase
   {
     loc: `${baseUrl}/daily-special.html`,
     lastmod: today,
@@ -395,13 +401,6 @@ const pages = [
     title: 'Explore HarshGuruJi Ecosystem'
   },
   {
-    loc: `${baseUrl}/app.html`,
-    lastmod: today,
-    changefreq: 'weekly',
-    priority: '0.85',
-    title: 'HarshGuruJi Mobile Ecosystem & APK Downloader'
-  },
-  {
     loc: `${baseUrl}/ads.html`,
     lastmod: today,
     changefreq: 'weekly',
@@ -409,8 +408,15 @@ const pages = [
     title: 'Partner Network & Advertisements — HarshGuruJi Curated Directory',
     image: `${baseUrl}/logo-512.png`
   },
+  {
+    loc: `${baseUrl}/appearance.html`,
+    lastmod: today,
+    changefreq: 'monthly',
+    priority: '0.75',
+    title: 'Platform Theme & Appearance Customizer — HarshGuruJi'
+  },
 
-  // 7. Community, Creator & Contributor Pages
+  // I. Founder, Community & Contributor Network
   {
     loc: `${baseUrl}/owner.html`,
     lastmod: today,
@@ -447,6 +453,13 @@ const pages = [
     title: 'Apply for Contributor Role & Claim Golden Tick Verification'
   },
   {
+    loc: `${baseUrl}/verify-contributor.html`,
+    lastmod: today,
+    changefreq: 'monthly',
+    priority: '0.80',
+    title: 'Verify Contributor Badge & Credentials — HarshGuruJi'
+  },
+  {
     loc: `${baseUrl}/contact.html`,
     lastmod: today,
     changefreq: 'monthly',
@@ -454,7 +467,7 @@ const pages = [
     title: 'Contact HarshGuruJi Support Desk & Direct Inquiry'
   },
 
-  // 8. Authentication & Account Access
+  // J. Authentication Portals (Publicly Indexable)
   {
     loc: `${baseUrl}/login.html`,
     lastmod: today,
@@ -476,15 +489,8 @@ const pages = [
     priority: '0.50',
     title: 'Forgot Password Recovery'
   },
-  {
-    loc: `${baseUrl}/reset-password.html`,
-    lastmod: today,
-    changefreq: 'monthly',
-    priority: '0.50',
-    title: 'Reset Account Password'
-  },
 
-  // 9. Legal, Compliance & AdSense Policies
+  // K. Legal, Compliance & AdSense Required Policies
   {
     loc: `${baseUrl}/privacy-policy.html`,
     lastmod: today,
@@ -508,6 +514,7 @@ const pages = [
   }
 ];
 
+// XML Builder Helper
 function buildXml(urlList) {
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -541,17 +548,19 @@ function buildXml(urlList) {
   return xml;
 }
 
-// 1. Generate Main sitemap.xml
-const mainXml = buildXml(pages);
-fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), mainXml, 'utf8');
-console.log(`Generated sitemap.xml with ${pages.length} URLs!`);
+// ============================================================================
+// 2. SUBDOMAINS DEDICATED SITEMAP DEFINITIONS
+// ============================================================================
 
-// 2. Generate Store Subdomain sitemap_store.xml
+// A. Store Subdomain (store.webguruji.online)
 const storePages = [
   { loc: 'https://store.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
   { loc: 'https://store.webguruji.online/store.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
   { loc: 'https://store.webguruji.online/store-detail.html', lastmod: today, changefreq: 'daily', priority: '0.85' },
   { loc: 'https://store.webguruji.online/app.html', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://store.webguruji.online/owner.html', lastmod: today, changefreq: 'weekly', priority: '0.90' },
+  { loc: 'https://store.webguruji.online/login.html', lastmod: today, changefreq: 'monthly', priority: '0.70' },
+  { loc: 'https://store.webguruji.online/signup.html', lastmod: today, changefreq: 'monthly', priority: '0.70' },
   { loc: 'https://store.webguruji.online/store-detail.html?slug=chess', lastmod: today, changefreq: 'daily', priority: '0.90' },
   { loc: 'https://store.webguruji.online/store-detail.html?slug=chatbase', lastmod: today, changefreq: 'daily', priority: '0.95' },
   { loc: 'https://store.webguruji.online/store-detail.html?slug=hp-tube', lastmod: today, changefreq: 'daily', priority: '0.90' },
@@ -560,30 +569,70 @@ const storePages = [
   { loc: 'https://store.webguruji.online/store-detail.html?slug=perplexity-ai-installer', lastmod: today, changefreq: 'weekly', priority: '0.85' },
   { loc: 'https://store.webguruji.online/store-detail.html?slug=bluestacks-installer', lastmod: today, changefreq: 'weekly', priority: '0.85' },
   { loc: 'https://store.webguruji.online/store-detail.html?slug=comet', lastmod: today, changefreq: 'weekly', priority: '0.85' },
-  { loc: 'https://store.webguruji.online/store-detail.html?slug=hermes-ai-agent', lastmod: today, changefreq: 'weekly', priority: '0.85' }
+  { loc: 'https://store.webguruji.online/store-detail.html?slug=hermes-ai-agent', lastmod: today, changefreq: 'weekly', priority: '0.85' },
+  { loc: 'https://store.webguruji.online/data/apps.json', lastmod: today, changefreq: 'daily', priority: '0.80' }
 ];
-fs.writeFileSync(path.join(__dirname, '..', 'sitemap_store.xml'), buildXml(storePages), 'utf8');
 
-// 3. Generate Books Subdomain sitemap_books.xml
+// B. Books Subdomain (books.webguruji.online)
 const booksPages = [
   { loc: 'https://books.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
   { loc: 'https://books.webguruji.online/books.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
-  { loc: 'https://books.webguruji.online/books.html?class=12', lastmod: today, changefreq: 'weekly', priority: '0.90' },
-  { loc: 'https://books.webguruji.online/books.html?class=11', lastmod: today, changefreq: 'weekly', priority: '0.90' },
-  { loc: 'https://books.webguruji.online/books.html?class=10', lastmod: today, changefreq: 'weekly', priority: '0.90' },
-  { loc: 'https://books.webguruji.online/books.html?class=9', lastmod: today, changefreq: 'weekly', priority: '0.90' }
+  { loc: 'https://books.webguruji.online/owner.html', lastmod: today, changefreq: 'weekly', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/login.html', lastmod: today, changefreq: 'monthly', priority: '0.70' },
+  { loc: 'https://books.webguruji.online/books.html?class=12', lastmod: today, changefreq: 'daily', priority: '0.95' },
+  { loc: 'https://books.webguruji.online/books.html?class=11', lastmod: today, changefreq: 'daily', priority: '0.95' },
+  { loc: 'https://books.webguruji.online/books.html?class=10', lastmod: today, changefreq: 'daily', priority: '0.95' },
+  { loc: 'https://books.webguruji.online/books.html?class=9', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/books.html?class=8', lastmod: today, changefreq: 'daily', priority: '0.90' },
+  { loc: 'https://books.webguruji.online/books.html?class=7', lastmod: today, changefreq: 'daily', priority: '0.85' },
+  { loc: 'https://books.webguruji.online/books.html?class=6', lastmod: today, changefreq: 'daily', priority: '0.85' },
+  { loc: 'https://books.webguruji.online/books.html?class=5', lastmod: today, changefreq: 'daily', priority: '0.80' },
+  { loc: 'https://books.webguruji.online/books.html?class=4', lastmod: today, changefreq: 'daily', priority: '0.80' },
+  { loc: 'https://books.webguruji.online/books.html?class=3', lastmod: today, changefreq: 'daily', priority: '0.80' },
+  { loc: 'https://books.webguruji.online/books.html?class=2', lastmod: today, changefreq: 'daily', priority: '0.75' },
+  { loc: 'https://books.webguruji.online/books.html?class=1', lastmod: today, changefreq: 'daily', priority: '0.75' }
 ];
-fs.writeFileSync(path.join(__dirname, '..', 'sitemap_books.xml'), buildXml(booksPages), 'utf8');
 
-// 4. Generate Chat Subdomain sitemap_chat.xml
+// C. Chat Subdomain (chat.webguruji.online)
 const chatPages = [
   { loc: 'https://chat.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
   { loc: 'https://chat.webguruji.online/chat.html', lastmod: today, changefreq: 'daily', priority: '1.0' },
   { loc: 'https://chat.webguruji.online/chat-app.html', lastmod: today, changefreq: 'daily', priority: '0.95' }
 ];
-fs.writeFileSync(path.join(__dirname, '..', 'sitemap_chat.xml'), buildXml(chatPages), 'utf8');
 
-// 5. Build sitemap_index.xml linking all sitemaps
+// D. AI Subdomain (ai.webguruji.online)
+const aiPages = [
+  { loc: 'https://ai.webguruji.online/', lastmod: today, changefreq: 'daily', priority: '1.0' },
+  { loc: 'https://ai.webguruji.online/login', lastmod: today, changefreq: 'monthly', priority: '0.80' }
+];
+
+// ============================================================================
+// 3. GENERATE SITEMAPS FOR MAIN SITE
+// ============================================================================
+const siteDir = path.join(__dirname, '..');
+
+// 1. sitemap.xml (Main site)
+const mainXml = buildXml(pages);
+fs.writeFileSync(path.join(siteDir, 'sitemap.xml'), mainXml, 'utf8');
+console.log(`Generated site/sitemap.xml with ${pages.length} URLs!`);
+
+// 2. sitemap_store.xml
+const storeXml = buildXml(storePages);
+fs.writeFileSync(path.join(siteDir, 'sitemap_store.xml'), storeXml, 'utf8');
+
+// 3. sitemap_books.xml
+const booksXml = buildXml(booksPages);
+fs.writeFileSync(path.join(siteDir, 'sitemap_books.xml'), booksXml, 'utf8');
+
+// 4. sitemap_chat.xml
+const chatXml = buildXml(chatPages);
+fs.writeFileSync(path.join(siteDir, 'sitemap_chat.xml'), chatXml, 'utf8');
+
+// 5. sitemap_ai.xml
+const aiXml = buildXml(aiPages);
+fs.writeFileSync(path.join(siteDir, 'sitemap_ai.xml'), aiXml, 'utf8');
+
+// 6. sitemap_index.xml (Master index linking all sub-sitemaps)
 const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Platform Master Sitemap -->
@@ -592,7 +641,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${today}</lastmod>
   </sitemap>
 
-  <!-- Store Subdomain & Dedicated App Catalog Sitemap -->
+  <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_store.xml</loc>
     <lastmod>${today}</lastmod>
@@ -602,7 +651,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${today}</lastmod>
   </sitemap>
 
-  <!-- Books Subdomain & Educational Catalog Sitemap -->
+  <!-- Books Subdomain & Educational Catalog Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_books.xml</loc>
     <lastmod>${today}</lastmod>
@@ -612,7 +661,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${today}</lastmod>
   </sitemap>
 
-  <!-- Chat Subdomain & ChatBase Messaging Sitemap -->
+  <!-- Chat Subdomain & ChatBase Messaging Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
     <lastmod>${today}</lastmod>
@@ -621,12 +670,24 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <loc>https://chat.webguruji.online/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
+
+  <!-- AI Subdomain Sitemaps -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_ai.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ai.webguruji.online/sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
 </sitemapindex>
 `;
-fs.writeFileSync(path.join(__dirname, '..', 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
-console.log(`Generated sitemap_index.xml linking all sub-sitemaps!`);
+fs.writeFileSync(path.join(siteDir, 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
+console.log(`Generated site/sitemap_index.xml linking all platform sitemaps!`);
 
-// 6. Build production-grade, Google Search Console compliant robots.txt
+// ============================================================================
+// 4. GENERATE ROBOTS.TXT FOR MAIN SITE
+// ============================================================================
 const robotsContent = `# ═══════════════════════════════════════════════════════════════════════════
 # robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
 # Full Google Search Console (GSC) & verified search bot crawl directives
@@ -665,10 +726,11 @@ Allow: /contact.html
 Allow: /contributor.html
 Allow: /join-contributor.html
 Allow: /apply-contributor.html
+Allow: /verify-contributor.html
+Allow: /appearance.html
 Allow: /login.html
 Allow: /signup.html
 Allow: /forgot-password.html
-Allow: /reset-password.html
 Allow: /privacy-policy.html
 Allow: /terms-and-conditions.html
 Allow: /cookie.html
@@ -730,9 +792,7 @@ Disallow: /admin-contacts.html
 Disallow: /admin-requests.html
 Disallow: /dashboard.html
 Disallow: /settings.html
-Disallow: /appearance.html
-Disallow: /verify-contributor.html
-Disallow: /ads.html
+Disallow: /reset-password.html
 Disallow: /backend/
 Disallow: /backend_legacy/
 Disallow: /oauth/
@@ -771,6 +831,7 @@ Allow: /*.webp$
 Disallow: /admin*
 Disallow: /dashboard.html
 Disallow: /settings.html
+Disallow: /reset-password.html
 Disallow: /backend/
 Disallow: /oauth/
 
@@ -800,6 +861,7 @@ Allow: /*.webp$
 Disallow: /admin*
 Disallow: /dashboard.html
 Disallow: /settings.html
+Disallow: /reset-password.html
 
 # ── Google Images Crawler ─────────────────────────────────────────────────
 User-agent: Googlebot-Image
@@ -821,6 +883,7 @@ Allow: /
 Disallow: /admin*
 Disallow: /dashboard.html
 Disallow: /settings.html
+Disallow: /reset-password.html
 Disallow: /backend/
 
 # ── Polite Crawl-Delays for Third-Party SEO Scrapers ──────────────────────
@@ -839,10 +902,146 @@ Sitemap: https://www.webguruji.online/sitemap_index.xml
 Sitemap: https://www.webguruji.online/sitemap_store.xml
 Sitemap: https://www.webguruji.online/sitemap_books.xml
 Sitemap: https://www.webguruji.online/sitemap_chat.xml
+Sitemap: https://www.webguruji.online/sitemap_ai.xml
+Sitemap: https://store.webguruji.online/sitemap.xml
+Sitemap: https://books.webguruji.online/sitemap.xml
+Sitemap: https://chat.webguruji.online/sitemap.xml
+Sitemap: https://ai.webguruji.online/sitemap.xml
+`;
+fs.writeFileSync(path.join(siteDir, 'robots.txt'), robotsContent, 'utf8');
+console.log(`Generated site/robots.txt (${robotsContent.length} bytes)!`);
+
+// ============================================================================
+// 5. DIRECT SYNC TO SUBDOMAIN REPOSITORIES
+// ============================================================================
+const subdomains = {
+  store: path.join(__dirname, '..', '..', 'HarshGuruJi', 'store'),
+  books: path.join(__dirname, '..', '..', 'HarshGuruJi', 'books'),
+  chatbase: path.join(__dirname, '..', '..', 'HarshGuruJi', 'chatbase'),
+  ai: path.join(__dirname, '..', '..', 'HarshGuruJi', 'ai'),
+};
+
+// 1. Sync Store
+if (fs.existsSync(subdomains.store)) {
+  fs.writeFileSync(path.join(subdomains.store, 'sitemap.xml'), storeXml, 'utf8');
+  fs.writeFileSync(path.join(subdomains.store, 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
+  
+  const storeRobots = `# robots.txt — store.webguruji.online
+User-agent: *
+Allow: /
+Allow: /store.html
+Allow: /store-detail.html
+Allow: /app.html
+Allow: /owner.html
+Allow: /login.html
+Allow: /signup.html
+Allow: /data/apps.json
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /reset-password.html
+Disallow: /forgot-password.html
+
+Sitemap: https://store.webguruji.online/sitemap.xml
+Sitemap: https://store.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://books.webguruji.online/sitemap.xml
+Sitemap: https://chat.webguruji.online/sitemap.xml
+Sitemap: https://ai.webguruji.online/sitemap.xml
+`;
+  fs.writeFileSync(path.join(subdomains.store, 'robots.txt'), storeRobots, 'utf8');
+  console.log(`Synchronized Store subdomain sitemaps and robots.txt!`);
+}
+
+// 2. Sync Books
+if (fs.existsSync(subdomains.books)) {
+  fs.writeFileSync(path.join(subdomains.books, 'sitemap.xml'), booksXml, 'utf8');
+  fs.writeFileSync(path.join(subdomains.books, 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
+
+  const booksRobots = `# robots.txt — books.webguruji.online
+User-agent: *
+Allow: /
+Allow: /books.html
+Allow: /owner.html
+Allow: /login.html
+Disallow: /admin*
+Disallow: /dashboard.html
+Disallow: /settings.html
+
+Sitemap: https://books.webguruji.online/sitemap.xml
+Sitemap: https://books.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://store.webguruji.online/sitemap.xml
+Sitemap: https://chat.webguruji.online/sitemap.xml
+Sitemap: https://ai.webguruji.online/sitemap.xml
+`;
+  fs.writeFileSync(path.join(subdomains.books, 'robots.txt'), booksRobots, 'utf8');
+  console.log(`Synchronized Books subdomain sitemaps and robots.txt!`);
+}
+
+// 3. Sync Chatbase
+if (fs.existsSync(subdomains.chatbase)) {
+  fs.writeFileSync(path.join(subdomains.chatbase, 'sitemap.xml'), chatXml, 'utf8');
+  if (fs.existsSync(path.join(subdomains.chatbase, 'public'))) {
+    fs.writeFileSync(path.join(subdomains.chatbase, 'public', 'sitemap.xml'), chatXml, 'utf8');
+  }
+  if (fs.existsSync(path.join(subdomains.chatbase, 'dist'))) {
+    fs.writeFileSync(path.join(subdomains.chatbase, 'dist', 'sitemap.xml'), chatXml, 'utf8');
+  }
+
+  const chatRobots = `# robots.txt — chat.webguruji.online
+User-agent: *
+Allow: /
+Allow: /chat.html
+Allow: /chat-app.html
+Disallow: /admin*
+
+Sitemap: https://chat.webguruji.online/sitemap.xml
+Sitemap: https://www.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://store.webguruji.online/sitemap.xml
+Sitemap: https://books.webguruji.online/sitemap.xml
+Sitemap: https://ai.webguruji.online/sitemap.xml
+`;
+  fs.writeFileSync(path.join(subdomains.chatbase, 'robots.txt'), chatRobots, 'utf8');
+  if (fs.existsSync(path.join(subdomains.chatbase, 'public'))) {
+    fs.writeFileSync(path.join(subdomains.chatbase, 'public', 'robots.txt'), chatRobots, 'utf8');
+  }
+  if (fs.existsSync(path.join(subdomains.chatbase, 'dist'))) {
+    fs.writeFileSync(path.join(subdomains.chatbase, 'dist', 'robots.txt'), chatRobots, 'utf8');
+  }
+  console.log(`Synchronized Chatbase subdomain sitemaps and robots.txt!`);
+}
+
+// 4. Sync AI
+if (fs.existsSync(subdomains.ai)) {
+  fs.writeFileSync(path.join(subdomains.ai, 'sitemap.xml'), aiXml, 'utf8');
+  if (fs.existsSync(path.join(subdomains.ai, 'public'))) {
+    fs.writeFileSync(path.join(subdomains.ai, 'public', 'sitemap.xml'), aiXml, 'utf8');
+  }
+
+  const aiRobots = `# robots.txt — ai.webguruji.online
+User-agent: *
+Allow: /
+Allow: /login
+Disallow: /admin*
+Disallow: /api/
+Disallow: /auth/
+
+Sitemap: https://ai.webguruji.online/sitemap.xml
+Sitemap: https://www.webguruji.online/sitemap_index.xml
+Sitemap: https://www.webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
 `;
+  fs.writeFileSync(path.join(subdomains.ai, 'robots.txt'), aiRobots, 'utf8');
+  if (fs.existsSync(path.join(subdomains.ai, 'public'))) {
+    fs.writeFileSync(path.join(subdomains.ai, 'public', 'robots.txt'), aiRobots, 'utf8');
+  }
+  console.log(`Synchronized AI subdomain sitemaps and robots.txt!`);
+}
 
-fs.writeFileSync(path.join(__dirname, '..', 'robots.txt'), robotsContent, 'utf8');
-console.log(`Generated robots.txt (${robotsContent.length} bytes)!`);
+console.log('All platform sitemaps and robots.txt generated and synchronized successfully!');

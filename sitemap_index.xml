@@ -3,36 +3,46 @@
   <!-- Main Platform Master Sitemap -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
 
-  <!-- Store Subdomain & Dedicated App Catalog Sitemap -->
+  <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_store.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://store.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
 
-  <!-- Books Subdomain & Educational Catalog Sitemap -->
+  <!-- Books Subdomain & Educational Catalog Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_books.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://books.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
 
-  <!-- Chat Subdomain & ChatBase Messaging Sitemap -->
+  <!-- Chat Subdomain & ChatBase Messaging Sitemaps -->
   <sitemap>
     <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://chat.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-20</lastmod>
+  </sitemap>
+
+  <!-- AI Subdomain Sitemaps -->
+  <sitemap>
+    <loc>https://www.webguruji.online/sitemap_ai.xml</loc>
+    <lastmod>2026-10-20</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ai.webguruji.online/sitemap.xml</loc>
+    <lastmod>2026-10-20</lastmod>
   </sitemap>
 </sitemapindex>
