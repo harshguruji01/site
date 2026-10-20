@@ -11,7 +11,8 @@
           return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
         }
         const pending = sessionStorage.getItem('hg_auth_redirect') || localStorage.getItem('hg_auth_redirect') || getCookie('hg_auth_redirect');
-        if (pending && pending !== 'dashboard.html' && !pending.endsWith('/dashboard.html')) {
+        const isCurrentSiteDashboard = (pending === 'dashboard.html' || pending === window.location.href || pending === (window.location.origin + '/dashboard.html'));
+        if (pending && !isCurrentSiteDashboard) {
           sessionStorage.removeItem('hg_auth_redirect');
           localStorage.removeItem('hg_auth_redirect');
           const hostname = window.location.hostname;
@@ -461,7 +462,8 @@
         return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
       };
       const pending = sessionStorage.getItem('hg_auth_redirect') || getCookie('hg_auth_redirect');
-      if (pending && pending !== 'dashboard.html' && !pending.endsWith('/dashboard.html')) {
+      const isCurrentSiteDashboard = (pending === 'dashboard.html' || pending === window.location.href || pending === (window.location.origin + '/dashboard.html'));
+        if (pending && !isCurrentSiteDashboard) {
         sessionStorage.removeItem('hg_auth_redirect');
         const hostname = window.location.hostname;
         let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';

@@ -2,6 +2,30 @@
 <html lang="en">
 
 <head>
+  <script>
+    (function() {
+      try {
+        function getCookie(name) {
+          const v = '; ' + document.cookie;
+          const parts = v.split('; ' + name + '=');
+          return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
+        }
+        const pending = sessionStorage.getItem('hg_auth_redirect') || localStorage.getItem('hg_auth_redirect') || getCookie('hg_auth_redirect');
+        if (pending && (pending.includes('ai.webguruji.online') || pending.includes('localhost') || pending.includes('127.0.0.1') || pending.includes(':3000'))) {
+          sessionStorage.removeItem('hg_auth_redirect');
+          localStorage.removeItem('hg_auth_redirect');
+          const hostname = window.location.hostname;
+          let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+          document.cookie = 'hg_auth_redirect=; path=/; max-age=0' + domainStr + '; SameSite=Lax';
+          
+          const authHashOrSearch = (window.location.hash || window.location.search || '');
+          const targetUrl = (pending.includes('#') || pending.includes('?')) ? pending : (pending + authHashOrSearch);
+          window.location.replace(targetUrl);
+        }
+      } catch(e) {}
+    })();
+  </script>
+
   <meta name="google-adsense-account" content="ca-pub-7706204118195419">
 
   <meta charset="UTF-8">

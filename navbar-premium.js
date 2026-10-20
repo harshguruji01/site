@@ -1,3 +1,24 @@
+// Early bounce-back if auth was initiated from AI subdomain
+if (typeof window !== 'undefined') {
+  try {
+    function getHgCookie(name) {
+      const v = '; ' + document.cookie;
+      const parts = v.split('; ' + name + '=');
+      return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
+    }
+    const pending = sessionStorage.getItem('hg_auth_redirect') || localStorage.getItem('hg_auth_redirect') || getHgCookie('hg_auth_redirect');
+    if (pending && (pending.includes('ai.webguruji.online') || pending.includes(':3000') || pending.includes('localhost') || pending.includes('127.0.0.1'))) {
+      sessionStorage.removeItem('hg_auth_redirect');
+      localStorage.removeItem('hg_auth_redirect');
+      const hostname = window.location.hostname;
+      let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+      document.cookie = 'hg_auth_redirect=; path=/; max-age=0' + domainStr + '; SameSite=Lax';
+      const authHashOrSearch = (window.location.hash || window.location.search || '');
+      const targetUrl = (pending.includes('#') || pending.includes('?')) ? pending : (pending + authHashOrSearch);
+      window.location.replace(targetUrl);
+    }
+  } catch(e) {}
+}
 // Global early PWA install prompt capture across all pages
 if (typeof window !== 'undefined' && !window.__hgPromptCaptured) {
   window.__hgPromptCaptured = true;
