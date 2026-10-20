@@ -170,6 +170,9 @@ export async function signUp(email, password, name) {
     console.error("Supabase sign up error:", error);
     throw error;
   }
+  if (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+    throw new Error("This email is already registered. Please sign in instead.");
+  }
   return data;
 }
 
