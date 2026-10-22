@@ -18,9 +18,27 @@ body.auth-page {
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   margin: 0;
+  padding: 0 !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Strictly hide and eliminate any navigation and footer elements on login portal */
+#hg-global-navbar,
+#hg-global-footer,
+.premium-navbar,
+.premium-mobile-nav,
+.hg-header,
+.footer,
+.hg-global-footer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .auth-container {
