@@ -313,7 +313,7 @@
           <span style="font-size: 0.9rem; font-weight: 500;" id="user-name">Loading...</span>
           <span class="user-email" id="user-email">...</span>
         </div>
-        <a href="../../login.html?redirect=oauth/consent" style="margin-left: auto; font-size: 0.8rem; color: #ff3366; text-decoration: none;">Not you?</a>
+        <a href="https://login.webguruji.online?redirect=https%3A%2F%2Fwebguruji.online%2Foauth%2Fconsent" style="margin-left: auto; font-size: 0.8rem; color: #ff3366; text-decoration: none;">Not you?</a>
       </div>
     </div>
   </main>
@@ -329,8 +329,8 @@
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        // Redirect to login if not authenticated, storing the return URL
-        window.location.href = '../../login.html?redirect=oauth/consent' + window.location.search;
+        // Redirect to central login if not authenticated, storing return target
+        window.location.href = 'https://login.webguruji.online?redirect=' + encodeURIComponent(window.location.href);
         return;
       }
 
