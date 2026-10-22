@@ -117,7 +117,7 @@
 <!-- Auth Requirement Banner -->
 <div id="contact-auth-notice" style="display:none !important; background:rgba(239, 68, 68, 0.12); border:1px solid rgba(239, 68, 68, 0.35); border-radius:14px; padding:1rem 1.25rem; margin-bottom:1.5rem; text-align:center;">
   <p style="color:#fca5a5; font-size:0.95rem; margin:0 0 0.75rem 0;">🔒 <strong>Sign In Required:</strong> Only logged-in users can send feedback or messages so we can notify you when the administrator replies.</p>
-  <a href="https://webguruji.online/login.html?redirect=https://webguruji.online/contact.html" class="btn btn-primary" style="display:inline-block; padding:0.5rem 1.5rem; font-size:0.9rem; text-decoration:none;">Log In to Send Message</a>
+  <a href="https://login.webguruji.online?redirect=https://webguruji.online/contact.html" class="btn btn-primary" style="display:inline-block; padding:0.5rem 1.5rem; font-size:0.9rem; text-decoration:none;">Log In to Send Message</a>
 </div>
 
 <!-- Signed in confirmation chip -->
@@ -214,7 +214,7 @@
     // Strict login requirement
     if (!currentUser) {
       alert("You must be logged in to send a contact message or feedback.");
-      window.location.href = "https://webguruji.online/login.html?redirect=https://webguruji.online/contact.html";
+      window.location.href = "https://login.webguruji.online?redirect=https://webguruji.online/contact.html";
       return;
     }
 

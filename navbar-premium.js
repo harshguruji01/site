@@ -91,12 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://webguruji.online/' : prefix;
   const currentFullUrl = typeof window !== 'undefined' ? window.location.href : '';
   const currentPathWithSearch = typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() + window.location.search) : '';
-  // Central Login Target: ALWAYS points to https://webguruji.online/login.html with current page redirect
+  // Central Login Target: ALWAYS points to https://login.webguruji.online with current page redirect
   let centralLoginBase;
   if (isLocal || window.location.protocol === 'file:') {
     centralLoginBase = (window.location.protocol === 'file:' && (isStorePage || isBooksPage)) ? '../../site/login.html' : `${prefix}login.html`;
   } else {
-    centralLoginBase = 'https://webguruji.online/login.html';
+    centralLoginBase = 'https://login.webguruji.online';
   }
 
   const safeReturnUrl = currentFullUrl || (typeof window !== 'undefined' ? (window.location.origin + window.location.pathname + window.location.search) : '');

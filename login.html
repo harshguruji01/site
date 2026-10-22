@@ -9,8 +9,12 @@
   <meta name="description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
   <meta name="keywords" content="harshguruji login-tab login page, harshguruji login page, harshguruji login-tab, harshguruji login, harshguruji sign in, harshguruji login, harshguruji online login, harshguruji student portal login, access tools">
   <meta name="author" content="HarshGuruJi">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://webguruji.online/login.html">
+  <script>
+    if (window.location.hostname === 'webguruji.online') {
+      window.location.replace('https://login.webguruji.online/' + (window.location.search || ''));
+    }
+  </script>
+  <link rel="canonical" href="https://login.webguruji.online/">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo-192.png">
 
