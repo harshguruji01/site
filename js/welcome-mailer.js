@@ -51,6 +51,7 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
   try {
     const currentYear = new Date().getFullYear();
     const isAi = source === 'ai';
+    const logoUrl = isAi ? 'https://webguruji.online/ai.png' : 'https://webguruji.online/logo.png';
     const payload = {
       to: [to],
       displayName: isAi ? 'GuruAI by HarshGuruJi' : 'HarshGuruJi',
@@ -72,6 +73,9 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
     <table width="100%" style="background-color:#0f172a;margin:0 auto;max-width:620px;border-radius:20px;border:1px solid #1e293b;border-top:4px solid #6366f1;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.6);" cellpadding="0" cellspacing="0">
       <tr>
         <td style="background:linear-gradient(135deg, ${isAi ? '#4f46e5 0%, #7c3aed 50%, #06b6d4 100%' : '#3b82f6 0%, #6366f1 50%, #06b6d4 100%'});padding:38px 24px;text-align:center;">
+          <div style="text-align: center; margin-bottom: 14px;">
+            <img src="${logoUrl}" alt="${isAi ? 'GuruAI' : 'HarshGuruJi'}" width="68" height="68" style="width: 68px; height: 68px; border-radius: 18px; object-fit: contain; background: #070a13; padding: 4px; border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); display: inline-block;" />
+          </div>
           <div style="display:inline-block;background:rgba(15,23,42,0.9);padding:7px 18px;border-radius:9999px;font-size:12px;font-weight:800;letter-spacing:1px;color:#38bdf8;text-transform:uppercase;border:1px solid rgba(255,255,255,0.25);">${isAi ? 'GuruAI ✦ HarshGuruJi Studio' : 'HarshGuruJi ✦ Official Ecosystem'}</div>
           <h1 style="color:#ffffff;font-size:26px;font-weight:800;margin:16px 0 6px 0;letter-spacing:-0.5px;">${isAi ? 'Welcome to GuruAI Studio! 🤖' : 'Welcome to HarshGuruJi! 🎉'}</h1>
           <p style="color:rgba(255,255,255,0.9);font-size:14px;margin:0;font-weight:500;">${isAi ? 'Your Personal AI Creative & Intelligence Workspace is Activated' : 'Your All-in-One Digital Hub for Learning, Developer Tools & AI is Ready'}</p>
@@ -91,7 +95,16 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
             <table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #1f293d;padding-bottom:12px;margin-bottom:12px;">
               <tr>
                 <td align="left">
-                  <span style="font-size:11px;font-weight:800;color:#38bdf8;letter-spacing:1.5px;text-transform:uppercase;">✦ OFFICIAL MEMBER ACCESS PASS</span>
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align: middle; padding-right: 8px;">
+                        <img src="${logoUrl}" width="22" height="22" style="width: 22px; height: 22px; border-radius: 6px; display: block;" />
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <span style="font-size:11px;font-weight:800;color:#38bdf8;letter-spacing:1.5px;text-transform:uppercase;">✦ OFFICIAL MEMBER ACCESS PASS</span>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
                 <td align="right">
                   <span style="font-size:11px;background:rgba(16,185,129,0.15);color:#34d399;padding:4px 10px;border-radius:999px;font-weight:800;border:1px solid rgba(52,211,153,0.3);">ACTIVE & VERIFIED ✓</span>
