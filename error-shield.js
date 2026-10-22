@@ -21,6 +21,20 @@
   'use strict';
 
   if (!window || !document) return;
+
+  // 0. CANONICAL APEX DOMAIN ENFORCEMENT: Redirect www.webguruji.online or http -> https://webguruji.online
+  try {
+    if (window.location) {
+      var isWww = window.location.hostname === 'www.webguruji.online';
+      var isInsecureApex = window.location.protocol === 'http:' && window.location.hostname === 'webguruji.online';
+      if (isWww || isInsecureApex) {
+        var canonicalUrl = 'https://webguruji.online' + window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace(canonicalUrl);
+        return;
+      }
+    }
+  } catch (e) {}
+
   if (window.__HARSHGURUJI_ERROR_SHIELD_ACTIVE__) return;
   window.__HARSHGURUJI_ERROR_SHIELD_ACTIVE__ = true;
 

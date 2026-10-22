@@ -2,13 +2,13 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Platform Master Sitemap -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap.xml</loc>
+    <loc>https://webguruji.online/sitemap.xml</loc>
     <lastmod>2026-10-20</lastmod>
   </sitemap>
 
   <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_store.xml</loc>
+    <loc>https://webguruji.online/sitemap_store.xml</loc>
     <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
@@ -18,7 +18,7 @@
 
   <!-- Books Subdomain & Educational Catalog Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_books.xml</loc>
+    <loc>https://webguruji.online/sitemap_books.xml</loc>
     <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
@@ -28,7 +28,7 @@
 
   <!-- Chat Subdomain & ChatBase Messaging Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
+    <loc>https://webguruji.online/sitemap_chat.xml</loc>
     <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>
@@ -38,7 +38,7 @@
 
   <!-- AI Subdomain Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_ai.xml</loc>
+    <loc>https://webguruji.online/sitemap_ai.xml</loc>
     <lastmod>2026-10-20</lastmod>
   </sitemap>
   <sitemap>

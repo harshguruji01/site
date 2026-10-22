@@ -28,7 +28,7 @@ def update_about_html():
       </div>
       
       <p style="margin-bottom:1.5rem">
-        <strong>HarshGuruJi</strong> (operated under <a href="https://www.webguruji.online" style="color:var(--accent-primary);text-decoration:none;">webguruji.online</a>) is an independent technology, education, and developer utility portal founded by <strong>Harsh Patel</strong>. Our purpose is straightforward: eliminate paywalls and friction from essential digital resources, providing students, aspiring programmers, and everyday users with fast, reliable, privacy-first tools.
+        <strong>HarshGuruJi</strong> (operated under <a href="https://webguruji.online" style="color:var(--accent-primary);text-decoration:none;">webguruji.online</a>) is an independent technology, education, and developer utility portal founded by <strong>Harsh Patel</strong>. Our purpose is straightforward: eliminate paywalls and friction from essential digital resources, providing students, aspiring programmers, and everyday users with fast, reliable, privacy-first tools.
       </p>
       
       <p style="margin-bottom:1.5rem">

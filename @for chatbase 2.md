@@ -5,7 +5,7 @@
 
 Application: ChatBase  
 Creator: HarshGuruJi  
-Official website: https://www.webguruji.online  
+Official website: https://webguruji.online  
 Web application: https://chat.webguruji.online  
 Platforms: Android application and responsive web application
 

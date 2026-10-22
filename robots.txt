@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# robots.txt — HarshGuruJi Platform Ecosystem (webguruji.online)
 # Full Google Search Console (GSC) & verified search bot crawl directives
 # Last Updated: 2026-10-20
 # ═══════════════════════════════════════════════════════════════════════════
@@ -207,12 +207,12 @@ User-agent: DotBot
 Crawl-delay: 10
 
 # ── Official Sitemaps for Google Search Console ───────────────────────────
-Sitemap: https://www.webguruji.online/sitemap.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap_store.xml
-Sitemap: https://www.webguruji.online/sitemap_books.xml
-Sitemap: https://www.webguruji.online/sitemap_chat.xml
-Sitemap: https://www.webguruji.online/sitemap_ai.xml
+Sitemap: https://webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap_store.xml
+Sitemap: https://webguruji.online/sitemap_books.xml
+Sitemap: https://webguruji.online/sitemap_chat.xml
+Sitemap: https://webguruji.online/sitemap_ai.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml

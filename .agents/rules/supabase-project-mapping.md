@@ -11,7 +11,7 @@ When working in the **site** workspace (`c:\Users\harsh\OneDrive\Desktop\site`),
 
 ## Project Context
 - This is the **HarshGuruJi** main website
-- Domain: `www.webguruji.online`
+- Domain: `webguruji.online`
 - Built with: Vanilla HTML/CSS/JS + Supabase
 - Tables include: site data, contacts, store products, contributors, user accounts, etc.
 - Has SQL setup files: `supabase_chat_setup.sql`, `supabase_contact_setup.sql`, `supabase_store_setup.sql`, `supabase_contributors_setup.sql`

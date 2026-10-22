@@ -33,4 +33,4 @@ if unexpected:
         print(f"{p}:{lno} -> {l}")
 else:
     print("PERFECT: ZERO NON-URL 'webguruji' OCCURRENCES FOUND ACROSS ENTIRE CODEBASE!")
-    print("All URLs with www.webguruji.online are fully preserved!")
+    print("All URLs with webguruji.online are fully preserved!")

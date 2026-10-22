@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-SITE_ORIGIN = "https://www.webguruji.online"
+SITE_ORIGIN = "https://webguruji.online"
 LOGO_URL = f"{SITE_ORIGIN}/logo-512.png"
 
 # Metadata for every single HTML file in the project

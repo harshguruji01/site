@@ -432,7 +432,7 @@ def update_admin_html():
 # 3. Generate sitemap.xml with all 65 HTML pages
 def generate_complete_sitemap():
     sitemap_path = "sitemap.xml"
-    origin = "https://www.webguruji.online"
+    origin = "https://webguruji.online"
 
     html_files = []
     for root, dirs, files in os.walk('.'):
@@ -516,7 +516,7 @@ def generate_complete_sitemap():
 def update_robots_txt():
     robots_path = "robots.txt"
     robots_content = """# ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — WebGuruJi / HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# robots.txt — WebGuruJi / HarshGuruJi Platform Ecosystem (webguruji.online)
 # Full Google Search Console (GSC) & search crawler indexing directives
 # All public pages, login, store, tools, learning, and hubs fully indexable
 # Last Updated: 2026-10-16
@@ -678,11 +678,11 @@ Disallow: /scripts/
 Disallow: /.git/
 
 # ── Sitemaps for Google Search Console ────────────────────────────────────
-Sitemap: https://www.webguruji.online/sitemap.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap_store.xml
-Sitemap: https://www.webguruji.online/sitemap_books.xml
-Sitemap: https://www.webguruji.online/sitemap_chat.xml
+Sitemap: https://webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap_store.xml
+Sitemap: https://webguruji.online/sitemap_books.xml
+Sitemap: https://webguruji.online/sitemap_chat.xml
 """
     with open(robots_path, "w", encoding="utf-8") as f:
         f.write(robots_content)

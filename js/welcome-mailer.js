@@ -58,8 +58,8 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
         ? 'Welcome to GuruAI by HarshGuruJi! 🎉 Welcome to AI Chat & Creative Studio'
         : 'Welcome to HarshGuruJi! 🎉 Welcome to the Official Platform & Learning Hub',
       text: isAi
-        ? `Namaste ${safeName}!\n\nWelcome to GuruAI by HarshGuruJi! Aapka account successfully create ho gaya hai.\n\nAap GuruAI Chat Studio me 10 daily conversation requests aur 5 SDXL image creations enjoy kar sakte hain.\n\nVisit: https://ai.webguruji.online\nOfficial Site: https://www.webguruji.online\nSupport: info@webguruji.online`
-        : `Namaste ${safeName}!\n\nWelcome to HarshGuruJi! Aapka account successfully create ho gaya hai.\n\nAap hamare all-in-one learning hub, developer tools, NCERT books aur GuruAI Chatbot ka bina kisi rukawat labh utha sakte hain.\n\nVisit: https://www.webguruji.online\nGuruAI: https://ai.webguruji.online\nSupport: info@webguruji.online`,
+        ? `Namaste ${safeName}!\n\nWelcome to GuruAI by HarshGuruJi! Aapka account successfully create ho gaya hai.\n\nAap GuruAI Chat Studio me 10 daily conversation requests aur 5 SDXL image creations enjoy kar sakte hain.\n\nVisit: https://ai.webguruji.online\nOfficial Site: https://webguruji.online\nSupport: info@webguruji.online`
+        : `Namaste ${safeName}!\n\nWelcome to HarshGuruJi! Aapka account successfully create ho gaya hai.\n\nAap hamare all-in-one learning hub, developer tools, NCERT books aur GuruAI Chatbot ka bina kisi rukawat labh utha sakte hain.\n\nVisit: https://webguruji.online\nGuruAI: https://ai.webguruji.online\nSupport: info@webguruji.online`,
       html: `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"/><title>${isAi ? 'Welcome to GuruAI' : 'Welcome to HarshGuruJi'}</title></head>
@@ -77,7 +77,7 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
           : 'Aapka account HarshGuruJi Platform par successfully create ho gaya hai. Ab aap hamare GuruAI Chatbot, NCERT study books, aur developer tools ka bina kisi rukawat labh utha sakte hain.'}
       </p>
       <div style="text-align:center;margin:28px 0;">
-        <a href="${isAi ? 'https://ai.webguruji.online' : 'https://www.webguruji.online'}" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;display:inline-block;">${isAi ? 'Start Exploring GuruAI →' : 'Explore HarshGuruJi Hub →'}</a>
+        <a href="${isAi ? 'https://ai.webguruji.online' : 'https://webguruji.online'}" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;display:inline-block;">${isAi ? 'Start Exploring GuruAI →' : 'Explore HarshGuruJi Hub →'}</a>
       </div>
       <hr style="border:none;border-top:1px solid #1f293d;margin:24px 0;"/>
       <p style="font-size:12px;color:#64748b;margin:0;text-align:center;">

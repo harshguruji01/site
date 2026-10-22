@@ -1,24 +1,4 @@
-// Early bounce-back if auth was initiated from AI subdomain
-if (typeof window !== 'undefined') {
-  try {
-    function getHgCookie(name) {
-      const v = '; ' + document.cookie;
-      const parts = v.split('; ' + name + '=');
-      return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
-    }
-    const pending = sessionStorage.getItem('hg_auth_redirect') || localStorage.getItem('hg_auth_redirect') || getHgCookie('hg_auth_redirect');
-    if (pending && (pending.includes('ai.webguruji.online') || pending.includes(':3000') || pending.includes('localhost') || pending.includes('127.0.0.1'))) {
-      sessionStorage.removeItem('hg_auth_redirect');
-      localStorage.removeItem('hg_auth_redirect');
-      const hostname = window.location.hostname;
-      let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
-      document.cookie = 'hg_auth_redirect=; path=/; max-age=0' + domainStr + '; SameSite=Lax';
-      const authHashOrSearch = (window.location.hash || window.location.search || '');
-      const targetUrl = (pending.includes('#') || pending.includes('?')) ? pending : (pending + authHashOrSearch);
-      window.location.replace(targetUrl);
-    }
-  } catch(e) {}
-}
+// Early bounce check removed to prevent premature redirect before login
 // Global early PWA install prompt capture across all pages
 if (typeof window !== 'undefined' && !window.__hgPromptCaptured) {
   window.__hgPromptCaptured = true;
@@ -102,27 +82,27 @@ document.addEventListener('DOMContentLoaded', () => {
                   window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1';
 
-  const homeUrl = isLocal ? `${prefix}index.html` : 'https://www.webguruji.online/';
+  const homeUrl = isLocal ? `${prefix}index.html` : 'https://webguruji.online/';
   const booksUrl = isBooksPage ? (navFile === 'books.html' ? '#top' : `${prefix}books.html`) : (isLocal ? `${prefix}books.html` : 'https://books.webguruji.online/');
   const storeUrl = isStorePage ? (navFile === 'store.html' ? '#top' : `${prefix}store.html`) : (isLocal ? `${prefix}store.html` : 'https://store.webguruji.online/');
   const chatUrl = isLocal ? `${prefix}chat.html` : 'https://chat.webguruji.online/';
 
   // Universal Navigation & Cross-Subdomain Central Authentication Targets
-  const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://www.webguruji.online/' : prefix;
+  const portalUrl = (isStorePage || isBooksPage) && !isLocal ? 'https://webguruji.online/' : prefix;
   const currentFullUrl = typeof window !== 'undefined' ? window.location.href : '';
   const currentPathWithSearch = typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() + window.location.search) : '';
-  // Central Login Target: ALWAYS points to https://www.webguruji.online/login.html with current page redirect
+  // Central Login Target: ALWAYS points to https://webguruji.online/login.html with current page redirect
   let centralLoginBase;
   if (isLocal || window.location.protocol === 'file:') {
     centralLoginBase = (window.location.protocol === 'file:' && (isStorePage || isBooksPage)) ? '../../site/login.html' : `${prefix}login.html`;
   } else {
-    centralLoginBase = 'https://www.webguruji.online/login.html';
+    centralLoginBase = 'https://webguruji.online/login.html';
   }
 
   const safeReturnUrl = currentFullUrl || (typeof window !== 'undefined' ? (window.location.origin + window.location.pathname + window.location.search) : '');
   const loginUrl = `${centralLoginBase}?redirect=${encodeURIComponent(safeReturnUrl)}`;
-  const dashUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/dashboard.html' : `${prefix}dashboard.html`;
-  const settingsUrl = (isBooksPage && !isLocal) ? 'https://www.webguruji.online/settings.html' : `${prefix}settings.html`;
+  const dashUrl = (isBooksPage && !isLocal) ? 'https://webguruji.online/dashboard.html' : `${prefix}dashboard.html`;
+  const settingsUrl = (isBooksPage && !isLocal) ? 'https://webguruji.online/settings.html' : `${prefix}settings.html`;
 
   // Build Desktop Nav Items
   let desktopNavListHTML = '';
@@ -862,13 +842,13 @@ document.addEventListener('DOMContentLoaded', () => {
         bStore.removeAttribute('rel');
       }
       if (bHome) {
-        bHome.href = 'https://www.webguruji.online/';
+        bHome.href = 'https://webguruji.online/';
         bHome.title = 'Main Portal Home';
       }
       if (bBooks) {
         bBooks.href = 'https://books.webguruji.online/';
       }
-      if (dHome) dHome.href = 'https://www.webguruji.online/';
+      if (dHome) dHome.href = 'https://webguruji.online/';
       if (dStore) {
         dStore.href = `${prefix}store.html`;
         dStore.removeAttribute('target');
@@ -885,13 +865,13 @@ document.addEventListener('DOMContentLoaded', () => {
         bBooks.removeAttribute('rel');
       }
       if (bHome) {
-        bHome.href = 'https://www.webguruji.online/';
+        bHome.href = 'https://webguruji.online/';
         bHome.title = 'Main Portal Home';
       }
       if (bStore) {
         bStore.href = 'https://store.webguruji.online/';
       }
-      if (dHome) dHome.href = 'https://www.webguruji.online/';
+      if (dHome) dHome.href = 'https://webguruji.online/';
       if (dBooks) {
         dBooks.href = `${prefix}books.html`;
         dBooks.removeAttribute('target');
@@ -1746,7 +1726,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if ((isStorePage || isBooksPage) && (item.url === 'login.html' || item.url.includes('login.html'))) {
         linkUrl = loginUrl;
       } else if ((isStorePage || isBooksPage) && (item.url === 'signup.html' || item.url.includes('signup.html'))) {
-        linkUrl = (window.location.protocol === 'file:') ? '../../site/signup.html' : 'https://www.webguruji.online/signup.html';
+        linkUrl = (window.location.protocol === 'file:') ? '../../site/signup.html' : 'https://webguruji.online/signup.html';
       }
 
       return `
@@ -2314,7 +2294,7 @@ document.addEventListener('DOMContentLoaded', () => {
           await supabase.auth.signOut().catch(() => {});
         } catch(e) {}
       }
-      window.location.href = (isLocal || window.location.protocol === 'file:') ? (prefix + "index.html") : 'https://www.webguruji.online/index.html';
+      window.location.href = (isLocal || window.location.protocol === 'file:') ? (prefix + "index.html") : 'https://webguruji.online/index.html';
     });
   }
 

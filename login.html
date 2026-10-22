@@ -10,17 +10,17 @@
   <meta name="keywords" content="harshguruji login-tab login page, harshguruji login page, harshguruji login-tab, harshguruji login, harshguruji sign in, harshguruji login, harshguruji online login, harshguruji student portal login, access tools">
   <meta name="author" content="HarshGuruJi">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://www.webguruji.online/login.html">
+  <link rel="canonical" href="https://webguruji.online/login.html">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo-192.png">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:site_name" content="HarshGuruJi">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.webguruji.online/login.html">
+  <meta property="og:url" content="https://webguruji.online/login.html">
   <meta property="og:title" content="HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In">
   <meta property="og:description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
-  <meta property="og:image" content="https://www.webguruji.online/logo-512.png">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
@@ -28,7 +28,7 @@
   <meta name="twitter:site" content="@harshguruji1">
   <meta name="twitter:title" content="HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In">
   <meta name="twitter:description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
-  <meta name="twitter:image" content="https://www.webguruji.online/logo-512.png">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
 
   <script type="application/ld+json">
   {
@@ -39,13 +39,13 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://www.webguruji.online/"
+      "item": "https://webguruji.online/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "HarshGuruJi Login Tab",
-      "item": "https://www.webguruji.online/login.html"
+      "item": "https://webguruji.online/login.html"
     }
   ]
 }
@@ -55,7 +55,7 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In",
-  "url": "https://www.webguruji.online/login.html",
+  "url": "https://webguruji.online/login.html",
   "description": "Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.",
   "inLanguage": "en",
   "isPartOf": {
@@ -65,7 +65,7 @@
       "HarshGuruJi",
       "webguruji.online"
     ],
-    "url": "https://www.webguruji.online/"
+    "url": "https://webguruji.online/"
   }
 }
   </script>
@@ -242,16 +242,14 @@
 
     let redirectUrl = getAuthRedirectTarget();
 
-    // Persist redirect target in session and domain cookie for seamless post-login redirect
+    // Persist redirect target in session for post-login redirect
     try {
-      sessionStorage.setItem('hg_auth_redirect', redirectUrl);
-      const hostname = window.location.hostname;
-      let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
-      const secureStr = window.location.protocol === 'https:' ? '; secure' : '';
-      document.cookie = `hg_auth_redirect=${encodeURIComponent(redirectUrl)}; path=/; max-age=3600${domainStr}; SameSite=Lax${secureStr}`;
+      if (redirectUrl && redirectUrl !== 'dashboard.html') {
+        sessionStorage.setItem('hg_auth_redirect', redirectUrl);
+      }
     } catch (e) {}
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function initLoginPage() {
       // Forward redirect parameter to signup and forgot password links
       const signupLink = document.querySelector('.auth-footer-text a[href*="signup.html"]');
       if (signupLink && redirectUrl && redirectUrl !== 'dashboard.html') {
@@ -262,37 +260,28 @@
         forgotLink.href = `forgot-password.html?redirect=${encodeURIComponent(redirectUrl)}`;
       }
 
-      // Check if already logged in - if so, redirect immediately without asking again!
-      const loadingOverlay = document.createElement('div');
-      loadingOverlay.id = 'auth-check-overlay';
-      loadingOverlay.style.position = 'fixed';
-      loadingOverlay.style.top = '0';
-      loadingOverlay.style.left = '0';
-      loadingOverlay.style.width = '100vw';
-      loadingOverlay.style.height = '100vh';
-      loadingOverlay.style.background = 'var(--bg-main, #0b0f19)';
-      loadingOverlay.style.zIndex = '9999';
-      loadingOverlay.style.display = 'flex';
-      loadingOverlay.style.justifyContent = 'center';
-      loadingOverlay.style.alignItems = 'center';
-      loadingOverlay.style.color = 'var(--text-primary, #fff)';
-      loadingOverlay.innerHTML = '<div style="text-align:center;"><div style="width:36px;height:36px;border:3px solid rgba(255,255,255,0.1);border-top:3px solid #3b82f6;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px;"></div><h3 style="font-size:1.1rem;font-weight:600;">Checking session...</h3></div>';
-      document.body.appendChild(loadingOverlay);
-
+      // Check if user is already logged in (non-blocking in background)
       try {
-        const session = await getSession();
-        if (session && session.user) {
-          try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
-          window.location.replace(redirectUrl);
-          return;
-        } else {
-          loadingOverlay.remove();
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceStay = urlParams.get('logout') || urlParams.get('reauth') || urlParams.get('force');
+        if (!forceStay) {
+          const session = await getSession();
+          if (session && session.user) {
+            try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+            window.location.replace(redirectUrl);
+            return;
+          }
         }
       } catch (error) {
-        console.error("Error checking session:", error);
-        loadingOverlay.remove();
+        console.warn("Notice checking session:", error);
       }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLoginPage, { once: true });
+    } else {
+      initLoginPage();
+    }
 
     const form = document.getElementById('login-form');
     const errorDiv = document.getElementById('auth-error');
@@ -436,7 +425,12 @@
             }));
           }
 
-          try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+          try {
+            sessionStorage.removeItem('hg_auth_redirect');
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+          } catch(e){}
           window.location.replace(redirectUrl);
 
         } else if (loginMethod === 'phone') {
@@ -466,7 +460,12 @@
           if(!otp) throw new Error("OTP required.");
           
           await verifyPhoneOtp(pendingPhone, otp);
-          try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+          try {
+            sessionStorage.removeItem('hg_auth_redirect');
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+          } catch(e){}
           window.location.replace(redirectUrl);
         }
       } catch (err) {

@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const today = '2026-10-20';
-const baseUrl = 'https://www.webguruji.online';
+const baseUrl = 'https://webguruji.online';
 
 // ============================================================================
-// 1. COMPREHENSIVE URL DEFINITIONS FOR MAIN SITE (www.webguruji.online)
+// 1. COMPREHENSIVE URL DEFINITIONS FOR MAIN SITE (webguruji.online)
 // ============================================================================
 const pages = [
   // A. Flagship Homepage & Direct Portals
@@ -637,13 +637,13 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Platform Master Sitemap -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap.xml</loc>
+    <loc>https://webguruji.online/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 
   <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_store.xml</loc>
+    <loc>https://webguruji.online/sitemap_store.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
@@ -653,7 +653,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- Books Subdomain & Educational Catalog Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_books.xml</loc>
+    <loc>https://webguruji.online/sitemap_books.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
@@ -663,7 +663,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- Chat Subdomain & ChatBase Messaging Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_chat.xml</loc>
+    <loc>https://webguruji.online/sitemap_chat.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
@@ -673,7 +673,7 @@ const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- AI Subdomain Sitemaps -->
   <sitemap>
-    <loc>https://www.webguruji.online/sitemap_ai.xml</loc>
+    <loc>https://webguruji.online/sitemap_ai.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
@@ -689,7 +689,7 @@ console.log(`Generated site/sitemap_index.xml linking all platform sitemaps!`);
 // 4. GENERATE ROBOTS.TXT FOR MAIN SITE
 // ============================================================================
 const robotsContent = `# ═══════════════════════════════════════════════════════════════════════════
-# robots.txt — HarshGuruJi Platform Ecosystem (www.webguruji.online)
+# robots.txt — HarshGuruJi Platform Ecosystem (webguruji.online)
 # Full Google Search Console (GSC) & verified search bot crawl directives
 # Last Updated: ${today}
 # ═══════════════════════════════════════════════════════════════════════════
@@ -897,12 +897,12 @@ User-agent: DotBot
 Crawl-delay: 10
 
 # ── Official Sitemaps for Google Search Console ───────────────────────────
-Sitemap: https://www.webguruji.online/sitemap.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap_store.xml
-Sitemap: https://www.webguruji.online/sitemap_books.xml
-Sitemap: https://www.webguruji.online/sitemap_chat.xml
-Sitemap: https://www.webguruji.online/sitemap_ai.xml
+Sitemap: https://webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap_store.xml
+Sitemap: https://webguruji.online/sitemap_books.xml
+Sitemap: https://webguruji.online/sitemap_chat.xml
+Sitemap: https://webguruji.online/sitemap_ai.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
@@ -944,8 +944,8 @@ Disallow: /forgot-password.html
 
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
 Sitemap: https://ai.webguruji.online/sitemap.xml
@@ -971,8 +971,8 @@ Disallow: /settings.html
 
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
 Sitemap: https://ai.webguruji.online/sitemap.xml
@@ -999,8 +999,8 @@ Allow: /chat-app.html
 Disallow: /admin*
 
 Sitemap: https://chat.webguruji.online/sitemap.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://ai.webguruji.online/sitemap.xml
@@ -1031,8 +1031,8 @@ Disallow: /api/
 Disallow: /auth/
 
 Sitemap: https://ai.webguruji.online/sitemap.xml
-Sitemap: https://www.webguruji.online/sitemap_index.xml
-Sitemap: https://www.webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap_index.xml
+Sitemap: https://webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
