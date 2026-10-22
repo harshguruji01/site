@@ -53,7 +53,7 @@ export async function sendWelcomeEmail({ to, name = 'Friend', source = 'main' })
     const isAi = source === 'ai';
     const payload = {
       to: [to],
-      displayName: isAi ? 'GuruAI by HarshGuruJi <info@webguruji.online>' : 'HarshGuruJi <info@webguruji.online>',
+      displayName: isAi ? 'GuruAI by HarshGuruJi' : 'HarshGuruJi',
       subject: isAi
         ? 'Welcome to GuruAI by HarshGuruJi! 🎉 Welcome to AI Chat & Creative Studio'
         : 'Welcome to HarshGuruJi! 🎉 Welcome to the Official Platform & Learning Hub',
