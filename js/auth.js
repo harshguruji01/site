@@ -3,6 +3,30 @@ import { getProfile, updateProfile } from './profile.js';
 import { trackActivity } from './activity-tracker.js';
 import { sendWelcomeEmail } from './welcome-mailer.js';
 
+// Immediate cross-subdomain redirect protection (e.g. from ai.webguruji.online)
+(function checkCrossSubdomainBounce() {
+  try {
+    if (typeof window === 'undefined' || !window.location) return;
+    const cookieMatch = document.cookie.match(/(?:^|;\s*)hg_auth_redirect=([^;]+)/);
+    const pendingRedirect = cookieMatch ? decodeURIComponent(cookieMatch[1]) : (sessionStorage.getItem('hg_auth_redirect') || '');
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAiSource = urlParams.get('source') === 'ai' || (pendingRedirect && pendingRedirect.includes('ai.webguruji.online'));
+    const hasAuthToken = window.location.hash && (window.location.hash.includes('access_token=') || window.location.hash.includes('refresh_token='));
+
+    if (isAiSource && (hasAuthToken || (pendingRedirect && pendingRedirect.includes('ai.webguruji.online')))) {
+      const target = (pendingRedirect && pendingRedirect.includes('ai.webguruji.online')) ? pendingRedirect : 'https://ai.webguruji.online/';
+      const hostname = window.location.hostname;
+      const domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+      document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+      try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+      
+      const cleanTarget = target.split('#')[0];
+      const targetHash = window.location.hash || '';
+      window.location.replace(cleanTarget + (cleanTarget.includes('?') ? '&' : '?') + 'login_success=1' + targetHash);
+    }
+  } catch(e) {}
+})();
+
 /**
  * Display non-intrusive auth greeting toast
  */
@@ -212,6 +236,22 @@ export const AuthManager = {
     window.dispatchEvent(new CustomEvent('auth-state-changed', { 
       detail: { user: this.currentUser, profile: this.currentProfile } 
     }));
+
+    // If login was initiated from AI Hub, return user to AI Hub immediately
+    try {
+      const cookieMatch = document.cookie.match(/(?:^|;\s*)hg_auth_redirect=([^;]+)/);
+      const pendingRedirect = cookieMatch ? decodeURIComponent(cookieMatch[1]) : (sessionStorage.getItem('hg_auth_redirect') || '');
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('source') === 'ai' || (pendingRedirect && pendingRedirect.includes('ai.webguruji.online'))) {
+        const target = (pendingRedirect && pendingRedirect.includes('ai.webguruji.online')) ? pendingRedirect : 'https://ai.webguruji.online/';
+        const hostname = window.location.hostname;
+        const domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+        document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+        try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+        setTimeout(() => { window.location.replace(target); }, 150);
+        return;
+      }
+    } catch(e) {}
   },
 
   handleUserLogout() {
