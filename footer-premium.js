@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="hg-footer-grid">
         <div class="hg-footer-brand">
           <a href="${MAIN_SITE}/index.html" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; margin-bottom: 1.5rem;">
-            <img src="webguruji-logo.png" alt="HarshGuruJi Logo" style="height: 36px; width: auto; max-width: 44px; border-radius: 8px; object-fit: contain;" />
+            <img src="${MAIN_SITE}/logo.png" alt="HarshGuruJi Logo" style="height: 36px; width: 36px; border-radius: 8px; object-fit: contain;" />
             <span style="font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.5rem; background:linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">HarshGuruJi</span>
           </a>
           <p>HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.</p>
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </a>
         
-        <p style="color: var(--text-secondary, #a1a1aa); font-size: 0.85rem; margin: 0;">
-          &copy; <span id="hg-footer-year">${currentYear}</span> HarshGuruJi • GuruTube Project. All Rights Reserved. <br>
-          Made with ❤️ by HarshGuruJi.
+        <p style="color: var(--text-secondary, #a1a1aa); font-size: 0.85rem; margin: 0; line-height: 1.8;">
+          &copy; <span id="hg-footer-year">${currentYear}</span> <img src="${MAIN_SITE}/logo.png" alt="HarshGuruJi Logo" style="height: 1.1em; width: 1.1em; border-radius: 4px; vertical-align: middle; display: inline-block; margin-right: 3px;" />HarshGuruJi. All Rights Reserved. <br>
+          Made with ❤️ by <img src="${MAIN_SITE}/logo.png" alt="HarshGuruJi Logo" style="height: 1.1em; width: 1.1em; border-radius: 4px; vertical-align: middle; display: inline-block; margin-right: 3px;" />HarshGuruJi.
         </p>
       </div>
     </footer>
