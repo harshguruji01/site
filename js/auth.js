@@ -1,6 +1,52 @@
 import { supabase } from './supabase.js';
 import { getProfile, updateProfile } from './profile.js';
 import { trackActivity } from './activity-tracker.js';
+import { sendWelcomeEmail } from './welcome-mailer.js';
+
+/**
+ * Display non-intrusive auth greeting toast
+ */
+function displayAuthToast(message, type = 'info') {
+  if (typeof window.showToast === 'function') {
+    window.showToast(message, type, 4500);
+    return;
+  }
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;background:#111827;color:#f8fafc;padding:14px 20px;border-radius:12px;border:1px solid #6366f1;box-shadow:0 10px 25px rgba(0,0,0,0.5);font-family:sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;';
+  toast.innerHTML = (type === 'success' ? '<span>🎉</span>' : '<span>👋</span>') + `<span>${message}</span>`;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 4500);
+}
+
+/**
+ * Check and display any pending greeting from login/signup
+ */
+export function checkAndDisplayPendingGreeting() {
+  try {
+    const raw = sessionStorage.getItem('hg_pending_greeting');
+    if (!raw) return;
+    sessionStorage.removeItem('hg_pending_greeting');
+    const { type, name, email } = JSON.parse(raw);
+    if (type === 'new') {
+      displayAuthToast(`Welcome to HarshGuruJi, ${name}! 🎉 Welcome email sent to ${email || 'your email'}.`, 'success');
+    } else {
+      displayAuthToast(`Welcome back, ${name}! 👋`, 'info');
+    }
+  } catch (e) {
+    console.warn('Greeting check notice:', e);
+  }
+}
+
+// Automatically check on DOM load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', checkAndDisplayPendingGreeting, { once: true });
+} else {
+  setTimeout(checkAndDisplayPendingGreeting, 100);
+}
 
 // Expose AuthManager globally for convenience or use via exports
 export const AuthManager = {
@@ -40,8 +86,10 @@ export const AuthManager = {
     user.uid = user.id;
 
     // Check if profile exists, if not, create one
+    let isNewUser = false;
     let profile = await getProfile(user.id);
     if (!profile) {
+      isNewUser = true;
       console.log("No profile found in Supabase, creating from metadata...");
       const userMetadata = user.user_metadata || {};
       const newProfile = {
@@ -63,11 +111,56 @@ export const AuthManager = {
       });
     }
 
+    const displayName = profile?.display_name || user.user_metadata?.full_name || user.user_metadata?.name || (user.email ? user.email.split('@')[0] : 'User');
+    const userEmail = (user.email || '').toLowerCase();
+
+    // Determine if welcome email should be sent or if welcome back greeting should be displayed
+    const justSignedUp = sessionStorage.getItem('hg_just_signed_up') === userEmail;
+    const welcomeAlreadySent = user.user_metadata?.welcome_email_sent === true || localStorage.getItem('hg_welcome_sent_' + user.id) === 'true';
+
+    if ((isNewUser || justSignedUp) && !welcomeAlreadySent) {
+      // 1. NEW USER: Send Welcome Email from info@webguruji.online via Hostinger Mail API
+      console.log('🎉 New user detected. Triggering welcome email to', userEmail);
+      try {
+        sessionStorage.removeItem('hg_just_signed_up');
+        localStorage.setItem('hg_welcome_sent_' + user.id, 'true');
+        await supabase.auth.updateUser({
+          data: { welcome_email_sent: true, welcome_sent_at: new Date().toISOString() }
+        });
+        sendWelcomeEmail({ to: userEmail, name: displayName, source: 'main' });
+      } catch (mailErr) {
+        console.warn('Welcome mail dispatch notice:', mailErr);
+      }
+
+      // Schedule greeting for new user
+      const greetingSessionKey = 'hg_greeting_shown_' + user.id;
+      if (!sessionStorage.getItem(greetingSessionKey)) {
+        sessionStorage.setItem(greetingSessionKey, 'true');
+        sessionStorage.setItem('hg_pending_greeting', JSON.stringify({
+          type: 'new',
+          name: displayName,
+          email: userEmail
+        }));
+        checkAndDisplayPendingGreeting();
+      }
+    } else {
+      // 2. RETURNING USER: DO NOT SEND EMAIL! Show "Welcome back" greeting
+      const greetingSessionKey = 'hg_greeting_shown_' + user.id;
+      if (!sessionStorage.getItem(greetingSessionKey)) {
+        sessionStorage.setItem(greetingSessionKey, 'true');
+        sessionStorage.setItem('hg_pending_greeting', JSON.stringify({
+          type: 'returning',
+          name: displayName
+        }));
+        checkAndDisplayPendingGreeting();
+      }
+    }
+
     // Track standard page view
     await trackActivity({ activity_type: 'page_view' });
 
+
     // Verify contributor and golden_tick integrity
-    const userEmail = (user.email || '').toLowerCase();
     const isOwner = userEmail === 'harshguruji01@gmail.com';
     let isContributor = isOwner;
 
@@ -251,6 +344,45 @@ export async function resetPassword(email) {
 export async function updatePassword(newPassword) {
   const { data, error } = await supabase.auth.updateUser({ password: newPassword });
   if (error) throw error;
+  return data;
+}
+
+/**
+ * Send 6-digit login verification code to user's email via info@webguruji.online
+ * @param {string} email
+ * @param {string} password
+ * @param {string} [source='main']
+ */
+export async function sendLoginVerificationCode(email, password, source = 'main') {
+  const res = await fetch('https://ai.webguruji.online/api/auth/send-login-code', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, source })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || 'Failed to send login verification code.');
+  }
+  return data;
+}
+
+/**
+ * Verify 6-digit login verification code
+ * @param {string} email
+ * @param {string} code
+ * @param {string} token
+ * @param {string} [source='main']
+ */
+export async function verifyLoginCode(email, code, token, source = 'main') {
+  const res = await fetch('https://ai.webguruji.online/api/auth/verify-login-code', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, code, token, source })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || 'Failed to verify login code.');
+  }
   return data;
 }
 

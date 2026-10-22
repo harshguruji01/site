@@ -222,7 +222,7 @@
   </main>
 
   <script type="module">
-    import { signIn, signInWithGoogle, getSession, signInWithPhone, verifyPhoneOtp } from './js/auth.js';
+    import { signIn, signInWithGoogle, getSession, signInWithPhone, verifyPhoneOtp, sendLoginVerificationCode, verifyLoginCode } from './js/auth.js';
 
     function getAuthRedirectTarget() {
       try {
@@ -314,12 +314,23 @@
     const otpInput = document.getElementById('otp');
 
     // State
-    let loginMethod = 'email'; // 'email' | 'phone' | 'verify'
+    let loginMethod = 'email'; // 'email' | 'verify_email' | 'phone' | 'verify'
     let pendingPhone = '';
+    let pendingEmail = '';
+    let pendingPassword = '';
+    let pendingEmailToken = '';
 
     toggleMethodBtn.addEventListener('click', () => {
       errorDiv.style.display = 'none';
-      if (loginMethod === 'email') {
+      if (loginMethod === 'verify_email') {
+        // Back to email entry
+        loginMethod = 'email';
+        otpGroup.style.display = 'none';
+        emailGroup.style.display = 'block';
+        passwordGroup.style.display = 'block';
+        loginBtn.querySelector('span').textContent = 'Log In';
+        toggleMethodBtn.textContent = 'Sign in with Phone (OTP) instead';
+      } else if (loginMethod === 'email') {
         // Switch to phone
         loginMethod = 'phone';
         emailGroup.style.display = 'none';
@@ -374,15 +385,60 @@
       
       try {
         if (loginMethod === 'email') {
-          // Normal Email Login
+          // Send 6-digit Login Verification Code to user email from info@webguruji.online
           const email = (emailInput.value || '').trim();
           const password = passwordInput.value;
-          if(!email || !password) throw new Error("Email and password required.");
-          
-          await signIn(email, password);
+          if (!email || !password) throw new Error("Email and password required.");
+
+          const res = await sendLoginVerificationCode(email, password, 'main');
+          pendingEmail = email;
+          pendingPassword = password;
+          pendingEmailToken = res.token;
+          loginMethod = 'verify_email';
+
+          // Switch UI to Email OTP Verification mode
+          emailGroup.style.display = 'none';
+          passwordGroup.style.display = 'none';
+          otpGroup.style.display = 'block';
+          const otpLabel = otpGroup.querySelector('label');
+          if (otpLabel) {
+            otpLabel.innerHTML = 'Enter 6-digit code sent from <span style="color:#38bdf8;">info@webguruji.online</span> to ' + email;
+          }
+          otpInput.value = '';
+          otpInput.focus();
+          loginBtn.querySelector('span').textContent = 'Verify Code & Log In';
+          toggleMethodBtn.textContent = '← Back to Email / Password';
+
+          errorDiv.style.color = '#10b981';
+          errorDiv.style.borderColor = '#10b981';
+          errorDiv.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+          errorDiv.textContent = 'Verification code sent to ' + email + ' from info@webguruji.online! Please check your inbox or spam.';
+          errorDiv.style.display = 'block';
+
+        } else if (loginMethod === 'verify_email') {
+          // Verify Email OTP and complete login
+          const otp = (otpInput.value || '').trim();
+          if (!otp) throw new Error("Verification code is required.");
+
+          const verifyRes = await verifyLoginCode(pendingEmail, otp, pendingEmailToken, 'main');
+          await signIn(pendingEmail, pendingPassword);
+
+          if (verifyRes.isNewUser) {
+            sessionStorage.setItem('hg_pending_greeting', JSON.stringify({
+              type: 'new',
+              name: verifyRes.displayName || 'User',
+              email: pendingEmail
+            }));
+          } else {
+            sessionStorage.setItem('hg_pending_greeting', JSON.stringify({
+              type: 'returning',
+              name: verifyRes.displayName || 'User'
+            }));
+          }
+
           try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
           window.location.replace(redirectUrl);
-          
+
         } else if (loginMethod === 'phone') {
           // Send Phone OTP
           const phone = (phoneInput.value || '').trim();

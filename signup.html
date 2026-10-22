@@ -253,10 +253,12 @@
       
       try {
         await signUp(email, password, name);
-        successDiv.textContent = 'Account created successfully! You can now log in.';
+        try { sessionStorage.setItem('hg_just_signed_up', email.toLowerCase().trim()); } catch(e){}
+        successDiv.textContent = 'Account created successfully! A welcome email is being dispatched from info@webguruji.online. You can now log in.';
         successDiv.style.display = 'block';
         form.reset();
       } catch (err) {
+
         errorDiv.textContent = err.message || 'Failed to create account.';
         errorDiv.style.display = 'block';
       } finally {
