@@ -1,18 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Auto-Ensure Google AdSense Token & Script
-  if (!document.querySelector('meta[name="google-adsense-account"]')) {
-    const meta = document.createElement('meta');
-    meta.name = 'google-adsense-account';
-    meta.content = 'ca-pub-7706204118195419';
-    document.head.appendChild(meta);
-  }
-  if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419';
-    document.head.appendChild(script);
+  // Auto-Ensure Google AdSense Token & Script ONLY on public indexable content pages
+  const isNoIndex = document.querySelector('meta[name="robots"][content*="noindex"]');
+  const path = (window.location.pathname || '').toLowerCase();
+  const isRestricted = isNoIndex || 
+                       path.includes('admin') || 
+                       path.includes('login') || 
+                       path.includes('signup') || 
+                       path.includes('reset-password') || 
+                       path.includes('dashboard') || 
+                       path.includes('settings') ||
+                       path.includes('consent');
+
+  if (!isRestricted) {
+    if (!document.querySelector('meta[name="google-adsense-account"]')) {
+      const meta = document.createElement('meta');
+      meta.name = 'google-adsense-account';
+      meta.content = 'ca-pub-7706204118195419';
+      document.head.appendChild(meta);
+    }
+    if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419';
+      document.head.appendChild(script);
+    }
   }
 
   const MAIN_SITE = 'https://webguruji.online';
@@ -106,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <li><a href="${MAIN_SITE}/contributor.html" target="_blank" rel="noopener noreferrer">Contributors</a></li>
               <li><a href="${MAIN_SITE}/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
               <li><a href="${MAIN_SITE}/terms-and-conditions.html" target="_blank" rel="noopener noreferrer">Terms</a></li>
+              <li><a href="${MAIN_SITE}/disclaimer.html" target="_blank" rel="noopener noreferrer">Disclaimer</a></li>
               <li><a href="https://github.com/harshguruji01/GuruTube/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">GNU GPL-3.0 License</a></li>
               <li><a href="${MAIN_SITE}/cookie.html" target="_blank" rel="noopener noreferrer">Cookies</a></li>
             </ul>

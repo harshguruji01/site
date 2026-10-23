@@ -96,6 +96,79 @@
   <script src="../js/ad-shield.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
 </head>
 <body class="hub-page dark-mode">
 
@@ -122,6 +195,47 @@
     <button class="ctrl-btn" id="downBtn">↓</button>
     <button class="ctrl-btn" id="rightBtn">→</button>
   </div>
+
+<section class="hg-guide-section">
+  <h2>The Iconic History and Mechanics of the Classic Snake Arcade Game</h2>
+  <p>
+    Few video games in history are as universally recognized as <strong>Snake</strong>.
+    First originating in the 1976 arcade title <em>Blockade</em> by Gremlin Industries, the game achieved legendary worldwide fame when Finnish engineer Taneli Armanto programmed it onto the <strong>Nokia 6110</strong> mobile phone in 1997.
+    That release introduced mobile gaming to hundreds of millions of users worldwide.
+    <strong>HarshGuruJi's Arcade Edition</strong> recreates this nostalgic experience with modern canvas performance and smooth responsive controls.
+  </p>
+
+  <h3>Core Gameplay Dynamics</h3>
+  <p>
+    The player maneuvers a line (the "snake") around a bordered playing area.
+    As the snake consumes randomly spawned food items, two events occur simultaneously:
+  </p>
+  <ul>
+    <li>The player's score increases incrementally.</li>
+    <li>The snake grows longer by one body segment, progressively restricting maneuvering space.</li>
+  </ul>
+  <p>
+    The game terminates immediately if the snake collides with its own body or (in classic mode) crashes into the perimeter walls.
+  </p>
+
+  <h3>Tips for Achieving High Scores</h3>
+  <ol>
+    <li><strong>Embrace Perimeter Routing:</strong> Circumnavigate the outer walls to maintain a wide, clear path to the center of the board.</li>
+    <li><strong>Create Zig-Zag Patterns:</strong> As your snake grows into dozens of segments, snake back and forth in tight "S" curves across the screen to conserve open territory.</li>
+    <li><strong>Avoid Impulsive Turns:</strong> Look ahead at where the snake's tail will be in three moves before committing to a tight corridor.</li>
+  </ol>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>What happens when the snake fills the entire screen?</h4>
+    <p>If a player consumes enough food items so that the snake's body occupies every single coordinate on the grid, they achieve a theoretical "perfect victory" with the maximum possible score.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Can I play on touchscreen devices?</h4>
+    <p>Yes. HarshGuruJi's snake implementation supports both desktop keyboard navigation (Arrow keys / WASD) and touch swipe gestures on mobile smartphones and tablets.</p>
+  </div>
+</section>
+
 </main>
 
 <script>

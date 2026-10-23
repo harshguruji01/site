@@ -256,12 +256,14 @@
     
     <header class="chapter-header">
         <div class="chap-title-area">
-            <div class="chap-breadcrumbs" id="bc-container">Loading...</div>
-            <h1 id="chapter-title">Loading Chapter...</h1>
+            <div class="chap-breadcrumbs" id="bc-container">
+                <a href="class.html?id=10">Class 10</a> &gt; <a href="subject.html?class=10&sub=science">Science</a>
+            </div>
+            <h1 id="chapter-title">Chapter 1: Chemical Reactions and Equations</h1>
         </div>
         <div class="header-actions">
-            <button class="btn-action ai" onclick="alert('GuruAI Integration Coming Soon!')">🤖 Ask GuruAI</button>
-            <button class="btn-action" id="btn-complete">✔️ Mark Complete</button>
+            <a href="class-10/science/ncert/01-chemical-reactions-and-equations.html" class="btn-action" style="text-decoration:none;">📄 Full Detailed Notes</a>
+            <a href="class-10-science.html" class="btn-action" style="text-decoration:none;">⚡ Syllabus Hub</a>
         </div>
     </header>
 
@@ -269,7 +271,7 @@
         
         <aside class="sidebar">
             <ul class="sidebar-nav">
-                <li class="nav-item active" data-target="overview">Overview & Objectives</li>
+                <li class="nav-item active" data-target="overview">Overview &amp; Objectives</li>
                 <li class="nav-item" data-target="topics">Topics</li>
                 <li class="nav-item" data-target="important">Important Points</li>
                 <li class="nav-item" data-target="pdf">Read Official PDF</li>
@@ -280,17 +282,39 @@
         <section class="main-area">
             
             <div class="content-box active" id="sec-overview">
-                <h2>Overview</h2>
-                <div class="content-text" id="content-overview">Loading...</div>
+                <h2>Chapter Overview</h2>
+                <div class="content-text" id="content-overview">
+                    <p>
+                        This foundational chapter explores how chemical substances interact, break bonds, and rearrange atoms to form new chemical entities with distinct properties. You will learn the law of conservation of mass, systematic methods to balance chemical equations, and the five fundamental classifications of chemical reactions (combination, decomposition, displacement, double displacement, and oxidation-reduction).
+                    </p>
+                </div>
                 
                 <h2 style="margin-top: 2rem;">Learning Objectives</h2>
                 <ul class="content-text" id="content-objectives" style="padding-left: 1.5rem;">
+                    <li>Identify physical and chemical changes occurring in daily life.</li>
+                    <li>Represent chemical changes using word equations and balanced symbolic formulas.</li>
+                    <li>Verify the Law of Conservation of Mass in balanced chemical equations.</li>
+                    <li>Distinguish between exothermic and endothermic chemical processes.</li>
+                    <li>Analyze real-world redox reactions, including corrosion and rancidity.</li>
                 </ul>
             </div>
             
             <div class="content-box" id="sec-topics">
                 <h2>Topics</h2>
-                <div id="content-topics" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
+                <div id="content-topics" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="background: rgba(59,130,246,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--hub-border);">
+                        <h3 style="color: var(--hub-text-primary); margin-bottom: 0.75rem;">1.1 Writing &amp; Balancing Chemical Equations</h3>
+                        <p style="color: var(--hub-text-secondary); line-height: 1.6;">
+                            A balanced chemical equation has an equal number of atoms of each element on both reactant and product sides (e.g., 3Fe + 4H₂O → Fe₃O₄ + 4H₂). Physical states are indicated by symbols: (s) for solid, (l) for liquid, (g) for gas, and (aq) for aqueous solutions.
+                        </p>
+                    </div>
+                    <div style="background: rgba(59,130,246,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--hub-border);">
+                        <h3 style="color: var(--hub-text-primary); margin-bottom: 0.75rem;">1.2 Types of Chemical Reactions</h3>
+                        <p style="color: var(--hub-text-secondary); line-height: 1.6;">
+                            Classified into: Combination (two or more reactants combine to form one product), Decomposition (single reactant breaks down into multiple products), Displacement (more reactive element replaces less reactive element), and Double Displacement (exchange of ions between reactants, often producing a precipitate).
+                        </p>
+                    </div>
+                </div>
             </div>
             
             <div class="content-box" id="sec-important">

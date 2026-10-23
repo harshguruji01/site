@@ -235,37 +235,95 @@
 
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
-    <a href="../index.html">Home</a> &gt; <a href="../learning.html">Learning Hub</a> &gt; <span id="bc-class">Loading...</span>
+    <a href="../index.html">Home</a> &gt; <a href="../learning-hub.html">Learning Hub</a> &gt; <span id="bc-class">Class 10</span>
 </div>
 
 <header class="dashboard-header">
     <div class="header-content">
         <div>
-            <h1 class="class-title" id="page-title">Loading Class...</h1>
-            <p class="class-subtitle" id="page-subtitle">Welcome to your dashboard.</p>
+            <h1 class="class-title" id="page-title">Class 10 CBSE &amp; NCERT Dashboard</h1>
+            <p class="class-subtitle" id="page-subtitle">Crucial board exam preparation. Comprehensive chapter notes, verified study guides, and subject portals.</p>
         </div>
         
         <div class="progress-box">
             <div class="progress-header">
-                <span>Your Progress</span>
-                <span id="progress-text">0%</span>
+                <span>Curriculum Coverage</span>
+                <span id="progress-text">100% Verified</span>
             </div>
             <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-fill"></div>
+                <div class="progress-bar-fill" id="progress-fill" style="width: 100%;"></div>
             </div>
         </div>
     </div>
 </header>
 
 <main class="hub-container" style="padding: 0;">
+    <!-- Class Switcher -->
+    <div style="max-width: 1200px; margin: 2rem auto 0; padding: 0 1rem;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <span style="font-weight: 700; color: #94a3b8; font-size: 0.9rem; margin-right: 8px;">Select Class:</span>
+        <a href="class.html?id=6" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 6</a>
+        <a href="class.html?id=7" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 7</a>
+        <a href="class.html?id=8" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 8</a>
+        <a href="class.html?id=9" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 9</a>
+        <a href="class.html?id=10" style="padding: 6px 14px; background: #3b82f6; border: 1px solid #60a5fa; border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700;">Class 10 ★</a>
+        <a href="class.html?id=11" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 11</a>
+        <a href="class.html?id=12" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 12</a>
+      </div>
+    </div>
+
     <div class="main-grid">
         
         <!-- Left Column: Subjects -->
         <div>
-            <h2 class="section-title">Subjects</h2>
+            <h2 class="section-title">Class 10 Core Subjects &amp; Syllabus</h2>
             <div class="subject-list" id="subject-list">
-                <!-- Injected via JS -->
-                <p style="color: var(--hub-text-secondary);">Loading subjects...</p>
+                <a class="subject-card" href="subject.html?class=10&sub=science">
+                    <div class="subject-icon">🔬</div>
+                    <div>
+                        <div class="subject-name">Science</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Physics, Chemistry &amp; Biology</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="subject.html?class=10&sub=mathematics">
+                    <div class="subject-icon">📐</div>
+                    <div>
+                        <div class="subject-name">Mathematics</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Real Numbers, Polynomials &amp; Trigonometry</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="class-10-science.html">
+                    <div class="subject-icon">⚡</div>
+                    <div>
+                        <div class="subject-name">Class 10 Science Revision Hub</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Formulas, Reactions &amp; Chapter Cheat Sheets</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="gk-quiz.html">
+                    <div class="subject-icon">🧠</div>
+                    <div>
+                        <div class="subject-name">General Knowledge &amp; Mock Tests</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">10-Question Interactive Quiz with Scoring</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="../books.html">
+                    <div class="subject-icon">📚</div>
+                    <div>
+                        <div class="subject-name">Official NCERT Textbooks PDF</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Direct PDF downloads for Classes 1 to 12</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- In-Depth Syllabus Overview -->
+            <div style="margin-top: 3rem; background: var(--hub-surface); border: 1px solid var(--hub-border); border-radius: 16px; padding: 2rem;">
+              <h3 style="color: #fff; margin-top: 0; font-size: 1.35rem; font-family: 'Space Grotesk', sans-serif;">About CBSE Class 10 Board Curriculum</h3>
+              <p style="color: var(--hub-text-secondary); line-height: 1.8; margin-bottom: 1.25rem;">
+                Class 10 represents the pivotal secondary education milestone in the Indian education framework (CBSE, ICSE, and state boards). The syllabus is engineered to build rigorous foundational knowledge for competitive entrance examinations (JEE, NEET, CUET, NDA) and higher secondary streams (Science, Commerce, and Humanities).
+              </p>
+              <p style="color: var(--hub-text-secondary); line-height: 1.8; margin-bottom: 0;">
+                All modules and textbook chapters hosted on HarshGuruJi strictly align with the National Council of Educational Research and Training (NCERT) and the National Education Policy (NEP) guidelines.
+              </p>
             </div>
         </div>
         
@@ -273,10 +331,21 @@
         <div>
             <h2 class="section-title">Quick Access</h2>
             <div class="quick-links">
-                <button class="quick-btn">📖 Continue Learning</button>
-                <button class="quick-btn">📝 Practice</button>
-                <button class="quick-btn">🎯 Tests & Quizzes</button>
-                <button class="quick-btn">⭐ Bookmarks</button>
+                <a href="../books.html" class="quick-btn" style="text-decoration:none; display:flex;">📖 NCERT PDF Library</a>
+                <a href="class-10-science.html" class="quick-btn" style="text-decoration:none; display:flex;">🔬 Science Notes &amp; Formulas</a>
+                <a href="gk-quiz.html" class="quick-btn" style="text-decoration:none; display:flex;">🎯 Practice GK Quiz</a>
+                <a href="../Quiz India/index.html" class="quick-btn" style="text-decoration:none; display:flex;">🏆 Quiz India Tournament</a>
+                <a href="../free-tools.html" class="quick-btn" style="text-decoration:none; display:flex;">🛠️ Student &amp; Math Calculators</a>
+            </div>
+
+            <!-- Tips Card -->
+            <div style="margin-top: 2rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 1.5rem;">
+              <h4 style="color: #60a5fa; margin-top: 0; margin-bottom: 0.75rem;">💡 Board Exam Strategy</h4>
+              <ul style="color: var(--hub-text-secondary); font-size: 0.88rem; padding-left: 1.2rem; margin: 0; line-height: 1.7;">
+                <li>Dedicate 45 minutes daily to solving NCERT exemplar numericals.</li>
+                <li>Practice balancing chemical equations without looking at solutions.</li>
+                <li>Write answers in bulleted points with underlined keywords.</li>
+              </ul>
             </div>
         </div>
         

@@ -98,6 +98,79 @@
   <script src="../js/ad-shield.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
 </head>
 <body class="hub-page dark-mode">
 
@@ -125,6 +198,56 @@
     <button id="decodeBtn" class="hub-btn primary">Decode Base64 ⬅</button>
     <button id="clearBtn" class="hub-btn" style="background: transparent; border: 1px solid var(--hub-border); color: #ef4444;">Clear</button>
   </div>
+
+
+<section class="hg-guide-section">
+  <h2>Comprehensive Guide: Understanding Base64 Encoding and Decoding</h2>
+  <p>
+    Base64 is a binary-to-text encoding scheme defined by the Internet Engineering Task Force (IETF) in <strong>RFC 4648</strong>.
+    It represents arbitrary binary data, such as images, cryptographic keys, or formatted text strings, using a limited set of 64 ASCII characters.
+    This online Base64 encoder and decoder tool by <strong>HarshGuruJi</strong> allows developers, data analysts, and students to seamlessly inspect, convert, and debug data in real time directly within the browser without transmitting information over third-party servers.
+  </p>
+
+  <h3>How Base64 Encoding Works Under the Hood</h3>
+  <p>
+    Computers store text and files in bytes, where each byte consists of 8 bits. Base64 divides a stream of 8-bit bytes into 6-bit chunks ($2^6 = 64$ combinations).
+    Each 6-bit value is then mapped directly to a character in the standard 64-character alphabet:
+  </p>
+  <ul>
+    <li><strong>A–Z</strong>: Uppercase letters (index 0 to 25)</li>
+    <li><strong>a–z</strong>: Lowercase letters (index 26 to 51)</li>
+    <li><strong>0–9</strong>: Digits (index 52 to 61)</li>
+    <li><strong>+</strong> and <strong>/</strong>: Special symbols (index 62 and 63)</li>
+    <li><strong>=</strong>: Padding character used when the input byte count is not divisible by 3</li>
+  </ul>
+
+  <h3>Why Does Base64 Increase File Size?</h3>
+  <p>
+    Because Base64 represents 3 raw bytes (24 bits) using 4 ASCII characters (4 bytes), the resulting encoded text is approximately <strong>33% larger</strong> than the original source data. Despite this size overhead, Base64 is essential across network protocols that are designed exclusively for printable ASCII characters, preventing corrupted data caused by transmission gateways and mail transfer agents.
+  </p>
+
+  <h3>Common Real-World Use Cases</h3>
+  <ul>
+    <li><strong>Inline Data URIs:</strong> Embedding small SVG icons, PNG logos, or WebP images directly inside HTML and CSS stylesheets to reduce HTTP round-trip requests.</li>
+    <li><strong>HTTP Basic Authentication:</strong> Encoding username and password credentials into the standard <code>Authorization: Basic &lt;credentials&gt;</code> header.</li>
+    <li><strong>MIME Email Attachments:</strong> Packaging binary attachments in SMTP email messages without risking character corruption across international gateways.</li>
+    <li><strong>Web API Data Payloads:</strong> Safely transmitting binary tokens, JWT payloads, and cryptographic hashes inside JSON structures.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>Is Base64 a form of encryption?</h4>
+    <p>No. Base64 is an encoding mechanism, not encryption. Anyone can decode a Base64 string instantly without requiring a secret key or password. Sensitive data must always be encrypted using algorithms like AES-256 before transmission.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Is my data private when using this tool?</h4>
+    <p>Yes. The HarshGuruJi Base64 tool runs entirely on the client side inside your web browser using JavaScript. No text, passwords, or files are sent to any remote server or stored in any database.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>What does the equal sign (=) mean at the end of a Base64 string?</h4>
+    <p>The equal sign (=) is a padding character. Base64 groups input data into 3-byte blocks. If the input ends with 1 extra byte, two padding characters (==) are appended. If it ends with 2 extra bytes, one padding character (=) is added.</p>
+  </div>
+</section>
 
 </main>
 

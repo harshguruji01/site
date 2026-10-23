@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HarshGuruJi Admin Panel - Master Command Center Gate Pass</title>
   <meta name="description" content="HarshGuruJi Master Admin Command Center and administrative control portal with gate pass security.">
   <meta name="keywords" content="harshguruji admin, admin panel, master command center, harshguruji gate pass, harshguruji admin">
   <meta name="author" content="HarshGuruJi">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://webguruji.online/admin.html">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo-192.png">
@@ -2397,10 +2395,6 @@
     }
   </style>
   <!-- Google AdSense -->
-  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
-  <script src="js/ad-shield.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
-     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/tus-js-client@3/dist/tus.min.js"></script>
   <script src="js/supabase-head.js"></script>
@@ -4264,8 +4258,88 @@
 
               <div style="background:rgba(10, 14, 26, 0.7); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.85rem 1rem;">
                 <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; letter-spacing:0.04em;">Quota Architecture</div>
-                <div style="font-family:'Space Grotesk', sans-serif; font-size:1.15rem; font-weight:700; color:#34d399; margin:0.4rem 0;">10 req / 12h</div>
-                <div style="font-size:0.72rem; color:var(--text-muted);">Rolling window + Guest rate limiting</div>
+                <div style="font-family:'Space Grotesk', sans-serif; font-size:1.15rem; font-weight:700; color:#34d399; margin:0.4rem 0;">20 Member / 8 Guest</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Live Overrides • Up to 325K Context</div>
+              </div>
+            </div>
+
+            <!-- ⚡ GURUAI PLAN PURCHASES & LIVE LIMIT GOVERNANCE CONTROLLER -->
+            <div style="background:rgba(15, 23, 42, 0.85); border:1px solid rgba(99, 102, 241, 0.4); border-radius:16px; padding:1.25rem; margin-bottom:1.5rem; box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                  <span style="font-size:1.3rem;">⚡</span>
+                  <div>
+                    <h3 style="margin:0; font-size:1.05rem; font-family:'Space Grotesk',sans-serif; color:#fff; font-weight:700;">GuruAI Plan Purchases &amp; Live Limit Manager</h3>
+                    <span style="font-size:0.75rem; color:#94a3b8;">Review upgrade requests from contact form &amp; increase/decrease limits with LIVE effect</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-action-outline" onclick="loadAiLimitsAndRequests()" style="font-size:0.75rem; padding:0.3rem 0.75rem;">
+                  <span>🔄 Refresh Requests</span>
+                </button>
+              </div>
+
+              <!-- Pending AI Upgrade Requests Stream -->
+              <div style="margin-bottom:1.25rem;">
+                <div style="font-size:0.78rem; text-transform:uppercase; color:#a5b4fc; font-weight:700; margin-bottom:0.6rem; letter-spacing:0.04em; display:flex; align-items:center; gap:0.4rem;">
+                  <span>📬 Incoming AI Plan Purchase Requests</span>
+                  <span id="ai-pending-requests-badge" style="background:rgba(99,102,241,0.3); color:#c7d2fe; padding:1px 7px; border-radius:10px; font-size:0.72rem;">0</span>
+                </div>
+                <div id="ai-upgrade-requests-container" style="display:flex; flex-direction:column; gap:0.75rem;">
+                  <div style="color:var(--text-muted); font-size:0.82rem; padding:1rem; background:rgba(0,0,0,0.25); border-radius:10px; text-align:center;">
+                    Loading purchase requests...
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Interactive User Quota & Context Tuner -->
+              <div style="background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:1rem;">
+                <div style="font-size:0.78rem; text-transform:uppercase; color:#38bdf8; font-weight:700; margin-bottom:0.75rem; letter-spacing:0.04em;">
+                  🎛️ Live User Quota &amp; Context Controller (Instant Sync)
+                </div>
+                
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; align-items:flex-end;">
+                  <div>
+                    <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:0.35rem;">Target User Email / ID:</label>
+                    <input type="text" id="ai-tuner-email" placeholder="user@gmail.com or paste UUID" class="gate-input" style="padding:0.55rem 0.8rem; font-size:0.85rem;" oninput="fetchUserCurrentAiLimits(this.value)">
+                  </div>
+
+                  <div>
+                    <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:0.35rem;">Chat Limit (per 12h rolling window):</label>
+                    <div style="display:flex; align-items:center; gap:0.4rem;">
+                      <button type="button" class="btn-action-outline" onclick="adjustAiChatLimit(-5)" style="padding:0.45rem 0.75rem;">-5</button>
+                      <input type="number" id="ai-tuner-chat-limit" value="20" min="1" max="9999" class="gate-input" style="padding:0.55rem; font-size:0.9rem; text-align:center; font-weight:700;">
+                      <button type="button" class="btn-action-outline" onclick="adjustAiChatLimit(5)" style="padding:0.45rem 0.75rem;">+5</button>
+                      <button type="button" class="btn-action-outline" onclick="adjustAiChatLimit(20)" style="padding:0.45rem 0.75rem;">+20</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:0.35rem;">Context Limit (Tokens):</label>
+                    <div style="display:flex; align-items:center; gap:0.4rem;">
+                      <button type="button" class="btn-action-outline" onclick="adjustAiContextLimit(-25000)" style="padding:0.45rem 0.6rem;">-25K</button>
+                      <input type="number" id="ai-tuner-context-limit" value="32000" min="4000" max="1000000" step="5000" class="gate-input" style="padding:0.55rem; font-size:0.9rem; text-align:center; font-weight:700; color:#38bdf8;">
+                      <button type="button" class="btn-action-outline" onclick="adjustAiContextLimit(25000)" style="padding:0.45rem 0.6rem;">+25K</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Presets Row -->
+                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-top:0.85rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
+                  <span style="font-size:0.75rem; color:#94a3b8;">Quick Presets:</span>
+                  <button type="button" class="quick-chip" onclick="applyAiPreset('free')">Standard Free (20 chats / 32K context)</button>
+                  <button type="button" class="quick-chip" onclick="applyAiPreset('starter')" style="border-color:#6366f1; color:#a5b4fc;">⭐ Starter Pro $5 (50 chats / 50K context)</button>
+                  <button type="button" class="quick-chip" onclick="applyAiPreset('power')" style="border-color:#38bdf8; color:#7dd3fc;">🚀 Power Scholar $15 (150 chats / 175K context)</button>
+                  <button type="button" class="quick-chip" onclick="applyAiPreset('grandmaster')" style="border-color:#f59e0b; color:#fde68a;">👑 Grandmaster $25 (350 chats / 325K context)</button>
+                  <button type="button" class="quick-chip" onclick="applyAiPreset('unlimited')" style="border-color:#10b981; color:#6ee7b7;">🔥 Unlimited VIP (9999 chats / 500K context)</button>
+                </div>
+
+                <!-- Submit Action Button -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+                  <span id="ai-tuner-status" style="font-size:0.82rem; color:#94a3b8;">Enter email above or pick a user from incoming requests</span>
+                  <button type="button" class="btn-action-primary" onclick="saveUserAiLimitsLive()" style="background:linear-gradient(135deg, #10b981, #059669); font-weight:700; padding:0.6rem 1.4rem; font-size:0.9rem; box-shadow:0 0 20px rgba(16,185,129,0.4);">
+                    <span>⚡ Apply Live Limit Change</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -5319,6 +5393,9 @@
         if (iconEl) iconEl.textContent = '🤖';
         if (titleEl) titleEl.textContent = 'GuruAI Master Studio & Governance';
         if (subEl) subEl.textContent = 'Track registered users, inspect NVIDIA Nemotron & SDXL usage, and govern platform policies.';
+        if (typeof window.loadAiLimitsAndRequests === 'function') {
+          window.loadAiLimitsAndRequests();
+        }
       } else if (tabName === 'goldentick') {
         if (iconEl) iconEl.textContent = '⭐';
         if (titleEl) titleEl.textContent = 'Universal Golden Tick & Site Users';
@@ -5471,6 +5548,9 @@
       if (mpillGuruAi) mpillGuruAi.textContent = `${totalAiUsers}`;
       const aiHubTotal = document.getElementById('ai-hub-total-users');
       if (aiHubTotal) aiHubTotal.textContent = totalAiUsers;
+      if (typeof window.loadAiLimitsAndRequests === 'function') {
+        window.loadAiLimitsAndRequests();
+      }
 
       // 5. Chatbase User Profiles Count
       try {
@@ -6671,8 +6751,30 @@
           `;
         }
 
+        const isAiUpgrade = req.subject === 'AI_UPGRADE' || (req.message && req.message.includes('[GuruAI Upgrade Request'));
+        const cardStyle = isAiUpgrade 
+          ? 'border:1px solid rgba(99,102,241,0.6); box-shadow:0 0 25px rgba(99,102,241,0.2); background:radial-gradient(circle at top right, rgba(99,102,241,0.12), transparent 70%), var(--bg-card);' 
+          : '';
+
+        let aiUpgradeBannerHtml = '';
+        if (isAiUpgrade) {
+          const rawEncoded = encodeURIComponent(req.message || '');
+          aiUpgradeBannerHtml = `
+            <div style="background:rgba(99,102,241,0.18); border:1px solid rgba(99,102,241,0.4); border-radius:10px; padding:0.6rem 0.85rem; margin-bottom:0.85rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="font-size:1.2rem;">⚡</span>
+                <span style="font-size:0.82rem; font-weight:700; color:#a5b4fc;">GuruAI Plan Purchase Request</span>
+              </div>
+              <button type="button" class="btn-action-primary" style="padding:0.3rem 0.85rem; font-size:0.78rem; background:linear-gradient(135deg, #10b981, #059669); font-weight:700; box-shadow:0 0 12px rgba(16,185,129,0.35);" onclick="quickApproveAiPlan('${req.id}', '${escapeHtml(req.email || '')}', '${escapeHtml(req.user_id || '')}', '${rawEncoded}')">
+                <span>⚡ 1-Click Approve AI Plan &amp; Sync Live</span>
+              </button>
+            </div>
+          `;
+        }
+
         return `
-          <div class="inquiry-card" id="inquiry-${req.id}">
+          <div class="inquiry-card" id="inquiry-${req.id}" style="${cardStyle}">
+            ${aiUpgradeBannerHtml}
             <div class="inquiry-top">
               <div class="inquiry-user-row">
                 <div class="avatar-wrapper" style="width: 46px; height: 46px;">
@@ -6807,6 +6909,374 @@
       } catch (err) {
         console.error("Delete message failed:", err);
         alert("Failed to delete message: " + err.message);
+      }
+    };
+
+    // 9b. GuruAI Live Limit & Purchase Request Governance Suite
+    window.loadAiLimitsAndRequests = async function() {
+      const container = document.getElementById('ai-upgrade-requests-container');
+      const badge = document.getElementById('ai-pending-requests-badge');
+      if (!container) return;
+
+      const sb = window.supabaseClient;
+      if (!sb) {
+        container.innerHTML = `<div style="color:var(--text-muted); padding:1rem; text-align:center;">Supabase client initializing...</div>`;
+        return;
+      }
+
+      try {
+        // Fetch AI purchase messages
+        const { data: upgradeMsgs, error: msgErr } = await sb
+          .from('contact_messages')
+          .select('*')
+          .or('subject.eq.AI_UPGRADE,message.ilike.%GuruAI Upgrade Request%')
+          .order('created_at', { ascending: false });
+
+        if (msgErr) throw msgErr;
+
+        // Fetch user_ai_limits table records to check active overrides
+        const { data: limitsData } = await sb
+          .from('user_ai_limits')
+          .select('*')
+          .order('updated_at', { ascending: false });
+
+        const limitsMap = new Map();
+        if (limitsData) {
+          limitsData.forEach(lim => {
+            if (lim.email) limitsMap.set(lim.email.toLowerCase(), lim);
+            if (lim.user_id) limitsMap.set(lim.user_id, lim);
+          });
+        }
+
+        const requests = upgradeMsgs || [];
+        if (badge) badge.textContent = requests.length;
+
+        if (requests.length === 0) {
+          container.innerHTML = `
+            <div style="color:var(--text-muted); font-size:0.85rem; padding:1.25rem; background:rgba(0,0,0,0.25); border-radius:12px; text-align:center; border:1px dashed rgba(255,255,255,0.1);">
+              <span>✅ No pending AI Upgrade requests. Standard quotas (20 user / 8 guest) are running actively.</span>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = requests.map(req => {
+          const userEmail = (req.email || '').toLowerCase();
+          const existingLimit = limitsMap.get(userEmail) || (req.user_id ? limitsMap.get(req.user_id) : null);
+          const isActivated = !!existingLimit && existingLimit.plan_name !== 'Free';
+          const isReplied = req.status === 'Replied' || !!req.admin_reply;
+
+          // Parse plan details
+          let planName = 'Starter Pro';
+          let planPrice = '5';
+          let planContext = '50,000';
+          let planKey = 'starter';
+
+          if (req.message) {
+            if (req.message.includes('Grandmaster') || req.message.includes('$25')) {
+              planName = 'Grandmaster Enterprise';
+              planPrice = '25';
+              planContext = '325,000';
+              planKey = 'grandmaster';
+            } else if (req.message.includes('Power') || req.message.includes('$15')) {
+              planName = 'Power Scholar';
+              planPrice = '15';
+              planContext = '175,000';
+              planKey = 'power';
+            }
+          }
+
+          const rawEncoded = encodeURIComponent(req.message || '');
+
+          return `
+            <div style="background:rgba(10, 14, 26, 0.7); border:1px solid ${isActivated ? 'rgba(16, 185, 129, 0.4)' : 'rgba(99, 102, 241, 0.4)'}; border-radius:12px; padding:0.9rem 1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <div style="width:40px; height:40px; border-radius:10px; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.4); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                  ${planKey === 'grandmaster' ? '👑' : planKey === 'power' ? '🚀' : '⭐'}
+                </div>
+                <div>
+                  <div style="font-weight:700; color:#fff; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <span>${escapeHtml(req.name || 'User')}</span>
+                    <span style="font-size:0.72rem; color:#818cf8; font-family:'JetBrains Mono',monospace;">${escapeHtml(req.email || '')}</span>
+                    <span style="background:rgba(99,102,241,0.25); color:#a5b4fc; font-size:0.72rem; font-weight:700; padding:1px 6px; border-radius:4px;">${escapeHtml(planName)} ($${planPrice})</span>
+                    ${isActivated ? '<span style="background:rgba(16,185,129,0.2); color:#6ee7b7; font-size:0.72rem; font-weight:700; padding:1px 6px; border-radius:4px;">● Live Active</span>' : ''}
+                  </div>
+                  <div style="font-size:0.78rem; color:#94a3b8; margin-top:2px;">
+                    Context: <strong style="color:#38bdf8;">${planContext} Tokens</strong> • Received: ${req.created_at ? new Date(req.created_at).toLocaleString() : 'Recent'}
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                <button type="button" class="btn-action-outline" style="padding:0.35rem 0.75rem; font-size:0.75rem;" onclick="selectUserInAiTuner('${escapeHtml(req.email || '')}', '${planKey}')">
+                  <span>🎛️ Tune Limits</span>
+                </button>
+                <button type="button" class="btn-action-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem; background:linear-gradient(135deg, #10b981, #059669); font-weight:700; box-shadow:0 0 12px rgba(16,185,129,0.35);" onclick="quickApproveAiPlan('${req.id}', '${escapeHtml(req.email || '')}', '${escapeHtml(req.user_id || '')}', '${rawEncoded}')">
+                  <span>⚡ ${isActivated ? 'Update / Re-Sync' : '1-Click Activate'}</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('Failed to load AI limits and requests:', err);
+        container.innerHTML = `<div style="color:#f87171; padding:1rem;">Error loading requests: ${escapeHtml(err.message)}</div>`;
+      }
+    };
+
+    // Quick 1-Click Approve AI Plan
+    window.quickApproveAiPlan = async function(inquiryId, email, userId, rawMsgEncoded) {
+      if (!email) {
+        alert("Cannot approve without a valid user email.");
+        return;
+      }
+
+      const rawMsg = decodeURIComponent(rawMsgEncoded || '');
+      let planKey = 'starter';
+      let planName = 'Starter Pro';
+      let planPrice = 5;
+      let chatLimit = 50;
+      let contextLimit = 50000;
+
+      if (rawMsg.includes('Grandmaster') || rawMsg.includes('$25')) {
+        planKey = 'grandmaster';
+        planName = 'Grandmaster Enterprise';
+        planPrice = 25;
+        chatLimit = 350;
+        contextLimit = 325000;
+      } else if (rawMsg.includes('Power') || rawMsg.includes('$15')) {
+        planKey = 'power';
+        planName = 'Power Scholar';
+        planPrice = 15;
+        chatLimit = 150;
+        contextLimit = 175000;
+      }
+
+      if (!confirm(`Confirm activation of ${planName} ($${planPrice}) for ${email}?\n\n• Chat Quota: ${chatLimit} requests / 12h\n• Context Limit: ${contextLimit.toLocaleString()} tokens\n• Realtime Live Effect: YES`)) {
+        return;
+      }
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const now = new Date().toISOString();
+
+        // 1. Upsert into public.user_ai_limits
+        const limitPayload = {
+          email: email.toLowerCase().trim(),
+          max_requests: chatLimit,
+          context_limit: contextLimit,
+          plan_name: planName,
+          is_active: true,
+          updated_at: now
+        };
+        if (userId) limitPayload.user_id = userId;
+
+        const { error: limitErr } = await sb
+          .from('user_ai_limits')
+          .upsert([limitPayload], { onConflict: 'email' });
+
+        if (limitErr) throw limitErr;
+
+        // 2. Send automated notification reply into contact_messages
+        if (inquiryId) {
+          const replyText = `🎉 CONGRATULATIONS! Your GuruAI ${planName} ($${planPrice}) plan has been approved and ACTIVATED by HarshGuruJi!\n\nYour account now enjoys an expanded quota of ${chatLimit} chats and a massive ${contextLimit.toLocaleString()} token context window with live sync. Refresh GuruAI (https://ai.webguruji.online) to chat!`;
+
+          await sb
+            .from('contact_messages')
+            .update({
+              admin_reply: replyText,
+              replied_at: now,
+              replied_by: 'HarshGuruJi (Admin)',
+              status: 'Replied',
+              user_read: false,
+              updated_at: now
+            })
+            .eq('id', inquiryId);
+
+          const item = messagesData.find(m => m.id === inquiryId);
+          if (item) {
+            item.admin_reply = replyText;
+            item.replied_at = now;
+            item.replied_by = 'HarshGuruJi (Admin)';
+            item.status = 'Replied';
+            item.user_read = false;
+          }
+        }
+
+        // 3. Dispatch cross-tab / cross-domain live broadcast
+        try {
+          const bc = new BroadcastChannel('guruai_quota_channel');
+          bc.postMessage({
+            type: 'QUOTA_UPDATED',
+            email: email.toLowerCase(),
+            userId: userId || null,
+            max_requests: chatLimit,
+            context_limit: contextLimit,
+            plan_name: planName,
+            timestamp: Date.now()
+          });
+          bc.close();
+        } catch (e) {}
+
+        showMasterToast(`⚡ ${planName} activated live for ${email}! Quota: ${chatLimit}, Context: ${contextLimit.toLocaleString()}`, "success");
+        loadAiLimitsAndRequests();
+        renderMessages();
+
+      } catch (err) {
+        console.error("Failed to approve AI plan:", err);
+        alert("Failed to activate AI plan: " + err.message);
+      }
+    };
+
+    // User Tuner Select
+    window.selectUserInAiTuner = function(email, planKey) {
+      const emailInput = document.getElementById('ai-tuner-email');
+      if (emailInput) {
+        emailInput.value = email;
+        fetchUserCurrentAiLimits(email);
+        if (planKey) applyAiPreset(planKey);
+      }
+    };
+
+    // Fetch user current limits
+    window.fetchUserCurrentAiLimits = async function(email) {
+      if (!email || email.length < 4) return;
+      const statusEl = document.getElementById('ai-tuner-status');
+      const chatInput = document.getElementById('ai-tuner-chat-limit');
+      const contextInput = document.getElementById('ai-tuner-context-limit');
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const { data, error } = await sb
+          .from('user_ai_limits')
+          .select('*')
+          .or(`email.ilike.${email.trim()},user_id.eq.${email.trim()}`)
+          .maybeSingle();
+
+        if (data) {
+          if (chatInput) chatInput.value = data.max_requests || 20;
+          if (contextInput) contextInput.value = data.context_limit || 32000;
+          if (statusEl) statusEl.innerHTML = `Active Tier: <strong style="color:#10b981;">${data.plan_name || 'Custom'}</strong> (${data.max_requests} chats, ${Number(data.context_limit).toLocaleString()} tokens)`;
+        } else {
+          if (statusEl) statusEl.innerHTML = `Account on default tier: <span style="color:#94a3b8;">Free (20 chats / 32,000 context)</span>`;
+        }
+      } catch (e) {}
+    };
+
+    // Adjust Chat Limit
+    window.adjustAiChatLimit = function(delta) {
+      const input = document.getElementById('ai-tuner-chat-limit');
+      if (input) {
+        let val = parseInt(input.value, 10) || 20;
+        val = Math.max(1, Math.min(9999, val + delta));
+        input.value = val;
+      }
+    };
+
+    // Adjust Context Limit
+    window.adjustAiContextLimit = function(delta) {
+      const input = document.getElementById('ai-tuner-context-limit');
+      if (input) {
+        let val = parseInt(input.value, 10) || 32000;
+        val = Math.max(4000, Math.min(1000000, val + delta));
+        input.value = val;
+      }
+    };
+
+    // Apply Preset
+    window.applyAiPreset = function(tier) {
+      const chatInput = document.getElementById('ai-tuner-chat-limit');
+      const contextInput = document.getElementById('ai-tuner-context-limit');
+      const statusEl = document.getElementById('ai-tuner-status');
+
+      if (tier === 'starter') {
+        if (chatInput) chatInput.value = 50;
+        if (contextInput) contextInput.value = 50000;
+        if (statusEl) statusEl.innerHTML = `Preset loaded: <strong style="color:#a5b4fc;">Starter Pro ($5)</strong> (50 chats / 50K context)`;
+      } else if (tier === 'power') {
+        if (chatInput) chatInput.value = 150;
+        if (contextInput) contextInput.value = 175000;
+        if (statusEl) statusEl.innerHTML = `Preset loaded: <strong style="color:#38bdf8;">Power Scholar ($15)</strong> (150 chats / 175K context)`;
+      } else if (tier === 'grandmaster') {
+        if (chatInput) chatInput.value = 350;
+        if (contextInput) contextInput.value = 325000;
+        if (statusEl) statusEl.innerHTML = `Preset loaded: <strong style="color:#f59e0b;">Grandmaster Enterprise ($25)</strong> (350 chats / 325K context)`;
+      } else if (tier === 'unlimited') {
+        if (chatInput) chatInput.value = 9999;
+        if (contextInput) contextInput.value = 500000;
+        if (statusEl) statusEl.innerHTML = `Preset loaded: <strong style="color:#10b981;">Unlimited VIP</strong> (9999 chats / 500K context)`;
+      } else {
+        if (chatInput) chatInput.value = 20;
+        if (contextInput) contextInput.value = 32000;
+        if (statusEl) statusEl.innerHTML = `Preset loaded: <strong style="color:#94a3b8;">Standard Free</strong> (20 chats / 32K context)`;
+      }
+    };
+
+    // Save User AI Limits Live
+    window.saveUserAiLimitsLive = async function() {
+      const emailInput = document.getElementById('ai-tuner-email');
+      const chatInput = document.getElementById('ai-tuner-chat-limit');
+      const contextInput = document.getElementById('ai-tuner-context-limit');
+      const email = emailInput ? emailInput.value.trim().toLowerCase() : '';
+
+      if (!email) {
+        alert("Please specify a user email or ID to update limits.");
+        return;
+      }
+
+      const maxRequests = parseInt(chatInput.value, 10) || 20;
+      const contextLimit = parseInt(contextInput.value, 10) || 32000;
+      let planName = 'Custom';
+      if (maxRequests === 20 && contextLimit === 32000) planName = 'Free';
+      else if (contextLimit === 50000) planName = 'Starter Pro';
+      else if (contextLimit === 175000) planName = 'Power Scholar';
+      else if (contextLimit === 325000) planName = 'Grandmaster Enterprise';
+      else if (maxRequests >= 9000) planName = 'Unlimited VIP';
+
+      const sb = window.supabaseClient;
+      if (!sb) return;
+
+      try {
+        const now = new Date().toISOString();
+        const payload = {
+          email,
+          max_requests: maxRequests,
+          context_limit: contextLimit,
+          plan_name: planName,
+          is_active: true,
+          updated_at: now
+        };
+
+        const { error } = await sb
+          .from('user_ai_limits')
+          .upsert([payload], { onConflict: 'email' });
+
+        if (error) throw error;
+
+        // Realtime broadcast
+        try {
+          const bc = new BroadcastChannel('guruai_quota_channel');
+          bc.postMessage({
+            type: 'QUOTA_UPDATED',
+            email,
+            max_requests: maxRequests,
+            context_limit: contextLimit,
+            plan_name: planName,
+            timestamp: Date.now()
+          });
+          bc.close();
+        } catch (e) {}
+
+        showMasterToast(`⚡ Live limits updated for ${email}! Quota: ${maxRequests}, Context: ${contextLimit.toLocaleString()}`, "success");
+        loadAiLimitsAndRequests();
+      } catch (err) {
+        console.error("Failed to save AI limits:", err);
+        alert("Failed to save limits: " + err.message);
       }
     };
 

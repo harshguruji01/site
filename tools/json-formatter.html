@@ -98,6 +98,79 @@
   <script src="../js/ad-shield.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
 </head>
 <body class="hub-page dark-mode">
 
@@ -126,6 +199,41 @@
   </div>
   
   <div id="errorMsg" class="error-msg"></div>
+
+<section class="hg-guide-section">
+  <h2>Complete Developer Guide: JSON Validation, Formatting, and Minification</h2>
+  <p>
+    <strong>JavaScript Object Notation (JSON)</strong> is the undisputed standard lightweight data-interchange format across modern web APIs, mobile backend services, cloud databases, and configuration files.
+    Standardized under <strong>ECMA-404</strong> and <strong>RFC 8259</strong>, JSON is language-independent, human-readable, and machine-parseable.
+    <strong>HarshGuruJi's JSON Formatter &amp; Validator</strong> allows engineers, students, and system administrators to validate syntax, prettify dense minified payloads, and compress data for high-speed network transmission.
+  </p>
+
+  <h3>Key Rules of Valid JSON Syntax</h3>
+  <ul>
+    <li><strong>Double Quotes for Keys:</strong> Object keys must always be enclosed in double quotes (e.g., <code>"username": "harsh"</code>). Single quotes are invalid.</li>
+    <li><strong>No Trailing Commas:</strong> Commas must only separate elements. A comma after the final item in an array or object causes a parsing syntax error.</li>
+    <li><strong>Supported Primitive Types:</strong> String, Number, Boolean (<code>true</code> / <code>false</code>), <code>null</code>, Object (<code>{}</code>), and Array (<code>[]</code>). Functions and <code>undefined</code> are not permitted.</li>
+  </ul>
+
+  <h3>Prettify vs. Minify: When to Use Which</h3>
+  <p>
+    <strong>Prettifying (Indenting):</strong> Introduces 2 or 4 spaces of indentation and newline characters. This makes complex nested structures easy for developers to read, inspect, and debug during software development.
+  </p>
+  <p>
+    <strong>Minifying (Compressing):</strong> Strips all superfluous spaces, tabs, and newline breaks. This minimizes payload size, speeding up API responses and reducing bandwidth costs over production network connections.
+  </p>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>Why did my JSON fail validation?</h4>
+    <p>Common causes include: unquoted keys, single quotes instead of double quotes, trailing commas at the end of lists, or unescaped newline characters inside strings.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Is it safe to paste private API responses into this formatter?</h4>
+    <p>Yes. HarshGuruJi runs JSON parsing using native browser <code>JSON.parse()</code> and <code>JSON.stringify()</code> inside your local sandbox. No data is sent across the internet.</p>
+  </div>
+</section>
+
 </main>
 
 <script>

@@ -15,7 +15,7 @@ Allow: /books.html
 Allow: /chat.html
 Allow: /chat-app.html
 Allow: /app.html
-Allow: /ads.html
+Allow: /disclaimer.html
 Allow: /free-tools.html
 Allow: /tools.html
 Allow: /ai-hub.html
@@ -103,6 +103,7 @@ Disallow: /admin-requests.html
 Disallow: /dashboard.html
 Disallow: /settings.html
 Disallow: /reset-password.html
+Disallow: /ads.html
 Disallow: /backend/
 Disallow: /backend_legacy/
 Disallow: /oauth/

@@ -25,57 +25,60 @@ window.CurriculumEngine = (function() {
     
     // --- CLASS DASHBOARD ---
     async function initClassDashboard() {
-        const classId = getParam('id');
+        const classId = getParam('id') || '10';
         const data = await loadData();
         
         if(!data || !data.classes[classId]) {
-            document.getElementById('page-title').textContent = "Class Not Found";
             return;
         }
         
         const classObj = data.classes[classId];
         
-        document.getElementById('bc-class').textContent = `Class ${classId}`;
-        document.getElementById('page-title').textContent = classObj.name;
-        document.getElementById('page-subtitle').textContent = classObj.description;
+        const bc = document.getElementById('bc-class');
+        if (bc) bc.textContent = `Class ${classId}`;
+        const pt = document.getElementById('page-title');
+        if (pt) pt.textContent = classObj.name;
+        const ps = document.getElementById('page-subtitle');
+        if (ps) ps.textContent = classObj.description;
         
         // Render Subjects
         const subjectList = document.getElementById('subject-list');
-        subjectList.innerHTML = '';
+        if (subjectList) {
+            subjectList.innerHTML = '';
+            
+            classObj.subjects.forEach(sub => {
+                const a = document.createElement('a');
+                a.className = 'subject-card';
+                a.href = `subject.html?class=${classId}&sub=${sub.id}`;
+                a.innerHTML = `
+                    <div class="subject-icon">${sub.icon}</div>
+                    <div class="subject-name">${sub.name}</div>
+                `;
+                subjectList.appendChild(a);
+            });
+        }
         
-        classObj.subjects.forEach(sub => {
-            const a = document.createElement('a');
-            a.className = 'subject-card';
-            a.href = `subject.html?class=${classId}&sub=${sub.id}`;
-            a.innerHTML = `
-                <div class="subject-icon">${sub.icon}</div>
-                <div class="subject-name">${sub.name}</div>
-            `;
-            subjectList.appendChild(a);
-        });
-        
-        // Dummy Progress (Would come from localStorage)
-        const progress = Math.floor(Math.random() * 40) + 10; 
-        document.getElementById('progress-text').textContent = progress + "%";
-        document.getElementById('progress-fill').style.width = progress + "%";
+        // Progress
+        const ptEl = document.getElementById('progress-text');
+        if (ptEl) ptEl.textContent = "25%";
+        const pfEl = document.getElementById('progress-fill');
+        if (pfEl) pfEl.style.width = "25%";
     }
 
     // --- SUBJECT DASHBOARD ---
     async function initSubjectDashboard() {
-        const classId = getParam('class');
-        const subId = getParam('sub');
+        const classId = getParam('class') || '10';
+        const subId = getParam('sub') || 'science';
         const data = await loadData();
         
         if(!data || !data.classes[classId]) {
-            document.getElementById('page-title').textContent = "Data Not Found";
             return;
         }
         
         const classObj = data.classes[classId];
-        const subjectObj = classObj.subjects.find(s => s.id === subId);
+        const subjectObj = classObj.subjects.find(s => s.id === subId) || classObj.subjects[0];
         
         if(!subjectObj) {
-            document.getElementById('page-title').textContent = "Subject Not Found";
             return;
         }
         
@@ -128,17 +131,17 @@ window.CurriculumEngine = (function() {
 
     // --- CHAPTER LEARNING INTERFACE ---
     async function initChapterLearning() {
-        const chapterId = getParam('id');
-        const classId = getParam('c');
-        const subId = getParam('s');
-        const pdfLink = getParam('pdf');
+        const classId = getParam('c') || '10';
+        const subId = getParam('s') || 'science';
+        const chapterId = getParam('id') || 'class-10-science-chapter-01';
+        const pdfLink = getParam('pdf') || 'class-10/science.pdf';
         
         const data = await loadData();
         
         if(!data || !data.classes[classId]) return;
         
         const classObj = data.classes[classId];
-        const subjectObj = classObj.subjects.find(s => s.id === subId);
+        const subjectObj = classObj.subjects.find(s => s.id === subId) || classObj.subjects[0];
         
         // Find chapter title from tree
         let chapterTitle = "Chapter";

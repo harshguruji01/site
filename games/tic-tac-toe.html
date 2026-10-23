@@ -94,6 +94,79 @@
   <script src="../js/ad-shield.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
 </head>
 <body class="hub-page dark-mode">
 
@@ -117,6 +190,45 @@
   </div>
 
   <button class="reset-btn" onclick="resetGame()">Restart Game</button>
+
+<section class="hg-guide-section">
+  <h2>The History, Mathematics, and Strategy of Tic-Tac-Toe</h2>
+  <p>
+    Tic-Tac-Toe (also known as Noughts and Crosses or Xs and Os) is one of the oldest known strategic paper-and-pencil games in human civilization.
+    Variants of three-in-a-row games have been discovered carved into stone roofs in Ancient Egypt dating back to roughly 1300 BCE, as well as played in the Roman Empire under the name <em>Terni Lapilli</em>.
+    Today, <strong>HarshGuruJi's Interactive Arcade</strong> offers this timeless game as an engaging brain exercise.
+  </p>
+
+  <h3>Game Rules and Objectives</h3>
+  <p>
+    The game is played on a 3&times;3 grid by two players who take turns placing their designated mark (typically 'X' and 'O') into empty squares.
+    The first player to align three of their marks in a horizontal, vertical, or diagonal row achieves immediate victory.
+    If all nine grid spaces are filled without either player completing a three-mark sequence, the match ends in a draw (often called "Cat's Game").
+  </p>
+
+  <h3>Game Theory and Optimal Strategy</h3>
+  <p>
+    In mathematical game theory, Tic-Tac-Toe is classified as a <strong>zero-sum, finite, perfect information game</strong>.
+    With only 255,168 possible game states (or 26,830 when accounting for board rotations and reflections), a player who adheres to an optimal minimax strategy can never be defeated.
+    Key strategic principles include:
+  </p>
+  <ul>
+    <li><strong>Seize the Center:</strong> Playing the center square on Move 1 provides the highest number of potential winning vectors (4 rows/diagonals).</li>
+    <li><strong>Control the Corners:</strong> Corner squares each intersect 3 winning lines, creating powerful fork opportunities where two winning threats can be established simultaneously.</li>
+    <li><strong>Block Opponent Forks:</strong> Never allow an opponent to secure two unblocked lines of two marks each.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>Can Player 1 always win if they play first?</h4>
+    <p>No. If Player 2 plays optimally, the game will always terminate in a draw. However, if Player 2 makes a suboptimal move in response to a corner or center opening, Player 1 can force a guaranteed win.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Why is Tic-Tac-Toe foundational in Computer Science education?</h4>
+    <p>Because of its constrained state space, Tic-Tac-Toe is universally used in university artificial intelligence curricula to teach the Minimax algorithm and alpha-beta pruning before students advance to chess or go engines.</p>
+  </div>
+</section>
+
 </main>
 
 <script>
