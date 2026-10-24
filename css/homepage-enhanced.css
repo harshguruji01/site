@@ -677,3 +677,133 @@
     transform: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   8. INFINITE LOGO SCROLLER (Modern Tech & Ecosystem Partners)
+   ═══════════════════════════════════════════════════════════ */
+.hg-logo-scroller-section {
+  padding: 4rem 0 3rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 15, 0.8) 100%);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--hg-border);
+}
+
+.hg-scroller-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+  padding: 0 1.5rem;
+}
+
+.hg-scroller-header .badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--hg-accent-orange);
+  background: rgba(255, 107, 74, 0.1);
+  border: 1px solid rgba(255, 107, 74, 0.25);
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.hg-scroller-header h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: var(--hg-text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hg-scroller-header p {
+  font-size: 0.95rem;
+  color: var(--hg-text-secondary);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.hg-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.25rem 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+.hg-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1.5rem;
+  animation: hgMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.hg-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes hgMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+.hg-logo-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--hg-surface-card);
+  border: 1px solid var(--hg-border);
+  border-radius: 9999px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: default;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hg-logo-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255, 107, 74, 0.45);
+  background: var(--hg-surface-hover);
+  box-shadow: 0 8px 24px -6px rgba(255, 107, 74, 0.2);
+}
+
+.hg-logo-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hg-logo-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hg-logo-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  letter-spacing: -0.01em;
+}
+
+.hg-logo-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--hg-text-muted);
+}
