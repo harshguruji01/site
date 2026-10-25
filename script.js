@@ -86,7 +86,7 @@ function initDailySpecialTabs() {
   });
 
   const hash = window.location.hash.replace('#', '');
-  if (hash === 'news' || hash === 'thoughts' || hash === 'calendar') {
+  if (hash === 'news' || hash === 'thoughts' || hash === 'calendar' || hash === 'information') {
     activateTab(hash);
   }
 }
@@ -347,6 +347,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (document.getElementById('wiki-container-dailylife')) {
     fetchWikiContent(['Everyday_life', 'Habit', 'Time_management', 'Well-being'], 'wiki-container-dailylife');
+  }
+  if (document.getElementById('wiki-container-http-apis')) {
+    fetchWikiContent(['API_key', 'JSON_Web_Token', 'Hypertext_Transfer_Protocol'], 'wiki-container-http-apis');
   }
 
   // --- INTERACTIVE TOOLS LOGIC (free-tools.html) ---
