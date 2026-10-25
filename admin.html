@@ -4263,14 +4263,14 @@
               </div>
             </div>
 
-            <!-- ⚡ GURUAI PLAN PURCHASES & LIVE LIMIT GOVERNANCE CONTROLLER -->
+            <!-- ⚡ AI PREMIUM SUBMISSIONS & LIVE LIMIT GOVERNANCE CONTROLLER -->
             <div style="background:rgba(15, 23, 42, 0.85); border:1px solid rgba(99, 102, 241, 0.4); border-radius:16px; padding:1.25rem; margin-bottom:1.5rem; box-shadow:0 8px 30px rgba(0,0,0,0.5);">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
                 <div style="display:flex; align-items:center; gap:0.6rem;">
                   <span style="font-size:1.3rem;">⚡</span>
                   <div>
-                    <h3 style="margin:0; font-size:1.05rem; font-family:'Space Grotesk',sans-serif; color:#fff; font-weight:700;">GuruAI Plan Purchases &amp; Live Limit Manager</h3>
-                    <span style="font-size:0.75rem; color:#94a3b8;">Review upgrade requests from contact form &amp; increase/decrease limits with LIVE effect</span>
+                    <h3 style="margin:0; font-size:1.15rem; font-family:'Space Grotesk',sans-serif; color:#fff; font-weight:800;">AI Premium Submissions</h3>
+                    <span style="font-size:0.75rem; color:#94a3b8;">Review incoming GuruAI plan upgrade requests, verify payments &amp; 1-click unlock context limits with user email activation</span>
                   </div>
                 </div>
                 <button type="button" class="btn-action-outline" onclick="loadAiLimitsAndRequests()" style="font-size:0.75rem; padding:0.3rem 0.75rem;">
@@ -4281,7 +4281,7 @@
               <!-- Pending AI Upgrade Requests Stream -->
               <div style="margin-bottom:1.25rem;">
                 <div style="font-size:0.78rem; text-transform:uppercase; color:#a5b4fc; font-weight:700; margin-bottom:0.6rem; letter-spacing:0.04em; display:flex; align-items:center; gap:0.4rem;">
-                  <span>📬 Incoming AI Plan Purchase Requests</span>
+                  <span>📬 AI Premium Submissions (Upgrade Requests)</span>
                   <span id="ai-pending-requests-badge" style="background:rgba(99,102,241,0.3); color:#c7d2fe; padding:1px 7px; border-radius:10px; font-size:0.72rem;">0</span>
                 </div>
                 <div id="ai-upgrade-requests-container" style="display:flex; flex-direction:column; gap:0.75rem;">
@@ -7012,7 +7012,7 @@
                   <span>🎛️ Tune Limits</span>
                 </button>
                 <button type="button" class="btn-action-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem; background:linear-gradient(135deg, #10b981, #059669); font-weight:700; box-shadow:0 0 12px rgba(16,185,129,0.35);" onclick="quickApproveAiPlan('${req.id}', '${escapeHtml(req.email || '')}', '${escapeHtml(req.user_id || '')}', '${rawEncoded}')">
-                  <span>⚡ ${isActivated ? 'Update / Re-Sync' : '1-Click Activate'}</span>
+                  <span>⚡ ${isActivated ? 'Update / Re-Sync' : 'Accept / Unlock Plan'}</span>
                 </button>
               </div>
             </div>
@@ -7106,7 +7106,24 @@
           }
         }
 
-        // 3. Dispatch cross-tab / cross-domain live broadcast
+        // 3. Dispatch user activation email from info@webguruji.online
+        try {
+          fetch('https://ai.webguruji.online/api/mail/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to: email,
+              type: 'ai_upgrade_approved',
+              planName: planName,
+              chatLimit: chatLimit,
+              contextLimit: contextLimit
+            })
+          }).catch(e => console.warn('Activation email send warning:', e));
+        } catch (mailEx) {
+          console.warn('Activation email error:', mailEx);
+        }
+
+        // 4. Dispatch cross-tab / cross-domain live broadcast
         try {
           const bc = new BroadcastChannel('guruai_quota_channel');
           bc.postMessage({
@@ -7121,7 +7138,7 @@
           bc.close();
         } catch (e) {}
 
-        showMasterToast(`⚡ ${planName} activated live for ${email}! Quota: ${chatLimit}, Context: ${contextLimit.toLocaleString()}`, "success");
+        showMasterToast(`⚡ ${planName} unlocked & email sent to ${email}! Quota: ${chatLimit}, Context: ${contextLimit.toLocaleString()}`, "success");
         loadAiLimitsAndRequests();
         renderMessages();
 
