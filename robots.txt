@@ -177,13 +177,18 @@ Disallow: /reset-password.html
 # ── Google Images Crawler ─────────────────────────────────────────────────
 User-agent: Googlebot-Image
 Allow: /
+Allow: /harshguruji-home-cover.webp
+Allow: /guruai-chat-assistant.webp
+Allow: /guruji-ai-chat-assistant.webp
+Allow: /harshguruji-store-apps.webp
+Allow: /harshguruji-login-preview.webp
+Allow: /harshguruji-chat-community.webp
+Allow: /harshguruji-books-ncert.webp
+Allow: /gurutube-video-player.webp
 Allow: /logo.png
 Allow: /logo-512.png
-Allow: /chatbase.png
-Allow: /chatbase-logo.png
 Allow: /harshlogo.png
 Allow: /harshlogo.webp
-Allow: /ai.png
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
@@ -209,12 +214,11 @@ Crawl-delay: 10
 
 # ── Official Sitemaps for Google Search Console ───────────────────────────
 Sitemap: https://webguruji.online/sitemap.xml
+Sitemap: https://webguruji.online/sitemap-images.xml
 Sitemap: https://webguruji.online/sitemap_index.xml
-Sitemap: https://webguruji.online/sitemap_store.xml
-Sitemap: https://webguruji.online/sitemap_books.xml
-Sitemap: https://webguruji.online/sitemap_chat.xml
-Sitemap: https://webguruji.online/sitemap_ai.xml
+Sitemap: https://ai.webguruji.online/sitemap.xml
 Sitemap: https://store.webguruji.online/sitemap.xml
 Sitemap: https://books.webguruji.online/sitemap.xml
 Sitemap: https://chat.webguruji.online/sitemap.xml
-Sitemap: https://ai.webguruji.online/sitemap.xml
+Sitemap: https://tube.webguruji.online/sitemap.xml
+

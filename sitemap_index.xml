@@ -3,7 +3,19 @@
   <!-- Main Platform Master Sitemap -->
   <sitemap>
     <loc>https://webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-25</lastmod>
+  </sitemap>
+
+  <!-- Google Images Dedicated Sitemap -->
+  <sitemap>
+    <loc>https://webguruji.online/sitemap-images.xml</loc>
+    <lastmod>2026-10-25</lastmod>
+  </sitemap>
+
+  <!-- GuruTube Subdomain Sitemap -->
+  <sitemap>
+    <loc>https://tube.webguruji.online/sitemap.xml</loc>
+    <lastmod>2026-10-25</lastmod>
   </sitemap>
 
   <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->

@@ -89,7 +89,7 @@ const FALLBACK_PUBLISHED_APPS = [
   },
   {
     id: "173a06f8-0360-4eec-b3c8-abd0503b610b",
-    name: "HP Tube",
+    name: "GuruTube",
     slug: "hp-tube",
     logo_url: "hp-tube-logo.png",
     apk_storage_path: "hp-tube/1.0.0.2/1790681674876_HP_Tube.apk",
@@ -98,7 +98,7 @@ const FALLBACK_PUBLISHED_APPS = [
     app_type: "APK",
     category: "Apps",
     developer_name: "HarshGuruJi",
-    short_description: "HP Tube media streaming application with high-speed video playback.",
+    short_description: "GuruTube media streaming application with high-speed video playback.",
     version: "1.0.0.2",
     file_size: "18.6 MB",
     rating: 4.8,

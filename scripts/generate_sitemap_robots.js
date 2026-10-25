@@ -79,7 +79,7 @@ const pages = [
     lastmod: today,
     changefreq: 'daily',
     priority: '0.90',
-    title: 'HP Tube — HarshGuruJi Store'
+    title: 'GuruTube — HarshGuruJi Store'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=system-service`,
