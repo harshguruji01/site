@@ -1,5 +1,5 @@
 /**
- * store.js - HarshGuruJi Store Logic (AN1.com Inspired System)
+ * store.js - GuruStore Logic (AN1.com Inspired System)
  * Strictly displays only apps published through the Admin Panel (store_apps table).
  * Zero mock apps. 100% database driven.
  */
@@ -1026,7 +1026,7 @@ function setupEventListeners() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: 'HarshGuruJi Store',
+            title: 'GuruStore',
             text: 'Check out this app!',
             url: url
           });

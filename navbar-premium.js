@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </li>
       <li><a href="#step-box-class" class="hg-mobile-link" id="mob-link-finder" onclick="window.scrollToBookFinder && window.scrollToBookFinder(); return false;">🎯 4-Step Book Finder</a></li>
-      <li><a href="${storeUrl}" class="hg-mobile-link" id="mob-link-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">🛍️ HarshGuruJi Store</a></li>
+      <li><a href="${storeUrl}" class="hg-mobile-link" id="mob-link-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">🛍️ GuruStore</a></li>
       <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
         <button type="button" class="hg-mobile-accordion-toggle">More Portal Services <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
         <div class="hg-mobile-accordion-content">
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Classes</span>
       </a>
 
-      <a href="${storeUrl}" class="hg-bottom-item" id="bottom-nav-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer" title="HarshGuruJi Store">
+      <a href="${storeUrl}" class="hg-bottom-item" id="bottom-nav-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer" title="GuruStore">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (isStorePage) {
     desktopNavListHTML = `
       <li class="hg-nav-item"><a href="${homeUrl}" class="hg-nav-link" id="nav-link-home">Home</a></li>
-      <li class="hg-nav-item"><a href="${storeUrl}" class="hg-nav-link active" id="nav-link-store">🛍️ Store Home</a></li>
+      <li class="hg-nav-item"><a href="${storeUrl}" class="hg-nav-link active" id="nav-link-store">🛍️ GuruStore</a></li>
       <li class="hg-nav-item"><a href="#sec-games" class="hg-nav-link" id="nav-link-games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Web Games</a></li>
       <li class="hg-nav-item"><a href="#sec-android" class="hg-nav-link" id="nav-link-apks" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">📱 Android APKs</a></li>
       <li class="hg-nav-item"><a href="#store-sections-view" class="hg-nav-link" id="nav-link-software" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">💻 Windows (PC)</a></li>
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Games</span>
       </a>
 
-      <a href="${storeUrl}" class="hg-bottom-item hg-bottom-item-home active" id="bottom-nav-store" title="HarshGuruJi Store">
+      <a href="${storeUrl}" class="hg-bottom-item hg-bottom-item-home active" id="bottom-nav-store" title="GuruStore">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Daily Special</span>
       </a>
 
-      <a href="${storeUrl}" class="hg-bottom-item" id="bottom-nav-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer" title="HarshGuruJi Store">
+      <a href="${storeUrl}" class="hg-bottom-item" id="bottom-nav-store" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer" title="GuruStore">
         <span class="hg-bottom-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -568,9 +568,9 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   } else if (isStorePage) {
     brandLogoHTML = `
-      <a href="${storeUrl}" class="hg-nav-logo" aria-label="HarshGuruJi Store Home">
-        <img src="${prefix}logo.png" alt="HarshGuruJi Store Logo" fetchpriority="high">
-        <span class="hg-brand-text">HarshGuruJi <span style="font-size:0.68rem; color:#38bdf8; font-weight:800; border:1px solid rgba(56,189,248,0.4); padding:1px 6px; border-radius:6px; margin-left:4px; vertical-align:middle; text-transform:uppercase;">STORE</span></span>
+      <a href="${storeUrl}" class="hg-nav-logo" aria-label="GuruStore Home">
+        <img src="${prefix}logo.png" alt="GuruStore Logo" fetchpriority="high">
+        <span class="hg-brand-text">Guru<span style="font-size:0.68rem; color:#38bdf8; font-weight:800; border:1px solid rgba(56,189,248,0.4); padding:1px 6px; border-radius:6px; margin-left:4px; vertical-align:middle; text-transform:uppercase;">STORE</span></span>
       </a>
     `;
   } else {

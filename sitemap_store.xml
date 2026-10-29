@@ -36,7 +36,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
+  <url>
+    <loc>https://store.webguruji.online/login.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://store.webguruji.online/signup.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
   <url>
     <loc>https://store.webguruji.online/store-detail.html?slug=chess</loc>
     <lastmod>2026-10-20</lastmod>

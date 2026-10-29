@@ -1,7 +1,7 @@
 /* ========================================================================= */
 /* HARSHGURUJI UNIVERSAL RESPONSIVE SHIELD & ULTRA-PREMIUM UI/UX ENGINE        */
 /* Infallible cross-device responsiveness from 320px to 4K Ultra-Wide        */
-/* Works across HarshGuruJi Store, Books, and HarshGuruJi Main Ecosystem       */
+/* Works across GuruStore, Books, and HarshGuruJi Main Ecosystem       */
 /* ========================================================================= */
 
 :root {
@@ -111,7 +111,7 @@ code, pre, .url, .monospace, .hash, .token, pre code, .log-output {
 }
 
 /* 5. Layout Containers - Strict Width Containment */
-main, section, article, aside, header, footer,
+main, section, article, aside, footer,
 .section-container, .hero-content, .hero-visual, .nav-container,
 .auth-container, .auth-wrapper, .wiki-content, .main-container,
 .store-container, .store-page, .books-container, .app-detail-container,

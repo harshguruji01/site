@@ -50,7 +50,7 @@ const pages = [
     lastmod: today,
     changefreq: 'daily',
     priority: '0.95',
-    title: 'HarshGuruJi Store — Curated Android APK & Premium Mod Games Catalog',
+    title: 'GuruStore — Curated Android APK & Premium Mod Games Catalog',
     image: `${baseUrl}/logo-512.png`
   },
   {
@@ -58,70 +58,70 @@ const pages = [
     lastmod: today,
     changefreq: 'daily',
     priority: '0.85',
-    title: 'Application Details & Direct APK Downloader — HarshGuruJi Store'
+    title: 'Application Details & Direct APK Downloader — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=chess`,
     lastmod: today,
     changefreq: 'daily',
     priority: '0.90',
-    title: 'Master Chess 3D — HarshGuruJi Store'
+    title: 'Master Chess 3D — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=chatbase`,
     lastmod: today,
     changefreq: 'daily',
     priority: '0.95',
-    title: 'ChatBase Android App APK — HarshGuruJi Store'
+    title: 'ChatBase Android App APK — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=hp-tube`,
     lastmod: today,
     changefreq: 'daily',
     priority: '0.90',
-    title: 'GuruTube — HarshGuruJi Store'
+    title: 'GuruTube — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=system-service`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'System Service Utility — HarshGuruJi Store'
+    title: 'System Service Utility — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=perplexity-ai-installer`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'Perplexity AI Installer — HarshGuruJi Store'
+    title: 'Perplexity AI Installer — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=bluestacks-installer`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'BlueStacks Android Emulator — HarshGuruJi Store'
+    title: 'BlueStacks Android Emulator — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=aurora-store`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'Aurora Store Client — HarshGuruJi Store'
+    title: 'Aurora Store Client — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=comet`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'Comet Browser & Productivity — HarshGuruJi Store'
+    title: 'Comet Browser & Productivity — GuruStore'
   },
   {
     loc: `${baseUrl}/store-detail.html?slug=hermes-ai-agent`,
     lastmod: today,
     changefreq: 'weekly',
     priority: '0.85',
-    title: 'Hermes AI Agent — HarshGuruJi Store'
+    title: 'Hermes AI Agent — GuruStore'
   },
   {
     loc: `${baseUrl}/app.html`,

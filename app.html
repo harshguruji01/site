@@ -755,7 +755,7 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         <div>
           <strong style="color: #fff; display: block; margin-bottom: 2px;">100% Virus &amp; Malware Free</strong>
-          <span>This application package is digitally verified and checked for integrity by HarshGuruJi Store before publication.</span>
+          <span>This application package is digitally verified and checked for integrity by GuruStore before publication.</span>
         </div>
       </div>
 
@@ -1212,8 +1212,8 @@
       })();
 
       // Dynamic Title & Meta
-      document.title = `${app.name} (${platform} · ${appType}) Download — HarshGuruJi Store`;
-      const metaDesc = app.short_description || `Download ${app.name} for ${platform} (${appType}) free and safe on HarshGuruJi Store.`;
+      document.title = `${app.name} (${platform} · ${appType}) Download — GuruStore`;
+      const metaDesc = app.short_description || `Download ${app.name} for ${platform} (${appType}) free and safe on GuruStore.`;
       document.getElementById('meta-description').setAttribute('content', metaDesc);
       document.getElementById('og-title').setAttribute('content', `${app.name} Download`);
       document.getElementById('og-description').setAttribute('content', metaDesc);
@@ -1335,7 +1335,7 @@
       document.getElementById('btn-share').addEventListener('click', () => {
         const shareData = {
           title: `${app.name} APK Download`,
-          text: `Download ${app.name} safely from HarshGuruJi Store:`,
+          text: `Download ${app.name} safely from GuruStore:`,
           url: window.location.href
         };
 
@@ -1380,7 +1380,7 @@
       link.click();
       document.body.removeChild(link);
 
-      showToast("Download started! Thank you for using HarshGuruJi Store.");
+      showToast("Download started! Thank you for using GuruStore.");
 
       // Increment downloads in database
       try {
@@ -1514,7 +1514,7 @@
                   </div>
                 </div>
               </div>
-              <p class="related-card-desc">${item.short_description || 'Verified download package available on HarshGuruJi Store.'}</p>
+              <p class="related-card-desc">${item.short_description || 'Verified download package available on GuruStore.'}</p>
               <div class="related-card-footer">
                 ${badgeHtml}
                 <span class="related-btn-link">Download &rarr;</span>

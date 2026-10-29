@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="hg-footer-col">
             <h5>Games & Apps</h5>
             <ul>
-              <li><a href="https://store.webguruji.online" target="_blank" rel="noopener noreferrer">HarshGuruJi Store</a></li>
+              <li><a href="https://store.webguruji.online" target="_blank" rel="noopener noreferrer">GuruStore</a></li>
               <li><a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer">Chat HarshGuruJi</a></li>
               <li><a href="https://tube.webguruji.online/" class="text-blue-400 font-semibold">GuruTube (This App)</a></li>
               <li><a href="https://github.com/harshguruji01/GuruTube" target="_blank" rel="noopener noreferrer">GuruTube GitHub</a></li>

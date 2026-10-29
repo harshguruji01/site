@@ -24,7 +24,7 @@
   left: 0 !important;
   right: 0 !important;
   width: 100% !important;
-  max-width: 100vw !important;
+  max-width: 100% !important;
   box-sizing: border-box !important;
   height: var(--hg-nav-height) !important;
   background: var(--hg-nav-bg) !important;
@@ -32,11 +32,12 @@
   -webkit-backdrop-filter: var(--hg-nav-blur) !important;
   border-bottom: 1px solid var(--hg-nav-border) !important;
   box-shadow: var(--hg-nav-shadow) !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
   transition: none !important;
   overflow: visible !important;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  transform: none !important;
 }
 
 body {
@@ -733,6 +734,7 @@ body {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
     height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
     padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     background: rgba(10, 14, 26, 0.94) !important;
