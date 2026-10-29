@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <ul>
               <li><a href="https://store.webguruji.online" target="_blank" rel="noopener noreferrer">GuruStore</a></li>
               <li><a href="https://chat.webguruji.online" target="_blank" rel="noopener noreferrer">Chat HarshGuruJi</a></li>
-              <li><a href="https://tube.webguruji.online/" class="text-blue-400 font-semibold">GuruTube (This App)</a></li>
-              <li><a href="https://github.com/harshguruji01/GuruTube" target="_blank" rel="noopener noreferrer">GuruTube GitHub</a></li>
+              <li><a href="https://tube.webguruji.online/" class="text-blue-400 font-semibold" target="_blank" rel="noopener noreferrer">GuruTube</a></li>
               <li><a href="${MAIN_SITE}/gaming-hub.html" target="_blank" rel="noopener noreferrer">Gaming Hub</a></li>
+              <li><a href="${MAIN_SITE}/ai-hub.html" target="_blank" rel="noopener noreferrer">AI Hub</a></li>
               <li><a href="${MAIN_SITE}/Quiz India/index.html" target="_blank" rel="noopener noreferrer">Quiz India</a></li>
             </ul>
           </div>
@@ -118,10 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
               <li><a href="${MAIN_SITE}/contact.html" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
               <li><a href="${MAIN_SITE}/contributor.html" target="_blank" rel="noopener noreferrer">Contributors</a></li>
               <li><a href="${MAIN_SITE}/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-              <li><a href="${MAIN_SITE}/terms-and-conditions.html" target="_blank" rel="noopener noreferrer">Terms</a></li>
+              <li><a href="${MAIN_SITE}/terms-and-conditions.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a></li>
               <li><a href="${MAIN_SITE}/disclaimer.html" target="_blank" rel="noopener noreferrer">Disclaimer</a></li>
-              <li><a href="https://github.com/harshguruji01/GuruTube/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">GNU GPL-3.0 License</a></li>
-              <li><a href="${MAIN_SITE}/cookie.html" target="_blank" rel="noopener noreferrer">Cookies</a></li>
+              <li><a href="${MAIN_SITE}/cookie.html" target="_blank" rel="noopener noreferrer">Cookies Policy</a></li>
             </ul>
           </div>
         </nav>
