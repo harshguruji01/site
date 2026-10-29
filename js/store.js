@@ -1602,21 +1602,32 @@ function openAppDetails(app) {
     link.click();
     document.body.removeChild(link);
 
-    if (app.id) {
+    if (app && (app.id || app.slug)) {
       try {
-        const { data } = await supabase.from('store_apps').select('downloads').eq('id', app.id).single();
-        if (data) {
-          await supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', app.id);
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        const cleanId = String(app.id || '').trim();
+        const hasValidUuid = Boolean(cleanId && UUID_REGEX.test(cleanId));
+        const query = hasValidUuid 
+          ? supabase.from('store_apps').select('downloads').eq('id', cleanId).single()
+          : (app.slug ? supabase.from('store_apps').select('downloads').eq('slug', app.slug).single() : null);
+        if (query) {
+          const { data } = await query;
+          if (data) {
+            const updateQuery = hasValidUuid
+              ? supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', cleanId)
+              : supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('slug', app.slug);
+            await updateQuery;
+          }
         }
         
-        if (user) {
+        if (user && hasValidUuid) {
             await supabase.from('app_downloads').insert({
                 user_id: user.id,
-                app_id: app.id
+                app_id: cleanId
             });
         }
       } catch (err) {
-        console.error("Failed to track download:", err);
+        console.warn("Failed to track download:", err);
       }
     }
   };

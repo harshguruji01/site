@@ -429,7 +429,12 @@ window.deleteApp = async function(id, name) {
         document.querySelectorAll('.progress-track, .progress-text').forEach(el => el.style.display = 'none');
         document.getElementById('progress-item-db').querySelector('.pct').textContent = "Deleting from database...";
 
-        const { error } = await supabase.from('store_apps').delete().eq('id', id);
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        const isUuid = Boolean(id && UUID_REGEX.test(String(id).trim()));
+        let deleteQuery = isUuid
+            ? supabase.from('store_apps').delete().eq('id', String(id).trim())
+            : supabase.from('store_apps').delete().eq('slug', String(id).trim());
+        const { error } = await deleteQuery;
         if (error) throw new Error("Delete failed: " + error.message);
 
         showToast("Application deleted successfully", "success");
@@ -739,9 +744,16 @@ async function handleUpload(e) {
             appData.published_at = new Date().toISOString();
         }
 
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        const cleanEditId = String(editId || '').trim();
+        const isEditValidUuid = Boolean(cleanEditId && UUID_REGEX.test(cleanEditId));
+
         if (isUpdate) {
             appData.updated_at = new Date().toISOString();
-            const { error: dbErr } = await supabase.from('store_apps').update(appData).eq('id', editId);
+            let query = isEditValidUuid
+                ? supabase.from('store_apps').update(appData).eq('id', cleanEditId)
+                : supabase.from('store_apps').update(appData).eq('slug', slug);
+            const { error: dbErr } = await query;
             if (dbErr) throw new Error("Update database error: " + dbErr.message);
         } else {
             const { error: dbErr } = await supabase.from('store_apps').insert(appData);

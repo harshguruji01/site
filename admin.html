@@ -5694,13 +5694,25 @@
       if (!confirm(`Are you sure you want to permanently delete "${title}" from the Store catalog?`)) return;
 
       const sb = window.supabaseClient;
-      if (!sb) return;
+      const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      const cleanId = String(appId || '').trim();
+      const isUuid = Boolean(cleanId && UUID_REGEX.test(cleanId));
 
       try {
-        const { error } = await sb.from('store_apps').delete().eq('id', appId);
-        if (error) throw error;
+        if (sb) {
+          if (isUuid) {
+            const { error } = await sb.from('store_apps').delete().eq('id', cleanId);
+            if (error) throw error;
+          } else {
+            // Delete by slug if legacy non-UUID
+            const found = (storeAppsData || []).find(a => String(a.id) === cleanId);
+            if (found && found.slug) {
+              await sb.from('store_apps').delete().eq('slug', found.slug);
+            }
+          }
+        }
 
-        storeAppsData = storeAppsData.filter(a => String(a.id) !== String(appId));
+        storeAppsData = storeAppsData.filter(a => String(a.id) !== cleanId);
         try {
           const raw = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
           if (raw) {
@@ -6582,9 +6594,22 @@
           downloadUrl = `https://webguruji.online/store-detail.html?slug=${encodeURIComponent(slug)}`;
         }
 
-        const finalId = editId || ('app_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        const cleanEditId = String(editId || '').trim();
+        const isEditValidUuid = Boolean(cleanEditId && UUID_REGEX.test(cleanEditId));
+
+        function generateUUID() {
+          if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+            return crypto.randomUUID();
+          }
+          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+        }
+
         const payload = {
-          id: finalId,
           name: name,
           slug: slug,
           short_description: shortDesc,
@@ -6614,24 +6639,45 @@
           payload.apk_storage_path = apkStoragePath;
         }
 
-        if (!editId) {
+        if (!cleanEditId) {
           payload.created_at = new Date().toISOString();
           payload.downloads = 0;
         }
 
-        let savedApp = payload;
+        let fallbackId = isEditValidUuid ? cleanEditId : generateUUID();
+        let savedApp = { ...payload, id: fallbackId };
 
         // Try Supabase table upsert
         if (sb) {
           try {
-            if (editId) {
-              const { error: upErr } = await sb.from('store_apps').update(payload).eq('id', editId);
+            if (cleanEditId) {
+              let updateQuery;
+              if (isEditValidUuid) {
+                updateQuery = sb.from('store_apps').update(payload).eq('id', cleanEditId);
+              } else {
+                updateQuery = sb.from('store_apps').update(payload).eq('slug', slug);
+              }
+              const { data: upData, error: upErr } = await updateQuery.select();
               if (upErr) {
                 console.error('Supabase store_apps update error:', upErr);
                 throw new Error('Supabase database update failed: ' + upErr.message);
               }
+              if (upData && upData[0]) {
+                savedApp = upData[0];
+              } else if (!isEditValidUuid) {
+                // Legacy local record not in DB yet - insert fresh record
+                const insertPayload = { ...payload };
+                const { data: insData, error: insErr } = await sb.from('store_apps').insert([insertPayload]).select();
+                if (insErr) {
+                  console.error('Supabase store_apps insert error:', insErr);
+                  throw new Error('Supabase database insert failed: ' + insErr.message);
+                }
+                if (insData && insData[0]) savedApp = insData[0];
+              }
             } else {
-              const { data: insData, error: insErr } = await sb.from('store_apps').insert([payload]).select();
+              // On insert, do NOT send custom string id. Supabase PostgreSQL automatically generates valid UUID!
+              const insertPayload = { ...payload };
+              const { data: insData, error: insErr } = await sb.from('store_apps').insert([insertPayload]).select();
               if (insErr) {
                 console.error('Supabase store_apps insert error:', insErr);
                 throw new Error('Supabase database insert failed: ' + insErr.message);
@@ -6649,9 +6695,9 @@
           let localApps = [];
           const raw = localStorage.getItem('harshguruji_store_apps_v2') || localStorage.getItem('wg_admin_store_apps');
           if (raw) localApps = JSON.parse(raw) || [];
-          if (editId) {
-            localApps = localApps.map(a => String(a.id) === String(editId) ? { ...a, ...savedApp } : a);
-            storeAppsData = storeAppsData.map(a => String(a.id) === String(editId) ? { ...a, ...savedApp } : a);
+          if (cleanEditId) {
+            localApps = localApps.map(a => (String(a.id) === String(cleanEditId) || (a.slug && a.slug === slug)) ? { ...a, ...savedApp } : a);
+            storeAppsData = storeAppsData.map(a => (String(a.id) === String(cleanEditId) || (a.slug && a.slug === slug)) ? { ...a, ...savedApp } : a);
           } else {
             localApps.unshift(savedApp);
             storeAppsData.unshift(savedApp);

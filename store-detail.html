@@ -1383,10 +1383,14 @@
 
           let supaPromise = Promise.resolve(null);
           if (client && typeof client.from === 'function') {
-            if (id) {
-              supaPromise = client.from('store_apps').select('*').eq('id', id).maybeSingle();
+            const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            const cleanId = String(id || '').trim();
+            if (cleanId && UUID_REGEX.test(cleanId)) {
+              supaPromise = client.from('store_apps').select('*').eq('id', cleanId).maybeSingle();
             } else if (slug) {
               supaPromise = client.from('store_apps').select('*').ilike('slug', slug).maybeSingle();
+            } else if (cleanId) {
+              supaPromise = client.from('store_apps').select('*').ilike('slug', cleanId).maybeSingle();
             }
           }
 
@@ -1718,8 +1722,14 @@
         const dlEl = document.getElementById('val-downloads');
         if (dlEl) dlEl.textContent = newCount.toLocaleString();
         const client = supabase || window.supabaseClient;
-        if (app.id && client) {
-          await client.from('store_apps').update({ downloads: newCount }).eq('id', app.id);
+        if (client) {
+          const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+          const cleanId = String(app.id || '').trim();
+          if (cleanId && UUID_REGEX.test(cleanId)) {
+            await client.from('store_apps').update({ downloads: newCount }).eq('id', cleanId);
+          } else if (app.slug) {
+            await client.from('store_apps').update({ downloads: newCount }).eq('slug', app.slug);
+          }
         }
       } catch (e) {
         console.warn("Could not increment downloads:", e);
