@@ -459,6 +459,203 @@
       font-weight: 700;
       margin-bottom: 0.85rem;
     }
+
+    /* =========================================================
+       ACETERNITY UI ANIMATED TOOLTIP COMPONENT
+       Ref: 21st.dev/@manuarora700/components/animated-tooltip
+       ========================================================= */
+    .animated-tooltip-section {
+      padding: 1.5rem 1.25rem 2.5rem;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+    .tooltip-container {
+      max-width: 880px;
+      margin: 0 auto;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16), rgba(15, 23, 42, 0.7) 70%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 2.25rem 1.5rem 2rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 102, 241, 0.1);
+    }
+    .tooltip-heading-wrap {
+      margin-bottom: 1.5rem;
+    }
+    .tooltip-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #c7d2fe;
+      margin-bottom: 0.65rem;
+    }
+    .tooltip-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .tooltip-sub {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .animated-tooltip-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1rem 1.5rem;
+      position: relative;
+    }
+    .tooltip-item {
+      position: relative;
+      margin-right: -1rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: z-index 0.2s ease;
+    }
+    .tooltip-item:last-child {
+      margin-right: 0;
+    }
+    .tooltip-item:hover {
+      z-index: 60 !important;
+    }
+    .tooltip-avatar-wrap {
+      position: relative;
+      display: inline-block;
+      border-radius: 9999px;
+    }
+    .tooltip-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 9999px;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid #0f172a;
+      outline: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+      background: #1e293b;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), outline-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tooltip-item:hover .tooltip-avatar {
+      transform: scale(1.18);
+      outline-color: #6366f1;
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.45);
+    }
+    .tooltip-item.founder-item .tooltip-avatar {
+      outline-color: rgba(245, 158, 11, 0.7);
+    }
+    .tooltip-item.founder-item:hover .tooltip-avatar {
+      outline-color: #ffd700;
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.6);
+    }
+    .founder-badge-dot {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(135deg, #ffd700, #f59e0b);
+      border: 2px solid #0f172a;
+      border-radius: 50%;
+      color: #0f172a;
+      font-size: 10px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    /* Floating Tooltip Card with Dynamic Aceternity Motion */
+    .tooltip-bubble {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px) scale(0.85);
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      white-space: nowrap;
+      z-index: 100;
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+    }
+    .tooltip-item:hover .tooltip-bubble {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(calc(-50% + var(--tx, 0px))) translateY(0) scale(1) rotate(var(--rot, 0deg));
+    }
+    .tooltip-card-inner {
+      position: relative;
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 9px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      overflow: hidden;
+    }
+    .tooltip-accent-line-top {
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #06b6d4, #ec4899, transparent);
+    }
+    .tooltip-item.founder-item .tooltip-accent-line-top {
+      background: linear-gradient(90deg, transparent, #ffd700, #f59e0b, transparent);
+    }
+    .tooltip-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .tooltip-role {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .tooltip-item.founder-item .tooltip-role {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    .tooltip-arrow {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #090d16;
+    }
+
   </style>
 
   <link rel="manifest" href="manifest.json">
@@ -481,6 +678,110 @@
   <div class="badge">The Team</div>
   <h1 class="page-title">Our <span class="gradient-text">Contributors</span></h1>
   <p class="page-desc">Meet the amazing verified team and contributors who power HarshGuruJi.</p>
+</section>
+
+<!-- Aceternity UI Animated Tooltip Section (Ref: 21st.dev/@manuarora700/components/animated-tooltip) -->
+<section class="animated-tooltip-section" id="animated-team-tooltip">
+  <div class="tooltip-container">
+    <div class="tooltip-heading-wrap">
+      <span class="tooltip-pill">&#10024; Core Team &amp; Contributors</span>
+      <h2 class="tooltip-heading">Hover To Meet Our Team</h2>
+      <p class="tooltip-sub">Interactive animated showcase of the builders and contributors behind HarshGuruJi.</p>
+    </div>
+    
+    <div class="animated-tooltip-row" id="animatedTooltipRow">
+      <!-- Harsh (Founder and Owner) -->
+      <div class="tooltip-item founder-item" data-name="Harsh" data-role="Founder and Owner">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Harsh</span>
+            <span class="tooltip-role">Founder and Owner</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/harsh.png" alt="Harsh - Founder and Owner" class="tooltip-avatar" loading="lazy" decoding="async">
+          <span class="founder-badge-dot" title="Founder &amp; Owner">&#9733;</span>
+        </div>
+      </div>
+
+      <!-- Aditya (Contributor and Helper) -->
+      <div class="tooltip-item" data-name="Aditya" data-role="Contributor and Helper">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Aditya</span>
+            <span class="tooltip-role">Contributor and Helper</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/aditya.png" alt="Aditya - Contributor and Helper" class="tooltip-avatar" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <!-- Gaurav (Contributor and Helper) -->
+      <div class="tooltip-item" data-name="Gaurav" data-role="Contributor and Helper">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Gaurav</span>
+            <span class="tooltip-role">Contributor and Helper</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/gaurav.png" alt="Gaurav - Contributor and Helper" class="tooltip-avatar" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <!-- Piyush (Contributor and Helper) -->
+      <div class="tooltip-item" data-name="Piyush" data-role="Contributor and Helper">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Piyush</span>
+            <span class="tooltip-role">Contributor and Helper</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/piyush.png" alt="Piyush - Contributor and Helper" class="tooltip-avatar" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <!-- Pratyush (Contributor and Helper) -->
+      <div class="tooltip-item" data-name="Pratyush" data-role="Contributor and Helper">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Pratyush</span>
+            <span class="tooltip-role">Contributor and Helper</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/pratyush.png" alt="Pratyush - Contributor and Helper" class="tooltip-avatar" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <!-- Swastik (Contributor and Helper) -->
+      <div class="tooltip-item" data-name="Swastik" data-role="Contributor and Helper">
+        <div class="tooltip-bubble">
+          <div class="tooltip-card-inner">
+            <div class="tooltip-accent-line-top"></div>
+            <span class="tooltip-name">Swastik</span>
+            <span class="tooltip-role">Contributor and Helper</span>
+          </div>
+          <div class="tooltip-arrow"></div>
+        </div>
+        <div class="tooltip-avatar-wrap">
+          <img src="Contributors/swastik.png" alt="Swastik - Contributor and Helper" class="tooltip-avatar" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="section section-dark" style="padding-top:0">
@@ -998,5 +1299,29 @@
 <script src="navbar-premium.js"></script>
 <script src="footer-premium.js"></script>
   <script src="loading-lines.js" defer></script>
+
+<!-- Aceternity Animated Tooltip Physics Interaction -->
+<script>
+(function() {
+  const tooltipItems = document.querySelectorAll('.tooltip-item');
+  tooltipItems.forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const halfWidth = rect.width / 2;
+      const x = e.clientX - rect.left - halfWidth;
+      const ratio = Math.max(-1, Math.min(1, x / halfWidth));
+      const rot = ratio * 20; // -20deg to +20deg
+      const tx = ratio * 24;  // -24px to +24px
+      item.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+      item.style.setProperty('--tx', tx.toFixed(2) + 'px');
+    });
+    item.addEventListener('mouseleave', () => {
+      item.style.setProperty('--rot', '0deg');
+      item.style.setProperty('--tx', '0px');
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
