@@ -105,7 +105,7 @@ def update_privacy_policy():
       </p>
 
       <p>
-        If you have additional questions or require more information about our Privacy Policy or data governance practices, please do not hesitate to contact our Data Protection desk at <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary); font-weight:600;">contact@webguruji.online</a>.
+        If you have additional questions or require more information about our Privacy Policy or data governance practices, please do not hesitate to contact our Data Protection desk at <a href="mailto:info@webguruji.online" style="color:var(--accent-primary); font-weight:600;">info@webguruji.online</a>.
       </p>
 
       <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); margin:2rem 0;">
@@ -189,7 +189,7 @@ def update_privacy_policy():
         <li>Exercise these rights without experiencing discrimination or loss of platform service quality.</li>
       </ul>
       <p>
-        If you submit a verifiable request, we have one month to respond to you. If you would like to exercise any of these rights, please contact our team at <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a>.
+        If you submit a verifiable request, we have one month to respond to you. If you would like to exercise any of these rights, please contact our team at <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a>.
       </p>
 
       <h2 style="color:var(--text-primary); font-size:1.4rem; margin-top:2rem; margin-bottom:1rem; font-family:'Space Grotesk',sans-serif;">8. GDPR Data Protection Rights</h2>
@@ -205,7 +205,7 @@ def update_privacy_policy():
         <li><strong style="color:var(--text-primary);">The right to data portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</li>
       </ul>
       <p>
-        If you make a request, we have 30 days to respond to you. If you wish to exercise any of these fundamental rights, please contact us at <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a>.
+        If you make a request, we have 30 days to respond to you. If you wish to exercise any of these fundamental rights, please contact us at <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a>.
       </p>
 
       <h2 style="color:var(--text-primary); font-size:1.4rem; margin-top:2rem; margin-bottom:1rem; font-family:'Space Grotesk',sans-serif;">9. Children's Online Privacy Protection (COPPA)</h2>
@@ -236,7 +236,7 @@ def update_privacy_policy():
         <p style="margin-top:0; margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Platform Entity:</strong> HarshGuruJi Digital Platform</p>
         <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Domain:</strong> <a href="https://webguruji.online" style="color:var(--accent-primary);">https://webguruji.online</a></p>
         <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Founder &amp; Data Controller:</strong> Harsh Patel</p>
-        <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Official Privacy Desk:</strong> <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a></p>
+        <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Official Privacy Desk:</strong> <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a></p>
         <p style="margin-bottom:0;"><strong style="color:var(--text-primary);">Headquarters:</strong> India (Global Remote Accessibility)</p>
       </div>
 
@@ -369,7 +369,7 @@ def update_terms_and_conditions():
       <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:1.5rem; margin-top:1.5rem;">
         <p style="margin-top:0; margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">HarshGuruJi Platform Administration</strong></p>
         <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Website:</strong> <a href="https://webguruji.online" style="color:var(--accent-primary);">https://webguruji.online</a></p>
-        <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Legal &amp; Support Email:</strong> <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a></p>
+        <p style="margin-bottom:0.5rem;"><strong style="color:var(--text-primary);">Legal &amp; Support Email:</strong> <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a></p>
         <p style="margin-bottom:0;"><strong style="color:var(--text-primary);">Jurisdiction:</strong> India</p>
       </div>
 
@@ -456,12 +456,12 @@ def update_disclaimer():
 
       <h2 style="color:var(--text-primary); font-size:1.4rem; margin-top:2rem; margin-bottom:1rem; font-family:'Space Grotesk',sans-serif;">7. Fair Use &amp; DMCA Copyright Notice</h2>
       <p>
-        HarshGuruJi respects the intellectual property rights of others. If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement, please notify our copyright agent with relevant details at <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a>. We will promptly review and address any valid notices in accordance with the Digital Millennium Copyright Act (DMCA) and applicable Indian copyright laws.
+        HarshGuruJi respects the intellectual property rights of others. If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement, please notify our copyright agent with relevant details at <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a>. We will promptly review and address any valid notices in accordance with the Digital Millennium Copyright Act (DMCA) and applicable Indian copyright laws.
       </p>
 
       <h2 style="color:var(--text-primary); font-size:1.4rem; margin-top:2rem; margin-bottom:1rem; font-family:'Space Grotesk',sans-serif;">8. Contact Concerning Disclaimers</h2>
       <p>
-        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary);">contact@webguruji.online</a>.
+        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href="mailto:info@webguruji.online" style="color:var(--accent-primary);">info@webguruji.online</a>.
       </p>
 
     </div>
@@ -608,7 +608,7 @@ def update_contact():
         <div style="font-size:2rem; margin-bottom:0.75rem;">📬</div>
         <h3 style="color:var(--text-primary); margin:0 0 0.5rem 0; font-size:1.2rem; font-family:'Space Grotesk',sans-serif;">General &amp; Support Inquiries</h3>
         <p style="font-size:0.9rem; margin-bottom:1rem; color:var(--text-secondary);">For platform questions, account assistance, tool feedback, or general support.</p>
-        <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary); font-weight:700; text-decoration:none; word-break:break-all;">contact@webguruji.online</a>
+        <a href="mailto:info@webguruji.online" style="color:var(--accent-primary); font-weight:700; text-decoration:none; word-break:break-all;">info@webguruji.online</a>
         <div style="font-size:0.8rem; color:#94a3b8; margin-top:0.5rem;">Typical response: Within 24-48 hours</div>
       </div>
 
@@ -616,7 +616,7 @@ def update_contact():
         <div style="font-size:2rem; margin-bottom:0.75rem;">⚖️</div>
         <h3 style="color:var(--text-primary); margin:0 0 0.5rem 0; font-size:1.2rem; font-family:'Space Grotesk',sans-serif;">Legal, Privacy &amp; DMCA</h3>
         <p style="font-size:0.9rem; margin-bottom:1rem; color:var(--text-secondary);">For copyright notices, privacy policy inquiries, or data compliance requests.</p>
-        <a href="mailto:contact@webguruji.online" style="color:var(--accent-primary); font-weight:700; text-decoration:none; word-break:break-all;">contact@webguruji.online</a>
+        <a href="mailto:info@webguruji.online" style="color:var(--accent-primary); font-weight:700; text-decoration:none; word-break:break-all;">info@webguruji.online</a>
         <div style="font-size:0.8rem; color:#94a3b8; margin-top:0.5rem;">Priority review: 24-hour turnaround</div>
       </div>
 

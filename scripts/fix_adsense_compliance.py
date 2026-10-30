@@ -143,7 +143,7 @@ def fix_contact_page():
   <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;">
     <div style="padding:1rem; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
       <div style="color:var(--accent-primary); font-weight:700; font-size:0.9rem; margin-bottom:4px;">Official Support Email</div>
-      <a href="mailto:contact@webguruji.online" style="color:#fff; text-decoration:none; font-weight:600; word-break:break-all;">contact@webguruji.online</a>
+      <a href="mailto:info@webguruji.online" style="color:#fff; text-decoration:none; font-weight:600; word-break:break-all;">info@webguruji.online</a>
       <div style="color:var(--text-secondary); font-size:0.8rem; margin-top:4px;">Average reply within 24-48 hours</div>
     </div>
     <div style="padding:1rem; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
