@@ -480,14 +480,59 @@
   <script src="js/supabase-head.js"></script>
   <script>
     // 1. Detect AI Model Upgrade Parameters & Auto-fill form
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const params = new URLSearchParams(window.location.search);
       const subjectParam = params.get('subject');
       const modelParam = params.get('model');
       const planParam = params.get('plan');
       const priceParam = params.get('price');
+      const emailParam = params.get('email');
 
       if (subjectParam === 'ai_upgrade' || modelParam) {
+        // Auto-populate logged-in email from query params
+        if (emailParam) {
+          const emailInput = document.getElementById('contact-email');
+          if (emailInput) {
+            emailInput.value = emailParam;
+            emailInput.readOnly = true;
+          }
+        } else {
+          // If no email query param, verify active Supabase auth session
+          let hasSession = false;
+          try {
+            if (window.supabase) {
+              const client = window.supabaseClient || (window.SUPABASE_URL && window.SUPABASE_ANON_KEY ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null);
+              if (client) {
+                const { data } = await client.auth.getSession();
+                if (data?.session?.user?.email) {
+                  hasSession = true;
+                  const emailInput = document.getElementById('contact-email');
+                  if (emailInput) {
+                    emailInput.value = data.session.user.email;
+                    emailInput.readOnly = true;
+                  }
+                }
+              }
+            }
+          } catch(e) {}
+
+          // Strict Guest Block: Guest users must log in first to submit AI Upgrade inquiries
+          if (!hasSession && !emailParam) {
+            const formBox = document.querySelector('.contact-card-wrap');
+            if (formBox) {
+              const guestLock = document.createElement('div');
+              guestLock.style.cssText = 'background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.4); border-radius:16px; padding:1.25rem; margin-bottom:1.5rem; text-align:center; color:#f87171;';
+              guestLock.innerHTML = '<div style="font-size:1.2rem; font-weight:800; margin-bottom:0.4rem;">🔒 Sign In Required for Premium AI Models</div><p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:1rem;">Guest users cannot submit AI upgrade inquiries. Please sign in to your GuruAI account first so your premium model can be linked.</p><a href="https://ai.webguruji.online/#login" style="display:inline-block; background:#6366f1; color:#fff; font-weight:700; font-size:0.85rem; padding:8px 20px; border-radius:50px; text-decoration:none; box-shadow:0 4px 15px rgba(99,102,241,0.4);">Sign In to GuruAI ↗</a>';
+              formBox.prepend(guestLock);
+              const submitBtn = document.getElementById('contact-submit-btn');
+              if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.title = 'Please sign in first';
+              }
+            }
+          }
+        }
         const subjectSelect = document.getElementById('contact-subject');
         if (subjectSelect) subjectSelect.value = 'ai';
 
@@ -540,8 +585,7 @@ Please verify my request and activate my model upon payment completion.`;
       
       const params = new URLSearchParams(window.location.search);
       const isAiUpgrade = subject === 'ai' || params.get('subject') === 'ai_upgrade' || message.includes('GuruAI Premium');
-      const requestedModel = params.get('model') || (message.match(/Selected Model:\s*([^
-]+)/i)?.[1]) || 'Guru-Flash 1.3';
+      const requestedModel = params.get('model') || (message.match(/Selected Model:\s*([^\r\n]+)/i)?.[1]) || 'Guru-Flash 1.3';
 
       try {
         // 1. Persist to Supabase contact_messages
