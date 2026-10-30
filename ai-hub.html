@@ -470,13 +470,139 @@
       background: #8b5cf6;
     }
 
-    /* FAQ Accordion */
-    .faq-item {
+    /* Ultra-Attractive FAQ Component */
+    .faq-container {
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .faq-header-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0 1.25rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
       border: 1px solid var(--ai-surface-border);
-      border-radius: 14px;
-      margin-bottom: 1rem;
-      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .faq-search-box {
+      position: relative;
+      flex: 1 1 280px;
+      min-width: 240px;
+    }
+
+    .faq-search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 12px;
+      color: #f8fafc;
+      font-size: 0.92rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+
+    .faq-search-input:focus {
+      border-color: var(--ai-primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+    }
+
+    .faq-search-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+      width: 16px;
+      height: 16px;
+    }
+
+    .faq-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .faq-toggle-btn {
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: rgba(139, 92, 246, 0.12);
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .faq-toggle-btn:hover {
+      background: rgba(139, 92, 246, 0.25);
+      color: #fff;
+      border-color: rgba(139, 92, 246, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .faq-filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-chip {
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .faq-chip:hover, .faq-chip.active {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.25));
+      color: #fff;
+      border-color: rgba(139, 92, 246, 0.55);
+      box-shadow: 0 2px 10px rgba(139, 92, 246, 0.2);
+    }
+
+    .faq-item {
+      border: 1px solid rgba(139, 92, 246, 0.18);
+      border-radius: 16px;
+      margin-bottom: 1.1rem;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(24, 24, 37, 0.75));
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
       overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(139, 92, 246, 0.45);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .faq-item.active {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 10px 35px rgba(139, 92, 246, 0.22);
+      background: linear-gradient(145deg, rgba(18, 28, 51, 0.95), rgba(28, 26, 48, 0.9));
     }
 
     .faq-question {
@@ -488,13 +614,275 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .faq-question:hover {
+      color: #c4b5fd;
+    }
+
+    .faq-q-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .faq-num-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(6, 182, 212, 0.2));
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #a78bfa;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-num-badge {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 14px rgba(139, 92, 246, 0.5);
+    }
+
+    .faq-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .faq-category-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .faq-q-text {
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: #f1f5f9;
+      font-weight: 700;
+    }
+
+    .faq-chevron-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-chevron {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #94a3b8;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease;
+    }
+
+    .faq-item.active .faq-chevron-wrap {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: rgba(139, 92, 246, 0.5);
+    }
+
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      stroke: #c4b5fd;
+    }
+
+    .faq-body-collapse {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-item.active .faq-body-collapse {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-body-content {
+      overflow: hidden;
     }
 
     .faq-answer {
-      padding: 0 1.5rem 1.25rem;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      line-height: 1.8;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      margin-top: 0.25rem;
+      padding-top: 1.25rem;
+    }
+
+    /* Enhanced Visual Callouts Inside FAQ Answers */
+    .faq-callout-card {
+      margin-top: 1.1rem;
+      padding: 1.1rem 1.25rem;
+      border-radius: 14px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.22);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .faq-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .faq-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .faq-pill-badge.accent {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.35);
+      color: #38bdf8;
+    }
+
+    .faq-pill-badge.primary {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.35);
+      color: #c4b5fd;
+    }
+
+    .faq-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff !important;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none !important;
+      width: fit-content;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+      margin-top: 0.25rem;
+    }
+
+    .faq-cta-btn:hover {
+      box-shadow: 0 6px 22px rgba(139, 92, 246, 0.6);
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .faq-grid-compare {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    .faq-compare-box {
+      padding: 0.9rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .faq-compare-title {
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .faq-checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .faq-check-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(139, 92, 246, 0.2);
+      color: #c4b5fd;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .faq-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.25rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .faq-copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #94a3b8;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .faq-copy-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .faq-empty-state {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -896,44 +1284,317 @@
   </section>
 
   <!-- Frequently Asked Questions -->
-  <section class="ai-section">
+  <section class="ai-section" id="ai-faq">
     <div class="ai-box">
-      <h2>Frequently Asked Questions About Artificial Intelligence</h2>
-      <p>Common questions regarding model capabilities, privacy, and best practices:</p>
+      <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem;">
+        <span class="ai-badge" style="margin: 0; font-size: 0.75rem; letter-spacing: 0.6px; padding: 0.35rem 0.85rem;">💡 KNOWLEDGE BASE & AI FAQ</span>
+      </div>
+      <h2 style="font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 40%, #c4b5fd 80%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">
+        Frequently Asked Questions About Artificial Intelligence
+      </h2>
+      <p style="color: #94a3b8; font-size: 1.02rem; margin-bottom: 1.25rem;">
+        Common questions regarding model capabilities, privacy, token mechanics, and engineering best practices:
+      </p>
 
-      <div class="faq-item">
-        <div class="faq-question">What is GuruAI and how does it work?</div>
-        <div class="faq-answer">
-          GuruAI is the official in-house artificial intelligence chatbot developed by HarshGuruJi. It runs on the custom-tuned Guru-Flash 1.1 model designed specifically to help students, developers, and curious learners with instant answers, concept explanations, and coding logic. It is completely free to use with a daily usage chat limit to ensure fair server resources for all users. You can access it anytime at <a href="https://ai.webguruji.online" target="_blank" style="color: #60a5fa; text-decoration: underline;">ai.webguruji.online</a>.
+      <!-- FAQ Search and Action Bar -->
+      <div class="faq-header-toolbar">
+        <div class="faq-search-box">
+          <svg class="faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="faq-search-input" 
+            class="faq-search-input" 
+            placeholder="Search AI questions or concepts (e.g. GuruAI, tokens, hallucinations)..." 
+            oninput="searchFAQs(this.value)"
+            aria-label="Search FAQs"
+          />
+        </div>
+        <div class="faq-controls">
+          <button type="button" class="faq-toggle-btn" onclick="toggleAllFAQs(true)">
+            <span>⊞</span> Expand All
+          </button>
+          <button type="button" class="faq-toggle-btn" onclick="toggleAllFAQs(false)">
+            <span>⊟</span> Collapse All
+          </button>
         </div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">What is the difference between open-weights and proprietary AI models?</div>
-        <div class="faq-answer">
-          Proprietary models (like GPT-4o and Claude 3.5) are hosted exclusively on the creator's servers and accessed via proprietary APIs or web interfaces. Open-weights models (like DeepSeek and Meta's Llama) provide their trained neural parameters publicly, allowing developers and institutions to inspect, fine-tune, and run them completely offline on their own hardware with total privacy.
-        </div>
+      <!-- FAQ Category Filter Chips -->
+      <div class="faq-filter-chips">
+        <button type="button" class="faq-chip active" onclick="filterFAQCategory('all', this)">All Questions (5)</button>
+        <button type="button" class="faq-chip" onclick="filterFAQCategory('guruai', this)">🤖 GuruAI Ecosystem</button>
+        <button type="button" class="faq-chip" onclick="filterFAQCategory('models', this)">⚖️ Open vs Proprietary</button>
+        <button type="button" class="faq-chip" onclick="filterFAQCategory('dev', this)">💻 Developer Impact</button>
+        <button type="button" class="faq-chip" onclick="filterFAQCategory('tokens', this)">🧮 Token Mechanics</button>
+        <button type="button" class="faq-chip" onclick="filterFAQCategory('accuracy', this)">🎯 Hallucination Control</button>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">Can AI replace developers and software engineers?</div>
-        <div class="faq-answer">
-          Current generative AI models operate as cognitive multipliers rather than replacements. They excel at boilerplate generation, syntax translation, test writing, and bug isolation, but lack real-world system architecture context, business domain nuance, and independent judgment. Developers who master AI-assisted workflows achieve significantly higher velocity and code quality.
+      <!-- FAQ Accordion List -->
+      <div class="faq-container" id="faq-list">
+
+        <!-- FAQ Item 1: GuruAI -->
+        <div class="faq-item active" data-category="guruai" data-keywords="guruai guru-flash chatbot artificial intelligence free chat limit harshguruji coding logic ai.webguruji.online">
+          <div class="faq-question" onclick="toggleFAQ(this.parentElement)" role="button" aria-expanded="true" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFAQ(this.parentElement)">
+            <div class="faq-q-left">
+              <span class="faq-num-badge">01</span>
+              <div class="faq-title-wrap">
+                <span class="faq-category-tag">🤖 In-House Foundation Model</span>
+                <span class="faq-q-text">What is GuruAI and how does it work?</span>
+              </div>
+            </div>
+            <div class="faq-chevron-wrap">
+              <svg class="faq-chevron" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-body-collapse">
+            <div class="faq-body-content">
+              <div class="faq-answer">
+                GuruAI is the official in-house artificial intelligence chatbot developed by HarshGuruJi. It runs on the custom-tuned Guru-Flash 1.1 model designed specifically to help students, developers, and curious learners with instant answers, concept explanations, and coding logic. It is completely free to use with a daily usage chat limit to ensure fair server resources for all users. You can access it anytime at <a href="https://ai.webguruji.online" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: underline; font-weight: 600;">ai.webguruji.online</a>.
+
+                <div class="faq-callout-card">
+                  <div style="font-size: 0.84rem; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.6px;">⚡ Model Architecture Highlights</div>
+                  <div class="faq-pills-row">
+                    <span class="faq-pill-badge primary">🚀 Engine: Guru-Flash 1.1</span>
+                    <span class="faq-pill-badge accent">🎯 Specialized in Coding & Concepts</span>
+                    <span class="faq-pill-badge">💬 Hindi, Hinglish & English Supported</span>
+                    <span class="faq-pill-badge">🎁 100% Free Daily Quota</span>
+                  </div>
+                  <a href="https://ai.webguruji.online" target="_blank" rel="noopener" class="faq-cta-btn">
+                    Launch GuruAI Chatbot
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+
+                <div class="faq-footer-actions">
+                  <span style="font-size: 0.78rem; color: #64748b;">Source: HarshGuruJi Engineering Core</span>
+                  <button type="button" class="faq-copy-btn" onclick="copyFAQText(this)">
+                    <span>📋</span> Copy Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- FAQ Item 2: Open vs Proprietary -->
+        <div class="faq-item" data-category="models" data-keywords="difference open-weights proprietary ai models gpt-4o claude 3.5 deepseek llama offline privacy fine-tune">
+          <div class="faq-question" onclick="toggleFAQ(this.parentElement)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFAQ(this.parentElement)">
+            <div class="faq-q-left">
+              <span class="faq-num-badge">02</span>
+              <div class="faq-title-wrap">
+                <span class="faq-category-tag">⚖️ Architecture & Deployment</span>
+                <span class="faq-q-text">What is the difference between open-weights and proprietary AI models?</span>
+              </div>
+            </div>
+            <div class="faq-chevron-wrap">
+              <svg class="faq-chevron" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-body-collapse">
+            <div class="faq-body-content">
+              <div class="faq-answer">
+                Proprietary models (like GPT-4o and Claude 3.5) are hosted exclusively on the creator's servers and accessed via proprietary APIs or web interfaces. Open-weights models (like DeepSeek and Meta's Llama) provide their trained neural parameters publicly, allowing developers and institutions to inspect, fine-tune, and run them completely offline on their own hardware with total privacy.
+
+                <div class="faq-grid-compare">
+                  <div class="faq-compare-box" style="border-left: 3px solid #f43f5e;">
+                    <div class="faq-compare-title" style="color: #fb7185;">
+                      <span>🔒</span> Proprietary Models (GPT-4o, Claude 3.5)
+                    </div>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin: 0; line-height: 1.6;">
+                      Closed architecture, hosted in creator's cloud, API rate limits, pay-per-token pricing, vendor lock-in risk.
+                    </p>
+                  </div>
+                  <div class="faq-compare-box" style="border-left: 3px solid #10b981;">
+                    <div class="faq-compare-title" style="color: #34d399;">
+                      <span>🔓</span> Open-Weights Models (DeepSeek, Llama)
+                    </div>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin: 0; line-height: 1.6;">
+                      Weights downloadable, run locally or on private cloud, zero data exfiltration, custom fine-tuning freedom.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-footer-actions">
+                  <span style="font-size: 0.78rem; color: #64748b;">Category: Model Governance & Sovereignty</span>
+                  <button type="button" class="faq-copy-btn" onclick="copyFAQText(this)">
+                    <span>📋</span> Copy Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3: Can AI Replace Developers -->
+        <div class="faq-item" data-category="dev" data-keywords="replace developers software engineers cognitive multipliers boilerplate syntax velocity code quality judgment architecture">
+          <div class="faq-question" onclick="toggleFAQ(this.parentElement)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFAQ(this.parentElement)">
+            <div class="faq-q-left">
+              <span class="faq-num-badge">03</span>
+              <div class="faq-title-wrap">
+                <span class="faq-category-tag">💻 Developer Productivity</span>
+                <span class="faq-q-text">Can AI replace developers and software engineers?</span>
+              </div>
+            </div>
+            <div class="faq-chevron-wrap">
+              <svg class="faq-chevron" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-body-collapse">
+            <div class="faq-body-content">
+              <div class="faq-answer">
+                Current generative AI models operate as cognitive multipliers rather than replacements. They excel at boilerplate generation, syntax translation, test writing, and bug isolation, but lack real-world system architecture context, business domain nuance, and independent judgment. Developers who master AI-assisted workflows achieve significantly higher velocity and code quality.
+
+                <div class="faq-callout-card" style="border-color: rgba(6, 182, 212, 0.3); background: rgba(6, 182, 212, 0.06);">
+                  <div style="font-size: 0.88rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>💡</span> The Modern Developer Formula
+                  </div>
+                  <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0; line-height: 1.6;">
+                    <em>"AI will not replace software engineers. However, software engineers who effectively harness AI will replace those who do not."</em>
+                  </p>
+                  <div class="faq-pills-row">
+                    <span class="faq-pill-badge accent">⚡ 3x Faster Boilerplate & Tests</span>
+                    <span class="faq-pill-badge">🧠 Human Architect: Logic & System Design</span>
+                    <span class="faq-pill-badge primary">🛡️ Human Validator: Security & Audits</span>
+                  </div>
+                </div>
+
+                <div class="faq-footer-actions">
+                  <span style="font-size: 0.78rem; color: #64748b;">Insight: AI-Assisted Engineering Workflows</span>
+                  <button type="button" class="faq-copy-btn" onclick="copyFAQText(this)">
+                    <span>📋</span> Copy Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4: Tokenization -->
+        <div class="faq-item" data-category="tokens" data-keywords="tokenization large language models tokens sub-word fragments 1000 tokens 750 words context window prompt output memory">
+          <div class="faq-question" onclick="toggleFAQ(this.parentElement)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFAQ(this.parentElement)">
+            <div class="faq-q-left">
+              <span class="faq-num-badge">04</span>
+              <div class="faq-title-wrap">
+                <span class="faq-category-tag">🧮 NLP & Computational Foundations</span>
+                <span class="faq-q-text">How does tokenization work in Large Language Models?</span>
+              </div>
+            </div>
+            <div class="faq-chevron-wrap">
+              <svg class="faq-chevron" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-body-collapse">
+            <div class="faq-body-content">
+              <div class="faq-answer">
+                LLMs do not process words or characters directly; they process "tokens", which are sub-word fragments typically consisting of 3 to 4 characters in English. For example, 1,000 tokens represent approximately 750 words. The context window indicates the maximum number of tokens (both input prompt and generated output combined) that a model can retain in working memory during a single turn.
+
+                <div class="faq-callout-card" style="border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.06);">
+                  <div style="font-size: 0.84rem; font-weight: 700; color: #c084fc; text-transform: uppercase; letter-spacing: 0.6px;">📊 Quick Reference Rule of Thumb</div>
+                  <div class="faq-grid-compare">
+                    <div class="faq-compare-box">
+                      <div style="font-size: 1.15rem; font-weight: 800; color: #38bdf8;">1,000 Tokens</div>
+                      <div style="font-size: 0.8rem; color: #94a3b8;">≈ 750 Words (English text)</div>
+                    </div>
+                    <div class="faq-compare-box">
+                      <div style="font-size: 1.15rem; font-weight: 800; color: #a78bfa;">1 Token</div>
+                      <div style="font-size: 0.8rem; color: #94a3b8;">≈ 4 Characters / 0.75 Words</div>
+                    </div>
+                    <div class="faq-compare-box">
+                      <div style="font-size: 1.15rem; font-weight: 800; color: #34d399;">Context Window</div>
+                      <div style="font-size: 0.8rem; color: #94a3b8;">Input Prompt + Output Generation</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="faq-footer-actions">
+                  <span style="font-size: 0.78rem; color: #64748b;">Concept: BPE (Byte Pair Encoding) & Tokenomics</span>
+                  <button type="button" class="faq-copy-btn" onclick="copyFAQText(this)">
+                    <span>📋</span> Copy Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5: Hallucinations -->
+        <div class="faq-item" data-category="accuracy" data-keywords="prevent hallucinating hallucinations retrieval-augmented generation rag i don't know temperature step-by-step verification">
+          <div class="faq-question" onclick="toggleFAQ(this.parentElement)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFAQ(this.parentElement)">
+            <div class="faq-q-left">
+              <span class="faq-num-badge">05</span>
+              <div class="faq-title-wrap">
+                <span class="faq-category-tag">🎯 Accuracy & Prompt Engineering</span>
+                <span class="faq-q-text">How do I prevent an AI model from hallucinating?</span>
+              </div>
+            </div>
+            <div class="faq-chevron-wrap">
+              <svg class="faq-chevron" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-body-collapse">
+            <div class="faq-body-content">
+              <div class="faq-answer">
+                To minimize hallucinations: (1) Provide reference texts or documents explicitly in your prompt (Retrieval-Augmented Generation pattern); (2) Command the model to state "I don't know" if the provided text lacks the answer; (3) Lower model temperature parameters (0.0 to 0.2) for analytical or factual tasks; and (4) Require step-by-step verification before the final answer.
+
+                <div class="faq-callout-card" style="border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05);">
+                  <div style="font-size: 0.84rem; font-weight: 700; color: #34d399; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 0.25rem;">
+                    🛡️ The 4-Pillar Hallucination Defense Protocol
+                  </div>
+                  <div class="faq-checklist-item">
+                    <span class="faq-check-num">1</span>
+                    <div><strong>Grounding with RAG:</strong> Feed authoritative reference documents directly into the prompt context rather than relying solely on model pretraining memory.</div>
+                  </div>
+                  <div class="faq-checklist-item">
+                    <span class="faq-check-num">2</span>
+                    <div><strong>Explicit "Unknown" Instruction:</strong> Explicitly command: <em>"If the answer cannot be verified from the supplied text, respond strictly with 'Information not available'."</em></div>
+                  </div>
+                  <div class="faq-checklist-item">
+                    <span class="faq-check-num">3</span>
+                    <div><strong>Low Temperature (0.0 - 0.2):</strong> Restrict stochastic variance to maximize deterministic, mathematically conservative token sampling.</div>
+                  </div>
+                  <div class="faq-checklist-item">
+                    <span class="faq-check-num">4</span>
+                    <div><strong>Step-by-Step Chain-of-Verification:</strong> Instruct the LLM to justify its thought sequence and quote direct supporting evidence prior to stating conclusions.</div>
+                  </div>
+                </div>
+
+                <div class="faq-footer-actions">
+                  <span style="font-size: 0.78rem; color: #64748b;">Protocol: Zero-Shot & Few-Shot Hallucination Mitigation</span>
+                  <button type="button" class="faq-copy-btn" onclick="copyFAQText(this)">
+                    <span>📋</span> Copy Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">How does tokenization work in Large Language Models?</div>
-        <div class="faq-answer">
-          LLMs do not process words or characters directly; they process "tokens", which are sub-word fragments typically consisting of 3 to 4 characters in English. For example, 1,000 tokens represent approximately 750 words. The context window indicates the maximum number of tokens (both input prompt and generated output combined) that a model can retain in working memory during a single turn.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">How do I prevent an AI model from hallucinating?</div>
-        <div class="faq-answer">
-          To minimize hallucinations: (1) Provide reference texts or documents explicitly in your prompt (Retrieval-Augmented Generation pattern); (2) Command the model to state "I don't know" if the provided text lacks the answer; (3) Lower model temperature parameters (0.0 to 0.2) for analytical or factual tasks; and (4) Require step-by-step verification before the final answer.
-        </div>
+      <!-- Empty Search State -->
+      <div id="faq-empty-state" class="faq-empty-state">
+        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔍</div>
+        <h3 style="color: #fff; font-size: 1.15rem; margin-bottom: 0.4rem;">No matching questions found</h3>
+        <p style="font-size: 0.9rem; margin-bottom: 1rem;">Try searching with different keywords or reset your filters.</p>
+        <button type="button" class="faq-toggle-btn" onclick="resetFAQSearch()" style="margin: 0 auto;">
+          Reset Search Filters
+        </button>
       </div>
 
     </div>
@@ -990,6 +1651,103 @@ ${topic}
         const btn = document.querySelector('.copy-btn');
         btn.textContent = 'Copied! ✓';
         setTimeout(() => { btn.textContent = 'Copy Prompt'; }, 2000);
+      });
+    }
+
+    // FAQ Interactive Accordion & Filter Controller
+    function toggleFAQ(item) {
+      const isActive = item.classList.contains('active');
+      const questionBtn = item.querySelector('.faq-question');
+      if (isActive) {
+        item.classList.remove('active');
+        if (questionBtn) questionBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('active');
+        if (questionBtn) questionBtn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    function toggleAllFAQs(expand) {
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        if (expand) {
+          item.classList.add('active');
+          if (questionBtn) questionBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          item.classList.remove('active');
+          if (questionBtn) questionBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    let currentFAQCategory = 'all';
+    let currentFAQSearch = '';
+
+    function filterFAQCategory(cat, btn) {
+      currentFAQCategory = cat;
+      const chips = document.querySelectorAll('.faq-chip');
+      chips.forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyFAQFilters();
+    }
+
+    function searchFAQs(query) {
+      currentFAQSearch = (query || '').toLowerCase().trim();
+      applyFAQFilters();
+    }
+
+    function applyFAQFilters() {
+      const items = document.querySelectorAll('.faq-item');
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        const keywords = (item.getAttribute('data-keywords') || '') + ' ' + item.textContent.toLowerCase();
+        
+        const matchesCategory = (currentFAQCategory === 'all' || cat === currentFAQCategory);
+        const matchesSearch = !currentFAQSearch || keywords.includes(currentFAQSearch);
+
+        if (matchesCategory && matchesSearch) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      const emptyState = document.getElementById('faq-empty-state');
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    function resetFAQSearch() {
+      const searchInput = document.getElementById('faq-search-input');
+      if (searchInput) searchInput.value = '';
+      currentFAQSearch = '';
+      filterFAQCategory('all', document.querySelector('.faq-chip'));
+    }
+
+    function copyFAQText(btn) {
+      const faqItem = btn.closest('.faq-item');
+      if (!faqItem) return;
+      const question = faqItem.querySelector('.faq-q-text')?.textContent.trim() || '';
+      const answer = faqItem.querySelector('.faq-answer')?.innerText.trim() || '';
+      const fullText = "Q: " + question + "\n\nA: " + answer;
+
+      navigator.clipboard.writeText(fullText).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span>✓</span> Copied!';
+        btn.style.color = '#34d399';
+        btn.style.borderColor = '#10b981';
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2200);
+      }).catch(err => {
+        console.error('Copy failed:', err);
       });
     }
 
