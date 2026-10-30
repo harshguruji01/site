@@ -4349,6 +4349,61 @@
               </div>
             </div>
 
+            <!-- 👥 ALL REGISTERED USERS & AI MODEL UNLOCKS GOVERNANCE TABLE -->
+            <div style="background:rgba(15, 23, 42, 0.85); border:1px solid rgba(99, 102, 241, 0.4); border-radius:16px; padding:1.25rem; margin-bottom:1.5rem; box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                  <span style="font-size:1.4rem;">👥</span>
+                  <div>
+                    <h3 style="margin:0; font-size:1.15rem; font-family:sans-serif; color:#fff; font-weight:800;">Registered AI Users &amp; Model Unlocks Roster</h3>
+                    <span style="font-size:0.75rem; color:#94a3b8;">Full directory of registered users with Registration Dates, Active AI Model Unlocks, and Live Quotas</span>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                  <div style="position:relative;">
+                    <input type="text" id="search-ai-users-roster" placeholder="Search user name or email..." class="gate-input" style="padding:0.4rem 0.8rem 0.4rem 2rem; font-size:0.8rem; width:220px;" oninput="renderAiUsersRoster()">
+                    <span style="position:absolute; left:8px; top:50%; transform:translateY(-50%); font-size:0.8rem; color:#64748b;">🔍</span>
+                  </div>
+                  <button type="button" class="btn-action-outline" onclick="loadAiLimitsAndRequests()" style="font-size:0.75rem; padding:0.35rem 0.75rem;">
+                    <span>🔄 Refresh Roster</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Summary Badges & Filter Row -->
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:1rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                  <button type="button" class="quick-chip active" id="filter-roster-all" onclick="filterAiUsersRoster('ALL')">All Users (<span id="count-roster-all">0</span>)</button>
+                  <button type="button" class="quick-chip" id="filter-roster-unlocked" onclick="filterAiUsersRoster('UNLOCKED')" style="border-color:rgba(16,185,129,0.4); color:#6ee7b7;">👑 Unlocked Premium (<span id="count-roster-unlocked">0</span>)</button>
+                  <button type="button" class="quick-chip" id="filter-roster-free" onclick="filterAiUsersRoster('FREE')" style="border-color:rgba(148,163,184,0.3); color:#cbd5e1;">⚡ Standard Free (<span id="count-roster-free">0</span>)</button>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8;">
+                  Showing <strong id="roster-showing-count" style="color:#fff;">0</strong> accounts
+                </div>
+              </div>
+
+              <!-- Table Element -->
+              <div style="max-height: 480px; overflow-y: auto; overflow-x: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(10, 14, 26, 0.6);">
+                <table style="width:100%; border-collapse:collapse; min-width:850px; font-size:0.85rem;">
+                  <thead style="position:sticky; top:0; background:#0f172a; z-index:5; border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <tr>
+                      <th style="padding:0.75rem 1rem; text-align:left; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">User &amp; Profile</th>
+                      <th style="padding:0.75rem 1rem; text-align:left; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Email Address</th>
+                      <th style="padding:0.75rem 1rem; text-align:left; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Registered When</th>
+                      <th style="padding:0.75rem 1rem; text-align:left; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Unlocked AI Model</th>
+                      <th style="padding:0.75rem 1rem; text-align:left; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">AI Limits / Quota</th>
+                      <th style="padding:0.75rem 1rem; text-align:center; font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ai-users-roster-tbody">
+                    <tr>
+                      <td colspan="6" style="text-align:center; padding:2.5rem; color:#94a3b8;">Loading user roster...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <!-- Embedded Live Portal Frame -->
             <div style="border:1px solid rgba(99, 102, 241, 0.3); border-radius:16px; overflow:hidden; background:#07090e; box-shadow:0 10px 30px rgba(0,0,0,0.6);">
               <div style="padding:0.75rem 1rem; background:rgba(13, 18, 35, 0.95); border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
@@ -7162,6 +7217,15 @@
           .select('*')
           .order('updated_at', { ascending: false });
 
+        // Ensure usersData is available or fetch fresh from profiles
+        let currentProfiles = (typeof usersData !== 'undefined' && Array.isArray(usersData) && usersData.length > 0) ? [...usersData] : [];
+        if (currentProfiles.length === 0) {
+          try {
+            const { data: pData } = await sb.from('profiles').select('*').order('created_at', { ascending: false });
+            if (pData) currentProfiles = pData;
+          } catch(e) {}
+        }
+
         const limitsMap = new Map();
         if (limitsData) {
           limitsData.forEach(lim => {
@@ -7241,9 +7305,284 @@
           `;
         }).join('');
 
+        // Build and Render AI Users Roster
+        buildAndRenderAiUsersRoster(currentProfiles, limitsData, limitsMap);
+
       } catch (err) {
         console.error('Failed to load AI limits and requests:', err);
         container.innerHTML = `<div style="color:#f87171; padding:1rem;">Error loading requests: ${escapeHtml(err.message)}</div>`;
+      }
+    };
+
+    let aiUsersRosterFilter = 'ALL';
+    let aiUsersRosterData = [];
+
+    function formatRosterTimeAgo(dateString) {
+      if (!dateString) return 'recently';
+      const sec = Math.floor((Date.now() - new Date(dateString).getTime()) / 1000);
+      if (sec < 60) return `${Math.max(1, sec)}s ago`;
+      const min = Math.floor(sec / 60);
+      if (min < 60) return `${min}m ago`;
+      const hr = Math.floor(min / 60);
+      if (hr < 24) return `${hr}h ago`;
+      const days = Math.floor(hr / 24);
+      if (days < 30) return `${days}d ago`;
+      const months = Math.floor(days / 30);
+      return `${months}mo ago`;
+    }
+
+    function buildAndRenderAiUsersRoster(profiles, limitsData, limitsMap) {
+      const usersList = (profiles && profiles.length > 0) ? [...profiles] : [];
+      const knownEmails = new Set(usersList.map(u => (u.email || '').toLowerCase().trim()));
+
+      if (limitsData && Array.isArray(limitsData)) {
+        limitsData.forEach(lim => {
+          if (lim.email && !knownEmails.has(lim.email.toLowerCase().trim())) {
+            knownEmails.add(lim.email.toLowerCase().trim());
+            usersList.push({
+              id: lim.user_id || lim.id || 'usr_' + Math.random().toString(36).slice(2, 8),
+              email: lim.email,
+              display_name: lim.email.split('@')[0],
+              created_at: lim.created_at || lim.updated_at || new Date().toISOString(),
+              golden_tick: false,
+              is_admin: false
+            });
+          }
+        });
+      }
+
+      // Update AI Hub Total Users Header Stat
+      const hubStat = document.getElementById('ai-hub-total-users');
+      if (hubStat) hubStat.textContent = usersList.length;
+
+      aiUsersRosterData = usersList.map(u => {
+        const uEmail = (u.email || '').toLowerCase().trim();
+        const limitRow = limitsMap.get(uEmail) || (u.id ? limitsMap.get(u.id) : null);
+
+        let planName = (limitRow && limitRow.plan_name) || 'Standard Free';
+        const isActive = limitRow ? limitRow.is_active === true : false;
+        const chatLimit = limitRow ? (limitRow.max_requests || 20) : 20;
+        const contextLimit = limitRow ? (limitRow.context_limit || 32000) : 32000;
+
+        let isPremiumUnlocked = false;
+        let unlockedModelName = 'Guru-Flash 1.1 (Standard Free)';
+        let modelBadgeHtml = '';
+        let planKey = 'free';
+
+        const pLower = planName.toLowerCase();
+        if (pLower.includes('argon 1.5') || pLower.includes('grandmaster')) {
+          isPremiumUnlocked = true;
+          unlockedModelName = 'Guru-Argon 1.5 (Grandmaster)';
+          planKey = 'grandmaster';
+          modelBadgeHtml = '<span style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.5); color:#fde68a; padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:800; display:inline-flex; align-items:center; gap:0.35rem; box-shadow:0 0 10px rgba(245,158,11,0.25);">👑 Guru-Argon 1.5</span>';
+        } else if (pLower.includes('argon 1.4') || pLower.includes('power') || pLower.includes('scholar')) {
+          isPremiumUnlocked = true;
+          unlockedModelName = 'Guru-Argon 1.4 (Power Scholar)';
+          planKey = 'power';
+          modelBadgeHtml = '<span style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.5); color:#7dd3fc; padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:800; display:inline-flex; align-items:center; gap:0.35rem; box-shadow:0 0 10px rgba(56,189,248,0.25);">🚀 Guru-Argon 1.4</span>';
+        } else if (pLower.includes('flash 1.3') || pLower.includes('starter') || pLower.includes('pro')) {
+          isPremiumUnlocked = true;
+          unlockedModelName = 'Guru-Flash 1.3 (Starter Pro)';
+          planKey = 'starter';
+          modelBadgeHtml = '<span style="background:rgba(129,140,248,0.2); border:1px solid rgba(129,140,248,0.5); color:#c7d2fe; padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:800; display:inline-flex; align-items:center; gap:0.35rem; box-shadow:0 0 10px rgba(129,140,248,0.25);">⭐ Guru-Flash 1.3</span>';
+        } else if (pLower.includes('flash 1.2')) {
+          isPremiumUnlocked = true;
+          unlockedModelName = 'Guru-Flash 1.2 (Active)';
+          planKey = 'flash12';
+          modelBadgeHtml = '<span style="background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.5); color:#6ee7b7; padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:800; display:inline-flex; align-items:center; gap:0.35rem;">⚡ Guru-Flash 1.2</span>';
+        } else {
+          isPremiumUnlocked = false;
+          unlockedModelName = 'Guru-Flash 1.1 (Standard Free)';
+          planKey = 'free';
+          modelBadgeHtml = '<span style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#94a3b8; padding:3px 9px; border-radius:12px; font-size:0.75rem; font-weight:600; display:inline-flex; align-items:center; gap:0.3rem;">⚡ Free (Guru-Flash 1.1)</span>';
+        }
+
+        return {
+          id: u.id,
+          displayName: u.display_name || (u.email ? u.email.split('@')[0] : 'Member'),
+          email: u.email,
+          createdAt: u.created_at,
+          avatarUrl: u.avatar_url || u.picture,
+          goldenTick: u.golden_tick === true,
+          isAdmin: u.is_admin === true,
+          isPremiumUnlocked,
+          unlockedModelName,
+          modelBadgeHtml,
+          chatLimit,
+          contextLimit,
+          planKey
+        };
+      });
+
+      renderAiUsersRoster();
+    }
+
+    window.filterAiUsersRoster = function(filter) {
+      aiUsersRosterFilter = filter;
+      document.querySelectorAll('#filter-roster-all, #filter-roster-unlocked, #filter-roster-free').forEach(b => {
+        if (b) b.classList.remove('active');
+      });
+      const activeBtn = document.getElementById('filter-roster-' + filter.toLowerCase());
+      if (activeBtn) activeBtn.classList.add('active');
+      renderAiUsersRoster();
+    };
+
+    window.renderAiUsersRoster = function() {
+      const tbody = document.getElementById('ai-users-roster-tbody');
+      if (!tbody) return;
+
+      const searchTerm = (document.getElementById('search-ai-users-roster')?.value || '').toLowerCase().trim();
+
+      let filtered = aiUsersRosterData.filter(u => {
+        if (aiUsersRosterFilter === 'UNLOCKED' && !u.isPremiumUnlocked) return false;
+        if (aiUsersRosterFilter === 'FREE' && u.isPremiumUnlocked) return false;
+
+        if (searchTerm) {
+          const name = (u.displayName || '').toLowerCase();
+          const email = (u.email || '').toLowerCase();
+          const model = (u.unlockedModelName || '').toLowerCase();
+          return name.includes(searchTerm) || email.includes(searchTerm) || model.includes(searchTerm);
+        }
+        return true;
+      });
+
+      // Update counters
+      const totalAll = aiUsersRosterData.length;
+      const totalUnlocked = aiUsersRosterData.filter(u => u.isPremiumUnlocked).length;
+      const totalFree = totalAll - totalUnlocked;
+
+      const cAll = document.getElementById('count-roster-all');
+      if (cAll) cAll.textContent = totalAll;
+      const cUnl = document.getElementById('count-roster-unlocked');
+      if (cUnl) cUnl.textContent = totalUnlocked;
+      const cFree = document.getElementById('count-roster-free');
+      if (cFree) cFree.textContent = totalFree;
+      const cShow = document.getElementById('roster-showing-count');
+      if (cShow) cShow.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:3rem;">No users found matching search criteria.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(u => {
+        const timeAgo = formatRosterTimeAgo(u.createdAt);
+        const fullDate = u.createdAt ? new Date(u.createdAt).toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        }) : 'Unknown date';
+
+        return `
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:0.75rem 1rem;">
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <div style="width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg, #6366f1, #06b6d4); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.8rem; overflow:hidden; flex-shrink:0;">
+                  ${u.avatarUrl ? `<img src="${escapeHtml(u.avatarUrl)}" alt="Avatar" style="width:100%; height:100%; object-fit:cover;" onerror="this.onerror=null; this.src='';">` : (u.displayName || 'U')[0].toUpperCase()}
+                </div>
+                <div>
+                  <div style="font-weight:700; color:#f8fafc; font-size:0.88rem; display:flex; align-items:center; gap:0.35rem;">
+                    <span>${escapeHtml(u.displayName)}</span>
+                    ${u.goldenTick ? '<span style="color:#fbbf24; font-size:0.85rem;" title="Golden Verified">✓</span>' : ''}
+                    ${u.isAdmin ? '<span style="font-size:0.6rem; background:rgba(99,102,241,0.25); color:#a5b4fc; padding:1px 5px; border-radius:4px; font-weight:700;">ADMIN</span>' : ''}
+                  </div>
+                  <div style="font-size:0.7rem; color:#64748b; font-family:'JetBrains Mono',monospace;">ID: ${escapeHtml((u.id || '').substring(0, 10))}...</div>
+                </div>
+              </div>
+            </td>
+            <td style="padding:0.75rem 1rem;">
+              <span style="font-size:0.82rem; color:#38bdf8; font-family:'JetBrains Mono', monospace; font-weight:600;">${escapeHtml(u.email || 'No email')}</span>
+            </td>
+            <td style="padding:0.75rem 1rem;">
+              <div style="font-size:0.82rem; color:#e2e8f0; font-weight:600;">${escapeHtml(fullDate)}</div>
+              <div style="font-size:0.7rem; color:#94a3b8;">⏱️ ${escapeHtml(timeAgo)}</div>
+            </td>
+            <td style="padding:0.75rem 1rem;">
+              ${u.modelBadgeHtml}
+            </td>
+            <td style="padding:0.75rem 1rem;">
+              <div style="font-size:0.8rem; color:#e2e8f0; font-weight:700;">
+                <span style="color:#34d399;">⚡ ${u.chatLimit}</span> chats / 12h
+              </div>
+              <div style="font-size:0.72rem; color:#94a3b8;">
+                Context: <strong style="color:#38bdf8;">${Number(u.contextLimit).toLocaleString()}</strong> Tokens
+              </div>
+            </td>
+            <td style="padding:0.75rem 1rem; text-align:center;">
+              <div style="display:flex; align-items:center; justify-content:center; gap:0.4rem; flex-wrap:wrap;">
+                <button type="button" class="btn-action-outline" style="padding:0.3rem 0.6rem; font-size:0.72rem;" onclick="selectUserInAiTuner('${escapeHtml(u.email || '')}', '${u.planKey}')" title="Tune Limits in Controller">
+                  <span>🎛️ Tune</span>
+                </button>
+                <button type="button" class="btn-action-primary" style="padding:0.3rem 0.65rem; font-size:0.72rem; background:linear-gradient(135deg, #6366f1, #06b6d4);" onclick="openQuickModelModal('${escapeHtml(u.email || '')}', '${escapeHtml(u.displayName)}')">
+                  <span>👑 Change Model</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    };
+
+    window.openQuickModelModal = async function(email, displayName) {
+      if (!email) {
+        alert("User email is required to update AI model.");
+        return;
+      }
+      const choice = prompt(
+        "Select AI Model to Unlock for " + (displayName || email) + ":\n\n" +
+        "1: Guru-Argon 1.5 (Grandmaster Enterprise - 350 chats / 325K context)\n" +
+        "2: Guru-Argon 1.4 (Power Scholar - 150 chats / 175K context)\n" +
+        "3: Guru-Flash 1.3 (Starter Pro - 50 chats / 50K context)\n" +
+        "4: Standard Free (Guru-Flash 1.1 - 20 chats / 32K context)\n\n" +
+        "Enter 1, 2, 3, or 4:",
+        "1"
+      );
+      if (!choice) return;
+
+      let modelName = 'Guru-Argon 1.5 Enterprise';
+      let chatLimit = 350;
+      let contextLimit = 325000;
+
+      if (choice === '1') {
+        modelName = 'Guru-Argon 1.5 Enterprise';
+        chatLimit = 350;
+        contextLimit = 325000;
+      } else if (choice === '2') {
+        modelName = 'Guru-Argon 1.4 Scholar';
+        chatLimit = 150;
+        contextLimit = 175000;
+      } else if (choice === '3') {
+        modelName = 'Guru-Flash 1.3 Pro';
+        chatLimit = 50;
+        contextLimit = 50000;
+      } else if (choice === '4') {
+        modelName = 'Standard Free';
+        chatLimit = 20;
+        contextLimit = 32000;
+      } else {
+        alert("Invalid option entered.");
+        return;
+      }
+
+      const sb = window.supabaseClient;
+      if (!sb) {
+        alert("Supabase client not connected.");
+        return;
+      }
+
+      try {
+        await sb.from('user_ai_limits').upsert({
+          email: email.toLowerCase().trim(),
+          plan_name: modelName,
+          max_requests: chatLimit,
+          context_limit: contextLimit,
+          is_active: choice !== '4',
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'email' });
+
+        showMasterToast("🎉 Unlocked " + modelName + " for " + email + "!", "success");
+        await loadAiLimitsAndRequests();
+      } catch(err) {
+        alert("Failed to update AI model: " + err.message);
       }
     };
 
