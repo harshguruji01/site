@@ -316,31 +316,65 @@
       try {
         let matchedRecord = null;
 
-        // 1. Query Supabase contact_messages
+        // 1. Query Supabase contact_messages & user_ai_limits
         if (window.supabase) {
           const client = window.supabaseClient || (window.SUPABASE_URL && window.SUPABASE_ANON_KEY ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null);
           if (client) {
-            const { data, error } = await client
-              .from('contact_messages')
-              .select('*')
-              .ilike('email', email)
-              .order('created_at', { ascending: false });
+            try {
+              const { data, error } = await client
+                .from('contact_messages')
+                .select('*')
+                .ilike('email', email)
+                .order('created_at', { ascending: false });
 
-            if (!error && data && data.length > 0) {
-              // Find AI upgrade message or latest inquiry
-              matchedRecord = data.find(r => r.subject === 'AI_UPGRADE' || (r.message && r.message.includes('GuruAI Premium'))) || data[0];
+              if (!error && data && data.length > 0) {
+                matchedRecord = data.find(r => r.subject === 'AI_UPGRADE' || (r.message && r.message.includes('GuruAI Premium'))) || data[0];
+              }
+            } catch(e) {}
+
+            // Check user_ai_limits table (readable)
+            if (!matchedRecord) {
+              try {
+                const { data: limitData } = await client
+                  .from('user_ai_limits')
+                  .select('*')
+                  .ilike('email', email)
+                  .maybeSingle();
+
+                if (limitData) {
+                  matchedRecord = {
+                    name: email.split('@')[0],
+                    email: email,
+                    message: 'GuruAI Premium Request for: ' + (limitData.plan_name || 'Guru-Argon 1.5'),
+                    created_at: limitData.updated_at || new Date().toISOString()
+                  };
+                }
+              } catch(e) {}
             }
           }
         }
 
-        // 2. Check local fallback storage if network or offline
+        // 2. Check query token from authorized email link
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get('token');
+        if (!matchedRecord && urlToken) {
+          const storedModel = localStorage.getItem('guru_ai_requested_model') || 'Guru-Argon 1.5';
+          matchedRecord = {
+            name: email.split('@')[0],
+            email: email,
+            message: 'GuruAI Premium Request for: ' + storedModel,
+            created_at: new Date().toISOString()
+          };
+        }
+
+        // 3. Check local fallback storage if network or offline
         if (!matchedRecord) {
           const localEmail = localStorage.getItem('guru_ai_last_upgrade_email');
           if (localEmail && localEmail.toLowerCase() === email.toLowerCase()) {
             matchedRecord = {
               name: email.split('@')[0],
               email: email,
-              message: `GuruAI Premium Request for: ${localStorage.getItem('guru_ai_requested_model') || 'Guru-Flash 1.3'}`,
+              message: 'GuruAI Premium Request for: ' + (localStorage.getItem('guru_ai_requested_model') || 'Guru-Flash 1.3'),
               created_at: new Date().toISOString()
             };
           }
@@ -450,13 +484,13 @@
 
             // Activate user model in user_ai_limits
             await client.from('user_ai_limits').upsert({
-              user_email: email,
-              active_model: model.toLowerCase().replace(/ /g, '-'),
-              is_paid: true,
-              plan_tier: model,
-              max_requests: 100,
+              email: email.toLowerCase().trim(),
+              plan_name: model,
+              max_requests: 350,
+              context_limit: 325000,
+              is_active: true,
               updated_at: new Date().toISOString()
-            }, { onConflict: 'user_email' });
+            }, { onConflict: 'email' });
           }
         }
 
