@@ -293,79 +293,153 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   } else if (isStorePage) {
     desktopNavListHTML = `
+      <!-- ReUI / 21st.dev Style Navigation Menu Trigger with Mega Menu Panel -->
+      <li class="hg-nav-item hg-has-dropdown hg-reui-nav-item" id="nav-item-store-getting-started">
+        <button type="button" class="hg-nav-link hg-reui-trigger active" id="nav-link-store-main" aria-expanded="false">
+          <span>🛍️ GuruStore</span>
+          <svg class="hg-reui-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <!-- ReUI / 21st.dev Card Panel with Description Previews -->
+        <div class="hg-dropdown hg-reui-mega-panel">
+          <div class="hg-reui-mega-grid">
+            <a href="${storeUrl}" class="hg-reui-card" id="reui-card-all">
+              <div class="hg-reui-card-icon" style="background:rgba(56,189,248,0.12); color:#38bdf8;">📦</div>
+              <div class="hg-reui-card-body">
+                <div class="hg-reui-card-title">GuruStore Catalog</div>
+                <div class="hg-reui-card-desc">Browse complete verified inventory of games, applications, and tools.</div>
+              </div>
+            </a>
+            <a href="#sec-games" class="hg-reui-card" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">
+              <div class="hg-reui-card-icon" style="background:rgba(236,72,153,0.12); color:#f472b6;">🎮</div>
+              <div class="hg-reui-card-body">
+                <div class="hg-reui-card-title">Web &amp; PC Games</div>
+                <div class="hg-reui-card-desc">Play instant browser games like Chess, Snake, and Tic-Tac-Toe.</div>
+              </div>
+            </a>
+            <a href="#sec-android" class="hg-reui-card" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">
+              <div class="hg-reui-card-icon" style="background:rgba(16,185,129,0.12); color:#34d399;">📱</div>
+              <div class="hg-reui-card-body">
+                <div class="hg-reui-card-title">Android APK Releases</div>
+                <div class="hg-reui-card-desc">Direct high-speed downloads scanned across multi-engine antivirus.</div>
+              </div>
+            </a>
+            <a href="#store-sections-view" class="hg-reui-card" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">
+              <div class="hg-reui-card-icon" style="background:rgba(99,102,241,0.12); color:#818cf8;">💻</div>
+              <div class="hg-reui-card-body">
+                <div class="hg-reui-card-title">Windows Software</div>
+                <div class="hg-reui-card-desc">Verified desktop utilities, emulators, and productive installers.</div>
+              </div>
+            </a>
+          </div>
+          <div class="hg-reui-mega-footer">
+            <span class="hg-reui-footer-label">🛡️ 100% Cryptographically Verified &amp; Sandboxed Downloads</span>
+            <a href="${portalUrl}free-tools.html" class="hg-reui-footer-link">Developer Tools Hub &rarr;</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- ReUI Secondary Trigger: Categories -->
+      <li class="hg-nav-item hg-has-dropdown hg-reui-nav-item" id="nav-item-categories">
+        <button type="button" class="hg-nav-link hg-reui-trigger" id="nav-link-categories" aria-expanded="false">
+          <span>Categories</span>
+          <svg class="hg-reui-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="hg-dropdown hg-reui-dropdown-panel">
+          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Featured'); return false;">
+            <span class="reui-link-icon">⭐</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">Editor's Choice</span>
+              <span class="reui-link-desc">Featured handpicked apps &amp; games</span>
+            </div>
+          </a>
+          <a href="#sec-games" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">
+            <span class="reui-link-icon">🎮</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">Games &amp; Play</span>
+              <span class="reui-link-desc">Interactive web games &amp; brain puzzles</span>
+            </div>
+          </a>
+          <a href="#sec-android" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Apps'); return false;">
+            <span class="reui-link-icon">📱</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">Mobile Applications</span>
+              <span class="reui-link-desc">Android APK packages &amp; utilities</span>
+            </div>
+          </a>
+          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Software'); return false;">
+            <span class="reui-link-icon">💻</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">Desktop Software</span>
+              <span class="reui-link-desc">Windows EXE &amp; utility tools</span>
+            </div>
+          </a>
+          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'AI'); return false;">
+            <span class="reui-link-icon">🤖</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">AI &amp; Productivity</span>
+              <span class="reui-link-desc">Next-gen AI assistant tools</span>
+            </div>
+          </a>
+          <div class="hg-dropdown-divider"></div>
+          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'All'); return false;">
+            <span class="reui-link-icon">🔄</span>
+            <div class="reui-link-text">
+              <span class="reui-link-title">View All Releases</span>
+              <span class="reui-link-desc">Clear filters and show full inventory</span>
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <!-- ReUI Standard Direct Links -->
       <li class="hg-nav-item"><a href="${homeUrl}" class="hg-nav-link" id="nav-link-home">Home</a></li>
-      <li class="hg-nav-item"><a href="${storeUrl}" class="hg-nav-link active" id="nav-link-store">🛍️ GuruStore</a></li>
-      <li class="hg-nav-item"><a href="#sec-games" class="hg-nav-link" id="nav-link-games" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Web Games</a></li>
-      <li class="hg-nav-item"><a href="#sec-android" class="hg-nav-link" id="nav-link-apks" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">📱 Android APKs</a></li>
-      <li class="hg-nav-item"><a href="#store-sections-view" class="hg-nav-link" id="nav-link-software" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">💻 Windows (PC)</a></li>
-      <li class="hg-nav-item hg-has-dropdown" id="nav-item-categories">
-        <a href="#" class="hg-nav-link" id="nav-link-categories" onclick="return false;">📂 Categories <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="hg-dropdown" style="min-width:240px;">
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Featured'); return false;">⭐ Editor's Choice</a>
-          <a href="#sec-games" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Games &amp; Entertainment</a>
-          <a href="#sec-android" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Apps'); return false;">📱 Mobile Applications</a>
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Software'); return false;">💻 Windows Software</a>
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'AI'); return false;">🤖 AI &amp; Web Apps</a>
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Education'); return false;">📚 Education Apps</a>
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Utility'); return false;">⚙️ Utilities &amp; Productivity</a>
-          <div class="hg-dropdown-divider"></div>
-          <a href="#store-sections-view" class="hg-dropdown-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'All'); return false;">🔄 View All Releases</a>
-        </div>
-      </li>
-      <li class="hg-nav-item"><a href="${booksUrl}" class="hg-nav-link" id="nav-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">📚 Books</a></li>
-      <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
-        <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
-        <div class="hg-dropdown">
-          <a href="${chatUrl}" class="hg-dropdown-link" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${portalUrl}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
-          <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
-          <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
-          <a href="${portalUrl}gaming-hub.html" class="hg-dropdown-link">🎮 Gaming Hub</a>
-          <a href="${portalUrl}contributor.html" class="hg-dropdown-link">🤝 Contributor</a>
-          <div class="hg-dropdown-divider"></div>
-          <a href="${portalUrl}about.html" class="hg-dropdown-link">About Us</a>
-          <a href="${portalUrl}contact.html" class="hg-dropdown-link">Contact</a>
-          <a href="${portalUrl}privacy-policy.html" class="hg-dropdown-link">Privacy Policy</a>
-          <a href="${portalUrl}terms-and-conditions.html" class="hg-dropdown-link">Terms &amp; Conditions</a>
-        </div>
-      </li>
+      <li class="hg-nav-item"><a href="${booksUrl}" class="hg-nav-link" id="nav-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Books</a></li>
+      <li class="hg-nav-item"><a href="${chatUrl}" class="hg-nav-link" id="nav-link-chat" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">Chat</a></li>
+      <li class="hg-nav-item"><a href="${portalUrl}free-tools.html" class="hg-nav-link" id="nav-link-tools">Tools</a></li>
     `;
 
     mobileNavListHTML = `
-      <li><a href="${homeUrl}" class="hg-mobile-link" id="mob-link-home">🏠 Home</a></li>
-      <li><a href="${storeUrl}" class="hg-mobile-link active" id="mob-link-store">🛍️ Store Catalog</a></li>
-      <li><a href="#sec-games" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Web Games</a></li>
-      <li><a href="#sec-android" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">📱 Android APKs</a></li>
-      <li><a href="#store-sections-view" class="hg-mobile-link" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">💻 Windows (PC)</a></li>
-      <li class="hg-mobile-item hg-has-accordion" id="mob-item-store-cats">
-        <button type="button" class="hg-mobile-accordion-toggle">📂 All Store Categories <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
+      <li>
+        <a href="${storeUrl}" class="hg-mobile-link active" id="mob-link-store">
+          <span>🛍️ GuruStore</span>
+          <span style="font-size:0.75rem; background:rgba(56,189,248,0.2); color:#38bdf8; padding:2px 8px; border-radius:12px; font-weight:700;">LIVE</span>
+        </a>
+      </li>
+
+      <li class="hg-mobile-item hg-has-accordion open" id="mob-item-store-cats">
+        <button type="button" class="hg-mobile-accordion-toggle">
+          <span>📂 Store Categories</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
         <div class="hg-mobile-accordion-content">
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Featured'); return false;">⭐ Editor's Choice</a>
-          <a href="#sec-games" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">🎮 Games &amp; Entertainment</a>
-          <a href="#sec-android" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Apps'); return false;">📱 Mobile Applications</a>
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Software'); return false;">💻 Windows Software</a>
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'AI'); return false;">🤖 AI &amp; Web Apps</a>
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Education'); return false;">📚 Education Apps</a>
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Utility'); return false;">⚙️ Utilities &amp; Productivity</a>
-          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'All'); return false;">🔄 View All Releases</a>
+          <a href="#sec-games" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'Game'); return false;">
+            <div style="font-weight:600; color:#fff;">🎮 Web Games</div>
+            <div style="font-size:0.78rem; color:#94a3b8;">Chess, Snake, Tic-Tac-Toe &amp; Arcade</div>
+          </a>
+          <a href="#sec-android" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">
+            <div style="font-weight:600; color:#fff;">📱 Android APKs</div>
+            <div style="font-size:0.78rem; color:#94a3b8;">Direct verified APK installers</div>
+          </a>
+          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Windows'); return false;">
+            <div style="font-weight:600; color:#fff;">💻 Windows (PC)</div>
+            <div style="font-size:0.78rem; color:#94a3b8;">Desktop software &amp; emulators</div>
+          </a>
+          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'AI'); return false;">
+            <div style="font-weight:600; color:#fff;">🤖 AI &amp; Web Apps</div>
+            <div style="font-size:0.78rem; color:#94a3b8;">ChatBase, AI Hub &amp; productive tools</div>
+          </a>
+          <a href="#store-sections-view" class="hg-mobile-sublink" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('category', 'All'); return false;">
+            <div style="font-weight:600; color:#38bdf8;">🔄 View All Releases</div>
+            <div style="font-size:0.78rem; color:#94a3b8;">Browse complete catalog</div>
+          </a>
         </div>
       </li>
-      <li><a href="${booksUrl}" class="hg-mobile-link" id="mob-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">📚 NCERT Books</a></li>
-      <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
-        <button type="button" class="hg-mobile-accordion-toggle">More Portal Services <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
-        <div class="hg-mobile-accordion-content">
-          <a href="${chatUrl}" class="hg-mobile-sublink" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
-          <a href="${portalUrl}daily-special.html" class="hg-mobile-sublink">🌟 Daily Special</a>
-          <a href="${portalUrl}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
-          <a href="${portalUrl}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
-          <a href="${portalUrl}gaming-hub.html" class="hg-mobile-sublink">🎮 Gaming Hub</a>
-          <a href="${portalUrl}contributor.html" class="hg-mobile-sublink">🤝 Contributor</a>
-          <a href="${portalUrl}about.html" class="hg-mobile-sublink">About Us</a>
-          <a href="${portalUrl}contact.html" class="hg-mobile-sublink">Contact</a>
-          <a href="${portalUrl}privacy-policy.html" class="hg-mobile-sublink">Privacy Policy</a>
-          <a href="${portalUrl}terms-and-conditions.html" class="hg-mobile-sublink">Terms &amp; Conditions</a>
-        </div>
-      </li>
+
+      <li><a href="${homeUrl}" class="hg-mobile-link" id="mob-link-home">🏠 HarshGuruJi Home</a></li>
+      <li><a href="${booksUrl}" class="hg-mobile-link" id="mob-link-books" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">📚 NCERT Books Library</a></li>
+      <li><a href="${chatUrl}" class="hg-mobile-link" id="mob-link-chat" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a></li>
+      <li><a href="${portalUrl}free-tools.html" class="hg-mobile-link">🛠️ Free Developer Tools</a></li>
+      <li><a href="${portalUrl}contact.html" class="hg-mobile-link">📬 Contact &amp; Support</a></li>
     `;
 
     bottomBarHTML = `
@@ -398,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <path d="M16 10a4 4 0 0 1-8 0"></path>
           </svg>
         </span>
-        <span class="hg-bottom-label">Store</span>
+        <span class="hg-bottom-label">GuruStore</span>
       </a>
 
       <a href="#sec-android" class="hg-bottom-item" id="bottom-nav-apks" title="Android APKs" onclick="window.selectStoreNavFilter && window.selectStoreNavFilter('platform', 'Android'); return false;">
