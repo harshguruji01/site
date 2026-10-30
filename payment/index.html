@@ -61,7 +61,7 @@
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
-            heading: ['Outfit', 'Space Grotesk', 'sans-serif'],
+            heading: ['Outfit',  'sans-serif'],
             mono: ['Fira Code', 'monospace']
           }
         }
@@ -466,18 +466,41 @@
 
         // 3. Send automated confirmation email from info@webguruji.online
         try {
-          const mailApi = (window.location.protocol === 'https:' && window.location.origin.includes('webguruji.online')) ? '/api/mail/send' : 'https://ai.webguruji.online/api/mail/send';
-          await fetch(mailApi, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              to: email,
-              name: verifiedClientData?.name || email.split('@')[0],
-              type: 'ai_payment_confirmed',
-              modelName: model,
-              utrRef: utr
-            })
-          });
+          const confirmSubject = 'Payment Done & Model Activated: ' + model;
+          const confirmHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:20px;background:#07090e;font-family:-apple-system,BlinkMacSystemFont,Roboto,sans-serif;color:#f8fafc;"><div style="max-width:580px;margin:20px auto;background:#0d121f;border:1px solid rgba(16,185,129,0.4);border-radius:24px;overflow:hidden;padding:32px;text-align:center;"><div style="font-size:42px;margin-bottom:12px;">🎉✓</div><h1 style="color:#34d399;font-size:24px;font-weight:800;margin:0 0 10px 0;">Payment Done &amp; Model Activated!</h1><p style="font-size:15px;color:#e2e8f0;line-height:1.6;margin-bottom:24px;">Confirmation done! Your payment has been received and verified. You can now use your model: <strong style="color:#38bdf8;">' + model + '</strong>.</p><div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:22px;margin:24px 0;text-align:center;"><p style="font-size:14px;color:#a7f3d0;margin:0 0 16px 0;font-weight:600;">Kripya niche diye gaye link par visit karke apna unlocked model use karein:</p><h2 style="margin:16px 0 12px 0;"><a href="https://ai.webguruji.online" style="display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:#ffffff;text-decoration:none;padding:12px 30px;border-radius:12px;font-size:18px;font-weight:800;box-shadow:0 4px 20px rgba(16,185,129,0.4);">🚀 https://ai.webguruji.online</a></h2><h4 style="margin:16px 0 0 0;font-size:14px;"><a href="https://webguruji.online" style="color:#60a5fa;text-decoration:none;">🌐 https://webguruji.online</a></h4></div><p style="font-size:12px;color:#64748b;line-height:1.5;margin-top:24px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">Official confirmation sent from <strong>info@webguruji.online</strong>.<br>Account: <strong>' + email + '</strong> &bull; HarshGuruJi All Rights Reserved.</p></div></body></html>';
+
+          let mailSent = false;
+          try {
+            const res = await fetch('https://ai.webguruji.online/api/mail/send', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                to: email,
+                subject: confirmSubject,
+                html: confirmHtml,
+                displayName: 'HarshGuruJi AI Activation'
+              })
+            });
+            if (res.ok) mailSent = true;
+          } catch(e) {}
+
+          if (!mailSent) {
+            try {
+              await fetch('https://api.mail.hostinger.com/api/v1/mailboxes/AC955bc6c100d79999a2c5613002ee/send', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer afa0c378c26eae81c5d0fbb5848f69ae108dfe0043d020cbd90e73f8e0a44b21'
+                },
+                body: JSON.stringify({
+                  from: 'info@webguruji.online',
+                  to: [email],
+                  subject: confirmSubject,
+                  html: confirmHtml
+                })
+              });
+            } catch(e) {}
+          }
         } catch(e) {}
 
         // 4. Reveal Step 3
