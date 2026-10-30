@@ -211,48 +211,28 @@
         </div>
       </div>
 
-      <!-- Full-Size Animated QR Scanner Box -->
-      <div class="text-center space-y-3">
-        <div class="relative inline-block p-4 rounded-3xl bg-slate-950 border border-slate-700/80 qr-frame overflow-hidden">
-          <!-- Scanning Laser Line -->
-          <div class="scan-beam"></div>
-
-          <!-- QR Code Image -->
-          <img id="upiQrImage" src="" alt="UPI Payment QR Code" class="w-64 h-64 sm:w-72 sm:h-72 object-contain rounded-2xl mx-auto bg-white p-2" />
+      <!-- Server Error Box replacing QR Code and UPI ID -->
+      <div class="py-10 px-4 rounded-3xl bg-rose-950/20 border border-rose-500/30 text-center space-y-3 my-4 shadow-xl">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
         </div>
-        <p class="text-xs text-slate-400 font-medium">Scan with any UPI App: GPay, PhonePe, Paytm, CRED</p>
+        <div class="space-y-1">
+          <h3 class="text-xl sm:text-2xl font-black font-heading text-rose-400 tracking-wide">server error wait 7days.</h3>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-xs mx-auto">
+            Payment gateway and UPI server connection is currently unavailable. Please wait 7 days.
+          </p>
+        </div>
       </div>
 
-      <!-- UPI ID Copy Box -->
-      <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-3">
-        <div class="min-w-0">
-          <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Official Verified UPI ID</span>
-          <span class="font-mono text-sm text-amber-300 font-bold truncate block select-all">harshguruji01@gmail.com</span>
-        </div>
-        <button type="button" onclick="copyUpiId()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition flex items-center gap-1.5 flex-shrink-0">
-          <span id="copyUpiText">Copy</span>
-          <span>📋</span>
+      <!-- Transaction Confirmation Form (Disabled during server error) -->
+      <div class="space-y-3 pt-2 border-t border-slate-800">
+        <button type="button" disabled
+          class="w-full py-3 px-5 rounded-2xl font-heading font-bold text-sm text-slate-400 bg-slate-800/60 border border-slate-700/50 cursor-not-allowed flex items-center justify-center gap-2">
+          <span>Server Error: Transactions Paused (Wait 7 Days)</span>
         </button>
       </div>
-
-      <!-- Direct Pay with App Button on Mobile -->
-      <a id="payAppBtn" href="#" class="w-full py-2.5 px-4 rounded-2xl font-bold text-xs text-center text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-800/80 transition flex items-center justify-center gap-2">
-        <span>Open UPI App Directly</span> ↗
-      </a>
-
-      <!-- Transaction Confirmation Form -->
-      <form onsubmit="handleConfirmPayment(event)" class="space-y-3 pt-2 border-t border-slate-800">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Enter 12-Digit UPI Ref / UTR / Transaction ID *</label>
-          <input type="text" id="utrInput" required placeholder="e.g. 431289012345 or UPI reference"
-            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500" />
-        </div>
-
-        <button type="submit" id="confirmPaymentBtn"
-          class="w-full py-3 px-5 rounded-2xl font-heading font-bold text-sm text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 transition shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 active:scale-98">
-          <span>Verify Payment &amp; Unlock Model Now 🚀</span>
-        </button>
-      </form>
 
       <button type="button" onclick="backToEmailStep()" class="w-full text-center text-xs text-slate-500 hover:text-slate-400 transition">
         ← Change email address
@@ -407,8 +387,8 @@
       // Build UPI QR code URL
       const upiString = `upi://pay?pa=harshguruji01@gmail.com&pn=HarshGuruJi&am=${inr}&cu=INR&tn=GuruAI_${encodeURIComponent(model.replace(/ /g, '_'))}`;
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiString)}`;
-      document.getElementById('upiQrImage').src = qrApiUrl;
-      document.getElementById('payAppBtn').href = upiString;
+      const qrEl = document.getElementById('upiQrImage'); if (qrEl) qrEl.src = qrApiUrl;
+      const payBtnEl = document.getElementById('payAppBtn'); if (payBtnEl) payBtnEl.href = upiString;
 
       // Show Step 2
       document.getElementById('step1Card').classList.add('hidden');
