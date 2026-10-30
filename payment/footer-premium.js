@@ -61,92 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
   footer.setAttribute('data-play', '0');
   footer.setAttribute('data-interactive', '1');
 
-  // Inject markup
+  // Inject markup (Pure Stylish HARSHGURUJI Art Stage & Copyright - No Navigation Columns or Buttons)
   footer.innerHTML = `
-    <!-- Top Band: Brand, Blurb, Search & Navigation Columns (Hidden on payment page) -->
-    ${isPaymentPage ? '' : `
-    <div class="dcf-top dcf-rise" style="--d: 0ms;">
-      <div class="dcf-brand-area">
-        <div class="dcf-brand">
-          <a href="${MAIN_SITE}/index.html" class="dcf-logo" aria-label="HarshGuruJi Home">
-            <img src="${MAIN_SITE}/logo.png" alt="HarshGuruJi" style="width:28px;height:28px;border-radius:6px;object-fit:contain;" />
-          </a>
-          <a href="${MAIN_SITE}/index.html" class="dcf-brandname">HarshGuruJi</a>
-        </div>
-        <p class="dcf-blurb">
-          HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.
-        </p>
-        <div class="dcf-search">
-          <input type="text" id="hg-footer-search-input" placeholder="Search HarshGuruJi..." aria-label="Search HarshGuruJi" />
-          <button type="button" id="hg-footer-search-btn" aria-label="Search">Search</button>
-        </div>
-      </div>
-
-      <nav class="dcf-cols" aria-label="Footer Navigation">
-        <div class="dcf-col">
-          <h5 class="dcf-coltitle">Platform</h5>
-          <ul>
-            <li><a href="${MAIN_SITE}/index.html" class="dcf-link"><span>HarshGuruJi Home</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/ai-hub.html" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/daily-special.html" class="dcf-link"><span>Daily Special</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/dashboard.html" class="dcf-link"><span>Dashboard</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html" class="dcf-link"><span>Explore</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-          </ul>
-        </div>
-
-        <div class="dcf-col">
-          <h5 class="dcf-coltitle">Tools</h5>
-          <ul>
-            <li><a href="${MAIN_SITE}/free-tools.html" class="dcf-link"><span>All Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Text" class="dcf-link"><span>Text Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Calculator" class="dcf-link"><span>Calculators</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Converter" class="dcf-link"><span>Converters</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Developer" class="dcf-link"><span>Dev Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-          </ul>
-        </div>
-
-        <div class="dcf-col">
-          <h5 class="dcf-coltitle">Learning</h5>
-          <ul>
-            <li><a href="${MAIN_SITE}/learning-hub.html" class="dcf-link"><span>Learning Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="https://books.webguruji.online" class="dcf-link"><span>NCERT Library</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/education.html" class="dcf-link"><span>Education</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/class-10-science.html" class="dcf-link"><span>Class 10</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/class.html?class=9" class="dcf-link"><span>Class 9</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/gk-quiz.html" class="dcf-link"><span>Quizzes</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-          </ul>
-        </div>
-
-        <div class="dcf-col">
-          <h5 class="dcf-coltitle">Games & Apps</h5>
-          <ul>
-            <li><a href="https://store.webguruji.online" class="dcf-link"><span>GuruStore</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="https://chat.webguruji.online" class="dcf-link"><span>GuruChats</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="https://tube.webguruji.online/" class="dcf-link"><span>GuruTube</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/gaming-hub.html" class="dcf-link"><span>Gaming Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/ai-hub.html" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/Quiz India/index.html" class="dcf-link"><span>Quiz India</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-          </ul>
-        </div>
-
-        <div class="dcf-col">
-          <h5 class="dcf-coltitle">Company & Legal</h5>
-          <ul>
-            <li><a href="${MAIN_SITE}/about.html" class="dcf-link"><span>About Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/contact.html" class="dcf-link"><span>Contact Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/contributor.html" class="dcf-link"><span>Contributors</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/privacy-policy.html" class="dcf-link"><span>Privacy Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/terms-and-conditions.html" class="dcf-link"><span>Terms &amp; Conditions</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/disclaimer.html" class="dcf-link"><span>Disclaimer</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/cookie.html" class="dcf-link"><span>Cookies Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    `}
-
     <!-- Center Stage: Giant Wordmark with Doodle Characters -->
-    <div class="dcf-world" id="dcf-world">
+    <div class="dcf-world" id="dcf-world" style="padding-top:2rem;">
       <div class="dcf-stage">
         <h2 class="dcf-sr">HARSHGURUJI</h2>
         <svg id="dcf-svg" class="dcf-svg" viewBox="-24 -180 1440 240" role="group" aria-label="HARSHGURUJI — meet the crew">
@@ -180,31 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- Falling / Floating Doodles -->
       <div class="dcf-doodles" id="dcf-doodles-layer" aria-hidden="true"></div>
 
-      <!-- CTA Section -->
+      <!-- Tagline Section (No Action Buttons) -->
       <div class="dcf-cta">
         <p class="dcf-tagline" id="dcf-tagline">
           <span class="dcf-word">A </span><span class="dcf-word">hand-drawn </span><span class="dcf-word">universe </span><span class="dcf-word">for </span><span class="dcf-word">curious </span><span class="dcf-word">minds, </span><span class="dcf-word">creators </span><span class="dcf-word">and </span><span class="dcf-word">builders.</span>
         </p>
-        ${isPaymentPage ? '' : `
-        <div class="dcf-actions">
-          <a href="${MAIN_SITE}/ai-hub.html" class="dcf-btn is-solid">
-            <svg class="dcf-icon" viewBox="-16 -16 32 32" width="18" height="18" fill="none"><path fill="#ffd23f" d="M3 -14 L-8 2 L-1 2 L-4 14 L8 -3 L1 -3 Z" /></svg>
-            <span>Explore AI Hub</span>
-          </a>
-          <a href="https://store.webguruji.online" target="_blank" rel="noopener noreferrer" class="dcf-btn is-outline">
-            <svg class="dcf-icon" viewBox="-16 -16 32 32" width="18" height="18" fill="none"><path fill="#ffd23f" d="M0 -13 L3.6 -4.4 L13 -4 L5.8 2.2 L8.2 12 L0 6.6 L-8.2 12 L-5.8 2.2 L-13 -4 L-3.6 -4.4 Z" /></svg>
-            <span>Visit GuruStore</span>
-          </a>
-          <a href="https://books.webguruji.online" target="_blank" rel="noopener noreferrer" class="dcf-btn is-outline">
-            <svg class="dcf-icon" viewBox="-16 -16 32 32" width="18" height="18" fill="none"><path fill="#ff5c7a" d="M0 11 C-6 6 -13 1 -13 -5 C-13 -10 -8 -13 -4 -11 C-2 -10 -1 -8 0 -6 C1 -8 2 -10 4 -11 C8 -13 13 -10 13 -5 C13 1 6 6 0 11 Z" /></svg>
-            <span>NCERT Books</span>
-          </a>
-        </div>
-        `}
       </div>
     </div>
 
-    <!-- Bottom Bar: Founder info, Copyright, Socials, Back to Top -->
+        <!-- Bottom Bar: Founder info, Copyright, Socials, Back to Top -->
     <div class="dcf-bar dcf-rise" style="--d: 120ms;">
       <a href="${MAIN_SITE}/owner.html" class="dcf-founder" title="Meet Founder Harsh Patel" aria-label="Harsh Patel Founder Profile">
         <img src="${MAIN_SITE}/harshlogo.png" alt="Harsh Patel" onerror="this.src='${MAIN_SITE}/logo.png'" />

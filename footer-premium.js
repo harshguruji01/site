@@ -53,7 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const currentYear = new Date().getFullYear();
   const isPaymentPage = window.location.hostname.startsWith('payment') || 
-                        window.location.pathname.includes('payment');
+                        window.location.pathname.includes('payment') ||
+                        document.title.toLowerCase().includes('payment') ||
+                        document.getElementById('step1Card') !== null ||
+                        window.__IS_PAYMENT_PAGE__ === true;
 
   // Create footer container
   const footer = document.createElement('footer');
