@@ -3772,6 +3772,11 @@
           <span>Golden Tick Users</span>
           <span class="tab-pill pill-gold" id="mpill-goldentick">0</span>
         </button>
+        <button type="button" class="master-tab-btn" data-tab="premium-requests" id="mtab-premium-requests">
+          <span>👑</span>
+          <span>Premium Request Verification</span>
+          <span class="tab-pill pill-gold" id="mpill-premium-requests">0</span>
+        </button>
       </div>
 
       <!-- Modal Body with Scrollable Panes -->
@@ -5374,7 +5379,12 @@
       const titleEl = document.getElementById('modal-main-title');
       const subEl = document.getElementById('modal-sub-title');
 
-      if (tabName === 'store') {
+      if (tabName === 'premium-requests') {
+        if (iconEl) iconEl.textContent = '👑';
+        if (titleEl) titleEl.textContent = 'AI Premium Request Verification & Model Unlocks';
+        if (subEl) subEl.textContent = 'Review user requests for Guru-Flash 1.3, Guru-Argon 1.4, and Guru-Argon 1.5. Verify payments and activate models live.';
+        renderAiPremiumRequests();
+      } else if (tabName === 'store') {
         if (iconEl) iconEl.textContent = '🎮';
         if (titleEl) titleEl.textContent = 'Store Applications Catalog';
         if (subEl) subEl.textContent = 'Manage live APKs, games & software, inspect store pages, edit or delete.';
@@ -7992,5 +8002,184 @@
 
   </script>
   <script src="loading-lines.js" defer></script>
+
+    // =========================================================================
+    // AI PREMIUM REQUEST VERIFICATION & MODEL UNLOCK ENGINE
+    // =========================================================================
+
+    window.renderAiPremiumRequests = function() {
+      const tbody = document.getElementById('tbody-premium-requests');
+      if (!tbody) return;
+
+      const searchVal = (document.getElementById('search-premium-requests')?.value || '').toLowerCase().trim();
+
+      // Filter messages for AI Upgrade requests
+      const allMessages = Array.isArray(contactMessagesData) ? contactMessagesData : [];
+      const aiRequests = allMessages.filter(m => {
+        const sub = (m.subject || '').toUpperCase();
+        const msg = (m.message || '').toUpperCase();
+        return sub === 'AI_UPGRADE' || sub === 'AI' || msg.includes('GURUAI PREMIUM') || msg.includes('GURU-FLASH') || msg.includes('GURU-ARGON');
+      });
+
+      // Update pill and stats
+      const pendingCount = aiRequests.filter(r => (r.status || 'Pending').toLowerCase() !== 'active').length;
+      const activeCount = aiRequests.filter(r => (r.status || '').toLowerCase() === 'active').length;
+
+      const pill = document.getElementById('mpill-premium-requests');
+      if (pill) pill.textContent = pendingCount.toString();
+
+      const statTotal = document.getElementById('stat-premium-total');
+      if (statTotal) statTotal.textContent = aiRequests.length.toString();
+
+      const statPending = document.getElementById('stat-premium-pending');
+      if (statPending) statPending.textContent = pendingCount.toString();
+
+      const statActive = document.getElementById('stat-premium-active');
+      if (statActive) statActive.textContent = activeCount.toString();
+
+      const filtered = aiRequests.filter(r => {
+        if (!searchVal) return true;
+        const n = (r.name || '').toLowerCase();
+        const e = (r.email || '').toLowerCase();
+        const m = (r.message || '').toLowerCase();
+        return n.includes(searchVal) || e.includes(searchVal) || m.includes(searchVal);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="padding:3.5rem 1.5rem; text-align:center; color:#94a3b8;">
+              <div style="font-size:2.2rem; margin-bottom:0.5rem;">👑</div>
+              <div style="font-weight:700; color:#f8fafc; font-size:1rem; margin-bottom:0.25rem;">No Premium Requests Matching Search</div>
+              <div style="font-size:0.82rem;">Users who select premium models on the AI page or submit payment inquiries will appear here live.</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(req => {
+        const msg = req.message || '';
+        let model = 'Guru-Flash 1.3';
+        let plan = 'Starter Premium ($5)';
+        let price = '$5.00';
+
+        if (msg.includes('Guru-Argon 1.5') || msg.includes('$25')) {
+          model = 'Guru-Argon 1.5';
+          plan = 'Power User ($25)';
+          price = '$25.00';
+        } else if (msg.includes('Guru-Argon 1.4') || msg.includes('$15')) {
+          model = 'Guru-Argon 1.4';
+          plan = 'Pro Premium ($15)';
+          price = '$15.00';
+        } else if (msg.includes('Guru-Flash 1.3') || msg.includes('$5')) {
+          model = 'Guru-Flash 1.3';
+          plan = 'Starter Premium ($5)';
+          price = '$5.00';
+        }
+
+        const isApproved = (req.status || '').toLowerCase() === 'active';
+        const isPaid = (req.status || '').toLowerCase() === 'payment completed' || isApproved;
+        const utr = req.utr_ref || (msg.match(/UTR[:\s]*([0-9a-zA-Z]+)/i)?.[1]) || 'Pending Payment';
+        const dateStr = req.created_at ? new Date(req.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+
+        html += `
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:1rem 1.25rem;">
+              <div style="font-weight:700; color:#ffffff;">${escapeHtml(req.name || 'Anonymous User')}</div>
+              <div style="font-family:monospace; font-size:0.75rem; color:#94a3b8;">${escapeHtml(req.email || '')}</div>
+            </td>
+            <td style="padding:1rem;">
+              <span style="display:inline-flex; align-items:center; gap:5px; font-weight:700; color:#ffd700; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:3px 10px; border-radius:50px; font-size:0.76rem;">
+                <span>👑</span> ${escapeHtml(model)}
+              </span>
+            </td>
+            <td style="padding:1rem;">
+              <div style="font-weight:800; color:#34d399;">${price}</div>
+              <div style="font-size:0.72rem; color:#94a3b8;">${escapeHtml(plan)}</div>
+            </td>
+            <td style="padding:1rem;">
+              ${isApproved
+                ? '<span style="color:#10b981; font-weight:700; font-size:0.75rem; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); padding:2px 8px; border-radius:50px;">✓ Unlocked Live</span>'
+                : (isPaid
+                  ? '<span style="color:#06b6d4; font-weight:700; font-size:0.75rem; background:rgba(6,182,212,0.15); border:1px solid rgba(6,182,212,0.3); padding:2px 8px; border-radius:50px;">💳 Payment Done</span>'
+                  : '<span style="color:#fbbf24; font-weight:700; font-size:0.75rem; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:2px 8px; border-radius:50px;">⏳ Pending Inquiry</span>')}
+            </td>
+            <td style="padding:1rem; font-family:monospace; font-size:0.76rem; color:#a5b4fc;">
+              ${escapeHtml(utr)}
+            </td>
+            <td style="padding:1rem; font-size:0.75rem; color:#94a3b8;">
+              ${dateStr}
+            </td>
+            <td style="padding:1rem 1.25rem; text-align:right;">
+              ${!isApproved
+                ? `<button type="button" class="admin-btn-primary" style="padding:5px 12px; font-size:0.75rem; background:#10b981; border-color:#10b981;" onclick="verifyAndUnlockModel('${req.id}', '${req.email}', '${model}')">
+                    <span>Verify &amp; Unlock</span>
+                  </button>`
+                : `<span style="color:#10b981; font-size:0.75rem; font-weight:700;">Active 👑</span>`}
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    };
+
+    window.verifyAndUnlockModel = async function(inquiryId, userEmail, modelName) {
+      if (!confirm(`Are you sure you want to verify payment and UNLOCK ${modelName} for ${userEmail}?`)) return;
+
+      const sb = await waitForSupabase();
+      showAdminToast(`Unlocking ${modelName} for ${userEmail}...`, 'info');
+
+      try {
+        // 1. Update contact_messages status to 'Active'
+        if (inquiryId) {
+          await sb.from('contact_messages').update({ status: 'Active' }).eq('id', inquiryId);
+        }
+
+        // 2. Insert / upsert record into user_ai_limits
+        await sb.from('user_ai_limits').upsert({
+          user_email: userEmail,
+          active_model: modelName.toLowerCase().replace(/ /g, '-'),
+          is_paid: true,
+          plan_tier: modelName,
+          max_requests: 100,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'user_email' });
+
+        // 3. Dispatch automated activation email from info@webguruji.online
+        try {
+          const mailApi = '/api/mail/send';
+          await fetch(mailApi, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to: userEmail,
+              type: 'ai_model_activated',
+              modelName: modelName
+            })
+          });
+        } catch(e) {}
+
+        showAdminToast(`🎉 Successfully verified and unlocked ${modelName} for ${userEmail}!`, 'success');
+        await loadAllMasterData(true);
+
+      } catch (err) {
+        console.error('Model unlock error:', err);
+        showAdminToast(`Failed to unlock model: ${err.message}`, 'error');
+      }
+    };
+
+    window.handleDirectModelUnlock = async function(event) {
+      event.preventDefault();
+      const email = document.getElementById('direct-unlock-email').value.trim();
+      const model = document.getElementById('direct-unlock-model').value;
+
+      if (!email) return;
+      await verifyAndUnlockModel(null, email, model);
+      document.getElementById('direct-unlock-email').value = '';
+    };
+
 </body>
 </html>
