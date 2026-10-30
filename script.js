@@ -348,8 +348,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('wiki-container-dailylife')) {
     fetchWikiContent(['Everyday_life', 'Habit', 'Time_management', 'Well-being'], 'wiki-container-dailylife');
   }
-  if (document.getElementById('wiki-container-http-apis')) {
-    fetchWikiContent(['API_key', 'JSON_Web_Token', 'Hypertext_Transfer_Protocol'], 'wiki-container-http-apis');
+  if (document.getElementById('wiki-container-special-knowledge')) {
+    fetchWikiContent(['Science', 'Universe', 'Invention'], 'wiki-container-special-knowledge');
   }
 
   // --- INTERACTIVE TOOLS LOGIC (free-tools.html) ---

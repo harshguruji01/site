@@ -169,118 +169,185 @@
       <div id="thoughts-grid" class="thoughts-grid"><p class="thought-loading">Loading today's thoughts...</p></div>
     </div>
 
-    <!-- TAB 4: Information (Wikipedia HTTP APIs & Authentication) -->
+    <!-- TAB 4: Information (Today's Special Items & Knowledge Highlights) -->
     <div class="ds-tab-panel" id="ds-panel-information" data-ds-panel="information">
-      <div class="section-header" style="margin-bottom:2rem;text-align:center;">
-        <div class="badge" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);margin-bottom:0.75rem;display:inline-block;padding:0.35rem 0.9rem;border-radius:20px;font-size:0.85rem;font-weight:700;">
-          🌐 Wikipedia Tech Knowledge
+      <div class="section-header" style="margin-bottom:2.5rem;text-align:center;">
+        <div class="badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);margin-bottom:0.75rem;display:inline-block;padding:0.35rem 0.95rem;border-radius:20px;font-size:0.85rem;font-weight:700;">
+          🌟 Curated Daily Spotlight
         </div>
         <h2 class="section-title" style="font-size:2.2rem;margin:0.25rem 0 0.75rem;">
-          HTTP APIs &amp; <span class="gradient-text">API Key Transmission</span>
+          Today's <span class="gradient-text">Special Items &amp; Knowledge</span>
         </h2>
         <p class="section-desc" style="max-width:720px;margin:0 auto;color:var(--text-secondary);font-size:1.05rem;">
-          Essential web security &amp; authorization standards sourced from Wikipedia, detailing modern HTTP request methods, token headers, and query authentication.
+          Handpicked daily intellectual highlights, scientific wonders, curated trivia, mind gym teasers, and fascinating encyclopedia spotlights.
         </p>
       </div>
 
-      <!-- Featured Wikipedia Documentation Card -->
-      <article class="wiki-content" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:2.5rem;box-shadow:0 15px 40px rgba(0,0,0,0.4);margin-bottom:2.5rem;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.08);">
-          <div style="display:flex;align-items:center;gap:0.75rem;">
-            <span style="font-size:1.75rem;">🔑</span>
-            <div>
-              <h3 style="margin:0;color:var(--text-primary);font-size:1.4rem;font-family:'Space Grotesk',sans-serif;">HTTP APIs</h3>
-              <span style="font-size:0.85rem;color:var(--text-secondary);">Wikipedia Reference • API Key Authentication Protocols</span>
-            </div>
-          </div>
-          <a href="https://en.wikipedia.org/wiki/API_key#HTTP_APIs" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.85rem;padding:0.4rem 1rem;border-radius:30px;display:inline-flex;align-items:center;gap:0.4rem;">
-            Wikipedia Article ↗
-          </a>
-        </div>
+      <!-- 6 SPECIAL ITEMS GRID -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.75rem;margin-bottom:3rem;">
 
-        <p style="font-size:1.1rem;line-height:1.8;color:var(--text-primary);margin-bottom:1.75rem;">
-          API keys for <a href="https://en.wikipedia.org/wiki/HTTP" target="_blank" rel="noopener" style="color:#06b6d4;text-decoration:underline;font-weight:600;">HTTP</a>-based APIs can be sent in multiple ways:<a href="https://en.wikipedia.org/wiki/API_key#cite_note-:2-5" target="_blank" rel="noopener" style="color:#10b981;font-weight:700;margin-left:3px;font-size:0.85rem;" title="Wikipedia Citation [5]">[5]</a>
-        </p>
-
-        <!-- 4 Transmission Methods Grid -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-bottom:2rem;">
-          
-          <!-- Method 1 -->
-          <div class="code-box" style="background:rgba(255,255,255,0.03);border:1px solid rgba(99,102,241,0.25);border-radius:14px;padding:1.5rem;position:relative;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-              <span style="background:rgba(99,102,241,0.15);color:#a5b4fc;padding:0.25rem 0.65rem;border-radius:12px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">1. Authorization Header</span>
-              <button type="button" onclick="navigator.clipboard.writeText('POST /something HTTP/1.1\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...');this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:2px 8px;font-size:0.7rem;color:#cbd5e1;cursor:pointer;">Copy</button>
+        <!-- SPECIAL ITEM 1: Discovery of the Day -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;transition:transform 0.2s,box-shadow 0.2s;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                🔭 Science &amp; Cosmos
+              </span>
+              <span style="font-size:1.5rem;">🌌</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.6;margin-bottom:0.75rem;">
-              The <a href="https://en.wikipedia.org/wiki/Access_token" target="_blank" rel="noopener" style="color:#818cf8;text-decoration:underline;font-weight:500;">access token</a> is often a <a href="https://en.wikipedia.org/wiki/JSON_Web_Token" target="_blank" rel="noopener" style="color:#818cf8;text-decoration:underline;font-weight:500;">JSON Web Token</a> (JWT) in the HTTP Authorization header:
+            <h3 style="color:#fff;font-size:1.25rem;font-family:'Space Grotesk',sans-serif;margin:0 0 0.75rem;line-height:1.4;">
+              The Cosmic Web &amp; Deep Space Filaments
+            </h3>
+            <p style="color:var(--text-secondary,#94a3b8);font-size:0.92rem;line-height:1.7;margin:0 0 1.25rem;">
+              Astronomers have confirmed that galaxies across the observable universe are not randomly scattered. They form a vast, luminous cosmic web connected by colossal filaments of dark matter and hydrogen gas stretching over hundreds of millions of light-years.
             </p>
-            <div style="background:#060913;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;font-family:'Courier New',Courier,monospace;font-size:0.85rem;color:#38bdf8;overflow-x:auto;">
-              <code>POST /something HTTP/1.1<br>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code>
-            </div>
           </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(99,102,241,0.3);border-radius:12px;padding:0.85rem 1rem;font-size:0.85rem;color:#c7d2fe;display:flex;align-items:center;gap:0.5rem;">
+            <span>💡</span> <span><strong>Quick Take:</strong> 99% of space in the universe consists of colossal empty voids between these threads.</span>
+          </div>
+        </article>
 
-          <!-- Method 2 -->
-          <div class="code-box" style="background:rgba(255,255,255,0.03);border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:1.5rem;position:relative;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-              <span style="background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.25rem 0.65rem;border-radius:12px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">2. Query String</span>
-              <button type="button" onclick="navigator.clipboard.writeText('POST /something?api_key=abcdef12345 HTTP/1.1');this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:2px 8px;font-size:0.7rem;color:#cbd5e1;cursor:pointer;">Copy</button>
+        <!-- SPECIAL ITEM 2: Did You Know? (Interactive Trivia) -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(245,158,11,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                💡 Did You Know?
+              </span>
+              <span style="font-size:1.5rem;">🧠</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.6;margin-bottom:0.75rem;">
-              In the <a href="https://en.wikipedia.org/wiki/Query_string" target="_blank" rel="noopener" style="color:#fbbf24;text-decoration:underline;font-weight:500;">query string</a>:
+            <h3 style="color:#fff;font-size:1.25rem;font-family:'Space Grotesk',sans-serif;margin:0 0 0.75rem;line-height:1.4;">
+              The Human Brain's Synaptic Storage
+            </h3>
+            <p id="special-fact-text" style="color:var(--text-secondary,#94a3b8);font-size:0.92rem;line-height:1.7;margin:0 0 1.25rem;">
+              Your brain contains approximately 86 billion neurons, each connected to up to 10,000 others. In total, the brain's computational capacity is estimated to store around 2.5 petabytes (2.5 million gigabytes) of memory data!
             </p>
-            <div style="background:#060913;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;font-family:'Courier New',Courier,monospace;font-size:0.85rem;color:#fbbf24;overflow-x:auto;">
-              <code>POST /something?api_key=abcdef12345 HTTP/1.1</code>
-            </div>
           </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;pt-2;">
+            <span style="font-size:0.8rem;color:#64748b;">Daily Curated Fact</span>
+            <button type="button" onclick="cycleSpecialFact()" class="btn btn-secondary" style="font-size:0.75rem;padding:0.35rem 0.85rem;border-radius:20px;cursor:pointer;background:rgba(245,158,11,0.1);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);">
+              Next Fact ↻
+            </button>
+          </div>
+        </article>
 
-          <!-- Method 3 -->
-          <div class="code-box" style="background:rgba(255,255,255,0.03);border:1px solid rgba(6,182,212,0.25);border-radius:14px;padding:1.5rem;position:relative;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-              <span style="background:rgba(6,182,212,0.15);color:#67e8f9;padding:0.25rem 0.65rem;border-radius:12px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">3. Request Header</span>
-              <button type="button" onclick="navigator.clipboard.writeText('GET /something HTTP/1.1\nX-API-Key: abcdef12345');this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:2px 8px;font-size:0.7rem;color:#cbd5e1;cursor:pointer;">Copy</button>
+        <!-- SPECIAL ITEM 3: Word of the Day & Vocabulary -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                📖 Word of the Day
+              </span>
+              <span style="font-size:1.5rem;">✨</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.6;margin-bottom:0.75rem;">
-              As a <a href="https://en.wikipedia.org/wiki/HTTP_request_header_field" target="_blank" rel="noopener" style="color:#67e8f9;text-decoration:underline;font-weight:500;">request header</a>:
+            <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.5rem;">
+              <h3 style="color:#fff;font-size:1.5rem;font-family:'Space Grotesk',sans-serif;margin:0;">
+                Serendipity
+              </h3>
+              <span style="font-size:0.85rem;color:#34d399;font-style:italic;">/ˌsɛr.ənˈdɪp.ə.ti/</span>
+            </div>
+            <p style="color:#6ee7b7;font-size:0.85rem;font-weight:600;margin-bottom:0.75rem;">noun • The occurrence of finding valuable things by fortunate chance.</p>
+            <p style="color:var(--text-secondary,#94a3b8);font-size:0.92rem;line-height:1.7;margin:0 0 1.25rem;">
+              <em>Example:</em> "Discovering penicillin when Alexander Fleming left a petri dish unattended was one of medicine's greatest strokes of serendipity."
             </p>
-            <div style="background:#060913;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;font-family:'Courier New',Courier,monospace;font-size:0.85rem;color:#22d3ee;overflow-x:auto;">
-              <code>GET /something HTTP/1.1<br>X-API-Key: abcdef12345</code>
-            </div>
           </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:0.75rem 1rem;font-size:0.8rem;color:#a7f3d0;">
+            Origin: Coined by Horace Walpole in 1754 from the Persian fairy tale <em>The Three Princes of Serendip</em>.
+          </div>
+        </article>
 
-          <!-- Method 4 -->
-          <div class="code-box" style="background:rgba(255,255,255,0.03);border:1px solid rgba(236,72,153,0.25);border-radius:14px;padding:1.5rem;position:relative;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-              <span style="background:rgba(236,72,153,0.15);color:#f472b6;padding:0.25rem 0.65rem;border-radius:12px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">4. HTTP Cookie</span>
-              <button type="button" onclick="navigator.clipboard.writeText('GET /something HTTP/1.1\nCookie: X-API-KEY=abcdef12345');this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:2px 8px;font-size:0.7rem;color:#cbd5e1;cursor:pointer;">Copy</button>
+        <!-- SPECIAL ITEM 4: Daily Mind Gym & Logic Riddle -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(236,72,153,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                🧩 Mind Gym &amp; Puzzle
+              </span>
+              <span style="font-size:1.5rem;">🎯</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.6;margin-bottom:0.75rem;">
-              As a <a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener" style="color:#f472b6;text-decoration:underline;font-weight:500;">cookie</a>:
+            <h3 style="color:#fff;font-size:1.25rem;font-family:'Space Grotesk',sans-serif;margin:0 0 0.75rem;line-height:1.4;">
+              Today's Lateral Thinking Riddle
+            </h3>
+            <p style="color:var(--text-secondary,#94a3b8);font-size:0.92rem;line-height:1.7;margin:0 0 1rem;">
+              "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?"
             </p>
-            <div style="background:#060913;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;font-family:'Courier New',Courier,monospace;font-size:0.85rem;color:#f472b6;overflow-x:auto;">
-              <code>GET /something HTTP/1.1<br>Cookie: X-API-KEY=abcdef12345</code>
+            <div id="riddle-answer-box" style="display:none;background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.3);border-radius:12px;padding:0.85rem 1rem;margin-bottom:1rem;color:#fbcfe8;font-size:0.9rem;font-weight:600;">
+              ✨ Answer: An Echo!
             </div>
           </div>
+          <div>
+            <button type="button" id="toggle-riddle-btn" onclick="toggleRiddleAnswer()" class="btn btn-secondary" style="width:100%;padding:0.6rem;font-size:0.85rem;border-radius:12px;border:1px solid rgba(236,72,153,0.3);background:rgba(236,72,153,0.08);color:#f472b6;cursor:pointer;">
+              Reveal Answer 👁️
+            </button>
+          </div>
+        </article>
 
-        </div>
+        <!-- SPECIAL ITEM 5: Historic Breakthrough Showcase -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(6,182,212,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(6,182,212,0.15);color:#22d3ee;border:1px solid rgba(6,182,212,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                ⚡ Innovation Spotlight
+              </span>
+              <span style="font-size:1.5rem;">⚙️</span>
+            </div>
+            <h3 style="color:#fff;font-size:1.25rem;font-family:'Space Grotesk',sans-serif;margin:0 0 0.75rem;line-height:1.4;">
+              The Silicon Transistor (1954)
+            </h3>
+            <p style="color:var(--text-secondary,#94a3b8);font-size:0.92rem;line-height:1.7;margin:0 0 1.25rem;">
+              Before silicon semiconductors, computers relied on bulky vacuum tubes that generated immense heat and failed frequently. The commercialization of silicon transistors in 1954 reduced hardware size by 1,000x and paved the way for every smartphone, PC, and AI processor existing today.
+            </p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(6,182,212,0.2);border-radius:12px;padding:0.75rem 1rem;font-size:0.8rem;color:#a5f3fc;">
+            Impact: Modern microchips now pack over 100 billion transistors on a chip the size of a postage stamp.
+          </div>
+        </article>
 
-        <!-- Security & Best Practice Callout -->
-        <div style="background:linear-gradient(90deg,rgba(16,185,129,0.08),rgba(6,182,212,0.08));border-left:4px solid #10b981;padding:1.25rem 1.5rem;border-radius:0 12px 12px 0;">
-          <h4 style="color:#34d399;margin:0 0 0.5rem;font-size:1.05rem;">🔒 Security Implementation Notice:</h4>
-          <p style="margin:0;color:var(--text-secondary);font-size:0.92rem;line-height:1.7;">
-            Transmitting secrets via query parameters (<code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;color:#fbbf24;">?api_key=...</code>) exposes tokens to URL logging, browser histories, and proxy logs. Industry security standards mandate sending API credentials within the <strong>Authorization Bearer header</strong> or inside secure, HTTP-only cookie headers protected by TLS/HTTPS.
-          </p>
-        </div>
-      </article>
+        <!-- SPECIAL ITEM 6: HarshGuruJi Daily Ecosystem Special -->
+        <article class="special-item-card" style="background:var(--card-bg, #0d1117);border:1px solid rgba(168,85,247,0.25);border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:flex;flex-direction:column;justify-content:between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span style="background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.3);font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;">
+                🚀 HarshGuruJi Featured
+              </span>
+              <span style="font-size:1.5rem;">👑</span>
+            </div>
+            <h3 style="color:#fff;font-size:1.25rem;font-family:'Space Grotesk',sans-serif;margin:0 0 0.75rem;line-height:1.4;">
+              Today's Recommended Resources
+            </h3>
+            <ul style="list-style:none;padding:0;margin:0 0 1.25rem;display:flex;flex-direction:column;gap:0.7rem;font-size:0.88rem;color:var(--text-secondary,#94a3b8);">
+              <li style="display:flex;align-items:center;gap:0.6rem;">
+                <span style="color:#c084fc;">✦</span> <span><strong>GuruAI Assistant:</strong> Solve research, coding &amp; homework instantly.</span>
+              </li>
+              <li style="display:flex;align-items:center;gap:0.6rem;">
+                <span style="color:#c084fc;">✦</span> <span><strong>GuruBooks:</strong> Read official NCERT textbooks online for free.</span>
+              </li>
+              <li style="display:flex;align-items:center;gap:0.6rem;">
+                <span style="color:#c084fc;">✦</span> <span><strong>Free Utilities:</strong> Unit converters, text analyzers &amp; dev tools.</span>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://ai.webguruji.online" class="btn btn-primary" style="flex:1;text-align:center;padding:0.5rem 1rem;font-size:0.8rem;border-radius:12px;background:linear-gradient(45deg,#a855f7,#6366f1);color:#fff;text-decoration:none;font-weight:700;">
+              Launch GuruAI ↗
+            </a>
+            <a href="https://books.webguruji.online" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="flex:1;text-align:center;padding:0.5rem 1rem;font-size:0.8rem;border-radius:12px;background:rgba(255,255,255,0.05);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.15);">
+              Explore Books ↗
+            </a>
+          </div>
+        </article>
 
-      <!-- Live Wikipedia Fetching Knowledge Feed -->
-      <div style="margin-top:3rem;">
+      </div>
+
+      <!-- LIVE WIKIPEDIA GENERAL KNOWLEDGE SHOWCASE -->
+      <div style="margin-top:3.5rem;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
           <div>
             <h3 style="color:var(--text-primary);margin:0;font-size:1.5rem;font-family:'Space Grotesk',sans-serif;">
-              📚 Live Wikipedia Articles &amp; Summaries
+              📚 Live Encyclopedia Knowledge Spotlights
             </h3>
             <p style="color:var(--text-secondary);margin:0.25rem 0 0;font-size:0.95rem;">
-              Real-time encyclopedic extracts fetched directly from Wikipedia REST API v1
+              Daily educational extracts fetched directly from Wikipedia REST API v1
             </p>
           </div>
           <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(16,185,129,0.1);padding:0.35rem 0.85rem;border-radius:20px;border:1px solid rgba(16,185,129,0.25);">
@@ -289,21 +356,55 @@
           </div>
         </div>
 
-        <div id="wiki-container-http-apis" class="wiki-content" style="margin-top:1rem;">
-          <div class="wiki-loading">Fetching Wikipedia encyclopedia summaries for API keys, JWT, and HTTP protocols...</div>
+        <div id="wiki-container-special-knowledge" class="wiki-content" style="margin-top:1rem;">
+          <div class="wiki-loading">Fetching Wikipedia encyclopedia summaries for Universe, Science, and Invention...</div>
         </div>
       </div>
+
     </div>
 
-    <!-- Information Showcase Bar Above Footer -->
+    <!-- Interactive script helper for Information special items -->
+    <script>
+      const specialFacts = [
+        "Your brain contains approximately 86 billion neurons, each connected to up to 10,000 others. The brain's computational capacity is estimated to store around 2.5 petabytes (2.5 million gigabytes) of memory data!",
+        "Honey found in ancient Egyptian tombs that is over 3,000 years old is still completely edible due to its low moisture and acidic pH.",
+        "A teaspoonful of a neutron star would weigh about 6 billion tons on Earth due to extreme gravitational compaction.",
+        "Octopuses have three hearts and blue blood because their blood is copper-based (hemocyanin) instead of iron-based.",
+        "Light from the Sun takes roughly 8 minutes and 20 seconds to reach Earth across 150 million kilometers.",
+        "DNA in all the cells in a single human body, if uncoiled and stretched end-to-end, would stretch over 10 billion miles — from Earth to Pluto and back!"
+      ];
+      let currentFactIdx = 0;
+      function cycleSpecialFact() {
+        currentFactIdx = (currentFactIdx + 1) % specialFacts.length;
+        const el = document.getElementById('special-fact-text');
+        if (el) {
+          el.style.opacity = '0';
+          setTimeout(() => {
+            el.textContent = specialFacts[currentFactIdx];
+            el.style.opacity = '1';
+          }, 150);
+        }
+      }
+      function toggleRiddleAnswer() {
+        const box = document.getElementById('riddle-answer-box');
+        const btn = document.getElementById('toggle-riddle-btn');
+        if (box && btn) {
+          const isHidden = box.style.display === 'none';
+          box.style.display = isHidden ? 'block' : 'none';
+          btn.textContent = isHidden ? 'Hide Answer ✕' : 'Reveal Answer 👁️';
+        }
+      }
+    </script>
+
+        <!-- Information Showcase Bar Above Footer -->
     <div class="ds-footer-info-cta" style="margin-top:3.5rem;background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.08));border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
       <div style="max-width:680px;">
         <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.8rem;font-weight:700;margin-bottom:0.75rem;">
           <span>ℹ️</span> <span>Knowledge Archive</span>
         </div>
-        <h3 style="color:#fff;margin:0 0 0.5rem;font-size:1.4rem;font-family:'Space Grotesk',sans-serif;">Explore Wikipedia Technical Information</h3>
+        <h3 style="color:#fff;margin:0 0 0.5rem;font-size:1.4rem;font-family:'Space Grotesk',sans-serif;">Explore Today's Special Knowledge Items</h3>
         <p style="color:var(--text-secondary);margin:0;font-size:0.95rem;line-height:1.6;">
-          Access Wikipedia reference guides on HTTP APIs, API key transmission mechanisms (Bearer JWT tokens, query strings, request headers, cookies), and live encyclopedia summaries.
+          Discover curated daily trivia, scientific milestones, vocabulary builders, and live encyclopedia knowledge spotlights on HarshGuruJi.
         </p>
       </div>
       <button type="button" onclick="document.querySelector('[data-ds-tab=\'information\']')?.click();window.scrollTo({top:document.getElementById('ds-sub-nav')?.offsetTop || 0,behavior:'smooth'});" class="btn btn-primary" style="background:linear-gradient(45deg,#10b981,#06b6d4);border:none;box-shadow:0 4px 15px rgba(16,185,129,0.35);font-weight:700;padding:0.85rem 1.75rem;border-radius:50px;color:#fff;cursor:pointer;white-space:nowrap;font-size:0.95rem;">
