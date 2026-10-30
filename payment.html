@@ -3,6 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+
+  <!-- EMAIL LINK GATEWAY GUARD: Only authorized email links can access this payment desk -->
+  <script>
+    (function() {
+      function generatePaymentToken(emailStr) {
+        if (!emailStr) return '';
+        let hash = 0;
+        const str = emailStr.toLowerCase().trim() + '::HarshGuruJiPaymentAuth2026';
+        for (let i = 0; i < str.length; i++) {
+          hash = ((hash << 5) - hash) + str.charCodeAt(i);
+          hash |= 0;
+        }
+        return 'hg_token_' + Math.abs(hash).toString(36);
+      }
+
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const email = params.get('email');
+        const token = params.get('token');
+
+        // Check if user has an authorized email token matching their email
+        const isValid = email && token && (token === generatePaymentToken(email));
+        if (!isValid) {
+          // Direct access, search engine click, or missing token -> Redirect immediately to main site
+          window.location.replace('https://webguruji.online/');
+          return;
+        }
+      } catch (err) {
+        window.location.replace('https://webguruji.online/');
+      }
+    })();
+  </script>
   <title>HarshGuruJi Instant Payment Desk — Unlock AI Premium Models</title>
   <meta name="description" content="Official HarshGuruJi instant payment portal. Verify your order, scan the UPI QR code, and instantly unlock Guru-Flash 1.3, Guru-Argon 1.4, and Guru-Argon 1.5." />
   <link rel="icon" type="image/png" href="logo.png" />
@@ -462,6 +495,22 @@
         document.getElementById('step3Success').classList.remove('hidden');
       }
     }
+      // Auto-fill and auto-verify from authorized email link
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const emailParam = urlParams.get('email');
+      const tokenParam = urlParams.get('token');
+      if (emailParam && tokenParam) {
+        const emailInput = document.getElementById('claimEmailInput');
+        if (emailInput) {
+          emailInput.value = emailParam;
+          setTimeout(() => {
+            const form = document.getElementById('claimEmailForm');
+            if (form) verifyClaimEmail(new Event('submit'));
+          }, 300);
+        }
+      }
+    });
   </script>
   <script src="footer-premium.js"></script>
 </body>
