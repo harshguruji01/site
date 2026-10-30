@@ -1597,3 +1597,142 @@ h1, h2, h3, h4, h5, h6, .page-title, .hero-title, .section-title, p, span {
   .hg-bottom-icon { width: 28px !important; height: 28px !important; }
   .hg-bottom-icon svg { width: 20px !important; height: 20px !important; }
 }
+
+
+/* ========================================================
+   PrebuiltUI Testimonial Horizontal Aligned Template
+   ======================================================== */
+.hg-testimonials-section {
+  padding: 5rem 1.5rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.hg-testimonial-header {
+  text-align: center !important;
+  margin-bottom: 3.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.hg-testimonial-badge {
+  display: inline-block !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #ff6b4a !important;
+  background: rgba(255, 107, 74, 0.12) !important;
+  border: 1px solid rgba(255, 107, 74, 0.28) !important;
+  padding: 4px 14px !important;
+  border-radius: 999px !important;
+  margin-bottom: 0.85rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+.hg-testimonial-title {
+  font-size: clamp(2rem, 4vw, 2.75rem) !important;
+  font-weight: 800 !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  color: #ffffff !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 0 0.85rem 0 !important;
+}
+
+.hg-testimonial-desc {
+  font-size: 1.05rem !important;
+  color: #94a3b8 !important;
+  max-width: 620px !important;
+  line-height: 1.6 !important;
+  margin: 0 auto !important;
+}
+
+.hg-testimonial-horizontal-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2.5rem !important;
+  width: 100% !important;
+}
+
+.hg-testimonial-hcard {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 1.25rem !important;
+  background: rgba(18, 24, 38, 0.65) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  padding: 1.5rem !important;
+  max-width: 520px !important;
+  flex: 1 1 440px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+  .hg-testimonial-hcard {
+    flex-direction: row !important;
+  }
+}
+
+.hg-testimonial-hcard:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(255, 107, 74, 0.45) !important;
+  box-shadow: 0 16px 40px rgba(255, 107, 74, 0.15) !important;
+}
+
+.hg-testimonial-avatar {
+  width: 100% !important;
+  height: 240px !important;
+  border-radius: 12px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+
+@media (min-width: 640px) {
+  .hg-testimonial-avatar {
+    width: 180px !important;
+    height: 240px !important;
+  }
+}
+
+.hg-testimonial-body {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 240px !important;
+  flex: 1 !important;
+}
+
+.hg-testimonial-stars {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.hg-testimonial-quote {
+  color: #94a3b8 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.65 !important;
+  margin: 0 0 1.25rem 0 !important;
+  max-width: 290px !important;
+}
+
+.hg-testimonial-name {
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+}
+
+.hg-testimonial-role {
+  font-size: 0.85rem !important;
+  color: #94a3b8 !important;
+  margin: 4px 0 0 0 !important;
+}
