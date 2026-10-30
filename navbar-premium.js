@@ -717,21 +717,14 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           
           <div class="hg-user-menu" id="hg-user-profile" style="display:none;">
-            <div class="hg-user-trigger" tabindex="0" role="button" aria-haspopup="true">
+            <button type="button" class="hg-user-trigger" id="hg-user-trigger-btn" aria-label="User Account Menu" aria-haspopup="dialog" aria-expanded="false" title="Account Menu">
               <div class="hg-avatar-wrap" id="hg-user-avatar-wrap">
-                <img src="${prefix}logo.png" alt="User" id="hg-user-avatar">
+                <img src="${prefix}logo.png" alt="User Profile" id="hg-user-avatar">
               </div>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
-            </div>
-            <div class="hg-dropdown hg-dropdown-right">
-              <a href="${dashUrl}" class="hg-dropdown-link">Dashboard</a>
-              <a href="${settingsUrl}" class="hg-dropdown-link">Settings</a>
-              <div class="hg-dropdown-divider"></div>
-              <button id="hg-logout-btn" class="hg-dropdown-link" style="width:100%; text-align:left; border:none; background:none; cursor:pointer; font-family:inherit;">Logout</button>
-            </div>
+            </button>
           </div>
 
-          <!-- Mobile Hamburger Drawer Trigger -->
+<!-- Mobile Hamburger Drawer Trigger -->
           <button type="button" class="hg-hamburger" id="hg-hamburger" aria-label="Open Navigation Menu" aria-expanded="false">
             <span></span>
             <span></span>
@@ -750,6 +743,133 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="hg-search-dropdown" id="hg-search-dropdown-strip"></div>
       </div>
     </header>
+
+    <!-- 21st.dev Account Menu Sidebar Drawer (@lavikatiyar/components/menu) -->
+    <div class="hg-account-overlay" id="hg-account-overlay" style="display:none;" aria-hidden="true"></div>
+    <aside class="hg-account-drawer" id="hg-account-drawer" aria-label="User Account Sidebar" aria-hidden="true">
+      <div class="hg-drawer-header-bar">
+        <span class="hg-drawer-heading">Account</span>
+        <button type="button" class="hg-drawer-close-btn" id="hg-drawer-close" aria-label="Close Account Menu" title="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="hg-drawer-user-card">
+        <div class="hg-drawer-avatar-wrap">
+          <img src="${prefix}logo.png" alt="User" id="hg-drawer-avatar" class="hg-drawer-avatar">
+          <span class="golden-tick-badge" id="hg-drawer-golden-tick" style="display:none;" title="Verified Contributor">✓</span>
+        </div>
+        <div class="hg-drawer-user-info">
+          <div class="hg-drawer-name-row">
+            <div class="hg-drawer-name" id="hg-drawer-name">User</div>
+            <span class="hg-drawer-badge" id="hg-drawer-badge">Member</span>
+          </div>
+          <div class="hg-drawer-email" id="hg-drawer-email">user@webguruji.online</div>
+        </div>
+      </div>
+
+      <div class="hg-drawer-divider"></div>
+
+      <nav class="hg-drawer-nav">
+        <!-- Dashboard & Overview -->
+        <a href="${dashUrl}" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="5" rx="1.5"></rect>
+              <rect x="14" y="12" width="7" height="9" rx="1.5"></rect>
+              <rect x="3" y="16" width="7" height="5" rx="1.5"></rect>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Dashboard</span>
+        </a>
+
+        <!-- My orders -->
+        <a href="${dashUrl}#orders" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path>
+              <path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path>
+              <circle cx="7" cy="18" r="2"></circle>
+              <circle cx="17" cy="18" r="2"></circle>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">My orders</span>
+        </a>
+
+        <!-- Reviews -->
+        <a href="${portalUrl}contact.html#feedback" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Reviews</span>
+        </a>
+
+        <!-- Delivery addresses -->
+        <a href="${dashUrl}#addresses" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Delivery addresses</span>
+        </a>
+
+        <!-- Recently viewed -->
+        <a href="${dashUrl}#recent" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Recently viewed</span>
+        </a>
+
+        <!-- Favorite items -->
+        <a href="${dashUrl}#favorites" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Favorite items</span>
+        </a>
+
+        <div class="hg-drawer-nav-spacer"></div>
+
+        <!-- Settings -->
+        <a href="${settingsUrl}" class="hg-drawer-link">
+          <span class="hg-drawer-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </span>
+          <span class="hg-drawer-text">Settings</span>
+        </a>
+      </nav>
+
+      <div class="hg-drawer-footer">
+        <button type="button" id="hg-account-logout-btn" class="hg-drawer-logout-btn">
+          <span class="hg-drawer-logout-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </span>
+          <span class="hg-drawer-logout-text">Log out</span>
+        </button>
+      </div>
+    </aside>
+
 
     <!-- Mobile Navigation Overlay -->
     <div class="hg-mobile-nav" id="hg-mobile-nav" aria-hidden="true">
@@ -2202,6 +2322,32 @@ document.addEventListener('DOMContentLoaded', () => {
         userAvatar.src = avatarUrl;
       }
 
+      // Populate 21st.dev Account Drawer
+      const drawerAvatar = document.getElementById('hg-drawer-avatar');
+      if (drawerAvatar) drawerAvatar.src = avatarUrl;
+      const drawerName = document.getElementById('hg-drawer-name');
+      if (drawerName) drawerName.textContent = displayName;
+      const drawerEmail = document.getElementById('hg-drawer-email');
+      if (drawerEmail) drawerEmail.textContent = user.email || '';
+      const drawerGoldenTick = document.getElementById('hg-drawer-golden-tick');
+      if (drawerGoldenTick) {
+        drawerGoldenTick.style.display = (profile && profile.golden_tick === true) ? 'flex' : 'none';
+      }
+      const drawerBadge = document.getElementById('hg-drawer-badge');
+      if (drawerBadge) {
+        if (profile && profile.golden_tick === true) {
+          drawerBadge.textContent = 'Contributor';
+          drawerBadge.style.color = '#ffd700';
+          drawerBadge.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+          drawerBadge.style.background = 'rgba(255, 215, 0, 0.12)';
+        } else {
+          drawerBadge.textContent = 'Member';
+          drawerBadge.style.color = '#ff6b4a';
+          drawerBadge.style.borderColor = 'rgba(255, 107, 74, 0.3)';
+          drawerBadge.style.background = 'rgba(255, 107, 74, 0.15)';
+        }
+      }
+
       // Update Bottom Bar Auth Tab to Profile & sync bottom sheet
       const sheetAvatar = document.getElementById('hg-bottom-sheet-avatar');
       if (sheetAvatar) sheetAvatar.src = avatarUrl;
@@ -2219,17 +2365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomAuthItem.onclick = (e) => {
           if (window.innerWidth <= 1024) {
             e.preventDefault();
-            const overlay = document.getElementById('hg-bottom-profile-overlay');
-            if (overlay) {
-              if (overlay.classList.contains('active')) {
-                overlay.classList.remove('active');
-                setTimeout(() => { if (!overlay.classList.contains('active')) overlay.style.display = 'none'; }, 250);
-              } else {
-                overlay.style.display = 'flex';
-                void overlay.offsetWidth;
-                overlay.classList.add('active');
-              }
-            }
+            toggleAccountDrawer();
           }
         };
       }
@@ -2273,6 +2409,7 @@ document.addEventListener('DOMContentLoaded', () => {
       syncChatUnreadBadge(user.id);
       subscribeToChatRealtimeBadge(user.id);
     } else {
+      if (typeof closeAccountDrawer === 'function') closeAccountDrawer();
       if (loginBtn) { loginBtn.href = loginUrl; loginBtn.style.display = isStorePage ? 'none' : 'inline-flex'; }
       if (userMenu) userMenu.style.display = 'none';
       if (notifBox) notifBox.style.display = 'none';
@@ -2354,6 +2491,127 @@ document.addEventListener('DOMContentLoaded', () => {
         await supabase.auth.signOut();
         window.location.href = prefix + "index.html";
       }).catch(err => console.log('Supabase signout not available on this page.'));
+    });
+  }
+
+  
+  // --- 21st.dev Account Menu Sidebar Drawer Logic (@lavikatiyar/components/menu) ---
+  const getAccountDrawer = () => document.getElementById('hg-account-drawer');
+  const getAccountOverlay = () => document.getElementById('hg-account-overlay');
+
+  const openAccountDrawer = () => {
+    const drawer = getAccountDrawer();
+    const overlay = getAccountOverlay();
+    const trigger = document.getElementById('hg-user-trigger-btn') || document.querySelector('.hg-user-trigger');
+    if (drawer && overlay) {
+      overlay.style.display = 'block';
+      void overlay.offsetWidth;
+      overlay.classList.add('active');
+      drawer.classList.add('active');
+      drawer.setAttribute('aria-hidden', 'false');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeAccountDrawer = () => {
+    const drawer = getAccountDrawer();
+    const overlay = getAccountOverlay();
+    const trigger = document.getElementById('hg-user-trigger-btn') || document.querySelector('.hg-user-trigger');
+    if (drawer && overlay) {
+      drawer.classList.remove('active');
+      overlay.classList.remove('active');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!overlay.classList.contains('active')) {
+          overlay.style.display = 'none';
+        }
+      }, 320);
+    }
+  };
+
+  const toggleAccountDrawer = () => {
+    const drawer = getAccountDrawer();
+    if (drawer && drawer.classList.contains('active')) {
+      closeAccountDrawer();
+    } else {
+      openAccountDrawer();
+    }
+  };
+
+  window.openHarshAccountDrawer = openAccountDrawer;
+  window.closeHarshAccountDrawer = closeAccountDrawer;
+  window.toggleHarshAccountDrawer = toggleAccountDrawer;
+
+  // Bind trigger click
+  const userTrigger = document.getElementById('hg-user-trigger-btn') || document.querySelector('.hg-user-trigger');
+  if (userTrigger) {
+    userTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleAccountDrawer();
+    });
+  }
+
+  // Bind drawer close button
+  const drawerCloseBtn = document.getElementById('hg-drawer-close');
+  if (drawerCloseBtn) {
+    drawerCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAccountDrawer();
+    });
+  }
+
+  // Bind backdrop overlay click
+  const drawerOverlay = document.getElementById('hg-account-overlay');
+  if (drawerOverlay) {
+    drawerOverlay.addEventListener('click', () => {
+      closeAccountDrawer();
+    });
+  }
+
+  // Bind escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const drawer = getAccountDrawer();
+      if (drawer && drawer.classList.contains('active')) {
+        closeAccountDrawer();
+      }
+    }
+  });
+
+  // Close drawer when clicking internal nav links
+  const drawerEl = document.getElementById('hg-account-drawer');
+  if (drawerEl) {
+    drawerEl.querySelectorAll('.hg-drawer-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeAccountDrawer();
+      });
+    });
+  }
+
+  // Common logout function
+  const executeNavSignOut = async () => {
+    closeAccountDrawer();
+    const client = window.supabaseClient || (window.AuthManager && window.AuthManager.supabase);
+    if (client && client.auth) {
+      await client.auth.signOut().catch(() => {});
+    } else {
+      try {
+        const { supabase } = await import(`${prefix}js/supabase.js`);
+        await supabase.auth.signOut().catch(() => {});
+      } catch(e) {}
+    }
+    window.location.href = (isLocal || window.location.protocol === 'file:') ? (prefix + "index.html") : 'https://webguruji.online/index.html';
+  };
+
+  const accountLogoutBtn = document.getElementById('hg-account-logout-btn');
+  if (accountLogoutBtn) {
+    accountLogoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      executeNavSignOut();
     });
   }
 
