@@ -1490,7 +1490,13 @@ function updateResultsCount() {
 
 function showLoading() {
   if (elements.sectionsView) {
-    elements.sectionsView.innerHTML = '<div class="store-message">Loading verified store releases...</div>';
+    if (typeof window.renderHarshLoader === 'function') {
+      elements.sectionsView.innerHTML = '<div style="padding: 3.5rem 1rem; text-align: center;">' +
+        window.renderHarshLoader('Loading GuruStore...', 'Fetching verified app releases & security signatures...', 'compact') +
+        '</div>';
+    } else {
+      elements.sectionsView.innerHTML = '<div class="store-message">Loading verified store releases...</div>';
+    }
   }
 }
 

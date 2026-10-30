@@ -642,13 +642,19 @@
     if (!booksGrid) return;
 
     if (allBooks.length === 0) {
-      booksGrid.innerHTML = `
-        <div class="empty-books-state">
-          <div class="icon">📚</div>
-          <h4>Loading Official NCERT Books Library...</h4>
-          <p>Connecting to master textbook repository for Classes 1 to 12.</p>
-        </div>
-      `;
+      if (typeof window.renderHarshLoader === 'function') {
+        booksGrid.innerHTML = '<div style="padding: 3.5rem 1rem; grid-column: 1 / -1; text-align: center;">' +
+          window.renderHarshLoader('Loading NCERT Books...', 'Connecting to master textbook repository for Classes 1 to 12...', 'compact') +
+          '</div>';
+      } else {
+        booksGrid.innerHTML = `
+          <div class="empty-books-state">
+            <div class="icon">📚</div>
+            <h4>Loading Official NCERT Books Library...</h4>
+            <p>Connecting to master textbook repository for Classes 1 to 12.</p>
+          </div>
+        `;
+      }
       return;
     }
 
