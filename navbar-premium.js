@@ -495,16 +495,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="hg-bottom-label">Books</span>
       </a>
 
-      <a href="${loginUrl}" class="hg-bottom-item" id="bottom-nav-auth" title="Profile / Account">
-        <span class="hg-bottom-icon" id="bottom-auth-icon-wrap">
-          <svg id="bottom-auth-default-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
+      <a href="${portalUrl}free-tools.html" class="hg-bottom-item" id="bottom-nav-tools" title="Free Developer Tools">
+        <span class="hg-bottom-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
           </svg>
-          <img id="bottom-auth-avatar" src="${prefix}logo.png" alt="Profile" style="display:none;" />
-          <span id="bottom-golden-tick" class="bottom-golden-tick" style="display:none;">✓</span>
         </span>
-        <span class="hg-bottom-label" id="bottom-auth-label">Login</span>
+        <span class="hg-bottom-label">Tools</span>
       </a>
     `;
   } else {
@@ -689,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </button>
           
           <!-- Auth (Dynamic via JS) -->
-          <a href="${loginUrl}" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>
+          ${isStorePage ? '' : `<a href="${loginUrl}" id="hg-login-btn" class="hg-btn hg-btn-primary">Login</a>`}
 
           <!-- Notifications Bell & Feedback Dropdown (For Logged In Users) -->
           <div class="hg-notif-container" id="hg-notif-container" style="display:none;">
@@ -771,9 +768,9 @@ document.addEventListener('DOMContentLoaded', () => {
           ${mobileNavListHTML}
         </ul>
         
-        <div class="hg-mobile-footer-actions">
+        ${isStorePage ? '' : `<div class="hg-mobile-footer-actions">
            <a href="${loginUrl}" id="hg-mobile-drawer-auth" class="hg-btn hg-btn-primary" style="width: 100%; text-align:center;">Sign In to HarshGuruJi</a>
-        </div>
+        </div>`}
       </div>
     </div>
 
@@ -2178,6 +2175,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. Handle Auth State Changes
   const updateNavUI = (user, profile) => {
     const loginBtn = document.getElementById('hg-login-btn');
+    if (isStorePage) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      const mDrawerAuth = document.getElementById('hg-mobile-drawer-auth');
+      if (mDrawerAuth) mDrawerAuth.style.display = 'none';
+    }
     const userMenu = document.getElementById('hg-user-profile');
     const userAvatar = document.getElementById('hg-user-avatar');
     const notifBox = document.getElementById('hg-notif-container');
@@ -2271,7 +2273,7 @@ document.addEventListener('DOMContentLoaded', () => {
       syncChatUnreadBadge(user.id);
       subscribeToChatRealtimeBadge(user.id);
     } else {
-      if (loginBtn) { loginBtn.href = loginUrl; loginBtn.style.display = 'inline-flex'; }
+      if (loginBtn) { loginBtn.href = loginUrl; loginBtn.style.display = isStorePage ? 'none' : 'inline-flex'; }
       if (userMenu) userMenu.style.display = 'none';
       if (notifBox) notifBox.style.display = 'none';
       toggleNotifDropdown(false);
