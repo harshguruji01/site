@@ -1,402 +1,508 @@
-Tum ek senior product designer + senior frontend developer ho. Mere existing AI chatbot “GuruAI” ka complete, production-ready UI redesign karo for desktop web, mobile web, aur mobile PWA/app.
+Tum ek senior product designer + senior full-stack developer ho. Mere existing AI chatbot “GuruAI” ko ek complete Perplexity-style AI answer engine me convert karo.
 
-PROJECT DETAILS:
-- Chatbot name: GuruAI
-- Brand / owner: HarshGuruJi
-- Main website: https://webguruji.online
-- Chatbot URL: https://ai.webguruji.online
-- Purpose: Students aur curious learners ko Hindi + English me simple explanations, homework help, coding help, general knowledge, study tips aur learning support dena.
+PROJECT:
+- Product name: GuruAI
+- Owner / brand: HarshGuruJi
+- Website: https://webguruji.online
+- App URL: https://ai.webguruji.online
+- Purpose: Students aur learners ke liye Hindi + English AI answer engine — study, coding, GK, research, notes, exam prep aur general questions.
 - Target users: Indian students, school/college learners, self-learners.
-- Tone: friendly, helpful, simple, trustworthy, educational.
-- Languages: Hindi + English, with easy language switching or automatic bilingual responses.
-- Existing features to preserve:
-  - Multiple AI models: Guru-Flash 1.1, 1.2, 1.3 Pro, 1.5 Pro, Guru-Vision 1.9, Guru-Ultra 2.0
-  - Guest limit: 8 requests
-  - Member limit: 20 requests / 12h
-  - Premium plans: Starter Pro $5, Power Scholar $15, Grandmaster $25
-  - Preferences: model selection, theme options — Dark, Slate Light, Clean Cyberpunk
-  - Sign in
-  - Request counter
-  - “GuruAI can make mistakes. Verify important facts and code.” disclaimer
-  - Upgrade / context expansion plans
-- Tech stack: Next.js 14 App Router, React, TypeScript, Tailwind CSS, Supabase.
-- Output: Complete UI design plan + complete responsive frontend code.
-- Code must be clean, reusable, mobile-first, accessible, error-free, and production-ready.
+- Tone: helpful, simple, trustworthy, educational.
+- Languages: Hindi + English.
 
-=== 1. BRAND DESIGN SYSTEM ===
+CORE PRODUCT VISION:
+GuruAI sirf ek chatbot nahi hoga. Ye ek AI answer engine hoga:
+1. User question type karega.
+2. GuruAI web search karega.
+3. Trusted sources collect karega.
+4. Clear, structured answer stream karega.
+5. Answer me numbered inline citations [1], [2], [3] dikhaye.
+6. Right side ya bottom me source cards dikhaye.
+7. Follow-up questions suggest kare.
+8. Har search ek Thread me save ho.
+9. User thread continue kar sake, save kar sake, share kar sake.
+10. Web, Android app aur Windows desktop exe — teeno par same UI aur same data sync ho.
 
-Create a consistent design system for GuruAI.
+IMPORTANT:
+Perplexity jaisa UI aur UX banao, lekin GuruAI ka apna branding, colors, logo aur student-focused features rakho.
+Perplexity ka exact logo, exact text, exact code ya copyrighted assets copy mat karo.
+Sirf layout pattern, interaction pattern aur product behavior inspired rakho.
+
+=== 1. CROSS-PLATFORM ARCHITECTURE ===
+
+Build one shared product across:
+
+1. Web app:
+   - Next.js 14 App Router + React + TypeScript + Tailwind CSS.
+   - URL: https://ai.webguruji.online
+
+2. Android app:
+   - Use Capacitor or React Native WebView wrapper around the same Next.js web app.
+   - Same UI, same account, same threads, same premium plan.
+   - Android app must support:
+     - Push notifications
+     - Voice input
+     - File upload
+     - Share sheet
+     - Deep links
+     - Offline banner
+     - Safe-area insets
+     - Dark mode
+
+3. Windows desktop app:
+   - Use Electron or Tauri.
+   - Package as GuruAI-Setup.exe for Windows.
+   - Same web UI inside desktop shell.
+   - Desktop app must support:
+     - Native window controls
+     - System tray
+     - Global shortcut, for example Ctrl + Shift + G
+     - Auto-update
+     - Local file upload
+     - Remember signed-in user
+     - Deep links
+     - Offline detection
+     - Windows 10 and Windows 11 support
+
+SHARED BACKEND:
+- Supabase for auth, database, storage and realtime sync.
+- Same user account works on web, Android and desktop.
+- Threads, saved answers, collections, files, preferences and subscription status must sync instantly.
+- Use responsive shared components so UI remains visually identical across all platforms.
+
+=== 2. GURUAI DESIGN SYSTEM ===
 
 Brand personality:
-- Educational, modern, trustworthy, friendly, fast.
-- Not childish, not overly corporate.
-- Designed for students who want quick, clear answers.
+- Modern AI answer engine.
+- Clean, fast, trustworthy, student-friendly.
+- Not cluttered, not childish.
 
 Color palette:
-- Primary brand color: indigo/blue, for example #4F46E5 or #2563EB.
-- Primary CTA: same brand color.
-- Background: #0B1120 for dark theme, #F8FAFC for light theme.
-- Chat panel: #111827 dark / #FFFFFF light.
-- Bot bubble: #1E293B dark / #F1F5F9 light.
-- User bubble: brand color with white text.
-- Secondary text: #94A3B8 dark / #64748B light.
+- Primary: indigo #4F46E5.
+- Primary hover: #4338CA.
+- Background dark: #0B1120.
+- Surface dark: #111827.
+- Background light: #F8FAFC.
+- Surface light: #FFFFFF.
+- User bubble: #4F46E5 with white text.
+- Bot/answer background: transparent or subtle surface.
+- Source card background: #111827 dark / #FFFFFF light.
 - Border: #1F2937 dark / #E2E8F0 light.
-- Success: #16A34A
-- Warning: #F59E0B
-- Error: #DC2626
-- Premium/gold accent: #F59E0B for upgrade badges and premium plans.
-- Maintain at least 4.5:1 text contrast in both themes.
+- Secondary text: #94A3B8 dark / #64748B light.
+- Success: #16A34A.
+- Warning: #F59E0B.
+- Error: #DC2626.
+- Premium accent: #F59E0B.
 
 Typography:
-- Font: Inter or system-ui.
-- Chat text: 16px minimum.
-- Small labels: 14px minimum.
-- Header title: 18–20px.
-- Buttons: 15–16px.
-- Line height: 1.5.
-- No tiny, low-contrast text.
+- Font: Inter.
+- Answer body: 16px.
+- Small labels: 14px.
+- Headings: 18–24px.
+- Code: monospace font.
+- Line height: 1.6.
+- Minimum contrast: 4.5:1.
 
-Shape and spacing:
-- Spacing scale: 4, 8, 12, 16, 24, 32px.
-- Message bubbles: 16px radius.
-- Buttons: 12px radius.
-- Input field: 16px radius.
-- Cards: 16px radius.
-- Use subtle shadows and clean borders.
-- Avoid visual clutter.
+Layout principles:
+- Search-first interface.
+- Large central search bar on home screen.
+- Clean answer page with citations.
+- Left sidebar for navigation and threads.
+- Right panel for sources on desktop.
+- Bottom sheet for sources on mobile.
+- Same visual language across web, Android and Windows.
 
-=== 2. DESKTOP UI LAYOUT ===
+=== 3. HOME SCREEN UI ===
 
-Create a full-page AI chat application layout.
+Home screen Perplexity-style search experience rakho.
 
-Desktop structure:
-- Left sidebar: 280px, collapsible.
-- Main chat area: flexible width, centered content, maximum readable width 900–1100px.
-- Right panel: optional, only for model details, usage limit, sources, attachments, or premium upgrade.
-- Header: fixed at top, 64px height.
-- Composer: fixed at bottom.
+Center content:
+- GuruAI logo.
+- Heading: “Kuch bhi poochho, sources ke saath samjho.”
+- Subheading: “GuruAI web search karta hai aur cited answers deta hai.”
+- Large centered search input.
+- Search input minimum height: 56px on desktop, 52px on mobile.
+- Placeholder: “Apna sawaal likhein…”
+- Inside search bar:
+  - Left: search icon.
+  - Right: attachment icon, mic icon, model selector, submit arrow button.
+- Below search bar:
+  - Mode selector chips:
+    - “Search”
+    - “Deep Research”
+    - “Academic”
+    - “YouTube”
+    - “Writing”
+    - “Coding”
+  - Default selected: Search.
+- Below mode selector:
+  - 4–6 suggested student prompts:
+    - “Photosynthesis simple Hindi me samjhao”
+    - “Class 10 Maths chapter 3 important questions”
+    - “Python list vs tuple difference”
+    - “UP Board exam timetable”
+    - “Best study plan for board exams”
+    - “NCERT book summary”
 
-Desktop header:
-- Left:
-  - GuruAI logo/avatar.
-  - “GuruAI” title.
-  - Subtitle: “by HarshGuruJi”.
-- Center:
-  - Current model name, for example: “Guru-Flash 1.1”.
-- Right buttons, in this order:
-  1. New chat — plus icon.
-  2. Search chats — magnifier icon.
-  3. Chat history — clock icon.
-  4. Preferences/settings — gear icon.
-  5. Theme switcher — sun/moon icon.
-  6. User account — avatar icon.
-- Show request counter near the user area:
-  - Guest: “8 requests left”
-  - Member: “20 requests / 12h left”
-- If requests are low, show a subtle warning badge: “Limited requests left”.
+Home screen behavior:
+- User question type kare aur Enter dabaye.
+- GuruAI turant new Thread open kare.
+- Searching state dikhaye.
+- Real-time sources load hone par source cards dikhaye.
+- Answer stream ho with inline citations.
+- Thread automatically Library/History me save ho.
+
+=== 4. THREAD / ANSWER PAGE UI ===
+
+Har question ek Thread me open ho.
+
+Thread layout:
+- Top header:
+  - GuruAI logo.
+  - Thread title.
+  - Mode badge: Search / Deep Research / Academic / Coding.
+  - Model selector.
+  - Share button.
+  - Save to Collection button.
+  - More options menu.
+- Main answer area:
+  - User question at top.
+  - GuruAI answer below it.
+  - Answer must support Markdown, headings, bullet points, tables, images, code blocks, and links.
+  - Inline citations like [1], [2], [3] must be clickable.
+  - Clicking a citation opens the source.
+- Below answer:
+  - Related follow-up questions.
+  - Copy answer.
+  - Regenerate answer.
+  - Share answer.
+  - Save answer.
+  - Like / dislike feedback.
+- Bottom composer:
+  - Same search bar style.
+  - User follow-up question type kar sake.
+  - Thread context maintain ho.
+
+Answer quality rules:
+- Answer short paragraphs, headings, bullet points aur tables use kare.
+- Important facts ke saath citation number ho.
+- Code answer me proper syntax highlighting ho.
+- Hindi question par Hindi answer de, English question par English answer de.
+- Mixed language handle kare.
+- Confusing question par clarifying question poochhe.
+- Answer ke end me “Sources” section ho.
+
+=== 5. SOURCES & CITATIONS UI ===
+
+Ye GuruAI ka sabse important feature hai.
+
+During search:
+- Show status:
+  - “Web search ho raha hai…”
+  - “Sources dhundhe ja rahe hain…”
+  - “Answer taiyar ho raha hai…”
+- Show animated loading skeleton.
+- Show source URLs loading in real time.
+
+After answer:
+- Show source cards with:
+  - Website favicon.
+  - Page title.
+  - Domain name.
+  - Short snippet.
+  - Citation number.
+- Desktop:
+  - Sources right-side panel me dikhen.
+  - Panel width: 320–380px.
+  - Collapsible ho.
+- Mobile:
+  - Sources bottom sheet me dikhen.
+  - “Sources (8)” button answer ke neeche ho.
+  - Tap karne par full-screen/bottom sheet open ho.
+- Every citation number in answer must link to its source card.
+- User source card par click karke original website khol sake.
+- Add “Open all sources” option.
+- Add copy-source-link option.
+- Add report-source option.
+
+=== 6. LEFT SIDEBAR UI ===
 
 Desktop sidebar:
+- Width: 280px.
+- Collapsible to icon-only mode.
 - Top:
-  - Large “+ New Chat” primary button.
-- Middle:
-  - Recent chats list.
-  - Each item: chat title, short preview, time.
-  - Hover options: rename, pin, delete.
+  - “+ New Thread” button.
+  - Search threads input.
+- Navigation:
+  - Home
+  - Discover
+  - Library
+  - Collections
+  - Files
+  - Upgrade
+- Threads section:
+  - Recent threads.
+  - Pinned threads.
+  - Each thread: title, time, mode icon.
+  - Hover options: rename, pin, share, delete.
 - Bottom:
-  - Active model selector.
-  - Theme selector: Dark, Slate Light, Clean Cyberpunk.
-  - Sign in / user profile.
-  - Upgrade to Premium button.
-  - Help & Support.
-  - Link to HarshGuruJi website.
-
-Desktop chat area:
-- Empty state:
-  - GuruAI mascot or logo.
-  - Heading: “Namaste! Main GuruAI hoon.”
-  - Subheading: “Koi bhi sawaal poochho — study, coding, GK ya general knowledge.”
-  - 4 quick-start buttons:
-    - “Photosynthesis samjhao”
-    - “Coding doubt clear karo”
-    - “Essay likhne me help karo”
-    - “Daily study plan banao”
-- Messages:
-  - Bot messages left-aligned with GuruAI avatar.
-  - User messages right-aligned.
-  - Maximum bubble width: 70% of chat area.
-  - Support Markdown, lists, tables, code blocks, links, and images.
-  - Code blocks must have language label and Copy Code button.
-  - Auto-scroll to the latest message.
-  - Show “Scroll to latest” floating button when user scrolls up.
-
-Bot response actions:
-- Below each bot response, show small icon buttons:
-  - Copy
-  - Regenerate
-  - Like
-  - Dislike
-  - Share
-- Each button must have tooltip and accessible label.
-- Minimum clickable area: 32x32px on desktop, 44x44px on mobile.
-
-Desktop composer:
-- Sticky at bottom.
-- Layout:
-  - Left: attachment button.
-  - Left: image/vision button if the selected model supports it.
-  - Center: text input.
-  - Right: microphone button.
-  - Right: send button.
-- Placeholder: “Apna sawaal GuruAI se poochhein…”
-- Enter sends message.
-- Shift + Enter adds a new line.
-- While response is generating:
-  - Send button becomes Stop button.
-  - Show animated typing indicator.
-  - Prevent duplicate submissions.
-- Above composer, show horizontally scrollable quick replies:
-  - “Explain in simple Hindi”
-  - “Make notes”
-  - “Give examples”
-  - “Solve step by step”
-  - “Translate to English”
-- Show selected model and remaining requests subtly above or beside composer.
-
-=== 3. MOBILE UI LAYOUT ===
-
-Create a full-screen mobile chat experience. Do not use a small floating popup on mobile.
-
-Mobile structure:
-- Fixed top header.
-- Scrollable chat area.
-- Fixed bottom composer.
-- Safe-area padding for iPhone notch, Dynamic Island, and Android gesture bar.
-- Keyboard must push the composer above it.
-- No horizontal page scrolling.
-- No overlapping elements.
-
-Mobile header:
-- Height: 56px.
-- Left: back button.
-- Center: GuruAI avatar + “GuruAI” + “by HarshGuruJi”.
-- Right: three-dot menu.
-- Below header or inside menu, show:
   - Active model.
   - Remaining requests.
-  - Theme selector.
-- Three-dot menu options:
-  - New chat
-  - Chat history
-  - Change AI model
-  - Preferences
-  - Clear chat
-  - Upgrade plan
-  - Help & support
-  - Sign in / account
+  - Theme switcher.
+  - Account/profile.
+  - Help & support.
+  - Link to HarshGuruJi website.
 
-Mobile chat area:
-- Bot messages left.
-- User messages right.
-- Maximum bubble width: 85%.
-- Message text: 16px.
-- Comfortable spacing between bubbles.
-- Support long answers, code, lists, and tables without breaking layout.
-- Date separators: “Aaj”, “Kal”, or exact date.
-- Pull-to-refresh optional.
-
-Mobile composer:
-- Fixed bottom.
-- White or dark surface with top border.
-- Layout:
-  - Left: attachment icon.
-  - Center: text input.
-  - Right: microphone when input is empty, send icon when text exists.
-- Input height: 48–56px.
-- Send button minimum 44x44px tap area.
-- Placeholder: “Message likhein…”
-- Quick-reply chips above composer, horizontally scrollable.
-- Maximum 4–5 visible chips.
-- Show remaining request count subtly above composer only when relevant.
-
-Mobile bottom navigation:
-- Since GuruAI is part of HarshGuruJi ecosystem, add optional bottom navigation only for standalone mobile app/PWA:
-  1. Chats — message icon.
-  2. Models — cpu/spark icon.
-  3. History — clock icon.
-  4. Upgrade — crown icon.
+Mobile sidebar:
+- Hamburger menu se drawer me khule.
+- Same items as desktop.
+- Drawer swipe se band ho.
+- Bottom navigation for Android app:
+  1. Home — search icon.
+  2. Discover — compass icon.
+  3. Library — bookmark icon.
+  4. Collections — folder icon.
   5. Profile — user icon.
-- Active tab uses brand color.
-- Bottom navigation must not conflict with composer.
-- If chatbot is embedded in the website, hide bottom navigation and keep only the chat interface.
 
-=== 4. MODEL SELECTOR UI ===
+=== 7. MODES ===
 
-Create a clean model selector.
+Create these GuruAI modes:
 
-Model selector requirements:
-- Available from header, sidebar, and composer.
-- Show model name, short description, and plan requirement.
-- Models:
-  - Guru-Flash 1.1 — Free, fast general chat.
-  - Guru-Flash 1.2 — Free, improved responses.
-  - Guru-Flash 1.3 Pro — Starter plan.
-  - Guru-Flash 1.5 Pro — Starter plan.
-  - Guru-Vision 1.9 — Power plan, image/multimodal support.
-  - Guru-Ultra 2.0 — Grandmaster plan, advanced reasoning and coding.
-- Locked models must show a lock icon and “Upgrade required” label.
-- Clicking a locked model opens a premium upgrade sheet/modal.
-- Do not make the selector confusing; current model must always be visible.
+1. Search:
+   - Fast web search.
+   - Short, clear cited answer.
+   - Best for quick questions.
 
-=== 5. REQUEST LIMIT & PREMIUM UI ===
+2. Deep Research:
+   - Multi-step research.
+   - More sources.
+   - Longer structured report.
+   - Show research progress steps.
+   - Best for exam preparation, projects and detailed topics.
 
-Create clear usage-limit UI.
+3. Academic:
+   - Prioritize educational, academic and government sources.
+   - Useful for NCERT, board exams, competitive exams and research papers.
 
-Requirements:
-- Show remaining requests without making the chat feel restricted.
-- Guest: “8 requests left”.
-- Member: “20 requests / 12h left”.
-- When limit is close:
-  - Show a small amber warning: “Sirf 2 requests bache hain.”
-- When limit is over:
-  - Show a friendly full-width card above composer:
-    - Heading: “Aaj ki free limit khatam ho gayi”
-    - Text: “Premium me zyada chats, bada context aur priority speed milta hai.”
-    - Buttons: “Upgrade karein” and “Sign in”
-- Premium plans:
-  - Starter Pro — $5/month, 50,000 token context, 100 daily chats.
-  - Power Scholar — $15/month, 175,000 token context, 350 daily chats.
-  - Grandmaster — $25/month, 325,000 token context, unlimited priority chats.
-- Use a clean pricing modal or dedicated /pricing page.
-- Highlight “Power Scholar” as Best Value.
-- Upgrade CTA should redirect to https://webguruji.online/contact.html as per existing flow.
+4. Coding:
+   - Coding-focused answers.
+   - Code blocks, explanations, debugging help.
+   - Support popular languages.
 
-=== 6. BUTTON PLACEMENT — EXACT ===
+5. Writing:
+   - Essays, letters, applications, emails, summaries.
+   - Hindi and English writing support.
 
-Header buttons:
-- Desktop:
-  - Left: logo + GuruAI + by HarshGuruJi.
-  - Right: New chat, Search, History, Settings, Theme, Account.
-- Mobile:
-  - Left: Back.
-  - Center: GuruAI identity.
-  - Right: three-dot menu.
+6. YouTube:
+   - Search and summarize YouTube-related educational content.
+   - Show video source cards where available.
 
-Message action buttons:
-- Bot message:
-  - Copy, Regenerate, Like, Dislike, Share.
-- User message:
-  - Edit, Copy, Delete.
+Mode selector:
+- Home search bar ke andar ya neeche chips me ho.
+- Thread page par bhi change ho sake.
+- Premium-only modes clearly lock icon ke saath dikhein.
 
-Composer buttons:
-- Desktop:
-  - Bottom-left: attachment, image/vision.
-  - Bottom-center: text input.
-  - Bottom-right: microphone, send/stop.
-- Mobile:
-  - Left: attachment.
-  - Center: input.
-  - Right: microphone/send.
+=== 8. MODEL SELECTOR ===
 
-Quick replies:
-- Desktop: above composer, horizontal row.
-- Mobile: above composer, horizontal scroll.
-- Maximum 5 suggestions.
-- Every chip must be clearly tappable.
+Keep GuruAI models:
 
-Floating buttons:
-- “Scroll to latest message”: bottom-center above composer.
-- “New chat”: sidebar top on desktop, header/menu on mobile.
-- Do not add unnecessary floating buttons.
+- Guru-Flash 1.1 — Free, fast answers.
+- Guru-Flash 1.2 — Free, improved quality.
+- Guru-Flash 1.3 Pro — Starter plan.
+- Guru-Flash 1.5 Pro — Starter plan.
+- Guru-Vision 1.9 — Power plan, image understanding.
+- Guru-Ultra 2.0 — Grandmaster plan, advanced reasoning and coding.
 
-=== 7. STATES — HANDLE ALL ===
+Model selector UI:
+- Search bar ke right side me compact dropdown.
+- Show current model name.
+- Dropdown me model name, short description, speed badge aur plan badge.
+- Locked model par lock icon aur “Upgrade” label.
+- Locked model select karne par premium modal khule.
+
+=== 9. LIBRARY, COLLECTIONS & FILES ===
+
+Library:
+- All past threads.
+- Search by title or content.
+- Filter by mode: Search, Research, Academic, Coding.
+- Sort by recent, oldest, most viewed.
+- Thread options: open, rename, pin, share, delete, export PDF.
+
+Collections:
+- User related threads ko ek collection me save kar sake.
+- Example collections:
+  - “Class 10 Science”
+  - “Python Learning”
+  - “Board Exam Prep”
+  - “College Notes”
+- Collection me custom instructions ho sakti hain.
+- Example: “Hamesha simple Hindi me samjhao aur NCERT-based sources do.”
+- Collection shareable ho.
+
+Files:
+- User PDF, DOCX, TXT, images upload kar sake.
+- File upload search bar ke attachment icon se ho.
+- GuruAI file summarize kare, questions answer kare, notes banaye.
+- Desktop app me local folder access optional ho, with clear permission UI.
+- Mobile me camera, gallery aur files se upload ho.
+- Uploaded files Library > Files me dikhen.
+
+=== 10. DISCOVER FEED ===
+
+Create a Discover section for students.
+
+Discover content:
+- Trending educational questions.
+- Daily GK.
+- Current affairs.
+- Exam updates.
+- Coding tips.
+- Study techniques.
+- Science facts.
+- Career guidance.
+
+UI:
+- Card-based feed.
+- Each card: topic title, short description, source count, category badge.
+- Tap karne par related GuruAI thread khule.
+- Personalized recommendations based on user activity.
+
+=== 11. REQUEST LIMIT & PREMIUM ===
+
+Preserve existing limits:
+- Guest: 8 requests.
+- Member: 20 requests / 12h.
+- Starter Pro: $5/month.
+- Power Scholar: $15/month.
+- Grandmaster: $25/month.
+
+UI rules:
+- Header ya sidebar me remaining requests dikhao.
+- Limit near hone par amber warning.
+- Limit khatam hone par friendly card:
+  - “Aaj ki free limit khatam ho gayi.”
+  - “Premium me zyada searches, Deep Research aur bade context milte hain.”
+  - Buttons: “Upgrade karein”, “Sign in”.
+- Premium modal me plans clearly dikhao.
+- Power Scholar ko “Best Value” badge do.
+- Upgrade flow https://webguruji.online/contact.html par le jaye.
+
+=== 12. VOICE, UPLOAD & ACTIONS ===
+
+Voice:
+- Search bar me mic button.
+- Tap to speak.
+- Real-time speech-to-text.
+- Hindi and English support.
+- Voice answer playback optional.
+
+Attachments:
+- PDF, DOCX, TXT, CSV, images.
+- Show file chip with name, size and remove button.
+- Ask questions about uploaded file.
+- Show file-derived sources separately.
+
+Answer actions:
+- Copy answer.
+- Copy as Markdown.
+- Regenerate.
+- Shorter answer.
+- Explain more simply.
+- Translate to Hindi / English.
+- Create notes.
+- Create quiz.
+- Export as PDF.
+- Share thread.
+
+=== 13. STATES — SAB HANDLE KARO ===
 
 Empty state:
-- Friendly welcome.
-- Bot capabilities.
-- 4 starter prompts.
-- Input visible.
+- Search-first home screen.
+- Suggested prompts.
+- Mode chips.
 
-Loading state:
-- GuruAI avatar with animated typing dots.
-- Text: “GuruAI soch raha hai…”
+Searching state:
+- Animated status text.
+- Source cards loading.
+- Skeleton answer blocks.
+
+Streaming state:
+- Answer progressively stream ho.
 - Stop generation button.
-- Skeleton loading for long answers.
+- Inline citations appear as sources are used.
 
 Error state:
-- Friendly message: “Kuch galat ho gaya. Kripya dobara try karein.”
+- “Kuch galat ho gaya. Kripya dobara try karein.”
 - Retry button.
-- Report issue button.
-- Human support link to HarshGuruJi contact page.
+- Switch model option.
+- Human support link.
+
+No result state:
+- “Is topic par reliable sources nahi mile.”
+- Alternative question suggestions.
 
 Limit reached state:
-- Clear limit message.
-- Upgrade CTA.
-- Sign-in CTA for guests.
+- Upgrade card.
+- Sign-in option.
 
 Offline state:
-- Banner: “Aap offline hain. Message send nahi ho sakta.”
-- Retry option.
+- “Aap offline hain.”
+- Cached threads accessible.
+- New search disabled with clear message.
 
-Model unavailable state:
-- Message: “Ye model abhi available nahi hai.”
-- Suggest switching to Guru-Flash 1.1.
-- Model selector shortcut.
+=== 14. RESPONSIVE RULES ===
 
-=== 8. ACCESSIBILITY ===
+- 320px: compact mobile layout, bottom navigation, bottom-sheet sources.
+- 375px: standard Android layout.
+- 768px: tablet layout; sidebar drawer.
+- 1024px: sidebar visible, sources right panel optional.
+- 1280px+: full desktop layout with sidebar + answer + sources panel.
+- Mobile keyboard open hone par composer upar shift ho.
+- No horizontal scrolling.
+- No overlapping UI.
+- Same components reuse across all breakpoints.
 
-- Every icon button must have aria-label.
-- Use semantic HTML: header, main, aside, footer, button, input.
-- Keyboard navigation must work: Tab, Shift+Tab, Enter, Escape.
+=== 15. ACCESSIBILITY ===
+
+- Every icon button needs aria-label.
+- Keyboard navigation: Tab, Shift+Tab, Enter, Escape.
 - Visible focus rings.
-- Minimum mobile tap target: 44x44px.
-- Text contrast minimum 4.5:1.
-- Screen reader must announce:
-  - “GuruAI is typing”
-  - “Message sent”
-  - “Response copied”
+- Screen-reader announcements:
+  - “Searching the web”
+  - “Answer is streaming”
+  - “Sources loaded”
+  - “Answer copied”
   - “Request limit reached”
-  - “Error occurred”
-- Support dark mode, light mode, and Clean Cyberpunk theme.
-- Respect reduced-motion preference.
+- Minimum tap target: 44x44px.
+- Support dark mode, light mode and Clean Cyberpunk theme.
+- Respect reduced motion.
 
-=== 9. RESPONSIVE RULES ===
+=== 16. FINAL DELIVERABLES ===
 
-- 320px: compact full-screen chat, no sidebar, simplified header.
-- 375px: standard mobile layout.
-- 640px: larger touch targets and comfortable spacing.
-- 768px: tablet layout; sidebar becomes a drawer.
-- 1024px: sidebar visible, wider chat area.
-- 1440px: centered chat container, maximum content width 900–1100px.
-- Use flexbox and CSS grid.
-- No fixed pixel width for the main chat area.
-- Test long Hindi/English messages, code blocks, images, attachments, emojis, keyboard-open state, landscape mode, and large font sizes.
+Mujhe ye complete deliverables do:
 
-=== 10. FINAL DELIVERABLES ===
-
-Give me:
-1. Complete desktop wireframe description.
-2. Complete mobile wireframe description.
-3. Component list with props, states, and behavior.
+1. Complete product architecture for Web + Android + Windows desktop.
+2. Complete UI wireframe for Home, Thread, Sources, Library, Collections, Discover, Files, Pricing.
+3. Component list with props, states and behavior.
 4. Full responsive Next.js + React + TypeScript + Tailwind CSS code.
-5. Reusable components:
-   - ChatHeader
-   - Sidebar
-   - ChatMessages
-   - MessageBubble
-   - BotActions
-   - Composer
-   - QuickReplies
-   - ModelSelector
-   - UsageLimitBanner
-   - PremiumModal
-   - ThemeSwitcher
-   - EmptyState
-   - LoadingState
-   - ErrorState
-6. Exact position, icon, label, and behavior for every button.
-7. Dark, Slate Light, and Clean Cyberpunk theme support.
-8. Mobile keyboard-safe layout.
-9. Accessible ARIA labels.
-10. No TypeScript errors, no missing imports, no broken Tailwind classes, no layout overflow, no overlapping UI.
+5. Capacitor Android app setup.
+6. Electron or Tauri Windows desktop setup with .exe build instructions.
+7. Supabase schema for users, threads, messages, sources, collections, files, subscriptions and usage limits.
+8. API routes for:
+   - Create thread
+   - Web search
+   - Generate cited answer
+   - Follow-up question
+   - Save thread
+   - Upload file
+   - Track usage
+   - Upgrade plan
+9. Real-time streaming answer implementation.
+10. Citation extraction and source-card rendering logic.
+11. Dark, light and Clean Cyberpunk themes.
+12. Mobile keyboard-safe layout.
+13. Accessible ARIA labels.
+14. No TypeScript errors, no missing imports, no broken styles, no layout overflow, no console errors.
 
-First give a short design plan, then provide the complete production-ready code. The final UI must feel like a polished, modern AI learning assistant for students and must work perfectly on desktop and mobile.
+Pehle short architecture aur UI plan do, phir complete production-ready code do. Final product Perplexity jaisa powerful answer engine feel kare, lekin branding, colors, features aur student focus GuruAI ka apna ho.
