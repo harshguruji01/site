@@ -216,13 +216,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if(aiInput) {
     aiInput.addEventListener('click', () => {
-      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
+      window.open('https://ai.webguruji.online', '_blank', 'noopener,noreferrer');
     });
   }
   if(aiSendBtn) {
     aiSendBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
+      window.open('https://ai.webguruji.online', '_blank', 'noopener,noreferrer');
     });
   }
 

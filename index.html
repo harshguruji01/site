@@ -99,6 +99,7 @@
   <link rel="stylesheet" href="footer-premium.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Federant&display=swap">
   <link rel="stylesheet" href="lycoris-specimen.css">
+  <link rel="stylesheet" href="css/ai-chat-input.css">
 
   <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
   <script src="js/ad-shield.js"></script>
@@ -640,11 +641,129 @@
                   Simple formula: <strong>Sun + Water + CO₂ → Food + O₂</strong> 🌱</div>
               </div>
             </div>
-            <div class="chat-input-bar">
-              <input type="text" placeholder="Ask me anything... (Click to chat live 🚀)" readonly id="ai-demo-input"
-                style="cursor: pointer;" title="Launch GuruAI Chatbot">
-              <a href="https://ai.webguruji.online" target="_blank" rel="noopener noreferrer" class="chat-send"
-                id="ai-send-btn" title="Open GuruAI Chatbot" style="text-decoration:none;">→</a>
+            <!-- 21st.dev Modern AI Chat Input (Inspired by @jahed/components/ai-chat-input) -->
+            <div class="guru-ai-input-container">
+              <div class="guru-ai-input-wrapper" id="guru-ai-input-wrapper">
+                <!-- Attachment Tray (Drawer sliding above) -->
+                <div class="guru-ai-tray" id="guru-ai-tray" aria-hidden="true">
+                  <div class="guru-ai-tray-inner" id="guru-ai-tray-inner"></div>
+                </div>
+
+                <!-- Main Capsule Container with Spring Physics -->
+                <div class="guru-ai-capsule" id="guru-ai-capsule">
+                  <div class="guru-ai-fade top" id="guru-ai-fade-top"></div>
+                  <div class="guru-ai-fade bottom" id="guru-ai-fade-bottom"></div>
+
+                  <input type="file" id="guru-ai-file-input" accept="image/*,.pdf,.txt" multiple style="display:none;" />
+
+                  <textarea
+                    id="guru-ai-textarea"
+                    class="guru-ai-textarea"
+                    placeholder="Ask GuruAI anything in Hindi or English... (Enter to send 🚀)"
+                    rows="1"
+                    aria-label="GuruAI Prompt Input"
+                  ></textarea>
+
+                  <!-- Bottom Toolbar -->
+                  <div class="guru-ai-toolbar" id="guru-ai-toolbar">
+                    <div class="guru-ai-toolbar-left">
+                      <!-- Model Selector -->
+                      <div class="guru-ai-model-wrapper" id="guru-ai-model-wrapper">
+                        <button type="button" class="guru-ai-chip guru-ai-model-btn" id="guru-ai-model-btn" aria-label="Select AI Model">
+                          <span class="guru-ai-model-dot"></span>
+                          <span class="guru-ai-model-name" id="guru-ai-current-model">Guru-Flash 1.1</span>
+                          <svg class="guru-ai-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 3.75L5 6.25L7.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <div class="guru-ai-model-menu" id="guru-ai-model-menu">
+                          <div class="guru-ai-model-menu-title">Select GuruAI Engine</div>
+                          <button type="button" class="guru-ai-menu-item active" data-model="Guru-Flash 1.1">
+                            <span class="model-badge-icon">⚡</span>
+                            <div class="model-meta">
+                              <span class="model-title">Guru-Flash 1.1</span>
+                              <span class="model-sub">Fast &amp; Balanced Study</span>
+                            </div>
+                          </button>
+                          <button type="button" class="guru-ai-menu-item" data-model="Guru-Flash 1.2">
+                            <span class="model-badge-icon">🚀</span>
+                            <div class="model-meta">
+                              <span class="model-title">Guru-Flash 1.2</span>
+                              <span class="model-sub">Ultra-Fast Engine</span>
+                            </div>
+                          </button>
+                          <button type="button" class="guru-ai-menu-item" data-model="Guru-Flash 1.5 Pro">
+                            <span class="model-badge-icon">🧠</span>
+                            <div class="model-meta">
+                              <span class="model-title">Guru-Flash 1.5 Pro</span>
+                              <span class="model-sub">Deep Research &amp; Sources</span>
+                            </div>
+                          </button>
+                          <button type="button" class="guru-ai-menu-item" data-model="Guru-Vision 1.9">
+                            <span class="model-badge-icon">👁️</span>
+                            <div class="model-meta">
+                              <span class="model-title">Guru-Vision 1.9</span>
+                              <span class="model-sub">Diagram &amp; Math Solver</span>
+                            </div>
+                          </button>
+                          <button type="button" class="guru-ai-menu-item" data-model="Guru-DeepSeek R1">
+                            <span class="model-badge-icon">🔬</span>
+                            <div class="model-meta">
+                              <span class="model-title">Guru-DeepSeek R1</span>
+                              <span class="model-sub">Step-by-Step Reasoning</span>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Effort Selector -->
+                      <button type="button" class="guru-ai-chip guru-ai-effort-btn" id="guru-ai-effort-btn" title="Cycle Thinking Effort">
+                        <svg class="guru-ai-effort-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <rect class="bar bar-1" x="1.5" y="8" width="2.5" height="4.5" rx="1" fill="currentColor"></rect>
+                          <rect class="bar bar-2" x="5.75" y="5" width="2.5" height="7.5" rx="1" fill="currentColor"></rect>
+                          <rect class="bar bar-3" x="10" y="2" width="2.5" height="10.5" rx="1" fill="currentColor"></rect>
+                        </svg>
+                        <span class="guru-ai-effort-label" id="guru-ai-effort-label">Medium</span>
+                      </button>
+
+                      <!-- Attach Tool -->
+                      <button type="button" class="guru-ai-tool-btn" id="guru-ai-attach-btn" title="Attach file or image">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M7 2.5V11.5M2.5 7H11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"></path>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div class="guru-ai-toolbar-right">
+                      <!-- Voice Waveform visualizer -->
+                      <div class="guru-ai-voice-waves" id="guru-ai-voice-waves" aria-hidden="true">
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                      </div>
+
+                      <!-- Action Button (Mic / Send / Stop) -->
+                      <button type="button" class="guru-ai-action-btn" id="guru-ai-action-btn" data-state="mic" aria-label="Use voice input">
+                        <svg class="action-icon icon-send" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M7 12V2M7 2L2.5 6.5M7 2L11.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <svg class="action-icon icon-mic" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <rect x="5" y="1" width="4" height="7" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+                          <path d="M2.75 6.5V7a4.25 4.25 0 0 0 8.5 0v-.5M7 11.25V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                        </svg>
+                        <svg class="action-icon icon-stop" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" fill="currentColor"></rect>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="guru-ai-input-helper">
+                  <span>GuruAI answer engine with live citations [1][2]</span>
+                  <a href="https://ai.webguruji.online" target="_blank" rel="noopener noreferrer" class="guru-ai-helper-link">Open Full App ↗</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1918,6 +2037,7 @@
   <script src="js/pwa-install.js" defer></script>
   <script src="loading-lines.js" defer></script>
   <script src="lycoris-specimen.js" defer></script>
+  <script src="js/ai-chat-input.js" defer></script>
 </body>
 
 </html>

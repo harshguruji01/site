@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GuruAI Buttons (Try AI / GuruAI Nav / Chat Demo)
     if (id === 'ai-try-btn' || id === 'ai-send-btn' || id === 'ai-demo-input' || target.classList.contains('btn-ai-nav')) {
-      window.open('https://harshguruji.zapier.app', '_blank', 'noopener,noreferrer');
+      window.open('https://ai.webguruji.online', '_blank', 'noopener,noreferrer');
       return;
     }
 
