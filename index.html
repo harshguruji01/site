@@ -97,6 +97,8 @@
   <link rel="stylesheet" href="css/homepage-enhanced.css">
   <link rel="stylesheet" href="navbar-premium.css">
   <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Federant&display=swap">
+  <link rel="stylesheet" href="lycoris-specimen.css">
 
   <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
   <script src="js/ad-shield.js"></script>
@@ -788,6 +790,333 @@
           </div>
         </a>
       </div>
+    </div>
+  </section>
+
+<!-- ═══════════════════ LYCORIS SPECIMEN (HARSHGURUJI) ═══════════════════ -->
+  <section id="lycoris-specimen-root" class="lys-root" aria-label="HarshGuruJi Lycoris Typeface Specimen">
+    <div class="lys-stage" id="lys-stage">
+      <!-- Ambient Olive Bleed -->
+      <div class="lys-bleed" aria-hidden="true"></div>
+
+      <!-- Red Radiant Glow behind 3D Flower -->
+      <div class="lys-glow" id="lys-glow" aria-hidden="true"></div>
+
+      <!-- Procedural WebGL 3D Red Chrome Spider Lily Canvas -->
+      <canvas class="lys-canvas" id="lys-canvas" aria-hidden="true"></canvas>
+
+      <!-- Film Grain Overlay -->
+      <svg aria-hidden="true" class="lys-grain" width="100%" height="100%">
+        <filter id="lys-grain-filter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#lys-grain-filter)" />
+      </svg>
+
+      <!-- ================================ 0 · COVER ================================ -->
+      <div class="lys-frame lys-frame-0 pointer-events-none">
+        <div class="lys-cover-top">
+          <div data-sc="0" data-fx="clip" data-d="0" class="lys-cover-title" style="opacity: 0;">
+            Lycoris<br />Typeface
+          </div>
+          <p data-sc="0" data-fx="rise" data-d="0.2" class="lys-cover-desc lys-hide-md" style="opacity: 0;">
+            Lycoris is a vintage serif featuring organic curves and intricate accents. Perfect for projects that evoke nostalgia, it adds sophistication and character to branding, invitations and editorial design.
+          </p>
+          <ul data-sc="0" data-fx="rise" data-d="0.35" class="lys-cover-specs lys-hide-md" style="opacity: 0;">
+            <li>Contains 192 glyphs</li>
+            <li>OTF / TTF / WOFF2</li>
+            <li>Uppercase &amp; Lowercase</li>
+            <li>3 ligatures in 1 OpenType feature</li>
+            <li>Multilingual support</li>
+          </ul>
+          <div data-sc="0" data-fx="clip" data-d="0.5" class="lys-cover-vintage lys-hide-sm" style="opacity: 0;">
+            Fancy<br />Vintage<br />Serif
+          </div>
+        </div>
+
+        <div id="lys-word" class="lys-word">
+          <span data-sc="0" data-fx="rise" data-d="0.6" class="lys-word-badge" style="opacity: 0;">Font</span>
+          <h2 class="lys-word-h2" aria-label="Lycoris">
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.15s">L</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.22s">y</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.29s">c</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.36s">o</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.43s">r</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.50s">i</span></span>
+            <span data-ch class="lys-char-wrap"><span class="lys-char" style="animation-delay: 0.57s">s</span></span>
+          </h2>
+        </div>
+
+        <div class="lys-cover-bottom">
+          <div data-sc="0" data-fx="rise" data-d="0.3" class="lys-mfg-box" style="opacity: 0;">
+            <svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true" style="flex: none;">
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(0 20 20)"/>
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(60 20 20)"/>
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(120 20 20)"/>
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(180 20 20)"/>
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(240 20 20)"/>
+              <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" transform="rotate(300 20 20)"/>
+              <circle cx="20" cy="20" r="2.6" fill="#e3131b"/>
+            </svg>
+            <span class="lys-year">2026</span>
+            <span class="lys-mfg-text">
+              Manufactured by<br />HarshGuruJi
+            </span>
+          </div>
+
+          <div data-sc="0" data-fx="rise" data-d="0.5" class="lys-cover-tags lys-hide-sm" style="opacity: 0;">
+            <span>Lycoris<br />Typeface</span>
+            <span>Fancy<br />Vintage serif</span>
+            <span>Designed by<br />HarshGuruJi</span>
+            <span>2026<br />Specimen</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================ 1 · CROWN ================================ -->
+      <div class="lys-frame lys-frame-1 pointer-events-none">
+        <div data-sc="1" data-fx="fade" data-d="0.5" class="lys-crown-center" style="opacity: 0;">
+          Lycoris
+        </div>
+        <div data-sc="1" data-fx="rise" data-d="0.7" class="lys-crown-label" style="opacity: 0;">
+          <span style="color: var(--lys-red)">02</span> — The crown, from above
+        </div>
+      </div>
+
+      <!-- ============================== 2 · SPECIMEN ============================== -->
+      <div class="lys-frame lys-frame-2 pointer-events-none">
+        <div class="lys-spec pointer-events-auto">
+          <!-- Left Column -->
+          <div class="lys-spec-col">
+            <div data-sc="2" data-fx="clip" data-d="0" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-left lys-hide-sm">UPPERCASE</span>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="A">A</span>                      <span class="lys-g" data-g="B">B</span>                      <span class="lys-g" data-g="C">C</span>                      <span class="lys-g" data-g="D">D</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="E">E</span>                      <span class="lys-g" data-g="F">F</span>                      <span class="lys-g" data-g="G">G</span>                      <span class="lys-g" data-g="H">H</span>                      <span class="lys-g" data-g="I">I</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="J">J</span>                      <span class="lys-g" data-g="K">K</span>                      <span class="lys-g" data-g="L">L</span>                      <span class="lys-g" data-g="M">M</span>
+                    </div>
+            </div>
+            <div data-sc="2" data-fx="clip" data-d="0.15" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-left lys-hide-sm">LOWERCASE</span>
+                    <div class="lys-glyph-row" style="font-size: min(6.6cqw, 5.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="a">a</span>                      <span class="lys-g" data-g="b">b</span>                      <span class="lys-g" data-g="c">c</span>                      <span class="lys-g" data-g="d">d</span>                      <span class="lys-g" data-g="e">e</span>                      <span class="lys-g" data-g="f">f</span>                      <span class="lys-g" data-g="g">g</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(6.6cqw, 5.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="h">h</span>                      <span class="lys-g" data-g="i">i</span>                      <span class="lys-g" data-g="j">j</span>                      <span class="lys-g" data-g="k">k</span>                      <span class="lys-g" data-g="l">l</span>                      <span class="lys-g" data-g="m">m</span>
+                    </div>
+            </div>
+            <div data-sc="2" data-fx="clip" data-d="0.3" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-left lys-hide-sm">ACCENTS</span>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="À">À</span>                      <span class="lys-g" data-g="Á">Á</span>                      <span class="lys-g" data-g="Â">Â</span>                      <span class="lys-g" data-g="Ã">Ã</span>                      <span class="lys-g" data-g="Ä">Ä</span>                      <span class="lys-g" data-g="Å">Å</span>                      <span class="lys-g" data-g="Æ">Æ</span>                      <span class="lys-g" data-g="Ç">Ç</span>                      <span class="lys-g" data-g="È">È</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="É">É</span>                      <span class="lys-g" data-g="Ê">Ê</span>                      <span class="lys-g" data-g="Ë">Ë</span>                      <span class="lys-g" data-g="Ì">Ì</span>                      <span class="lys-g" data-g="Í">Í</span>                      <span class="lys-g" data-g="Î">Î</span>                      <span class="lys-g" data-g="Ï">Ï</span>                      <span class="lys-g" data-g="Ñ">Ñ</span>                      <span class="lys-g" data-g="Ò">Ò</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="Ó">Ó</span>                      <span class="lys-g" data-g="Ô">Ô</span>                      <span class="lys-g" data-g="Õ">Õ</span>                      <span class="lys-g" data-g="Ö">Ö</span>                      <span class="lys-g" data-g="Ø">Ø</span>                      <span class="lys-g" data-g="Ù">Ù</span>                      <span class="lys-g" data-g="Ú">Ú</span>                      <span class="lys-g" data-g="Û">Û</span>                      <span class="lys-g" data-g="Ü">Ü</span>
+                    </div>
+            </div>
+          </div>
+
+          <!-- Middle Column -->
+          <div class="lys-spec-mid lys-spec-mid-container">
+            <div data-sc="2" data-fx="rise" data-d="0.35" class="lys-spec-mid-top" style="opacity: 0;">
+              Lycoris
+              <div>Typeface</div>
+            </div>
+            <div data-sc="2" data-fx="rise" data-d="0.45" class="lys-spec-mid-inspect" style="opacity: 0;">
+              <div id="lys-inspect-char" class="lys-inspect-char">&amp; ?</div>
+              <div id="lys-inspect-code" class="lys-inspect-code">HOVER A GLYPH</div>
+              <div class="lys-glyph-row" style="font-size: min(2.2cqw, 3cqh); line-height: 1.02;">
+                <span class="lys-g" data-g="0">0</span>
+              </div>
+              <div class="lys-glyph-row" style="font-size: min(2.2cqw, 3cqh); line-height: 1.02;">
+                <span class="lys-g" data-g="1">1</span><span class="lys-g" data-g="2">2</span><span class="lys-g" data-g="3">3</span>
+              </div>
+              <div class="lys-glyph-row" style="font-size: min(2.2cqw, 3cqh); line-height: 1.02;">
+                <span class="lys-g" data-g="4">4</span><span class="lys-g" data-g="5">5</span><span class="lys-g" data-g="6">6</span><span class="lys-g" data-g="7">7</span>
+              </div>
+              <div class="lys-glyph-row" style="font-size: min(2.2cqw, 3cqh); line-height: 1.02;">
+                <span class="lys-g" data-g="8">8</span><span class="lys-g" data-g="8">8</span><span class="lys-g" data-g="8">8</span><span class="lys-g" data-g="9">9</span><span class="lys-g" data-g="9">9</span><span class="lys-g" data-g="9">9</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="lys-spec-col lys-right">
+            <div data-sc="2" data-fx="clip" data-d="0.1" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-right lys-hide-sm">UPPERCASE</span>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="N">N</span>                      <span class="lys-g" data-g="O">O</span>                      <span class="lys-g" data-g="P">P</span>                      <span class="lys-g" data-g="Q">Q</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="R">R</span>                      <span class="lys-g" data-g="S">S</span>                      <span class="lys-g" data-g="T">T</span>                      <span class="lys-g" data-g="U">U</span>                      <span class="lys-g" data-g="V">V</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(9cqw, 7.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="W">W</span>                      <span class="lys-g" data-g="X">X</span>                      <span class="lys-g" data-g="Y">Y</span>                      <span class="lys-g" data-g="Z">Z</span>
+                    </div>
+            </div>
+            <div data-sc="2" data-fx="clip" data-d="0.25" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-right lys-hide-sm">LOWERCASE</span>
+                    <div class="lys-glyph-row" style="font-size: min(6.6cqw, 5.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="n">n</span>                      <span class="lys-g" data-g="o">o</span>                      <span class="lys-g" data-g="p">p</span>                      <span class="lys-g" data-g="q">q</span>                      <span class="lys-g" data-g="r">r</span>                      <span class="lys-g" data-g="s">s</span>                      <span class="lys-g" data-g="t">t</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(6.6cqw, 5.4cqh); line-height: 1.02;">
+                      <span class="lys-g" data-g="u">u</span>                      <span class="lys-g" data-g="v">v</span>                      <span class="lys-g" data-g="w">w</span>                      <span class="lys-g" data-g="x">x</span>                      <span class="lys-g" data-g="y">y</span>                      <span class="lys-g" data-g="z">z</span>
+                    </div>
+            </div>
+            <div data-sc="2" data-fx="clip" data-d="0.4" class="lys-spec-group" style="opacity: 0;">
+              <span class="lys-side-label lys-right lys-hide-sm">ACCENTS</span>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="à">à</span>                      <span class="lys-g" data-g="á">á</span>                      <span class="lys-g" data-g="â">â</span>                      <span class="lys-g" data-g="ã">ã</span>                      <span class="lys-g" data-g="ä">ä</span>                      <span class="lys-g" data-g="å">å</span>                      <span class="lys-g" data-g="æ">æ</span>                      <span class="lys-g" data-g="ç">ç</span>                      <span class="lys-g" data-g="è">è</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="é">é</span>                      <span class="lys-g" data-g="ê">ê</span>                      <span class="lys-g" data-g="ë">ë</span>                      <span class="lys-g" data-g="ì">ì</span>                      <span class="lys-g" data-g="í">í</span>                      <span class="lys-g" data-g="î">î</span>                      <span class="lys-g" data-g="ï">ï</span>                      <span class="lys-g" data-g="ñ">ñ</span>                      <span class="lys-g" data-g="ò">ò</span>
+                    </div>
+                    <div class="lys-glyph-row" style="font-size: min(3.8cqw, 3.2cqh); line-height: 1.3;">
+                      <span class="lys-g" data-g="ó">ó</span>                      <span class="lys-g" data-g="ô">ô</span>                      <span class="lys-g" data-g="õ">õ</span>                      <span class="lys-g" data-g="ö">ö</span>                      <span class="lys-g" data-g="ø">ø</span>                      <span class="lys-g" data-g="ù">ù</span>                      <span class="lys-g" data-g="ú">ú</span>                      <span class="lys-g" data-g="û">û</span>                      <span class="lys-g" data-g="ü">ü</span>
+                    </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-sc="2" data-fx="line" data-d="0.5" class="lys-spec-line" style="opacity: 0;"></div>
+        <div data-sc="2" data-fx="rise" data-d="0.6" class="lys-spec-punct pointer-events-auto" style="opacity: 0;">
+          <div class="lys-glyph-row">
+            <span class="lys-g" data-g="@">@</span>            <span class="lys-g" data-g="#">#</span>            <span class="lys-g" data-g="$">$</span>            <span class="lys-g" data-g="%">%</span>            <span class="lys-g" data-g="&">&amp;</span>            <span class="lys-g" data-g="*">*</span>            <span class="lys-g" data-g="_">_</span>            <span class="lys-g" data-g="-">-</span>            <span class="lys-g" data-g="+">+</span>            <span class="lys-g" data-g="×">×</span>            <span class="lys-g" data-g="÷">÷</span>            <span class="lys-g" data-g="=">=</span>            <span class="lys-g" data-g="±">±</span>            <span class="lys-g" data-g="/">/</span>            <span class="lys-g" data-g="\">\</span>            <span class="lys-g" data-g="|">|</span>            <span class="lys-g" data-g="(">(</span>            <span class="lys-g" data-g=")">)</span>            <span class="lys-g" data-g="{">{</span>            <span class="lys-g" data-g="}">}</span>            <span class="lys-g" data-g="[">[</span>            <span class="lys-g" data-g="]">]</span>            <span class="lys-g" data-g=".">.</span>            <span class="lys-g" data-g=",">,</span>            <span class="lys-g" data-g=":">:</span>            <span class="lys-g" data-g=";">;</span>            <span class="lys-g" data-g="'">'</span>            <span class="lys-g" data-g="&quot;">&quot;</span>            <span class="lys-g" data-g="“">“</span>            <span class="lys-g" data-g="”">”</span>            <span class="lys-g" data-g="^">^</span>            <span class="lys-g" data-g="~">~</span>            <span class="lys-g" data-g="°">°</span>            <span class="lys-g" data-g="!">!</span>            <span class="lys-g" data-g="?">?</span>            <span class="lys-g" data-g="¡">¡</span>            <span class="lys-g" data-g="¿">¿</span>            <span class="lys-g" data-g="©">©</span>            <span class="lys-g" data-g="®">®</span>            <span class="lys-g" data-g="™">™</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================ 3 · FANCY =============================== -->
+      <div class="lys-frame lys-frame-3 pointer-events-none">
+        <div class="lys-fancy-title">
+          <span data-sc="3" data-fx="fade" data-d="0.3" class="lys-fancy-badge-l" style="opacity: 0;">Lycoris</span>
+          <span data-sc="3" data-fx="fade" data-d="0.4" class="lys-fancy-badge-r" style="opacity: 0;">Typeface</span>
+          <div data-sc="3" data-fx="clip" data-d="0" style="opacity: 0;">Fancy</div>
+          <div data-sc="3" data-fx="clip" data-d="0.15" style="opacity: 0;">Vintage</div>
+          <div data-sc="3" data-fx="clip" data-d="0.3" style="opacity: 0;">Serif</div>
+        </div>
+        <div class="lys-fancy-bottom">
+          <div data-sc="3" data-fx="rise" data-d="0.6" class="lys-fancy-studio" style="opacity: 0;">
+            HARSHGURUJI
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================ 4 · BLOOM =============================== -->
+      <div class="lys-frame lys-frame-4 pointer-events-none">
+        <div class="lys-bloom pointer-events-auto">
+          <div data-sc="4" data-fx="clip" data-d="0" class="lys-bloom-line" style="opacity: 0;">
+            <span class="lys-edit" contenteditable="true" spellcheck="false">Bloom</span>
+          </div>
+          <div data-sc="4" data-fx="clip" data-d="0.14" class="lys-bloom-line lys-small lys-indent-1" style="opacity: 0;">
+            <span class="lys-edit" contenteditable="true" spellcheck="false">like</span>
+          </div>
+          <div data-sc="4" data-fx="clip" data-d="0.28" class="lys-bloom-line lys-indent-3" style="opacity: 0;">
+            <span class="lys-edit" contenteditable="true" spellcheck="false">flowers</span>
+          </div>
+          <div data-sc="4" data-fx="clip" data-d="0.42" class="lys-bloom-line lys-small lys-indent-2" style="opacity: 0;">
+            <span class="lys-edit" contenteditable="true" spellcheck="false">in the sun</span>
+          </div>
+          <div data-sc="4" data-fx="rise" data-d="0.7" class="lys-bloom-hint" style="opacity: 0;">
+            Lycoris — click the words, type your own
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== 5 · LIGATURES ============================== -->
+      <div class="lys-frame lys-frame-5 pointer-events-none">
+        <div class="lys-fin">
+          <div class="lys-fin-block lys-left pointer-events-auto">
+            <div data-sc="5" data-fx="fade" data-d="0.1" class="lys-liga-sub" style="opacity: 0;">
+              3 ligatures in 1 OpenType feature
+            </div>
+            <button type="button" id="lys-liga-btn" class="lys-liga-btn" data-sc="5" data-fx="clip" data-d="0" aria-pressed="true" title="Toggle ligatures" style="opacity: 0;">
+              Affluent
+              <svg class="lys-reticle" viewBox="0 0 100 100" aria-hidden="true" data-sc="5" data-fx="draw" data-d="0.2" style="opacity: 0;">
+                <circle cx="50" cy="50" r="48" fill="none" pathLength="1" />
+                <path d="M2 50H98M50 50V98" fill="none" pathLength="1" />
+              </svg>
+            </button>
+            <div data-sc="5" data-fx="rise" data-d="0.4" class="lys-liga-items" style="opacity: 0;">
+              <div class="lys-liga-item">
+                <span>Ligature</span><span>ff</span>
+                <span>Components</span><span>ff</span>
+              </div>
+              <div class="lys-liga-item">
+                <span>Ligature</span><span>fi</span>
+                <span>Components</span><span>fi</span>
+              </div>
+              <div class="lys-liga-item">
+                <span>Ligature</span><span>fl</span>
+                <span>Components</span><span>fl</span>
+              </div>
+            </div>
+            <div data-sc="5" data-fx="fade" data-d="0.6" style="font-size: 10px; margin-top: 1.6cqh; opacity: 0; color: var(--lys-bone);">
+              HarshGuruJi
+            </div>
+          </div>
+
+          <div class="lys-fin-block pointer-events-auto">
+            <div data-sc="5" data-fx="fade" data-d="0.3" class="lys-multi-h" style="opacity: 0;">Lycoris</div>
+            <div data-sc="5" data-fx="clip" data-d="0.35" class="lys-multi-word" style="opacity: 0;">
+              <span class="lys-edit" contenteditable="true" spellcheck="false">
+                Múl<span style="color: var(--lys-red)">·</span>tî<span style="color: var(--lys-red)">·</span>lĺn<span style="color: var(--lys-red)">·</span>güål
+              </span>
+            </div>
+            <div data-sc="5" data-fx="fade" data-d="0.5" class="lys-multi-foot" style="opacity: 0;">Font</div>
+          </div>
+        </div>
+
+        <div data-sc="5" data-fx="rise" data-d="0.75" class="lys-foot-bar pointer-events-auto" style="opacity: 0;">
+          <a href="https://webguruji.online" class="lys-foot-link">HARSHGURUJI.ONLINE</a>
+          <svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true" style="flex: none;">
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(0 20 20)"/>
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(60 20 20)"/>
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(120 20 20)"/>
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(180 20 20)"/>
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(240 20 20)"/>
+            <path d="M20 20 C 22 12, 30 8, 33 12 C 35 15, 31 17, 29 14" fill="none" stroke="#e3131b" stroke-width="2.6" stroke-linecap="round" transform="rotate(300 20 20)"/>
+            <circle cx="20" cy="20" r="2.6" fill="#b6b095"/>
+          </svg>
+          <a href="https://21st.dev/@kedhareswer" target="_blank" rel="noopener noreferrer" class="lys-foot-link">21ST.DEV / KEDHARESWER</a>
+        </div>
+      </div>
+
+      <!-- ================================== NAV ================================== -->
+      <nav aria-label="Specimen frames" class="lys-nav lys-hide-sm">
+        <button type="button" aria-current="step">
+          <span class="lys-lab">01 Cover</span>
+          <span class="lys-tick"></span>
+        </button>
+        <button type="button">
+          <span class="lys-lab">02 Crown</span>
+          <span class="lys-tick"></span>
+        </button>
+        <button type="button">
+          <span class="lys-lab">03 Specimen</span>
+          <span class="lys-tick"></span>
+        </button>
+        <button type="button">
+          <span class="lys-lab">04 Fancy</span>
+          <span class="lys-tick"></span>
+        </button>
+        <button type="button">
+          <span class="lys-lab">05 Bloom</span>
+          <span class="lys-tick"></span>
+        </button>
+        <button type="button">
+          <span class="lys-lab">06 Ligatures</span>
+          <span class="lys-tick"></span>
+        </button>
+      </nav>
     </div>
   </section>
 
@@ -1522,6 +1851,7 @@
   <script src="footer-premium.js"></script>
   <script src="js/pwa-install.js" defer></script>
   <script src="loading-lines.js" defer></script>
+  <script src="lycoris-specimen.js" defer></script>
 </body>
 
 </html>
