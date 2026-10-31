@@ -1,0 +1,402 @@
+Tum ek senior product designer + senior frontend developer ho. Mere existing AI chatbot “GuruAI” ka complete, production-ready UI redesign karo for desktop web, mobile web, aur mobile PWA/app.
+
+PROJECT DETAILS:
+- Chatbot name: GuruAI
+- Brand / owner: HarshGuruJi
+- Main website: https://webguruji.online
+- Chatbot URL: https://ai.webguruji.online
+- Purpose: Students aur curious learners ko Hindi + English me simple explanations, homework help, coding help, general knowledge, study tips aur learning support dena.
+- Target users: Indian students, school/college learners, self-learners.
+- Tone: friendly, helpful, simple, trustworthy, educational.
+- Languages: Hindi + English, with easy language switching or automatic bilingual responses.
+- Existing features to preserve:
+  - Multiple AI models: Guru-Flash 1.1, 1.2, 1.3 Pro, 1.5 Pro, Guru-Vision 1.9, Guru-Ultra 2.0
+  - Guest limit: 8 requests
+  - Member limit: 20 requests / 12h
+  - Premium plans: Starter Pro $5, Power Scholar $15, Grandmaster $25
+  - Preferences: model selection, theme options — Dark, Slate Light, Clean Cyberpunk
+  - Sign in
+  - Request counter
+  - “GuruAI can make mistakes. Verify important facts and code.” disclaimer
+  - Upgrade / context expansion plans
+- Tech stack: Next.js 14 App Router, React, TypeScript, Tailwind CSS, Supabase.
+- Output: Complete UI design plan + complete responsive frontend code.
+- Code must be clean, reusable, mobile-first, accessible, error-free, and production-ready.
+
+=== 1. BRAND DESIGN SYSTEM ===
+
+Create a consistent design system for GuruAI.
+
+Brand personality:
+- Educational, modern, trustworthy, friendly, fast.
+- Not childish, not overly corporate.
+- Designed for students who want quick, clear answers.
+
+Color palette:
+- Primary brand color: indigo/blue, for example #4F46E5 or #2563EB.
+- Primary CTA: same brand color.
+- Background: #0B1120 for dark theme, #F8FAFC for light theme.
+- Chat panel: #111827 dark / #FFFFFF light.
+- Bot bubble: #1E293B dark / #F1F5F9 light.
+- User bubble: brand color with white text.
+- Secondary text: #94A3B8 dark / #64748B light.
+- Border: #1F2937 dark / #E2E8F0 light.
+- Success: #16A34A
+- Warning: #F59E0B
+- Error: #DC2626
+- Premium/gold accent: #F59E0B for upgrade badges and premium plans.
+- Maintain at least 4.5:1 text contrast in both themes.
+
+Typography:
+- Font: Inter or system-ui.
+- Chat text: 16px minimum.
+- Small labels: 14px minimum.
+- Header title: 18–20px.
+- Buttons: 15–16px.
+- Line height: 1.5.
+- No tiny, low-contrast text.
+
+Shape and spacing:
+- Spacing scale: 4, 8, 12, 16, 24, 32px.
+- Message bubbles: 16px radius.
+- Buttons: 12px radius.
+- Input field: 16px radius.
+- Cards: 16px radius.
+- Use subtle shadows and clean borders.
+- Avoid visual clutter.
+
+=== 2. DESKTOP UI LAYOUT ===
+
+Create a full-page AI chat application layout.
+
+Desktop structure:
+- Left sidebar: 280px, collapsible.
+- Main chat area: flexible width, centered content, maximum readable width 900–1100px.
+- Right panel: optional, only for model details, usage limit, sources, attachments, or premium upgrade.
+- Header: fixed at top, 64px height.
+- Composer: fixed at bottom.
+
+Desktop header:
+- Left:
+  - GuruAI logo/avatar.
+  - “GuruAI” title.
+  - Subtitle: “by HarshGuruJi”.
+- Center:
+  - Current model name, for example: “Guru-Flash 1.1”.
+- Right buttons, in this order:
+  1. New chat — plus icon.
+  2. Search chats — magnifier icon.
+  3. Chat history — clock icon.
+  4. Preferences/settings — gear icon.
+  5. Theme switcher — sun/moon icon.
+  6. User account — avatar icon.
+- Show request counter near the user area:
+  - Guest: “8 requests left”
+  - Member: “20 requests / 12h left”
+- If requests are low, show a subtle warning badge: “Limited requests left”.
+
+Desktop sidebar:
+- Top:
+  - Large “+ New Chat” primary button.
+- Middle:
+  - Recent chats list.
+  - Each item: chat title, short preview, time.
+  - Hover options: rename, pin, delete.
+- Bottom:
+  - Active model selector.
+  - Theme selector: Dark, Slate Light, Clean Cyberpunk.
+  - Sign in / user profile.
+  - Upgrade to Premium button.
+  - Help & Support.
+  - Link to HarshGuruJi website.
+
+Desktop chat area:
+- Empty state:
+  - GuruAI mascot or logo.
+  - Heading: “Namaste! Main GuruAI hoon.”
+  - Subheading: “Koi bhi sawaal poochho — study, coding, GK ya general knowledge.”
+  - 4 quick-start buttons:
+    - “Photosynthesis samjhao”
+    - “Coding doubt clear karo”
+    - “Essay likhne me help karo”
+    - “Daily study plan banao”
+- Messages:
+  - Bot messages left-aligned with GuruAI avatar.
+  - User messages right-aligned.
+  - Maximum bubble width: 70% of chat area.
+  - Support Markdown, lists, tables, code blocks, links, and images.
+  - Code blocks must have language label and Copy Code button.
+  - Auto-scroll to the latest message.
+  - Show “Scroll to latest” floating button when user scrolls up.
+
+Bot response actions:
+- Below each bot response, show small icon buttons:
+  - Copy
+  - Regenerate
+  - Like
+  - Dislike
+  - Share
+- Each button must have tooltip and accessible label.
+- Minimum clickable area: 32x32px on desktop, 44x44px on mobile.
+
+Desktop composer:
+- Sticky at bottom.
+- Layout:
+  - Left: attachment button.
+  - Left: image/vision button if the selected model supports it.
+  - Center: text input.
+  - Right: microphone button.
+  - Right: send button.
+- Placeholder: “Apna sawaal GuruAI se poochhein…”
+- Enter sends message.
+- Shift + Enter adds a new line.
+- While response is generating:
+  - Send button becomes Stop button.
+  - Show animated typing indicator.
+  - Prevent duplicate submissions.
+- Above composer, show horizontally scrollable quick replies:
+  - “Explain in simple Hindi”
+  - “Make notes”
+  - “Give examples”
+  - “Solve step by step”
+  - “Translate to English”
+- Show selected model and remaining requests subtly above or beside composer.
+
+=== 3. MOBILE UI LAYOUT ===
+
+Create a full-screen mobile chat experience. Do not use a small floating popup on mobile.
+
+Mobile structure:
+- Fixed top header.
+- Scrollable chat area.
+- Fixed bottom composer.
+- Safe-area padding for iPhone notch, Dynamic Island, and Android gesture bar.
+- Keyboard must push the composer above it.
+- No horizontal page scrolling.
+- No overlapping elements.
+
+Mobile header:
+- Height: 56px.
+- Left: back button.
+- Center: GuruAI avatar + “GuruAI” + “by HarshGuruJi”.
+- Right: three-dot menu.
+- Below header or inside menu, show:
+  - Active model.
+  - Remaining requests.
+  - Theme selector.
+- Three-dot menu options:
+  - New chat
+  - Chat history
+  - Change AI model
+  - Preferences
+  - Clear chat
+  - Upgrade plan
+  - Help & support
+  - Sign in / account
+
+Mobile chat area:
+- Bot messages left.
+- User messages right.
+- Maximum bubble width: 85%.
+- Message text: 16px.
+- Comfortable spacing between bubbles.
+- Support long answers, code, lists, and tables without breaking layout.
+- Date separators: “Aaj”, “Kal”, or exact date.
+- Pull-to-refresh optional.
+
+Mobile composer:
+- Fixed bottom.
+- White or dark surface with top border.
+- Layout:
+  - Left: attachment icon.
+  - Center: text input.
+  - Right: microphone when input is empty, send icon when text exists.
+- Input height: 48–56px.
+- Send button minimum 44x44px tap area.
+- Placeholder: “Message likhein…”
+- Quick-reply chips above composer, horizontally scrollable.
+- Maximum 4–5 visible chips.
+- Show remaining request count subtly above composer only when relevant.
+
+Mobile bottom navigation:
+- Since GuruAI is part of HarshGuruJi ecosystem, add optional bottom navigation only for standalone mobile app/PWA:
+  1. Chats — message icon.
+  2. Models — cpu/spark icon.
+  3. History — clock icon.
+  4. Upgrade — crown icon.
+  5. Profile — user icon.
+- Active tab uses brand color.
+- Bottom navigation must not conflict with composer.
+- If chatbot is embedded in the website, hide bottom navigation and keep only the chat interface.
+
+=== 4. MODEL SELECTOR UI ===
+
+Create a clean model selector.
+
+Model selector requirements:
+- Available from header, sidebar, and composer.
+- Show model name, short description, and plan requirement.
+- Models:
+  - Guru-Flash 1.1 — Free, fast general chat.
+  - Guru-Flash 1.2 — Free, improved responses.
+  - Guru-Flash 1.3 Pro — Starter plan.
+  - Guru-Flash 1.5 Pro — Starter plan.
+  - Guru-Vision 1.9 — Power plan, image/multimodal support.
+  - Guru-Ultra 2.0 — Grandmaster plan, advanced reasoning and coding.
+- Locked models must show a lock icon and “Upgrade required” label.
+- Clicking a locked model opens a premium upgrade sheet/modal.
+- Do not make the selector confusing; current model must always be visible.
+
+=== 5. REQUEST LIMIT & PREMIUM UI ===
+
+Create clear usage-limit UI.
+
+Requirements:
+- Show remaining requests without making the chat feel restricted.
+- Guest: “8 requests left”.
+- Member: “20 requests / 12h left”.
+- When limit is close:
+  - Show a small amber warning: “Sirf 2 requests bache hain.”
+- When limit is over:
+  - Show a friendly full-width card above composer:
+    - Heading: “Aaj ki free limit khatam ho gayi”
+    - Text: “Premium me zyada chats, bada context aur priority speed milta hai.”
+    - Buttons: “Upgrade karein” and “Sign in”
+- Premium plans:
+  - Starter Pro — $5/month, 50,000 token context, 100 daily chats.
+  - Power Scholar — $15/month, 175,000 token context, 350 daily chats.
+  - Grandmaster — $25/month, 325,000 token context, unlimited priority chats.
+- Use a clean pricing modal or dedicated /pricing page.
+- Highlight “Power Scholar” as Best Value.
+- Upgrade CTA should redirect to https://webguruji.online/contact.html as per existing flow.
+
+=== 6. BUTTON PLACEMENT — EXACT ===
+
+Header buttons:
+- Desktop:
+  - Left: logo + GuruAI + by HarshGuruJi.
+  - Right: New chat, Search, History, Settings, Theme, Account.
+- Mobile:
+  - Left: Back.
+  - Center: GuruAI identity.
+  - Right: three-dot menu.
+
+Message action buttons:
+- Bot message:
+  - Copy, Regenerate, Like, Dislike, Share.
+- User message:
+  - Edit, Copy, Delete.
+
+Composer buttons:
+- Desktop:
+  - Bottom-left: attachment, image/vision.
+  - Bottom-center: text input.
+  - Bottom-right: microphone, send/stop.
+- Mobile:
+  - Left: attachment.
+  - Center: input.
+  - Right: microphone/send.
+
+Quick replies:
+- Desktop: above composer, horizontal row.
+- Mobile: above composer, horizontal scroll.
+- Maximum 5 suggestions.
+- Every chip must be clearly tappable.
+
+Floating buttons:
+- “Scroll to latest message”: bottom-center above composer.
+- “New chat”: sidebar top on desktop, header/menu on mobile.
+- Do not add unnecessary floating buttons.
+
+=== 7. STATES — HANDLE ALL ===
+
+Empty state:
+- Friendly welcome.
+- Bot capabilities.
+- 4 starter prompts.
+- Input visible.
+
+Loading state:
+- GuruAI avatar with animated typing dots.
+- Text: “GuruAI soch raha hai…”
+- Stop generation button.
+- Skeleton loading for long answers.
+
+Error state:
+- Friendly message: “Kuch galat ho gaya. Kripya dobara try karein.”
+- Retry button.
+- Report issue button.
+- Human support link to HarshGuruJi contact page.
+
+Limit reached state:
+- Clear limit message.
+- Upgrade CTA.
+- Sign-in CTA for guests.
+
+Offline state:
+- Banner: “Aap offline hain. Message send nahi ho sakta.”
+- Retry option.
+
+Model unavailable state:
+- Message: “Ye model abhi available nahi hai.”
+- Suggest switching to Guru-Flash 1.1.
+- Model selector shortcut.
+
+=== 8. ACCESSIBILITY ===
+
+- Every icon button must have aria-label.
+- Use semantic HTML: header, main, aside, footer, button, input.
+- Keyboard navigation must work: Tab, Shift+Tab, Enter, Escape.
+- Visible focus rings.
+- Minimum mobile tap target: 44x44px.
+- Text contrast minimum 4.5:1.
+- Screen reader must announce:
+  - “GuruAI is typing”
+  - “Message sent”
+  - “Response copied”
+  - “Request limit reached”
+  - “Error occurred”
+- Support dark mode, light mode, and Clean Cyberpunk theme.
+- Respect reduced-motion preference.
+
+=== 9. RESPONSIVE RULES ===
+
+- 320px: compact full-screen chat, no sidebar, simplified header.
+- 375px: standard mobile layout.
+- 640px: larger touch targets and comfortable spacing.
+- 768px: tablet layout; sidebar becomes a drawer.
+- 1024px: sidebar visible, wider chat area.
+- 1440px: centered chat container, maximum content width 900–1100px.
+- Use flexbox and CSS grid.
+- No fixed pixel width for the main chat area.
+- Test long Hindi/English messages, code blocks, images, attachments, emojis, keyboard-open state, landscape mode, and large font sizes.
+
+=== 10. FINAL DELIVERABLES ===
+
+Give me:
+1. Complete desktop wireframe description.
+2. Complete mobile wireframe description.
+3. Component list with props, states, and behavior.
+4. Full responsive Next.js + React + TypeScript + Tailwind CSS code.
+5. Reusable components:
+   - ChatHeader
+   - Sidebar
+   - ChatMessages
+   - MessageBubble
+   - BotActions
+   - Composer
+   - QuickReplies
+   - ModelSelector
+   - UsageLimitBanner
+   - PremiumModal
+   - ThemeSwitcher
+   - EmptyState
+   - LoadingState
+   - ErrorState
+6. Exact position, icon, label, and behavior for every button.
+7. Dark, Slate Light, and Clean Cyberpunk theme support.
+8. Mobile keyboard-safe layout.
+9. Accessible ARIA labels.
+10. No TypeScript errors, no missing imports, no broken Tailwind classes, no layout overflow, no overlapping UI.
+
+First give a short design plan, then provide the complete production-ready code. The final UI must feel like a polished, modern AI learning assistant for students and must work perfectly on desktop and mobile.
