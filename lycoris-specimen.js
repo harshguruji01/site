@@ -586,6 +586,8 @@ void main() {
     let spin = 0;
     let spinVel = 0;
     let drag = null;
+    let targetProg = 0;
+    let autoTimer = performance.now() + 4500;
 
     const onMove = (e) => {
       const r = stage.getBoundingClientRect();
@@ -603,6 +605,7 @@ void main() {
       if (t.closest("a, button, [contenteditable], .lys-g")) return;
       drag = { id: e.pointerId, x: e.clientX };
       stage.style.cursor = "grabbing";
+      autoTimer = performance.now() + 8000;
     };
 
     const onUp = () => {
@@ -618,10 +621,8 @@ void main() {
     const navButtons = Array.from(stage.querySelectorAll(".lys-nav button"));
     navButtons.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
-        const r = root.getBoundingClientRect();
-        const travel = r.height - stage.clientHeight;
-        const delta = (idx / (SCENES - 1)) * travel + r.top;
-        window.scrollBy({ top: delta, behavior: reduced ? "auto" : "smooth" });
+        targetProg = idx / (SCENES - 1);
+        autoTimer = performance.now() + 8000;
       });
     });
 
@@ -671,9 +672,14 @@ void main() {
       const moving = alive && !reduced;
       if (moving) time += dt;
 
-      const r = root.getBoundingClientRect();
-      const p = progressFrom(r.top, r.height, H);
-      prog01 = prog01 < 0 || reduced ? p : prog01 + (p - prog01) * (1 - Math.exp(-dt * 9));
+      if (moving && now > autoTimer) {
+        const curIdx = Math.round(targetProg * (SCENES - 1));
+        const nextIdx = (curIdx + 1) % SCENES;
+        targetProg = nextIdx / (SCENES - 1);
+        autoTimer = now + 5000;
+      }
+
+      prog01 = prog01 < 0 || reduced ? targetProg : prog01 + (targetProg - prog01) * (1 - Math.exp(-dt * 4));
       const coord = sceneCoord(prog01, SCENES, HOLD);
       const scene = Math.round(coord);
 

@@ -16,20 +16,21 @@
 .lys-root {
   position: relative;
   width: 100%;
-  height: calc(100vh * 7);
+  height: 85vh;
+  min-height: 640px;
+  max-height: 880px;
   background: var(--lys-ink);
   color: var(--lys-bone);
   font-family: var(--lys-font-display);
-  overflow: clip;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .lys-stage {
-  position: sticky;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
+  height: 100%;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
