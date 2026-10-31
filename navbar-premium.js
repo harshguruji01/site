@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="hg-dropdown">
           <a href="${chatUrl}" class="hg-dropdown-link" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">💬 Community Chat</a>
+          <a href="${portalUrl}showcase.html" class="hg-dropdown-link">✨ Interactive Showcase</a>
           <a href="${portalUrl}daily-special.html" class="hg-dropdown-link">🌟 Daily Special</a>
           <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
           <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li class="hg-nav-item hg-has-dropdown" id="nav-item-more">
         <a href="#" class="hg-nav-link" id="nav-link-more" onclick="return false;">More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></a>
         <div class="hg-dropdown">
+          <a href="${portalUrl}showcase.html" class="hg-dropdown-link">✨ Interactive Showcase</a>
           <a href="${portalUrl}free-tools.html" class="hg-dropdown-link">🛠️ Tools Hub</a>
           <a href="${portalUrl}ai-hub.html" class="hg-dropdown-link">🤖 AI Hub</a>
           <a href="${portalUrl}learning-hub.html" class="hg-dropdown-link">📚 Learning Hub</a>
@@ -539,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li class="hg-mobile-item hg-has-accordion" id="mob-item-more">
         <button type="button" class="hg-mobile-accordion-toggle">More <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
         <div class="hg-mobile-accordion-content">
+          <a href="${portalUrl}showcase.html" class="hg-mobile-sublink">✨ Interactive Showcase</a>
           <a href="${portalUrl}free-tools.html" class="hg-mobile-sublink">🛠️ Tools Hub</a>
           <a href="${portalUrl}ai-hub.html" class="hg-mobile-sublink">🤖 AI Hub</a>
           <a href="${portalUrl}learning-hub.html" class="hg-mobile-sublink">📚 Learning Hub</a>
