@@ -621,8 +621,10 @@ void main() {
     const navButtons = Array.from(stage.querySelectorAll(".lys-nav button"));
     navButtons.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
-        targetProg = idx / (SCENES - 1);
-        autoTimer = performance.now() + 8000;
+        const r = root.getBoundingClientRect();
+        const travel = r.height - stage.clientHeight;
+        const delta = (idx / (SCENES - 1)) * travel + r.top;
+        window.scrollBy({ top: delta, behavior: reduced ? "auto" : "smooth" });
       });
     });
 
@@ -672,14 +674,9 @@ void main() {
       const moving = alive && !reduced;
       if (moving) time += dt;
 
-      if (moving && now > autoTimer) {
-        const curIdx = Math.round(targetProg * (SCENES - 1));
-        const nextIdx = (curIdx + 1) % SCENES;
-        targetProg = nextIdx / (SCENES - 1);
-        autoTimer = now + 5000;
-      }
-
-      prog01 = prog01 < 0 || reduced ? targetProg : prog01 + (targetProg - prog01) * (1 - Math.exp(-dt * 4));
+      const r = root.getBoundingClientRect();
+      const p = progressFrom(r.top, r.height, H);
+      prog01 = prog01 < 0 || reduced ? p : prog01 + (p - prog01) * (1 - Math.exp(-dt * 9));
       const coord = sceneCoord(prog01, SCENES, HOLD);
       const scene = Math.round(coord);
 

@@ -990,7 +990,26 @@ function ub(){return F.jsx(cb,{title:"Loved by 10,000+ Students & Creators",desc
         backdrop-filter: blur(12px) !important;
       }
     </style>
-  </head>
+  <style>html,body,#root,* { scrollbar-width: none !important; -ms-overflow-style: none !important; } *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }</style><style>
+  html, body, #root {
+    overflow: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    background: transparent !important;
+  }
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  section > div > div:first-child {
+    display: none !important;
+  }
+  section {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+</style></head>
   <body>
     <div id="root"></div>
   <script>(()=>{const r=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>parent.postMessage({type:"21st-preview-ready"},"*")));document.readyState==="complete"?r():addEventListener("load",r,{once:true})})()</script><script data-21st-keys="1">(()=>{
