@@ -670,6 +670,15 @@
   <script src="loading-lines.js" defer></script>
   <script src="js/pwa-install.js" defer></script>
 
+
+<script>
+// HarshGuruJi - Iframe Chained Scroll Receiver
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'scroll-parent' && typeof e.data.deltaY === 'number') {
+    window.scrollBy({ top: e.data.deltaY, behavior: 'auto' });
+  }
+});
+</script>
 </body>
 
 </html>
