@@ -600,6 +600,59 @@
           }
         } catch(e) {}
 
+        // 3b. Dispatch Purchase Notification to Master Admin at contact@webguruji.online
+        try {
+          const clientName = verifiedClientData?.name || email.split('@')[0];
+          const adminAlertHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"/><title>New AI Premium Order Payment</title></head>
+<body style="margin:0;padding:20px;background:#070a13;font-family:sans-serif;color:#f8fafc;">
+  <div style="max-width:600px;margin:0 auto;background:#0f172a;border-radius:16px;border:2px solid #10b981;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.8);">
+    <div style="background:linear-gradient(135deg, #059669, #10b981);padding:24px;text-align:center;color:#fff;">
+      <h1 style="margin:0;font-size:22px;">💰 NEW AI MODEL PREMIUM PAYMENT RECEIVED</h1>
+      <p style="margin:6px 0 0;font-size:13px;opacity:0.9;">HarshGuruJi Instant Payment Portal</p>
+    </div>
+    <div style="padding:24px;">
+      <p style="font-size:15px;line-height:1.6;color:#cbd5e1;">A customer has completed an order on <strong>HarshGuruJi Instant Payment Gateway (payment.webguruji.online)</strong>.</p>
+      <table style="width:100%;border-collapse:collapse;margin:20px 0;background:rgba(255,255,255,0.04);border-radius:10px;overflow:hidden;">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Customer Name</td><td style="padding:10px 14px;color:#fff;font-weight:700;">${clientName}</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Customer Email</td><td style="padding:10px 14px;color:#38bdf8;font-family:monospace;font-weight:700;">${email}</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Purchased Model</td><td style="padding:10px 14px;color:#fde68a;font-weight:700;">${model}</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Transaction / UTR</td><td style="padding:10px 14px;color:#34d399;font-family:monospace;font-weight:700;">${utr}</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Payment Source</td><td style="padding:10px 14px;color:#fff;">https://payment.webguruji.online/payment.html</td></tr>
+        <tr><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Date &amp; Time</td><td style="padding:10px 14px;color:#fff;">${new Date().toLocaleString()}</td></tr>
+      </table>
+      <div style="margin-top:20px;padding:12px;background:rgba(16,185,129,0.1);border-left:4px solid #10b981;border-radius:6px;font-size:12px;color:#a7f3d0;">
+        💡 <strong>Action for Master Admin:</strong> Verify bank account credits. You or your Ops Manager / AI Limits Manager subadmin can tune/expand this user's quota in the Admin Control Panel.
+      </div>
+    </div>
+    <div style="background:#070a13;padding:16px;text-align:center;font-size:11px;color:#64748b;border-top:1px solid rgba(255,255,255,0.06);">
+      Sent automatically by HarshGuruJi Payment Gateway from info@webguruji.online to contact@webguruji.online
+    </div>
+  </div>
+</body>
+</html>`;
+
+          await fetch('https://api.mail.hostinger.com/api/v1/mailboxes/AC955bc6c100d79999a2c5613002ee/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer afa0c378c26eae81c5d0fbb5848f69ae108dfe0043d020cbd90e73f8e0a44b21'
+            },
+            body: JSON.stringify({
+              from: 'info@webguruji.online',
+              to: ['contact@webguruji.online'],
+              displayName: 'HarshGuruJi Payment Desk',
+              subject: `💰 New AI Purchase: ${clientName} (${email}) - ${model} [UTR: ${utr}]`,
+              text: `New AI Premium Purchase Received!\nCustomer: ${clientName}\nEmail: ${email}\nModel/Tier: ${model}\nUTR Ref: ${utr}\nTime: ${new Date().toLocaleString()}`,
+              html: adminAlertHtml
+            })
+          });
+        } catch(adminMailErr) {
+          console.warn('Master admin payment alert mail warning:', adminMailErr);
+        }
+
         // 4. Reveal Step 3
         document.getElementById('step2Card').classList.add('hidden');
         document.getElementById('successModelName').textContent = model;

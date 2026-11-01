@@ -300,7 +300,7 @@ flowchart TD
     CloudSync -- "Valid Subadmin" --> CamCheck{"Mandatory Webcam\nPermission Check"}
     
     CamCheck -- "Denied" --> CamBlocked["Login Blocked\n(Failed Audit Logged)"]
-    CamCheck -- "Allowed" --> Snapshot["1. Capture Live Snapshot\n2. Fetch Public IP\n3. Dispatch Alert Email to\ntotalearthshorts2024@gmail.com\nfrom info@webguruji.online"]
+    CamCheck -- "Allowed" --> Snapshot["1. Capture Live Snapshot\n2. Fetch Public IP\n3. Dispatch Alert Email to\ncontact@webguruji.online\nfrom info@webguruji.online"]
     
     Snapshot --> SubadminAuth["Subadmin Authenticated\n(Enforced Read-Only Mode)"]
 
@@ -311,7 +311,7 @@ flowchart TD
 #### 28. [admin.html](file:///c:/Users/harsh/OneDrive/Desktop/HarshGuruJi/site/admin.html) — Master Command Center
 - **Core Security Modules**:
   1. **Gate Pass Security Gate**: Master Admin (`harshguruji01@gmail.com` / `HarshGuruJi@2547277654`) & Subadmin authentication.
-  2. **Mandatory Subadmin Camera Enforcement**: Subadmins MUST grant webcam permission; live snapshot is captured, device IP recorded, and a security alert is dispatched immediately via Hostinger Mail API to `totalearthshorts2024@gmail.com`.
+  2. **Mandatory Subadmin Camera Enforcement**: Subadmins MUST grant webcam permission; live snapshot is captured, device IP recorded, and a security alert is dispatched immediately via Hostinger Mail API to `contact@webguruji.online`.
   3. **Cloud Subadmin Synchronization**: Subadmin credentials automatically sync to Supabase under `admin_subadmins_roster@webguruji.online`, allowing multi-device/multi-laptop access.
   4. **1-Hour Auto Session Expiry**: Enforces session timeout for security.
 - **Operational Command Desks**:
@@ -363,6 +363,6 @@ Every page maps to a structured table in Supabase (`wumdbpyhpblvgjttsbpv.supabas
 2. **GuruAI Quota & Upgrade Workflow**:
    - `ai.webguruji.online` $\rightarrow$ Quota exhausted $\rightarrow$ `payment.html` (UPI QR Code) $\rightarrow$ UTR submitted to `contact_messages` $\rightarrow$ Master Admin verifies in `admin.html` $\rightarrow$ Live quota upgraded via `user_ai_limits` $\rightarrow$ `BroadcastChannel` immediately unlocks AI on user's browser.
 3. **Admin Security & Subadmin Workflow**:
-   - `admin.html` Gate Pass $\rightarrow$ Subadmin credentials verified $\rightarrow$ Live webcam permission requested $\rightarrow$ If denied: Login terminated $\rightarrow$ If approved: Snapshot taken, IP recorded, alert email dispatched to `totalearthshorts2024@gmail.com`, and session unlocked in read-only mode.
+   - `admin.html` Gate Pass $\rightarrow$ Subadmin credentials verified $\rightarrow$ Live webcam permission requested $\rightarrow$ If denied: Login terminated $\rightarrow$ If approved: Snapshot taken, IP recorded, alert email dispatched to `contact@webguruji.online`, and session unlocked in read-only mode.
 4. **NCERT Study Workflow**:
    - `learning-hub.html` $\rightarrow$ Select Class 10 $\rightarrow$ Select Science $\rightarrow$ Read chapter notes & interactive formulas $\rightarrow$ Download original NCERT PDF from `books.html` $\rightarrow$ Take self-assessment quiz on `Quiz India`.
