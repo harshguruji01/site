@@ -2,7 +2,7 @@
  * HarshGuruJi Master Admin Security Guard
  * Enforces strict 2-Step Verification from admin.html of site
  * 1. Step 1: harshguruji01@gmail.com
- * 2. Step 2: 2547277654
+ * 2. Step 2: HarshGuruJi@2547277654
  * 
  * Direct URL access to ANY admin page without completing 2-Step Verification on admin.html is strictly denied permission.
  * ONLY admin.html of the main site can grant permission.
@@ -11,14 +11,14 @@
   'use strict';
 
   var REQUIRED_EMAIL = 'harshguruji01@gmail.com';
-  var REQUIRED_ID = '2547277654';
+  var REQUIRED_ID = 'HarshGuruJi@2547277654';
   var AUTH_STATE_KEY = 'hg_2step_verified';
   var AUTH_TOKEN_KEY = 'hg_2step_token';
   var EXPECTED_HASH = btoa(REQUIRED_EMAIL + ':' + REQUIRED_ID + ':HGJ_MASTER_ADMIN_2026');
   var VALID_TOKENS = [
     EXPECTED_HASH,
-    '7e78eb6fb8144145d73ddc52f80609f2a7150757b8f8c19c7afa1950b0e46b86',
-    'e5b44bce70dbf185896bee1ccb5cae48eb8c2097c5219585032d1683eaae06aa'
+    '8e3f20418fd09b0d023ff3c4119f85d09dacc9d14f35b58143d73da7c39e196a',
+    'f7736b94c8ea1ccc584fb3123027126c9d0aa8bb2145077ab8cdec0c9f39b989'
   ];
 
   function isVerified() {

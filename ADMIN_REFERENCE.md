@@ -8,7 +8,7 @@
 
 - **Master Admin**: Harsh Patel
   - **Login Email**: `harshguruji01@gmail.com`
-  - **Password / Pass**: `2547277654`
+  - **Password / Pass**: `HarshGuruJi@2547277654`
   - **Role**: Master Admin (Full Read/Write access)
 - **Subadmin Delegation**:
   - Master Admin can generate credentials (Email + Password) with assigned role (Viewer/Editor).

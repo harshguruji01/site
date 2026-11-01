@@ -13,7 +13,7 @@ def update_admin_bridge():
  * 
  * Gate Pass Credentials:
  * Email: harshguruji01@gmail.com
- * Code No.: 2547277654
+ * Code No.: HarshGuruJi@2547277654
  * Auto-Logout: 1 Hour (3,600,000 ms)
  */
 
@@ -21,7 +21,7 @@ def update_admin_bridge():
   'use strict';
 
   const HG_ADMIN_EMAIL = 'harshguruji01@gmail.com';
-  const HG_ADMIN_ID = '2547277654';
+  const HG_ADMIN_ID = 'HarshGuruJi@2547277654';
   const AUTH_STATE_KEY = 'hg_2step_verified';
   const AUTH_TOKEN_KEY = 'hg_2step_token';
   const AUTH_TIME_KEY = 'hg_admin_login_time';
@@ -151,7 +151,7 @@ def update_admin_html():
               type="password" 
               id="input-admin-id" 
               class="gate-input" 
-              placeholder="Enter Code No. (2547277654)" 
+              placeholder="Enter Code No. (HarshGuruJi@2547277654)" 
               required 
               autocomplete="current-password"
             >
@@ -202,7 +202,7 @@ def update_admin_html():
     # Now replace the script gate controller
     new_script_controller = """    // Master Admin Security Gate & 1-Hour Auto-Logout Controller
     const REQUIRED_EMAIL = "harshguruji01@gmail.com";
-    const REQUIRED_ID = "2547277654";
+    const REQUIRED_ID = "HarshGuruJi@2547277654";
     const AUTH_STATE_KEY = "hg_2step_verified";
     const AUTH_TOKEN_KEY = "hg_2step_token";
     const AUTH_TIME_KEY = "hg_admin_login_time";

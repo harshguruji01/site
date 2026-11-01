@@ -7,5 +7,5 @@
 - User directive: *"jitne place per webguruji hai sab ko HarshGuruJi me change kar do, bas url webguruji.online hai, mai baar baar nahi bataunga. remember it."*
 
 ## Authentication & Security
-- Admin Gate Pass: Required on `admin.html` with Email: `harshguruji01@gmail.com` and Code: `2547277654`.
+- Admin Gate Pass: Required on `admin.html` with Email: `harshguruji01@gmail.com` and Code: `HarshGuruJi@2547277654`.
 - Auto-logout: 1 hour (`SESSION_MAX_MS = 3600000`).
