@@ -1,0 +1,47 @@
+# ════════════════════════════════════════════════════════════════════════════
+# HarshGuruJi Web Portal - Clean URLs & Server Routing Rules
+# ════════════════════════════════════════════════════════════════════════════
+
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Redirect /index.html to /
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # 3. Redirect /page.html to /page/ (301 Permanent Redirect for SEO)
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html[\s?] [NC]
+  RewriteRule ^([^.]+)\.html$ /%1/ [R=301,L]
+
+  # 4. If directory exists and lacks trailing slash, redirect to trailing slash
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+  # 5. Internally rewrite /page/ to page.html if no directory index exists
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+
+  # 6. Internally rewrite /sub/page/ to /sub/page.html if needed
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1/$2.html -f
+  RewriteRule ^([^/]+)/([^/]+)/?$ $1/$2.html [L]
+</IfModule>
+
+# Security & Performance Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In</title>
+  <meta name="description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
+  <meta name="keywords" content="harshguruji login-tab login page, harshguruji login page, harshguruji login-tab, harshguruji login, harshguruji sign in, harshguruji login, harshguruji online login, harshguruji student portal login, access tools">
+  <meta name="author" content="HarshGuruJi">
+  <script>
+    if (window.location.hostname === 'webguruji.online') {
+      window.location.replace('https://login.webguruji.online/' + (window.location.search || ''));
+    }
+  </script>
+  <link rel="canonical" href="https://webguruji.online/login/">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/login/">
+  <meta property="og:title" content="HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In">
+  <meta property="og:description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In">
+  <meta name="twitter:description" content="Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "HarshGuruJi Login Tab",
+      "item": "https://webguruji.online/login.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi Login Tab - Official Login Page | HarshGuruJi Account Sign In",
+  "url": "https://webguruji.online/login.html",
+  "description": "Official HarshGuruJi login-tab and login page. Sign in to your HarshGuruJi account to access developer tools, AI Hub, NCERT study books, online games, and software store.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<script src="error-shield.js"></script>
+
+  
+  
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="login.css">
+  
+
+  <!-- Google AdSense -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
+  <link rel="stylesheet" href="responsive-patch.css">
+  <link rel="stylesheet" href="loading-lines.css">
+</head>
+<body class="auth-page">
+
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <!-- Authentication Navigation Tabs -->
+      <div class="auth-tabs-nav" role="tablist" aria-label="HarshGuruJi Authentication Tabs">
+        <a href="login.html" class="auth-tab-btn active" role="tab" aria-selected="true" id="harshguruji-login-tab" title="HarshGuruJi Login Tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span>Login Tab</span>
+        </a>
+        <a href="signup.html" class="auth-tab-btn" role="tab" aria-selected="false" id="harshguruji-signup-tab" title="HarshGuruJi Sign Up Tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Sign Up Tab</span>
+        </a>
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title">HarshGuruJi Login Page</h1>
+        <p class="auth-subtitle">Official HarshGuruJi Login-Tab. Sign in to your HarshGuruJi account.</p>
+      </div>
+
+      <div class="auth-error" id="auth-error" style="display: none;"></div>
+
+      <button id="google-login-btn" class="btn btn-google" type="button">
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider">
+        <span>or</span>
+      </div>
+
+      <form id="login-form" class="auth-form">
+        <!-- Email Input Group -->
+        <div class="form-group" id="email-group">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-input" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+
+        <!-- Phone Input Group (Hidden by default) -->
+        <div class="form-group" id="phone-group" style="display: none;">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" id="phone" class="form-input" placeholder="+1234567890">
+          <small style="color: var(--text-secondary); margin-top: 5px; display: block; font-size: 0.8rem;">Include country code (e.g. +91...)</small>
+        </div>
+
+        <!-- Password Input Group -->
+        <div class="form-group" id="password-group">
+          <div class="label-row">
+            <label for="password" class="form-label">Password</label>
+            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+          </div>
+          <input type="password" id="password" class="form-input" autocomplete="current-password" placeholder="••••••••" minlength="8">
+        </div>
+
+        <!-- OTP Input Group (Hidden by default) -->
+        <div class="form-group" id="otp-group" style="display: none;">
+          <label for="otp" class="form-label">Enter OTP</label>
+          <input type="text" id="otp" class="form-input" placeholder="123456">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="login-btn">
+          <span>Log In</span>
+          <div class="spinner" id="login-spinner" style="display: none;"></div>
+        </button>
+        <div style="text-align: center; margin-top: 1rem;">
+          <button type="button" id="toggle-method-btn" style="background: none; border: none; color: var(--accent-primary); cursor: pointer; font-family: inherit; font-weight: 500;">
+            Sign in with Phone (OTP) instead
+          </button>
+        </div>
+      </form>
+      <p class="auth-footer-text">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { signIn, signInWithGoogle, getSession, signInWithPhone, verifyPhoneOtp, sendLoginVerificationCode, verifyLoginCode } from './js/auth.js';
+
+    function getAuthRedirectTarget() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        let target = params.get('redirect') || params.get('return_to') || sessionStorage.getItem('hg_auth_redirect') || '';
+        if (target) {
+          try { target = decodeURIComponent(target); } catch(e){}
+        }
+        if (!target || target === 'login.html' || target.includes('login.html') || target.includes('signup.html')) {
+          target = 'dashboard.html';
+        }
+        return target;
+      } catch(e) {
+        return 'dashboard.html';
+      }
+    }
+
+    let redirectUrl = getAuthRedirectTarget();
+
+    // Persist redirect target in session for post-login redirect
+    try {
+      if (redirectUrl && redirectUrl !== 'dashboard.html') {
+        sessionStorage.setItem('hg_auth_redirect', redirectUrl);
+      }
+    } catch (e) {}
+
+    async function initLoginPage() {
+      // Forward redirect parameter to signup and forgot password links
+      const signupLink = document.querySelector('.auth-footer-text a[href*="signup.html"]');
+      if (signupLink && redirectUrl && redirectUrl !== 'dashboard.html') {
+        signupLink.href = `signup.html?redirect=${encodeURIComponent(redirectUrl)}`;
+      }
+      const forgotLink = document.querySelector('.label-row a[href*="forgot-password.html"]');
+      if (forgotLink && redirectUrl && redirectUrl !== 'dashboard.html') {
+        forgotLink.href = `forgot-password.html?redirect=${encodeURIComponent(redirectUrl)}`;
+      }
+
+      // Check if user is already logged in (non-blocking in background)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceStay = urlParams.get('logout') || urlParams.get('reauth') || urlParams.get('force');
+        if (!forceStay) {
+          const session = await getSession();
+          if (session && session.user) {
+            try { sessionStorage.removeItem('hg_auth_redirect'); } catch(e){}
+            window.location.replace(redirectUrl);
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn("Notice checking session:", error);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLoginPage, { once: true });
+    } else {
+      initLoginPage();
+    }
+
+    const form = document.getElementById('login-form');
+    const errorDiv = document.getElementById('auth-error');
+    const loginBtn = document.getElementById('login-btn');
+    const spinner = document.getElementById('login-spinner');
+    const googleBtn = document.getElementById('google-login-btn');
+    const toggleMethodBtn = document.getElementById('toggle-method-btn');
+
+    // UI Groups
+    const emailGroup = document.getElementById('email-group');
+    const phoneGroup = document.getElementById('phone-group');
+    const passwordGroup = document.getElementById('password-group');
+    const otpGroup = document.getElementById('otp-group');
+    
+    // Inputs
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const otpInput = document.getElementById('otp');
+
+    // State
+    let loginMethod = 'email'; // 'email' | 'verify_email' | 'phone' | 'verify'
+    let pendingPhone = '';
+    let pendingEmail = '';
+    let pendingPassword = '';
+    let pendingEmailToken = '';
+
+    toggleMethodBtn.addEventListener('click', () => {
+      errorDiv.style.display = 'none';
+      if (loginMethod === 'verify_email') {
+        // Back to email entry
+        loginMethod = 'email';
+        otpGroup.style.display = 'none';
+        emailGroup.style.display = 'block';
+        passwordGroup.style.display = 'block';
+        loginBtn.querySelector('span').textContent = 'Log In';
+        toggleMethodBtn.textContent = 'Sign in with Phone (OTP) instead';
+      } else if (loginMethod === 'email') {
+        // Switch to phone
+        loginMethod = 'phone';
+        emailGroup.style.display = 'none';
+        passwordGroup.style.display = 'none';
+        phoneGroup.style.display = 'block';
+        toggleMethodBtn.textContent = 'Sign in with Email instead';
+        loginBtn.querySelector('span').textContent = 'Send OTP';
+      } else {
+        // Switch back to email
+        loginMethod = 'email';
+        phoneGroup.style.display = 'none';
+        otpGroup.style.display = 'none';
+        emailGroup.style.display = 'block';
+        passwordGroup.style.display = 'block';
+        toggleMethodBtn.textContent = 'Sign in with Phone (OTP) instead';
+        loginBtn.querySelector('span').textContent = 'Log In';
+        pendingPhone = '';
+      }
+    });
+
+    googleBtn.addEventListener('click', async () => {
+      try {
+        errorDiv.style.display = 'none';
+        googleBtn.disabled = true;
+        googleBtn.style.opacity = '0.7';
+        redirectUrl = getAuthRedirectTarget();
+        if (redirectUrl) {
+          try {
+            sessionStorage.setItem('hg_auth_redirect', redirectUrl);
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            const secureStr = window.location.protocol === 'https:' ? '; secure' : '';
+            document.cookie = `hg_auth_redirect=${encodeURIComponent(redirectUrl)}; path=/; max-age=3600${domainStr}; SameSite=Lax${secureStr}`;
+          } catch(e){}
+        }
+        await signInWithGoogle();
+      } catch (err) {
+        errorDiv.textContent = 'Google sign-in failed: ' + err.message;
+        errorDiv.style.display = 'block';
+        googleBtn.disabled = false;
+        googleBtn.style.opacity = '1';
+      }
+    });
+
+    async function recordAiRedirectLoginIfApplicable() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cookieMatch = document.cookie.match(/(?:^|;\s*)hg_auth_redirect=([^;]+)/);
+        const pendingRedirect = cookieMatch ? decodeURIComponent(cookieMatch[1]) : (sessionStorage.getItem('hg_auth_redirect') || '');
+        const target = redirectUrl || pendingRedirect || '';
+        const isAi = urlParams.get('source') === 'ai' || target.includes('ai.webguruji.online');
+        if (!isAi) return;
+
+        const session = await getSession();
+        if (session && session.user && session.user.email) {
+          const { supabase } = await import('./js/supabase.js');
+          if (supabase) {
+            const uEmail = session.user.email.toLowerCase().trim();
+            await supabase.from('user_ai_limits').upsert({
+              user_id: session.user.id,
+              email: uEmail,
+              plan_name: 'Standard Free (AI Redirect)',
+              max_requests: 20,
+              context_limit: 32000,
+              is_active: true,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'email' });
+
+            await supabase.from('user_activity').insert([{
+              user_id: session.user.id,
+              activity_type: 'login_ai_redirect',
+              page_type: 'ai',
+              page_name: 'GuruAI Chat',
+              page_path: 'https://ai.webguruji.online/',
+              metadata: { source: 'ai_redirect', login_timestamp: new Date().toISOString() }
+            }]);
+          }
+        }
+      } catch (e) {
+        console.warn('AI redirect record notice:', e);
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.style.display = 'none';
+      loginBtn.disabled = true;
+      spinner.style.display = 'block';
+      loginBtn.querySelector('span').style.display = 'none';
+      redirectUrl = getAuthRedirectTarget();
+      
+      try {
+        if (loginMethod === 'email') {
+          const email = (emailInput.value || '').trim();
+          const password = passwordInput.value;
+          if (!email || !password) throw new Error("Email and password required.");
+
+          // Direct Supabase sign in with cross-subdomain SSO!
+          await signIn(email, password);
+
+          redirectUrl = getAuthRedirectTarget();
+          await recordAiRedirectLoginIfApplicable();
+          try {
+            sessionStorage.removeItem('hg_auth_redirect');
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+          } catch(e){}
+          window.location.replace(redirectUrl);
+
+        } else if (loginMethod === 'verify_email') {
+          const otp = (otpInput.value || '').trim();
+          if (!otp) throw new Error("Verification code is required.");
+
+          await signIn(pendingEmail, pendingPassword);
+
+          redirectUrl = getAuthRedirectTarget();
+          await recordAiRedirectLoginIfApplicable();
+          try {
+            sessionStorage.removeItem('hg_auth_redirect');
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+          } catch(e){}
+          window.location.replace(redirectUrl);
+
+        } else if (loginMethod === 'phone') {
+          // Send Phone OTP
+          const phone = (phoneInput.value || '').trim();
+          if(!phone) throw new Error("Phone number required.");
+          
+          await signInWithPhone(phone);
+          pendingPhone = phone;
+          loginMethod = 'verify';
+          
+          // Switch UI to Verify mode
+          phoneGroup.style.display = 'none';
+          otpGroup.style.display = 'block';
+          loginBtn.querySelector('span').textContent = 'Verify OTP';
+          toggleMethodBtn.textContent = 'Change Phone Number';
+          
+          errorDiv.style.color = '#10b981';
+          errorDiv.style.borderColor = '#10b981';
+          errorDiv.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+          errorDiv.textContent = 'OTP sent successfully! Please check your messages.';
+          errorDiv.style.display = 'block';
+          
+        } else if (loginMethod === 'verify') {
+          // Verify Phone OTP
+          const otp = (otpInput.value || '').trim();
+          if(!otp) throw new Error("OTP required.");
+          
+          await verifyPhoneOtp(pendingPhone, otp);
+          await recordAiRedirectLoginIfApplicable();
+          try {
+            sessionStorage.removeItem('hg_auth_redirect');
+            const hostname = window.location.hostname;
+            let domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
+            document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;
+          } catch(e){}
+          window.location.replace(redirectUrl);
+        }
+      } catch (err) {
+        // Reset Error styles to default red
+        errorDiv.style.color = 'var(--error-color, #ef4444)';
+        errorDiv.style.borderColor = 'var(--error-color, #ef4444)';
+        errorDiv.style.backgroundColor = 'rgba(255, 71, 87, 0.1)';
+        errorDiv.textContent = err.message || 'Authentication failed. Please try again.';
+        errorDiv.style.display = 'block';
+      } finally {
+        loginBtn.disabled = false;
+        spinner.style.display = 'none';
+        loginBtn.querySelector('span').style.display = 'block';
+      }
+    });
+  </script>
+
+
+  <script src="loading-lines.js" defer></script>
+</body>
+</html>

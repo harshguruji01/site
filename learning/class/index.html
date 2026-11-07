@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi NCERT Class Dashboard - Select Class & Subjects</title>
+  <meta name="description" content="Browse NCERT study materials by class (Classes 1 through 12). Select your stream, class, and subjects on HarshGuruJi Learning.">
+  <meta name="keywords" content="harshguruji ncert classes, class 1 to 12 dashboard, select ncert class, cbse curriculum, harshguruji learning">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/learning/class/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/learning/class/">
+  <meta property="og:title" content="HarshGuruJi NCERT Class Dashboard - Select Class & Subjects">
+  <meta property="og:description" content="Browse NCERT study materials by class (Classes 1 through 12). Select your stream, class, and subjects on HarshGuruJi Learning.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi NCERT Class Dashboard - Select Class & Subjects">
+  <meta name="twitter:description" content="Browse NCERT study materials by class (Classes 1 through 12). Select your stream, class, and subjects on HarshGuruJi Learning.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Learning",
+      "item": "https://webguruji.online/learning-hub.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Class Dashboard",
+      "item": "https://webguruji.online/learning/class.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi NCERT Class Dashboard - Select Class & Subjects | HarshGuruJi",
+  "url": "https://webguruji.online/learning/class.html",
+  "description": "Browse NCERT study materials by class (Classes 1 through 12). Select your stream, class, and subjects on HarshGuruJi Learning.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  
+  <style>
+    .dashboard-header {
+        padding: 4rem 1rem 2rem;
+        background: rgba(59,130,246,0.05);
+        border-bottom: 1px solid var(--hub-border);
+    }
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+    .class-title {
+        font-size: 3rem;
+        color: var(--hub-text-primary);
+        margin-bottom: 0.5rem;
+    }
+    .class-subtitle {
+        color: var(--hub-text-secondary);
+        font-size: 1.1rem;
+    }
+    
+    /* Progress Box */
+    .progress-box {
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        min-width: 300px;
+    }
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-weight: bold;
+        color: var(--hub-text-primary);
+    }
+    .progress-bar-bg {
+        background: var(--bg-color, #222);
+        height: 12px;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .progress-bar-fill {
+        height: 100%;
+        background: var(--hub-accent);
+        width: 0%; /* Dynamic */
+        transition: width 1s ease;
+    }
+    
+    /* Main Content */
+    .main-grid {
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
+    }
+    
+    /* Subjects */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: var(--hub-text-primary);
+        border-bottom: 2px solid var(--hub-border);
+        padding-bottom: 0.5rem;
+    }
+    
+    .subject-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .subject-card {
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+    .subject-card:hover {
+        border-color: var(--hub-accent);
+        transform: translateY(-3px);
+        background: rgba(59,130,246,0.05);
+    }
+    .subject-icon {
+        font-size: 2.5rem;
+    }
+    .subject-name {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--hub-text-primary);
+    }
+    
+    /* Sidebar Links */
+    .quick-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .quick-btn {
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        color: var(--hub-text-primary);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: left;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .quick-btn:hover {
+        border-color: var(--hub-accent);
+        color: var(--hub-accent);
+    }
+    
+    /* Breadcrumbs */
+    .breadcrumbs {
+        max-width: 1200px;
+        margin: 1rem auto 0;
+        padding: 0 1rem;
+        color: var(--hub-text-secondary);
+        font-size: 0.9rem;
+    }
+    .breadcrumbs a { color: var(--hub-accent); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    
+    @media (max-width: 768px) {
+        .main-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <!-- Google AdSense -->
+  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+     crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/learning/loading-lines.css">
+</head>
+<body class="hub-page dark-mode">
+
+<script src="../navbar-premium.js"></script>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <a href="../index.html">Home</a> &gt; <a href="../learning-hub.html">Learning Hub</a> &gt; <span id="bc-class">Class 10</span>
+</div>
+
+<header class="dashboard-header">
+    <div class="header-content">
+        <div>
+            <h1 class="class-title" id="page-title">Class 10 CBSE &amp; NCERT Dashboard</h1>
+            <p class="class-subtitle" id="page-subtitle">Crucial board exam preparation. Comprehensive chapter notes, verified study guides, and subject portals.</p>
+        </div>
+        
+        <div class="progress-box">
+            <div class="progress-header">
+                <span>Curriculum Coverage</span>
+                <span id="progress-text">100% Verified</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="hub-container" style="padding: 0;">
+    <!-- Class Switcher -->
+    <div style="max-width: 1200px; margin: 2rem auto 0; padding: 0 1rem;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <span style="font-weight: 700; color: #94a3b8; font-size: 0.9rem; margin-right: 8px;">Select Class:</span>
+        <a href="class.html?id=6" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 6</a>
+        <a href="class.html?id=7" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 7</a>
+        <a href="class.html?id=8" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 8</a>
+        <a href="class.html?id=9" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 9</a>
+        <a href="class.html?id=10" style="padding: 6px 14px; background: #3b82f6; border: 1px solid #60a5fa; border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700;">Class 10 ★</a>
+        <a href="class.html?id=11" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 11</a>
+        <a href="class.html?id=12" style="padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--hub-border); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Class 12</a>
+      </div>
+    </div>
+
+    <div class="main-grid">
+        
+        <!-- Left Column: Subjects -->
+        <div>
+            <h2 class="section-title">Class 10 Core Subjects &amp; Syllabus</h2>
+            <div class="subject-list" id="subject-list">
+                <a class="subject-card" href="subject.html?class=10&sub=science">
+                    <div class="subject-icon">🔬</div>
+                    <div>
+                        <div class="subject-name">Science</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Physics, Chemistry &amp; Biology</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="subject.html?class=10&sub=mathematics">
+                    <div class="subject-icon">📐</div>
+                    <div>
+                        <div class="subject-name">Mathematics</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Real Numbers, Polynomials &amp; Trigonometry</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="class-10-science.html">
+                    <div class="subject-icon">⚡</div>
+                    <div>
+                        <div class="subject-name">Class 10 Science Revision Hub</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Formulas, Reactions &amp; Chapter Cheat Sheets</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="gk-quiz.html">
+                    <div class="subject-icon">🧠</div>
+                    <div>
+                        <div class="subject-name">General Knowledge &amp; Mock Tests</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">10-Question Interactive Quiz with Scoring</div>
+                    </div>
+                </a>
+                <a class="subject-card" href="../books.html">
+                    <div class="subject-icon">📚</div>
+                    <div>
+                        <div class="subject-name">Official NCERT Textbooks PDF</div>
+                        <div style="font-size: 0.85rem; color: var(--hub-text-secondary); margin-top: 4px;">Direct PDF downloads for Classes 1 to 12</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- In-Depth Syllabus Overview -->
+            <div style="margin-top: 3rem; background: var(--hub-surface); border: 1px solid var(--hub-border); border-radius: 16px; padding: 2rem;">
+              <h3 style="color: #fff; margin-top: 0; font-size: 1.35rem; font-family: 'Space Grotesk', sans-serif;">About CBSE Class 10 Board Curriculum</h3>
+              <p style="color: var(--hub-text-secondary); line-height: 1.8; margin-bottom: 1.25rem;">
+                Class 10 represents the pivotal secondary education milestone in the Indian education framework (CBSE, ICSE, and state boards). The syllabus is engineered to build rigorous foundational knowledge for competitive entrance examinations (JEE, NEET, CUET, NDA) and higher secondary streams (Science, Commerce, and Humanities).
+              </p>
+              <p style="color: var(--hub-text-secondary); line-height: 1.8; margin-bottom: 0;">
+                All modules and textbook chapters hosted on HarshGuruJi strictly align with the National Council of Educational Research and Training (NCERT) and the National Education Policy (NEP) guidelines.
+              </p>
+            </div>
+        </div>
+        
+        <!-- Right Column: Quick Links -->
+        <div>
+            <h2 class="section-title">Quick Access</h2>
+            <div class="quick-links">
+                <a href="../books.html" class="quick-btn" style="text-decoration:none; display:flex;">📖 NCERT PDF Library</a>
+                <a href="class-10-science.html" class="quick-btn" style="text-decoration:none; display:flex;">🔬 Science Notes &amp; Formulas</a>
+                <a href="gk-quiz.html" class="quick-btn" style="text-decoration:none; display:flex;">🎯 Practice GK Quiz</a>
+                <a href="../Quiz India/index.html" class="quick-btn" style="text-decoration:none; display:flex;">🏆 Quiz India Tournament</a>
+                <a href="../free-tools.html" class="quick-btn" style="text-decoration:none; display:flex;">🛠️ Student &amp; Math Calculators</a>
+            </div>
+
+            <!-- Tips Card -->
+            <div style="margin-top: 2rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 1.5rem;">
+              <h4 style="color: #60a5fa; margin-top: 0; margin-bottom: 0.75rem;">💡 Board Exam Strategy</h4>
+              <ul style="color: var(--hub-text-secondary); font-size: 0.88rem; padding-left: 1.2rem; margin: 0; line-height: 1.7;">
+                <li>Dedicate 45 minutes daily to solving NCERT exemplar numericals.</li>
+                <li>Practice balancing chemical equations without looking at solutions.</li>
+                <li>Write answers in bulleted points with underlined keywords.</li>
+              </ul>
+            </div>
+        </div>
+        
+    </div>
+</main>
+
+<script src="/learning/js/curriculumEngine.js"></script>
+<script>
+    // Specific initialization for Class Dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+        if(window.CurriculumEngine) {
+            window.CurriculumEngine.initClassDashboard();
+        }
+    });
+</script>
+
+<script src="../footer-premium.js"></script>
+  <script src="/learning/loading-lines.js" defer></script>
+</body>
+</html>

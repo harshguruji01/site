@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Forgot Password - Recover Account Access</title>
+  <meta name="description" content="Forgot your HarshGuruJi password? Enter your registered email to receive a secure password recovery link and regain access to your account and tools.">
+  <meta name="keywords" content="harshguruji forgot password, recover password, harshguruji account recovery, reset password link, harshguruji account help">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://webguruji.online/forgot-password/">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/forgot-password/">
+  <meta property="og:title" content="HarshGuruJi Forgot Password - Recover Account Access">
+  <meta property="og:description" content="Forgot your HarshGuruJi password? Enter your registered email to receive a secure password recovery link and regain access to your account and tools.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi Forgot Password - Recover Account Access">
+  <meta name="twitter:description" content="Forgot your HarshGuruJi password? Enter your registered email to receive a secure password recovery link and regain access to your account and tools.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Forgot Password",
+      "item": "https://webguruji.online/forgot-password.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi Forgot Password - Recover Account Access | HarshGuruJi",
+  "url": "https://webguruji.online/forgot-password.html",
+  "description": "Forgot your HarshGuruJi password? Enter your registered email to receive a secure password recovery link and regain access to your account and tools.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<script src="error-shield.js"></script>
+
+  
+  
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
+  <link rel="stylesheet" href="responsive-patch.css">
+  <link rel="stylesheet" href="loading-lines.css">
+</head>
+<body class="auth-page">
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Forgot Password</h1>
+        <p class="auth-subtitle">Enter your registered email and we'll send you a password reset link.</p>
+      </div>
+
+      <div id="error-message" class="auth-error" style="display: none;"></div>
+      <div id="success-message" class="auth-success" style="display: none;"></div>
+
+      <form id="forgot-form" class="auth-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-input" required autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="reset-btn">
+          <span>Send Reset Link</span>
+          <div class="spinner" id="reset-spinner" style="display: none;"></div>
+        </button>
+      </form>
+
+      <p class="auth-footer-text">
+        Remember your password? <a href="login.html">Back to Login</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { resetPassword } from './js/auth.js';
+
+    const forgotForm = document.getElementById('forgot-form');
+    const resetBtn = document.getElementById('reset-btn');
+    const resetSpinner = document.getElementById('reset-spinner');
+    const errorMsg = document.getElementById('error-message');
+    const successMsg = document.getElementById('success-message');
+
+    function showError(message) {
+      errorMsg.textContent = message;
+      errorMsg.style.display = 'block';
+      successMsg.style.display = 'none';
+    }
+
+    function showSuccess(message) {
+      successMsg.textContent = message;
+      successMsg.style.display = 'block';
+      errorMsg.style.display = 'none';
+    }
+
+    function setLoading(isLoading) {
+      const btnSpan = resetBtn.querySelector('span');
+      if (isLoading) {
+        resetBtn.disabled = true;
+        btnSpan.style.display = 'none';
+        resetSpinner.style.display = 'inline-block';
+      } else {
+        resetBtn.disabled = false;
+        btnSpan.style.display = 'inline-block';
+        resetSpinner.style.display = 'none';
+      }
+    }
+
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+
+      if (!email) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+
+      setLoading(true);
+      errorMsg.style.display = 'none';
+
+      try {
+        await resetPassword(email);
+        showSuccess('Password reset link sent! Please check your email inbox.');
+        forgotForm.reset();
+      } catch (err) {
+        console.error('Password reset error:', err);
+        showError(err.message || 'Failed to send reset link. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
+  <script src="loading-lines.js" defer></script>
+</body>
+</html>

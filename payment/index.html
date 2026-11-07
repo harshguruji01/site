@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+  <base href="/">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <meta name="robots" content="noindex, nofollow, noarchive" />
@@ -40,7 +41,7 @@
   <meta name="description" content="Official HarshGuruJi instant payment portal. Verify your order, scan the UPI QR code, and instantly unlock Guru-Flash 1.3, Guru-Argon 1.4, and Guru-Argon 1.5." />
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
-  <link rel="canonical" href="https://payment.webguruji.online" />
+  <link rel="canonical" href="https://webguruji.online/payment/">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -839,6 +840,19 @@
             status: 'Active',
             admin_reply: `Auto-verified via UPI Gateway (Order: ${currentOrderNo}, UTR: ${utr || 'PG-VERIFIED'})`
           }).ilike('email', cleanEmail);
+
+          // 2b. Sync Entitlement with AI Backend
+          fetch('https://ai.webguruji.online/api/payment/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: currentOrderNo,
+              paymentId: utr || currentOrderNo,
+              utr: utr,
+              planId: modelKey,
+              email: cleanEmail
+            })
+          }).catch(() => {});
         }
 
         // 3. Dispatch automated confirmation receipt email

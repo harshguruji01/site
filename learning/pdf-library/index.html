@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi NCERT PDF Books & Textbooks Viewer (Class 1-12)</title>
+  <meta name="description" content="Online interactive PDF textbook reader for all NCERT books (Classes 1 to 12). View chapters, download PDFs, and revise on HarshGuruJi.">
+  <meta name="keywords" content="harshguruji ncert pdf, online pdf viewer, read ncert books online, class 10 science pdf, harshguruji pdf library">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/learning/pdf-library/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/learning/pdf-library/">
+  <meta property="og:title" content="HarshGuruJi NCERT PDF Books & Textbooks Viewer (Class 1-12)">
+  <meta property="og:description" content="Online interactive PDF textbook reader for all NCERT books (Classes 1 to 12). View chapters, download PDFs, and revise on HarshGuruJi.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi NCERT PDF Books & Textbooks Viewer (Class 1-12)">
+  <meta name="twitter:description" content="Online interactive PDF textbook reader for all NCERT books (Classes 1 to 12). View chapters, download PDFs, and revise on HarshGuruJi.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Learning",
+      "item": "https://webguruji.online/learning-hub.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PDF Library",
+      "item": "https://webguruji.online/learning/pdf-library.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi NCERT PDF Books & Textbooks Viewer (Class 1-12) | HarshGuruJi",
+  "url": "https://webguruji.online/learning/pdf-library.html",
+  "description": "Online interactive PDF textbook reader for all NCERT books (Classes 1 to 12). View chapters, download PDFs, and revise on HarshGuruJi.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  
+  <style>
+    /* Full-height app layout override */
+    body.hub-page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .hub-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 !important; /* Override default hub padding */
+        max-width: 100%;
+        margin-top: 60px; /* Account for navbar */
+    }
+    
+    /* Top Control Bar */
+    .control-bar {
+        background: var(--hub-surface);
+        border-bottom: 1px solid var(--hub-border);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+    
+    .ncert-select {
+        background: var(--bg-color, #1a1a1a);
+        color: var(--hub-text-primary);
+        border: 1px solid var(--hub-border);
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        min-width: 200px;
+        outline: none;
+    }
+    
+    .ncert-select:focus {
+        border-color: var(--hub-accent);
+    }
+    
+    .ncert-go-btn {
+        background: var(--hub-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    
+    .ncert-go-btn:hover {
+        background: #2563eb;
+    }
+    
+    /* Split Pane Viewer */
+    .viewer-container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 300px;
+        background: var(--hub-surface);
+        border-right: 1px solid var(--hub-border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar-header {
+        padding: 1rem;
+        border-bottom: 1px solid var(--hub-border);
+        font-weight: bold;
+        color: var(--hub-accent);
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .chapter-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .chapter-item {
+        padding: 1rem;
+        border-bottom: 1px solid var(--hub-border);
+        cursor: pointer;
+        color: var(--hub-text-secondary);
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .chapter-item:hover {
+        background: rgba(59,130,246,0.05);
+        color: var(--hub-text-primary);
+    }
+    
+    .chapter-item.active {
+        background: rgba(59,130,246,0.1);
+        color: var(--hub-accent);
+        border-left: 4px solid var(--hub-accent);
+    }
+    
+    .download-all-btn {
+        margin: 1rem;
+        padding: 0.75rem;
+        background: transparent;
+        border: 1px solid var(--hub-accent);
+        color: var(--hub-accent);
+        text-align: center;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        transition: 0.2s;
+    }
+    
+    .download-all-btn:hover {
+        background: var(--hub-accent);
+        color: white;
+    }
+
+    /* Mobile Sidebar Toggle */
+    .mobile-sidebar-toggle {
+        display: none;
+        background: var(--hub-surface);
+        border: 1px solid var(--hub-border);
+        color: var(--hub-text-primary);
+        padding: 0.5rem;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    /* Main Content Area */
+    .main-area {
+        flex: 1;
+        background: #333; /* Dark background for PDF viewer */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .iframe-wrapper {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+    }
+    
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
+    .placeholder-msg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #aaa;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .control-bar {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 1rem;
+        }
+        
+        .viewer-container {
+            flex-direction: column;
+        }
+        
+        .mobile-sidebar-toggle {
+            display: block;
+        }
+        
+        .sidebar {
+            width: 100%;
+            max-height: 40vh; /* Limit height on mobile */
+            border-right: none;
+            border-bottom: 2px solid var(--hub-accent);
+        }
+        
+        .sidebar.collapsed {
+            display: none;
+        }
+    }
+    
+    /* Hide the footer on this specific app-like page */
+    footer { display: none !important; }
+  </style>
+  <!-- Google AdSense -->
+  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+     crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/learning/loading-lines.css">
+</head>
+<body class="hub-page dark-mode">
+
+<!-- Include Navbar -->
+<script src="../navbar-premium.js"></script>
+
+<main class="hub-container">
+  
+  <!-- 1. Top Control Bar (NCERT Style) -->
+  <div class="control-bar">
+      <select id="class-select" class="ncert-select">
+          <option value="" disabled selected>-- Select Class --</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+      </select>
+      
+      <select id="subject-select" class="ncert-select" disabled>
+          <option value="" disabled selected>-- Select Subject --</option>
+      </select>
+      
+      <select id="book-select" class="ncert-select" disabled>
+          <option value="" disabled selected>-- Select Book Title --</option>
+      </select>
+      
+      <button id="go-btn" class="ncert-go-btn" disabled>GO</button>
+  </div>
+
+  <button id="mobile-toggle" class="mobile-sidebar-toggle">📖 View Chapters Menu</button>
+
+  <!-- 2. Split Pane Viewer -->
+  <div class="viewer-container">
+      
+      <!-- Left Sidebar: Chapters -->
+      <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+              <span id="sidebar-title">Book Contents</span>
+          </div>
+          <ul class="chapter-list" id="chapter-list">
+              <li style="padding: 2rem 1rem; text-align: center; color: var(--hub-text-secondary);">
+                  Please select a Class, Subject, and Book from the top menu, then click GO.
+              </li>
+          </ul>
+      </aside>
+      
+      <!-- Right Main Area: PDF Viewer -->
+      <section class="main-area">
+          <div class="placeholder-msg" id="placeholder-msg">
+              <h2>HarshGuruJi PDF Viewer</h2>
+              <p>Select a chapter from the menu to read.</p>
+          </div>
+          <div class="iframe-wrapper">
+              <iframe id="pdf-frame" src="" title="PDF Viewer"></iframe>
+          </div>
+      </section>
+      
+  </div>
+
+
+    <!-- Comprehensive PDF Study Library Guide & Textbook Index -->
+    <section class="pdf-editorial-guide" style="margin-top: 3.5rem; padding: 2.5rem 2rem; background: rgba(17, 24, 39, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; color: #cbd5e1; line-height: 1.85;">
+      
+      <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1.25rem; margin-bottom: 1.75rem;">
+        <span style="display:inline-block; padding: 4px 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 20px; color: #34d399; font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">
+          Academic Open Access Repository
+        </span>
+        <h2 style="color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3.2vw, 2.2rem); margin: 0.75rem 0 0.5rem 0;">
+          NCERT Digital PDF Library: Classes 1 to 12 Rationalized Curriculum Guide
+        </h2>
+        <p style="color: #94a3b8; margin: 0; font-size: 1rem;">
+          How digital textbooks and streamlined academic syllabi support inclusive, equitable quality education across India.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.85rem; font-family: 'Space Grotesk', sans-serif;">Rationalized Curriculum &amp; National Education Policy</h3>
+          <p>
+            Under the National Education Policy (NEP 2020), NCERT undertook a comprehensive syllabus rationalization initiative to alleviate content overload and foster experiential learning. The rationalized textbooks prioritize core concepts, high-order thinking skills, and practical problem-solving.
+          </p>
+          <p>
+            HarshGuruJi's PDF library indexes these official rationalized publications, ensuring that students, educators, and competitive exam aspirants study exclusively from authorized, updated educational materials.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.85rem; font-family: 'Space Grotesk', sans-serif;">Subject Coverage &amp; Educational Utility</h3>
+          <ul style="padding-left: 1.25rem; margin-bottom: 0; list-style-type: disc;">
+            <li><strong>Science (Physics, Chemistry, Biology):</strong> Detailed reaction mechanisms, optical ray diagrams, genetics, and thermodynamic laws.</li>
+            <li><strong>Mathematics:</strong> Structured theorems, calculus derivations, coordinate geometry, and algebraic proofs.</li>
+            <li><strong>Social Sciences (History, Civics, Geography, Economics):</strong> Chronological timelines, cartographic mapping, and constitutional governance.</li>
+            <li><strong>Languages (English, Hindi, Sanskrit):</strong> Literature anthologies, grammar rules, and prose analysis.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 1.75rem;">
+        <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">Frequently Asked Questions</h3>
+        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+          <h4 style="color: #fff; font-size: 1rem; margin: 0 0 0.35rem 0;">Can I view and download these PDFs on mobile phones?</h4>
+          <p style="margin: 0; font-size: 0.92rem;">Yes. Our digital library supports both inline browser streaming and direct PDF file downloads for seamless offline reading on any smartphone or tablet.</p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin: 0 0 0.35rem 0;">Are there any subscription or access charges?</h4>
+          <p style="margin: 0; font-size: 0.92rem;">None. HarshGuruJi is dedicated to free educational access. All textbook downloads and chapter viewers are 100% free of charge.</p>
+        </div>
+      </div>
+
+    </section>
+    
+  </main>
+
+<script src="/learning/pdf-library.js"></script>
+  <script src="/learning/loading-lines.js" defer></script>
+</body>
+</html>

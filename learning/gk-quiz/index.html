@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi General Knowledge Quiz - Interactive Trivia & Exam Test</title>
+  <meta name="description" content="Test your knowledge with HarshGuruJi GK Quiz: interactive questions across Indian history, geography, science, polity, and world current affairs with instant scoring.">
+  <meta name="keywords" content="harshguruji gk quiz, general knowledge test, online gk quiz, competitive exam trivia, indian history quiz, harshguruji learning">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/learning/gk-quiz/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/learning/gk-quiz/">
+  <meta property="og:title" content="HarshGuruJi General Knowledge Quiz - Interactive Trivia & Exam Test">
+  <meta property="og:description" content="Test your knowledge with HarshGuruJi GK Quiz: interactive questions with instant scoring.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../cookie.css">
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  <link rel="stylesheet" href="../responsive-patch.css">
+
+  <!-- Google AdSense -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
+
+  <style>
+    body.quiz-page {
+      background: #090d16;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+    }
+
+    .quiz-container {
+      max-width: 860px;
+      margin: 3rem auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .quiz-card {
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .quiz-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      color: #fbbf24;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #94a3b8;
+    }
+
+    .question-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #38bdf8;
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: #10b981 !important;
+      color: #34d399 !important;
+      font-weight: 700;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: #ef4444 !important;
+      color: #fca5a5 !important;
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .next-btn {
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      background: #2563eb;
+    }
+
+    .score-banner {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      border: 3px solid #3b82f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+  </style>
+  <link rel="stylesheet" href="/learning/loading-lines.css">
+</head>
+
+<body class="quiz-page dark-mode">
+
+  <main class="quiz-container">
+    
+    <div class="quiz-card">
+      <header class="quiz-header">
+        <div class="quiz-badge">🧠 Interactive Trivia</div>
+        <h1 class="quiz-title">HarshGuruJi General Knowledge Quiz</h1>
+        <p style="color:#94a3b8; margin:0;">Test your mastery across Indian History, Geography, Indian Constitution, and Science.</p>
+      </header>
+
+      <div id="quiz-active-view">
+        <div class="quiz-meta">
+          <span>Question <strong id="q-current" style="color:#fff;">1</strong> of <strong id="q-total" style="color:#fff;">10</strong></span>
+          <span>Score: <strong id="q-score" style="color:#10b981;">0</strong></span>
+        </div>
+
+        <h2 class="question-title" id="q-text">Loading question...</h2>
+
+        <div class="options-grid" id="q-options">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="quiz-footer">
+          <span id="q-feedback" style="font-weight:600; font-size:0.95rem;"></span>
+          <button class="next-btn" id="btn-next" onclick="nextQuestion()" style="display:none;">Next Question ➔</button>
+        </div>
+      </div>
+
+      <!-- Result Screen -->
+      <div id="quiz-result-view" class="score-banner">
+        <div class="score-circle">
+          <span id="final-score">0</span>
+          <span style="font-size:0.8rem; font-weight:500; color:#94a3b8;">/ 10</span>
+        </div>
+        <h2 style="color:#fff; font-size:1.8rem; margin-bottom:0.5rem;" id="result-message">Quiz Completed!</h2>
+        <p style="color:#94a3b8; max-width:500px; margin:0 auto 2rem;" id="result-detail">Great effort! Review the detailed explanations and continue testing your knowledge on Quiz India.</p>
+        
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <button class="next-btn" onclick="restartQuiz()">Restart Quiz</button>
+          <a href="../Quiz India/index.html" class="next-btn" style="text-decoration:none; background:#10b981;">Play Quiz India Game 🏆</a>
+          <a href="../learning-hub.html" class="next-btn" style="text-decoration:none; background:rgba(255,255,255,0.08);">Learning Hub</a>
+        </div>
+      </div>
+
+    </div>
+
+  
+    <!-- Comprehensive GK Study Guide & Curriculum Review (AdSense & Quality Standards) -->
+    <section class="gk-editorial-guide" style="margin-top: 3.5rem; padding: 2.5rem 2rem; background: rgba(17, 24, 39, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; color: #cbd5e1; line-height: 1.85;">
+      
+      <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1.25rem; margin-bottom: 1.75rem;">
+        <span style="display:inline-block; padding: 4px 14px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 20px; color: #fbbf24; font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">
+          General Studies &amp; Exam Strategy
+        </span>
+        <h2 style="color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3.2vw, 2.2rem); margin: 0.75rem 0 0.5rem 0;">
+          General Knowledge Mastery: Essential Topics for Competitive Examinations
+        </h2>
+        <p style="color: #94a3b8; margin: 0; font-size: 1rem;">
+          How strategic active recall and syllabus categorization power performance in UPSC, SSC, Banking, and State PSC exams.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.85rem; font-family: 'Space Grotesk', sans-serif;">1. Indian Constitution &amp; Polity Fundamentals</h3>
+          <p>
+            Understanding the constitutional framework of India is indispensable for any competitive test. Key topics tested across examinations include:
+          </p>
+          <ul style="padding-left: 1.25rem; margin-bottom: 0; list-style-type: disc;">
+            <li><strong>Preamble &amp; Key Amendments:</strong> The 42nd Constitutional Amendment Act of 1976 added the terms <em>Secular</em>, <em>Socialist</em>, and <em>Integrity</em>.</li>
+            <li><strong>Fundamental Rights (Part III):</strong> Articles 12 to 35, notably Article 21 (Right to Life and Personal Liberty) and Article 32 (Constitutional Remedies).</li>
+            <li><strong>Directive Principles (Part IV):</strong> Non-justiciable socioeconomic ideals guiding state governance.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.85rem; font-family: 'Space Grotesk', sans-serif;">2. Physical &amp; Environmental Geography</h3>
+          <p>
+            Geography questions frequently examine physical landforms, climate phenomena, and biodiversity conventions:
+          </p>
+          <ul style="padding-left: 1.25rem; margin-bottom: 0; list-style-type: disc;">
+            <li><strong>Atmospheric Layers:</strong> The Troposphere (where weather occurs) and Stratosphere (containing the protective Ozone layer).</li>
+            <li><strong>River Drainage Systems:</strong> Himalayan perennial rivers (Ganga, Brahmaputra, Indus) versus Peninsular rivers (Godavari, Krishna, Narmada).</li>
+            <li><strong>Monsoon Dynamics:</strong> Southwest summer monsoon moisture flow driven by Tibetan plateau thermal differentials.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 1.75rem; margin-bottom: 2rem;">
+        <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">The 4-Step Spaced Repetition Technique for GK</h3>
+        <p style="margin-bottom: 1rem;">
+          Memorizing thousands of historical facts and chemical elements requires scientific spaced repetition rather than passive reading:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+          <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px; border-left: 3px solid #3b82f6;">
+            <strong style="color: #60a5fa; display: block; margin-bottom: 0.25rem;">Day 1: First Exposure</strong>
+            <span style="font-size: 0.88rem;">Solve the quiz questions and read the explanatory notes carefully.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px; border-left: 3px solid #10b981;">
+            <strong style="color: #34d399; display: block; margin-bottom: 0.25rem;">Day 3: Active Recall</strong>
+            <span style="font-size: 0.88rem;">Retake the quiz without checking answers to test memory retention.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px; border-left: 3px solid #f59e0b;">
+            <strong style="color: #fbbf24; display: block; margin-bottom: 0.25rem;">Day 7: Cross-Subject Synthesis</strong>
+            <span style="font-size: 0.88rem;">Connect historical events with geographic maps and constitutional dates.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px; border-left: 3px solid #ec4899;">
+            <strong style="color: #f472b6; display: block; margin-bottom: 0.25rem;">Day 30: Benchmark Test</strong>
+            <span style="font-size: 0.88rem;">Simulate real exam pressure on our full-length Quiz India game.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">Frequently Asked Questions</h3>
+        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+          <h4 style="color: #fff; font-size: 1rem; margin: 0 0 0.35rem 0;">Are these questions aligned with real government competitive exam patterns?</h4>
+          <p style="margin: 0; font-size: 0.92rem;">Yes. Every question is curated from standard UPSC, SSC CGL, Railways RRB, and State Public Service Commission previous year question papers.</p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin: 0 0 0.35rem 0;">Where can I access more subject-specific educational tests?</h4>
+          <p style="margin: 0; font-size: 0.92rem;">Visit our <a href="learning-hub.html" style="color: #38bdf8;">Learning Hub</a> for chapter-by-chapter Science and Mathematics syllabus materials, or test your speed on <a href="../Quiz India/index.html" style="color: #38bdf8;">Quiz India</a>.</p>
+        </div>
+      </div>
+
+    </section>
+    
+  </main>
+
+  <script>
+    const QUESTIONS = [
+      {
+        q: "Who is known as the 'Father of the Indian Constitution'?",
+        options: ["Mahatma Gandhi", "Dr. B.R. Ambedkar", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel"],
+        answer: 1,
+        exp: "Dr. B.R. Ambedkar was the Chairman of the Drafting Committee of the Constituent Assembly."
+      },
+      {
+        q: "Which gas is primarily responsible for the greenhouse effect on Earth?",
+        options: ["Nitrogen", "Oxygen", "Carbon Dioxide", "Argon"],
+        answer: 2,
+        exp: "Carbon dioxide (CO₂) traps infrared radiation in the troposphere, driving the greenhouse effect."
+      },
+      {
+        q: "What is the capital city of Australia?",
+        options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+        answer: 2,
+        exp: "Canberra was chosen as a compromise location between Sydney and Melbourne in 1908."
+      },
+      {
+        q: "Which article of the Indian Constitution guarantees the 'Right to Equality'?",
+        options: ["Article 14-18", "Article 19-22", "Article 23-24", "Article 25-28"],
+        answer: 0,
+        exp: "Articles 14 to 18 of the Indian Constitution guarantee equality before law and prohibition of discrimination."
+      },
+      {
+        q: "What is the SI unit of electric potential difference (Voltage)?",
+        options: ["Ampere", "Volt", "Ohm", "Watt"],
+        answer: 1,
+        exp: "Volt (V) is the SI unit of electric potential difference, named in honor of Alessandro Volta."
+      },
+      {
+        q: "In which year did India launch its historic Mars Orbiter Mission (Mangalyaan)?",
+        options: ["2011", "2013", "2015", "2017"],
+        answer: 1,
+        exp: "ISRO launched Mangalyaan on November 5, 2013, successfully entering Martian orbit in September 2014."
+      },
+      {
+        q: "Which is the highest peak in the Western Ghats of India?",
+        options: ["Doda Betta", "Anamudi", "Kalsubai", "Guru Shikhar"],
+        answer: 1,
+        exp: "Anamudi (2,695 m) in Kerala is the highest peak in the Western Ghats and South India."
+      },
+      {
+        q: "Which enzyme present in human saliva breaks down complex starches into sugars?",
+        options: ["Pepsin", "Salivary Amylase (Ptyalin)", "Trypsin", "Lipase"],
+        answer: 1,
+        exp: "Salivary amylase breaks down dietary starches into maltose and simpler dextrins."
+      },
+      {
+        q: "Which planet in our solar system has the highest density?",
+        options: ["Jupiter", "Saturn", "Earth", "Mercury"],
+        answer: 2,
+        exp: "Earth is the densest planet in the Solar System, with an average density of ~5.51 g/cm³."
+      },
+      {
+        q: "Who was the founder of the Maurya Empire in ancient India?",
+        options: ["Ashoka the Great", "Chandragupta Maurya", "Bindusara", "Samudragupta"],
+        answer: 1,
+        exp: "Chandragupta Maurya established the Maurya Empire in 322 BCE with guidance from Chanakya (Kautilya)."
+      }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentIndex];
+      document.getElementById('q-current').textContent = currentIndex + 1;
+      document.getElementById('q-total').textContent = QUESTIONS.length;
+      document.getElementById('q-score').textContent = score;
+      document.getElementById('q-text').textContent = q.q;
+      document.getElementById('q-feedback').textContent = '';
+      document.getElementById('btn-next').style.display = 'none';
+
+      const optionsBox = document.getElementById('q-options');
+      optionsBox.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = `${String.fromCharCode(65 + idx)}. ${opt}`;
+        btn.onclick = () => selectOption(idx);
+        optionsBox.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx) {
+      if (answered) return;
+      answered = true;
+      const q = QUESTIONS[currentIndex];
+      const buttons = document.querySelectorAll('.option-btn');
+
+      if (idx === q.answer) {
+        buttons[idx].classList.add('correct');
+        score++;
+        document.getElementById('q-score').textContent = score;
+        document.getElementById('q-feedback').innerHTML = `<span style="color:#34d399;">✓ Correct!</span> ${q.exp}`;
+      } else {
+        buttons[idx].classList.add('wrong');
+        buttons[q.answer].classList.add('correct');
+        document.getElementById('q-feedback').innerHTML = `<span style="color:#fca5a5;">✗ Incorrect.</span> ${q.exp}`;
+      }
+
+      document.getElementById('btn-next').style.display = 'inline-block';
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < QUESTIONS.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('quiz-active-view').style.display = 'none';
+      document.getElementById('quiz-result-view').style.display = 'block';
+      document.getElementById('final-score').textContent = score;
+
+      const msg = document.getElementById('result-message');
+      const det = document.getElementById('result-detail');
+
+      if (score >= 9) {
+        msg.textContent = "Outstanding Performance! 🏆";
+        det.textContent = "You demonstrated mastery across history, science, and constitution topics!";
+      } else if (score >= 6) {
+        msg.textContent = "Well Done! 🌟";
+        det.textContent = "Strong knowledge foundation. Review the missed questions and try Quiz India!";
+      } else {
+        msg.textContent = "Good Effort! 📚";
+        det.textContent = "Keep practicing. Regular study of NCERT materials will boost your score!";
+      }
+    }
+
+    function restartQuiz() {
+      currentIndex = 0;
+      score = 0;
+      document.getElementById('quiz-result-view').style.display = 'none';
+      document.getElementById('quiz-active-view').style.display = 'block';
+      renderQuestion();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuestion();
+    });
+  </script>
+
+  <script src="../script.js" defer></script>
+  <script src="../cookie.js" defer></script>
+  <script src="../navbar-premium.js"></script>
+  <script src="../footer-premium.js"></script>
+  <script src="/learning/loading-lines.js" defer></script>
+</body>
+</html>

@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="dcf-top dcf-rise" style="--d: 0ms;">
       <div class="dcf-brand-area">
         <div class="dcf-brand">
-          <a href="${MAIN_SITE}/index.html" class="dcf-logo" aria-label="HarshGuruJi Home">
+          <a href="${MAIN_SITE}/" class="dcf-logo" aria-label="HarshGuruJi Home">
             <img src="${MAIN_SITE}/logo.png" alt="HarshGuruJi" style="width:28px;height:28px;border-radius:6px;object-fit:contain;" />
           </a>
-          <a href="${MAIN_SITE}/index.html" class="dcf-brandname">HarshGuruJi</a>
+          <a href="${MAIN_SITE}/" class="dcf-brandname">HarshGuruJi</a>
         </div>
         <p class="dcf-blurb">
           HarshGuruJi is a premium digital platform for learning, AI, tools, knowledge, games, and useful online resources. Learn • Create • Explore • Build.
@@ -89,31 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="dcf-col">
           <h5 class="dcf-coltitle">Platform</h5>
           <ul>
-            <li><a href="${MAIN_SITE}/index.html" class="dcf-link"><span>HarshGuruJi Home</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/ai-hub.html" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/daily-special.html" class="dcf-link"><span>Daily Special</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/dashboard.html" class="dcf-link"><span>Dashboard</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html" class="dcf-link"><span>Explore</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/" class="dcf-link"><span>HarshGuruJi Home</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/ai-hub/" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/daily-special/" class="dcf-link"><span>Daily Special</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/dashboard/" class="dcf-link"><span>Dashboard</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/explore/" class="dcf-link"><span>Explore</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
 
         <div class="dcf-col">
           <h5 class="dcf-coltitle">Tools</h5>
           <ul>
-            <li><a href="${MAIN_SITE}/free-tools.html" class="dcf-link"><span>All Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Text" class="dcf-link"><span>Text Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Calculator" class="dcf-link"><span>Calculators</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Converter" class="dcf-link"><span>Converters</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/explore.html?search=Developer" class="dcf-link"><span>Dev Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/free-tools/" class="dcf-link"><span>All Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/explore/?search=Text" class="dcf-link"><span>Text Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/explore/?search=Calculator" class="dcf-link"><span>Calculators</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/explore/?search=Converter" class="dcf-link"><span>Converters</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/explore/?search=Developer" class="dcf-link"><span>Dev Tools</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
 
         <div class="dcf-col">
           <h5 class="dcf-coltitle">Learning</h5>
           <ul>
-            <li><a href="${MAIN_SITE}/learning-hub.html" class="dcf-link"><span>Learning Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/learning-hub/" class="dcf-link"><span>Learning Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="https://books.webguruji.online" class="dcf-link"><span>NCERT Library</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/education.html" class="dcf-link"><span>Education</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/education/" class="dcf-link"><span>Education</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/learning/class-10-science.html" class="dcf-link"><span>Class 10</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/learning/class.html?class=9" class="dcf-link"><span>Class 9</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/learning/gk-quiz.html" class="dcf-link"><span>Quizzes</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><a href="https://store.webguruji.online" class="dcf-link"><span>GuruStore</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="https://chat.webguruji.online" class="dcf-link"><span>GuruChats</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="https://tube.webguruji.online/" class="dcf-link"><span>GuruTube</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/gaming-hub.html" class="dcf-link"><span>Gaming Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/ai-hub.html" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/gaming-hub/" class="dcf-link"><span>Gaming Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/ai-hub/" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/Quiz India/index.html" class="dcf-link"><span>Quiz India</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
@@ -135,12 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="dcf-col">
           <h5 class="dcf-coltitle">Company & Legal</h5>
           <ul>
-            <li><a href="${MAIN_SITE}/about.html" class="dcf-link"><span>About Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/contact.html" class="dcf-link"><span>Contact Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/contributor.html" class="dcf-link"><span>Contributors</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/privacy-policy.html" class="dcf-link"><span>Privacy Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/terms-and-conditions.html" class="dcf-link"><span>Terms &amp; Conditions</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/disclaimer.html" class="dcf-link"><span>Disclaimer</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/about/" class="dcf-link"><span>About Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/contact/" class="dcf-link"><span>Contact Us</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/contributor/" class="dcf-link"><span>Contributors</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/privacy-policy/" class="dcf-link"><span>Privacy Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/terms-and-conditions/" class="dcf-link"><span>Terms &amp; Conditions</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/disclaimer/" class="dcf-link"><span>Disclaimer</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/cookie.html" class="dcf-link"><span>Cookies Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </p>
         ${isPaymentPage ? '' : `
         <div class="dcf-actions">
-          <a href="${MAIN_SITE}/ai-hub.html" class="dcf-btn is-solid">
+          <a href="${MAIN_SITE}/ai-hub/" class="dcf-btn is-solid">
             <svg class="dcf-icon" viewBox="-16 -16 32 32" width="18" height="18" fill="none"><path fill="#ffd23f" d="M3 -14 L-8 2 L-1 2 L-4 14 L8 -3 L1 -3 Z" /></svg>
             <span>Explore AI Hub</span>
           </a>
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Bottom Bar: Founder info, Copyright, Socials, Back to Top -->
     <div class="dcf-bar dcf-rise" style="--d: 120ms;">
-      <a href="${MAIN_SITE}/owner.html" class="dcf-founder" title="Meet Founder Harsh Patel" aria-label="Harsh Patel Founder Profile">
+      <a href="${MAIN_SITE}/owner/" class="dcf-founder" title="Meet Founder Harsh Patel" aria-label="Harsh Patel Founder Profile">
         <img src="${MAIN_SITE}/harshlogo.png" alt="Harsh Patel" onerror="this.src='${MAIN_SITE}/logo.png'" />
         <div class="dcf-founder-text">
           <span class="dcf-founder-name">Harsh Patel <span style="color:#60a5fa;">✓</span></span>
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput && searchBtn) {
     const doSearch = () => {
       const q = searchInput.value.trim();
-      if (q) window.open(`${MAIN_SITE}/explore.html?search=${encodeURIComponent(q)}`, '_blank');
+      if (q) window.open(`${MAIN_SITE}/explore/?search=${encodeURIComponent(q)}`, '_blank');
     };
     searchBtn.addEventListener('click', doSearch);
     searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doSearch(); });

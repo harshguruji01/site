@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Memory Match - Brain Training Card Game</title>
+  <meta name="description" content="Test and train your brain memory with card matching challenges across multiple difficulty levels on HarshGuruJi Memory Match.">
+  <meta name="keywords" content="harshguruji memory game, brain training game, card match game, memory test online, harshguruji games">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/games/memory/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/games/memory/">
+  <meta property="og:title" content="HarshGuruJi Memory Match - Brain Training Card Game">
+  <meta property="og:description" content="Test and train your brain memory with card matching challenges across multiple difficulty levels on HarshGuruJi Memory Match.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi Memory Match - Brain Training Card Game">
+  <meta name="twitter:description" content="Test and train your brain memory with card matching challenges across multiple difficulty levels on HarshGuruJi Memory Match.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Games",
+      "item": "https://webguruji.online/gaming-hub.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Memory Game",
+      "item": "https://webguruji.online/games/memory.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi Memory Match - Brain Training Card Game | HarshGuruJi Games",
+  "url": "https://webguruji.online/games/memory.html",
+  "description": "Test and train your brain memory with card matching challenges across multiple difficulty levels on HarshGuruJi Memory Match.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  <style>
+    .game-container { max-width: 600px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); text-align: center; }
+    .back-btn { display: inline-block; margin-bottom: 1rem; color: var(--hub-text-secondary); text-decoration: none; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 2rem; perspective: 1000px; }
+    .card { width: 100%; aspect-ratio: 1; background: var(--bg-color, #1a1a1a); border: 2px solid var(--hub-accent); border-radius: 8px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+    .card.flipped { transform: rotateY(180deg); }
+    .card .front, .card .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border-radius: 6px; }
+    .card .front { background: var(--hub-accent); color: white; font-weight: bold; }
+    .card .back { background: var(--hub-surface); transform: rotateY(180deg); }
+    .stats { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 1rem; }
+    .reset-btn { background: var(--hub-accent); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; cursor: pointer; margin-top: 2rem; font-weight: bold; }
+  </style>
+
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  <!-- Google AdSense -->
+  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+     crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
+  <link rel="stylesheet" href="/games/loading-lines.css">
+</head>
+<body class="hub-page dark-mode">
+
+<main class="game-container">
+  <div style="text-align: left;">
+    <a href="../gaming-hub.html" class="back-btn">← Back to Gaming Hub</a>
+  </div>
+  
+  <h1 style="color: var(--hub-accent); margin-bottom: 0.5rem;">Memory Match</h1>
+  <div class="stats">
+      <span>Moves: <span id="moves">0</span></span>
+      <span>Pairs: <span id="pairs">0/8</span></span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <button class="reset-btn" onclick="initGame()">Restart Game</button>
+
+<section class="hg-guide-section">
+  <h2>Cognitive Science and Strategic Benefits of Memory Matching Games</h2>
+  <p>
+    Memory card matching (traditionally known as <em>Concentration</em>, <em>Pelmanism</em>, or <em>Pairs</em>) is a classic puzzle format with profound cognitive benefits.
+    Players flip over pairs of hidden cards to find matching symbols.
+    HarshGuruJi's Memory Challenge trains active working memory, visual-spatial processing, and focus across players of all ages.
+  </p>
+
+  <h3>Brain Benefits of Regular Memory Games</h3>
+  <ul>
+    <li><strong>Strengthens Working Memory:</strong> Active recall challenges the prefrontal cortex to store and quickly update card coordinates.</li>
+    <li><strong>Improves Attention to Detail:</strong> Discerning subtle icon and color differences trains visual discrimination skills.</li>
+    <li><strong>Enhances Spatial Reasoning:</strong> Mapping grid coordinates and mentally visualizing hidden cards builds spatial orientation networks.</li>
+  </ul>
+
+  <h3>Proven Memorization Techniques</h3>
+  <p>
+    Grandmaster memory competitors use the <strong>Method of Loci (Memory Palace)</strong> and categorical association to remember dozens of items.
+    In 4&times;4 or 6&times;6 card matching:
+  </p>
+  <ol>
+    <li>Group cards mentally into quadrants (Top-Left, Top-Right, Bottom-Left, Bottom-Right).</li>
+    <li>Associate newly revealed symbols with a vivid mental story linking their grid row and column.</li>
+    <li>Avoid randomly flipping cards; systematically explore rows to build a coherent spatial map.</li>
+  </ol>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>How does this game measure performance?</h4>
+    <p>Your performance is tracked through two primary metrics: the total number of moves (turns) taken to match all pairs, and the elapsed time. Achieving matches in fewer moves reflects superior spatial memory retention.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Is this game suitable for children and seniors?</h4>
+    <p>Absolutely. Memory matching games are widely utilized in primary school learning centers and senior cognitive wellness programs to preserve brain agility and mental sharpness.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const grid = document.getElementById('grid');
+  const movesEl = document.getElementById('moves');
+  const pairsEl = document.getElementById('pairs');
+  
+  const emojis = ['🚀', '🎮', '👾', '🌟', '💎', '🔥', '🎨', '🧩'];
+  let cards = [];
+  let flippedCards = [];
+  let moves = 0;
+  let matches = 0;
+  let lockBoard = false;
+
+  function initGame() {
+    grid.innerHTML = '';
+    cards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+    moves = 0;
+    matches = 0;
+    flippedCards = [];
+    lockBoard = false;
+    movesEl.innerText = moves;
+    pairsEl.innerText = '0/8';
+
+    cards.forEach((emoji, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.emoji = emoji;
+      card.innerHTML = `
+        <div class="front">?</div>
+        <div class="back">${emoji}</div>
+      `;
+      card.addEventListener('click', flipCard);
+      grid.appendChild(card);
+    });
+  }
+
+  function flipCard() {
+    if (lockBoard) return;
+    if (this === flippedCards[0]) return;
+
+    this.classList.add('flipped');
+    flippedCards.push(this);
+
+    if (flippedCards.length === 2) {
+      moves++;
+      movesEl.innerText = moves;
+      checkForMatch();
+    }
+  }
+
+  function checkForMatch() {
+    let isMatch = flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji;
+    isMatch ? disableCards() : unflipCards();
+  }
+
+  function disableCards() {
+    flippedCards[0].removeEventListener('click', flipCard);
+    flippedCards[1].removeEventListener('click', flipCard);
+    matches++;
+    pairsEl.innerText = `${matches}/8`;
+    flippedCards = [];
+    
+    if(matches === 8) {
+        if (window.saveGameScore) window.saveGameScore('Memory Match', moves, { matches: 8 });
+        setTimeout(() => alert(`You won in ${moves} moves!`), 500);
+    }
+  }
+
+  function unflipCards() {
+    lockBoard = true;
+    setTimeout(() => {
+      flippedCards[0].classList.remove('flipped');
+      flippedCards[1].classList.remove('flipped');
+      flippedCards = [];
+      lockBoard = false;
+    }, 1000);
+  }
+
+  initGame();
+</script>
+
+  <script type="module" src="../js/game-db-init.js"></script>
+    <script type='module' src='../js/auth.js' defer></script>
+
+  <script src="../navbar-premium.js"></script>
+  <script src="../footer-premium.js"></script>
+  <script src="/games/loading-lines.js" defer></script>
+</body>
+</html>
+

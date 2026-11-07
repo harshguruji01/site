@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Word Counter - Character & Word Count Tool</title>
+  <meta name="description" content="Count words, characters, sentences, paragraphs, and estimate reading time in real-time with HarshGuruJi Word Counter tool.">
+  <meta name="keywords" content="harshguruji word counter, character counter, text length count, word count tool, reading time estimator, harshguruji">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/tools/word-counter/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/tools/word-counter/">
+  <meta property="og:title" content="HarshGuruJi Word Counter - Character & Word Count Tool">
+  <meta property="og:description" content="Count words, characters, sentences, paragraphs, and estimate reading time in real-time with HarshGuruJi Word Counter tool.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi Word Counter - Character & Word Count Tool">
+  <meta name="twitter:description" content="Count words, characters, sentences, paragraphs, and estimate reading time in real-time with HarshGuruJi Word Counter tool.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://webguruji.online/tools.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Word Counter",
+      "item": "https://webguruji.online/tools/word-counter.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi Word Counter - Character & Word Count Tool | HarshGuruJi",
+  "url": "https://webguruji.online/tools/word-counter.html",
+  "description": "Count words, characters, sentences, paragraphs, and estimate reading time in real-time with HarshGuruJi Word Counter tool.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  
+  <style>
+    .tool-container { max-width: 800px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); }
+    .tool-header { margin-bottom: 2rem; text-align: center; }
+    .tool-header h1 { margin-bottom: 0.5rem; }
+    .tool-header p { color: var(--hub-text-secondary); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-box { background: var(--bg-color, #1a1a1a); padding: 1.5rem 1rem; border-radius: 8px; text-align: center; border: 1px solid var(--hub-border); }
+    .stat-value { font-size: 2rem; font-weight: bold; color: var(--hub-accent); margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.85rem; color: var(--hub-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+    textarea { width: 100%; height: 300px; padding: 1rem; border-radius: 8px; border: 1px solid var(--hub-border); background: var(--bg-color, #1a1a1a); color: var(--hub-text-primary); font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.2s; }
+    textarea:focus { outline: none; border-color: var(--hub-accent); }
+    .actions { display: flex; gap: 1rem; margin-top: 1rem; justify-content: flex-end; }
+  </style>
+
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  <!-- Google AdSense -->
+  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+     crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
+  <link rel="stylesheet" href="/tools/loading-lines.css">
+</head>
+<body class="hub-page dark-mode">
+
+<main class="tool-container">
+  <div class="tool-header">
+    <h1>Word & Character Counter</h1>
+    <p>Instantly count words, characters, sentences, and paragraphs in your text.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-value" id="wordCount">0</div>
+      <div class="stat-label">Words</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" id="charCount">0</div>
+      <div class="stat-label">Characters</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" id="sentenceCount">0</div>
+      <div class="stat-label">Sentences</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" id="paragraphCount">0</div>
+      <div class="stat-label">Paragraphs</div>
+    </div>
+  </div>
+
+  <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+  
+  <div class="actions">
+    <button id="clearBtn" class="hub-btn" style="background: transparent; border: 1px solid var(--hub-border); color: var(--hub-text-primary);">Clear Text</button>
+    <button id="copyBtn" class="hub-btn primary">Copy Text</button>
+  </div>
+
+<section class="hg-guide-section">
+  <h2>The Ultimate Guide to Word, Character, and Reading Time Analysis</h2>
+  <p>
+    Whether you are drafting an academic research paper, authoring a blog post, composing social media copy, or preparing a speech, word and character limits dictate clarity and engagement.
+    <strong>HarshGuruJi's Word &amp; Character Counter</strong> provides instantaneous, real-time statistics on word counts, character lengths (with and without whitespace), sentence structures, and estimated reading speeds.
+  </p>
+
+  <h3>Standard Word Count Benchmarks Across Platforms</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Content Format</th>
+        <th>Recommended Length</th>
+        <th>Key Objective</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SEO Blog Post</strong></td>
+        <td>1,200 – 2,500 words</td>
+        <td>Provides comprehensive topic coverage and satisfies search intent</td>
+      </tr>
+      <tr>
+        <td><strong>X / Twitter Post</strong></td>
+        <td>Up to 280 characters</td>
+        <td>Concise, punchy messaging with maximum feed shareability</td>
+      </tr>
+      <tr>
+        <td><strong>Meta Description</strong></td>
+        <td>150 – 160 characters</td>
+        <td>Displays fully on Google Search Engine Results Pages (SERPs)</td>
+      </tr>
+      <tr>
+        <td><strong>Email Newsletter</strong></td>
+        <td>200 – 500 words</td>
+        <td>Maintains high open-to-click rates and respects subscriber attention</td>
+      </tr>
+      <tr>
+        <td><strong>University Essay</strong></td>
+        <td>1,500 – 3,000 words</td>
+        <td>Meets academic grading criteria and thorough evidentiary analysis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>How Reading and Speaking Times Are Estimated</h3>
+  <p>
+    Cognitive research demonstrates that the average adult reads comfortably at approximately <strong>200 to 250 words per minute (WPM)</strong> when reading silently.
+    When presenting aloud at a podium or in a podcast, public speaking cadence slows to approximately <strong>130 to 150 words per minute</strong>.
+    You can estimate presentation duration using these standard benchmarks:
+  </p>
+  <ul>
+    <li><strong>5-Minute Speech:</strong> ~650 to 750 words</li>
+    <li><strong>10-Minute Presentation:</strong> ~1,300 to 1,500 words</li>
+    <li><strong>30-Minute Keynote:</strong> ~4,000 to 4,500 words</li>
+  </ul>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>Does this word counter store or log my text?</h4>
+    <p>No. HarshGuruJi processes your text entirely in client memory within your web browser. Nothing is logged, transmitted, or saved to any external database.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>How are hyphenated words counted?</h4>
+    <p>Hyphenated terms such as "state-of-the-art" or "well-being" are standardly evaluated based on whitespace separators. Our algorithm adheres to international publishing standards to ensure compatibility with Microsoft Word and Google Docs.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const textInput = document.getElementById('textInput');
+    const wordCount = document.getElementById('wordCount');
+    const charCount = document.getElementById('charCount');
+    const sentenceCount = document.getElementById('sentenceCount');
+    const paragraphCount = document.getElementById('paragraphCount');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function updateStats() {
+      const text = textInput.value;
+      
+      // Characters
+      charCount.textContent = text.length;
+
+      // Words
+      const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+      wordCount.textContent = words.length;
+
+      // Sentences
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      sentenceCount.textContent = text.length > 0 ? sentences.length : 0;
+
+      // Paragraphs
+      const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+      paragraphCount.textContent = text.length > 0 ? paragraphs.length : 0;
+    }
+
+    textInput.addEventListener('input', updateStats);
+
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      updateStats();
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (textInput.value) {
+        navigator.clipboard.writeText(textInput.value).then(() => {
+          const originalText = copyBtn.textContent;
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
+        });
+      }
+    });
+  });
+</script>
+
+<script type='module' src='../js/auth.js' defer></script>
+
+  <script src="../navbar-premium.js"></script>
+  <script src="../footer-premium.js"></script>
+  <script src="/tools/loading-lines.js" defer></script>
+</body>
+</html>
+

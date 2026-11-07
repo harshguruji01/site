@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi Reset Password - Set New Secure Password</title>
+  <meta name="description" content="Set a new, secure password for your HarshGuruJi account. Ensure your account credentials remain safe and protected.">
+  <meta name="keywords" content="harshguruji reset password, new password, harshguruji security, update password, harshguruji password reset">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://webguruji.online/reset-password/">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/reset-password/">
+  <meta property="og:title" content="HarshGuruJi Reset Password - Set New Secure Password">
+  <meta property="og:description" content="Set a new, secure password for your HarshGuruJi account. Ensure your account credentials remain safe and protected.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi Reset Password - Set New Secure Password">
+  <meta name="twitter:description" content="Set a new, secure password for your HarshGuruJi account. Ensure your account credentials remain safe and protected.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Reset Password",
+      "item": "https://webguruji.online/reset-password.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi Reset Password - Set New Secure Password | HarshGuruJi",
+  "url": "https://webguruji.online/reset-password.html",
+  "description": "Set a new, secure password for your HarshGuruJi account. Ensure your account credentials remain safe and protected.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<script src="error-shield.js"></script>
+
+  
+  
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="navbar-premium.css">
+  <link rel="stylesheet" href="footer-premium.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
+  <link rel="stylesheet" href="responsive-patch.css">
+  <link rel="stylesheet" href="loading-lines.css">
+</head>
+<body class="auth-page">
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Set New Password</h1>
+        <p class="auth-subtitle">Enter your new secure password below.</p>
+      </div>
+
+      <div id="error-message" class="auth-error" style="display: none;"></div>
+      <div id="success-message" class="auth-success" style="display: none;"></div>
+
+      <form id="new-password-form" class="auth-form">
+        <div class="form-group">
+          <label for="new-password" class="form-label">New Password</label>
+          <input type="password" id="new-password" class="form-input" required minlength="6" placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirm New Password</label>
+          <input type="password" id="confirm-password" class="form-input" required minlength="6" placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="update-btn">
+          <span>Update Password</span>
+          <div class="spinner" id="update-spinner" style="display: none;"></div>
+        </button>
+      </form>
+
+      <p class="auth-footer-text">
+        <a href="login.html">Back to Login</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    import { updatePassword } from './js/auth.js';
+
+    const form = document.getElementById('new-password-form');
+    const updateBtn = document.getElementById('update-btn');
+    const updateSpinner = document.getElementById('update-spinner');
+    const errorMsg = document.getElementById('error-message');
+    const successMsg = document.getElementById('success-message');
+
+    function showError(message) {
+      errorMsg.innerHTML = message;
+      errorMsg.style.display = 'block';
+      successMsg.style.display = 'none';
+    }
+
+    function showSuccess(message) {
+      successMsg.innerHTML = message;
+      successMsg.style.display = 'block';
+      errorMsg.style.display = 'none';
+    }
+
+    function setLoading(isLoading) {
+      const btnSpan = updateBtn.querySelector('span');
+      if (isLoading) {
+        updateBtn.disabled = true;
+        btnSpan.style.display = 'none';
+        updateSpinner.style.display = 'inline-block';
+      } else {
+        updateBtn.disabled = false;
+        btnSpan.style.display = 'inline-block';
+        updateSpinner.style.display = 'none';
+      }
+    }
+
+    // Verify recovery session on load
+    async function checkRecoverySession() {
+      supabase.auth.onAuthStateChange(async (event, session) => {
+        if (event === 'PASSWORD_RECOVERY') {
+          console.log('Password recovery mode active');
+          errorMsg.style.display = 'none';
+          updateBtn.disabled = false;
+        }
+      });
+
+      const hash = window.location.hash || '';
+      const params = new URLSearchParams(window.location.search);
+      const isRecovery = hash.includes('type=recovery') || hash.includes('access_token') || params.has('code');
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session && !isRecovery) {
+        showError('No active password reset request found. If your reset link expired, please <a href="forgot-password.html" style="color: #60a5fa; text-decoration: underline;">request a new link here</a>.');
+        updateBtn.disabled = true;
+      }
+    }
+
+    checkRecoverySession();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const p1 = document.getElementById('new-password').value;
+      const p2 = document.getElementById('confirm-password').value;
+
+      if (p1.length < 6) {
+        showError('Password must be at least 6 characters.');
+        return;
+      }
+
+      if (p1 !== p2) {
+        showError('Passwords do not match.');
+        return;
+      }
+
+      setLoading(true);
+      errorMsg.style.display = 'none';
+
+      try {
+        await updatePassword(p1);
+        showSuccess('Password updated successfully! Redirecting to login...');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      } catch (err) {
+        console.error('Password update error:', err);
+        showError(err.message || 'Failed to update password. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+
+  <script src="navbar-premium.js"></script>
+  <script src="footer-premium.js"></script>
+  <script src="loading-lines.js" defer></script>
+</body>
+</html>

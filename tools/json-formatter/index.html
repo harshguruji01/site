@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-adsense-account" content="ca-pub-7706204118195419">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarshGuruJi JSON Formatter - Beautify, Validate & Parse JSON</title>
+  <meta name="description" content="Beautify, format, validate, and minify JSON code online with instant syntax highlighting and error detection on HarshGuruJi JSON Formatter.">
+  <meta name="keywords" content="harshguruji json formatter, json validator, json beautifier, format json online, json parser, harshguruji tools">
+  <meta name="author" content="HarshGuruJi">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://webguruji.online/tools/json-formatter/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo-192.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="HarshGuruJi">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webguruji.online/tools/json-formatter/">
+  <meta property="og:title" content="HarshGuruJi JSON Formatter - Beautify, Validate & Parse JSON">
+  <meta property="og:description" content="Beautify, format, validate, and minify JSON code online with instant syntax highlighting and error detection on HarshGuruJi JSON Formatter.">
+  <meta property="og:image" content="https://webguruji.online/logo-512.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@harshguruji1">
+  <meta name="twitter:title" content="HarshGuruJi JSON Formatter - Beautify, Validate & Parse JSON">
+  <meta name="twitter:description" content="Beautify, format, validate, and minify JSON code online with instant syntax highlighting and error detection on HarshGuruJi JSON Formatter.">
+  <meta name="twitter:image" content="https://webguruji.online/logo-512.png">
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://webguruji.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://webguruji.online/tools.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "JSON Formatter",
+      "item": "https://webguruji.online/tools/json-formatter.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HarshGuruJi JSON Formatter - Beautify, Validate & Parse JSON | HarshGuruJi",
+  "url": "https://webguruji.online/tools/json-formatter.html",
+  "description": "Beautify, format, validate, and minify JSON code online with instant syntax highlighting and error detection on HarshGuruJi JSON Formatter.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "HarshGuruJi",
+    "alternateName": [
+      "Harsh Guru Ji",
+      "HarshGuruJi Online"
+    ],
+    "url": "https://webguruji.online/"
+  }
+}
+  </script>
+<link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/hubs.css">
+  
+  <style>
+    .tool-container { max-width: 1000px; margin: 4rem auto; padding: 2rem; background: var(--hub-surface); border-radius: var(--hub-radius); border: 1px solid var(--hub-border); }
+    .tool-header { margin-bottom: 2rem; text-align: center; }
+    .tool-header h1 { margin-bottom: 0.5rem; }
+    .tool-header p { color: var(--hub-text-secondary); }
+    .json-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 768px) { .json-grid { grid-template-columns: 1fr; } }
+    textarea { width: 100%; height: 400px; padding: 1rem; border-radius: 8px; border: 1px solid var(--hub-border); background: var(--bg-color, #1a1a1a); color: var(--hub-text-primary); font-family: monospace; font-size: 0.9rem; resize: vertical; transition: border-color 0.2s; white-space: pre; }
+    textarea:focus { outline: none; border-color: var(--hub-accent); }
+    .actions { display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; grid-column: 1 / -1; }
+    .error-msg { color: #ef4444; margin-top: 1rem; text-align: center; display: none; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2); }
+  </style>
+
+  <link rel="stylesheet" href="../navbar-premium.css">
+  <link rel="stylesheet" href="../footer-premium.css">
+  <!-- Google AdSense -->
+  <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
+  <script src="../js/ad-shield.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
+     crossorigin="anonymous"></script>
+
+<style>
+.hg-guide-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.hg-guide-section h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.hg-guide-section h2:first-of-type {
+  margin-top: 0;
+}
+.hg-guide-section h3 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.hg-guide-section p {
+  margin-bottom: 1.2rem;
+}
+.hg-guide-section ul, .hg-guide-section ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.hg-guide-section li {
+  margin-bottom: 0.5rem;
+}
+.hg-guide-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.hg-guide-section th, .hg-guide-section td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.hg-guide-section th {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+.hg-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hg-faq-item h4 {
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.hg-faq-item p {
+  margin-bottom: 0;
+  color: #94a3b8;
+}
+</style>
+
+  <link rel="stylesheet" href="/tools/loading-lines.css">
+</head>
+<body class="hub-page dark-mode">
+
+<main class="tool-container">
+  <div class="tool-header">
+    <h1>JSON Formatter & Validator</h1>
+    <p>Format, beautify, and validate your JSON data instantly.</p>
+  </div>
+
+  <div class="json-grid">
+    <div>
+        <label style="display:block; margin-bottom:0.5rem; color:var(--hub-text-secondary);">Input JSON:</label>
+        <textarea id="jsonInput" placeholder='{"example": "Paste your JSON here"}'></textarea>
+    </div>
+    <div>
+        <label style="display:block; margin-bottom:0.5rem; color:var(--hub-text-secondary);">Formatted Output:</label>
+        <textarea id="jsonOutput" readonly placeholder="Formatted JSON will appear here"></textarea>
+    </div>
+    
+    <div class="actions">
+        <button id="formatBtn" class="hub-btn primary">Format / Beautify</button>
+        <button id="minifyBtn" class="hub-btn" style="background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary);">Minify</button>
+        <button id="copyBtn" class="hub-btn" style="background: var(--hub-surface); border: 1px solid var(--hub-border); color: var(--hub-text-primary);">Copy Output</button>
+        <button id="clearBtn" class="hub-btn" style="background: transparent; border: 1px solid var(--hub-border); color: #ef4444;">Clear</button>
+    </div>
+  </div>
+  
+  <div id="errorMsg" class="error-msg"></div>
+
+<section class="hg-guide-section">
+  <h2>Complete Developer Guide: JSON Validation, Formatting, and Minification</h2>
+  <p>
+    <strong>JavaScript Object Notation (JSON)</strong> is the undisputed standard lightweight data-interchange format across modern web APIs, mobile backend services, cloud databases, and configuration files.
+    Standardized under <strong>ECMA-404</strong> and <strong>RFC 8259</strong>, JSON is language-independent, human-readable, and machine-parseable.
+    <strong>HarshGuruJi's JSON Formatter &amp; Validator</strong> allows engineers, students, and system administrators to validate syntax, prettify dense minified payloads, and compress data for high-speed network transmission.
+  </p>
+
+  <h3>Key Rules of Valid JSON Syntax</h3>
+  <ul>
+    <li><strong>Double Quotes for Keys:</strong> Object keys must always be enclosed in double quotes (e.g., <code>"username": "harsh"</code>). Single quotes are invalid.</li>
+    <li><strong>No Trailing Commas:</strong> Commas must only separate elements. A comma after the final item in an array or object causes a parsing syntax error.</li>
+    <li><strong>Supported Primitive Types:</strong> String, Number, Boolean (<code>true</code> / <code>false</code>), <code>null</code>, Object (<code>{}</code>), and Array (<code>[]</code>). Functions and <code>undefined</code> are not permitted.</li>
+  </ul>
+
+  <h3>Prettify vs. Minify: When to Use Which</h3>
+  <p>
+    <strong>Prettifying (Indenting):</strong> Introduces 2 or 4 spaces of indentation and newline characters. This makes complex nested structures easy for developers to read, inspect, and debug during software development.
+  </p>
+  <p>
+    <strong>Minifying (Compressing):</strong> Strips all superfluous spaces, tabs, and newline breaks. This minimizes payload size, speeding up API responses and reducing bandwidth costs over production network connections.
+  </p>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <div class="hg-faq-item">
+    <h4>Why did my JSON fail validation?</h4>
+    <p>Common causes include: unquoted keys, single quotes instead of double quotes, trailing commas at the end of lists, or unescaped newline characters inside strings.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Is it safe to paste private API responses into this formatter?</h4>
+    <p>Yes. HarshGuruJi runs JSON parsing using native browser <code>JSON.parse()</code> and <code>JSON.stringify()</code> inside your local sandbox. No data is sent across the internet.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const jsonInput = document.getElementById('jsonInput');
+    const jsonOutput = document.getElementById('jsonOutput');
+    const formatBtn = document.getElementById('formatBtn');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    function processJSON(spaces) {
+      errorMsg.style.display = 'none';
+      const raw = jsonInput.value.trim();
+      if (!raw) {
+          jsonOutput.value = '';
+          return;
+      }
+      
+      try {
+        const parsed = JSON.parse(raw);
+        jsonOutput.value = JSON.stringify(parsed, null, spaces);
+      } catch (e) {
+        errorMsg.textContent = 'Invalid JSON: ' + e.message;
+        errorMsg.style.display = 'block';
+        jsonOutput.value = '';
+      }
+    }
+
+    formatBtn.addEventListener('click', () => processJSON(2));
+    minifyBtn.addEventListener('click', () => processJSON(0));
+
+    clearBtn.addEventListener('click', () => {
+      jsonInput.value = '';
+      jsonOutput.value = '';
+      errorMsg.style.display = 'none';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (jsonOutput.value) {
+        navigator.clipboard.writeText(jsonOutput.value).then(() => {
+          const originalText = copyBtn.textContent;
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
+        });
+      }
+    });
+  });
+</script>
+
+<script type='module' src='../js/auth.js' defer></script>
+
+  <script src="../navbar-premium.js"></script>
+  <script src="../footer-premium.js"></script>
+  <script src="/tools/loading-lines.js" defer></script>
+</body>
+</html>
+
