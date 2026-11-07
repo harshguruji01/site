@@ -6351,10 +6351,13 @@
                   <span style="font-size:0.75rem; color:#94a3b8;">Direct bridge to Laravel 12 UPI Gateway (pay.webguruji.online) for instant Paytm/PhonePe automated checks.</span>
                 </div>
               </div>
-              <div style="display:flex; align-items:center; gap:0.5rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
                 <span id="gateway-api-ping-badge" style="font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:50px; background:rgba(148,163,184,0.15); color:#94a3b8; border:1px solid rgba(148,163,184,0.3);">Standby / Unchecked</span>
                 <button type="button" class="btn-action-outline" onclick="pingGatewayApiHealth()" style="font-size:0.72rem; padding:4px 10px;">
                   <span>📡 Test API Ping</span>
+                </button>
+                <button type="button" class="btn-action-primary" onclick="runPaymentReconciliationNow()" style="font-size:0.72rem; padding:4px 12px; background:linear-gradient(135deg, #10b981, #059669); border:none; border-radius:8px; color:#fff; font-weight:700; cursor:pointer;">
+                  <span>🔄 1-Click Reconcile Payments</span>
                 </button>
               </div>
             </div>
@@ -12442,6 +12445,27 @@
           badge.style.borderColor = 'rgba(148,163,184,0.3)';
         }
         showMasterToast('Gateway server offline. Client using resilient Supabase mode.', 'info');
+      }
+    };
+
+    window.runPaymentReconciliationNow = async function() {
+      showMasterToast('🔄 Querying Render UPI Gateway to reconcile pending payments...', 'info');
+      try {
+        const res = await fetch('https://ai.webguruji.online/api/payment/reconcile', {
+          method: 'POST',
+          headers: {
+            'x-admin-code': 'HarshGuruJi@2547277654'
+          }
+        });
+        const data = await res.json();
+        if (data.success) {
+          showMasterToast(`✅ Reconciliation Done: ${data.reconciledCount} payments verified & unlocked!`, 'success');
+          if (typeof loadSubmissions === 'function') loadSubmissions();
+        } else {
+          showMasterToast(`Notice: ${data.error || 'Reconciliation check finished'}`, 'info');
+        }
+      } catch(e) {
+        showMasterToast('Reconciliation trigger notice: Checking gateway queue...', 'info');
       }
     };
 

@@ -839,6 +839,19 @@
             status: 'Active',
             admin_reply: `Auto-verified via UPI Gateway (Order: ${currentOrderNo}, UTR: ${utr || 'PG-VERIFIED'})`
           }).ilike('email', cleanEmail);
+
+          // 2b. Sync Entitlement with AI Backend
+          fetch('https://ai.webguruji.online/api/payment/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: currentOrderNo,
+              paymentId: utr || currentOrderNo,
+              utr: utr,
+              planId: modelKey,
+              email: cleanEmail
+            })
+          }).catch(() => {});
         }
 
         // 3. Dispatch automated confirmation receipt email
