@@ -380,7 +380,7 @@
         <p>• Your purchased model has been unlocked in your browser, web account, and synced into the HarshGuruJi APK.</p>
       </div>
 
-      <a href="https://ai.webguruji.online" class="w-full py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-slate-950 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-400 hover:opacity-95 transition shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-2">
+      <a id="launchGuruAiBtn" href="https://ai.webguruji.online" class="w-full py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-slate-950 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-400 hover:opacity-95 transition shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-2">
         <span>Launch GuruAI with Unlocked Model 🚀</span>
       </a>
     </div>
@@ -404,8 +404,8 @@
       qr_url: '',
       instructions: '',
       gateway_api_url: 'https://upi-gateway-oy63.onrender.com/api/v1',
-      gateway_api_key: 'key_c74uFNnzj9Q9M2PFncMRGvD9',
-      gateway_api_secret: 'sec_TmpFtgb65Qi0c980xtfg1vN4rISP1HvTd5CdUY7g',
+      gateway_api_key: 'key_GnDKpMuQWj9lYcqrWhzG0ifD',
+      gateway_api_secret: 'sec_D1MMJuvhwfceK43MkCtj3iYmoGbgzcwzlWqEWVVu',
       auto_unlock: true
     };
 
@@ -802,6 +802,16 @@
       isAutoUnlocked = true;
 
       try {
+        const cleanEmail = (email || '').toLowerCase().trim();
+        let modelKey = 'guru-flash-1.3';
+        if (targetModel.includes('1.5') || targetModel.includes('Grandmaster') || targetModel.includes('Argon 1.5')) {
+          modelKey = 'guru-argon-1.5';
+        } else if (targetModel.includes('1.4') || targetModel.includes('Scholar') || targetModel.includes('Argon 1.4')) {
+          modelKey = 'guru-argon-1.4';
+        }
+        const launchToken = generatePaymentToken(cleanEmail);
+        const aiLaunchUrl = `https://ai.webguruji.online/?email=${encodeURIComponent(cleanEmail)}&unlocked=${encodeURIComponent(modelKey)}&token=${encodeURIComponent(launchToken)}&paid=1`;
+
         const client = window.supabaseClient || (window.SUPABASE_URL && window.SUPABASE_ANON_KEY ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null);
         if (client) {
           let maxReq = 350;
@@ -816,7 +826,7 @@
 
           // 1. Upsert limits in Supabase
           await client.from('user_ai_limits').upsert({
-            email: email,
+            email: cleanEmail,
             max_requests: maxReq,
             context_limit: ctxLimit,
             plan_name: targetModel,
@@ -828,12 +838,12 @@
           await client.from('contact_messages').update({
             status: 'Active',
             admin_reply: `Auto-verified via UPI Gateway (Order: ${currentOrderNo}, UTR: ${utr || 'PG-VERIFIED'})`
-          }).ilike('email', email);
+          }).ilike('email', cleanEmail);
         }
 
         // 3. Dispatch automated confirmation receipt email
         try {
-          const clientName = verifiedClientData?.name || email.split('@')[0];
+          const clientName = verifiedClientData?.name || cleanEmail.split('@')[0];
           const receiptHtml = `
 <!DOCTYPE html>
 <html>
@@ -854,15 +864,15 @@
         <tr><td style="padding:10px 14px;color:#94a3b8;font-size:13px;font-weight:700;">Verification Status</td><td style="padding:10px 14px;color:#34d399;font-weight:700;">✓ Automated Success</td></tr>
       </table>
       <div style="text-align:center;margin-top:25px;">
-        <a href="https://ai.webguruji.online" style="display:inline-block;background:linear-gradient(135deg, #6366f1, #4f46e5);color:#fff;text-decoration:none;padding:12px 28px;border-radius:10px;font-weight:800;font-size:14px;">🚀 Launch HarshGuruJi AI Now</a>
+        <a href="${aiLaunchUrl}" style="display:inline-block;background:linear-gradient(135deg, #6366f1, #4f46e5);color:#fff;text-decoration:none;padding:12px 28px;border-radius:10px;font-weight:800;font-size:14px;">🚀 Launch HarshGuruJi AI Now</a>
       </div>
     </div>
     <div style="background:#070a13;padding:16px;text-align:center;font-size:11px;color:#64748b;border-top:1px solid rgba(255,255,255,0.06);">
       HarshGuruJi Official Payment Desk · info@webguruji.online
     </div>
   </div>
-</body>
-</html>`;
+ </body>
+ </html>`;
 
           fetch('https://api.mail.hostinger.com/api/v1/mailboxes/AC955bc6c100d79999a2c5613002ee/send', {
             method: 'POST',
@@ -872,18 +882,25 @@
             },
             body: JSON.stringify({
               from: 'info@webguruji.online',
-              to: [email],
+              to: [cleanEmail],
               displayName: 'HarshGuruJi Payment Desk',
               subject: `🎉 Payment Confirmed: ${targetModel} Unlocked! [${currentOrderNo}]`,
-              text: `Payment Confirmed!\nYour ${targetModel} is unlocked for ${email}.\nOrder: ${currentOrderNo}\nLaunch: https://ai.webguruji.online`,
+              text: `Payment Confirmed!\nYour ${targetModel} is unlocked for ${cleanEmail}.\nOrder: ${currentOrderNo}\nLaunch: ${aiLaunchUrl}`,
               html: receiptHtml
             })
           }).catch(console.warn);
         } catch(mailErr) {}
 
-        // 4. Update UI
+        // 4. Update UI & launch link
         localStorage.setItem('guru_ai_user_paid', 'true');
-        localStorage.setItem('guru_ai_unlocked_model', targetModel.toLowerCase().replace(/ /g, '-'));
+        localStorage.setItem('guru_ai_unlocked_model', modelKey);
+        localStorage.setItem('guru_ai_verified_email', cleanEmail);
+        localStorage.setItem('guru_ai_payment_token', launchToken);
+
+        const launchBtn = document.getElementById('launchGuruAiBtn');
+        if (launchBtn) {
+          launchBtn.href = aiLaunchUrl;
+        }
 
         const revCard = document.getElementById('step2ReviewCard');
         if (revCard) revCard.classList.add('hidden');
@@ -925,6 +942,7 @@
 
     function startApprovalPolling(email, targetModel) {
       if (approvalPollInterval) clearInterval(approvalPollInterval);
+      const cleanEmail = (email || '').toLowerCase().trim();
       approvalPollInterval = setInterval(async () => {
         try {
           const client = window.supabaseClient || (window.SUPABASE_URL && window.SUPABASE_ANON_KEY ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null);
@@ -933,15 +951,33 @@
           const { data } = await client
             .from('user_ai_limits')
             .select('*')
-            .ilike('email', email)
-            .maybeSingle();
+            .ilike('email', cleanEmail)
+            .order('updated_at', { ascending: false })
+            .limit(1);
 
-          if (data && data.is_active && (data.plan_name || '').toUpperCase().includes(targetModel.toUpperCase())) {
+          const row = (data && data.length > 0) ? data[0] : null;
+          if (row && row.is_active && (row.plan_name || '').toUpperCase().includes(targetModel.toUpperCase())) {
             clearInterval(approvalPollInterval);
             if (countdownInterval) clearInterval(countdownInterval);
 
+            let modelKey = 'guru-flash-1.3';
+            if (targetModel.includes('1.5') || targetModel.includes('Grandmaster') || targetModel.includes('Argon 1.5')) {
+              modelKey = 'guru-argon-1.5';
+            } else if (targetModel.includes('1.4') || targetModel.includes('Scholar') || targetModel.includes('Argon 1.4')) {
+              modelKey = 'guru-argon-1.4';
+            }
+            const launchToken = generatePaymentToken(cleanEmail);
+            const aiLaunchUrl = `https://ai.webguruji.online/?email=${encodeURIComponent(cleanEmail)}&unlocked=${encodeURIComponent(modelKey)}&token=${encodeURIComponent(launchToken)}&paid=1`;
+
             localStorage.setItem('guru_ai_user_paid', 'true');
-            localStorage.setItem('guru_ai_unlocked_model', targetModel.toLowerCase().replace(/ /g, '-'));
+            localStorage.setItem('guru_ai_unlocked_model', modelKey);
+            localStorage.setItem('guru_ai_verified_email', cleanEmail);
+            localStorage.setItem('guru_ai_payment_token', launchToken);
+
+            const launchBtn = document.getElementById('launchGuruAiBtn');
+            if (launchBtn) {
+              launchBtn.href = aiLaunchUrl;
+            }
 
             const revCard = document.getElementById('step2ReviewCard');
             if (revCard) revCard.classList.add('hidden');

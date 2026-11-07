@@ -11410,18 +11410,24 @@
       let chatLimit = 50;
       let contextLimit = 50000;
 
-      if (rawMsg.includes('Grandmaster') || rawMsg.includes('$25')) {
+      if (rawMsg.includes('Grandmaster') || rawMsg.includes('$25') || rawMsg.includes('Argon 1.5') || rawMsg.includes('argon-1.5') || rawMsg.includes('1.5')) {
         planKey = 'grandmaster';
-        planName = 'Grandmaster Enterprise';
+        planName = 'Guru-Argon 1.5 (Grandmaster Enterprise)';
         planPrice = 25;
         chatLimit = 350;
         contextLimit = 325000;
-      } else if (rawMsg.includes('Power') || rawMsg.includes('$15')) {
+      } else if (rawMsg.includes('Power') || rawMsg.includes('$15') || rawMsg.includes('Argon 1.4') || rawMsg.includes('argon-1.4') || rawMsg.includes('1.4')) {
         planKey = 'power';
-        planName = 'Power Scholar';
+        planName = 'Guru-Argon 1.4 (Power Scholar)';
         planPrice = 15;
         chatLimit = 150;
         contextLimit = 175000;
+      } else {
+        planKey = 'starter';
+        planName = 'Guru-Flash 1.3 (Starter Pro)';
+        planPrice = 5;
+        chatLimit = 50;
+        contextLimit = 64000;
       }
 
       if (!confirm(`Confirm activation of ${planName} ($${planPrice}) for ${email}?\n\n• Chat Quota: ${chatLimit} requests / 12h\n• Context Limit: ${contextLimit.toLocaleString()} tokens\n• Realtime Live Effect: YES`)) {
