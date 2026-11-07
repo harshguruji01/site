@@ -45,3 +45,30 @@ DirectoryIndex index.html
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# Explicit MIME Types for Fast Static Asset Delivery
+<IfModule mod_mime.c>
+  AddType text/css .css
+  AddType application/javascript .js
+  AddType application/json .json
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Gzip Compression for Fast Loading
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser Caching Headers (Speeds up Googlebot & User Navigation)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>

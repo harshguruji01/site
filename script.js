@@ -255,6 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById(containerId);
     if (!container) return;
     
+    const isBot = /bot|googlebot|crawler|spider|slurp|lighthouse/i.test(navigator.userAgent || '');
+    if (isBot) return;
+    
     // Convert single string to array for search
     const topicsArray = Array.isArray(topics) ? topics : [topics];
     let loadedContent = false;
@@ -519,7 +522,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const mm = String(new Date().getMonth() + 1).padStart(2, '0');
     const dd = String(new Date().getDate()).padStart(2, '0');
 
-    // Fetch "On This Day" data from Wikipedia
+    // Fetch "On This Day" data from Wikipedia (skip for search crawlers to avoid Wikipedia robots.txt block)
+    const isBotSpecial = /bot|googlebot|crawler|spider|slurp|lighthouse/i.test(navigator.userAgent || '');
+    if (isBotSpecial) return;
+    
     fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`)
       .then(res => res.json())
       .then(data => {
@@ -730,6 +736,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const dd = String(today.getDate()).padStart(2, '0');
     const monthsStr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const currentDateString = `${monthsStr[today.getMonth()]} ${today.getDate()}`;
+    
+    const isBotCrawler = /bot|googlebot|crawler|spider|slurp|lighthouse/i.test(navigator.userAgent || '');
+    if (isBotCrawler) {
+      dailyFactTitle.innerText = `Today is ${currentDateString}`;
+      dailyFactCardText.innerText = "Discover today in history, daily insights, and educational resources on HarshGuruJi.";
+      if (dailyFactFooter) dailyFactFooter.innerText = "🌟 Daily Spotlight";
+      return;
+    }
     
     fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${mm}/${dd}`)
       .then(res => res.json())
