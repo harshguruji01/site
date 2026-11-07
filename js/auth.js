@@ -244,6 +244,30 @@ export const AuthManager = {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('source') === 'ai' || (pendingRedirect && pendingRedirect.includes('ai.webguruji.online'))) {
         const target = (pendingRedirect && pendingRedirect.includes('ai.webguruji.online')) ? pendingRedirect : 'https://ai.webguruji.online/';
+        
+        // Track AI-redirected login in user_ai_limits and user_activity
+        if (this.currentUser && this.currentUser.email) {
+          const uEmail = this.currentUser.email.toLowerCase().trim();
+          supabase.from('user_ai_limits').upsert({
+            user_id: this.currentUser.id,
+            email: uEmail,
+            plan_name: 'Standard Free (AI Redirect)',
+            max_requests: 20,
+            context_limit: 32000,
+            is_active: true,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'email' }).catch(() => {});
+
+          supabase.from('user_activity').insert([{
+            user_id: this.currentUser.id,
+            activity_type: 'login_ai_redirect',
+            page_type: 'ai',
+            page_name: 'GuruAI Chat',
+            page_path: 'https://ai.webguruji.online/',
+            metadata: { source: 'ai_redirect', login_timestamp: new Date().toISOString() }
+          }]).catch(() => {});
+        }
+
         const hostname = window.location.hostname;
         const domainStr = (hostname === 'webguruji.online' || hostname.endsWith('.webguruji.online')) ? '; domain=.webguruji.online' : '';
         document.cookie = `hg_auth_redirect=; path=/; max-age=0${domainStr}; SameSite=Lax`;

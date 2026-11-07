@@ -319,6 +319,45 @@
       }
     });
 
+    async function recordAiRedirectLoginIfApplicable() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cookieMatch = document.cookie.match(/(?:^|;\s*)hg_auth_redirect=([^;]+)/);
+        const pendingRedirect = cookieMatch ? decodeURIComponent(cookieMatch[1]) : (sessionStorage.getItem('hg_auth_redirect') || '');
+        const target = redirectUrl || pendingRedirect || '';
+        const isAi = urlParams.get('source') === 'ai' || target.includes('ai.webguruji.online');
+        if (!isAi) return;
+
+        const session = await getSession();
+        if (session && session.user && session.user.email) {
+          const { supabase } = await import('./js/supabase.js');
+          if (supabase) {
+            const uEmail = session.user.email.toLowerCase().trim();
+            await supabase.from('user_ai_limits').upsert({
+              user_id: session.user.id,
+              email: uEmail,
+              plan_name: 'Standard Free (AI Redirect)',
+              max_requests: 20,
+              context_limit: 32000,
+              is_active: true,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'email' });
+
+            await supabase.from('user_activity').insert([{
+              user_id: session.user.id,
+              activity_type: 'login_ai_redirect',
+              page_type: 'ai',
+              page_name: 'GuruAI Chat',
+              page_path: 'https://ai.webguruji.online/',
+              metadata: { source: 'ai_redirect', login_timestamp: new Date().toISOString() }
+            }]);
+          }
+        }
+      } catch (e) {
+        console.warn('AI redirect record notice:', e);
+      }
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorDiv.style.display = 'none';
@@ -337,6 +376,7 @@
           await signIn(email, password);
 
           redirectUrl = getAuthRedirectTarget();
+          await recordAiRedirectLoginIfApplicable();
           try {
             sessionStorage.removeItem('hg_auth_redirect');
             const hostname = window.location.hostname;
@@ -352,6 +392,7 @@
           await signIn(pendingEmail, pendingPassword);
 
           redirectUrl = getAuthRedirectTarget();
+          await recordAiRedirectLoginIfApplicable();
           try {
             sessionStorage.removeItem('hg_auth_redirect');
             const hostname = window.location.hostname;
@@ -387,6 +428,7 @@
           if(!otp) throw new Error("OTP required.");
           
           await verifyPhoneOtp(pendingPhone, otp);
+          await recordAiRedirectLoginIfApplicable();
           try {
             sessionStorage.removeItem('hg_auth_redirect');
             const hostname = window.location.hostname;
