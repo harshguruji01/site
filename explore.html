@@ -69,7 +69,7 @@
   }
 }
   </script>
-<script src="error-shield.js"></script>
+<script src="error-shield.js" defer></script>
 
   
   
@@ -86,10 +86,11 @@
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="css/explore.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
 
   <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
-  <script src="js/ad-shield.js"></script>
+  <script src="js/ad-shield.js" defer></script>
   <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b12">
@@ -100,8 +101,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/satellite-min.css">
   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.23.3/dist/algoliasearch-lite.umd.js" defer=""></script>
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.66.1/dist/instantsearch.production.min.js" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-head.js" defer></script>
   <link rel="stylesheet" href="responsive-patch.css">
   <link rel="stylesheet" href="loading-lines.css">
 </head>
@@ -348,8 +349,8 @@
   <script src="cookie.js" defer=""></script>
   <script src="js/explore.js" defer=""></script>
   <script type="module" src="js/auth.js" defer=""></script>
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="loading-lines.js" defer></script>
 </body>
 </html>

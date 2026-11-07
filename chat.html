@@ -70,7 +70,7 @@
   }
 }
   </script>
-<script src="error-shield.js"></script>
+<script src="error-shield.js" defer></script>
 
   
   
@@ -82,14 +82,15 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/chat-page.css">
 
   <!-- Confetti Engine -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-head.js" defer></script>
   <link rel="stylesheet" href="responsive-patch.css">
   <link rel="stylesheet" href="loading-lines.css">
 </head>
@@ -642,8 +643,8 @@ export default config;</pre>
 
   <!-- Global Navigation & Footer -->
   <script src="script.js" defer></script>
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="loading-lines.js" defer></script>
 </body>
 </html>

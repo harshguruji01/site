@@ -69,7 +69,7 @@
   }
 }
   </script>
-<script src="error-shield.js"></script>
+<script src="error-shield.js" defer></script>
 
   
   
@@ -140,14 +140,15 @@
   </style>
 
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
   <!-- Google AdSense -->
   <!-- AdSense Click-Bombing & Invalid Traffic Protection -->
-  <script src="js/ad-shield.js"></script>
+  <script src="js/ad-shield.js" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419"
      crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-head.js" defer></script>
   <link rel="stylesheet" href="responsive-patch.css">
   <link rel="stylesheet" href="loading-lines.css">
 </head>
@@ -295,8 +296,8 @@
 <script src="js/tool-hub.js"></script>
     <script type="module" src="js/auth.js" defer></script>
 
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="loading-lines.js" defer></script>
 </body>
 </html>

@@ -75,7 +75,7 @@
   }
 }
   </script>
-<script src="error-shield.js"></script>
+<script src="error-shield.js" defer></script>
 
   
   
@@ -88,11 +88,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
 
   <!-- Supabase CDN Client & Initialization -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-head.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-head.js" defer></script>
   <script>
     window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
     window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';

@@ -33,12 +33,13 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
 
   <!-- Error Shield -->
-  <script src="error-shield.js"></script>
+  <script src="error-shield.js" defer></script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
   <link rel="stylesheet" href="loading-lines.css">
   <link rel="stylesheet" href="responsive-patch.css">
 
@@ -575,8 +576,8 @@
   </main>
 
   <!-- ═══════════════════ SCRIPTS & LIQUID CONTROLLER ═══════════════════ -->
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="loading-lines.js" defer></script>
 
   <script type="module">

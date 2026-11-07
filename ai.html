@@ -110,11 +110,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
   <link rel="stylesheet" href="responsive-patch.css">
 
   <!-- Google AdSense -->
-  <script src="js/ad-shield.js"></script>
+  <script src="js/ad-shield.js" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7706204118195419" crossorigin="anonymous"></script>
 
   <style>
@@ -1001,8 +1002,8 @@ ${topic}
 
   <script src="script.js" defer></script>
   <script src="cookie.js" defer></script>
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="loading-lines.js" defer></script>
 </body>
 </html>

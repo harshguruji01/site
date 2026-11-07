@@ -71,7 +71,7 @@
   }
 }
   </script>
-<script src="error-shield.js"></script>
+<script src="error-shield.js" defer></script>
 
   
   
@@ -86,7 +86,8 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="cookie.css">
   <link rel="stylesheet" href="navbar-premium.css">
-  <link rel="stylesheet" href="footer-premium.css">
+  <link rel="stylesheet" href="footer-premium.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
 
   <style>
     :root {
@@ -810,8 +811,8 @@
   </main>
 
   <!-- Global Footer injected by footer-premium.js -->
-  <script src="navbar-premium.js"></script>
-  <script src="footer-premium.js"></script>
+  <script src="navbar-premium.js" defer></script>
+  <script src="footer-premium.js" defer></script>
   <script src="cookie.js" defer></script>
   <script src="loading-lines.js" defer></script>
 </body>
