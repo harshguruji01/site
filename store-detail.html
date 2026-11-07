@@ -714,7 +714,7 @@
     <div style="font-size: 3.5rem; margin-bottom: 1rem;">📦</div>
     <h2 style="color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">Application Not Found</h2>
     <p style="color: var(--detail-text-muted); max-width: 480px; margin: 0.75rem auto 1.75rem;">The requested app or game could not be located in our store catalog. It might have been updated or moved.</p>
-    <a href="store.html" class="btn-download-primary" style="text-decoration: none;">
+    <a href="/store/" class="btn-download-primary" style="text-decoration: none;">
       <span>&larr; Return to App Store</span>
     </a>
   </div>
@@ -724,9 +724,9 @@
 
     <!-- Breadcrumb Navigation -->
     <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-      <a href="index.html">Home</a>
+      <a href="/">Home</a>
       <span class="sep">&rsaquo;</span>
-      <a href="store.html">App Store</a>
+      <a href="/store/">App Store</a>
       <span class="sep">&rsaquo;</span>
       <span id="bc-category">Apps</span>
       <span class="sep">&rsaquo;</span>
@@ -1773,7 +1773,7 @@
             ? itemAdminIdentity
             : (LOCAL_APP_LOGOS[itemSlug] || 'logo.png');
           return `
-            <a href="store-detail.html?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
+            <a href="/store-detail/?slug=${encodeURIComponent(item.slug || item.id)}" class="related-app-item">
               <img src="${itemLogo}" alt="${item.name}" class="related-app-icon" onerror="this.onerror=null; this.src='${LOCAL_APP_LOGOS[itemSlug] || 'logo.png'}';">
               <div class="related-app-info">
                 <h5>${item.name}</h5>

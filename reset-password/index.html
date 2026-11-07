@@ -115,7 +115,7 @@
       </form>
 
       <p class="auth-footer-text">
-        <a href="login.html">Back to Login</a>
+        <a href="/login/">Back to Login</a>
       </p>
     </div>
   </main>
@@ -171,7 +171,7 @@
 
       const { data: { session } } = await supabase.auth.getSession();
       if (!session && !isRecovery) {
-        showError('No active password reset request found. If your reset link expired, please <a href="forgot-password.html" style="color: #60a5fa; text-decoration: underline;">request a new link here</a>.');
+        showError('No active password reset request found. If your reset link expired, please <a href="/forgot-password/" style="color: #60a5fa; text-decoration: underline;">request a new link here</a>.');
         updateBtn.disabled = true;
       }
     }

@@ -693,18 +693,18 @@
       <p style="color: var(--app-text-muted); max-width: 500px; margin: 0 auto 2rem;">
         The requested application could not be found or has been moved. Check out other popular tools and games in the store.
       </p>
-      <a href="store.html" class="btn-download-apk" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Browse All Apps</a>
+      <a href="/store/" class="btn-download-apk" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Browse All Apps</a>
     </div>
 
     <!-- App Details Container -->
     <div id="app-container" style="display: none;">
       <!-- Breadcrumb -->
       <nav class="app-breadcrumb" aria-label="Breadcrumbs">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
         <span class="separator">/</span>
-        <a href="store.html">Store</a>
+        <a href="/store/">Store</a>
         <span class="separator">/</span>
-        <a href="store.html" id="bc-category">Apps</a>
+        <a href="/store/" id="bc-category">Apps</a>
         <span class="separator">/</span>
         <span class="current" id="bc-app-name">Application</span>
       </nav>
@@ -869,7 +869,7 @@
       <section class="related-section" id="related-section" style="display: none; margin-top: 2.5rem;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
           <h3 class="section-title" id="related-title" style="margin-bottom: 0;">✨ Related Applications &amp; Games</h3>
-          <a href="store.html" style="color: var(--app-primary); font-size: 0.88rem; text-decoration: none; font-weight: 600;">Browse All &rarr;</a>
+          <a href="/store/" style="color: var(--app-primary); font-size: 0.88rem; text-decoration: none; font-weight: 600;">Browse All &rarr;</a>
         </div>
         <div class="related-apps-grid" id="related-grid">
           <!-- Injected dynamically by JS: only real uploaded apps from store_apps -->
@@ -1503,7 +1503,7 @@
           const itemFallback = LOCAL_APP_LOGOS[item.slug] || 'logo.png';
 
           return `
-            <a href="app.html?slug=${encodeURIComponent(item.slug)}" class="related-app-card">
+            <a href="/app/?slug=${encodeURIComponent(item.slug)}" class="related-app-card">
               <div class="related-card-top">
                 <img src="${itemIcon}" alt="${item.name}" class="related-card-icon" onerror="this.onerror=null; this.src='${itemFallback}';" loading="lazy">
                 <div class="related-card-details">

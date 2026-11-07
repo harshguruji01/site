@@ -114,9 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><a href="${MAIN_SITE}/learning-hub/" class="dcf-link"><span>Learning Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="https://books.webguruji.online" class="dcf-link"><span>NCERT Library</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/education/" class="dcf-link"><span>Education</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/class-10-science.html" class="dcf-link"><span>Class 10</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/class.html?class=9" class="dcf-link"><span>Class 9</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/learning/gk-quiz.html" class="dcf-link"><span>Quizzes</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/learning/class-10-science/" class="dcf-link"><span>Class 10</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/learning/class/?class=9" class="dcf-link"><span>Class 9</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/learning/gk-quiz/" class="dcf-link"><span>Quizzes</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><a href="https://tube.webguruji.online/" class="dcf-link"><span>GuruTube</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/gaming-hub/" class="dcf-link"><span>Gaming Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/ai-hub/" class="dcf-link"><span>AI Hub</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/Quiz India/index.html" class="dcf-link"><span>Quiz India</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/Quiz India/" class="dcf-link"><span>Quiz India</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
 
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><a href="${MAIN_SITE}/privacy-policy/" class="dcf-link"><span>Privacy Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/terms-and-conditions/" class="dcf-link"><span>Terms &amp; Conditions</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
             <li><a href="${MAIN_SITE}/disclaimer/" class="dcf-link"><span>Disclaimer</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
-            <li><a href="${MAIN_SITE}/cookie.html" class="dcf-link"><span>Cookies Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
+            <li><a href="${MAIN_SITE}/cookie/" class="dcf-link"><span>Cookies Policy</span><svg class="dcf-squiggle" viewBox="0 0 100 8" preserveAspectRatio="none"><path pathLength="1" d="M1 5 C10 1 16 7 25 4 S40 1 50 4 S66 7 75 4 S90 1 99 4"/></svg></a></li>
           </ul>
         </div>
       </nav>
