@@ -1355,19 +1355,43 @@ window.simulateWelcomeNewsletter = function(email) {
   document.body.appendChild(toast);
 };
 
-// ── FAQ TOGGLE (global function) ──
+// ── FAQ ACCORDION (Radix / Shadcn Style Toggle) ──
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
-  const isOpen = btn.classList.contains('open');
-  document.querySelectorAll('.faq-question').forEach(q => {
+  const isOpen = btn.classList.contains('open') || btn.getAttribute('data-state') === 'open';
+  
+  // Close all other accordion items in the same list
+  const parentList = btn.closest('.faq-list') || document;
+  parentList.querySelectorAll('.faq-question').forEach(q => {
     q.classList.remove('open');
-    q.nextElementSibling.classList.remove('open');
+    q.setAttribute('data-state', 'closed');
+    if (q.nextElementSibling) {
+      q.nextElementSibling.classList.remove('open');
+      q.nextElementSibling.setAttribute('data-state', 'closed');
+    }
   });
+
+  // Toggle current item
   if (!isOpen) {
     btn.classList.add('open');
-    answer.classList.add('open');
+    btn.setAttribute('data-state', 'open');
+    if (answer) {
+      answer.classList.add('open');
+      answer.setAttribute('data-state', 'open');
+    }
   }
 }
+
+// Auto-upgrade any legacy FAQ icons to Lucide ChevronDown SVG
+document.addEventListener('DOMContentLoaded', () => {
+  const chevronSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 transition-transform duration-200"><path d="m6 9 6 6 6-6"/></svg>';
+  document.querySelectorAll('.faq-icon').forEach(icon => {
+    const text = icon.textContent.trim();
+    if (text === '+' || text === '▼' || text === 'v' || !icon.querySelector('svg')) {
+      icon.innerHTML = chevronSvg;
+    }
+  });
+});
 
 // ── NEWSLETTER HANDLER (global function) ──
 async function handleNewsletter(e) {

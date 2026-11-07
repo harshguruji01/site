@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions with Accordion – HarshGuruJi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#6366f1',
+              foreground: '#ffffff'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes accordionDown {
+      from { height: 0; opacity: 0; }
+      to { height: var(--radix-accordion-content-height); opacity: 1; }
+    }
+    @keyframes accordionUp {
+      from { height: var(--radix-accordion-content-height); opacity: 1; }
+      to { height: 0; opacity: 0; }
+    }
+    .accordion-content {
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+      max-height: 0;
+      opacity: 0;
+    }
+    .accordion-content[data-state="open"] {
+      opacity: 1;
+    }
+    .word-span {
+      display: inline-block;
+      margin-right: 0.5rem;
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(12px);
+      animation: wordReveal 0.45s ease forwards;
+    }
+    @keyframes wordReveal {
+      to {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex items-center justify-center p-4 selection:bg-indigo-500 selection:text-white">
+
+  <section class="relative w-full overflow-hidden py-16 md:py-24 max-w-4xl mx-auto">
+    <div class="mx-auto max-w-3xl px-6">
+      
+      <!-- Stagger Animated Heading -->
+      <h1 id="faq-heading" class="relative z-10 mx-auto max-w-4xl text-center text-3xl font-bold tracking-tight text-zinc-100 md:text-5xl lg:text-6xl">
+        <!-- Rendered with animated words via script -->
+      </h1>
+
+      <!-- Description with Support Link -->
+      <p id="faq-desc" class="relative z-10 mx-auto mt-6 max-w-2xl text-center text-base text-zinc-400 md:text-lg transition-opacity duration-500">
+        We are here to help you with any questions you may have. If you don't find what you need, please contact us at
+        <a href="mailto:support@webguruji.online" class="text-indigo-400 underline underline-offset-4 hover:opacity-80 transition-opacity">
+          support@webguruji.online
+        </a>.
+      </p>
+
+      <!-- Accordion Container -->
+      <div id="faq-accordion-wrap" class="mt-14 w-full">
+        <div id="accordion-root" class="w-full divide-y divide-zinc-800 border-y border-zinc-800">
+          <!-- Accordion items populated via JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const titleText = "Frequently asked questions";
+    const faqs = [
+      {
+        question: "What is the purpose of this website?",
+        answer: "HarshGuruJi is an educational and developer hub dedicated to providing instant browser utilities, NCERT learning solutions, verified Android APKs, and AI tools with zero latency and complete privacy."
+      },
+      {
+        question: "How do I contact support?",
+        answer: "You can reach our dedicated support team by emailing support@webguruji.online or by visiting our Contact page. We typically respond within 24 hours on business days."
+      },
+      {
+        question: "How do I find the best products & tools?",
+        answer: "Use our instant search bar at the top of the portal to browse by category, keyword, or feature. You can also explore our dedicated Developer Tools, Learning Hub, and Game Arcade directories."
+      },
+      {
+        question: "Is everything on HarshGuruJi really free?",
+        answer: "Yes, 100%! All developer utilities, NCERT books, chapter-wise solutions, calculators, and tools are free forever with no hidden paywalls or subscription barriers."
+      },
+      {
+        question: "How does the AI assistant work?",
+        answer: "Our flagship GuruAI studio runs state-of-the-art neural reasoning engines with multi-turn context memory, realtime search capabilities, and instant code execution."
+      },
+      {
+        question: "Is my data private and secure?",
+        answer: "Yes. All client-side tools (Base64, JSON formatter, AES vault, Regex) run strictly inside your local browser sandbox. No sensitive payload data is ever logged or sold."
+      }
+    ];
+
+    // Render word blur-in stagger animation for heading
+    const headingEl = document.getElementById("faq-heading");
+    const words = titleText.split(" ");
+    words.forEach((word, index) => {
+      const span = document.createElement("span");
+      span.className = "word-span";
+      span.textContent = word;
+      span.style.animationDelay = `${index * 0.08}s`;
+      headingEl.appendChild(span);
+    });
+
+    // Render Accordion
+    const rootEl = document.getElementById("accordion-root");
+    faqs.forEach((item, index) => {
+      const itemEl = document.createElement("div");
+      itemEl.className = "accordion-item group";
+      itemEl.setAttribute("data-item", index);
+
+      itemEl.innerHTML = `
+        <button type="button" 
+          class="accordion-trigger flex flex-1 w-full items-center justify-between py-4 font-medium text-left text-zinc-100 hover:underline transition-all group-hover:text-white"
+          data-state="closed"
+          aria-expanded="false"
+        >
+          <span class="text-base md:text-lg">${item.question}</span>
+          <svg class="chevron-icon h-4 w-4 shrink-0 transition-transform duration-200 text-zinc-400 group-hover:text-zinc-200" 
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="accordion-content" data-state="closed">
+          <div class="pb-4 pt-0 text-sm text-zinc-400 leading-relaxed md:text-base">
+            ${item.answer}
+          </div>
+        </div>
+      `;
+
+      rootEl.appendChild(itemEl);
+    });
+
+    // Accordion Interaction
+    rootEl.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".accordion-trigger");
+      if (!trigger) return;
+
+      const item = trigger.closest(".accordion-item");
+      const content = item.querySelector(".accordion-content");
+      const chevron = trigger.querySelector(".chevron-icon");
+      const isOpen = trigger.getAttribute("data-state") === "open";
+
+      // Close all items
+      rootEl.querySelectorAll(".accordion-trigger").forEach(t => {
+        t.setAttribute("data-state", "closed");
+        t.setAttribute("aria-expanded", "false");
+        t.querySelector(".chevron-icon").style.transform = "rotate(0deg)";
+      });
+      rootEl.querySelectorAll(".accordion-content").forEach(c => {
+        c.setAttribute("data-state", "closed");
+        c.style.maxHeight = "0px";
+      });
+
+      // If clicked item was closed, open it
+      if (!isOpen) {
+        trigger.setAttribute("data-state", "open");
+        trigger.setAttribute("aria-expanded", "true");
+        content.setAttribute("data-state", "open");
+        chevron.style.transform = "rotate(180deg)";
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  </script>
+</body>
+</html>

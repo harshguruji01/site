@@ -1,11 +1,5 @@
-"use client"
-
-import DoodleCrewFooter from "@/components/ui/doodle-crew-footer"
+import FrequentlyAskedQuestions from "@/components/ui/frequently-asked-questions-with-accordion";
 
 export default function Demo() {
-  return (
-    <div className="w-full">
-      <DoodleCrewFooter />
-    </div>
-  )
+  return <FrequentlyAskedQuestions />;
 }
