@@ -215,9 +215,11 @@
     runAllUpgrades();
   }
 
-  // Observe dynamically added spinners or loaders
+  // Observe dynamically added spinners or loaders (debounced for peak performance)
   try {
-    if (window.MutationObserver && document.documentElement) {
+    var targetNode = document.body || document.documentElement;
+    if (window.MutationObserver && targetNode) {
+      var mutationTimer = null;
       var observer = new MutationObserver(function(mutations) {
         var needsUpgrade = false;
         for (var i = 0; i < mutations.length; i++) {
@@ -227,11 +229,14 @@
           }
         }
         if (needsUpgrade) {
-          upgradeLegacySpinners();
-          upgradeLoadingContainers();
+          clearTimeout(mutationTimer);
+          mutationTimer = setTimeout(function() {
+            upgradeLegacySpinners();
+            upgradeLoadingContainers();
+          }, 150);
         }
       });
-      observer.observe(document.documentElement, { childList: true, subtree: true });
+      observer.observe(targetNode, { childList: true, subtree: true });
     }
   } catch (e) {}
 

@@ -694,16 +694,40 @@
     }
 
     // Smooth ticker loop
+    let isVisible = true;
+    if ("IntersectionObserver" in window) {
+      const pageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          isVisible = e.isIntersecting;
+          if (isVisible && !isAnimating) {
+            isAnimating = true;
+            requestAnimationFrame(tick);
+          }
+        });
+      }, { threshold: 0.05 });
+      pageObserver.observe(document.documentElement);
+    }
+
     function tick() {
+      if (!isVisible) {
+        isAnimating = false;
+        return;
+      }
+
       const dt = gsap.ticker.deltaRatio(60) / 60;
       scrollPos += (targetPos - scrollPos) * (1 - Math.exp(-dt * 9));
 
       updateCardTransforms();
 
-      if (Math.abs(targetPos - scrollPos) > 1e-3 || hasPointer) {
+      const scrollDelta = Math.abs(targetPos - scrollPos);
+      const mouseDelta = Math.abs(mouse.targetX - mouse.x) + Math.abs(mouse.targetY - mouse.y);
+
+      if (scrollDelta > 2e-4 || mouseDelta > 2e-4) {
         requestAnimationFrame(tick);
       } else {
         scrollPos = targetPos;
+        mouse.x = mouse.targetX;
+        mouse.y = mouse.targetY;
         updateCardTransforms();
         isAnimating = false;
       }
@@ -748,6 +772,10 @@
       mouse.targetX = 0;
       mouse.targetY = 0;
       hasPointer = false;
+      if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(tick);
+      }
     });
 
     // ══════════════════════════════════════════════════════════════════

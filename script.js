@@ -128,37 +128,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Navbar Scroll Effect & Scroll Spy
+  // Navbar Scroll Effect & Scroll Spy (High-Performance Throttled)
   const navbar = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section[id]');
-  const navItems = document.querySelectorAll('.nav-link');
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navItems = Array.from(document.querySelectorAll('.nav-link'));
 
+  let sectionPositions = [];
+  function updateSectionPositions() {
+    sectionPositions = sections.map(sec => ({
+      id: sec.getAttribute('id'),
+      top: sec.offsetTop - 150,
+      height: sec.offsetHeight
+    }));
+  }
+  updateSectionPositions();
+  window.addEventListener('resize', updateSectionPositions, { passive: true });
+
+  let activeSectionId = null;
   function scrollSpy() {
-    const scrollY = window.pageYOffset;
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 150;
-      const sectionId = current.getAttribute('id');
-      
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navItems.forEach(item => {
-          const href = item.getAttribute('href');
-          if (href && (href.endsWith('#' + sectionId) || href === '#' + sectionId)) {
-            item.classList.add('active');
-          } else {
-            if (href && (href.includes('#home') || href.includes('#features') || href.includes('#categories') || href.includes('#ai') || href.includes('#about') || href.includes('#contact'))) {
-              item.classList.remove('active');
-            }
-          }
-        });
+    const scrollY = window.pageYOffset || window.scrollY || 0;
+    let foundId = null;
+
+    for (let i = 0; i < sectionPositions.length; i++) {
+      const sec = sectionPositions[i];
+      if (scrollY > sec.top && scrollY <= sec.top + sec.height) {
+        foundId = sec.id;
+        break;
       }
-    });
+    }
+
+    if (foundId && foundId !== activeSectionId) {
+      activeSectionId = foundId;
+      navItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (href && (href.endsWith('#' + foundId) || href === '#' + foundId)) {
+          item.classList.add('active');
+        } else if (href && (href.includes('#home') || href.includes('#features') || href.includes('#categories') || href.includes('#ai') || href.includes('#about') || href.includes('#contact'))) {
+          item.classList.remove('active');
+        }
+      });
+    }
   }
 
+  let scrollSpyTicking = false;
   window.addEventListener('scroll', () => {
-    if (sections.length > 0) scrollSpy();
+    if (!scrollSpyTicking) {
+      requestAnimationFrame(() => {
+        if (sectionPositions.length > 0) scrollSpy();
+        scrollSpyTicking = false;
+      });
+      scrollSpyTicking = true;
+    }
   }, { passive: true });
-  if (sections.length > 0) scrollSpy();
+  if (sectionPositions.length > 0) scrollSpy();
 
   // Number Counter Animation
   const statNumbers = document.querySelectorAll('.stat-number');
