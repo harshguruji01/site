@@ -131,30 +131,50 @@ body {
   border-radius: 8px;
   text-decoration: none;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hg-nav-link:hover, .hg-nav-link.active {
+.hg-nav-link:hover {
   color: var(--hg-text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-/* Dropdown */
+.hg-nav-link.active {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.25) !important;
+}
+
+.hg-nav-link svg, .hg-reui-chevron {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hg-has-dropdown:hover > .hg-nav-link svg,
+.hg-has-dropdown.open > .hg-nav-link svg,
+.hg-reui-nav-item:hover .hg-reui-chevron {
+  transform: rotate(180deg);
+}
+
+/* Origin UI Dropdown Animation */
 .hg-dropdown {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: rgba(15, 15, 18, 0.98);
+  transform: translateX(-50%) translateY(8px) scale(0.96);
+  background: rgba(15, 17, 23, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 0.5rem;
   min-width: 220px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.2s;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.2s;
   z-index: 100;
 }
 
@@ -162,38 +182,48 @@ body {
 .hg-user-menu:hover .hg-dropdown {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0) scale(1);
   pointer-events: auto;
 }
 
 .hg-user-menu .hg-dropdown {
   left: auto;
   right: 0;
-  transform: translateX(0) translateY(10px);
+  transform: translateX(0) translateY(8px) scale(0.96);
 }
 .hg-user-menu:hover .hg-dropdown {
-  transform: translateX(0) translateY(0);
+  transform: translateX(0) translateY(0) scale(1);
 }
 
 .hg-dropdown-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.6rem 1rem;
   color: var(--hg-text-secondary);
   text-decoration: none;
   font-size: 0.9rem;
-  border-radius: 6px;
-  transition: all 0.2s;
+  border-radius: 8px;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hg-dropdown-link:hover, .hg-dropdown-link.active {
-  background: rgba(255, 255, 255, 0.05);
+.hg-dropdown-link:hover {
+  background: rgba(255, 255, 255, 0.06);
   color: var(--hg-text-primary);
+  transform: translateX(3px);
+}
+
+.hg-dropdown-link.active {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-radius: 6px;
 }
 
 .hg-dropdown-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0.5rem 0;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.4rem 0;
 }
 
 /* --- DEDICATED BOOKS & STORE NAVIGATION ENHANCEMENTS --- */
@@ -676,7 +706,11 @@ body {
   transform: rotate(180deg);
 }
 .hg-mobile-item.open .hg-mobile-accordion-toggle, .hg-mobile-link.active, .hg-mobile-accordion-toggle.active {
-  color: var(--hg-accent);
+  color: #ef4444 !important;
+  font-weight: 600;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-left: 3px solid #ef4444;
+  padding-left: 1rem;
 }
 
 .hg-mobile-accordion-content {
@@ -833,11 +867,11 @@ body {
 
   .hg-bottom-item-home:hover .hg-bottom-icon,
   .hg-bottom-item-home.active .hg-bottom-icon {
-    background: linear-gradient(135deg, #ff6b4a 0%, #ec4899 100%);
-    border-color: #ff6b4a;
-    box-shadow: 0 4px 16px rgba(255, 107, 74, 0.7);
-    transform: translateY(-2px);
-  }
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #ef4444 !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.7) !important;
+  transform: translateY(-2px);
+}
 
   .hg-bottom-item-home:hover .hg-bottom-icon svg,
   .hg-bottom-item-home.active .hg-bottom-icon svg {
@@ -847,9 +881,9 @@ body {
   }
 
   .hg-bottom-item-home.active .hg-bottom-label {
-    color: #ff6b4a;
-    font-weight: 700;
-  }
+  color: #ef4444 !important;
+  font-weight: 700;
+}
 
   /* Chat Unread Dot Indicator */
   .hg-bottom-chat-dot {
@@ -866,33 +900,33 @@ body {
 
   /* Active Navigation Tab */
   .hg-bottom-item.active {
-    color: #ff6b4a;
-  }
+  color: #ef4444 !important;
+}
 
   .hg-bottom-item.active .hg-bottom-icon svg {
-    stroke: #ff6b4a;
-    filter: drop-shadow(0 0 8px rgba(255, 107, 74, 0.6));
-    transform: translateY(-2px);
-  }
+  stroke: #ef4444 !important;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7));
+  transform: translateY(-2px);
+}
 
   .hg-bottom-item.active .hg-bottom-label {
-    color: #ff6b4a;
-    font-weight: 700;
-  }
+  color: #ef4444 !important;
+  font-weight: 700;
+}
 
   /* Glowing indicator on top edge of active tab */
   .hg-bottom-item.active::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 2.5px;
-    border-radius: 0 0 4px 4px;
-    background: linear-gradient(90deg, #ff6b4a, #ec4899);
-    box-shadow: 0 2px 10px rgba(255, 107, 74, 0.8);
-  }
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2.5px;
+  border-radius: 0 0 4px 4px;
+  background: #ef4444 !important;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.8) !important;
+}
 
   /* Profile Avatar in Bottom Bar */
   #bottom-auth-avatar {
@@ -2009,4 +2043,46 @@ table {
 .hg-user-trigger:focus-visible {
   outline: 2px solid #ff6b4a !important;
   outline-offset: 2px !important;
+}
+
+/* ==========================================================================
+   ORIGIN UI ACTIVE NAVBAR RED ACCENT - GLOBAL SPECIFICITY
+   ========================================================================== */
+.hg-nav-link.active,
+.hg-reui-trigger.active {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.25) !important;
+}
+.hg-nav-link.active svg,
+.hg-reui-trigger.active svg {
+  stroke: #ef4444 !important;
+}
+.hg-dropdown-link.active,
+.hg-reui-card.active {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-radius: 6px !important;
+}
+.hg-mobile-link.active,
+.hg-mobile-sublink.active {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-left: 3px solid #ef4444 !important;
+  padding-left: 1rem !important;
+}
+.hg-bottom-item.active {
+  color: #ef4444 !important;
+}
+.hg-bottom-item.active .hg-bottom-icon svg {
+  stroke: #ef4444 !important;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7)) !important;
+}
+.hg-bottom-item.active .hg-bottom-label {
+  color: #ef4444 !important;
+  font-weight: 700 !important;
 }

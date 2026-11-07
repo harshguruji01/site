@@ -1,16 +1,18 @@
 (function() {
   window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
   window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+  window.SUPABASE_STORAGE_KEY = 'sb-wumdbpyhpblvgjttsbpv-auth-token';
 
   function getRawCookie(name) {
     if (typeof document === 'undefined') return null;
     var value = '; ' + document.cookie;
     var parts = value.split('; ' + name + '=');
     if (parts.length >= 2) {
+      var rawVal = parts.pop().split(';').shift();
       try {
-        return decodeURIComponent(parts.pop().split(';').shift());
+        return decodeURIComponent(rawVal);
       } catch (e) {
-        return null;
+        return rawVal;
       }
     }
     return null;
@@ -63,8 +65,13 @@
       removeSharedCookie(name);
       return;
     }
-    var CHUNK_SIZE = 2500;
+    var CHUNK_SIZE = 1800;
     var strVal = String(value);
+
+    for (var k = 0; k < 10; k++) {
+      removeRawCookie(name + '.' + k);
+    }
+
     if (strVal.length > CHUNK_SIZE) {
       var chunks = [];
       for (var i = 0; i < strVal.length; i += CHUNK_SIZE) {
@@ -87,25 +94,55 @@
         removeRawCookie(name + '.' + i);
       }
     }
+    for (var k = 0; k < 10; k++) {
+      removeRawCookie(name + '.' + k);
+    }
     removeRawCookie(name);
+  }
+
+  function syncUserSessionSummary(sessionJson) {
+    try {
+      if (!sessionJson) {
+        removeRawCookie('hg_user_session');
+        return;
+      }
+      var parsed = typeof sessionJson === 'string' ? JSON.parse(sessionJson) : sessionJson;
+      var user = parsed.user || parsed;
+      if (user && user.id) {
+        var summary = {
+          id: user.id,
+          email: user.email || '',
+          name: (user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) || (user.email ? user.email.split('@')[0] : 'User'),
+          avatar_url: (user.user_metadata && (user.user_metadata.avatar_url || user.user_metadata.picture)) || null,
+          golden_tick: !!(user.user_metadata && user.user_metadata.golden_tick),
+          updated_at: Date.now()
+        };
+        setRawCookie('hg_user_session', JSON.stringify(summary), 365);
+      }
+    } catch (e) {}
   }
 
   window.HG_SHARED_STORAGE = {
     getItem: function(key) {
+      var fromCookie = getSharedCookie(key);
+      var local = null;
       try {
-        var local = localStorage.getItem(key);
-        if (local) {
-          setSharedCookie(key, local);
-          return local;
-        }
+        local = localStorage.getItem(key);
       } catch (e) {}
 
-      var fromCookie = getSharedCookie(key);
       if (fromCookie) {
-        try {
-          localStorage.setItem(key, fromCookie);
-        } catch (e) {}
+        if (local !== fromCookie) {
+          try {
+            localStorage.setItem(key, fromCookie);
+          } catch (e) {}
+        }
         return fromCookie;
+      }
+
+      if (local) {
+        setSharedCookie(key, local);
+        syncUserSessionSummary(local);
+        return local;
       }
       return null;
     },
@@ -114,12 +151,18 @@
         localStorage.setItem(key, value);
       } catch (e) {}
       setSharedCookie(key, value);
+      if (key.indexOf('auth-token') !== -1 || key === window.SUPABASE_STORAGE_KEY) {
+        syncUserSessionSummary(value);
+      }
     },
     removeItem: function(key) {
       try {
         localStorage.removeItem(key);
       } catch (e) {}
       removeSharedCookie(key);
+      if (key.indexOf('auth-token') !== -1 || key === window.SUPABASE_STORAGE_KEY) {
+        removeRawCookie('hg_user_session');
+      }
     }
   };
 
@@ -127,14 +170,45 @@
   window.setSharedCookie = setSharedCookie;
   window.removeSharedCookie = removeSharedCookie;
 
-  if (window.supabase && typeof window.supabase.createClient === 'function') {
-    window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY, {
-      auth: {
-        storage: window.HG_SHARED_STORAGE,
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
+  function wrapSupabaseCreateClient() {
+    if (!window.supabase || typeof window.supabase.createClient !== 'function') return;
+    if (window.supabase.__hg_wrapped) return;
+
+    var orig = window.supabase.createClient;
+    window.supabase.createClient = function(url, key, options) {
+      options = options || {};
+      options.auth = options.auth || {};
+      if (!options.auth.storage) {
+        options.auth.storage = window.HG_SHARED_STORAGE;
       }
-    });
+      if (!options.auth.storageKey) {
+        options.auth.storageKey = window.SUPABASE_STORAGE_KEY;
+      }
+      if (options.auth.persistSession === undefined) options.auth.persistSession = true;
+      if (options.auth.autoRefreshToken === undefined) options.auth.autoRefreshToken = true;
+      if (options.auth.detectSessionInUrl === undefined) options.auth.detectSessionInUrl = true;
+
+      return orig.call(window.supabase, url, key, options);
+    };
+    window.supabase.__hg_wrapped = true;
+  }
+
+  // Hook createClient wrapping
+  wrapSupabaseCreateClient();
+  if (typeof window !== 'undefined' && !window.supabase) {
+    var checkInterval = setInterval(function() {
+      if (window.supabase) {
+        wrapSupabaseCreateClient();
+        if (!window.supabaseClient && typeof window.supabase.createClient === 'function') {
+          window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        }
+        clearInterval(checkInterval);
+      }
+    }, 50);
+    setTimeout(function() { clearInterval(checkInterval); }, 5000);
+  }
+
+  if (window.supabase && typeof window.supabase.createClient === 'function' && !window.supabaseClient) {
+    window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
   }
 })();
