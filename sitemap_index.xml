@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Platform Master Sitemap -->
+  <!-- Main Platform Master Sitemap (Includes All Tools, Games, AI, Learning & Hubs) -->
   <sitemap>
     <loc>https://webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
+  </sitemap>
+
+  <!-- Dedicated AI Hub & GuruAI Chat Sitemaps -->
+  <sitemap>
+    <loc>https://webguruji.online/sitemap_ai.xml</loc>
+    <lastmod>2026-11-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ai.webguruji.online/sitemap.xml</loc>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
 
   <!-- Store Subdomain & Dedicated App Catalog Sitemaps -->
   <sitemap>
     <loc>https://webguruji.online/sitemap_store.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://store.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
 
   <!-- Books Subdomain & Educational Catalog Sitemaps -->
   <sitemap>
     <loc>https://webguruji.online/sitemap_books.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://books.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
 
   <!-- Chat Subdomain & ChatBase Messaging Sitemaps -->
   <sitemap>
     <loc>https://webguruji.online/sitemap_chat.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://chat.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
-  </sitemap>
-
-  <!-- AI Subdomain Sitemaps -->
-  <sitemap>
-    <loc>https://webguruji.online/sitemap_ai.xml</loc>
-    <lastmod>2026-10-20</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://ai.webguruji.online/sitemap.xml</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
   </sitemap>
 </sitemapindex>

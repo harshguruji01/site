@@ -6,7 +6,7 @@ const toolData = [
     category: "Text Tools",
     categories: ["Text Tools", "Calculators"],
     tags: ["Text", "Utility", "Writing", "Count", "Calculator", "Word", "Character", "Length", "Stats", "Grammar", "Dictionary", "Notes", "Writing Tools"],
-    route: "tools/word-counter.html",
+    route: "/tools/word-counter/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'></path><path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'></path></svg>",
     featured: true
   },
@@ -17,7 +17,7 @@ const toolData = [
     category: "Converters",
     categories: ["Converters", "Text Tools"],
     tags: ["Text", "Format", "Utility", "Converter", "Converters", "Case", "Uppercase", "Lowercase", "Title Case", "Writing", "Grammar", "Text Tools"],
-    route: "tools/case-converter.html",
+    route: "/tools/case-converter/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='4 7 4 4 20 4 20 7'></polyline><line x1='9' y1='20' x2='15' y2='20'></line><line x1='12' y1='4' x2='12' y2='20'></line></svg>",
     featured: false
   },
@@ -28,7 +28,7 @@ const toolData = [
     category: "Generators",
     categories: ["Generators", "Developer Tools"],
     tags: ["Security", "Random", "Utility", "Generator", "Password", "Generate Values", "Key", "Credential", "Dev", "Developer", "Code"],
-    route: "tools/password-generator.html",
+    route: "/tools/password-generator/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><rect x='3' y='11' width='18' height='11' rx='2' ry='2'></rect><path d='M7 11V7a5 5 0 0 1 10 0v4'></path></svg>",
     featured: true
   },
@@ -39,7 +39,7 @@ const toolData = [
     category: "Developer Tools",
     categories: ["Developer Tools"],
     tags: ["Developer", "Code", "Format", "Data", "Format Code", "JSON", "Beautify", "Minify", "Validate", "Coding", "Coding IDE", "Developer Tools"],
-    route: "tools/json-formatter.html",
+    route: "/tools/json-formatter/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>",
     featured: true
   },
@@ -50,7 +50,7 @@ const toolData = [
     category: "Converters",
     categories: ["Converters", "Developer Tools"],
     tags: ["Developer", "Security", "Data", "Encoding", "Converter", "Converters", "Base64", "Decode", "Encode", "Code", "Coding", "Developer Tools"],
-    route: "tools/base64.html",
+    route: "/tools/base64/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'></circle><line x1='8' y1='12' x2='16' y2='12'></line></svg>",
     featured: false
   },
@@ -61,7 +61,7 @@ const toolData = [
     category: "Calculators",
     categories: ["Calculators"],
     tags: ["Calculator", "Calculators", "Health", "Fitness", "BMI", "Body Mass Index", "Math", "Weight", "Height", "Calculations"],
-    route: "tools/bmi-calculator.html",
+    route: "/tools/bmi-calculator/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'></path></svg>",
     featured: true
   },
@@ -72,7 +72,7 @@ const toolData = [
     category: "Calculators",
     categories: ["Calculators"],
     tags: ["Calculator", "Calculators", "Math", "Percentage", "Calculation", "Finance", "Discount", "Math Tools"],
-    route: "tools/percentage-calculator.html",
+    route: "/tools/percentage-calculator/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><line x1='19' y1='5' x2='5' y2='19'></line><circle cx='6.5' cy='6.5' r='2.5'></circle><circle cx='17.5' cy='17.5' r='2.5'></circle></svg>",
     featured: false
   },
@@ -83,7 +83,7 @@ const toolData = [
     category: "Text Tools",
     categories: ["Text Tools"],
     tags: ["Notes", "Quick Notes", "Text", "Writing", "Scratchpad", "Draft", "Timer", "Study", "Dictionary"],
-    route: "tools/word-counter.html",
+    route: "/tools/word-counter/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>",
     featured: true
   },
@@ -94,7 +94,7 @@ const toolData = [
     category: "Developer Tools",
     categories: ["Developer Tools", "Converters"],
     tags: ["Code", "Coding", "Coding IDE", "Developer", "Format", "JSON", "Beautifier", "Markdown", "PDF", "PDF Tools"],
-    route: "tools/json-formatter.html",
+    route: "/tools/json-formatter/",
     icon: "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>",
     featured: false
   }

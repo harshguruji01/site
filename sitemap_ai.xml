@@ -7,15 +7,43 @@
         http://www.google.com/schemas/sitemap-image/1.1
         http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
   <url>
-    <loc>https://ai.webguruji.online/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <loc>https://webguruji.online/ai-hub/</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi AI Directory - Curated AI Tools, Prompts &amp; Resources</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/ai/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi AI Directory - Official Artificial Intelligence Hub</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://ai.webguruji.online/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>GuruAI Chat - Intelligent Conversational Assistant by HarshGuruJi</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://ai.webguruji.online/login</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>GuruAI Login - HarshGuruJi AI Workspace</image:title>
+    </image:image>
   </url>
 </urlset>

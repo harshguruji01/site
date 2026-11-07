@@ -17,7 +17,7 @@ const gameData = [
     genre: "Arcade",
     categories: ["All", "PC", "Mobile", "Arcade", "Casual"],
     tags: ["Classic", "Singleplayer"],
-    route: "games/snake.html",
+    route: "/games/snake/",
     platform: "Browser",
     featured: true
   },
@@ -28,7 +28,7 @@ const gameData = [
     genre: "Puzzle",
     categories: ["All", "PC", "Mobile", "Puzzle", "Casual", "Educational"],
     tags: ["Brain", "Singleplayer"],
-    route: "games/memory.html",
+    route: "/games/memory/",
     platform: "Browser",
     featured: false
   },
@@ -39,7 +39,7 @@ const gameData = [
     genre: "Board",
     categories: ["All", "PC", "Mobile", "Board", "Casual", "Multiplayer"],
     tags: ["Local Multiplayer", "Strategy"],
-    route: "games/tic-tac-toe.html",
+    route: "/games/tic-tac-toe/",
     platform: "Browser",
     featured: true
   },

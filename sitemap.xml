@@ -8,7 +8,7 @@
         http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
   <url>
     <loc>https://webguruji.online/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,18 +17,118 @@
     </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <loc>https://webguruji.online/explore/</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <priority>0.95</priority>
     <image:image>
-      <image:loc>https://webguruji.online/logo.png</image:loc>
-      <image:title>HarshGuruJi Official Portal</image:title>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Explore &amp; Discover - Directory of Top Web Knowledge</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/free-tools/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Free Online Tools - Calculators, Converters &amp; Formatters</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Tools Hub - Developer Utilities &amp; Browser Tools</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/ai-hub/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi AI Directory - Curated AI Tools, Prompts &amp; Resources</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/ai/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi AI Directory - Official Artificial Intelligence Hub</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/gaming-hub/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Gaming Hub - Play Free Browser Games Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/gaming/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Gaming Portal - Free Online Web Games</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/games/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Games Arcade - Play Instant Browser Games</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/books/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Books - NCERT Books Library Classes 1-12</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>GuruStore - Apps, Software, AI Tools &amp; Games Directory</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/chat/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/chatbase.png</image:loc>
+      <image:title>HarshGuruJi Chat — Real-Time 1-on-1 Messaging Application</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/chat-app/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -37,413 +137,583 @@
     </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/chat/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <loc>https://webguruji.online/daily-special/</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Daily Special - Today in History, Daily Fact &amp; Quotes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/showcase/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Interactive 3D &amp; Web Component Showcase</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/gallery/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://webguruji.online/chatbase.png</image:loc>
-      <image:title>HarshGuruJi Chat — Real-Time 1-on-1 Messaging Application</image:title>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Visual Gallery &amp; Interactive Design Showcase</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/best</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <loc>https://webguruji.online/tools/bmi-calculator/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://webguruji.online/logo-512.png</image:loc>
-      <image:title>The Best of HarshGuruJi — Curated Apps, AI &amp; Educational Tools</image:title>
+      <image:title>HarshGuruJi BMI Calculator - Free Body Mass Index Calculator</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/store/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <loc>https://webguruji.online/tools/password-generator/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://webguruji.online/logo-512.png</image:loc>
-      <image:title>GuruStore — Curated Android APK &amp; Premium Mod Games Catalog</image:title>
+      <image:title>HarshGuruJi Password Generator - Strong &amp; Secure Random Passwords</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/word-counter/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Word Counter - Character, Word, Sentence &amp; Reading Time</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/json-formatter/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi JSON Formatter - Beautify, Minify &amp; Validate JSON Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/case-converter/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Case Converter - UPPERCASE, lowercase, Title Case</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/base64/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Base64 Encode &amp; Decode - Free Browser-Based Conversion</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/tools/percentage-calculator/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Percentage Calculator - Free Math &amp; Percentage Tool</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/games/snake/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Snake Game - Classic Retro Arcade Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/games/tic-tac-toe/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Tic Tac Toe - 2 Player &amp; AI Online Strategy Game</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/games/memory/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Memory Match - Brain Training &amp; Card Matching Game</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/gk-quiz/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi GK Quiz - General Knowledge Quiz with Live Scoring</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/Quiz%20India/index/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Quiz India - Indian History, Geography &amp; Polity Trivia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/education/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Education Portal - Academic Hub &amp; Class Resources</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning-hub/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Learning Hub - Study Notes, PDF Books &amp; Curriculum</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Learning - NCERT Online Reading &amp; Revision Portal</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/pdf-library/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi NCERT PDF Books &amp; Textbooks Download Library</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/class/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi NCERT Class Dashboard - Choose Class 1 to 12</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/subject/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi NCERT Subject Explorer - Mathematics, Science &amp; Social Science</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/chapter/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi NCERT Chapter Notes &amp; Solutions Reader</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/class-10-science/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Class 10 Science NCERT Complete Guide &amp; Notes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/learning/class-10/science/ncert/01-chemical-reactions-and-equations/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>NCERT Class 10 Science Chapter 1: Chemical Reactions and Equations</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/books.html?class=12</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>NCERT Class 12 Textbooks &amp; Solutions - HarshGuruJi Books</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/books.html?class=11</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>NCERT Class 11 Textbooks &amp; Solutions - HarshGuruJi Books</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/books.html?class=10</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>NCERT Class 10 Textbooks &amp; Solutions - HarshGuruJi Books</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/books.html?class=9</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>NCERT Class 9 Textbooks &amp; Solutions - HarshGuruJi Books</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/store-detail/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=chess</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=chatbase</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=hp-tube</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=system-service</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=perplexity-ai-installer</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=bluestacks-installer</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=aurora-store</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=comet</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/store-detail.html?slug=hermes-ai-agent</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/books/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/books.html?class=12</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/books.html?class=11</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/books.html?class=10</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/books.html?class=9</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/education/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning-hub/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/pdf-library/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/class/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/subject/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/chapter/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/class-10-science/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/class-10/science/ncert/01-chemical-reactions-and-equations/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/learning/gk-quiz/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/Quiz%20India/index/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/free-tools/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/password-generator/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/word-counter/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/json-formatter/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/case-converter/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/base64/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/bmi-calculator/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/tools/percentage-calculator/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/ai-hub/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
     <image:image>
-      <image:loc>https://webguruji.online/ai.png</image:loc>
-      <image:title>Artificial Intelligence Innovation Hub — HarshGuruJi</image:title>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>GuruStore App Detail Showcase - Verified Software Downloads</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/ai/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <loc>https://webguruji.online/store-detail.html?slug=chess</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/chess-logo.png</image:loc>
+      <image:title>Play Chess by Chess Prince - Free Browser &amp; APK Game</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=chatbase</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/chatbase-logo.png</image:loc>
+      <image:title>ChatBase by HarshGuruJi - Private Messaging APK</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=hp-tube</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/hp-tube-logo.png</image:loc>
+      <image:title>GuruTube by HarshGuruJi - Ad-Free Video Streaming APK</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=system-service</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/system-service-logo.jpg</image:loc>
+      <image:title>System Service Utility APK - HarshGuruJi Verified Release</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=perplexity-ai-installer</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/perplexity-logo.png</image:loc>
+      <image:title>Perplexity AI Desktop Installer - Windows EXE</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=bluestacks-installer</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/bluestacks-logo.png</image:loc>
+      <image:title>BlueStacks Android Emulator Installer - Windows EXE</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=aurora-store</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/aurora-store-logo.png</image:loc>
+      <image:title>Aurora Store Open Source App Store APK</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=comet</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/comet-logo.png</image:loc>
+      <image:title>Comet High-Speed Browser APK - HarshGuruJi Verified Release</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/store-detail.html?slug=hermes-ai-agent</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/hermes-logo.png</image:loc>
+      <image:title>Hermes AI Autonomous Agent - Windows Desktop Release</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/technology/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/gaming-hub/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/gaming/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/games/snake/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/games/tic-tac-toe/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/games/memory/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/daily-special/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Technology Hub - Software, Web Dev &amp; Cloud Insights</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/daily-life/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Daily Life - Productivity Hacks, Motivation &amp; Tips</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/insights/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/explore/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>daily</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Insights - Articles, Editorial &amp; Technology Analysis</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://webguruji.online/ads/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <loc>https://webguruji.online/best/</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
       <image:loc>https://webguruji.online/logo-512.png</image:loc>
-      <image:title>Partner Network &amp; Advertisements — HarshGuruJi Curated Directory</image:title>
+      <image:title>Best of HarshGuruJi - Curated Tools, Recommended Apps &amp; Top Guides</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/ads/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Advertising &amp; Transparency Standards</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/appearance/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/owner/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/about/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Appearance &amp; Theme Preferences</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/contributor/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Contributors - The Team &amp; Developers Behind HarshGuruJi</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/join-contributor/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Join HarshGuruJi as a Contributor - Open Source &amp; Community Team</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/apply-contributor/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Apply to HarshGuruJi Contributor Team - Application Form</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/verify-contributor/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Verify HarshGuruJi Contributor Credentials</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/owner/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Founder &amp; Owner Profile — HarshGuruJi</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/about/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>About HarshGuruJi - Mission, Leadership &amp; Ecosystem</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/contact/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/login/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/signup/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://webguruji.online/forgot-password/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Contact HarshGuruJi - Official Support &amp; Inquiries</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/privacy-policy/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Privacy Policy - Comprehensive Data Transparency</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/terms-and-conditions/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Terms and Conditions - User Agreement &amp; Policies</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/disclaimer/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Disclaimer - Academic Content &amp; Third-Party References</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://webguruji.online/cookie/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>HarshGuruJi Cookie Policy &amp; Consent Conformance</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/login/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Login to HarshGuruJi - Access Your Account &amp; Dashboard</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/signup/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Sign Up for HarshGuruJi - Create Your Free Account</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://webguruji.online/forgot-password/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://webguruji.online/logo-512.png</image:loc>
+      <image:title>Reset Your HarshGuruJi Account Password</image:title>
+    </image:image>
   </url>
 </urlset>
