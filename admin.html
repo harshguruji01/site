@@ -6290,9 +6290,9 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label" style="font-weight:700; color:#e2e8f0;">Primary Merchant UPI ID *</label>
-              <input type="text" id="cfg-payment-upi-id" class="form-input" placeholder="e.g. harshguruji01@oksbi" value="harshguruji01@oksbi" required style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
-              <div style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Default VPA used for dynamic QR codes and mobile app payments.</div>
+              <label class="form-label" style="font-weight:700; color:#e2e8f0;">Primary Merchant UPI ID (Optional / Set on Render)</label>
+              <input type="text" id="cfg-payment-upi-id" class="form-input" placeholder="e.g. merchant@upi (Or configure directly on Render)" value="" style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
+              <div style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Default VPA used for dynamic QR codes. If blank, gateway accounts from Render will be used.</div>
             </div>
           </div>
 
@@ -6300,13 +6300,13 @@
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; margin-bottom:1.25rem;">
             <div class="form-group">
               <label class="form-label" style="font-weight:700; color:#e2e8f0;">Backup UPI ID 1 (Overflow / Rotation)</label>
-              <input type="text" id="cfg-payment-backup-upi" class="form-input" placeholder="e.g. harshguruji01@paytm" value="harshguruji01@paytm" style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
+              <input type="text" id="cfg-payment-backup-upi" class="form-input" placeholder="e.g. backup@upi" value="" style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
               <div style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Used when primary account reaches daily cap or when in random rotation.</div>
             </div>
 
             <div class="form-group">
               <label class="form-label" style="font-weight:700; color:#e2e8f0;">Backup UPI ID 2 (Optional)</label>
-              <input type="text" id="cfg-payment-backup-upi2" class="form-input" placeholder="e.g. harshguruji01@hdfcbank" value="" style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
+              <input type="text" id="cfg-payment-backup-upi2" class="form-input" placeholder="e.g. backup2@upi" value="" style="background:#0f172a; border-color:rgba(255,255,255,0.15);" />
               <div style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Third standby account for high-traffic payment distribution.</div>
             </div>
           </div>
@@ -12445,7 +12445,7 @@
       if (btn) { btn.disabled = true; btn.innerHTML = '<span>Saving...</span>'; }
 
       const maintenance = document.getElementById('cfg-payment-maintenance')?.value === 'true';
-      const upiId = document.getElementById('cfg-payment-upi-id')?.value.trim() || 'harshguruji01@oksbi';
+      const upiId = document.getElementById('cfg-payment-upi-id')?.value.trim() || '';
       const backupUpi = document.getElementById('cfg-payment-backup-upi')?.value.trim() || '';
       const backupUpi2 = document.getElementById('cfg-payment-backup-upi2')?.value.trim() || '';
       const dailyLimit = parseFloat(document.getElementById('cfg-payment-daily-limit')?.value) || 50000;

@@ -295,7 +295,7 @@
         <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/80 border border-slate-800">
           <div class="min-w-0">
             <span class="text-[10px] text-slate-400 block font-mono">Merchant UPI ID:</span>
-            <span id="upiIdDisplay" class="font-mono text-xs sm:text-sm font-bold text-amber-300 truncate block">harshguruji01@oksbi</span>
+            <span id="upiIdDisplay" class="font-mono text-xs sm:text-sm font-bold text-amber-300 truncate block">Awaiting Setup</span>
           </div>
           <button type="button" onclick="copyUpiId()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 transition flex-shrink-0 flex items-center gap-1">
             <span>📋</span> <span id="copyUpiText">Copy</span>
@@ -396,8 +396,8 @@
   <script>
     let activePaymentConfig = {
       maintenance: false,
-      upi_id: 'harshguruji01@oksbi',
-      backup_upi: 'harshguruji01@paytm',
+      upi_id: '',
+      backup_upi: '',
       backup_upi2: '',
       daily_limit: 50000,
       rotation_mode: 'default',
@@ -436,6 +436,27 @@
           }
         }
       } catch(e) {}
+
+      // 4. Fetch dynamic active accounts from Render Gateway if available
+      if (activePaymentConfig.gateway_api_url && activePaymentConfig.gateway_api_key) {
+        try {
+          const accRes = await fetch(`${activePaymentConfig.gateway_api_url.replace(/\/+$/, '')}/accounts`, {
+            headers: {
+              'X-Api-Key': activePaymentConfig.gateway_api_key,
+              'X-Api-Secret': activePaymentConfig.gateway_api_secret || ''
+            }
+          });
+          if (accRes.ok) {
+            const accJson = await accRes.json();
+            if (accJson && accJson.success && Array.isArray(accJson.data) && accJson.data.length > 0) {
+              const activeAcc = accJson.data.find(a => a.is_active && a.is_default) || accJson.data.find(a => a.is_active) || accJson.data[0];
+              if (activeAcc && activeAcc.upi_id) {
+                activePaymentConfig.upi_id = activeAcc.upi_id;
+              }
+            }
+          }
+        } catch(e) {}
+      }
 
       if (activePaymentConfig.maintenance === true) {
         const maintBox = document.getElementById('paymentMaintenanceBox');
@@ -666,24 +687,28 @@
       startPaymentCountdown(15 * 60);
 
       // Build dynamic UPI QR code & App Intent with transaction reference
-      const targetUpiId = activePaymentConfig?.upi_id || 'harshguruji01@oksbi';
-      const upiString = `upi://pay?pa=${encodeURIComponent(targetUpiId)}&pn=HarshGuruJi&am=${inr}&cu=INR&tr=${currentOrderNo}&tn=GuruAI_${encodeURIComponent(model.replace(/ /g, '_'))}`;
-      const qrApiUrl = (activePaymentConfig?.qr_url && activePaymentConfig.qr_url.trim() && !activePaymentConfig.qr_url.includes('logo-512.png')) 
-        ? activePaymentConfig.qr_url 
-        : `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiString)}&margin=10`;
+      const targetUpiId = activePaymentConfig?.upi_id || '';
+      if (targetUpiId) {
+        const upiString = `upi://pay?pa=${encodeURIComponent(targetUpiId)}&pn=HarshGuruJi&am=${inr}&cu=INR&tr=${currentOrderNo}&tn=GuruAI_${encodeURIComponent(model.replace(/ /g, '_'))}`;
+        const qrApiUrl = (activePaymentConfig?.qr_url && activePaymentConfig.qr_url.trim() && !activePaymentConfig.qr_url.includes('logo-512.png')) 
+          ? activePaymentConfig.qr_url 
+          : `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiString)}&margin=10`;
 
-      const qrEl = document.getElementById('upiQrImage'); if (qrEl) qrEl.src = qrApiUrl;
-      const upiIdTextEl = document.getElementById('upiIdDisplay'); if (upiIdTextEl) upiIdTextEl.textContent = targetUpiId;
+        const qrEl = document.getElementById('upiQrImage'); if (qrEl) qrEl.src = qrApiUrl;
+        const upiIdTextEl = document.getElementById('upiIdDisplay'); if (upiIdTextEl) upiIdTextEl.textContent = targetUpiId;
 
-      // Mobile Intent Deep Links
-      const intentGPay = document.getElementById('intentGPay');
-      if (intentGPay) intentGPay.href = upiString.replace('upi://pay', 'tez://upi/pay');
-      const intentPhonePe = document.getElementById('intentPhonePe');
-      if (intentPhonePe) intentPhonePe.href = upiString.replace('upi://pay', 'phonepe://pay');
-      const intentPaytm = document.getElementById('intentPaytm');
-      if (intentPaytm) intentPaytm.href = upiString.replace('upi://pay', 'paytmmp://pay');
-      const intentBhim = document.getElementById('intentBhim');
-      if (intentBhim) intentBhim.href = upiString;
+        // Mobile Intent Deep Links
+        const intentGPay = document.getElementById('intentGPay');
+        if (intentGPay) intentGPay.href = upiString.replace('upi://pay', 'tez://upi/pay');
+        const intentPhonePe = document.getElementById('intentPhonePe');
+        if (intentPhonePe) intentPhonePe.href = upiString.replace('upi://pay', 'phonepe://pay');
+        const intentPaytm = document.getElementById('intentPaytm');
+        if (intentPaytm) intentPaytm.href = upiString.replace('upi://pay', 'paytmmp://pay');
+        const intentBhim = document.getElementById('intentBhim');
+        if (intentBhim) intentBhim.href = upiString;
+      } else {
+        const upiIdTextEl = document.getElementById('upiIdDisplay'); if (upiIdTextEl) upiIdTextEl.textContent = 'Awaiting Setup on Render';
+      }
 
       // Phase 2: Attempt Gateway API Order Creation (with seamless local fallback)
       initGatewayOrder(inr, model, clientName, record.email).then(gwOrder => {
@@ -693,6 +718,11 @@
           if (orderEl) orderEl.textContent = currentOrderNo;
           if (gwOrder.upi_intent) {
             const gwIntent = gwOrder.upi_intent;
+            const intentGPay = document.getElementById('intentGPay');
+            const intentPhonePe = document.getElementById('intentPhonePe');
+            const intentPaytm = document.getElementById('intentPaytm');
+            const intentBhim = document.getElementById('intentBhim');
+            const qrEl = document.getElementById('upiQrImage');
             if (intentGPay) intentGPay.href = gwIntent.replace('upi://pay', 'tez://upi/pay');
             if (intentPhonePe) intentPhonePe.href = gwIntent.replace('upi://pay', 'phonepe://pay');
             if (intentPaytm) intentPaytm.href = gwIntent.replace('upi://pay', 'paytmmp://pay');
@@ -881,7 +911,11 @@
     }
 
     function copyUpiId() {
-      const upiToCopy = activePaymentConfig?.upi_id || 'harshguruji01@oksbi';
+      const upiToCopy = activePaymentConfig?.upi_id || '';
+      if (!upiToCopy) {
+        alert('UPI ID is being configured on Render by the administrator. Please check back shortly.');
+        return;
+      }
       navigator.clipboard.writeText(upiToCopy).then(() => {
         const text = document.getElementById('copyUpiText');
         text.textContent = 'Copied! ✓';
