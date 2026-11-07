@@ -1,0 +1,175 @@
+# UPI Gateway — Critical Security Remediation Prompt
+
+Act as a senior Laravel security engineer and DevSecOps specialist. Perform a complete security remediation of my existing Laravel 12 UPI Gateway repository.
+
+**Repository:** https://github.com/harshguruji01/upi-gateway  
+**Deployment:** Render.com  
+**Production database:** MySQL  
+**Gateway URL:** https://upi-gateway-oy63.onrender.com  
+**Integration target:** GuruAI at https://ai.webguruji.online
+
+Your task is to FIX the security issues in the existing codebase, not merely explain them.
+
+## 1. Remove Hard-coded Admin Credentials — CRITICAL
+
+- Remove all hard-coded administrator passwords and master-login bypasses.
+- Inspect `AuthController.php`, `render.yaml`, Docker entrypoint and the entire repository for exposed credentials.
+- Use secure environment variables for initial administrator provisioning.
+- Never create or update an administrator account using a hard-coded login condition.
+- Use Laravel's password hashing and session regeneration.
+- Require secure administrator authentication and authorization.
+- Rotate credentials that were previously exposed.
+- Ensure no passwords, API secrets or private keys appear in source code, logs or error responses.
+- Review Git history for previously committed secrets and provide a safe remediation report.
+
+## 2. Fix Destructive Database Migration — CRITICAL
+
+Inspect Docker startup scripts and deployment configuration.
+
+- Completely remove `php artisan migrate:fresh --force` from production startup.
+- Never drop existing production tables during deployment.
+- Use `php artisan migrate --force` for controlled production migrations.
+- Preserve existing users, merchants, payment accounts, transactions and webhook logs.
+- Configure production to use MySQL through protected environment variables.
+- Never silently fall back to SQLite in production.
+- Add migration failure handling and deployment health checks.
+- Recommend and document database backup and recovery procedures.
+- Ensure application restarts do not delete persistent data.
+
+## 3. Secure Webhook Delivery — CRITICAL
+
+Harden `SendWebhook.php` and webhook configuration.
+
+- Allow HTTPS webhook URLs only in production.
+- Block localhost, private IP ranges, loopback, link-local and cloud metadata endpoints.
+- Prevent DNS rebinding and unsafe redirects.
+- Add signed timestamps and unique event IDs to webhook payloads.
+- Use HMAC-SHA256 signatures with constant-time comparison.
+- Add replay protection and idempotent event processing.
+- Add retry handling with exponential backoff.
+- Never expose API secrets in webhook responses or logs.
+- Ensure GuruAI can independently verify the gateway order before granting premium access.
+
+## 4. Harden Payment Verification
+
+Inspect all payment verifier implementations.
+
+- Never trust frontend payment status, redirect parameters, screenshots or customer-submitted UTR values.
+- Use official provider verification APIs wherever available.
+- Verify provider transaction ID, gateway order ID, merchant identity, exact amount and INR currency.
+- Reject duplicate transaction IDs and duplicate UTRs.
+- Ensure one successful transaction cannot pay multiple orders.
+- Keep failed, pending, expired and manually submitted UTR orders separate from verified payments.
+- Do not treat unofficial payment-status endpoints as production-grade verification.
+- Make payment confirmation atomic and idempotent.
+
+## 5. Secure GuruAI Integration
+
+Implement a secure server-to-server integration design.
+
+- GuruAI backend creates the payment order using the authenticated user's identity and selected plan.
+- Never expose gateway API secrets in frontend JavaScript.
+- Never accept a client-provided `isPaid`, `premium`, `planActive` or equivalent flag.
+- Validate the signed webhook and its unique event ID.
+- Independently verify the corresponding gateway order and expected amount.
+- Match the payment to the original GuruAI user, plan and order.
+- Grant only the purchased entitlement.
+- Make entitlement updates transactional and idempotent.
+- Add audit logs for order creation, verification, webhook processing and entitlement changes.
+
+## 6. Additional Production Security
+
+- Set `APP_DEBUG=false`.
+- Enforce HTTPS and secure cookies.
+- Review CSRF exclusions and authentication routes.
+- Apply rate limiting to login, order creation and payment verification.
+- Validate API key and secret authentication.
+- Protect admin routes with role-based authorization.
+- Review CORS, session, cache and queue configuration.
+- Ensure queue workers and scheduled jobs run reliably on Render.
+- Add health checks and safe error handling.
+- Never log payment credentials or sensitive customer data unnecessarily.
+
+## 7. Testing Requirements
+
+Write and run tests for:
+
+1. Hard-coded admin login no longer works.
+2. Unauthorized users cannot access admin endpoints.
+3. Application startup never drops production tables.
+4. MySQL connection is required in production.
+5. Invalid webhook signatures are rejected.
+6. Replayed webhook events are rejected or safely deduplicated.
+7. Invalid webhook URLs are blocked.
+8. Fake payment success responses cannot unlock premium.
+9. Amount mismatch cannot unlock premium.
+10. Duplicate provider transactions cannot grant multiple entitlements.
+11. Expired or pending orders cannot unlock premium.
+12. Valid verified payments grant the correct entitlement exactly once.
+
+Use sandbox/test credentials and mocked provider responses. Never run destructive tests against production data.
+
+## 8. Strict Development Rules
+
+- First inspect the complete repository and existing architecture.
+- Preserve the existing project name, Laravel structure, UI, API routes and supported payment providers wherever possible.
+- Do not unnecessarily rewrite working modules.
+- Do not remove existing features without explaining why they are unsafe.
+- Maintain compatibility with the existing GuruAI integration.
+- Make actual code changes, not just recommendations.
+- Do not invent environment variables or claim a deployment is secure without testing it.
+- Never print secrets in the final report.
+
+## 9. Final Security Report
+
+After implementing the fixes, provide:
+
+- All vulnerabilities discovered.
+- Files modified and exact changes made.
+- Database migration safety status.
+- Authentication and webhook security status.
+- Payment verification test results.
+- GuruAI integration security status.
+- Environment variables that the deployment administrator must configure.
+- Remaining risks and any manual actions required.
+- Exact safe deployment and rollback instructions.
+
+**Final objective:** Make the existing UPI Gateway secure, reliable and suitable for authorized sandbox testing and eventual production use. No fake payment, frontend manipulation, replayed webhook, manual status bypass or unauthorized database operation should grant GuruAI premium access.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[C:\Users\harsh\OneDrive\Desktop\HarshGuruJi\site\sc2.png
+C:\Users\harsh\OneDrive\Desktop\HarshGuruJi\site\sc3.png
+C:\Users\harsh\OneDrive\Desktop\HarshGuruJi\site\sc4.png
+
+
+mobile me ai page ka ui change karo ye sa ui hona chahiye.
+
+
+yesa side bar hona chahiye
+
+
+
+image 1st jaisa homescreen ho jaha per user, chatsection
+image 2nd me  sidebar ka menu hai uper 6 options and uske scrollable history section
+image 3rd me when user click his/her profile icon in the side bar 
+
+sab kuch fit karo aur web page ko modify karo 
+aur uske baad apk build karo.]
