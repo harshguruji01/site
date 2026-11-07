@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HarshGuruJi – Interactive Platform Ecosystem & 3D Showcase</title>
+  <link rel="icon" type="image/png" href="../logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    :root {
+      --color-background: #060b17;
+      --color-foreground: #f1f5f9;
+      --color-muted: #94a3b8;
+      --color-primary: #6366f1;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+      font-family: var(--font-family);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Ambient glow backgrounds */
+    .ambient-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      pointer-events: none;
+      transition: background 0.8s ease, transform 0.8s ease;
+      z-index: 0;
+    }
+    .glow-left { top: -100px; left: -150px; background: #6366f1; }
+    .glow-right { bottom: -100px; right: -150px; background: #10b981; }
+
+    /* Top Control Bar */
+    .showcase-header {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: rgba(10, 16, 31, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #e2e8f0;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Mode Switcher Tabs */
+    .mode-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 3px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .mode-btn {
+      appearance: none;
+      border: none;
+      background: none;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mode-btn:hover {
+      color: #f8fafc;
+    }
+
+    .mode-btn.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9));
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-arrow-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-arrow-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Stage Canvas Viewport */
+    .stage-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 580px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .view-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    .view-container.active {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       VIEW 1: DISH / ECOSYSTEM ORBIT CAROUSEL STYLES
+       ══════════════════════════════════════════════════════════════════ */
+    .dsh-canvas {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 960px;
+      height: 520px;
+      transform: translate(-50%, -50%) scale(var(--dsh-s, 1));
+      transform-origin: 50% 50%;
+    }
+
+    .dsh-arc {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 960px;
+      height: 520px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .dsh-arc path {
+      transition: fill 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      filter: drop-shadow(0 15px 30px rgba(99, 102, 241, 0.15));
+    }
+
+    .dsh-btn {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .dsh-pager {
+      position: absolute;
+      left: 60px;
+      top: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .dsh-dot {
+      width: 14px;
+      height: 12px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: height 0.45s cubic-bezier(0.3, 0.7, 0.2, 1);
+    }
+    .dsh-dot i {
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 4px;
+      background: #94a3b8;
+      opacity: 0.4;
+      transition: height 0.45s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.3s, background 0.3s;
+    }
+    .dsh-dot[aria-current="true"] i {
+      height: 24px;
+      opacity: 1;
+      background: #6366f1;
+    }
+    .dsh-dot[aria-current="true"] {
+      height: 28px;
+    }
+
+    /* Orbiting emblem */
+    .dsh-plates {
+      position: absolute;
+      left: 120px;
+      top: 75px;
+      width: 260px;
+      height: 260px;
+      touch-action: pan-y;
+      z-index: 5;
+    }
+
+    .dsh-orbit {
+      position: absolute;
+      inset: 0;
+      transform-origin: 69% -217%;
+      visibility: hidden;
+      will-change: transform;
+    }
+
+    .dsh-orbit > .dsh-emblem-wrap {
+      display: block;
+      width: 260px;
+      height: 260px;
+      border-radius: 36px;
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .dsh-head {
+      position: absolute;
+      left: 410px;
+      top: 85px;
+      width: 480px;
+      height: 140px;
+      z-index: 6;
+    }
+
+    .dsh-hd {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+    }
+
+    .dsh-eye {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dsh-ttl {
+      overflow: hidden;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .dsh-t1 {
+      display: block;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: #cbd5e1;
+      font-size: 26px;
+      will-change: transform;
+    }
+
+    .dsh-t2 {
+      display: block;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 42px;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      will-change: transform;
+    }
+
+    .dsh-subline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    /* Content Card */
+    .dsh-card {
+      position: absolute;
+      left: 410px;
+      top: 215px;
+      width: 480px;
+      min-height: 175px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+      z-index: 6;
+    }
+
+    .dsh-tabs {
+      display: flex;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .dsh-tab {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .dsh-tab.active {
+      color: #f8fafc;
+    }
+    .dsh-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: -11px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #6366f1;
+      border-radius: 2px;
+    }
+
+    .dsh-body {
+      position: relative;
+    }
+
+    .dsh-rate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .dsh-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .dsh-chef {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .dsh-kit {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .dsh-desc {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .dsh-ing {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      list-style: none;
+    }
+    .dsh-ing li {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      color: #cbd5e1;
+    }
+
+    .dsh-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .dsh-launch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .dsh-launch-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    .dsh-like-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dsh-like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dsh-like-btn:hover, .dsh-like-btn.liked {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* Thumbnail strip */
+    .dsh-strip {
+      position: absolute;
+      left: 120px;
+      top: 415px;
+      width: 770px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .dsh-win {
+      overflow: hidden;
+      flex: 1;
+      height: 100%;
+    }
+
+    .dsh-track {
+      display: flex;
+      gap: 12px;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dsh-th {
+      flex: 0 0 160px;
+      height: 60px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      padding: 6px 10px;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .dsh-th:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .dsh-th[aria-current="true"] {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: #6366f1;
+      box-shadow: 0 0 16px rgba(99, 102, 241, 0.3);
+    }
+    .dsh-th-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .dsh-th-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .dsh-th-cat {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       VIEW 2: 3D TUMBLE DECK SHOWCASE STYLES
+       ══════════════════════════════════════════════════════════════════ */
+    .td-root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      overflow: hidden;
+      outline: none;
+      user-select: none;
+    }
+
+    .td-scene {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      perspective: 1200px;
+      perspective-origin: 50% 30%;
+    }
+
+    .td-card {
+      position: absolute;
+      left: 50%;
+      top: var(--td-top, 80px);
+      width: var(--td-w, 640px);
+      height: var(--td-h, 320px);
+      margin-left: calc(var(--td-w, 640px) / -2);
+      transform-origin: 50% 100%;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
+      will-change: transform;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #0f172a;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      transition: box-shadow 0.3s;
+    }
+    .td-card:hover {
+      box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.4), 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+
+    .td-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: #000;
+      opacity: var(--td-shade, 0);
+      transition: opacity 0.1s linear;
+    }
+
+    .td-card-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .td-browser-chrome {
+      height: 38px;
+      background: #1e293b;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 12px;
+    }
+
+    .td-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .td-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .td-dot-red { background: #ef4444; }
+    .td-dot-yellow { background: #eab308; }
+    .td-dot-green { background: #22c55e; }
+
+    .td-address-bar {
+      flex: 1;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    .td-address-lock {
+      color: #10b981;
+      margin-right: 6px;
+    }
+
+    .td-card-body {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #0a0f1d;
+    }
+
+    /* Deck bottom controls overlay */
+    .td-hint-overlay {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 12px;
+      color: #94a3b8;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .td-hint-key {
+      display: inline-block;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      font-weight: 700;
+      color: #f1f5f9;
+      font-size: 10px;
+    }
+
+    /* Responsive scaling */
+    @media (max-width: 980px) {
+      .dsh-canvas {
+        --dsh-s: 0.85;
+      }
+    }
+    @media (max-width: 768px) {
+      .dsh-canvas {
+        --dsh-s: 0.62;
+      }
+      .showcase-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+      .header-actions {
+        display: none;
+      }
+    }
+    @media (max-width: 480px) {
+      .dsh-canvas {
+        --dsh-s: 0.48;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient background lighting -->
+  <div class="ambient-glow glow-left" id="ambient-left"></div>
+  <div class="ambient-glow glow-right" id="ambient-right"></div>
+
+  <!-- Top Control Header -->
+  <header class="showcase-header">
+    <div class="brand-badge">
+      <span class="live-dot"></span>
+      <span>HarshGuruJi</span>
+      <span style="opacity: 0.4;">/</span>
+      <span style="color: #a5b4fc; font-weight: 600;">Interactive Platform Stage</span>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher" role="tablist">
+      <button type="button" class="mode-btn active" id="tab-orbit" role="tab" aria-selected="true">
+        <span>🪐</span>
+        <span>Ecosystem Orbit</span>
+      </button>
+      <button type="button" class="mode-btn" id="tab-deck" role="tab" aria-selected="false">
+        <span>🃏</span>
+        <span>3D Tumbling Deck</span>
+      </button>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="nav-arrow-btn" id="header-prev" title="Previous Item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button type="button" class="nav-arrow-btn" id="header-next" title="Next Item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Stage Canvas -->
+  <main class="stage-wrapper" id="stage-wrapper">
+    <!-- ══════════════════════════════════════════════════════════════
+         VIEW 1: ECOSYSTEM ORBIT CAROUSEL
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="view-container active" id="orbit-view">
+      <div class="dsh-canvas" id="orbit-canvas">
+        <!-- Pastel/Accent Arc SVG -->
+        <svg class="dsh-arc" viewBox="0 0 960 520" aria-hidden="true">
+          <path id="orbit-arc-path" fill="#6366f1" fill-opacity="0.18" d=""></path>
+        </svg>
+
+        <!-- Vertical Pager Dots -->
+        <div class="dsh-pager" id="orbit-pager"></div>
+
+        <!-- Orbiting Platform Plates / Emblems -->
+        <div class="dsh-plates" id="orbit-plates"></div>
+
+        <!-- Header / Two-Line Title -->
+        <div class="dsh-head">
+          <div class="dsh-eye" id="orbit-eye">#1 Flagship AI Assistant</div>
+          <div class="dsh-ttl">
+            <span class="dsh-t1" id="orbit-t1">Next-Gen</span>
+            <span class="dsh-t2" id="orbit-t2">GuruAI Studio</span>
+          </div>
+          <div class="dsh-subline">
+            <span class="dsh-badge" id="orbit-category-badge" style="background: #6366f1;">AI Intelligence</span>
+            <span style="font-size: 12px; color: #94a3b8;" id="orbit-architect">HarshGuruJi AI Lab</span>
+          </div>
+        </div>
+
+        <!-- Details Card -->
+        <div class="dsh-card">
+          <div class="dsh-tabs">
+            <span class="dsh-tab active" data-tab="overview">Overview</span>
+            <span class="dsh-tab" data-tab="specs">Capabilities</span>
+          </div>
+
+          <div class="dsh-body">
+            <div class="dsh-rate-row">
+              <div class="dsh-badge" id="orbit-rating-badge" style="background: #6366f1;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span id="orbit-rating-num">4.9</span>
+              </div>
+              <span style="font-size: 12px; color: #94a3b8;" id="orbit-reviews">1,840+ Active Verified Ratings</span>
+            </div>
+
+            <div id="orbit-tab-overview">
+              <p class="dsh-desc" id="orbit-desc">
+                Ultra low-latency neural intelligence powered by Gemini 2.5 Flash. Features persistent session memory, code generation, real-time web intelligence, and multi-modal analysis.
+              </p>
+            </div>
+
+            <div id="orbit-tab-specs" style="display: none;">
+              <ul class="dsh-ing" id="orbit-specs-list"></ul>
+            </div>
+
+            <div class="dsh-actions-row">
+              <a href="https://ai.webguruji.online" target="_blank" rel="noopener noreferrer" class="dsh-launch-btn" id="orbit-launch-btn">
+                <span>Launch Service</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </a>
+
+              <div class="dsh-like-group">
+                <button type="button" class="dsh-like-btn" id="orbit-like-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                  <span id="orbit-likes-count">14,820</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thumbnail Strip -->
+        <div class="dsh-strip">
+          <button type="button" class="nav-arrow-btn" id="orbit-strip-prev" style="width: 38px; height: 38px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="dsh-win">
+            <div class="dsh-track" id="orbit-track"></div>
+          </div>
+          <button type="button" class="nav-arrow-btn" id="orbit-strip-next" style="width: 38px; height: 38px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         VIEW 2: 3D TUMBLING DECK SHOWCASE
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="view-container" id="deck-view">
+      <div class="td-root" id="td-root" tabindex="0">
+        <div class="td-scene" id="td-scene"></div>
+
+        <!-- Bottom Controls Hint -->
+        <div class="td-hint-overlay">
+          <span>Scroll, drag, or press</span>
+          <span class="td-hint-key">↑</span>
+          <span class="td-hint-key">↓</span>
+          <span class="td-hint-key">Space</span>
+          <span>to flip cards</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════════
+    // DATA DEFINITIONS (100% Bespoke HarshGuruJi Ecosystem)
+    // ══════════════════════════════════════════════════════════════════
+    const ECOSYSTEM_ITEMS = [
+      {
+        id: "guru-ai",
+        title: "Next-Gen",
+        subtitle: "GuruAI Studio",
+        eyebrow: "#1 Flagship AI Assistant",
+        rating: 4.9,
+        reviews: "1,840+ Active Ratings",
+        category: "Artificial Intelligence",
+        architect: "HarshGuruJi AI Lab",
+        description: "Ultra low-latency neural chat assistant powered by Gemini 2.5 Flash with deep context memory, web research capabilities, coding assistant, and instant answers.",
+        specs: ["Gemini 2.5 Engine", "Multi-turn Reasoning", "Realtime Web Search", "Code Execution", "Instant Answers"],
+        accent: "#6366f1",
+        likes: 14820,
+        link: "https://ai.webguruji.online",
+        icon: "🤖",
+        gradient: "from-indigo-600 via-indigo-700 to-purple-800"
+      },
+      {
+        id: "learning-hub",
+        title: "Comprehensive",
+        subtitle: "Learning Hub",
+        eyebrow: "#2 All CBSE Classes 1-12",
+        rating: 4.9,
+        reviews: "2,120+ Active Ratings",
+        category: "Free NCERT School",
+        architect: "HarshGuruJi Education",
+        description: "All-in-one educational platform offering complete NCERT textbooks (Classes 1–12), detailed solutions, syllabus trackers, practice quizzes, and downloadable study guides.",
+        specs: ["Classes 1 to 12", "All Core Subjects", "Chapter-wise Solutions", "Interactive Quizzes", "Downloadable PDFs"],
+        accent: "#10b981",
+        likes: 11250,
+        link: "../learning-hub.html",
+        icon: "📚",
+        gradient: "from-emerald-600 via-teal-700 to-green-800"
+      },
+      {
+        id: "dev-tools",
+        title: "Zero-Latency",
+        subtitle: "Developer Tools",
+        eyebrow: "#3 High-Speed Utilities",
+        rating: 4.8,
+        reviews: "980+ Active Ratings",
+        category: "Web & API Toolkit",
+        architect: "HarshGuruJi Systems",
+        description: "Client-side instant developer utilities: JSON formatter & validator, AES encryption studio, SEO meta tag generator, base64 encoder, code minifier, and regex tester.",
+        specs: ["Zero Latency", "100% Client-Side", "JSON Studio", "SEO Tools", "Encryption Vault"],
+        accent: "#06b6d4",
+        likes: 9840,
+        link: "../tools.html",
+        icon: "⚡",
+        gradient: "from-cyan-600 via-sky-700 to-blue-800"
+      },
+      {
+        id: "store-software",
+        title: "Verified APK",
+        subtitle: "Software Store",
+        eyebrow: "#4 Audited Applications",
+        rating: 4.9,
+        reviews: "3,400+ Active Ratings",
+        category: "Software & Android Hub",
+        architect: "HarshGuruJi Store Team",
+        description: "Curated repository of audited, virus-scanned software packages, Android APK releases, Windows desktop utilities, and custom open-source productivity software.",
+        specs: ["Checksum Verified", "Direct Fast Mirror", "Desktop & Mobile", "Virus Scanned", "Ad-Free Builds"],
+        accent: "#f59e0b",
+        likes: 13410,
+        link: "https://store.webguruji.online",
+        icon: "📦",
+        gradient: "from-amber-600 via-orange-700 to-yellow-800"
+      },
+      {
+        id: "cyber-sentinel",
+        title: "Encrypted",
+        subtitle: "Sentinel Security",
+        eyebrow: "#5 Zero-Trust Authentication",
+        rating: 5.0,
+        reviews: "750+ Active Ratings",
+        category: "Perimeter & Session Defense",
+        architect: "HarshGuruJi SecOps Team",
+        description: "Enterprise-grade security perimeter with AES session isolation, timed gate pass tokens, real-time rate limiting, and zero-knowledge data encryption.",
+        specs: ["Zero-Trust Security", "Gate Pass Auth", "Session Auto-Expire", "IP Protection", "TLS 1.3 Strict"],
+        accent: "#ec4899",
+        likes: 8790,
+        link: "../admin.html",
+        icon: "🛡️",
+        gradient: "from-pink-600 via-rose-700 to-red-800"
+      }
+    ];
+
+    const DECK_CARDS = [
+      {
+        title: "HarshGuruJi Web Portal",
+        url: "https://webguruji.online",
+        desc: "Central Gateway to AI, Education, Games & Developer Utilities",
+        tag: "Official Portal",
+        color: "#6366f1",
+        accent: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
+        icon: "🌐"
+      },
+      {
+        title: "GuruAI Master Studio",
+        url: "https://ai.webguruji.online",
+        desc: "ChatGPT-Grade Conversational Intelligence & Neural Reasoning",
+        tag: "AI Assistant",
+        color: "#8b5cf6",
+        accent: "linear-gradient(135deg, #2e1065 0%, #4c1d95 100%)",
+        icon: "🤖"
+      },
+      {
+        title: "NCERT & Learning Hub",
+        url: "https://webguruji.online/learning-hub.html",
+        desc: "Classes 1–12 Complete Textbooks, Solutions & Interactive Quizzes",
+        tag: "Education",
+        color: "#10b981",
+        accent: "linear-gradient(135deg, #022c22 0%, #064e3b 100%)",
+        icon: "📖"
+      },
+      {
+        title: "Developer Web Tools",
+        url: "https://webguruji.online/tools.html",
+        desc: "Instant JSON Formatter, Base64 Studio, Minifiers & SEO Engine",
+        tag: "Utilities",
+        color: "#06b6d4",
+        accent: "linear-gradient(135deg, #083344 0%, #0c4a6e 100%)",
+        icon: "⚙️"
+      },
+      {
+        title: "GuruStore Software & APK Hub",
+        url: "https://store.webguruji.online",
+        desc: "Verified Android Apps, Desktop Binaries & Productivity Packages",
+        tag: "Software Store",
+        color: "#f59e0b",
+        accent: "linear-gradient(135deg, #451a03 0%, #78350f 100%)",
+        icon: "🚀"
+      },
+      {
+        title: "Daily Special & Knowledge Hub",
+        url: "https://webguruji.online/daily-special.html",
+        desc: "Daily Motivation, Historical Events, Vocabulary & Smart Tips",
+        tag: "Daily Inspiration",
+        color: "#ec4899",
+        accent: "linear-gradient(135deg, #4c0519 0%, #831843 100%)",
+        icon: "🌅"
+      },
+      {
+        title: "Admin Governance & Telemetry",
+        url: "https://webguruji.online/admin.html",
+        desc: "Real-time Live User Quota Controls, ChatBASE Logs & Security",
+        tag: "Admin Center",
+        color: "#3b82f6",
+        accent: "linear-gradient(135deg, #172554 0%, #1e3a5f 100%)",
+        icon: "🔐"
+      }
+    ];
+
+    // ══════════════════════════════════════════════════════════════════
+    // MODE SWITCHER & RESIZE CONTROLLER
+    // ══════════════════════════════════════════════════════════════════
+    let currentMode = "orbit"; // 'orbit' or 'deck'
+    const tabOrbit = document.getElementById("tab-orbit");
+    const tabDeck = document.getElementById("tab-deck");
+    const orbitView = document.getElementById("orbit-view");
+    const deckView = document.getElementById("deck-view");
+
+    function setMode(mode) {
+      currentMode = mode;
+      if (mode === "orbit") {
+        tabOrbit.classList.add("active");
+        tabOrbit.setAttribute("aria-selected", "true");
+        tabDeck.classList.remove("active");
+        tabDeck.setAttribute("aria-selected", "false");
+        orbitView.classList.add("active");
+        deckView.classList.remove("active");
+      } else {
+        tabDeck.classList.add("active");
+        tabDeck.setAttribute("aria-selected", "true");
+        tabOrbit.classList.remove("active");
+        tabOrbit.setAttribute("aria-selected", "false");
+        deckView.classList.add("active");
+        orbitView.classList.remove("active");
+        if (window.tdApi) window.tdApi.fit();
+      }
+    }
+
+    tabOrbit.addEventListener("click", () => setMode("orbit"));
+    tabDeck.addEventListener("click", () => setMode("deck"));
+
+    // Header Next/Prev buttons control whichever mode is active
+    document.getElementById("header-prev").addEventListener("click", () => {
+      if (currentMode === "orbit") window.orbitStep(-1);
+      else if (window.tdApi) window.tdApi.step(-1);
+    });
+
+    document.getElementById("header-next").addEventListener("click", () => {
+      if (currentMode === "orbit") window.orbitStep(1);
+      else if (window.tdApi) window.tdApi.step(1);
+    });
+
+    // Handle responsive scaling for Orbit view
+    function updateScale() {
+      const stage = document.getElementById("stage-wrapper");
+      const W = stage.clientWidth;
+      const H = stage.clientHeight;
+      const s = Math.min(1, (W - 32) / 960, (H - 20) / 520);
+      document.getElementById("orbit-canvas").style.setProperty("--dsh-s", String(s));
+    }
+    window.addEventListener("resize", updateScale);
+    updateScale();
+
+    // ══════════════════════════════════════════════════════════════════
+    // COMPONENT 1: ECOSYSTEM ORBIT CAROUSEL (GSAP + ARC MATH)
+    // ══════════════════════════════════════════════════════════════════
+    const ORBIT_X = 299;
+    const ORBIT_Y = -450;
+    const ORBIT_R = 650;
+    const SWING = 50;
+    const ARC_REST = [[50, 98], [46, 124], [60, 126], [40, 100], [50, 115]];
+
+    function arcPath(a0, a1, cx, cy, r, w, steps = 48) {
+      const outer = [];
+      const inner = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const a = ((a0 + (a1 - a0) * t) * Math.PI) / 180;
+        const h = (w / 2) * Math.pow(Math.sin(Math.PI * t), 0.45);
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        outer.push((cx + c * (r + h)).toFixed(1) + " " + (cy + s * (r + h)).toFixed(1));
+        inner.push((cx + c * (r - h)).toFixed(1) + " " + (cy + s * (r - h)).toFixed(1));
+      }
+      return "M" + outer.join("L") + "L" + inner.reverse().join("L") + "Z";
+    }
+
+    let orbitIndex = 0;
+    const nOrbit = ECOSYSTEM_ITEMS.length;
+    let orbitLiked = {};
+    let isOrbitAnimating = false;
+
+    // Render plates and pager dots
+    const platesContainer = document.getElementById("orbit-plates");
+    const pagerContainer = document.getElementById("orbit-pager");
+    const trackContainer = document.getElementById("orbit-track");
+
+    ECOSYSTEM_ITEMS.forEach((item, i) => {
+      // Plate Emblem
+      const plate = document.createElement("div");
+      plate.className = "dsh-orbit";
+      plate.id = `orbit-plate-${i}`;
+      plate.innerHTML = `
+        <div class="dsh-emblem-wrap bg-gradient-to-br ${item.gradient} p-8 flex flex-col items-center justify-center text-center relative overflow-hidden border border-white/20">
+          <div class="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
+          <div class="relative z-10 text-6xl mb-3 drop-shadow-lg">${item.icon}</div>
+          <div class="relative z-10 font-bold text-lg text-white tracking-wide">${item.subtitle}</div>
+          <div class="relative z-10 text-xs text-white/80 uppercase tracking-wider font-semibold mt-1">${item.category}</div>
+        </div>
+      `;
+      platesContainer.appendChild(plate);
+
+      // Pager Dot
+      const dot = document.createElement("button");
+      dot.className = "dsh-btn dsh-dot";
+      dot.setAttribute("aria-label", `Jump to ${item.subtitle}`);
+      dot.innerHTML = "<i></i>";
+      dot.addEventListener("click", () => jumpOrbit(i));
+      pagerContainer.appendChild(dot);
+
+      // Thumbnail
+      const th = document.createElement("div");
+      th.className = "dsh-th";
+      th.id = `orbit-th-${i}`;
+      th.innerHTML = `
+        <div class="dsh-th-icon">${item.icon}</div>
+        <div style="overflow: hidden;">
+          <div class="dsh-th-title">${item.subtitle}</div>
+          <div class="dsh-th-cat">${item.category}</div>
+        </div>
+      `;
+      th.addEventListener("click", () => jumpOrbit(i));
+      trackContainer.appendChild(th);
+    });
+
+    function updateOrbitContent(idx) {
+      const item = ECOSYSTEM_ITEMS[idx];
+      document.getElementById("orbit-eye").textContent = item.eyebrow;
+      document.getElementById("orbit-t1").textContent = item.title;
+      document.getElementById("orbit-t2").textContent = item.subtitle;
+      document.getElementById("orbit-category-badge").textContent = item.category;
+      document.getElementById("orbit-category-badge").style.background = item.accent;
+      document.getElementById("orbit-architect").textContent = item.architect;
+      document.getElementById("orbit-rating-badge").style.background = item.accent;
+      document.getElementById("orbit-rating-num").textContent = item.rating.toFixed(1);
+      document.getElementById("orbit-reviews").textContent = item.reviews;
+      document.getElementById("orbit-desc").textContent = item.description;
+      document.getElementById("orbit-launch-btn").href = item.link;
+
+      const specsList = document.getElementById("orbit-specs-list");
+      specsList.innerHTML = item.specs.map(s => `<li>${s}</li>`).join("");
+
+      const likeBtn = document.getElementById("orbit-like-btn");
+      const isLiked = !!orbitLiked[idx];
+      likeBtn.classList.toggle("liked", isLiked);
+      document.getElementById("orbit-likes-count").textContent = (item.likes + (isLiked ? 1 : 0)).toLocaleString();
+
+      // Ambient glows
+      document.getElementById("ambient-left").style.background = item.accent;
+
+      // Pager dots
+      Array.from(pagerContainer.children).forEach((dot, i) => {
+        dot.setAttribute("aria-current", i === idx ? "true" : "false");
+      });
+
+      // Thumbnails
+      Array.from(trackContainer.children).forEach((th, i) => {
+        th.setAttribute("aria-current", i === idx ? "true" : "false");
+      });
+
+      // Shift thumbnail track
+      const start = Math.max(0, Math.min(idx - 1, nOrbit - 3));
+      trackContainer.style.transform = `translateX(-${start * 172}px)`;
+
+      // Update Arc Path
+      const rest = ARC_REST[idx % ARC_REST.length];
+      const arc = document.getElementById("orbit-arc-path");
+      arc.setAttribute("d", arcPath(rest[0], rest[1], ORBIT_X, ORBIT_Y, ORBIT_R, 64));
+      arc.setAttribute("fill", item.accent);
+    }
+
+    function jumpOrbit(toIdx) {
+      if (toIdx === orbitIndex || isOrbitAnimating) return;
+      const fromIdx = orbitIndex;
+      const dir = toIdx > fromIdx ? 1 : -1;
+      isOrbitAnimating = true;
+
+      const outgoing = document.getElementById(`orbit-plate-${fromIdx}`);
+      const incoming = document.getElementById(`orbit-plate-${toIdx}`);
+
+      // Two line title wipes
+      gsap.to("#orbit-t1", { x: -30, opacity: 0, duration: 0.25, ease: "power2.in" });
+      gsap.to("#orbit-t2", { x: 30, opacity: 0, duration: 0.25, ease: "power2.in" });
+
+      // Outgoing plate swings away along orbit
+      gsap.to(outgoing, {
+        rotation: dir > 0 ? -SWING : SWING,
+        opacity: 0,
+        duration: 0.72,
+        ease: "power2.inOut",
+        onComplete: () => {
+          outgoing.style.visibility = "hidden";
+        }
+      });
+
+      // Incoming plate prepares and swings in
+      incoming.style.visibility = "visible";
+      gsap.fromTo(incoming, 
+        { rotation: dir > 0 ? SWING : -SWING, opacity: 0 },
+        {
+          rotation: 0,
+          opacity: 1,
+          duration: 0.72,
+          ease: "power2.inOut",
+          onComplete: () => {
+            isOrbitAnimating = false;
+          }
+        }
+      );
+
+      // Arc morph
+      const arc = document.getElementById("orbit-arc-path");
+      gsap.to(arc, {
+        opacity: 0.4,
+        duration: 0.35,
+        yoyo: true,
+        repeat: 1,
+        ease: "sine.inOut"
+      });
+
+      setTimeout(() => {
+        orbitIndex = toIdx;
+        updateOrbitContent(toIdx);
+        gsap.fromTo("#orbit-t1", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power2.out" });
+        gsap.fromTo("#orbit-t2", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power2.out" });
+      }, 250);
+    }
+
+    window.orbitStep = function(dir) {
+      const nextIdx = (orbitIndex + dir + nOrbit) % nOrbit;
+      jumpOrbit(nextIdx);
+    };
+
+    document.getElementById("orbit-strip-prev").addEventListener("click", () => window.orbitStep(-1));
+    document.getElementById("orbit-strip-next").addEventListener("click", () => window.orbitStep(1));
+
+    // Like button
+    document.getElementById("orbit-like-btn").addEventListener("click", () => {
+      orbitLiked[orbitIndex] = !orbitLiked[orbitIndex];
+      updateOrbitContent(orbitIndex);
+    });
+
+    // Tab Switcher inside card
+    document.querySelectorAll(".dsh-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".dsh-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const isOverview = tab.dataset.tab === "overview";
+        document.getElementById("orbit-tab-overview").style.display = isOverview ? "block" : "none";
+        document.getElementById("orbit-tab-specs").style.display = isOverview ? "none" : "block";
+      });
+    });
+
+    // Initial Orbit Setup
+    document.getElementById("orbit-plate-0").style.visibility = "visible";
+    updateOrbitContent(0);
+
+    // ══════════════════════════════════════════════════════════════════
+    // COMPONENT 2: 3D TUMBLE DECK SHOWCASE (PHYSICS ENGINE)
+    // ══════════════════════════════════════════════════════════════════
+    const tdRoot = document.getElementById("td-root");
+    const tdScene = document.getElementById("td-scene");
+    const nDeck = DECK_CARDS.length;
+    const depth = 5;
+    const pool = nDeck ? depth + 5 : 0;
+    const tdState = { pos: 0 };
+    const tdGeo = { h: 320, gap: 50 };
+    let tdCardEls = [];
+    let tdSlotK = [];
+
+    function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+    function wrap(k, n) { return n ? ((k % n) + n) % n : 0; }
+
+    function fallAngle(t) {
+      const u = clamp01(t);
+      const land = 0.78;
+      if (u <= land) {
+        const k = u / land;
+        return -90 * k * k * k;
+      }
+      const k = (u - land) / (1 - land);
+      return -90 + 6 * Math.sin(Math.PI * k) * (1 - k);
+    }
+
+    function deckAdvance(pos) {
+      const i = Math.floor(pos);
+      const f = pos - i;
+      const k = clamp01((f - 0.28) / 0.6);
+      return i + k * k * (3 - 2 * k);
+    }
+
+    function cardPose(k, pos, d) {
+      const t = pos - k;
+      const lift = (k - Math.floor(pos) + 3) * 0.6;
+      if (t >= 1) {
+        return { angle: -90, z: 0, lift, opacity: t < 3 ? 1 : 0, flat: true };
+      }
+      if (t > 0) return { angle: fallAngle(t), z: 0, lift, opacity: 1, flat: false };
+      const rel = k - deckAdvance(pos);
+      const opacity = clamp01(d + 1 - rel);
+      return { angle: 0, z: -Math.max(rel, 0), lift: 0, opacity, flat: false };
+    }
+
+    // Initialize Card Elements in DOM
+    for (let j = 0; j < pool; j++) {
+      const el = document.createElement("div");
+      el.className = "td-card";
+      el.id = `td-card-${j}`;
+      el.innerHTML = `
+        <div class="td-card-content">
+          <div class="td-browser-chrome">
+            <div class="td-dots">
+              <span class="td-dot td-dot-red"></span>
+              <span class="td-dot td-dot-yellow"></span>
+              <span class="td-dot td-dot-green"></span>
+            </div>
+            <div class="td-address-bar">
+              <span class="td-address-lock">🔒</span>
+              <span class="td-url-text">webguruji.online</span>
+            </div>
+          </div>
+          <div class="td-card-body p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="td-tag text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">Portal</span>
+                <span class="text-2xl td-icon">🌐</span>
+              </div>
+              <h3 class="td-title text-xl font-extrabold text-white mb-2">HarshGuruJi Portal</h3>
+              <p class="td-desc text-xs text-slate-300 leading-relaxed">Central gateway</p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <span class="text-xs text-indigo-400 font-semibold flex items-center gap-1">Open Service →</span>
+              <span class="text-xs text-slate-500 font-mono">webguruji.online</span>
+            </div>
+          </div>
+        </div>
+      `;
+      tdScene.appendChild(el);
+      tdCardEls.push(el);
+      tdSlotK.push(-999);
+
+      el.addEventListener("click", () => {
+        window.tdApi.step(1);
+      });
+    }
+
+    function paintDeck() {
+      const pos = tdState.pos;
+      const base = Math.floor(pos) - 2;
+      tdCardEls.forEach((el, j) => {
+        if (!el || j >= pool) return;
+        const k = base + wrap(j - base, pool);
+        if (tdSlotK[j] !== k) {
+          tdSlotK[j] = k;
+          const cardData = DECK_CARDS[wrap(k, nDeck)];
+          el.querySelector(".td-url-text").textContent = cardData.url.replace(/^https?:\/\//, '');
+          el.querySelector(".td-title").textContent = cardData.title;
+          el.querySelector(".td-desc").textContent = cardData.desc;
+          el.querySelector(".td-tag").textContent = cardData.tag;
+          el.querySelector(".td-icon").textContent = cardData.icon;
+          el.querySelector(".td-card-body").style.background = cardData.accent;
+        }
+        const p = cardPose(k, pos, depth);
+        el.style.transform = `translate3d(0, ${-p.lift}px, ${p.z * tdGeo.gap}px) rotateX(${p.angle}deg)`;
+        el.style.opacity = String(p.opacity);
+        el.style.visibility = p.opacity > 0 ? "visible" : "hidden";
+        const shade = p.flat ? 0.08 : (-p.angle / 90) * 0.08;
+        el.style.setProperty("--td-shade", String(shade));
+      });
+    }
+
+    function fitDeck() {
+      const W0 = tdRoot.clientWidth || window.innerWidth;
+      const H0 = tdRoot.clientHeight || 560;
+      const wFrac = W0 < 640 ? 0.88 : 0.68;
+      const aspect = 1.95;
+      const h = Math.max(160, Math.min((W0 * wFrac) / aspect, H0 * 0.52, 420));
+      const w = h * aspect;
+      const top = Math.max(30, H0 / 2 - 0.58 * h);
+      tdGeo.h = h;
+      tdGeo.gap = 0.25 * h;
+      tdScene.style.perspective = `${6 * h}px`;
+      tdScene.style.perspectiveOrigin = `50% ${top - 1.5 * h}px`;
+      tdRoot.style.setProperty("--td-w", `${w}px`);
+      tdRoot.style.setProperty("--td-h", `${h}px`);
+      tdRoot.style.setProperty("--td-top", `${top}px`);
+      paintDeck();
+    }
+
+    // Scroll & Touch Engine for 3D Deck
+    let tdTarget = 0;
+    let tdRunning = false;
+    let tdIdleTimer;
+
+    function followDeck() {
+      const dt = gsap.ticker.deltaRatio(60) / 60;
+      tdState.pos += (tdTarget - tdState.pos) * (1 - Math.exp(-dt * 9));
+      if (Math.abs(tdTarget - tdState.pos) < 2e-3) {
+        tdState.pos = tdTarget;
+        gsap.ticker.remove(followDeck);
+        tdRunning = false;
+      }
+      paintDeck();
+    }
+
+    function pushDeck(to) {
+      tdTarget = Math.max(Math.round(tdState.pos) - 3, Math.min(Math.round(tdState.pos) + 3, to));
+      if (!tdRunning) {
+        tdRunning = true;
+        gsap.ticker.add(followDeck);
+      }
+    }
+
+    function settleDeck(bias = 0) {
+      pushDeck(bias > 0 ? Math.floor(tdTarget + 0.7) : bias < 0 ? Math.ceil(tdTarget - 0.7) : Math.round(tdTarget));
+    }
+
+    window.tdApi = {
+      step: (dir) => pushDeck(Math.round(tdTarget) + dir),
+      fit: fitDeck
+    };
+
+    // Wheel Scrubbing with Chained Parent Scroll
+    const scrollPerCard = 220;
+    tdRoot.addEventListener("wheel", (e) => {
+      // If user holds shift or rapid scroll, propagate to parent window
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      pushDeck(tdTarget + d / scrollPerCard);
+      clearTimeout(tdIdleTimer);
+      tdIdleTimer = setTimeout(() => settleDeck(Math.sign(d)), 140);
+
+      // Chained scroll communication with parent page
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'scroll-parent', deltaY: e.deltaY * 0.35 }, '*');
+      }
+    }, { passive: true });
+
+    // Pointer Drag
+    let dragInfo = null;
+    tdRoot.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      dragInfo = { id: e.pointerId, y: e.clientY, travel: 0, last: 0 };
+      clearTimeout(tdIdleTimer);
+    });
+
+    tdRoot.addEventListener("pointermove", (e) => {
+      if (!dragInfo || e.pointerId !== dragInfo.id) return;
+      const dy = dragInfo.y - e.clientY;
+      dragInfo.y = e.clientY;
+      dragInfo.travel += Math.abs(dy);
+      if (dy) dragInfo.last = Math.sign(dy);
+      if (dragInfo.travel > 6) {
+        tdRoot.setPointerCapture(e.pointerId);
+        pushDeck(tdTarget + dy / (tdGeo.h * 1.1));
+      }
+    });
+
+    const endDrag = (e) => {
+      if (!dragInfo || e.pointerId !== dragInfo.id) return;
+      if (dragInfo.travel > 6) {
+        settleDeck(dragInfo.last);
+      }
+      dragInfo = null;
+    };
+    tdRoot.addEventListener("pointerup", endDrag);
+    tdRoot.addEventListener("pointercancel", endDrag);
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
+        if (currentMode === "deck") {
+          e.preventDefault();
+          window.tdApi.step(1);
+        } else {
+          window.orbitStep(1);
+        }
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        if (currentMode === "deck") {
+          e.preventDefault();
+          window.tdApi.step(-1);
+        } else {
+          window.orbitStep(-1);
+        }
+      }
+    });
+
+    // Touch swipe for Orbit View
+    let touchStartX = 0;
+    orbitView.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    orbitView.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const dx = touchStartX - touchEndX;
+      if (Math.abs(dx) > 40) {
+        window.orbitStep(dx > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    // Initial fits
+    window.addEventListener("resize", fitDeck);
+    fitDeck();
+  </script>
+</body>
+</html>
