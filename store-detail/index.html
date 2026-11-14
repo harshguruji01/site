@@ -93,8 +93,8 @@
   <noscript><link rel="stylesheet" href="footer-premium.css"></noscript>
 
   <!-- Supabase CDN Client & Initialization -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="js/supabase-head.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-head.js"></script>
   <script>
     window.SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
     window.SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
@@ -1371,6 +1371,19 @@
 
       // STEP 5: Fast Parallel Background Refresh (Non-blocking, never freezes or delays rendering)
       (async function runBackgroundSync() {
+        // Direct zero-dependency REST fallback for instant Supabase resolution
+        const SUPA_REST_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co/rest/v1/store_apps';
+        const SUPA_KEY = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+        
+        let restPromise = Promise.resolve(null);
+        const cleanTargetId = String(id || '').trim();
+        const cleanTargetSlug = String(slug || '').trim();
+        if (cleanTargetId || cleanTargetSlug) {
+          const queryParam = cleanTargetId ? `id=eq.${encodeURIComponent(cleanTargetId)}` : `slug=ilike.${encodeURIComponent(cleanTargetSlug)}`;
+          restPromise = fetch(`${SUPA_REST_URL}?${queryParam}&select=*`, {
+            headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` }
+          }).then(r => r.ok ? r.json() : null).then(arr => (arr && arr.length) ? arr[0] : null).catch(() => null);
+        }
         try {
           const fetchStatic = fetch('data/apps.json')
             .then(r => r.ok ? r.json() : null)
@@ -1397,9 +1410,10 @@
             }
           }
 
-          const [staticRes, supaRes] = await Promise.all([
+          const [staticRes, supaRes, restRes] = await Promise.all([
             Promise.race([fetchStatic, new Promise(res => setTimeout(() => res(null), 1800))]),
-            Promise.race([supaPromise, new Promise(res => setTimeout(() => res(null), 6000))])
+            Promise.race([supaPromise, new Promise(res => setTimeout(() => res(null), 6000))]),
+            Promise.race([restPromise, new Promise(res => setTimeout(() => res(null), 4000))])
           ]);
 
           let remoteData = null;
@@ -1409,6 +1423,9 @@
           }
           if (supaRes && supaRes.data && !supaRes.error) {
             remoteData = { ...(remoteData || {}), ...supaRes.data };
+          }
+          if (restRes && (!remoteData || !remoteData.name)) {
+            remoteData = { ...(remoteData || {}), ...restRes };
           }
 
           if (remoteData) {
