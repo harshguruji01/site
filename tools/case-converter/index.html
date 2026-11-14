@@ -171,6 +171,54 @@
 </style>
 
   <link rel="stylesheet" href="/tools/loading-lines.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between Title Case and Sentence case?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In Sentence case, only the first letter of the first word and proper nouns are capitalized. In Title Case, every major word is capitalized while articles and short prepositions remain in lowercase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are URL slugs always converted to lowercase kebab-case?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Linux web servers are case-sensitive, and Google search algorithms recommend lowercase words separated by hyphens to avoid duplicate content penalties and ensure universal link accessibility."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this tool support massive text blocks and CSV files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Execution occurs client-side in browser RAM without network latency, easily processing tens of thousands of lines instantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does camelCase conversion handle punctuation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Punctuation and spaces are stripped, and the following letter is capitalized, generating clean, syntactically valid programming variable identifiers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my sensitive or confidential document secure when using this converter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Processing is 100% client-side with zero server storage, zero network transfer, and zero logging."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body class="hub-page dark-mode">
 
@@ -196,70 +244,120 @@
   </div>
 
 <section class="hg-guide-section">
-  <h2>Complete Guide: Typography and Programming Text Case Conversions</h2>
+  <h2>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+    Complete Guide: Typography, Programming Case Conventions & Text Transformation
+  </h2>
   <p>
-    Text formatting and case conventions play a vital role in both written language and computer programming.
-    Different operating systems, programming languages, and editorial style guides mandate specific casing rules.
-    <strong>HarshGuruJi's Text Case Converter</strong> allows you to transform paragraphs, variables, and headlines between UPPERCASE, lowercase, Title Case, camelCase, PascalCase, and kebab-case with one click.
+    Text casing conventions are foundational pillars in both human language publishing and software architecture. 
+    Whether you are an author formatting headlines according to editorial stylebooks, a database administrator standardizing user records, or a developer adhering to strict programming language conventions, correct text casing ensures readability, semantic clarity, and programmatic compatibility.
+    The <strong>HarshGuruJi Text Case Converter</strong> provides instantaneous, client-side transformation across all standardized typography and programming conventions.
   </p>
 
-  <h3>Common Casing Standards Explained</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Case Convention</th>
-        <th>Example Output</th>
-        <th>Typical Use Case</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>UPPERCASE</strong></td>
-        <td><code>HELLO HARSHGURUJI</code></td>
-        <td>Legal disclaimers, acronyms, and global constants in software</td>
-      </tr>
-      <tr>
-        <td><strong>lowercase</strong></td>
-        <td><code>hello harshguruji</code></td>
-        <td>Email addresses, web URLs, CSS selectors, and data normalization</td>
-      </tr>
-      <tr>
-        <td><strong>Title Case</strong></td>
-        <td><code>Hello Harshguruji Community</code></td>
-        <td>Book titles, magazine articles, and blog headline styling</td>
-      </tr>
-      <tr>
-        <td><strong>camelCase</strong></td>
-        <td><code>helloHarshgurujiCommunity</code></td>
-        <td>JavaScript, Java, and TypeScript variable and function naming</td>
-      </tr>
-      <tr>
-        <td><strong>PascalCase</strong></td>
-        <td><code>HelloHarshgurujiCommunity</code></td>
-        <td>C#, React component names, and TypeScript class definitions</td>
-      </tr>
-      <tr>
-        <td><strong>kebab-case</strong></td>
-        <td><code>hello-harshguruji-community</code></td>
-        <td>Clean URL slugs, CSS class names, and Git branch identifiers</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="hg-trust-banner">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <div>
+      <strong>Zero Server Uploads:</strong> Text transformation operates completely in your local browser runtime. Large documents, API responses, or sensitive confidential notes never leave your personal device.
+    </div>
+  </div>
 
-  <h3>Why Automated Case Conversion Saves Time</h3>
+  <h3>1. Major Programming & Engineering Case Conventions</h3>
+  <div class="hg-table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Convention</th>
+          <th>Visual Pattern</th>
+          <th>Primary Ecosystems</th>
+          <th>Standard Applications</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>camelCase</strong></td>
+          <td><code>userAccountBalance</code></td>
+          <td>JavaScript, TypeScript, Java, Swift, Kotlin</td>
+          <td>Local variables, object properties, method names, and JSON fields.</td>
+        </tr>
+        <tr>
+          <td><strong>PascalCase</strong></td>
+          <td><code>UserAccountBalance</code></td>
+          <td>C#, C++, TypeScript, React, Go</td>
+          <td>Class definitions, interfaces, React JSX components, and exported types.</td>
+        </tr>
+        <tr>
+          <td><strong>snake_case</strong></td>
+          <td><code>user_account_balance</code></td>
+          <td>Python (PEP 8), Rust, Ruby, PostgreSQL</td>
+          <td>Function names, variable identifiers, and relational database table/column names.</td>
+        </tr>
+        <tr>
+          <td><strong>CONSTANT_CASE</strong></td>
+          <td><code>USER_ACCOUNT_BALANCE</code></td>
+          <td>C/C++, Python, PHP, Bash, Node.js</td>
+          <td>Global constants, enum members, macros, and system environment variables (.env).</td>
+        </tr>
+        <tr>
+          <td><strong>kebab-case</strong></td>
+          <td><code>user-account-balance</code></td>
+          <td>HTML, CSS, URLs, Kubernetes, Lisp</td>
+          <td>Web URL slugs, CSS class selectors, custom HTML data attributes, and REST routes.</td>
+        </tr>
+        <tr>
+          <td><strong>Sentence case</strong></td>
+          <td><code>User account balance</code></td>
+          <td>Technical writing, UI labels, buttons</td>
+          <td>Microcopy, button text, modern UX design systems (Material Design, Apple HIG).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2. Editorial Headlines & Title Casing Rules (APA, Chicago, MLA)</h3>
   <p>
-    Manually retyping accidentally capitalized sentences (e.g., caused by an accidental Caps Lock keypress) or converting API payloads to matching code conventions wastes valuable development time.
-    Automated client-side conversion standardizes data clean-up while preventing human typographical errors.
+    In digital publishing and journalistic writing, formatting headlines correctly is critical for editorial authority. Major style guides agree on core principles with subtle variations:
+  </p>
+  <ul>
+    <li><strong>Capitalize First and Last Words:</strong> Regardless of part of speech, the first and last word in a title or subtitle must always begin with an uppercase letter.</li>
+    <li><strong>Capitalize Major Parts of Speech:</strong> Nouns, pronouns (including <em>It</em>, <em>They</em>), verbs (including linking verbs like <em>Is</em>, <em>Are</em>, <em>Was</em>), adjectives, and adverbs must be capitalized.</li>
+    <li><strong>Lowercase Minor Words:</strong> Short prepositions (<em>in, on, at, by, for, to</em>), coordinating conjunctions (<em>and, but, or, nor</em>), and articles (<em>a, an, the</em>) remain in lowercase unless they appear at the start of a title or after a colon.</li>
+  </ul>
+
+  <h3>3. The Mechanics of Unicode & Case Folding</h3>
+  <p>
+    Converting text between cases is deceptively complex due to internationalization (i18n) nuances. 
+    In English ASCII, each lowercase letter maps 1:1 to an uppercase counterpart by altering bit 5 (difference of 32 in decimal value, e.g. <code>'a' (97) &rarr; 'A' (65)</code>). 
+    However, under international <strong>Unicode standard (Unicode Technical Report #21)</strong>, case conversions require <em>Case Folding</em>:
+  </p>
+  <ul>
+    <li>In German, the lowercase sharp s (<code>&szlig;</code>) historically upper-cases to double S (<code>SS</code>).</li>
+    <li>In Turkish, a dotted lowercase <code>i</code> becomes an uppercase dotted <code>&#304;</code>, while a dotless <code>&#305;</code> maps to uppercase <code>I</code>.</li>
+    <li>Greek sigma has two lowercase forms (<code>&sigma;</code> inside words and <code>&sigmaf;</code> at word endings), which both map to uppercase <code>&Sigma;</code>.</li>
+  </ul>
+  <p>
+    HarshGuruJi uses standards-compliant browser ECMAScript String methods (<code>toLocaleUpperCase()</code> and <code>toLocaleLowerCase()</code>) to guarantee linguistic fidelity across international scripts.
   </p>
 
   <h2>Frequently Asked Questions (FAQ)</h2>
   <div class="hg-faq-item">
     <h4>What is the difference between Title Case and Sentence case?</h4>
-    <p>In Sentence case, only the first letter of the first word and proper nouns are capitalized (just like a standard sentence). In Title Case, all major words (nouns, verbs, adjectives, adverbs) are capitalized while minor words (like "and", "or", "in", "to") remain in lowercase unless they start the headline.</p>
+    <p>In Sentence case, only the first letter of the first word and proper nouns (names of people, places, brands) are capitalized, mirroring natural prose. In Title Case, every major word (nouns, verbs, adjectives, adverbs) is capitalized, while articles and short prepositions remain lowercase unless they begin the heading.</p>
   </div>
   <div class="hg-faq-item">
-    <h4>Can this tool handle multilingual Unicode characters?</h4>
-    <p>Yes. The tool supports standard UTF-8 and international character sets including accented letters (e.g., &eacute;, &ntilde;, &uuml;) and regional alphabets.</p>
+    <h4>Why are URL slugs always converted to lowercase kebab-case?</h4>
+    <p>Web servers running on Linux filesystems treat URLs with case sensitivity (e.g., <code>/Tools</code> and <code>/tools</code> are distinct resources). Search engines like Google recommend lowercase words separated by hyphens (kebab-case) because hyphens act as explicit word separators in search algorithms, preventing duplicate content indexation penalties.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Does this tool support massive text blocks and CSV files?</h4>
+    <p>Yes. Because execution occurs directly inside your browser's V8 or JavaScriptCore engine without sending payloads over the network, you can paste tens of thousands of lines of text or code and receive instantaneous transformations with zero latency.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>How does camelCase conversion handle punctuation and special characters?</h4>
+    <p>The camelCase algorithm strips non-alphanumeric punctuation (hyphens, underscores, spaces) and capitalizes the immediate subsequent character while keeping the initial character lowercase, producing clean, valid software variable identifiers.</p>
+  </div>
+  <div class="hg-faq-item">
+    <h4>Is my sensitive or confidential document secure when using this converter?</h4>
+    <p>Yes, completely secure. HarshGuruJi implements a strict zero-server, zero-persistence privacy design. Your text is processed purely in browser RAM and is instantly garbage-collected when you close or reload the browser tab.</p>
   </div>
 </section>
 
