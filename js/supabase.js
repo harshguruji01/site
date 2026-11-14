@@ -1,4 +1,4 @@
-import { createClient as createClientEsm } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+// Safe Supabase Initializer - Supports window.supabase CDN and dynamic ESM fallback
 
 export const SUPABASE_URL = 'https://wumdbpyhpblvgjttsbpv.supabase.co';
 export const SUPABASE_ANON_KEY = 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
@@ -193,19 +193,15 @@ if (typeof window !== 'undefined') {
   window.SUPABASE_STORAGE_KEY = SUPABASE_STORAGE_KEY;
 }
 
-// Initialize Supabase: Re-use window.supabaseClient if already created, or create via ESM/window.supabase
+// Initialize Supabase: Re-use window.supabaseClient if already created, or create via window.supabase
 let client = null;
 if (typeof window !== 'undefined' && window.supabaseClient) {
   client = window.supabaseClient;
-} else {
+} else if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.createClient === 'function') {
   try {
-    client = createClientEsm(supabaseUrl, supabaseKey, clientOptions);
+    client = window.supabase.createClient(supabaseUrl, supabaseKey, clientOptions);
   } catch (err) {
-    if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.createClient === 'function') {
-      client = window.supabase.createClient(supabaseUrl, supabaseKey, clientOptions);
-    } else {
-      console.error('Failed to initialize Supabase client:', err);
-    }
+    console.warn('Failed to initialize Supabase client:', err);
   }
 }
 

@@ -9,6 +9,8 @@ import { AuthManager } from './auth.js';
 
 // --- LOCAL APP LOGO REPOSITORY (Guarantees logos always load without failure) ---
 export const LOCAL_APP_LOGOS = {
+  'gurustudy': 'https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/app-logos/logos/gurustudy_1794580967366.png',
+  'guruai': 'https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/app-logos/logos/guruai_1793314466779.png',
   'chess': 'chess-logo.png',
   'chatbase': 'chatbase-logo.png',
   'hp-tube': 'hp-tube-logo.png',
@@ -19,6 +21,24 @@ export const LOCAL_APP_LOGOS = {
   'comet': 'comet-logo.png',
   'hermes-ai-agent': 'hermes-logo.png'
 };
+
+export function safeLower(val) {
+  if (!val) return '';
+  if (Array.isArray(val)) return (val[0] || '').toString().toLowerCase().trim();
+  return val.toString().toLowerCase().trim();
+}
+
+export function hasCat(app, target) {
+  if (!app) return false;
+  const t = (target || '').toLowerCase().trim();
+  if (Array.isArray(app.category)) {
+    return app.category.some(c => (c || '').toString().toLowerCase().trim() === t);
+  }
+  if (Array.isArray(app.rawCategories)) {
+    return app.rawCategories.some(c => (c || '').toString().toLowerCase().trim() === t);
+  }
+  return safeLower(app.category) === t;
+}
 
 export function resolveAppLogo(app) {
   if (!app) return 'logo.png';
@@ -33,12 +53,12 @@ export function resolveAppLogo(app) {
   }
 
   // 2. Only if admin left it completely blank or generic 'logo.png', fallback to slug preset
-  const slugKey = (app.slug || '').toLowerCase();
+  const slugKey = safeLower(app.slug);
   if (LOCAL_APP_LOGOS[slugKey]) {
     return LOCAL_APP_LOGOS[slugKey];
   }
 
-  const nameKey = (app.name || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
+  const nameKey = safeLower(app.name).replace(/[^a-z0-9]/g, '-');
   for (const [k, v] of Object.entries(LOCAL_APP_LOGOS)) {
     if (nameKey && (nameKey.includes(k) || k.includes(nameKey))) return v;
   }
@@ -48,6 +68,44 @@ export function resolveAppLogo(app) {
 
 // Built-in verified database records to guarantee instant rendering & zero logo loss
 const FALLBACK_PUBLISHED_APPS = [
+  {
+    id: "413dc2d2-8ad7-42d7-9484-adbe2925db07",
+    name: "GuruStudy",
+    slug: "gurustudy",
+    logo_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/app-logos/logos/gurustudy_1794580967366.png",
+    apk_storage_path: "apks/gurustudy_v1.0_1794581078649_GuruStudy-v1.0.0.apk",
+    download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/apks/gurustudy_v1.0_1794581078649_GuruStudy-v1.0.0.apk",
+    platform: "Android",
+    app_type: "APK",
+    category: "Apps",
+    developer_name: "HarshGuruJi",
+    short_description: "Based on Ncert class 10th revision and daily alarm targets.",
+    version: "1.0",
+    file_size: "12.2 MB",
+    rating: 4.8,
+    is_mod: false,
+    featured: true,
+    verified: true
+  },
+  {
+    id: "cf0555f1-9be8-4058-92cc-ff2a31101683",
+    name: "GuruAI",
+    slug: "guruai",
+    logo_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/app-logos/logos/guruai_1793314466779.png",
+    apk_storage_path: "apks/guruai_v1.0_1793314468141_GuruAI.apk",
+    download_url: "https://wumdbpyhpblvgjttsbpv.supabase.co/storage/v1/object/public/apk-files/apks/guruai_v1.0_1793314468141_GuruAI.apk",
+    platform: "Android",
+    app_type: "APK",
+    category: "Apps",
+    developer_name: "HarshGuruJi",
+    short_description: "GuruAI is a most powerful AI chatbot with multi addition support.",
+    version: "1.0",
+    file_size: "13.0 MB",
+    rating: 4.8,
+    is_mod: false,
+    featured: true,
+    verified: true
+  },
   {
     id: "fa14aae8-cd63-4880-b8cd-dc991835d93f",
     name: "Chess",
@@ -59,7 +117,7 @@ const FALLBACK_PUBLISHED_APPS = [
     app_type: "APK",
     category: "Game",
     developer_name: "Chess Prince",
-    short_description: "Play and download Chess by Chess Prince with verified performance and offline play.",
+    short_description: "Play and download Chess by Chess Prince with full MOD features unlocked.",
     version: "2.9.4",
     file_size: "15.4 MB",
     rating: 4.8,
@@ -233,7 +291,7 @@ const STORE_SECTIONS = [
     badge: "Featured",
     filterType: "category",
     filterValue: "Featured",
-    filterFn: (app) => app.featured === true
+    filterFn: (app) => !!app.featured || (Array.isArray(app.tags) && app.tags.includes('featured'))
   },
   {
     id: "sec-games",
@@ -243,7 +301,7 @@ const STORE_SECTIONS = [
     badge: "Games",
     filterType: "category",
     filterValue: "Game",
-    filterFn: (app) => (app.category || '').toLowerCase() === 'game' || (app.category || '').toLowerCase() === 'games' || (app.type || '').toLowerCase() === 'game' || app.is_mod
+    filterFn: (app) => hasCat(app, 'game') || hasCat(app, 'games') || safeLower(app.type) === 'game' || !!app.is_mod
   },
   {
     id: "sec-android",
@@ -253,7 +311,7 @@ const STORE_SECTIONS = [
     badge: "Android",
     filterType: "platform",
     filterValue: "Android",
-    filterFn: (app) => (app.platform || '').toLowerCase() === 'android' || (app.app_type || '').toLowerCase() === 'apk' || (app.category || '').toLowerCase() === 'apps'
+    filterFn: (app) => safeLower(app.platform) === 'android' || safeLower(app.app_type) === 'apk' || hasCat(app, 'apps')
   },
   {
     id: "sec-windows",
@@ -263,7 +321,7 @@ const STORE_SECTIONS = [
     badge: "Windows",
     filterType: "platform",
     filterValue: "Windows",
-    filterFn: (app) => (app.platform || '').toLowerCase() === 'windows' || (app.category || '').toLowerCase() === 'software' || (app.app_type || '').toLowerCase() === 'exe'
+    filterFn: (app) => safeLower(app.platform) === 'windows' || hasCat(app, 'software') || safeLower(app.app_type) === 'exe'
   },
   {
     id: "sec-ai",
@@ -273,7 +331,7 @@ const STORE_SECTIONS = [
     badge: "AI & Web",
     filterType: "category",
     filterValue: "AI",
-    filterFn: (app) => (app.category || '').toLowerCase() === 'ai' || (app.platform || '').toLowerCase() === 'web'
+    filterFn: (app) => hasCat(app, 'ai') || safeLower(app.platform) === 'web'
   },
   {
     id: "sec-education",
@@ -283,7 +341,7 @@ const STORE_SECTIONS = [
     badge: "Education",
     filterType: "category",
     filterValue: "Education",
-    filterFn: (app) => (app.category || '').toLowerCase() === 'education'
+    filterFn: (app) => hasCat(app, 'education') || safeLower(app.slug) === 'gurustudy' || (app.name || '').toLowerCase().includes('study')
   },
   {
     id: "sec-dev-tools",
@@ -293,7 +351,7 @@ const STORE_SECTIONS = [
     badge: "Development",
     filterType: "category",
     filterValue: "Development",
-    filterFn: (app) => ['development', 'utility'].includes((app.category || '').toLowerCase())
+    filterFn: (app) => hasCat(app, 'development') || hasCat(app, 'utility')
   }
 ];
 
@@ -331,7 +389,29 @@ async function fetchStoreApps() {
       if (!error && dbData && dbData.length > 0) {
         data = dbData;
       } else if (error) {
-        console.warn("Supabase Store Fetch Warning, using fallback:", error);
+        console.warn("Supabase Store Fetch Warning, trying direct REST:", error);
+      }
+    }
+
+    // Direct zero-dependency REST fallback if client was null or failed
+    if (!data || data.length === 0) {
+      try {
+        const restUrl = 'https://wumdbpyhpblvgjttsbpv.supabase.co/rest/v1/store_apps?status=eq.Published&order=featured.desc,updated_at.desc';
+        const key = window.SUPABASE_ANON_KEY || 'sb_publishable_xLqKY9N62MXb6ELG-5trig_RlJs_n-l';
+        const restResp = await fetch(restUrl, {
+          headers: {
+            'apikey': key,
+            'Authorization': `Bearer ${key}`
+          }
+        });
+        if (restResp.ok) {
+          const restApps = await restResp.json();
+          if (Array.isArray(restApps) && restApps.length > 0) {
+            data = restApps;
+          }
+        }
+      } catch (restErr) {
+        console.warn("Direct Supabase REST fallback warning:", restErr);
       }
     }
     
@@ -513,20 +593,84 @@ const elements = {
   sidebarApplyBtn: document.getElementById('sidebar-apply-btn')
 };
 
+function refreshElements() {
+  elements.grid = document.getElementById('store-grid');
+  elements.sectionsView = document.getElementById('store-sections-view');
+  elements.filteredView = document.getElementById('store-filtered-view');
+  elements.btnResetFilter = document.getElementById('btn-reset-filter');
+  elements.searchInput = document.getElementById('store-search');
+  elements.searchClearBtn = document.getElementById('search-clear-btn');
+  elements.instantResults = document.getElementById('store-instant-results');
+  elements.instantGrid = document.getElementById('instant-results-grid');
+  elements.instantCount = document.getElementById('instant-results-count');
+  elements.resultsCount = document.getElementById('results-count');
+  elements.loadMoreBtn = document.getElementById('load-more-btn');
+  elements.sortSelect = document.getElementById('sort-select');
+  elements.filterRadios = document.querySelectorAll('.filter-label input[type="radio"]');
+  elements.quickCatBtns = document.querySelectorAll('.quick-cat-btn');
+  elements.showcaseSection = document.getElementById('an1-showcase-section');
+  elements.bannerBtnGames = document.getElementById('banner-btn-games');
+  elements.bannerBtnPrograms = document.getElementById('banner-btn-programs');
+  elements.gamesCarouselBlock = document.getElementById('games-carousel-block');
+  elements.programsCarouselBlock = document.getElementById('programs-carousel-block');
+  elements.gamesCarouselTrack = document.getElementById('games-carousel-track');
+  elements.programsCarouselTrack = document.getElementById('programs-carousel-track');
+  elements.gamesPrevBtn = document.getElementById('games-prev-btn');
+  elements.gamesNextBtn = document.getElementById('games-next-btn');
+  elements.programsPrevBtn = document.getElementById('programs-prev-btn');
+  elements.programsNextBtn = document.getElementById('programs-next-btn');
+  elements.linkAllGames = document.getElementById('link-all-games');
+  elements.linkAllPrograms = document.getElementById('link-all-programs');
+  elements.clustersGrid = document.getElementById('an1-clusters-grid');
+  elements.modalOverlay = document.getElementById('app-modal-overlay');
+  elements.modalCloseBtn = document.getElementById('modal-close-btn');
+  elements.mIcon = document.getElementById('modal-icon');
+  elements.mTitle = document.getElementById('modal-title');
+  elements.mDev = document.getElementById('modal-dev');
+  elements.mChips = document.getElementById('modal-chips');
+  elements.mDesc = document.getElementById('modal-desc');
+  elements.mDownload = document.getElementById('modal-download-btn');
+  elements.mOfficial = document.getElementById('modal-official-btn');
+  elements.mShare = document.getElementById('modal-share-btn');
+  elements.mInfoGrid = document.getElementById('modal-info-grid');
+  elements.mobileFilterBtn = document.getElementById('mobile-filter-btn');
+  elements.sidebar = document.getElementById('store-sidebar');
+  elements.sidebarClose = document.getElementById('sidebar-close');
+  elements.sidebarOverlay = document.getElementById('store-sidebar-overlay');
+  elements.sidebarResetBtn = document.getElementById('sidebar-reset-btn');
+  elements.sidebarApplyBtn = document.getElementById('sidebar-apply-btn');
+}
+
 // --- INITIALIZATION ---
 async function initStore() {
+  refreshElements();
   if (!elements.grid && !elements.sectionsView) return;
   
   showLoading();
   
   try {
     allApps = await fetchStoreApps();
+    refreshElements();
     applyFilters();
     setupEventListeners();
     setupRealtimeSubscription();
   } catch (error) {
-    showError("Failed to load store data. Please try again later.");
     console.error("Store init error:", error);
+    if (!allApps || allApps.length === 0) {
+      allApps = FALLBACK_PUBLISHED_APPS.map(app => ({
+        ...app,
+        icon: resolveAppLogo(app),
+        developer: app.developer_name || app.developer || 'HarshGuruJi',
+        longDescription: app.short_description || app.description,
+        size: app.file_size || app.size,
+        downloadUrl: app.download_url
+      }));
+    }
+    try {
+      applyFilters();
+    } catch(renderErr) {
+      showError("Failed to load store data. Please try again later.");
+    }
   }
 }
 
@@ -573,10 +717,10 @@ function renderAn1Showcase() {
 
   // 1. Games Carousel
   const gamesList = allApps.filter(a => 
-    (a.category || '').toLowerCase() === 'game' || 
-    (a.category || '').toLowerCase() === 'games' || 
-    (a.type || '').toLowerCase() === 'game' ||
-    a.is_mod
+    hasCat(a, 'game') || 
+    hasCat(a, 'games') || 
+    safeLower(a.type) === 'game' ||
+    !!a.is_mod
   );
 
   if (elements.gamesCarouselBlock && elements.gamesCarouselTrack) {
@@ -593,9 +737,9 @@ function renderAn1Showcase() {
 
   // 2. Programs / Software Carousel
   const programsList = allApps.filter(a => 
-    (a.category || '').toLowerCase() !== 'game' && 
-    (a.category || '').toLowerCase() !== 'games' && 
-    (a.type || '').toLowerCase() !== 'game'
+    !hasCat(a, 'game') && 
+    !hasCat(a, 'games') && 
+    safeLower(a.type) !== 'game'
   );
 
   if (elements.programsCarouselBlock && elements.programsCarouselTrack) {
@@ -644,11 +788,10 @@ function renderCategoryClusters() {
     // Find matching apps from real uploaded apps
     const matchingApps = allApps.filter(app => {
       if (cluster.filterType === 'category') {
-        const c = (app.category || '').toLowerCase();
         const f = cluster.filterVal.toLowerCase();
-        return c === f || c.includes(f);
+        return hasCat(app, f) || safeLower(app.category).includes(f);
       } else if (cluster.filterType === 'platform') {
-        return (app.platform || '').toLowerCase() === cluster.filterVal.toLowerCase();
+        return safeLower(app.platform) === cluster.filterVal.toLowerCase();
       }
       return false;
     });
@@ -1104,35 +1247,35 @@ function applyFilters() {
   filteredApps = allApps.filter(app => {
     // Search Filter
     if (currentFilters.search) {
-      const query = currentFilters.search;
-      const matchName = (app.name || '').toLowerCase().includes(query);
-      const matchDesc = (app.description || '').toLowerCase().includes(query);
-      const matchDev = (app.developer || '').toLowerCase().includes(query);
-      const matchPlat = (app.platform || '').toLowerCase().includes(query);
-      const matchType = (app.app_type || '').toLowerCase().includes(query);
-      const matchMod = (app.mod_info || '').toLowerCase().includes(query);
+      const query = currentFilters.search.toLowerCase();
+      const matchName = safeLower(app.name).includes(query);
+      const matchDesc = safeLower(app.description || app.longDescription).includes(query);
+      const matchDev = safeLower(app.developer).includes(query);
+      const matchPlat = safeLower(app.platform).includes(query);
+      const matchType = safeLower(app.app_type).includes(query);
+      const matchMod = safeLower(app.mod_info).includes(query);
       if (!matchName && !matchDesc && !matchDev && !matchPlat && !matchType && !matchMod) return false;
     }
     
     // Category Filter
     if (currentFilters.category !== "All" && currentFilters.category !== "Featured") {
-       const cat = (app.category || '').toLowerCase();
        const filterCat = currentFilters.category.toLowerCase();
-       const appType = (app.type || '').toLowerCase();
-       if (cat !== filterCat && appType !== filterCat && !cat.includes(filterCat)) return false;
+       const appType = safeLower(app.type);
+       const matchesCat = hasCat(app, filterCat);
+       if (!matchesCat && appType !== filterCat && !safeLower(app.category).includes(filterCat)) return false;
     }
     if (currentFilters.category === "Featured" && !app.featured) return false;
     
     // Platform Filter
     if (currentFilters.platform !== "All") {
-      const plat = (app.platform || '').toLowerCase();
+      const plat = safeLower(app.platform);
       const filterPlat = currentFilters.platform.toLowerCase();
       if (plat !== filterPlat) return false;
     }
     
     // License Filter
     if (currentFilters.license !== "All") {
-      const appLicense = (app.license || 'Free').toLowerCase();
+      const appLicense = safeLower(app.license || 'Free');
       const filterLicense = currentFilters.license.toLowerCase();
       if (appLicense !== filterLicense) return false;
     }
@@ -1426,7 +1569,7 @@ function createAppCard(app, index) {
   
   const isMod = app.is_mod || (app.name || '').toLowerCase().includes('mod') || (app.mod_info && app.mod_info.trim().length > 0);
   let badgeHtml = isMod 
-    ? `<span class="box-badge box-badge-verified">⚡ Verified</span>` 
+    ? `<span class="box-badge box-badge-mod">⚡ MOD</span>` 
     : (app.verified ? `<span class="box-badge box-badge-verified">✓ Verified</span>` : '');
 
   const platIcon = getPlatformIcon(app.platform);
@@ -1520,7 +1663,7 @@ function openAppDetails(app) {
 
   let descContent = app.longDescription || app.description;
   if (app.is_mod && app.mod_info) {
-    descContent = `<div style="background: rgba(255, 119, 0, 0.12); border: 1px solid rgba(255, 119, 0, 0.35); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; color: #ff9933;"><strong>⚡ Key Features:</strong> ${app.mod_info}</div>` + descContent;
+    descContent = `<div style="background: rgba(255, 119, 0, 0.12); border: 1px solid rgba(255, 119, 0, 0.35); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; color: #ff9933;"><strong>⚡ MOD Features:</strong> ${app.mod_info}</div>` + descContent;
   }
   elements.mDesc.innerHTML = descContent;
   
@@ -1535,7 +1678,7 @@ function openAppDetails(app) {
     chipsHtml += `<span class="app-badge" style="background: rgba(84, 178, 71, 0.15); color: var(--an1-green);">${app.license}</span>`;
   }
   if (app.is_mod) {
-    chipsHtml += `<span class="app-badge" style="background: rgba(255, 119, 0, 0.2); color: #ff7700;">⚡ Official Edition</span>`;
+    chipsHtml += `<span class="app-badge" style="background: rgba(255, 119, 0, 0.2); color: #ff7700;">⚡ MOD Edition</span>`;
   }
   if (app.verified) {
     chipsHtml += `<span class="app-badge" style="background: rgba(84, 178, 71, 0.15); color: var(--an1-green);">✓ Verified</span>`;
@@ -1596,44 +1739,29 @@ function openAppDetails(app) {
       localStorage.setItem('guest_downloads', JSON.stringify(guestData));
     }
 
-    let dlUrl = app.downloadUrl;
-    if (dlUrl && dlUrl.includes('/storage/v1/object/public/') && !dlUrl.includes('?download')) {
-      dlUrl += (dlUrl.includes('?') ? '&' : '?') + 'download=';
-    }
     const link = document.createElement('a');
-    link.href = dlUrl;
+    link.href = app.downloadUrl;
     link.target = '_blank';
     link.download = '';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    if (app && (app.id || app.slug)) {
+    if (app.id) {
       try {
-        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-        const cleanId = String(app.id || '').trim();
-        const hasValidUuid = Boolean(cleanId && UUID_REGEX.test(cleanId));
-        const query = hasValidUuid 
-          ? supabase.from('store_apps').select('downloads').eq('id', cleanId).single()
-          : (app.slug ? supabase.from('store_apps').select('downloads').eq('slug', app.slug).single() : null);
-        if (query) {
-          const { data } = await query;
-          if (data) {
-            const updateQuery = hasValidUuid
-              ? supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', cleanId)
-              : supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('slug', app.slug);
-            await updateQuery;
-          }
+        const { data } = await supabase.from('store_apps').select('downloads').eq('id', app.id).single();
+        if (data) {
+          await supabase.from('store_apps').update({ downloads: (data.downloads || 0) + 1 }).eq('id', app.id);
         }
         
-        if (user && hasValidUuid) {
+        if (user) {
             await supabase.from('app_downloads').insert({
                 user_id: user.id,
-                app_id: cleanId
+                app_id: app.id
             });
         }
       } catch (err) {
-        console.warn("Failed to track download:", err);
+        console.error("Failed to track download:", err);
       }
     }
   };
